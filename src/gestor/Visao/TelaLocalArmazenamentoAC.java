@@ -13,12 +13,16 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LocalArmazenamento;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroLocalArmazenamentoAL;
@@ -164,7 +168,7 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
         jTabelaLocalArmazenamento.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocalArmazenamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Local Armazenamento", "Status"
@@ -367,10 +371,9 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBtExcluir)
-            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jBtNovo)
-                .addComponent(jBtAlterar)
-                .addComponent(jBtSalvar))
+            .addComponent(jBtAlterar)
+            .addComponent(jBtSalvar)
+            .addComponent(jBtNovo)
             .addComponent(jBtCancelar)
             .addComponent(jBtSair)
         );
@@ -463,6 +466,7 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroLocalArmazenamentoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroLocalArmazenamentoAL) && codIncluirAL == 1) {
             acao = 1;
             Novo();
@@ -477,6 +481,7 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroLocalArmazenamentoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroLocalArmazenamentoAL) && codAlterarAL == 1) {
             acao = 2;
             Alterar();
@@ -491,6 +496,7 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroLocalArmazenamentoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroLocalArmazenamentoAL) && codExcluirAL == 1) {
             verificarProduto();
         } else {
@@ -500,6 +506,7 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroLocalArmazenamentoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroLocalArmazenamentoAL) && codGravarAL == 1) {
             if (jComboBoxStatusLocal.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o local está ativo ou inativo.");
@@ -845,5 +852,43 @@ public class TelaLocalArmazenamentoAC extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIDLocal.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserAL = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserAL + "'");
+            conecta.rs.first();
+            codigoUserGroupAL = conecta.rs.getInt("IdUsuario");
+            codigoGrupoAL = conecta.rs.getInt("IdGrupo");
+            nomeGrupoAL = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserAL + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoAL = conecta.rs.getInt("IdUsuario");
+            codAbrirAL = conecta.rs.getInt("Abrir");
+            codIncluirAL = conecta.rs.getInt("Incluir");
+            codAlterarAL = conecta.rs.getInt("Alterar");
+            codExcluirAL = conecta.rs.getInt("Excluir");
+            codGravarAL = conecta.rs.getInt("Gravar");
+            codConsultarAL = conecta.rs.getInt("Consultar");
+            nomeTelaAL = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

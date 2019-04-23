@@ -31,11 +31,12 @@ public class GravarInternosKitCompleto {
     private Date dataPagamento;
     private Date dataPrevisao;
     private String kitPago;
+    private int IDREG_PROG;
 
     public GravarInternosKitCompleto() {
     }
 
-    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, int tipoKitCI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili, Date dataPagamento, Date dataPrevisao, String kitPago) {
+    public GravarInternosKitCompleto(int idRegIntAgrupComp, int idRegistroComp, int idKit, int idInternoCrc, String nomeInternoCrc, String agrupado, int gravado, int tipoKitCI, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String utili, Date dataPagamento, Date dataPrevisao, String kitPago, int IDREG_PROG) {
         this.idRegIntAgrupComp = idRegIntAgrupComp;
         this.idRegistroComp = idRegistroComp;
         this.idKit = idKit;
@@ -54,6 +55,7 @@ public class GravarInternosKitCompleto {
         this.dataPagamento = dataPagamento;
         this.dataPrevisao = dataPrevisao;
         this.kitPago = kitPago;
+        this.IDREG_PROG = IDREG_PROG;
     }
 
     /**
@@ -306,5 +308,19 @@ public class GravarInternosKitCompleto {
      */
     public void setKitPago(String kitPago) {
         this.kitPago = kitPago;
+    }
+
+    /**
+     * @return the IDREG_PROG
+     */
+    public int getIDREG_PROG() {
+        return IDREG_PROG;
+    }
+
+    /**
+     * @param IDREG_PROG the IDREG_PROG to set
+     */
+    public void setIDREG_PROG(int IDREG_PROG) {
+        this.IDREG_PROG = IDREG_PROG;
     }
 }

@@ -22,7 +22,7 @@ public class ControleItensEntradaNova {
     int codInt;
 
     public ItensNovaEntrada incluiritensNovaEntrada(ItensNovaEntrada objItensNova) {
-        buscarInternoCrc(objItensNova.getNomeInternoCrc());
+        buscarInternoCrc(objItensNova.getNomeInternoCrc(), objItensNova.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSNOVAENTRADA (IdEntrada,IdInternoCrc,NrOficio,DataEntrada,OrigemInterno,UtilizadoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
@@ -44,7 +44,7 @@ public class ControleItensEntradaNova {
     }
 
     public ItensNovaEntrada alterarItensNovaEntrada(ItensNovaEntrada objItensNova) {
-        buscarInternoCrc(objItensNova.getNomeInternoCrc());
+        buscarInternoCrc(objItensNova.getNomeInternoCrc(), objItensNova.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET IdEntrada=?,IdInternoCrc=?,NrOficio=?,DataEntrada=?,OrigemInterno=?,UtilizadoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensNova.getIdItem() + "'");
@@ -92,10 +92,12 @@ public class ControleItensEntradaNova {
         return objItensNova;
     }
 
-    public void buscarInternoCrc(String desc) {
+    public void buscarInternoCrc(String desc, int cod) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + cod + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {

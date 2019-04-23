@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioPagamentoKitInterno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30a985ed-6c7e-4c0d-9e0e-29a1472664e6">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="9"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -20,7 +20,7 @@
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PAGAMENTO_KIT_INTERNOS INNER JOIN PAVILHAO ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav WHERE PAGAMENTO_KIT_INTERNOS.IdPagto=$P{pCodigo}]]>
+		<![CDATA[SELECT * FROM PAGAMENTO_KIT_INTERNOS INNER JOIN PAVILHAO ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS ON PAGAMENTO_KIT_INTERNOS.IdPagto=ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto INNER JOIN PRONTUARIOSCRC ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc WHERE PAGAMENTO_KIT_INTERNOS.IdPagto=$P{pCodigo}]]>
 	</queryString>
 	<field name="IdPagto" class="java.lang.Integer"/>
 	<field name="StatusLanc" class="java.lang.String"/>
@@ -30,44 +30,74 @@
 	<field name="HoraTermino" class="java.lang.String"/>
 	<field name="TipoKit" class="java.lang.String"/>
 	<field name="IdPav" class="java.lang.Integer"/>
-	<field name="Observacao" class="java.sql.Clob"/>
+	<field name="Observacao" class="java.lang.String"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="DataInsert" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="DataUp" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="StatusPav" class="java.lang.String"/>
 	<field name="DescricaoPav" class="java.lang.String"/>
+	<field name="Motivo" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
 	<field name="DataDelete" class="java.lang.String"/>
-	<field name="StatusPav" class="java.lang.String"/>
-	<field name="Motivo" class="java.lang.String"/>
 	<field name="NivelPav" class="java.lang.String"/>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="DataEntrega" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
+	<field name="AssinaturaDigital" class="java.lang.Object"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
 	<group name="IdPagto">
 		<groupExpression><![CDATA[$F{IdPagto}]]></groupExpression>
 		<groupHeader>
 			<band height="21">
 				<subreport>
-					<reportElement x="1" y="0" width="393" height="19" uuid="2c7b6fd0-864b-496a-ab88-c46ca050994c"/>
+					<reportElement x="13" y="0" width="78" height="21" uuid="7c493731-9581-4441-89ac-f522006d3862"/>
 					<subreportParameter name="IdPagto">
 						<subreportParameterExpression><![CDATA[$F{IdPagto}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter name="pCodigoInternoCrc">
+						<subreportParameterExpression><![CDATA[$F{IdInternoCrc}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioPagtoKit.jasper"]]></subreportExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelPagtoKit.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</groupHeader>
-		<groupFooter>
-			<band height="6"/>
-		</groupFooter>
 	</group>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
-		<band height="116" splitType="Stretch">
+		<band height="167" splitType="Stretch">
 			<rectangle>
-				<reportElement x="11" y="0" width="541" height="116" uuid="c3ac229d-95e9-4b1f-b5fc-2f350e92c758"/>
+				<reportElement x="11" y="0" width="541" height="166" uuid="c3ac229d-95e9-4b1f-b5fc-2f350e92c758"/>
 			</rectangle>
 			<textField>
 				<reportElement style="SubTitle" x="184" y="30" width="55" height="17" forecolor="#000000" uuid="dea70c58-24d7-4ce7-a08e-b4ec3d530576"/>
@@ -91,7 +121,7 @@
 				<text><![CDATA[Responsável:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="181" y="62" width="254" height="15" uuid="22b1533f-08e1-4a1c-8607-596ad77b2eec"/>
+				<reportElement style="Detail" x="181" y="62" width="331" height="15" uuid="22b1533f-08e1-4a1c-8607-596ad77b2eec"/>
 				<textFieldExpression><![CDATA[$F{Responsavel}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -100,7 +130,7 @@
 				<text><![CDATA[Pavilhão:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="181" y="80" width="254" height="15" uuid="cf594c16-feec-4bc6-9198-7e5af28da930"/>
+				<reportElement style="Detail" x="181" y="80" width="331" height="15" uuid="cf594c16-feec-4bc6-9198-7e5af28da930"/>
 				<textFieldExpression><![CDATA[$F{DescricaoPav}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -109,7 +139,7 @@
 				<text><![CDATA[Tipo de Kit:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="181" y="95" width="254" height="15" uuid="5e9bbbab-fbbb-4962-af01-25178b2b9cb8"/>
+				<reportElement style="Detail" x="181" y="95" width="331" height="15" uuid="5e9bbbab-fbbb-4962-af01-25178b2b9cb8"/>
 				<textFieldExpression><![CDATA[$F{TipoKit}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -133,6 +163,34 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pUnidade}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="182" y="136" width="326" height="20" forecolor="#CC0000" uuid="ce2c1a19-f770-4cea-b57d-682225435200"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="135" width="132" height="20" forecolor="#CC0000" uuid="00bd3e30-027f-4404-8f09-83c93cf9f040"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome do Interno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="114" width="47" height="20" forecolor="#CC0000" uuid="92df3c98-801e-443b-81b6-5b42b43acc9d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="182" y="114" width="57" height="20" forecolor="#CC0000" uuid="94118b5f-63f6-464b-b0af-dab13472bd85"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -141,9 +199,6 @@
 	<columnHeader>
 		<band height="5" splitType="Stretch"/>
 	</columnHeader>
-	<detail>
-		<band height="15" splitType="Stretch"/>
-	</detail>
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
@@ -179,7 +234,4 @@
 			</frame>
 		</band>
 	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>

@@ -6,9 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.ItensRequisicaoMateriaisInternos;
 import gestor.Modelo.ProdutoInternosKitLote;
-import static gestor.Visao.TelaBiometriaKitInternoCPK.jIdInternoKitBio1;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jIdRegistroComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdProd;
 import java.sql.PreparedStatement;
@@ -109,7 +107,7 @@ public class ControleProdutosKitLote {
                 pDigiProd.setIdProd(conecta.rs.getInt("IdProd"));
                 pDigiProd.setDescricaoProduto(conecta.rs.getString("DescricaoProd"));
                 pDigiProd.setUnidadeProd(conecta.rs.getString("UnidadeProd"));
-                pDigiProd.setQuantidadeProd(conecta.rs.getFloat("QuantProd"));
+                pDigiProd.setQuantidadeProd(conecta.rs.getInt("QuantProd"));
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
                 qtdProd = qtdProd + 1;
             }

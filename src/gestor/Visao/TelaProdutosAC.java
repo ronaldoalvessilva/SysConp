@@ -19,12 +19,16 @@ import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoMedicamento;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codExcluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codGravarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codIncluirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codUserAcessoAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserAL;
+import static gestor.Visao.TelaModuloAlmoxarifado.codigoUserGroupAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeGrupoAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.nomeTelaAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.telaCadastroProdutoAL;
@@ -354,7 +358,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Código Barras", "Descrição", "Grupo"
@@ -447,7 +451,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1273,7 +1277,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaLote.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLote.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Data Vcto.", "Lote", "Quantidade"
@@ -1459,7 +1463,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaHistoricoFornecedor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaHistoricoFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Data Compra", "Nr. Doc.", "Código", "Nome do Fornecedor", "Qtde.", "Vl. Unit."
@@ -1602,7 +1606,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1620,6 +1624,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codIncluirAL == 1) {
             acao = 1;
             limparTabelaLotes();
@@ -1635,6 +1640,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codAlterarAL == 1) {
             acao = 2;
             Alterar();
@@ -1648,7 +1654,8 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:   
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codExcluirAL == 1) {
             verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
             verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
@@ -1680,6 +1687,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codGravarAL == 1) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
@@ -1713,7 +1721,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 objProdMed.setDataCompra(jDataCompra.getDate());
                 objProdMed.setDataValidade(jDataValidadeProduto.getDate());
                 objProdMed.setModulo(modulo);
-                objProdMed.setCompoeKit((String)jComboBoxCompoeKit.getSelectedItem());
+                objProdMed.setCompoeKit((String) jComboBoxCompoeKit.getSelectedItem());
                 try {
                     objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
                     objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
@@ -1983,6 +1991,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codGravarAL == 1) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
@@ -2016,7 +2025,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
                 objProdMed.setDataCompra(jDataCompra.getDate());
                 objProdMed.setDataValidade(jDataValidadeProduto.getDate());
                 objProdMed.setModulo(modulo);
-                objProdMed.setCompoeKit((String)jComboBoxCompoeKit.getSelectedItem());
+                objProdMed.setCompoeKit((String) jComboBoxCompoeKit.getSelectedItem());
                 try {
                     objProdMed.setValorCompra(valorReal.parse(jValorCompraProduto.getText()).floatValue());
                     objProdMed.setQtdCompra(valorReal.parse(jQtdCompra.getText()).floatValue());
@@ -2094,6 +2103,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codExcluirAL == 1) {
             verificarProdutoLote(); // Verificar se o produto tem lote para impedir de excluir
             verificarProdutoSaldoEstoque(); // Verifiar se o produto tem saldo para impedir de excluir.
@@ -2125,6 +2135,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codAlterarAL == 1) {
             acao = 2;
             Alterar();
@@ -2139,6 +2150,7 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroProdutoAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaCadastroProdutoAL) && codIncluirAL == 1) {
             acao = 1;
             limparTabelaLotes();
@@ -3158,4 +3170,43 @@ public class TelaProdutosAC extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro na soma do saldo de estoque.\nERRO: " + ex);
         }
     }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserAL = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserAL + "'");
+            conecta.rs.first();
+            codigoUserGroupAL = conecta.rs.getInt("IdUsuario");
+            codigoGrupoAL = conecta.rs.getInt("IdGrupo");
+            nomeGrupoAL = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserAL + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoAL = conecta.rs.getInt("IdUsuario");
+            codAbrirAL = conecta.rs.getInt("Abrir");
+            codIncluirAL = conecta.rs.getInt("Incluir");
+            codAlterarAL = conecta.rs.getInt("Alterar");
+            codExcluirAL = conecta.rs.getInt("Excluir");
+            codGravarAL = conecta.rs.getInt("Gravar");
+            codConsultarAL = conecta.rs.getInt("Consultar");
+            nomeTelaAL = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
 }

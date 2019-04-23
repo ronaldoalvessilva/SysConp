@@ -29,6 +29,7 @@ import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.ProdutoInternosKitLote;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloAlmoxarifado.botaoProgramarKitAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codConsultarAL;
@@ -95,10 +96,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     ControleItensRequisicaoMateriaisInternos controleLote = new ControleItensRequisicaoMateriaisInternos();
     ControleProdutosKitLote controleProd = new ControleProdutosKitLote();
     // FASE - 4
-    // GRAVAR OU EXXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
+    // GRAVAR OU EXCLUIR REGISTRO DOS INTERNOS NO KIT COMPLETO
     GravarInternosKitCompleto objGravaIntComp = new GravarInternosKitCompleto();
     ControleSelecaoKitsCompleto controleIntSelec = new ControleSelecaoKitsCompleto();
-    // GRAVAR OU EXCCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
+    // GRAVAR OU EXCLUIR OS PRODUTOS DOS INTERNOS COM KIT COMPLETO
     ControleListarGravarProdutosKitCompleto controleProdKit = new ControleListarGravarProdutosKitCompleto();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -151,9 +152,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     String cncInterno;
     String nomeInterno;
     public static int qtdInternos = 0;
+    public static int qtdInternosKD = 0;
     public static int qtdInternosSelec = 0;
     public static int qtdInternosKitComp = 0;
     public static int qtdProdutosKitComo = 0;
+    int qtdTotal = 0;
     int idRegPavInt = 0;
     //
     int codProd = 0;
@@ -182,6 +185,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     // 1 - INICIAL, 2 - DECENTIAL, 3 - QUINZENAL, 4 - MENSAL, 5 - SEMESTRAL E 6 - ANUAL.
     //
     String kitUtilizado = "Não";
+    //   
+    public static int pCodigoAlmxarifado = 0;
+    String pcodigoProduto = "";
+    String pRegistroComp = "";
 
     /**
      * Creates new form TelaMontagemPagamentoKitInterno
@@ -197,6 +204,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static TelaSelecaoProdutosKitsCompletoIncompleto selecaoProdutosKit;
     public static TelaGravarProdutosKitCompleto gravarProdutosKitComp;
     public static TelaPrevisaoKitHigiene previsaoKit;
+    public static TelaFinalizarKitHigiene finalEstoque;
+    public static TelaConsultaPavilhaoKit pavKit;
+    public static TelaConsultaProgramacaoKit consulPav;
 
     public TelaMontagemPagamentoKitInterno() {
         super();
@@ -259,6 +269,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void mostrarTelaPrevisaoKit() {
         previsaoKit = new TelaPrevisaoKitHigiene(this, true);
         previsaoKit.setVisible(true);
+    }
+
+    public void mostrarFinalizacao() {
+        finalEstoque = new TelaFinalizarKitHigiene(this, true);
+        finalEstoque.setVisible(true);
+    }
+
+    public void mostrarPavilhao() {
+        pavKit = new TelaConsultaPavilhaoKit(this, true);
+        pavKit.setVisible(true);
+    }
+
+    public void mostrarProgramacao() {
+        consulPav = new TelaConsultaProgramacaoKit(this, true);
+        consulPav.setVisible(true);
     }
 
     /**
@@ -333,6 +358,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluirTodosInternos = new javax.swing.JButton();
         jBtSaldoEstoque = new javax.swing.JButton();
         jBtExcluirInternosUmaUm = new javax.swing.JButton();
+        jBtConsultarPavilhao = new javax.swing.JButton();
+        jBtProgramacao = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaInternosSelecionados = new javax.swing.JTable();
@@ -391,7 +418,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtSalvarInternosSelecionados = new javax.swing.JButton();
         jBtExcluirTodosInternosSelecionados = new javax.swing.JButton();
         jBtExcluirUmInternoAgrupado = new javax.swing.JButton();
-        jBtAuditoriaKitCompleto = new javax.swing.JButton();
+        jBtAuditoriaKitCompletoFase4A = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTabelaProdutosKitCompleto = new javax.swing.JTable();
@@ -1095,6 +1122,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaPavInternos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaPavInternos.setContentAreaFilled(false);
         jBtAuditoriaPavInternos.setEnabled(false);
+        jBtAuditoriaPavInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaPavInternosActionPerformed(evt);
+            }
+        });
 
         jBtCancelarPavilhaoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelarPavilhaoInterno.setText("Cancelar");
@@ -1148,6 +1180,28 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtConsultarPavilhao.setForeground(new java.awt.Color(0, 102, 0));
+        jBtConsultarPavilhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtConsultarPavilhao.setText("C. Pavilhão");
+        jBtConsultarPavilhao.setToolTipText("Consultar Pavilhão Selecionado");
+        jBtConsultarPavilhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConsultarPavilhaoActionPerformed(evt);
+            }
+        });
+
+        jBtProgramacao.setForeground(new java.awt.Color(204, 0, 0));
+        jBtProgramacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pedagogia_18.png"))); // NOI18N
+        jBtProgramacao.setText("C.Programa");
+        jBtProgramacao.setToolTipText("Consultar Programação do Kit");
+        jBtProgramacao.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jBtProgramacao.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jBtProgramacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtProgramacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1159,22 +1213,25 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                .addComponent(jBtNovoPavInternos)
                                 .addComponent(jBtSelecionarUmInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBtSelecionarTodosInternos, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jBtExcluirUmInterno)
-                                .addComponent(jBtExcluirTodosInternos))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jBtSalvarPavInternos)
-                                    .addComponent(jBtCancelarPavilhaoInterno))
-                                .addComponent(jBtExcluirPavInternosTodos))))
+                                .addComponent(jBtExcluirTodosInternos))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtSaldoEstoque)
-                            .addComponent(jBtExcluirInternosUmaUm))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBtSaldoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jBtNovoPavInternos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                        .addComponent(jBtSalvarPavInternos)
+                                        .addComponent(jBtCancelarPavilhaoInterno))
+                                    .addComponent(jBtExcluirPavInternosTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jBtExcluirInternosUmaUm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jBtProgramacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBtConsultarPavilhao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1184,7 +1241,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addComponent(jBtNovoPavInternos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarPavInternos)
@@ -1194,7 +1250,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirPavInternosTodos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirInternosUmaUm)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSelecionarUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSelecionarTodosInternos)
@@ -1202,7 +1258,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jBtExcluirUmInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirTodosInternos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtProgramacao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtConsultarPavilhao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSaldoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPavInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1734,7 +1794,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 417, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -1916,10 +1976,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
-        jBtAuditoriaKitCompleto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaKitCompleto.setToolTipText("Auditoria");
-        jBtAuditoriaKitCompleto.setContentAreaFilled(false);
-        jBtAuditoriaKitCompleto.setEnabled(false);
+        jBtAuditoriaKitCompletoFase4A.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaKitCompletoFase4A.setToolTipText("Auditoria");
+        jBtAuditoriaKitCompletoFase4A.setContentAreaFilled(false);
+        jBtAuditoriaKitCompletoFase4A.setEnabled(false);
+        jBtAuditoriaKitCompletoFase4A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaKitCompletoFase4AActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1932,7 +1997,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     .addComponent(jBtExcluirUmInternoAgrupado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtExcluirTodosInternosSelecionados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtAdicionarTodosInternos)
-                    .addComponent(jBtAuditoriaKitCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtAuditoriaKitCompletoFase4A, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1949,7 +2014,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarInternosSelecionados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAuditoriaKitCompleto)
+                .addComponent(jBtAuditoriaKitCompletoFase4A)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -2109,6 +2174,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoriaKitProdutoCompleto.setToolTipText("Auditoria");
         jBtAuditoriaKitProdutoCompleto.setContentAreaFilled(false);
         jBtAuditoriaKitProdutoCompleto.setEnabled(false);
+        jBtAuditoriaKitProdutoCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaKitProdutoCompletoActionPerformed(evt);
+            }
+        });
 
         jBtProgramarKit.setForeground(new java.awt.Color(0, 102, 0));
         jBtProgramarKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_edit.png"))); // NOI18N
@@ -2273,11 +2343,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtFinalizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(66, 66, 66)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(46, 46, 46)
                 .addComponent(jBtPesquisaComp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(25, 25, 25))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtFinalizar, jBtSair});
@@ -2286,15 +2356,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel1)
-                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jStatusComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtSair)
                     .addComponent(jBtPesquisaComp, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(jBtSair))
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jDataComp, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jStatusComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
@@ -2323,7 +2393,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codIncluirAL == 1) {
             acao = 1;
             bloquearBotoes();
@@ -2343,7 +2413,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codAlterarAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(null, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
@@ -2377,7 +2447,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codExcluirAL == 1) {
             objComp.setStatusComp(jStatusComp.getText());
             if (jStatusComp.getText().equals("FINALIZADO")) {
@@ -2418,7 +2488,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaMontagemPagamentoKitPavIntAL);
+        buscarAcessoUsuario(telaMontagemPagamentoKitAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitAL) && codGravarAL == 1) {
             if (jDataComp.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar a data do registro.");
@@ -2493,6 +2563,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaComposicaoKit objAudKit0 = new TelaAuditoriaComposicaoKit();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudKit0);
+        objAudKit0.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jRBtKitInicialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBtKitInicialItemStateChanged
@@ -2587,14 +2660,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                String statusFim = "FINALIZADO";
-                objComp.setStatusComp(statusFim);
-                objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
-                control.finalizarComposicaoKitlInternos(objComp);
-                jStatusComp.setText("FINALIZADO");
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso...");
+                mostrarFinalizacao();
             }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
@@ -2719,7 +2785,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jBtCancelarPavilhaoInternoActionPerformed
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:  
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
         if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
@@ -2786,6 +2852,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         flag = 0;
         Integer rows = jTabelaInternos.getModel().getRowCount();
+        Integer row0 = jTabelaInternosSelecionados.getModel().getRowCount();
         if (rows != 0) {
             //KIT INICIAL
             if (pTipoKitCI == 1) {
@@ -2793,6 +2860,92 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controle.read()) {
+//                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        if (row0 == 0) {
+                            jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+                        } else {
+                            qtdTotal = qtdInternosSelec + qtdInternos;
+                            jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+                        }
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT DECENDIAL
+            } else if (pTipoKitCI == 2) {
+                qtdInternos = 0;
+                qtdInternosKD = 0;
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKD.read()) {
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    }
+                    if (row0 == 0) {
+                        jtotalInternosSelecionados.setText(Integer.toString(qtdInternos));
+                        qtdTotal = qtdInternos;
+                    } else if (row0 != 0) {//jTabelaInternosSelecionados
+//                        qtdTotal = qtdTotal + qtdInternosKD;
+                        qtdTotal += qtdInternosKD;
+                        jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT QUINZENAL
+            } else if (pTipoKitCI == 3) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKQ.read()) {
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
                         jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
 //                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
@@ -2825,12 +2978,88 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 // LIMPAR O TOTALIZADOR DA TABELA
                 jtotalInternosPavilhao.setText("");
-                //KIT DECENDIAL
-            } else if (pTipoKitCI == 2) {
+                //KIT MENSAL
+            } else if (pTipoKitCI == 4) {
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
-                    for (PavilhaoInternoMontaKit dd : controleKD.read()) {
+                    for (PavilhaoInternoMontaKit dd : controleKM.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT SEMESTRAL
+            } else if (pTipoKitCI == 5) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                        jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternosSelecionados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternosSelecionados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+                // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+                DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+                if (tblRemove.getRowCount() > 0) {
+                    for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                        if (tblRemove.getRowCount() < i) {
+                            tblRemove.removeRow(i);
+                            tblRemove.setRowCount(0);
+                        }
+                    }
+                }
+                // LIMPAR O TOTALIZADOR DA TABELA
+                jtotalInternosPavilhao.setText("");
+                //KIT ANUAL
+            } else if (pTipoKitCI == 6) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKA.read()) {
                         jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
                         jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
 //                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
@@ -2966,6 +3195,126 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
             // LIMPAR O TOTALIZADOR DA TABELA
             jtotalInternosSelecionados.setText("");
+            //KIT QUINZENAL
+        } else if (pTipoKitCI == 3) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKQ.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT MENSAL
+        } else if (pTipoKitCI == 4) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKM.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT SEMESTRAL
+        } else if (pTipoKitCI == 5) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
+            //KIT ANUAL
+        } else if (pTipoKitCI == 6) {
+            if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+                try {
+                    for (PavilhaoInternoMontaKit dd : controleKA.read()) {
+                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
+            jtotalInternosSelecionados.setText("");
         }
     }//GEN-LAST:event_jBtExcluirTodosInternosActionPerformed
 
@@ -2975,9 +3324,17 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             JOptionPane.showMessageDialog(rootPane, "É necessario informar o pavilhão para incluir os internos.");
         } else {
             count1 = 0;
+            qtdInternos = 0;
+            qtdInternosKD = 0;
+            //LIMPAR A TABELA
+            while (jTabelaInternos.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+            }
+            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
             // PESQUISA DE INTERNOS QUANDO O KIT FOR INICIAL.
             // KIT INICIAL
             if (pTipoKitCI == 1) {
+                qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -2999,6 +3356,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 // KIT DECENDIAL
             } else if (pTipoKitCI == 2) {
+                qtdInternosKD = 0;
+                qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -3167,12 +3526,14 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarProdutoActionPerformed
         // TODO add your handling code here:
+        Integer row0 = jTabelaInternosKitCompleto.getRowCount();
+        Integer row1 = jTabelaProdutosKitCompleto.getRowCount();
         //CRIAR METODO PARA IMPEDIR DE ALTERAR, CASO O PRODUTO TENHA SIDO UTILIZADO NA ASSOCIAÇÃO DO KIT
         buscarAcessoUsuario(telaMontagemPagamentoKitProdutosAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMontagemPagamentoKitProdutosAL) && codAlterarAL == 1) {
             if (jStatusComp.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, o mesmo encontra-se FINALIZADO");
-            } else {
+            } else if (row0 == 0 && row1 == 0) {
                 acao = 4;
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -3180,6 +3541,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 bloquearCampos();
                 bloquearBotoes();
                 AlterarProduto();
+            } else {
+                JOptionPane.showMessageDialog(null, "Não é possível modificar os registros dessa tela, existem registros vinculados a essa tabela.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
@@ -3211,7 +3574,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
                         pegarSaldoEstoque(objItensReqMatInter.getIdProd());
                         try {
-                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                         } catch (ParseException ex) {
                         }
                         // CALCULA O NOVO SALDO DE ESTOQUE
@@ -3258,39 +3621,44 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 objProdKit.setIdKit(idKit);
                 objProdKit.setpUtili(pUtili);
                 try {
-                    objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                    objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                 } catch (ParseException ex) {
                 }
+                verificarProdutoIncluido();
                 if (acao == 3) {
-                    objProdKit.setUsuarioInsert(nameUser);
-                    objProdKit.setDataInsert(dataModFinal);
-                    objProdKit.setHorarioInsert(horaMov);
-                    // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
-                    pegarSaldoEstoque(objProdKit.getIdProd());
-                    //
-                    if (saldoEstoque >= objProdKit.getQuantidadeProd()) {
-                        // CALCULA O NOVO SALDO DE ESTOQUE
-                        estoqueAtual = saldoEstoque - objProdKit.getQuantidadeProd();
-                        // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
-                        controleProd.incluirProdutosKitInternos(objProdKit);
-                        buscarProdutoKit();
-                        //
-                        objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
-                        objItensReqMatInter.setQtdItem(estoqueAtual);
-                        controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC   
-                        objLog3();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearCampos();
-                        bloquearBotoes();
-                        limparCamposProdutos();
-                        SalvarProduto();
-                        preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
-                                + "INNER JOIN PRODUTOS_AC "
-                                + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
-                                + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (jIdRegistroComp.getText().equals(pRegistroComp) && jCodigoProd.getText().equals(pcodigoProduto)) {
+                        JOptionPane.showMessageDialog(null, "Produto já foi incluído nesse registro.");
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Saldo de Estoque insuficiente para atender esse registro.");
+                        objProdKit.setUsuarioInsert(nameUser);
+                        objProdKit.setDataInsert(dataModFinal);
+                        objProdKit.setHorarioInsert(horaMov);
+                        // PEGA PRODUTO PARA CALCULAR SALDO DE ESTOQUE
+                        pegarSaldoEstoque(objProdKit.getIdProd());
+                        //
+                        if (saldoEstoque >= objProdKit.getQuantidadeProd()) {
+                            // CALCULA O NOVO SALDO DE ESTOQUE
+                            estoqueAtual = saldoEstoque - objProdKit.getQuantidadeProd();
+                            // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
+                            controleProd.incluirProdutosKitInternos(objProdKit);
+                            buscarProdutoKit();
+                            //
+                            objItensReqMatInter.setIdProd(Integer.valueOf(jCodigoProd.getText()));
+                            objItensReqMatInter.setQtdItem(estoqueAtual);
+                            controleLote.alterarEstoqueMaterais(objItensReqMatInter); // TABELA DE LOTE_PRODUTOS_AC   
+                            objLog3();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearCampos();
+                            bloquearBotoes();
+                            limparCamposProdutos();
+                            SalvarProduto();
+                            preencherTabelaProdutos("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                                    + "INNER JOIN PRODUTOS_AC "
+                                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd  "
+                                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Saldo de Estoque insuficiente para atender esse registro.");
+                        }
                     }
                 }
                 if (acao == 4) {
@@ -3305,7 +3673,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     if (novoSaldoAtual >= objProdKit.getQuantidadeProd()) {
                         estoqueAtual = (float) (novoSaldoAtual - objProdKit.getQuantidadeProd()); // DEDUZ O SALDO DE ESTOQUE E GRAVA                                     
                         try {
-                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).floatValue());
+                            objProdKit.setQuantidadeProd(qtdReal.parse(jQtdAtendida.getText()).intValue());
                         } catch (ParseException ex) {
                         }
                         // TABELA ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE
@@ -3357,6 +3725,9 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaProdutoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitProdutos objAudiKitProd = new TelaAuditoriaComposicaoKitProdutos();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiKitProd);
+        objAudiKitProd.show();
     }//GEN-LAST:event_jBtAuditoriaProdutoActionPerformed
 
     private void jTabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosMouseClicked
@@ -3543,6 +3914,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 if (resposta == JOptionPane.YES_OPTION) {
                     mostarTelaGrava();
                     jBtAdicionarProdutosKitCompleto.setEnabled(true);
+                    jBtSalvarInternosSelecionados.setEnabled(!true);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Não existem registros de internos a ser gravado no banco de dados.");
@@ -3816,7 +4188,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     conecta.rs.first();
                     codigoInternoPav = conecta.rs.getInt("IdInternoCrc");
                 } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
+                    //  JOptionPane.showMessageDialog(rootPane, "Não foi possível selecionar o registro.\nERRO: " + e);
                 }
                 conecta.desconecta();
             }
@@ -3827,12 +4199,51 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtProgramarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramarKitActionPerformed
         // TODO add your handling code here:
-        if (jStatusComp.getText().equals("FINALIZADO")) {
-            mostrarTelaPrevisaoKit();
+        buscarAcessoUsuario(botaoProgramarKitAL);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
+            if (jStatusComp.getText().equals("FINALIZADO")) {
+                mostrarTelaPrevisaoKit();
+            } else {
+                JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed
+
+    private void jBtConsultarPavilhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultarPavilhaoActionPerformed
+        // TODO add your handling code here:
+        Integer row0 = jTabelaInternosSelecionados.getRowCount();
+        if (row0 != 0) {
+            mostrarPavilhao();
+        }
+    }//GEN-LAST:event_jBtConsultarPavilhaoActionPerformed
+
+    private void jBtAuditoriaPavInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPavInternosActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitSelecInternos objAudKitSelec = new TelaAuditoriaComposicaoKitSelecInternos();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudKitSelec);
+        objAudKitSelec.show();
+    }//GEN-LAST:event_jBtAuditoriaPavInternosActionPerformed
+
+    private void jBtAuditoriaKitCompletoFase4AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaKitCompletoFase4AActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitFase4A objAudiF4A = new TelaAuditoriaComposicaoKitFase4A();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiF4A);
+        objAudiF4A.show();
+    }//GEN-LAST:event_jBtAuditoriaKitCompletoFase4AActionPerformed
+
+    private void jBtAuditoriaKitProdutoCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaKitProdutoCompletoActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaComposicaoKitFase4B objAudiF4B = new TelaAuditoriaComposicaoKitFase4B();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiF4B);
+        objAudiF4B.show();
+    }//GEN-LAST:event_jBtAuditoriaKitProdutoCompletoActionPerformed
+
+    private void jBtProgramacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramacaoActionPerformed
+        // TODO add your handling code here:
+        mostrarProgramacao();
+    }//GEN-LAST:event_jBtProgramacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3842,7 +4253,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarProduto;
     public static javax.swing.JButton jBtAuditoria;
-    private javax.swing.JButton jBtAuditoriaKitCompleto;
+    private javax.swing.JButton jBtAuditoriaKitCompletoFase4A;
     private javax.swing.JButton jBtAuditoriaKitProdutoCompleto;
     public static javax.swing.JButton jBtAuditoriaPavInternos;
     private javax.swing.JButton jBtAuditoriaProduto;
@@ -3850,6 +4261,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtCancelarPavilhaoInterno;
     private javax.swing.JButton jBtCancelarProduto;
     private javax.swing.JButton jBtConsultarEstoque;
+    private javax.swing.JButton jBtConsultarPavilhao;
     public static javax.swing.JButton jBtExcluir;
     public static javax.swing.JButton jBtExcluirInternosUmaUm;
     public static javax.swing.JButton jBtExcluirPavInternosTodos;
@@ -3868,6 +4280,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtPesquisarColaborador;
     private javax.swing.JButton jBtPesquisarInternosPavilhao;
     private javax.swing.JButton jBtPesquisarKit;
+    private javax.swing.JButton jBtProgramacao;
     private javax.swing.JButton jBtProgramarKit;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSaldoEstoque;
@@ -4159,7 +4572,15 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public void Alterar() {
         jObservacao.setEnabled(true);
         //
-        jBtPesquisarKit.setEnabled(true);
+        Integer row0 = jTabelaProdutos.getRowCount();
+        Integer row1 = jTabelaInternosKitCompleto.getRowCount();
+        Integer row2 = jTabelaProdutosKitCompleto.getRowCount();
+        if (row0 != 0 || row1 != 0 || row2 != 0) {
+            jBtPesquisarKit.setEnabled(!true);
+        } else {
+            jBtPesquisarKit.setEnabled(true);
+        }
+//        jDataComp.setEnabled(true);
         jBtPesquisarColaborador.setEnabled(true);
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -4194,6 +4615,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             jBtFinalizar.setEnabled(true);
             // ABA PAVILHÕES/INTERNOS
             jBtNovoPavInternos.setEnabled(true);
+            //ABA PRODUTOS DO ALMOXARIFADO
+            jBtNovoProduto.setEnabled(true);
+            //
+            jBtAdicionarTodosInternos.setEnabled(true);
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
         }
     }
 
@@ -4280,17 +4706,21 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     public void SalvarPavilhaoInterno() {
         // FASE - 1
-        jBtExcluirPavInternosTodos.setEnabled(true);
-        jBtExcluirInternosUmaUm.setEnabled(true);
-        jBtAuditoriaPavInternos.setEnabled(true);
-        // FASE - 2
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
+        // FASE - 2
+        jBtNovoPavInternos.setEnabled(true);
+        jBtExcluirPavInternosTodos.setEnabled(true);
+        jBtExcluirInternosUmaUm.setEnabled(true);
+        jBtAuditoriaPavInternos.setEnabled(true);
         // FASE - 3
         jBtNovoProduto.setEnabled(true);
+        // FASE - 4
+        jBtAdicionarTodosInternos.setEnabled(true);
+        jBtAdicionarProdutosKitCompleto.setEnabled(true);
     }
 
     public void CancelarPavilhaoInterno() {
@@ -4308,6 +4738,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
+        //
+        Integer row0 = jTabelaInternosSelecionados.getRowCount();
+        if (row0 != 0) {
+            jBtNovoProduto.setEnabled(true);
+            jBtAdicionarTodosInternos.setEnabled(true);
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
+        }
     }
 
     public void pesquisarPavilhao() {
@@ -4379,7 +4816,12 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
         //FASE - 4
+        Integer row0 = jTabelaInternosKitCompleto.getRowCount();
+//        Integer row1 = jTabelaProdutosKitCompleto.getRowCount();
         jBtAdicionarTodosInternos.setEnabled(true);
+        if (row0 != 0) {
+            jBtAdicionarProdutosKitCompleto.setEnabled(true);
+        }
     }
 
     public void buscarProdutoKit() {
@@ -4406,8 +4848,18 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         conecta.desconecta();
     }
 
-    public void NovoInternoKitComp() {
-
+    public void verificarProdutoIncluido() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+                    + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' "
+                    + "AND IdProd='" + jCodigoProd.getText() + "'");
+            conecta.rs.first();
+            pcodigoProduto = conecta.rs.getString("IdProd");
+            pRegistroComp = conecta.rs.getString("IdRegistroComp");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     //VERIFICAR SE NA TABELA TEM REGISTRO CORRESPONDENTE AO LANÇAMENTO, PARA PODER EXCLUIR TODOS.
@@ -4639,14 +5091,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             count = 0;
             do {
                 count = count + 1;
-                qtdItem = conecta.rs.getFloat("QuantProd");
-                DecimalFormat vi = new DecimalFormat(",###0.00");
-                String vqtdItem = vi.format(qtdItem);
-                qtdItemTab = vqtdItem;
-                //                
-                //
                 jtotalProdutosKitInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), qtdItemTab});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegProdKit"), conecta.rs.getInt("IdProd"), conecta.rs.getString("DescricaoProd"), conecta.rs.getString("UnidadeProd"), conecta.rs.getInt("QuantProd")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

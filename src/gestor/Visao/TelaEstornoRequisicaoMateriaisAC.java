@@ -304,7 +304,7 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
         jTabelaRequisicoes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRequisicoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data Req.", "Status Req.", "Obervação"
@@ -975,7 +975,7 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
         jTabelaItensRequisicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensRequisicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição do Produto", "Qtd.", "Vl.Item"
@@ -1415,7 +1415,8 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
     }//GEN-LAST:event_jBtPesqRequisicaoActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaMovimentacaoEstornoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoEstornoManuAL) && codIncluirAL == 1) {
             acao = 1;
             Novo();
@@ -1430,6 +1431,7 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoEstornoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoEstornoManuAL) && codAlterarAL == 1) {
             objEstoReq.setStatusEstorno(jStatusEst.getText());
             if (jStatusEst.getText().equals("FINALIZADO")) {
@@ -1448,6 +1450,7 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoEstornoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoEstornoManuAL) && codExcluirAL == 1) {
             objEstoReq.setStatusEstorno(jStatusEst.getText());
             if (jStatusEst.getText().equals("FINALIZADO")) {
@@ -1465,6 +1468,7 @@ public class TelaEstornoRequisicaoMateriaisAC extends javax.swing.JInternalFrame
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoEstornoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoEstornoManuAL) && codGravarAL == 1) {
             if (jDataEst.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do estorno.");

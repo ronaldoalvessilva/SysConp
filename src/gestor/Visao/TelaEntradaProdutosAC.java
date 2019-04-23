@@ -518,7 +518,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaNFeCompras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaNFeCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Dt.Emissão", "Status NFE", "Dt.Entrada", "Fornecedor", "Data Val."
@@ -1501,7 +1501,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaItensNFeCompras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensNFeCompras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição Produto", "Qtd.", "Valor UN", "Data Val.", "Lote"
@@ -1786,7 +1786,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
         jTabelaParcelas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaParcelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Vencimento", "Valor Parcela", "Valor Doc."
@@ -2226,6 +2226,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentcaoNotaFiscaManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codIncluirAL == 1) {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -2240,6 +2241,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentcaoNotaFiscaManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codAlterarAL == 1) {
             objNFEComprasv.setStatusNf(jStatusNFe.getText());
             if (jStatusNFe.getText().equals("FINALIZADO")) {
@@ -2259,6 +2261,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentcaoNotaFiscaManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codExcluirAL == 1) {
             objNFEComprasv.setStatusNf(jStatusNFe.getText());
             if (jStatusNFe.getText().equals("FINALIZADO")) {
@@ -2273,6 +2276,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentcaoNotaFiscaManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentcaoNotaFiscaManuAL) && codGravarAL == 1) {
             DecimalFormat valorReal = new DecimalFormat("###,##00.0");
             valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));

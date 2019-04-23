@@ -37,6 +37,9 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
     String caminho;
     String nomeInterno;
     String idInt;
+    //
+    String situacaoEnt = "ENTRADA NA UNIDADE";
+    String situacaoRet = "RETORNO A UNIDADE";
 
     /**
      * Creates new form TelaPesqColaborador
@@ -233,7 +236,8 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                            + "WHERE NomeInternoCrc='" + jNomeInternoCrc.getText() + "'");
+                            + "WHERE NomeInternoCrc='" + jNomeInternoCrc.getText() + "' "
+                            + "AND IdinternoCrc='" + idInt + "'");
                     conecta.rs.first();
                     jIdInternoPortaria.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                     jNomeInternoPortaria.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -259,7 +263,10 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
             jNomeInternoCrc.requestFocus();
         } else {
             buscarInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%' "
+                    + "AND SituacaoCrc!='" + situacaoEnt + "' "
+                    + "AND NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%' "
+                    + "AND SituacaoCrc!='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -277,7 +284,9 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.buscarInternos("SELECT * FROM PRONTUARIOSCRC");
+            this.buscarInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE SituacaoCrc!='" + situacaoEnt + "' "
+                    + "AND SituacaoCrc!='" + situacaoRet + "'");
         } else {
             limparTabela();
         }

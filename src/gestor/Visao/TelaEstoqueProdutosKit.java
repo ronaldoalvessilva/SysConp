@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCodigoAlmxarifado;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.idKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jCodigoProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jUnidadeProd;
@@ -16,6 +17,7 @@ import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDescricaoProd;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQtdAtendida;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jQuantidadeInternos;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jtotalInternosSelecionados;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.pTipoKitCI;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -79,6 +81,8 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         jCheckBoxTodos = new javax.swing.JCheckBox();
         jBtPesquisaCodigoProd = new javax.swing.JButton();
         jBtPesquisaNomeProd = new javax.swing.JButton();
+        jBtConfirmar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelalProdutosEstoque = new javax.swing.JTable();
         jPanel36 = new javax.swing.JPanel();
@@ -86,8 +90,6 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         jLabel69 = new javax.swing.JLabel();
         jPanel38 = new javax.swing.JPanel();
         jtotalProdutos = new javax.swing.JLabel();
-        jBtConfirmar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("....::: Consulta de Estoque - Almoxarifado Local :::...");
@@ -144,6 +146,24 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
             }
         });
 
+        jBtConfirmar.setForeground(new java.awt.Color(0, 102, 0));
+        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmar.setText("Confirmar");
+        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,39 +179,54 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesquisaCodigoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(11, 11, 11)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCodigoBarraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBoxTodos))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDescricapProdPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jCodigoBarraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(166, 166, 166)
+                                        .addComponent(jCheckBoxTodos))
+                                    .addComponent(jDescricapProdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesquisaNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtSair)))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jCodigoProdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesquisaCodigoProd)
+                            .addComponent(jCodigoBarraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtConfirmar)
+                            .addComponent(jCheckBoxTodos))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesquisaCodigoProd)
-                    .addComponent(jCodigoProdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoBarraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxTodos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDescricapProdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisaNomeProd))
+                    .addComponent(jBtPesquisaNomeProd)
+                    .addComponent(jDescricapProdPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,24 +305,6 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
             .addComponent(jtotalProdutos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
-        jBtConfirmar.setForeground(new java.awt.Color(0, 102, 0));
-        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
-        jBtConfirmar.setText("Confirmar");
-        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtConfirmarActionPerformed(evt);
-            }
-        });
-
-        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,32 +318,21 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                         .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtSair))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtConfirmar)
-                    .addComponent(jBtSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -358,16 +364,23 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        preencherTabelaProdutos("SELECT *FROM PRODUTOS_AC "
-                + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+        preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
+                + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+                + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
+                + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                + "INNER JOIN PRODUTOS_AC "
+                + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                 + "INNER JOIN LOTE_PRODUTOS_AC "
                 + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                + "INNER JOIN KITS_HIGIENE_INTERNO "
+                + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
                 + "WHERE LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                 + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
                 + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
                 + "AND PRODUTOS_AC.CodigoBarra='" + jCodigoBarraPesquisa + "' "
-                + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
+                + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'"
+                + "AND PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + pTipoKitCI + "'");
     }//GEN-LAST:event_jCodigoBarraPesquisaActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
@@ -375,15 +388,22 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+            this.preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
+                    + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+                    + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
+                    + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
                     + "WHERE LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
                     + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
-                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "' "
+                    + "AND PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + pTipoKitCI + "'");
         } else {
             jtotalProdutos.setText("");
             limparTabelaProdutos();
@@ -397,16 +417,23 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
         if (jDescricapProdPesquisa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do produto para pesquisa.");
         } else {
-            preencherTabelaProdutos("SELECT * FROM PRODUTOS_AC "
-                    + "INNER JOIN LOCAL_ARMAZENAMENTO_AC "
-                    + "ON PRODUTOS_AC.IdLocal=LOCAL_ARMAZENAMENTO_AC.IdLocal "
+            preencherTabelaProdutos("SELECT DISTINCT PRODUTOS_KITS_HIGIENE_INTERNO.IdProd,"
+                    + "PRODUTOS_AC.CodigoBarra,PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd,"
+                    + "LOTE_PRODUTOS_AC.Qtd,PRODUTOS_AC.StatusProd,LOTE_PRODUTOS_AC.Modulo,"
+                    + "LOTE_PRODUTOS_AC.Lote,PRODUTOS_AC.CompoeKit "
+                    + "FROM PRODUTOS_KITS_HIGIENE_INTERNO "
+                    + "INNER JOIN PRODUTOS_AC "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdProd=PRODUTOS_AC.IdProd "
                     + "INNER JOIN LOTE_PRODUTOS_AC "
                     + "ON PRODUTOS_AC.IdProd=LOTE_PRODUTOS_AC.IdProd "
+                    + "INNER JOIN KITS_HIGIENE_INTERNO "
+                    + "ON PRODUTOS_KITS_HIGIENE_INTERNO.IdKit=KITS_HIGIENE_INTERNO.IdKit "
                     + "WHERE PRODUTOS_AC.DescricaoProd LIKE'%" + jDescricapProdPesquisa.getText() + "%' "
                     + "AND LOTE_PRODUTOS_AC.Qtd!='" + qtdEstoque + "' "
                     + "AND PRODUTOS_AC.StatusProd='" + statusProd + "' "
                     + "AND LOTE_PRODUTOS_AC.Modulo='" + modulo + "' "
-                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'");
+                    + "AND PRODUTOS_AC.CompoeKit='" + compoeKit + "'"
+                    + "AND PRODUTOS_KITS_HIGIENE_INTERNO.IdKit='" + pTipoKitCI + "'");
         }
     }//GEN-LAST:event_jBtPesquisaNomeProdActionPerformed
 
@@ -444,6 +471,7 @@ public class TelaEstoqueProdutosKit extends javax.swing.JDialog {
                 jCodigoProd.setText(String.valueOf(conecta.rs.getInt("IdProd")));
                 jDescricaoProd.setText(conecta.rs.getString("DescricaoProd"));
                 jUnidadeProd.setText(conecta.rs.getString("UnidadeProd"));
+                pCodigoAlmxarifado = conecta.rs.getInt("IdLocal");
                 idKit = conecta.rs.getInt("IdKit");
                 // Formata o valor para ser exibido na tela no formato BR                                                   
                 qtdEstoque = conecta.rs.getFloat("Qtd");

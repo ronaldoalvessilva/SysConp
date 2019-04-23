@@ -6,10 +6,12 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControlePagamentoKit;
 import gestor.Controle.PagamentoKit;
 import gestor.Controle.PagamentoKitInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.ItensPagamentoKitInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PagamentoKitInterno;
@@ -37,6 +39,10 @@ import static gestor.Visao.TelaModuloBaseUm.telaEntregaMaterialUsoB1;
 import static gestor.Visao.TelaModuloBaseUm.telaEntregaMaterialUsoInternosBioB1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloBaseUm.codigoUserGroupB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoGrupoB1;
+import static gestor.Visao.TelaModuloBaseUm.codAbrirB1;
+import static gestor.Visao.TelaModuloBaseUm.codConsultarB1;
 import static gestor.Visao.TelaModuloTriagem.codAbrirTRI;
 import static gestor.Visao.TelaModuloTriagem.codAlterarTRI;
 import static gestor.Visao.TelaModuloTriagem.codExcluirTRI;
@@ -51,10 +57,13 @@ import static gestor.Visao.TelaModuloTriagem.telaEntregaMaterialUsoTRI;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -78,6 +87,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     //   
     ItensPagamentoKitInterno objItensPagto = new ItensPagamentoKitInterno();
     PagamentoKitInternos controle = new PagamentoKitInternos();
+    //
+    ControlePagamentoKit controlPagoKit = new ControlePagamentoKit();
+    ComposicaoKit objComp = new ComposicaoKit();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -113,6 +125,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     String codigoInterno;
     String codigoKit;
     public static int codItem;
+    String pRespostaKit = "Sim";
     /**
      * Creates new form TelaPagamentoKitInterno
      */
@@ -180,6 +193,11 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jComboBoxPavilhao = new javax.swing.JComboBox();
         jLabel14 = new javax.swing.JLabel();
         jComboBoxTipoKit = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        jIdKit = new javax.swing.JTextField();
+        jBtPesquisarKit = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jIdRegistroComp = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -248,7 +266,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("...::: Relação de Materiais de Uso Pessoal de Internos (Kit) {FO.SGP.07} :::...");
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Shopping_cart_Icon_16.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Full_shopping_cart_Icon_32.png"))); // NOI18N
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -337,7 +355,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                         .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,6 +542,37 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jComboBoxTipoKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoKit.setEnabled(false);
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel9.setText("ID Kit");
+
+        jIdKit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jIdKit.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdKit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdKit.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jIdKit.setEnabled(false);
+
+        jBtPesquisarKit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisarKit.setToolTipText("Pesquisar Kit de Higiêne");
+        jBtPesquisarKit.setContentAreaFilled(false);
+        jBtPesquisarKit.setEnabled(false);
+        jBtPesquisarKit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarKitActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel19.setText("ID Registro");
+
+        jIdRegistroComp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jIdRegistroComp.setForeground(new java.awt.Color(0, 0, 204));
+        jIdRegistroComp.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdRegistroComp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdRegistroComp.setDisabledTextColor(new java.awt.Color(0, 0, 204));
+        jIdRegistroComp.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -531,41 +580,51 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jResponsavel)
-                    .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel14)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jResponsavel)
+                            .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jStatusLanc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jComboBoxTipoKit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 224, Short.MAX_VALUE))
+                                    .addComponent(jStatusLanc))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jComboBoxTipoKit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesquisarKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel8)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jHorarioInicial)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel14))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jHorarioInicial)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioInicial, jHorarioTermino});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioInicial, jHorarioTermino, jIdKit, jIdRegistroComp});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,9 +646,13 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdRegistroComp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdKit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -599,8 +662,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxTipoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxTipoKit, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarKit))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -726,12 +791,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel10)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -741,7 +804,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1148,7 +1211,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1171,7 +1234,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        setBounds(300, 60, 632, 488);
+        setBounds(300, 60, 648, 488);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -1261,7 +1324,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM  PAGAMENTO_KIT_INTERNOS "
+                conecta.executaSQL("SELECT * FROM PAGAMENTO_KIT_INTERNOS "
                         + "INNER JOIN PAVILHAO "
                         + "ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav "
                         + "WHERE IdPagto='" + IdLanc + "'");
@@ -1272,6 +1335,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 jResponsavel.setText(conecta.rs.getString("Responsavel"));
                 jHorarioInicial.setText(conecta.rs.getString("HoraInicio"));
                 jHorarioTermino.setText(conecta.rs.getString("HoraTermino"));
+                jIdKit.setText(conecta.rs.getString("IdKit"));
+                jIdRegistroComp.setText(conecta.rs.getString("IdRegistro"));
                 jComboBoxTipoKit.setSelectedItem(conecta.rs.getString("TipoKit"));
                 jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPav"));
                 jObservacao.setText(conecta.rs.getString("Observacao"));
@@ -1287,6 +1352,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB1);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB2);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codIncluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             limparCamposManutencao();
             bloquearCampos();
@@ -1330,6 +1398,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB1);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB2);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codAlterarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             Integer rows = jTabelaInternos.getModel().getRowCount();
             objPag.setStatusLanc(jStatusLanc.getText());
@@ -1427,6 +1498,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB1);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB2);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codExcluirTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             objPag.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1461,6 +1535,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB1);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB2);
         if (codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoTRI) && codGravarTRI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES")) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar a data do lançamento.");
@@ -1470,12 +1547,16 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário o tipo de kit.");
             } else if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...") || jComboBoxPavilhao.getSelectedItem().equals("") || jComboBoxPavilhao.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o pavilhão.");
+            } else if (jIdKit.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o código da composição do kit de higiêne do interno.");
             } else {
                 objPag.setStatusLanc(jStatusLanc.getText());
                 objPag.setDataLanc(jDataLanc.getDate());
                 objPag.setResponsavel(jResponsavel.getText());
                 objPag.setHoraInicio(jHorarioInicial.getText());
                 objPag.setHoraTermino(jHorarioTermino.getText());
+                objPag.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+                objPag.setIdKit(Integer.valueOf(jIdKit.getText()));
                 objPag.setTipoKit((String) jComboBoxTipoKit.getSelectedItem());
                 objPag.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
                 objPag.setObservacao(jObservacao.getText());
@@ -1630,16 +1711,16 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
-        // TODO add your handling code here:
-        TelaAuditoriaPagamentoKit objAudiKit = new TelaAuditoriaPagamentoKit();
+        // TODO add your handling code here:     
+        TelaAuditoriaPagamentoKitCPK objAudiKit = new TelaAuditoriaPagamentoKitCPK();
         if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
             TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAudiKit);
             objAudiKit.show();
-        } else if (TelaModuloTriagem.jPainelTriagem != null) {
-            TelaModuloTriagem.jPainelTriagem.add(objAudiKit);
-            objAudiKit.show();
         } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
             TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objAudiKit);
+            objAudiKit.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objAudiKit);
             objAudiKit.show();
         }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
@@ -1680,14 +1761,10 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
             }
             preencherTabelaProdutosKitInterno("SELECT * FROM ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS "
-                    + "INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS "
-                    + "ON ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdItem=ITENS_PAGAMENTO_KIT_INTERNOS.IdItem "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdProd=PRODUTOS_AC.IdProd "
-                    + "INNER JOIN PAGAMENTO_KIT_INTERNOS "
-                    + "ON ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdPagto=ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdPagto "
-                    + "WHERE ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc='" + jIdInterno.getText() + "' "
-                    + "AND ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdPagto='" + jIdLanc.getText() + "'");
+                    + "WHERE ITENS_PAGAMENTO_KIT_INTERNOS_PRODUTOS.IdPagto='" + jIdLanc.getText() + "' "
+                    + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaInternosMouseClicked
 
@@ -1814,22 +1891,25 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtSairInternoActionPerformed
 
     private void jBtAuditoriaItensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaItensActionPerformed
-        // TODO add your handling code here:
-        TelaAudItensPagamentoKit objAudiIten = new TelaAudItensPagamentoKit();
+        // TODO add your handling code here:        
+        TelaAudItensPagamentoKitCPK objAudiIten = new TelaAudItensPagamentoKitCPK();
         if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
             TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objAudiIten);
             objAudiIten.show();
-        } else if (TelaModuloTriagem.jPainelTriagem != null) {
-            TelaModuloTriagem.jPainelTriagem.add(objAudiIten);
-            objAudiIten.show();
         } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
             TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objAudiIten);
+            objAudiIten.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objAudiIten);
             objAudiIten.show();
         }
     }//GEN-LAST:event_jBtAuditoriaItensActionPerformed
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaEntregaMaterialUsoTRI);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB1);
+        buscarAcessoUsuario(telaEntregaMaterialUsoB2);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTRI.equals("ADMINISTRADORES") || codigoUserTRI == codUserAcessoTRI && nomeTelaTRI.equals(telaEntregaMaterialUsoInternosBioTRI) && codAbrirTRI == 1) {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa função, registro finalizado.");
@@ -1859,6 +1939,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         Integer rows = jTabelaInternos.getModel().getRowCount();
         if (rows == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível imprimir esse registro, pois não existe(m) produto(s) lançado(s).");
+        } else if (jIdInterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o interno para imprimir o relatório.");
         } else {
             try {
                 conecta.abrirConexao();
@@ -1866,10 +1948,16 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PAGAMENTO_KIT_INTERNOS "
                         + "INNER JOIN PAVILHAO "
                         + "ON PAGAMENTO_KIT_INTERNOS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE IdPagto='" + jIdLanc.getText() + "'");
+                        + "INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS "
+                        + "ON PAGAMENTO_KIT_INTERNOS.IdPagto=ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE PAGAMENTO_KIT_INTERNOS.IdPagto='" + jIdLanc.getText() + "' "
+                        + "AND ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc='" + jIdInterno.getText() + "'");
                 HashMap parametros = new HashMap();
                 parametros.put("pUnidade", descricaoUnidade);
                 parametros.put("pCodigo", jIdLanc.getText());
+                parametros.put("pCodigoInternoCrc", jIdInterno.getText());
                 parametros.put("pUsuario", nameUser);
                 // Sub Relatório
                 try {
@@ -1890,6 +1978,21 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
+    private void jBtPesquisarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarKitActionPerformed
+        // TODO add your handling code here:
+        TelaPesquisaKitCpk objPesqKit = new TelaPesquisaKitCpk();
+        if (TelaModuloBaseUm.jPainelBaseSegurancaPavilhao != null) {
+            TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objPesqKit);
+            objPesqKit.show();
+        } else if (TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar != null) {
+            TelaModuloBaseDois.jPainelBasePavilhaoAuxiliar.add(objPesqKit);
+            objPesqKit.show();
+        } else if (TelaModuloTriagem.jPainelTriagem != null) {
+            TelaModuloTriagem.jPainelTriagem.add(objPesqKit);
+            objPesqKit.show();
+        }
+    }//GEN-LAST:event_jBtPesquisarKitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
@@ -1908,6 +2011,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqID;
     private javax.swing.JButton jBtPesqNomeInterno;
+    private javax.swing.JButton jBtPesquisarKit;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSairInterno;
     private javax.swing.JButton jBtSalvar;
@@ -1925,7 +2029,9 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jHorarioTermino;
     private javax.swing.JTextField jIDPesqLanc;
     public static javax.swing.JTextField jIdInterno;
+    public static javax.swing.JTextField jIdKit;
     public static javax.swing.JTextField jIdLanc;
+    public static javax.swing.JTextField jIdRegistroComp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1936,6 +2042,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1944,6 +2051,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jNomeInterno;
     private javax.swing.JTextArea jObservacao;
     private javax.swing.JPanel jPanel1;
@@ -1989,6 +2097,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jResponsavel.setBackground(Color.white);
         jHorarioInicial.setBackground(Color.white);
         jHorarioTermino.setBackground(Color.white);
+        jIdKit.setBackground(Color.white);
+        jIdRegistroComp.setBackground(Color.white);
         jComboBoxTipoKit.setBackground(Color.white);
         jComboBoxPavilhao.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
@@ -2030,6 +2140,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jResponsavel.setText("");
         jHorarioInicial.setText("");
         jHorarioTermino.setText("");
+        jIdKit.setText("");
+        jIdRegistroComp.setText("");
         jComboBoxTipoKit.setSelectedItem("Selecione...");
         jComboBoxPavilhao.setSelectedItem("Selecione...");
         jObservacao.setText("");
@@ -2063,6 +2175,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        jBtPesquisarKit.setEnabled(!true);
         //               
         jBtNovoInterno.setEnabled(!true);
         jBtAlterarInterno.setEnabled(!true);
@@ -2085,9 +2198,11 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jDataLanc.setEnabled(true);
         jHorarioInicial.setEnabled(true);
         jHorarioTermino.setEnabled(true);
-        jComboBoxTipoKit.setEnabled(true);
+        // jComboBoxTipoKit.setEnabled(true);
         jComboBoxPavilhao.setEnabled(true);
         jObservacao.setEnabled(true);
+        //
+        jBtPesquisarKit.setEnabled(true);
         //        
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -2098,9 +2213,11 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         jResponsavel.setEnabled(true);
         jHorarioInicial.setEnabled(true);
         jHorarioTermino.setEnabled(true);
-        jComboBoxTipoKit.setEnabled(true);
+        //  jComboBoxTipoKit.setEnabled(true);
         jObservacao.setEnabled(true);
         //        
+        jBtPesquisarKit.setEnabled(true);
+        //
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
@@ -2108,6 +2225,8 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
     public void Excluir() {
         bloquearCampos();
         bloquearBotoes();
+        limparCampos();
+        limparCamposManutencao();
         jBtNovo.setEnabled(true);
     }
 
@@ -2157,6 +2276,22 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
             objPag.setIdPagto(Integer.parseInt(jIdLanc.getText()));
             control.finalizarPagamentoKit(objPag);
             jStatusLanc.setText("FINALIZADO");
+            //INFORMAR QUE O KIT FOI PAGO.
+            objComp.setIdRegistroComp(Integer.valueOf(jIdRegistroComp.getText()));
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                java.sql.Date data = new java.sql.Date(format.parse(jDataSistema.getText()).getTime());
+                objComp.setDataPagamentoKit(data);
+            } catch (ParseException ex) {
+                Logger.getLogger(TelaPagamentoKitInternoCPK.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            objComp.setKitPago(pRespostaKit);
+            controlPagoKit.confirmarPagamentoKit(objComp);
+            //CONFIRMAR O PAGAMENTO DO KIT TAMBÉM NA TABELA "PROGRAMACAO_PAGAMENTO_KITS_INTERNOS" DA PROGRAMAÇÃO INDEPENDENTE.
+            objComp.setIdKit(Integer.valueOf(jIdKit.getText()));
+            objComp.setKitPago("Sim");
+            controlPagoKit.confirmarPagamentoKitProgramacao(objComp);
+            //
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
             JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
@@ -2583,5 +2718,43 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserB1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserB1 + "'");
+            conecta.rs.first();
+            codigoUserGroupB1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoB1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoB1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserB1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoB1 = conecta.rs.getInt("IdUsuario");
+            codAbrirB1 = conecta.rs.getInt("Abrir");
+            codIncluirB1 = conecta.rs.getInt("Incluir");
+            codAlterarB1 = conecta.rs.getInt("Alterar");
+            codExcluirB1 = conecta.rs.getInt("Excluir");
+            codGravarB1 = conecta.rs.getInt("Gravar");
+            codConsultarB1 = conecta.rs.getInt("Consultar");
+            nomeTelaB1 = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

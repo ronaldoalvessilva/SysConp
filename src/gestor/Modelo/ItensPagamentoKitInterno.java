@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class ItensPagamentoKitInterno {
 
-    private int idItem;
+   private int idItem;
     private int idPagto;
     private int idInternoCrc;
     private String nomeInternoCrcKit;
@@ -57,13 +57,15 @@ public class ItensPagamentoKitInterno {
     private int sabaoPo;
     private int kitDecimal;
     private int kitMensal; 
-    private int kitSemestral;     
+    private int kitSemestral;
     private int kitPersonalizado;
+    private Date dataPagto;
+    private String kitPago;    
 
     public ItensPagamentoKitInterno() {
     }
 
-    public ItensPagamentoKitInterno(int idItem, int idPagto, int idInternoCrc, String nomeInternoCrcKit, int copo, int prato, int colher, int vasilha, int garfo, int absorvente, int bermuda, int lencol, int colchao, int toalha, int camisa, int cueca, int sandalia, int cremeDental, int sabonete, int papelHigienico, int barbeador, int escovaDente, int mostraTodos, int kitInicial, int kitQuinzenal, int tipoEntrada, Date dataEntrega, String horaEntrega, byte[] assinaturaDigital, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int cobertor, int bolaJogo, int calcaoJogo, int camisaJogo, int parMeiao, int desodorante, int sabaoPo, int kitDecimal, int kitMensal, int kitSemestral, int kitPersonalizado) {
+    public ItensPagamentoKitInterno(int idItem, int idPagto, int idInternoCrc, String nomeInternoCrcKit, int copo, int prato, int colher, int vasilha, int garfo, int absorvente, int bermuda, int lencol, int colchao, int toalha, int camisa, int cueca, int sandalia, int cremeDental, int sabonete, int papelHigienico, int barbeador, int escovaDente, int mostraTodos, int kitInicial, int kitQuinzenal, int tipoEntrada, Date dataEntrega, String horaEntrega, byte[] assinaturaDigital, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int cobertor, int bolaJogo, int calcaoJogo, int camisaJogo, int parMeiao, int desodorante, int sabaoPo, int kitDecimal, int kitMensal, int kitSemestral, int kitPersonalizado, Date dataPagto, String kitPago) {
         this.idItem = idItem;
         this.idPagto = idPagto;
         this.idInternoCrc = idInternoCrc;
@@ -110,6 +112,8 @@ public class ItensPagamentoKitInterno {
         this.kitMensal = kitMensal;
         this.kitSemestral = kitSemestral;
         this.kitPersonalizado = kitPersonalizado;
+        this.dataPagto = dataPagto;
+        this.kitPago = kitPago;
     }
 
     /**
@@ -755,5 +759,32 @@ public class ItensPagamentoKitInterno {
     public void setKitPersonalizado(int kitPersonalizado) {
         this.kitPersonalizado = kitPersonalizado;
     }
-    
+
+    /**
+     * @return the dataPagto
+     */
+    public Date getDataPagto() {
+        return dataPagto;
+    }
+
+    /**
+     * @param dataPagto the dataPagto to set
+     */
+    public void setDataPagto(Date dataPagto) {
+        this.dataPagto = dataPagto;
+    }
+
+    /**
+     * @return the kitPago
+     */
+    public String getKitPago() {
+        return kitPago;
+    }
+
+    /**
+     * @param kitPago the kitPago to set
+     */
+    public void setKitPago(String kitPago) {
+        this.kitPago = kitPago;
+    }
 }

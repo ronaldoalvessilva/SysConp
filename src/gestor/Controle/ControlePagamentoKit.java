@@ -6,7 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.PagamentoKitInterno;
+import gestor.Modelo.ComposicaoKit;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -18,94 +18,37 @@ import javax.swing.JOptionPane;
 public class ControlePagamentoKit {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    PagamentoKitInterno objPag = new PagamentoKitInterno();
+     ComposicaoKit objComp = new ComposicaoKit();
+    
+    public ComposicaoKit confirmarPagamentoKit(ComposicaoKit objComp) {
 
-    int codPav;
-
-    public PagamentoKitInterno incluirPagamentoKit(PagamentoKitInterno objPag) {
-        buscarPavilhao(objPag.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PAGAMENTO_KIT_INTERNOS (StatusLanc,DataLanc,Responsavel,HoraInicio,HoraTermino,TipoKit,IdPav,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setString(1, objPag.getStatusLanc());
-            pst.setTimestamp(2, new java.sql.Timestamp(objPag.getDataLanc().getTime()));
-            pst.setString(3, objPag.getResponsavel());
-            pst.setString(4, objPag.getHoraInicio());
-            pst.setString(5, objPag.getHoraTermino());
-            pst.setString(6, objPag.getTipoKit());
-            pst.setInt(7, codPav);
-            pst.setString(8, objPag.getObservacao());
-            pst.setString(9, objPag.getUsuarioInsert());
-            pst.setString(10, objPag.getDataInsert());
-            pst.setString(11, objPag.getHorarioInsert());
-            pst.execute();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO:" + ex);
-        }
-        conecta.desconecta();
-        return objPag;
-    }
-
-    public PagamentoKitInterno alterarPagamentoKit(PagamentoKitInterno objPag) {
-        buscarPavilhao(objPag.getDescricaoPavilhao());
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PAGAMENTO_KIT_INTERNOS SET StatusLanc=?,DataLanc=?,Responsavel=?,HoraInicio=?,HoraTermino=?,TipoKit=?,IdPav=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdPagto='" + objPag.getIdPagto() + "'");
-            pst.setString(1, objPag.getStatusLanc());
-            pst.setTimestamp(2, new java.sql.Timestamp(objPag.getDataLanc().getTime()));
-            pst.setString(3, objPag.getResponsavel());
-            pst.setString(4, objPag.getHoraInicio());
-            pst.setString(5, objPag.getHoraTermino());
-            pst.setString(6, objPag.getTipoKit());
-            pst.setInt(7, codPav);
-            pst.setString(8, objPag.getObservacao());
-            pst.setString(9, objPag.getUsuarioUp());
-            pst.setString(10, objPag.getDataUp());
-            pst.setString(11, objPag.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE SET KitPago=?,DataPagamento=? "
+                    + "WHERE IdRegistroComp='" + objComp.getIdRegistroComp() + "'");
+            pst.setString(1, objComp.getKitPago());
+            pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataPagamentoKit().getTime()));
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR registro.\nERRO: " + ex);
         }
         conecta.desconecta();
-        return objPag;
+        return objComp;
     }
-
-    public PagamentoKitInterno excluirPagamentoKit(PagamentoKitInterno objPag) {
+    
+    public ComposicaoKit confirmarPagamentoKitProgramacao(ComposicaoKit objComp) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE PAGAMENTO_KIT_INTERNOS WHERE IdPagto='" + objPag.getIdPagto() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PROGRAMACAO_PAGAMENTO_KITS_INTERNOS SET KitPago=?,DataPagamento=? "
+                    + "WHERE IdKit='" + objComp.getIdKit() + "'");
+            pst.setString(1, objComp.getKitPago());
+            pst.setTimestamp(2, new java.sql.Timestamp(objComp.getDataPagamentoKit().getTime()));
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR registro.\nERRO: " + ex);
         }
         conecta.desconecta();
-        return objPag;
-    }
-
-    public PagamentoKitInterno finalizarPagamentoKit(PagamentoKitInterno objPag) {
-
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PAGAMENTO_KIT_INTERNOS SET StatusLanc=? WHERE IdPagto='" + objPag.getIdPagto() + "'");
-            pst.setString(1, objPag.getStatusLanc());
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO:" + ex);
-        }
-        conecta.desconecta();
-        return objPag;
-    }
-
-    public void buscarPavilhao(String desc) {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PAVILHAO WHERE DescricaoPav='" + desc + "'");
-            conecta.rs.first();
-            codPav = conecta.rs.getInt("IdPav");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não existe dados (PAVILHÃO) a ser exibido !!!" + e);
-        }
-        conecta.desconecta();
+        return objComp;
     }
 }

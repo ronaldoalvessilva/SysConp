@@ -1302,7 +1302,7 @@ public class TelaPrevisaoKitHigiene extends javax.swing.JDialog {
                     + "WHERE IdRegistroComp='" + jIdRegistroComp.getText() + "' ");
             conecta.rs.first();
             gerado = conecta.rs.getString("ProgGerada");
-            idRegistro = conecta.rs.getString("IdRegistroComp");
+            idRegistro = conecta.rs.getString("IdRegistroComp");            
         } catch (Exception e) {
         }
         conecta.desconecta();

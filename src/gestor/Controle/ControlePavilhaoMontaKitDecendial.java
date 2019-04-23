@@ -10,13 +10,18 @@ import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
 import gestor.Modelo.PavilhaoInternosSelecionados;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jComboBoxPavilhoes;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.jDataComp;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternos;
+import static gestor.Visao.TelaMontagemPagamentoKitInterno.qtdInternosKD;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,8 +40,20 @@ public class ControlePavilhaoMontaKitDecendial {
     String kitDecendial = "Não";
     String kitPago = "Não";
     String data = "";
+    String pUtilizado = "Não";
+    String dataPesquisa = "";
+    String kitGerado = "Não";
 
     public List<PavilhaoInternoMontaKit> read() throws Exception {
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+            dataPesquisa = formatoAmerica.format(jDataComp.getDate().getTime());
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataPesquisa = formatoAmerica.format(jDataComp.getDate().getTime());
+        }
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
         try {
@@ -52,9 +69,13 @@ public class ControlePavilhaoMontaKitDecendial {
                     + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoEntrada + "' "
                     + "AND KITS_DECENDIAL_INTERNOS.KitPago='" + kitPago + "' "
+                    + "AND KITS_DECENDIAL_INTERNOS.DataPrevisaoPro='" + dataPesquisa + "' "
+                    + "AND KITS_DECENDIAL_INTERNOS.Utilizado='" + pUtilizado + "' "
                     + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhoes.getSelectedItem() + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRetorno + "' "
                     + "AND KITS_DECENDIAL_INTERNOS.KitPago='" + kitPago + "' "
+                    + "AND KITS_DECENDIAL_INTERNOS.DataPrevisaoPro='" + dataPesquisa + "' "
+                    + "AND KITS_DECENDIAL_INTERNOS.Utilizado='" + pUtilizado + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
@@ -64,7 +85,8 @@ public class ControlePavilhaoMontaKitDecendial {
                 pDigi.setIdPav(conecta.rs.getInt("IdPav"));
                 pDigi.setDescricaoPav(conecta.rs.getString("DescricaoPav"));
                 listaInternosPavilhao.add(pDigi);
-                qtdInternos = qtdInternos + 1;
+                qtdInternosKD++;
+                qtdInternos++;
             }
             return listaInternosPavilhao;
         } catch (SQLException ex) {
@@ -93,5 +115,21 @@ public class ControlePavilhaoMontaKitDecendial {
             proximaData = dia + "/" + mes + "/" + ano;
             conecta.desconecta();
         }
+    }
+
+    public void buscarDataPrevisaoKitConverter() {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+        dataPesquisa = formatoAmerica.format(jDataComp.getDate().getTime());
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM KITS_DECENDIAL_INTERNOS "
+                    + "WHERE Utilizado='" + pUtilizado + "' "
+                    + "AND KitPago='" + kitPago + "' "
+                    + "AND DataPrevisaoPro='" + dataPesquisa + "'");
+            conecta.rs.first();
+
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

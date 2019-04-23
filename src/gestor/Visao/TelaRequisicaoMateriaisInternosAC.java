@@ -1609,6 +1609,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL) && codIncluirAL == 1) {
             acao = 1;
             Novo();
@@ -1623,6 +1624,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL) && codAlterarAL == 1) {
             objReqMatInter.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1641,6 +1643,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL) && codExcluirAL == 1) {
             objReqMatInter.setStatusReq(jStatusReq.getText());
             if (jStatusReq.getText().equals("FINALIZADO")) {
@@ -1658,6 +1661,7 @@ public class TelaRequisicaoMateriaisInternosAC extends javax.swing.JInternalFram
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(telaMovimentacaoRequisiacaoInternoKitUnicoManuAL) && codGravarAL == 1) {
             if (jDataReq.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da requisição.");

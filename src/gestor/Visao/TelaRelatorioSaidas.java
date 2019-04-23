@@ -83,6 +83,7 @@ public class TelaRelatorioSaidas extends javax.swing.JInternalFrame {
         jPesqOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqOperacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqOperacao.setContentAreaFilled(false);
         jBtPesqOperacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqOperacaoActionPerformed(evt);
@@ -205,8 +206,13 @@ public class TelaRelatorioSaidas extends javax.swing.JInternalFrame {
     private void jBtPesqOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqOperacaoActionPerformed
         // TODO add your handling code here:
         TelaPesquisaOpSaidaRelatorio objPesqOp = new TelaPesquisaOpSaidaRelatorio();
-        TelaModuloCRC.jPainelCRC.add(objPesqOp);
-        objPesqOp.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaModuloCRC.jPainelCRC.add(objPesqOp);
+            objPesqOp.show();
+        } else if (TelaModuloAlmoxarifado.jPainelAlmoxarifado != null) {
+            TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesqOp);
+            objPesqOp.show();
+        }
     }//GEN-LAST:event_jBtPesqOperacaoActionPerformed
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed

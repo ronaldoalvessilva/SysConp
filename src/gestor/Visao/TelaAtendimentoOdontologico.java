@@ -128,8 +128,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     String atendido = "Sim";
     String opcao = "Não";
     public static int codigoDepartamentoODON = 0;
-    String tipoAtendimentoAdm = "Admissão Juridico";
-    String tipoAtendimentoEvol = "Evolução Juridico";
+    String tipoAtendimentoAdm = "Admissão Odontologica";
+    String tipoAtendimentoEvol = "Evolução Odontologica";
     //
     String pHabilitaOdonto = "";
     // EM FASE DE TESTE INICIO (01/09/2017)

@@ -24,8 +24,12 @@ public class HistoricoMovimentacaoEstoque {
     private Date dataMov;
     private float qtdItem;
     private float saldoAtual;   
+    private int pQtdItemKit;
 
-    public HistoricoMovimentacaoEstoque(int idHistorico, int idProd, int idLocal, String descricaoLocal, String tipoOpe, String nomeOperacao, String loteProduto, int idDoc, Date dataMov, float qtdItem, float saldoAtual) {
+    public HistoricoMovimentacaoEstoque() {
+    }
+
+    public HistoricoMovimentacaoEstoque(int idHistorico, int idProd, int idLocal, String descricaoLocal, String tipoOpe, String nomeOperacao, String loteProduto, int idDoc, Date dataMov, float qtdItem, float saldoAtual, int pQtdItemKit) {
         this.idHistorico = idHistorico;
         this.idProd = idProd;
         this.idLocal = idLocal;
@@ -37,9 +41,7 @@ public class HistoricoMovimentacaoEstoque {
         this.dataMov = dataMov;
         this.qtdItem = qtdItem;
         this.saldoAtual = saldoAtual;
-    }
-
-    public HistoricoMovimentacaoEstoque() {
+        this.pQtdItemKit = pQtdItemKit;
     }
 
     /**
@@ -194,5 +196,19 @@ public class HistoricoMovimentacaoEstoque {
      */
     public void setSaldoAtual(float saldoAtual) {
         this.saldoAtual = saldoAtual;
+    }
+
+    /**
+     * @return the pQtdItemKit
+     */
+    public int getpQtdItemKit() {
+        return pQtdItemKit;
+    }
+
+    /**
+     * @param pQtdItemKit the pQtdItemKit to set
+     */
+    public void setpQtdItemKit(int pQtdItemKit) {
+        this.pQtdItemKit = pQtdItemKit;
     }
 }
