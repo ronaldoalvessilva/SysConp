@@ -124,9 +124,9 @@ public class ControleItensEntradasLote {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO KITS_INICIAL_INTERNOS (IdInternoCrc,DataChegada,KitPago,Utilizado) VALUES(?,?,?,?)");            
             pst.setInt(1, codInt);
-            pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataChegada().getTime()));
-            pst.setString(3, objProCrc.getUtilizado());
-            pst.setString(4, objProCrc.getKitDecendial());            
+            pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataChegada().getTime()));            
+            pst.setString(3, objProCrc.getKitPago());   
+            pst.setString(4, objProCrc.getUtilizado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados do KIT do INTERNO.\n\nERRO: " + ex);

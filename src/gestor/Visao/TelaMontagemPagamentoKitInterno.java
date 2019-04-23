@@ -2786,6 +2786,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
         // TODO add your handling code here:  
+        count2 = 0;
+        qtdInternos = 0;
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
         if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
@@ -2851,6 +2853,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtSelecionarTodosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosInternosActionPerformed
         // TODO add your handling code here:
         flag = 0;
+        count2 = 0;
+        qtdInternos = 0;
         Integer rows = jTabelaInternos.getModel().getRowCount();
         Integer row0 = jTabelaInternosSelecionados.getModel().getRowCount();
         if (rows != 0) {
@@ -2860,7 +2864,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : controle.read()) {
-//                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
                         if (row0 == 0) {
                             jtotalInternosSelecionados.setText(jtotalInternosPavilhao.getText()); // Converter inteiro em string para exibir na tela     
                         } else {
@@ -3100,6 +3103,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoActionPerformed
         // TODO add your handling code here:
+        count2 = 0;
+        qtdInternos = 0;
         Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
         if (rows != 0) {
             if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
