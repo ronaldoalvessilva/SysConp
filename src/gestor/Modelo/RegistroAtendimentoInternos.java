@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class RegistroAtendimentoInternos {
 
+    /**
+     * @return the qtdAtendSem
+     */
     private int idRegistro;
     private Date dataReg;
     private String horario;
@@ -21,8 +24,8 @@ public class RegistroAtendimentoInternos {
     private String tipoAtemdimento;
     private int idDepartamento;
     private String nomeDepartamento;
-    private byte[] assinaturaDigital; 
-    private byte[] assinaturaLiberador; 
+    private byte[] assinaturaDigital;
+    private byte[] assinaturaLiberador;
     private String atendido;
     private String usuarioInsert;
     private String usuarioUp;
@@ -30,9 +33,9 @@ public class RegistroAtendimentoInternos {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;
-    private Date dataAtendimento;    
+    private Date dataAtendimento;
     private int IdAtend;
-    private int IdEvol;  
+    private int IdEvol;
     private String atendeEvol;
     private String impressaoAuto;
     private int codigoFunc;
@@ -41,11 +44,13 @@ public class RegistroAtendimentoInternos {
     private String horaAssinatura;
     private String motivoImpressao;
     private int qtdAtend;
-    
+    private int qtdAtendSem;
+    private int qtdAtendMes;
+
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtd) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtdAtendSem, int qtdAtendMes) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -74,7 +79,8 @@ public class RegistroAtendimentoInternos {
         this.horaAssinatura = horaAssinatura;
         this.motivoImpressao = motivoImpressao;
         this.qtdAtend = qtdAtend;
-        
+        this.qtdAtendSem = qtdAtendSem;
+        this.qtdAtendMes = qtdAtendMes;
     }
 
     /**
@@ -459,7 +465,7 @@ public class RegistroAtendimentoInternos {
      * @return the qtdAtend
      */
     public int getQtdAtend() {
-      
+
         return qtdAtend;
     }
 
@@ -469,5 +475,31 @@ public class RegistroAtendimentoInternos {
     public void setQtdAtend(int qtdAtend) {
         this.qtdAtend = qtdAtend;
     }
+
+    public int getQtdAtendSem() {
+        return qtdAtendSem;
+    }
+
+    /**
+     * @param qtdAtendSem the qtdAtendSem to set
+     */
+    public void setQtdAtendSem(int qtdAtendSem) {
+        this.qtdAtendSem = qtdAtendSem;
+    }
+
+    /**
+     * @return the qtdAtendMes
+     */
+    public int getQtdAtendMes() {
+        return qtdAtendMes;
+    }
+
+    /**
+     * @param qtdAtendMes the qtdAtendMes to set
+     */
+    public void setQtdAtendMes(int qtdAtendMes) {
+        this.qtdAtendMes = qtdAtendMes;
+    }
+    
     
 }
