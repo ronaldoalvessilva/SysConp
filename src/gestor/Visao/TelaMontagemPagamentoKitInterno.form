@@ -424,6 +424,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtCancelar" linkSize="8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBtHelp" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                           <Component id="jBtAuditoria" min="-2" pref="33" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -440,6 +442,7 @@
                               <Component id="jBtNovo" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtExcluir" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtSalvar" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtHelp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -535,6 +538,16 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtHelp">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/Ajuda_8446_16x16.png"/>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtHelpActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

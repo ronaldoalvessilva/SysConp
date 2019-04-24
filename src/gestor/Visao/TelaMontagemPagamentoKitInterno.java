@@ -50,6 +50,9 @@ import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitProdut
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -315,6 +318,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtNovo = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
+        jBtHelp = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -643,6 +647,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -659,6 +670,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -675,7 +688,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     .addComponent(jBtAuditoria)
                     .addComponent(jBtNovo)
                     .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar))
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtHelp))
                 .addContainerGap())
         );
 
@@ -4250,6 +4264,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         mostrarProgramacao();
     }//GEN-LAST:event_jBtProgramacaoActionPerformed
 
+    private void jBtHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHelpActionPerformed
+        // TODO add your handling code here:
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File("C:\\SysConp\\Manuais\\1 - REQUISITOS PARA COMPOR KIT DE HIGIENE DO CUSTODIADO.pdf\\"));
+        } catch (IOException ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtHelpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -4278,6 +4302,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtExcluirUmInterno;
     private javax.swing.JButton jBtExcluirUmInternoAgrupado;
     public static javax.swing.JButton jBtFinalizar;
+    private javax.swing.JButton jBtHelp;
     public static javax.swing.JButton jBtNovo;
     public static javax.swing.JButton jBtNovoPavInternos;
     public static javax.swing.JButton jBtNovoProduto;
