@@ -46,12 +46,13 @@ public class ControleListaTecnicosProdutividadePSP {
                         + "SUM(CASE WHEN REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento >= DATEADD(WEEK, DATEDIFF(WEEK, 0, GETDATE()),0) THEN REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd END) AS TotalSemanal, "
                         + "SUM(CASE WHEN REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento >= DATEADD(WEEK, DATEDIFF(MONTH, 0, GETDATE()),0) THEN REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd END) AS TotalMensal "
                         + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                        + "INNER JOIN DEPARTAMENTOS "
+                        + "FULL JOIN DEPARTAMENTOS "
                         + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "INNER JOIN COLABORADOR "
+                        + "FULL JOIN COLABORADOR "
                         + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdFunc=COLABORADOR.IdFunc "
-                        + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento>='" + dataInicial + "' "
-                        + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento<='" + dataFinal + "' "
+                        + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido LIKE 'Sim' AND "
+                        + "REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento>='" + dataInicial + "' "
+                        + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento<='" + dataFinal + "' " 
                         + "GROUP BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, DEPARTAMENTOS.NomeDepartamento, REGISTRO_ATENDIMENTO_INTERNO_PSP.Qtd");
                 while (conecta.rs.next()) {
                     RegistroAtendimentoInternos pDigi = new RegistroAtendimentoInternos();
