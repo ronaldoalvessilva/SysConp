@@ -868,7 +868,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
         preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdReg='" + jIDPesqAtend.getText() + "' "
+                + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + jIDPesqAtend.getText() + "' "
                 + "AND IdDepartamento='" + codigoDepto + "'");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
 

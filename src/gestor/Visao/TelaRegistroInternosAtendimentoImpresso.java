@@ -958,7 +958,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdReg='" + jIDPesqAtend.getText() + "' "
+                + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + jIDPesqAtend.getText() + "' "
                 + "AND IdDepartamento='" + codigoDepto + "'"
                 + "AND Impresso='" + pImpressao + "'");
     }//GEN-LAST:event_jBtIdPesqAtendActionPerformed
@@ -986,7 +986,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                         preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "' "
                                 + "AND IdDepartamento='" + codigoDepto + "'"
                                 + "AND Impresso='" + pImpressao + "'");
@@ -1011,7 +1011,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                         preencherTabelaRegistros("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "WHERE DataReg BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "' "
                                 + "AND IdDepartamento='" + codigoDepto + "'"
                                 + "AND Impresso='" + pImpressao + "'");
