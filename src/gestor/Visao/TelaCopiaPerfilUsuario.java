@@ -66,6 +66,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
     //
     int codigoUser = 0;
     String User = "";
+    String nomeTelaUser = "";
 
     public static TelaUsuarios telaUsuarios;
 
@@ -136,7 +137,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
         jTabelaAcessos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAcessos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Consultar", "Nome do Módulo"
@@ -235,7 +236,14 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "É necessário selecionar um usuário para fazer a cópia do pérfil...");
         } else {
             if (codigoUsuario.equals(User)) {
-                JOptionPane.showMessageDialog(rootPane, "Não e possível realizar essa operação, já existe usuário com acessos.");
+                int resposta = JOptionPane.showConfirmDialog(this, "Usuário já tem acesso configurado, deseja sobrepor mesmo assim os acessos antigos pelo(s) novo(s)?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    buscarCodigoUsuario();
+                    copiarPerfil();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Cópia concluida com sucesso.!!!");
+                }
             } else {
                 buscarCodigoUsuario();
                 copiarPerfil();
@@ -367,7 +375,12 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
             objTelaAcesso.setDataInsert(dataModFinal);
             objTelaAcesso.setHorarioInsert(horaMov);
             //
-            controlaAcess.incluirTelaAcesso(objTelaAcesso);
+            verificarTelaAcesso();
+            if (jTabelaAcessos.getValueAt(i, 1) == nomeTelaUser) {
+                controlaAcess.alterarTelaAcesso(objTelaAcesso);
+            } else {
+                controlaAcess.incluirTelaAcesso(objTelaAcesso);
+            }
         }
     }
 
@@ -496,6 +509,7 @@ public class TelaCopiaPerfilUsuario extends javax.swing.JDialog {
                     + "WHERE IdUsuario='" + User + "'");
             conecta.rs.first();
             codigoUsuario = conecta.rs.getString("IdUsuario");
+            nomeTelaUser = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
