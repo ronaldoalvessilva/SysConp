@@ -2800,15 +2800,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
         // TODO add your handling code here:  
-        count2 = 0;
-        qtdInternos = 0;
+//        count2 = 0;
+//        qtdInternos = 0;
+//        qtdTotal = 0;
+//        qtdInternosKD = 0;
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
-        if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-            count2 = count2 + 1;
-            qtdInternos = qtdInternos - 1;
-            jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+        if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
+            if (row == 0) {
+                count2 = count2 + 1;
+                qtdInternos = qtdInternos - 1;
+                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            } else if (row != 0) {
+                qtdTotal = count2 + qtdInternosKD;
+                jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+            }
             //Pega os models das listas, para fazer as inserções e remoções
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternos.getModel();
             DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
@@ -2934,8 +2941,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     if (row0 == 0) {
                         jtotalInternosSelecionados.setText(Integer.toString(qtdInternos));
                         qtdTotal = qtdInternos;
-                    } else if (row0 != 0) {//jTabelaInternosSelecionados
-//                        qtdTotal = qtdTotal + qtdInternosKD;
+                    } else if (row0 != 0) {
                         qtdTotal += qtdInternosKD;
                         jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
                     }
@@ -2956,7 +2962,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     }
                 }
                 // LIMPAR O TOTALIZADOR DA TABELA
-                jtotalInternosPavilhao.setText("");
+                jtotalInternosPavilhao.setText("0");
+                qtdInternos = 0;
                 //KIT QUINZENAL
             } else if (pTipoKitCI == 3) {
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
@@ -3117,15 +3124,23 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoActionPerformed
         // TODO add your handling code here:
-        count2 = 0;
-        qtdInternos = 0;
         Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
+        Integer row0 = jTabelaInternos.getModel().getRowCount();
         if (rows != 0) {
-            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-                count2 = count2 - 1;
-                qtdInternos = qtdInternos + 1;
-                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
+                if (row0 == 0) {
+                    qtdInternos = 0;
+                    qtdInternos++;
+                    count2 = 0;
+                    count2 = qtdTotal - 1;
+                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                } else if (row0 != 0) {
+                    qtdInternos++;
+                    count2 = count2 - 1;
+                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                }
                 //Pega os models das listas, para fazer as inserções e remoções
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
                 DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
@@ -3187,6 +3202,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             // KIT DECENDIAL
         } else if (pTipoKitCI == 2) {
             if (rows != 0) {
+                // APAGAR DADOS DA TABELA ANTES DE POPULAR
+                while (jTabelaInternos.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+                }
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -3201,7 +3220,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         //
                         jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                         jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TelaMontagemPagamentoKitInterno.class
