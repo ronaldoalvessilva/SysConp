@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 //import gestor.Modelo.clsDataHora;
+import Util.Produtividade.Produtividade;
 import com.sun.glass.events.KeyEvent;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
@@ -7051,15 +7052,21 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
-        // TODO add your handling code here:
-        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
-        this.jPanielPrincipal.add(tpPSP);
-        tpPSP.show();
-        try {
-            tpPSP.setMaximum(!true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+         Produtividade pPSP = new Produtividade();
+       // this.jPanielPrincipal.add(pPSP);
+        pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pPSP.setExtendedState(MAXIMIZED_BOTH);
+        pPSP.setVisible(true);       
+        
+//        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
+//        this.jPanielPrincipal.add(tpPSP);
+//        tpPSP.show();
+//        try {
+//            tpPSP.setMaximum(!true);
+//        } catch (PropertyVetoException ex) {
+//            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 //        private TelaPeriodoProdutividade objPeriodoProdPSP = null;
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
 

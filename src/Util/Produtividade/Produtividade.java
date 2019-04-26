@@ -8,18 +8,15 @@ package Util.Produtividade;
 import gestor.Controle.ControleListaTecnicosProdutividadePSP;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ronaldo.silva7
  */
-public class Produtividade extends javax.swing.JFrame{
+public class Produtividade extends javax.swing.JFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleListaTecnicosProdutividadePSP control = new ControleListaTecnicosProdutividadePSP();
@@ -56,6 +53,16 @@ public class Produtividade extends javax.swing.JFrame{
             }
         };
         threadRelogio.start();
+        
+         Thread threadTabela = new Thread() {
+
+            @Override
+            public void run() {
+                atualizaTabela();
+            }
+        };
+        threadTabela.start();
+        
 
         Date data = new Date();
         String hora = formatter.format(data); // Data da conexão
@@ -84,6 +91,7 @@ public class Produtividade extends javax.swing.JFrame{
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanelCabecalho = new javax.swing.JPanel();
         jLabelCabecalho = new javax.swing.JLabel();
@@ -545,7 +553,6 @@ public class Produtividade extends javax.swing.JFrame{
 //        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setCellRenderer(centralizado);
 //        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setCellRenderer(centralizado);
 //    }
-
 //    public void limparTabelaEvolucao() {
 //        ArrayList dados = new ArrayList();
 //        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
@@ -562,12 +569,11 @@ public class Produtividade extends javax.swing.JFrame{
 //        jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //        modelo.getLinhas().clear();
 //    }
-    
-    public void limpaTabela(){
+    public void limpaTabela() {
+
         ((DefaultTableModel) jTabelaAtendimentoProdutivida.getModel()).setRowCount(0);
-        
     }
-        
+
     public void mostrarDemostrativoPSP() {
         DefaultTableModel dadosProduto = (DefaultTableModel) jTabelaAtendimentoProdutivida.getModel();
         RegistroAtendimentoInternos p = new RegistroAtendimentoInternos();
@@ -581,7 +587,7 @@ public class Produtividade extends javax.swing.JFrame{
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                
+
 //                DefaultTableCellRenderer corCabecalho = new DefaultTableCellRenderer();
 //                corCabecalho.setBackground(new Color(0,153,204));
 //                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setHeaderRenderer(corCabecalho);
@@ -590,7 +596,6 @@ public class Produtividade extends javax.swing.JFrame{
 //                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setHeaderRenderer(corCabecalho);
 //                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(4).setHeaderRenderer(corCabecalho);
 //                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(5).setHeaderRenderer(corCabecalho);
-                
                 //
                 jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setCellRenderer(centralizado);
                 jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setCellRenderer(centralizado);
@@ -598,8 +603,8 @@ public class Produtividade extends javax.swing.JFrame{
                 int total = 0;
                 for (int i = 0; i < dadosProduto.getRowCount(); i++) {
                     total += Integer.parseInt(dadosProduto.getValueAt(i, 2).toString());// 3rd column . row column indexes are 0 based   
-                                     
-                }   
+
+                }
                 jTabelaAtendimentoProdutivida.revalidate();
             }
         } catch (Exception ex) {
@@ -620,6 +625,16 @@ public class Produtividade extends javax.swing.JFrame{
         } catch (InterruptedException ex) {
         }
     }
-
+    
+    public void atualizaTabela() {
+        try {
+            while(true) {
+                 limpaTabela();
+                 mostrarDemostrativoPSP(); 
+                 Thread.sleep(60000);
+            }
+        } catch (Exception e) {
+        }
+    }
 
 }
