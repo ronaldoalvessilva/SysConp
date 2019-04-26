@@ -235,6 +235,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         ListagemColaboradores = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         FrequenciaColaboradoresPorDepartamento = new javax.swing.JMenuItem();
+        RelatorioIndividualColaboradorFrequencia = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
@@ -485,6 +486,15 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             }
         });
         jMenu4.add(FrequenciaColaboradoresPorDepartamento);
+
+        RelatorioIndividualColaboradorFrequencia.setForeground(new java.awt.Color(0, 0, 204));
+        RelatorioIndividualColaboradorFrequencia.setText("Relatório Individual de Colaboradores (Frequência)");
+        RelatorioIndividualColaboradorFrequencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RelatorioIndividualColaboradorFrequenciaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(RelatorioIndividualColaboradorFrequencia);
 
         Relatorios.add(jMenu4);
         Relatorios.add(jSeparator7);
@@ -1127,6 +1137,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         objRelVeicUni.show();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void RelatorioIndividualColaboradorFrequenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioIndividualColaboradorFrequenciaActionPerformed
+        // TODO add your handling code here:TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual
+        TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual objRelFuncPortInd = new TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelFuncPortInd);
+        objRelFuncPortInd.show();
+    }//GEN-LAST:event_RelatorioIndividualColaboradorFrequenciaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1144,6 +1161,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioCargos;
     private javax.swing.JMenuItem RelatorioCidades;
     private javax.swing.JMenuItem RelatorioDepartamento;
+    private javax.swing.JMenuItem RelatorioIndividualColaboradorFrequencia;
     private javax.swing.JMenuItem RelatorioPaises;
     private javax.swing.JMenu Relatorios;
     private javax.swing.JMenuItem SolicitacaoComprasAdm;
