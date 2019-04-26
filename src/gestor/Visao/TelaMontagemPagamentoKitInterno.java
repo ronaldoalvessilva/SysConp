@@ -4237,14 +4237,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtProgramarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramarKitActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(botaoProgramarKitAL);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
-            if (jStatusComp.getText().equals("FINALIZADO")) {
-                mostrarTelaPrevisaoKit();
-            } else {
-                JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
-            }
+//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
+        if (!nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jBtProgramarKit.setEnabled(!true);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                if (jStatusComp.getText().equals("FINALIZADO")) {
+                    mostrarTelaPrevisaoKit();
+                } else {
+                    JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+            }
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed
 
