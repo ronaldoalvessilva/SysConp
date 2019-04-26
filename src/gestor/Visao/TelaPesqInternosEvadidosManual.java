@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDataSaida;
@@ -13,6 +15,7 @@ import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdInternoEvadido;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdSaida;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jNomeInternoEvadido;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -27,6 +30,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
 
     String dataEntrada, dataSaida, dataSaidaTemp;
     String dataRetorno, dataPrevRetorno;
@@ -141,7 +145,7 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaTemporaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaIntEvadidosSaidaTemporaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão"
@@ -173,14 +177,15 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 274, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -240,16 +245,33 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {
-            preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                    + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
-                    + "AND DataEvasao='" + dataEvasao + "' "
-                    + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'");
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'");
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'");
+            }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
 
@@ -265,14 +287,33 @@ public class TelaPesqInternosEvadidosManual extends javax.swing.JInternalFrame {
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-        flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NrDocRetorno='" + NrDocRetorno + "'AND DataPrevRetorno <'" + jDataSistema.getText() + "'AND DataEvasao='" + dataEvasao + "'");
-        } else {
-            limparTabela();
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "'");
+            } else {
+                limparTabela();
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
+                        + "AND DataEvasao='" + dataEvasao + "'");
+            } else {
+                limparTabela();
+            }
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
