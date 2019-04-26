@@ -6,8 +6,10 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -21,17 +23,19 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author ronaldo
  */
-public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.JInternalFrame {
+public class TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     String dataInicial, dataFinal;
     int codigoDepto;
+    String codigoFunc = "";
 
     /**
      * Creates new form TelaRelMapaConfere
      */
-    public TelaRelatorioEntradaSaidaColaboradoresPortaria() {
+    public TelaRelatorioEntradaSaidaColaboradoresPortariaIndividual() {
         initComponents();
+        preencherComboBoxColaborador();
     }
 
     /**
@@ -46,12 +50,15 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxNomeColaborador = new javax.swing.JComboBox<>();
+        jBtConfirmar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPesDtPopInicial = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jPesDtPopFinal = new com.toedter.calendar.JDateChooser();
-        jBtConfirmar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("...::: Relatório Entrada/Saída Colaboradores  :::...");
@@ -61,15 +68,13 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Data Inicial:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Nome do Colaborador");
 
-        jPesDtPopInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data Final:");
-
-        jPesDtPopFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxNomeColaborador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxNomeColaborador.setForeground(new java.awt.Color(153, 0, 0));
+        jComboBoxNomeColaborador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxNomeColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,25 +82,22 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBoxNomeColaborador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel2)
-                    .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -118,20 +120,60 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Data Inicial:");
+
+        jPesDtPopInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Data Final:");
+
+        jPesDtPopFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPesDtPopFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jPesDtPopInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jBtConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jBtConfirmar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,6 +184,8 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
@@ -157,22 +201,27 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(550, 150, 410, 172);
+        setBounds(550, 150, 539, 225);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
+        pesquisarCodigocolaborador();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-            if (jPesDtPopInicial.getDate() == null) {
+            if (jComboBoxNomeColaborador.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do colaborador para gerar o relatório...");
+            } else if (jPesDtPopInicial.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Data inicial não pode ser em branco.");
                 jPesDtPopInicial.requestFocus();
             } else {
@@ -188,7 +237,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaColaboradores.jasper";
+                            String path = "reports/RelatorioIndividualColaborador.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
@@ -196,17 +245,19 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                                     + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
                                     + "WHERE DataEntrada>='" + dataInicial + "' "
                                     + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
-
+                                    + "AND ITENSENTRADASFUNC.IdFunc='" + codigoFunc + "'"
+                                    + "ORDER BY ITENSENTRADASFUNC.DataEntrada");
                             HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("pDataInicial", dataInicial);
+                            parametros.put("pDataFinal", dataFinal);
+                            parametros.put("pNomeUsuario", nameUser);
+                            parametros.put("pCodigo", codigoFunc);
+                            parametros.put("pDescricaoUnidade", descricaoUnidade);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Colaboradores (Frequência)");
+                            jv.setTitle("Relatório Individual de Colaboradores (Frequência)");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                             jv.toFront(); // Traz o relatorio para frente da aplicação            
                             conecta.desconecta();
@@ -233,7 +284,7 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                         dataFinal = formatoAmerica.format(jPesDtPopFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioEntradaSaidaColaboradores.jasper";
+                            String path = "reports/RelatorioIndividualColaborador.jasper";
                             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
                                     + "INNER JOIN COLABORADOR "
                                     + "ON DEPARTAMENTOS.IdDepartamento=COLABORADOR.IdDepartamento "
@@ -241,17 +292,19 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
                                     + "ON COLABORADOR.IdFunc=ITENSENTRADASFUNC.IdFunc "
                                     + "WHERE DataEntrada>='" + dataInicial + "' "
                                     + "AND DataEntrada<='" + dataFinal + "' "
-                                    + "ORDER BY DEPARTAMENTOS.IdDepartamento,ITENSENTRADASFUNC.DataEntrada");
-
+                                    + "AND ITENSENTRADASFUNC.IdFunc='" + codigoFunc + "'"
+                                    + "ORDER BY ITENSENTRADASFUNC.DataEntrada");
                             HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
-                            parametros.put("nomeUsuario", nameUser);
+                            parametros.put("pDataInicial", dataInicial);
+                            parametros.put("pDataFinal", dataFinal);
+                            parametros.put("pNomeUsuario", nameUser);
+                            parametros.put("pCodigo", codigoFunc);
+                            parametros.put("pDescricaoUnidade", descricaoUnidade);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Atividade Laborativa Externa (Frequência)");
+                            jv.setTitle("Relatório Individual de Colaboradores (Frequência)");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                             jv.toFront(); // Traz o relatorio para frente da aplicação            
                             conecta.desconecta();
@@ -273,13 +326,43 @@ public class TelaRelatorioEntradaSaidaColaboradoresPortaria extends javax.swing.
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtSair;
+    private javax.swing.JComboBox<String> jComboBoxNomeColaborador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private com.toedter.calendar.JDateChooser jPesDtPopFinal;
     private com.toedter.calendar.JDateChooser jPesDtPopInicial;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+   
 
+    public void preencherComboBoxColaborador() {
+        jComboBoxNomeColaborador.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR");
+            conecta.rs.first();
+            do {
+                jComboBoxNomeColaborador.addItem(conecta.rs.getString("NomeFunc"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarCodigocolaborador() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "WHERE NomeFunc='" + jComboBoxNomeColaborador.getSelectedItem() + "'");
+            conecta.rs.first();
+            codigoFunc = conecta.rs.getString("IdFunc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 }

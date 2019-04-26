@@ -39,12 +39,12 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
+//import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
+//import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
 import static gestor.Visao.TelaRecadosCrc.jBtCancelar;
 import static gestor.Visao.TelaRecadosCrc.jBtConfirmar;
@@ -185,7 +185,20 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static String telaFrequenciaMensalExternaIntTO = "Movimentação:Frequência Mensal Externa de Internos TO-II:Internos";
     // PERFIL CARCERÁRIO
     public static String telaPerfilCarcerarioManuTO = "Movimentação:Perfil Carcerário TO-I:Manutenção";
-    public static String telaPerfilCarcerarioPerfilTO = "Movimentação:Perfil Carcerário TO-II:Perfil Carcerário";
+    public static String telaPerfilCarcerarioPerfilTO = "Movimentação:Perfil Carcerário TO-II:Perfil Carcerário";    
+     //P.A.I. - CADASTRADO NO SERVIÇO SOCIAL
+    public static String telaPAISS_TO = "Movimentação:P.A.I. - Serviços Social:Manutenção";
+    public static String telaPaiCCGF_TO = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social";
+    public static String telaPaiCCGFFam_TO = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Familia";
+    public static String telaPaiCCGFVis_TO = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita";
+    public static String telaPaiCCGFVisInt_TO = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita Intima";
+    public static String telaPaiDEME_TO = "Movimentação:P.A.I.:D.E.M.E. - Serviços Social";
+    public static String telaPaiDPTL_TO = "Movimentação:P.A.I.:D.P.T.L. - Serviços Social";
+    public static String telaPaiDJ_TO = "Movimentação:P.A.I.:D.J. - Serviços Social";
+    public static String telaPaiDS_TO = "Movimentação:P.A.I.:D.S. - Serviços Social";
+    public static String telaPaiEAPI1_TO = "Movimentação:P.A.I.:E.A.P.I.-1 - Serviços Social";
+    public static String telaPaiEAPI2_TO = "Movimentação:P.A.I.:E.A.P.I.-2 - Serviços Social";
+    public static String telaPaiEPAI_TO = "Movimentação:P.A.I.:E-PAI - Serviços Social";
     // OCORRENCIA
     public static String telaOcorrenciaTO = "Movimentação:Ocorrências Diárias TO:Manutenção";
     // MENU CADASTRO
@@ -1259,8 +1272,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         //ACCESSO DIFERENCIADO, A ORIGEM É O SERVIÇO SOCIAL, CADASTRAR O MÓDULO PARA A TERAPIA OCUPACIONAL COM PERMISSÃO DE NÃO
         // E LIBERAR SOMENTE A TELA PRINCIPAL E A ABA DPTL, QUE PERTENCE A TO
-        buscarAcessoUsuario(telaPAISS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAbrirSS == 1) {
+        buscarAcessoUsuario(telaPAISS_TO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaPAISS_TO) && codAbrirTO == 1) {
             if (objPaiTO == null || objPaiTO.isClosed()) {
                 objPaiTO = new TelaPAI_NOVO();
                 jPainelTerapia.add(objPaiTO);

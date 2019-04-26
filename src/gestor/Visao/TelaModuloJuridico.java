@@ -179,6 +179,19 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     public static String telaAudienciaJustificativaManuJURI = "Movimentação:Audiência de Justificativa:Manutenção";
     //
     public static String telaOcorrenciaJURI = "Movimentação:Ocorrências Diárias - Juídico:Manutenção";
+     //P.A.I. - CADASTRADO NO SERVIÇO SOCIAL
+    public static String telaPAISS_JURI = "Movimentação:P.A.I. - Serviços Social:Manutenção";
+    public static String telaPaiCCGF_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social";
+    public static String telaPaiCCGFFam_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Familia";
+    public static String telaPaiCCGFVis_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita";
+    public static String telaPaiCCGFVisInt_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Visita Intima";
+    public static String telaPaiDEME_JURI = "Movimentação:P.A.I.:D.E.M.E. - Serviços Social";
+    public static String telaPaiDPTL_JURI = "Movimentação:P.A.I.:D.P.T.L. - Serviços Social";
+    public static String telaPaiDJ_JURI = "Movimentação:P.A.I.:D.J. - Serviços Social";
+    public static String telaPaiDS_JURI = "Movimentação:P.A.I.:D.S. - Serviços Social";
+    public static String telaPaiEAPI1_JURI = "Movimentação:P.A.I.:E.A.P.I.-1 - Serviços Social";
+    public static String telaPaiEAPI2_JURI = "Movimentação:P.A.I.:E.A.P.I.-2 - Serviços Social";
+    public static String telaPaiEPAI_JURI = "Movimentação:P.A.I.:E-PAI - Serviços Social";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -1202,8 +1215,8 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         //ACCESSO DIFERENCIADO, A ORIGEM É O SERVIÇO SOCIAL, CADASTRAR O MÓDULO PARA O JURIDICO COM PERMISSÃO DE NÃO
         // E LIBERAR SOMENTE A TELA PRINCIPAL E A ABA DJ, QUE PERTENCE AO JURIDICO
-        buscarAcessoUsuario(telaPAISS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaPAISS) && codAbrirSS == 1) {
+        buscarAcessoUsuario(telaPAISS_JURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaPAISS_JURI) && codAbrirJURI == 1) {
             if (objPaiNovo == null || objPaiNovo.isClosed()) {
                 objPaiNovo = new TelaPAI_NOVO();
                 jPainelJuridico.add(objPaiNovo);

@@ -5,14 +5,16 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDataSaida;
-import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDocumentoSaida;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdInternoEvadido;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdSaida;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jNomeInternoEvadido;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -27,6 +29,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqInternosEvadidosLaborativa extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
 
     String dataEntrada, dataSaida, dataSaidaTemp;
     String dataRetorno, dataPrevRetorno;
@@ -143,7 +146,7 @@ public class TelaPesqInternosEvadidosLaborativa extends javax.swing.JInternalFra
         jTabelaIntEvadidosSaidaLaborativa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaIntEvadidosSaidaLaborativa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Id Doc.", "Data Saída", "Dt. Entrada", "H. Entrada"
@@ -224,7 +227,6 @@ public class TelaPesqInternosEvadidosLaborativa extends javax.swing.JInternalFra
                 conecta.rs.first();
                 jIdInternoEvadido.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoEvadido.setText(conecta.rs.getString("NomeInternoCrc"));
-                //jDocumentoSaida.setText(conecta.rs.getString("NrDocSaida"));
                 jIdSaida.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 conecta.desconecta();
@@ -242,14 +244,33 @@ public class TelaPesqInternosEvadidosLaborativa extends javax.swing.JInternalFra
 
     private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {
-            jTabelaIntEvadidosSaidaLaborativa.setVisible(true);
-            preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE Evadido='" + evadido + "'AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'AND DataEntrada<'" + jDataSistema.getText() + "'AND HorarioEntrada='" + horarioEntrada + "'");
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {                
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DataEntrada<'" + dataSisConvert + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {                
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DataEntrada<'" + jDataSistema.getText() + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
 
@@ -265,15 +286,35 @@ public class TelaPesqInternosEvadidosLaborativa extends javax.swing.JInternalFra
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-        flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaIntEvadidosSaidaLaborativa.setVisible(true);
-            this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE Evadido='" + evadido + "'AND DataEntrada<'" + jDataSistema.getText() + "'AND HorarioEntrada='" + horarioEntrada + "'");
-        } else {
-            jTabelaIntEvadidosSaidaLaborativa.setVisible(!true);
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                jTabelaIntEvadidosSaidaLaborativa.setVisible(true);
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND DataEntrada<'" + dataSisConvert + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            } else {
+                limparTabela();
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                jTabelaIntEvadidosSaidaLaborativa.setVisible(true);
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM ITENSLABORINTERNO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND DataEntrada<'" + jDataSistema.getText() + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            } else {
+                limparTabela();
+            }
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 

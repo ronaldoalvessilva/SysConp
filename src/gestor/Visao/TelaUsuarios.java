@@ -133,6 +133,12 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jPesqNome = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel36 = new javax.swing.JLabel();
+        jNomeGrupoUser = new javax.swing.JTextField();
+        jBtPesquisaGrupo = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
+        jDepartamento = new javax.swing.JTextField();
+        jBtDepartamento = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaUsuarios = new javax.swing.JTable();
         jPanel31 = new javax.swing.JPanel();
@@ -283,17 +289,52 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel36.setText("Grupo:");
+
+        jNomeGrupoUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtPesquisaGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaGrupo.setContentAreaFilled(false);
+        jBtPesquisaGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaGrupoActionPerformed(evt);
+            }
+        });
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setText("Setor:");
+
+        jDepartamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jBtDepartamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtDepartamento.setContentAreaFilled(false);
+        jBtDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDepartamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel7)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNome)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPesqNome, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                    .addComponent(jNomeGrupoUser)
+                    .addComponent(jDepartamento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addContainerGap())
@@ -304,15 +345,25 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBtPesquisaNome)
-                    .addComponent(jLabel7)
-                    .addComponent(jCheckBox1))
-                .addGap(0, 8, Short.MAX_VALUE))
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel36)
+                    .addComponent(jNomeGrupoUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaGrupo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jBtDepartamento)
+                    .addComponent(jDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jTabelaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome Completo do Usuário", "Login", "Nome do Grupo"
@@ -390,7 +441,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,7 +456,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -765,7 +816,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSenhaConf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -946,7 +997,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jTabelaGrupo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaGrupo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Grupo"
@@ -987,7 +1038,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Grupo de Usuários", jPanel15);
@@ -1216,7 +1267,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jTabelaModulos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaModulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição do Módulo", "Permissão"
@@ -1259,7 +1310,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1373,7 +1424,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         jTabelaAcessos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAcessos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Tela", "Abrir", "Incluir", "Alterar", "Excluir", "Consultar"
@@ -1653,9 +1704,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Telas de Acesso", jPanel13);
@@ -1668,10 +1720,12 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(400, 50, 505, 499);
+        setBounds(400, 50, 505, 511);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1885,6 +1939,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             this.pesquisarTodos("SELECT * FROM USUARIOS ");
         } else {
             limparTabela();
+            count = 0;
+            jtotalRegistros.setText("");
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -2417,6 +2473,36 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         pesquisarTelaAcesso();
     }//GEN-LAST:event_jComboBoxTelaAcessoMouseClicked
 
+    private void jBtPesquisaGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaGrupoActionPerformed
+        // TODO add your handling code here:
+        flag = 1;
+        count = 0;
+        if (jNomeGrupoUser.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do grupo para pesquisa.");
+            jNomeGrupoUser.requestFocus();
+        } else {
+            preencherTabelaNome("SELECT * FROM USUARIOS "
+                    + "INNER JOIN USUARIOS_GRUPOS "
+                    + "ON USUARIOS.IdUsuario=USUARIOS_GRUPOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo LIKE '%" + jNomeGrupoUser.getText() + "%'");
+        }
+    }//GEN-LAST:event_jBtPesquisaGrupoActionPerformed
+
+    private void jBtDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDepartamentoActionPerformed
+        // TODO add your handling code here:
+        flag = 1;
+        count = 0;
+        if (jDepartamento.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
+            jDepartamento.requestFocus();
+        } else {
+            preencherTabelaNome("SELECT * FROM USUARIOS "
+                    + "WHERE NomeDepartamento LIKE'%" + jDepartamento.getText() + "%'");
+        }
+    }//GEN-LAST:event_jBtDepartamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField IdUsuario;
@@ -2430,6 +2516,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelarGrupo;
     private javax.swing.JButton jBtCancelarModulo;
     private javax.swing.JButton jBtCopiarPerfil;
+    private javax.swing.JButton jBtDepartamento;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirAcesso;
     private javax.swing.JButton jBtExcluirGrupo;
@@ -2440,6 +2527,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtNovoModulo;
     private javax.swing.JButton jBtPesDepto;
     private javax.swing.JButton jBtPesqModulo;
+    private javax.swing.JButton jBtPesquisaGrupo;
     private javax.swing.JButton jBtPesquisarModulo;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSairAcesso;
@@ -2466,6 +2554,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxStatus;
     public static javax.swing.JComboBox jComboBoxTelaAcesso;
     private com.toedter.calendar.JDateChooser jDataCadastro;
+    private javax.swing.JTextField jDepartamento;
     public static javax.swing.JTextField jDescricaoGrupo;
     public static javax.swing.JTextField jDescricaoModulo;
     public static javax.swing.JTextField jIdModulo;
@@ -2498,6 +2587,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2505,6 +2596,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jNomeGrupoUser;
     private javax.swing.JTextField jNomeUsuarioAcesso;
     public static javax.swing.JTextField jNomeUsuarioCompleto;
     private javax.swing.JPanel jPanel1;

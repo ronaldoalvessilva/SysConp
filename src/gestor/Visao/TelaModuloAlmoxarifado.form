@@ -366,6 +366,14 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="RelatorioGeralProgramacaoKit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Geral de Programa&#xe7;&#xe3;o de Kits de Higiene"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioGeralProgramacaoKitActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

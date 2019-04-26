@@ -50,6 +50,9 @@ import static gestor.Visao.TelaModuloAlmoxarifado.telaMontagemPagamentoKitProdut
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -315,6 +318,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         jBtNovo = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
+        jBtHelp = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -643,6 +647,13 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             }
         });
 
+        jBtHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -659,6 +670,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -675,7 +688,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     .addComponent(jBtAuditoria)
                     .addComponent(jBtNovo)
                     .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar))
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtHelp))
                 .addContainerGap())
         );
 
@@ -2786,15 +2800,22 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmInternoActionPerformed
         // TODO add your handling code here:  
-        count2 = 0;
-        qtdInternos = 0;
+//        count2 = 0;
+//        qtdInternos = 0;
+//        qtdTotal = 0;
+//        qtdInternosKD = 0;
         Integer row = jTabelaInternosSelecionados.getRowCount();
         boolean encontrou = !true;
-        if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-            count2 = count2 + 1;
-            qtdInternos = qtdInternos - 1;
-            jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+        if (jTabelaInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
+            if (row == 0) {
+                count2 = count2 + 1;
+                qtdInternos = qtdInternos - 1;
+                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            } else if (row != 0) {
+                qtdTotal = count2 + qtdInternosKD;
+                jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+            }
             //Pega os models das listas, para fazer as inserções e remoções
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternos.getModel();
             DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
@@ -2920,8 +2941,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     if (row0 == 0) {
                         jtotalInternosSelecionados.setText(Integer.toString(qtdInternos));
                         qtdTotal = qtdInternos;
-                    } else if (row0 != 0) {//jTabelaInternosSelecionados
-//                        qtdTotal = qtdTotal + qtdInternosKD;
+                    } else if (row0 != 0) {
                         qtdTotal += qtdInternosKD;
                         jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
                     }
@@ -2942,7 +2962,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                     }
                 }
                 // LIMPAR O TOTALIZADOR DA TABELA
-                jtotalInternosPavilhao.setText("");
+                jtotalInternosPavilhao.setText("0");
+                qtdInternos = 0;
                 //KIT QUINZENAL
             } else if (pTipoKitCI == 3) {
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
@@ -3103,15 +3124,23 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
     private void jBtExcluirUmInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirUmInternoActionPerformed
         // TODO add your handling code here:
-        count2 = 0;
-        qtdInternos = 0;
         Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
+        Integer row0 = jTabelaInternos.getModel().getRowCount();
         if (rows != 0) {
-            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
-                count2 = count2 - 1;
-                qtdInternos = qtdInternos + 1;
-                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
+                if (row0 == 0) {
+                    qtdInternos = 0;
+                    qtdInternos++;
+                    count2 = 0;
+                    count2 = qtdTotal - 1;
+                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                } else if (row0 != 0) {
+                    qtdInternos++;
+                    count2 = count2 - 1;
+                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                }
                 //Pega os models das listas, para fazer as inserções e remoções
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
                 DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
@@ -3173,6 +3202,10 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
             // KIT DECENDIAL
         } else if (pTipoKitCI == 2) {
             if (rows != 0) {
+                // APAGAR DADOS DA TABELA ANTES DE POPULAR
+                while (jTabelaInternos.getModel().getRowCount() > 0) {
+                    ((DefaultTableModel) jTabelaInternos.getModel()).removeRow(0);
+                }
                 DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
@@ -3187,7 +3220,6 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                         //
                         jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
                         jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TelaMontagemPagamentoKitInterno.class
@@ -4205,14 +4237,19 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private void jBtProgramarKitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProgramarKitActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(botaoProgramarKitAL);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
-            if (jStatusComp.getText().equals("FINALIZADO")) {
-                mostrarTelaPrevisaoKit();
-            } else {
-                JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
-            }
+//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoAL.equals("ADMINISTRADORES") || codigoUserAL == codUserAcessoAL && nomeTelaAL.equals(botaoProgramarKitAL) && codIncluirAL == 1) {
+        if (!nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jBtProgramarKit.setEnabled(!true);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                if (jStatusComp.getText().equals("FINALIZADO")) {
+                    mostrarTelaPrevisaoKit();
+                } else {
+                    JOptionPane.showMessageDialog(null, "É necessário FINALIZAR O registro para poder fazer a programação do próximo kit.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, solicite liberação ao administrador do sistema.");
+            }
         }
     }//GEN-LAST:event_jBtProgramarKitActionPerformed
 
@@ -4250,6 +4287,16 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         mostrarProgramacao();
     }//GEN-LAST:event_jBtProgramacaoActionPerformed
 
+    private void jBtHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtHelpActionPerformed
+        // TODO add your handling code here:
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File("C:\\SysConp\\Manuais\\1 - REQUISITOS PARA COMPOR KIT DE HIGIENE DO CUSTODIADO.pdf\\"));
+        } catch (IOException ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtHelpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup grupoBotoes;
@@ -4278,6 +4325,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     public static javax.swing.JButton jBtExcluirUmInterno;
     private javax.swing.JButton jBtExcluirUmInternoAgrupado;
     public static javax.swing.JButton jBtFinalizar;
+    private javax.swing.JButton jBtHelp;
     public static javax.swing.JButton jBtNovo;
     public static javax.swing.JButton jBtNovoPavInternos;
     public static javax.swing.JButton jBtNovoProduto;

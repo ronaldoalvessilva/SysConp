@@ -9,6 +9,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
+    <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="...::: Programa&#xe7;&#xe3;o de Pagamento de Kits :::...."/>
   </Properties>
   <SyntheticProperties>
@@ -519,18 +520,20 @@
                                       <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="jBtNovo" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="jBtNovo" linkSize="3" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtExcluirTodos" min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="jBtExcluirTodos" linkSize="3" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtExcluirUm" min="-2" pref="36" max="-2" attributes="0"/>
+                                      <Component id="jBtExcluirUm" linkSize="3" min="-2" pref="36" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jBtSalvar" linkSize="3" min="-2" pref="37" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jBtCancelar" linkSize="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jBtImpressao" linkSize="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                       <Component id="jBtSair" linkSize="3" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                                       <Component id="jBtAuditoria" min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -566,6 +569,7 @@
                                   <Component id="jBtNovo" linkSize="2" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                                   <Component id="jBtSair" linkSize="2" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jBtExcluirUm" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jBtImpressao" linkSize="2" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
@@ -1614,6 +1618,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirUmActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtImpressao">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
+                </Property>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

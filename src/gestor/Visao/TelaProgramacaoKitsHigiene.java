@@ -23,6 +23,7 @@ import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProgramacaoKit;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAbrirAL;
 import static gestor.Visao.TelaModuloAlmoxarifado.codAlterarAL;
@@ -46,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,6 +56,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -253,8 +260,10 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jDataGeracao = new com.toedter.calendar.JDateChooser();
         jBtExcluirUm = new javax.swing.JButton();
+        jBtImpressao = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
         setTitle("...::: Programação de Pagamento de Kits :::....");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1029,6 +1038,14 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImpressao.setEnabled(false);
+        jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImpressaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1051,9 +1068,11 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                                 .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)
                                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(88, 88, 88)
+                                .addGap(64, 64, 64)
                                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1068,7 +1087,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtExcluirTodos, jBtExcluirUm, jBtImpressao, jBtNovo, jBtSair, jBtSalvar});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1083,7 +1102,8 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                             .addComponent(jBtAuditoria)
                             .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtExcluirUm, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jBtExcluirUm, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBtImpressao, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1100,7 +1120,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
                 .addGap(117, 117, 117))
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtExcluirTodos, jBtExcluirUm, jBtNovo, jBtSair, jBtSalvar});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtExcluirTodos, jBtExcluirUm, jBtImpressao, jBtNovo, jBtSair, jBtSalvar});
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
@@ -1961,6 +1981,9 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaProgramacaoKit objAudiPro = new TelaAuditoriaProgramacaoKit();
+        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objAudiPro);
+        objAudiPro.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jTabelaProgramacaoKitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProgramacaoKitMouseClicked
@@ -1976,6 +1999,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            jBtImpressao.setEnabled(true);
             jComboBoxPavilhao.removeAllItems();
             conecta.abrirConexao();
             try {
@@ -2036,6 +2060,145 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtExcluirUmActionPerformed
 
+    private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
+        // TODO add your handling code here:
+        if (idPROG == 0) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário selecionar um registro para ser impresso...");
+        } else {
+            if (jRBDencendial.isSelected() == true) {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProgramacaoKitDecendial.jasper";
+                    conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                            + "INNER JOIN KITS_DECENDIAL_INTERNOS "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_DECENDIAL_INTERNOS.IDREG_PROG "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON KITS_DECENDIAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdPROG='" + idPROG + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Programação de Kit Decendial");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            } else if (jRBQuinzenal.isSelected() == true) {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProgramacaoKitQuinzenal.jasper";
+                    conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                            + "INNER JOIN KITS_QUINZENAL_INTERNOS "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_QUINZENAL_INTERNOS.IDREG_PROG "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON KITS_QUINZENAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdPROG='" + idPROG + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Programação de Kit Quinzenal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            } else if (jRBMensal.isSelected() == true) {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProgramacaoKitMensal.jasper";
+                    conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                            + "INNER JOIN KITS_MENSAL_INTERNOS "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_MENSAL_INTERNOS.IDREG_PROG "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON KITS_MENSAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdPROG='" + idPROG + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Programação de Kit Mensal");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            } else if (jRBSemestral.isSelected() == true) {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProgramacaoKitSemestral.jasper";
+                    conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                            + "INNER JOIN KITS_SEMESTRAL_INTERNOS "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_SEMESTRAL_INTERNOS.IDREG_PROG "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON KITS_SEMESTRAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdPROG='" + idPROG + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Programação de Kit Semestral");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            } else if (jRBAnual.isSelected() == true) {
+                try {
+                    conecta.abrirConexao();
+                    String path = "reports/ProgramacaoKitAnual.jasper";
+                    conecta.executaSQL("SELECT * FROM PROGRAMACAO_PAGAMENTO_KITS_INTERNOS "
+                            + "INNER JOIN KITS_ANUAL_INTERNOS "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPROG=KITS_ANUAL_INTERNOS.IDREG_PROG "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON PROGRAMACAO_PAGAMENTO_KITS_INTERNOS.IdPav=PAVILHAO.IdPav "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON KITS_ANUAL_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE IdPROG='" + idPROG + "'");
+                    HashMap parametros = new HashMap();
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                    JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                    JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                    jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                    jv.setTitle("Relatório de Programação de Kit Anual");
+                    jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                    jv.toFront(); // Traz o relatorio para frente da aplicação            
+                    conecta.desconecta();
+                } catch (JRException e) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtImpressaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -2046,6 +2209,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluirTodos;
     private javax.swing.JButton jBtExcluirUm;
+    private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtNomePesquisa;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesquisaData;
@@ -2142,6 +2306,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         jBtAdicionarTodos.setEnabled(!true);
         jBtVoltarUm.setEnabled(!true);
         jBtVoltarTodos.setEnabled(!true);
+        jBtImpressao.setEnabled(!true);
     }
 
     public void limparCampos() {
@@ -2186,14 +2351,25 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         bloquearBotoes();
         bloquearCampos();
         jBtNovo.setEnabled(true);
+        jBtImpressao.setEnabled(true);
     }
 
     public void Cancelar() {
-        bloquearBotoes();
-        bloquearCampos();
-        limparCampos();
-        limparTabelaInternos();
-        jBtNovo.setEnabled(true);
+        idPROG = 0;
+        if (idPROG == 0) {
+            bloquearBotoes();
+            bloquearCampos();
+            limparCampos();
+            limparTabelaInternos();
+            jBtNovo.setEnabled(true);
+        } else {
+            bloquearBotoes();
+            bloquearCampos();
+            limparCampos();
+            limparTabelaInternos();
+            jBtNovo.setEnabled(true);
+            jBtImpressao.setEnabled(true);
+        }
     }
 
     public void buscar_ID_KIT_DECENDIAL(int valor) {
