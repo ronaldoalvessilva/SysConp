@@ -1294,6 +1294,7 @@ public class TelaPagamentoKitInternoCPK extends javax.swing.JInternalFrame {
         } else {
             preencherTabelaPagotKitInterno("SELECT * FROM PAGAMENTO_KIT_INTERNOS "
                     + "INNER JOIN ITENS_PAGAMENTO_KIT_INTERNOS "
+                    + "ON PAGAMENTO_KIT_INTERNOS.IdPagto=ITENS_PAGAMENTO_KIT_INTERNOS.IdPagto "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_PAGAMENTO_KIT_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoVisitado.getText() + "%'");
