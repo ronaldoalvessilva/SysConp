@@ -8,7 +8,6 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaPeriodoProdutividade.jDataFinal;
 import static gestor.Visao.TelaPeriodoProdutividade.jDataInicial;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -37,7 +36,7 @@ public class ControleListaTecnicosProdutividadePSP {
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             List<RegistroAtendimentoInternos> listaTecnicosPSP = new ArrayList<RegistroAtendimentoInternos>();
             try {
-//                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+               SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
 //                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
 //                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                 conecta.executaSQL("SELECT REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, DEPARTAMENTOS.NomeDepartamento,"
@@ -74,7 +73,7 @@ public class ControleListaTecnicosProdutividadePSP {
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             List<RegistroAtendimentoInternos> listaTecnicosPSP = new ArrayList<RegistroAtendimentoInternos>();
             try {
-//                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+              SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
 //                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
 //                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                 conecta.executaSQL("SELECT REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, DEPARTAMENTOS.NomeDepartamento,"
