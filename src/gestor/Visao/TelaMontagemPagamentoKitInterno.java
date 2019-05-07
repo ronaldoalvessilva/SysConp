@@ -217,6 +217,11 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
         setResizable(false);
         formatarCampos();
         corCampos();
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jBtProgramarKit.setVisible(true);
+        } else {
+            jBtProgramarKit.setVisible(!true);
+        }
     }
 
     public void mostrarBuscaKit() {
@@ -4334,7 +4339,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtPesquisarInternosPavilhao;
     private javax.swing.JButton jBtPesquisarKit;
     private javax.swing.JButton jBtProgramacao;
-    private javax.swing.JButton jBtProgramarKit;
+    public static javax.swing.JButton jBtProgramarKit;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSaldoEstoque;
     public static javax.swing.JButton jBtSalvar;
