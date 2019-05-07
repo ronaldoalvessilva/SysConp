@@ -316,7 +316,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         jTabelaEvolucaoMedico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Completo do Interno", "Situação"
@@ -809,10 +809,10 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         jTabelaEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
-                "Seq.", "Data", "Evolução"
+                "Seq.", "Data", "Anotação/Evolução"
             }
         ));
         jTabelaEvolucao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1009,7 +1009,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Evolução", jPanel6);
+        jTabbedPane1.addTab("Anotação/Evolução", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1955,7 +1955,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
 
     public void preencherEvolucaoMedica(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situacao"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situação"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2008,7 +2008,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situacao"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situação"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEvolucaoMedico.setModel(modelo);
         jTabelaEvolucaoMedico.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -2029,7 +2029,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
 
     public void preencherTabelaEvolucaoTecEnfermagem(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Seq.", "Data", "Evolução"};
+        String[] Colunas = new String[]{"Seq.", "Data", "Anotação/Evolução"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2061,7 +2061,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
 
     public void limparTabelaEvolucao() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Seq.", "Data", "Evolução"};
+        String[] Colunas = new String[]{"Seq.", "Data", "Anotação/Evolução"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEvolucao.setModel(modelo);
         jTabelaEvolucao.getColumnModel().getColumn(0).setPreferredWidth(50);

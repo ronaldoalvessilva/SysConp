@@ -796,7 +796,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaAdmissaoEnfermeira.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAdmissaoEnfermeira.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Completo do Interno", "Histórico Criminal"
@@ -2881,7 +2881,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane4.addTab("Evolução da Admissão", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png")), jPanel61); // NOI18N
+        jTabbedPane4.addTab("Anotação/Evolução da Admissão", new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png")), jPanel61); // NOI18N
 
         javax.swing.GroupLayout ContinuacaoLayout = new javax.swing.GroupLayout(Continuacao);
         Continuacao.setLayout(ContinuacaoLayout);
@@ -2906,7 +2906,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Continuação", Continuacao);
+        jTabbedPane1.addTab("Continua", Continuacao);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Antecedentes Pessoais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
@@ -4656,10 +4656,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaEvolucaoEnfermagem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoEnfermagem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
-                "Seq.", "Data", "Evolução"
+                "Seq.", "Data", "Anotação/Evolução"
             }
         ));
         jTabelaEvolucaoEnfermagem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4859,7 +4859,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
-        jTabbedPane1.addTab("Evolução", Evolucao);
+        jTabbedPane1.addTab("Anotação/Evolução", Evolucao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -10497,7 +10497,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     public void preencherTabelaEvolucaoEnfermagem(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Seq.", "Data", "Evolução"};
+        String[] Colunas = new String[]{"Seq.", "Data", "Anotação/Evolução"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -10529,7 +10529,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     public void limparTabelaEvolucao() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
+        String[] Colunas = new String[]{"Código", "Data", "Anotação/Evolução"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEvolucaoEnfermagem.setModel(modelo);
         jTabelaEvolucaoEnfermagem.getColumnModel().getColumn(0).setPreferredWidth(50);

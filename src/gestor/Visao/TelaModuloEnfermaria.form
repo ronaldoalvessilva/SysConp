@@ -276,7 +276,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="AdmissaoMedicaPsiquiatrica">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Prontuario e Evolu&#xe7;&#xe3;o M&#xe9;dica/Psiqui&#xe1;trica - Admiss&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Prontu&#xe1;rio e Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o M&#xe9;dica/Psiqui&#xe1;trica - Admiss&#xe3;o"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmissaoMedicaPsiquiatricaActionPerformed"/>
@@ -310,7 +310,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AdmissoaEnfermagem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Admiss&#xe3;o/Evolu&#xe7;&#xe3;o Enfermagem"/>
+                <Property name="text" type="java.lang.String" value="Admiss&#xe3;o/Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Enfermagem"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdmissoaEnfermagemActionPerformed"/>
@@ -336,7 +336,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AtendimentoTecEnfermagem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atendimento T&#xe9;cnico de Enfermagem"/>
+                <Property name="text" type="java.lang.String" value="Atendimento/Anota&#xe7;&#xe3;o T&#xe9;cnico de Enfermagem"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtendimentoTecEnfermagemActionPerformed"/>

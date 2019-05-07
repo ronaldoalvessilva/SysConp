@@ -654,7 +654,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
         Movimentacao.setText("Movimentação");
 
-        AdmissaoMedicaPsiquiatrica.setText("Prontuario e Evolução Médica/Psiquiátrica - Admissão");
+        AdmissaoMedicaPsiquiatrica.setText("Prontuário e Anotação/Evolução Médica/Psiquiátrica - Admissão");
         AdmissaoMedicaPsiquiatrica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdmissaoMedicaPsiquiatricaActionPerformed(evt);
@@ -687,7 +687,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Movimentacao.add(jEncaminhamentosCirurgiasEspecialistas);
         Movimentacao.add(jSeparator1);
 
-        AdmissoaEnfermagem.setText("Admissão/Evolução Enfermagem");
+        AdmissoaEnfermagem.setText("Admissão/Anotação/Evolução Enfermagem");
         AdmissoaEnfermagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdmissoaEnfermagemActionPerformed(evt);
@@ -712,7 +712,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Movimentacao.add(JHistoricoDoencaFamilia);
         Movimentacao.add(jSeparator13);
 
-        AtendimentoTecEnfermagem.setText("Atendimento Técnico de Enfermagem");
+        AtendimentoTecEnfermagem.setText("Atendimento/Anotação Técnico de Enfermagem");
         AtendimentoTecEnfermagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AtendimentoTecEnfermagemActionPerformed(evt);

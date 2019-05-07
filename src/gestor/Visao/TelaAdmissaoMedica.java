@@ -538,7 +538,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("...::: Ficha de Admissão/Evolução Médica/Psiquiatrica {DM} :::...");
 
-        jTabbedPane1.setToolTipText("");
+        jTabbedPane1.setToolTipText("Anotação/Evolução Psiquiatrica");
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1893,6 +1893,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Admissão", null, Manutencao, "Admissão Médica/Psiquiatrica");
 
+        AnaPsiquiatrica.setToolTipText("Anotação/Evolução Psiquiatrica");
+
         jTextoEvolucaoPsiquiatrica.setColumns(20);
         jTextoEvolucaoPsiquiatrica.setRows(5);
         jTextoEvolucaoPsiquiatrica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1986,7 +1988,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataEvolPsiquiatrica, jIdEvolucaoPsiquiatrica, jNomeCompletoInternoDiagnosticos});
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel28.setText("Dados Psiquiatricos Resumidos - (Evolução Psiquiatrica)");
+        jLabel28.setText("Dados Psiquiatricos Resumidos - (Anotação/Evolução Psiquiatrica)");
 
         jBtNovaEvolPsiquiatrica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovaEvolPsiquiatrica.setText("Novo");
@@ -2039,7 +2041,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Data", "PA", "Evolução Psiquiatrica"
+                "Código", "Data", "PA", "Anotação/Evolução Psiquiatrica"
             }
         ));
         jTabelaEvolPsiquiatrica.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2236,7 +2238,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -2261,10 +2263,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(AnaPsiquiatricaLayout.createSequentialGroup()
-                        .addComponent(jLabel28)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel72)
-                        .addGap(0, 74, Short.MAX_VALUE))
+                        .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel72))
                     .addGroup(AnaPsiquiatricaLayout.createSequentialGroup()
                         .addGroup(AnaPsiquiatricaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AnaPsiquiatricaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -2323,7 +2324,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Evolu. Psiquiatrica", null, AnaPsiquiatrica, "Evolução Psiquiatrica");
+        jTabbedPane1.addTab("Anota./Evolu. Psiquiatrica", null, AnaPsiquiatrica, "Evolução Psiquiatrica");
+
+        AnaMedica.setToolTipText("Anotação/Evolução Clinica");
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -2423,7 +2426,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jScrollPane5.setViewportView(jTextoEvolucaoMedica);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel24.setText("Dados Clinicos Resumidos - (Evolução Médica)");
+        jLabel24.setText("Dados Clinicos Resumidos - (Anotação/Evolução Médica)");
 
         jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovaEvolucao.setText("Novo");
@@ -2623,7 +2626,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Data", "PA", "Evolução Médica"
+                "Código", "Data", "PA", "Anotação/Evolução Médica"
             }
         ));
         jTabelaEvolucaoMedica.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2670,7 +2673,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2687,38 +2690,39 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AnaMedicaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AnaMedicaLayout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(AnaMedicaLayout.createSequentialGroup()
-                        .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtAlterarEvolucao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvarEvolucao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelarEvolucao))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
                         .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(AnaMedicaLayout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel77))
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AnaMedicaLayout.createSequentialGroup()
-                                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel69)
-                                    .addComponent(jLabel51))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AnaMedicaLayout.createSequentialGroup()
+                        .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(AnaMedicaLayout.createSequentialGroup()
+                                .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtAlterarEvolucao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtSalvarEvolucao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtCancelarEvolucao))
+                            .addComponent(jLabel69)
+                            .addComponent(jLabel51)
+                            .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(AnaMedicaLayout.createSequentialGroup()
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel77))
+                                .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AnaMedicaLayout.setVerticalGroup(
@@ -2730,13 +2734,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AnaMedicaLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel77))
+                        .addComponent(jLabel24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel77)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel69)
@@ -2753,13 +2760,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             .addComponent(jBtSalvarEvolucao)
                             .addComponent(jBtExcluirEvolucao)
                             .addComponent(jBtAlterarEvolucao)))
-                    .addGroup(AnaMedicaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4))
         );
 
-        jTabbedPane1.addTab("Evolu. Médica", null, AnaMedica, "Evolução Médica");
+        jTabbedPane1.addTab("Anota./Evolu. Médica", null, AnaMedica, "Evolução Médica");
 
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -9172,7 +9177,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void preencherAdmissaoMedica(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situacao"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situação"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -9212,7 +9217,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void preencherTabelaEvolucaoPsiquiatrica(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "PA", "Evolução Psiquiatrica"};
+        String[] Colunas = new String[]{"Código", "Data", "PA", "Anotação/Evolução Psiquiatrica"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -9250,7 +9255,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void preencherTabelaEvolucaoMedica(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "PA", "Evolução Médica"};
+        String[] Colunas = new String[]{"Código", "Data", "PA", "Anotação/Evolução Médica"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -9394,7 +9399,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void limparTabelaAdmissao() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situacao"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Situação"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMedico.setModel(modelo);
         jTabelaMedico.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -9433,7 +9438,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void limparTabelaEvolucaoMedica() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "PA", "Evolução Médica"};
+        String[] Colunas = new String[]{"Código", "Data", "PA", "Anotação/Evolução Médica"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEvolucaoMedica.setModel(modelo);
         jTabelaEvolucaoMedica.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -9463,7 +9468,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     public void limparTabelaEvolucaoPsiquiatrica() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "PA", "Evolução Psiquiatrica"};
+        String[] Colunas = new String[]{"Código", "Data", "PA", "Anotação/Evolução Psiquiatrica"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEvolPsiquiatrica.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaEvolPsiquiatrica.getColumnModel().getColumn(0).setResizable(false);

@@ -84,7 +84,7 @@
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Psiquiatrica"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
@@ -2761,10 +2761,13 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="AnaPsiquiatrica">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Psiquiatrica"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Evolu. Psiquiatrica" toolTip="Evolu&#xe7;&#xe3;o Psiquiatrica">
-                <Property name="tabTitle" type="java.lang.String" value="Evolu. Psiquiatrica"/>
+              <JTabbedPaneConstraints tabName="Anota./Evolu. Psiquiatrica" toolTip="Evolu&#xe7;&#xe3;o Psiquiatrica">
+                <Property name="tabTitle" type="java.lang.String" value="Anota./Evolu. Psiquiatrica"/>
                 <Property name="tabToolTip" type="java.lang.String" value="Evolu&#xe7;&#xe3;o Psiquiatrica"/>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -2782,11 +2785,10 @@
                               <Component id="jPanel14" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jPanel20" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel28" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -3076,7 +3078,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Dados Psiquiatricos Resumidos - (Evolu&#xe7;&#xe3;o Psiquiatrica)"/>
+                <Property name="text" type="java.lang.String" value="Dados Psiquiatricos Resumidos - (Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Psiquiatrica)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jBtNovaEvolPsiquiatrica">
@@ -3173,7 +3175,7 @@
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="PA" type="java.lang.Object"/>
-                        <Column editable="true" title="Evolu&#xe7;&#xe3;o Psiquiatrica" type="java.lang.Object"/>
+                        <Column editable="true" title="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Psiquiatrica" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -3513,7 +3515,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel50" max="32767" attributes="0"/>
+                          <Component id="jLabel50" pref="92" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -3552,10 +3554,13 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="AnaMedica">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o Clinica"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Evolu. M&#xe9;dica" toolTip="Evolu&#xe7;&#xe3;o M&#xe9;dica">
-                <Property name="tabTitle" type="java.lang.String" value="Evolu. M&#xe9;dica"/>
+              <JTabbedPaneConstraints tabName="Anota./Evolu. M&#xe9;dica" toolTip="Evolu&#xe7;&#xe3;o M&#xe9;dica">
+                <Property name="tabTitle" type="java.lang.String" value="Anota./Evolu. M&#xe9;dica"/>
                 <Property name="tabToolTip" type="java.lang.String" value="Evolu&#xe7;&#xe3;o M&#xe9;dica"/>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -3566,44 +3571,46 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane4" min="-2" pref="473" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel18" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jPanel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jBtNovaEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtAlterarEvolucao" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtExcluirEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtSalvarEvolucao" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtCancelarEvolucao" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jScrollPane16" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jScrollPane15" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel69" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jBtNovaEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtAlterarEvolucao" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtExcluirEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtSalvarEvolucao" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jBtCancelarEvolucao" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel69" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel24" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jPanel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -3620,14 +3627,19 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel77" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="jScrollPane5" min="-2" pref="83" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel69" min="-2" max="-2" attributes="0"/>
@@ -3646,10 +3658,7 @@
                                   <Component id="jBtAlterarEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel16" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                   </Group>
@@ -3881,7 +3890,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Dados Clinicos Resumidos - (Evolu&#xe7;&#xe3;o M&#xe9;dica)"/>
+                <Property name="text" type="java.lang.String" value="Dados Clinicos Resumidos - (Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o M&#xe9;dica)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jBtNovaEvolucao">
@@ -4201,7 +4210,7 @@
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="PA" type="java.lang.Object"/>
-                        <Column editable="true" title="Evolu&#xe7;&#xe3;o M&#xe9;dica" type="java.lang.Object"/>
+                        <Column editable="true" title="Anota&#xe7;&#xe3;o/Evolu&#xe7;&#xe3;o M&#xe9;dica" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -4314,7 +4323,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel70" alignment="0" pref="103" max="32767" attributes="0"/>
+                      <Component id="jLabel70" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
