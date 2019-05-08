@@ -538,7 +538,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("...::: Ficha de Admissão/Evolução Médica/Psiquiatrica {DM} :::...");
 
-        jTabbedPane1.setToolTipText("Anotação/Evolução Psiquiatrica");
+        jTabbedPane1.setToolTipText("Anotação/Evolução Psiquiatrica/Clinica");
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
