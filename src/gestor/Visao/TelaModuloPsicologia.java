@@ -285,9 +285,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         );
         jPainelPsicologiaLayout.setVerticalGroup(
             jPainelPsicologiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelPsicologiaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 59, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");

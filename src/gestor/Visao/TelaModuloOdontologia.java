@@ -225,9 +225,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         );
         jPainelOdontologiaLayout.setVerticalGroup(
             jPainelOdontologiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelOdontologiaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 51, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");

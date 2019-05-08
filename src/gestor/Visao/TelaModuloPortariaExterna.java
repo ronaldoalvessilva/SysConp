@@ -323,9 +323,7 @@ public class TelaModuloPortariaExterna extends javax.swing.JInternalFrame {
         );
         jPainelPortariaExternaLayout.setVerticalGroup(
             jPainelPortariaExternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelPortariaExternaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastro");

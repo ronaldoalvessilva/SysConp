@@ -343,9 +343,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         );
         jPainelTerapiaLayout.setVerticalGroup(
             jPainelTerapiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelTerapiaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 48, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");
