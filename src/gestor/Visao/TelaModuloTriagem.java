@@ -309,9 +309,7 @@ public class TelaModuloTriagem extends javax.swing.JInternalFrame {
         );
         jPainelTriagemLayout.setVerticalGroup(
             jPainelTriagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelTriagemLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 56, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");

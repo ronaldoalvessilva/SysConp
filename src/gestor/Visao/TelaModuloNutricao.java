@@ -202,9 +202,7 @@ public class TelaModuloNutricao extends javax.swing.JInternalFrame {
         );
         jPainelNutricaoLayout.setVerticalGroup(
             jPainelNutricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelNutricaoLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 41, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
         );
 
         jCadastros.setText("Cadastros");

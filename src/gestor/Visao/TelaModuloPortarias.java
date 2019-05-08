@@ -495,16 +495,11 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         jPainelPortarias.setLayout(jPainelPortariasLayout);
         jPainelPortariasLayout.setHorizontalGroup(
             jPainelPortariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelPortariasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
         );
         jPainelPortariasLayout.setVerticalGroup(
             jPainelPortariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelPortariasLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastro");

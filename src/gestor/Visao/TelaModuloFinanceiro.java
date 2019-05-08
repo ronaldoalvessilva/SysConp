@@ -255,9 +255,7 @@ public class TelaModuloFinanceiro extends javax.swing.JInternalFrame {
         );
         jPainelFinanceiroLayout.setVerticalGroup(
             jPainelFinanceiroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelFinanceiroLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastros");

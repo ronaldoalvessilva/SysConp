@@ -124,9 +124,7 @@ public class TelaModuloConfiguracoes extends javax.swing.JInternalFrame {
         );
         jPainelConfiguracoesLayout.setVerticalGroup(
             jPainelConfiguracoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelConfiguracoesLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 53, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastrar");

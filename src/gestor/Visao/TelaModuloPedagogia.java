@@ -431,9 +431,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         );
         jPainelPedagogiaLayout.setVerticalGroup(
             jPainelPedagogiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelPedagogiaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
 
         Cadastros.setMnemonic('C');

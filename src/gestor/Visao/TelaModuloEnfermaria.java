@@ -419,9 +419,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         );
         jPainelMedicoLayout.setVerticalGroup(
             jPainelMedicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelMedicoLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastro");

@@ -187,9 +187,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         );
         jPainelFarmaciaLayout.setVerticalGroup(
             jPainelFarmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelFarmaciaLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 32, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Cadastro");

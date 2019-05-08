@@ -315,9 +315,7 @@ public class TelaModuloAlmoxarifado extends javax.swing.JInternalFrame {
         );
         jPainelAlmoxarifadoLayout.setVerticalGroup(
             jPainelAlmoxarifadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelAlmoxarifadoLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 40, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastros");

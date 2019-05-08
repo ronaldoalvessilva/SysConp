@@ -124,9 +124,7 @@ public class TelaModuloCompras extends javax.swing.JInternalFrame {
         );
         jPainelComprasLayout.setVerticalGroup(
             jPainelComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPainelComprasLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 49, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
         );
 
         jCadastros.setText("Cadastros");
