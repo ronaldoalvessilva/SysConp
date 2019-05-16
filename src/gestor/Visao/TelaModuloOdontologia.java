@@ -127,7 +127,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     //
     public static String telaTiposProcedimentoManu_ODON = "Cadastro:Tipos de Procedimento:Manutenção";
     // ASSINATURA  INTERNO
-    public static String telaRegistroBiometriaODON = "Cadastro:Registro Interno para Atendimento - Juridico:Manutenção";
+    public static String telaRegistroBiometriaODON = "Cadastro:Registro Interno para Atendimento - Odontologia:Manutenção";
     public static String telaRegistroBiometriaInciarLeitorODON = "Cadastro:Registro Interno para Atendimento - Odontologia:Iniciar Leitor";
     // REGISTRO DE INTERNO IMPRESSO
     public static String telaRegistroAtenImpODON = "Cadastro:Registro de Atendimento de Internos Impresso - Odontologia";
