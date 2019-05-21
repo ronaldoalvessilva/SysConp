@@ -1271,7 +1271,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         //ACCESSO DIFERENCIADO, A ORIGEM É O SERVIÇO SOCIAL, CADASTRAR O MÓDULO PARA A TERAPIA OCUPACIONAL COM PERMISSÃO DE NÃO
         // E LIBERAR SOMENTE A TELA PRINCIPAL E A ABA DPTL, QUE PERTENCE A TO
         buscarAcessoUsuario(telaPAISS_TO);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaPAISS_TO) && codAbrirTO == 1) {
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaPAISS_TO) && codAbrirTO == 1) {
             if (objPaiTO == null || objPaiTO.isClosed()) {
                 objPaiTO = new TelaPAI_NOVO();
                 jPainelTerapia.add(objPaiTO);
