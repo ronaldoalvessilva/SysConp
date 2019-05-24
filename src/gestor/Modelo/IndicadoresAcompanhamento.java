@@ -51,11 +51,23 @@ public class IndicadoresAcompanhamento {
     private String tuberculoseCura;
     private int qtdTuberculose;
     private String hiv;
+    private String hivControlada;
     private int qtdHib;
     private String hepatiteB;
+    private String hepatiBCont;
     private int qtdHepatiteB;
     private String hepatiteC;
+    private String hepatiCcont;
     private int qtdHepatiteC;
+    private String dst;
+    private String curaDst;
+    private int qdtDst;
+    private String vDLR;
+    private String curaVdlr;
+    private int qtdVdlr;
+    private String vacina;
+    private String vacinaCura;
+    private int qtdVacina;
     private String observacaoEnf;
     // PEDAGOGIA
     private int idPedago;
@@ -116,12 +128,12 @@ public class IndicadoresAcompanhamento {
     private Date dataSS;
     private String acompanhaSS;
     private int qtdAcompanhaSS;
-    private String observacao;
+    private String observacao;   
 
     public IndicadoresAcompanhamento() {
     }
 
-    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, int qtdHib, String hepatiteB, int qtdHepatiteB, String hepatiteC, int qtdHepatiteC, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
+    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, String hivControlada, int qtdHib, String hepatiteB, String hepatiBCont, int qtdHepatiteB, String hepatiteC, String hepatiCcont, int qtdHepatiteC, String dst, String curaDst, int qdtDst, String vDLR, String curaVdlr, int qtdVdlr, String vacina, String vacinaCura, int qtdVacina, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
         this.IdIndAco = IdIndAco;
         this.statusPerfil = statusPerfil;
         this.dataPerfil = dataPerfil;
@@ -159,11 +171,23 @@ public class IndicadoresAcompanhamento {
         this.tuberculoseCura = tuberculoseCura;
         this.qtdTuberculose = qtdTuberculose;
         this.hiv = hiv;
+        this.hivControlada = hivControlada;
         this.qtdHib = qtdHib;
         this.hepatiteB = hepatiteB;
+        this.hepatiBCont = hepatiBCont;
         this.qtdHepatiteB = qtdHepatiteB;
         this.hepatiteC = hepatiteC;
+        this.hepatiCcont = hepatiCcont;
         this.qtdHepatiteC = qtdHepatiteC;
+        this.dst = dst;
+        this.curaDst = curaDst;
+        this.qdtDst = qdtDst;
+        this.vDLR = vDLR;
+        this.curaVdlr = curaVdlr;
+        this.qtdVdlr = qtdVdlr;
+        this.vacina = vacina;
+        this.vacinaCura = vacinaCura;
+        this.qtdVacina = qtdVacina;
         this.observacaoEnf = observacaoEnf;
         this.idPedago = idPedago;
         this.dataPeda = dataPeda;
@@ -741,6 +765,20 @@ public class IndicadoresAcompanhamento {
     }
 
     /**
+     * @return the hivControlada
+     */
+    public String getHivControlada() {
+        return hivControlada;
+    }
+
+    /**
+     * @param hivControlada the hivControlada to set
+     */
+    public void setHivControlada(String hivControlada) {
+        this.hivControlada = hivControlada;
+    }
+
+    /**
      * @return the qtdHib
      */
     public int getQtdHib() {
@@ -766,6 +804,20 @@ public class IndicadoresAcompanhamento {
      */
     public void setHepatiteB(String hepatiteB) {
         this.hepatiteB = hepatiteB;
+    }
+
+    /**
+     * @return the hepatiBCont
+     */
+    public String getHepatiBCont() {
+        return hepatiBCont;
+    }
+
+    /**
+     * @param hepatiBCont the hepatiBCont to set
+     */
+    public void setHepatiBCont(String hepatiBCont) {
+        this.hepatiBCont = hepatiBCont;
     }
 
     /**
@@ -797,6 +849,20 @@ public class IndicadoresAcompanhamento {
     }
 
     /**
+     * @return the hepatiCcont
+     */
+    public String getHepatiCcont() {
+        return hepatiCcont;
+    }
+
+    /**
+     * @param hepatiCcont the hepatiCcont to set
+     */
+    public void setHepatiCcont(String hepatiCcont) {
+        this.hepatiCcont = hepatiCcont;
+    }
+
+    /**
      * @return the qtdHepatiteC
      */
     public int getQtdHepatiteC() {
@@ -808,6 +874,132 @@ public class IndicadoresAcompanhamento {
      */
     public void setQtdHepatiteC(int qtdHepatiteC) {
         this.qtdHepatiteC = qtdHepatiteC;
+    }
+
+    /**
+     * @return the dst
+     */
+    public String getDst() {
+        return dst;
+    }
+
+    /**
+     * @param dst the dst to set
+     */
+    public void setDst(String dst) {
+        this.dst = dst;
+    }
+
+    /**
+     * @return the curaDst
+     */
+    public String getCuraDst() {
+        return curaDst;
+    }
+
+    /**
+     * @param curaDst the curaDst to set
+     */
+    public void setCuraDst(String curaDst) {
+        this.curaDst = curaDst;
+    }
+
+    /**
+     * @return the qdtDst
+     */
+    public int getQdtDst() {
+        return qdtDst;
+    }
+
+    /**
+     * @param qdtDst the qdtDst to set
+     */
+    public void setQdtDst(int qdtDst) {
+        this.qdtDst = qdtDst;
+    }
+
+    /**
+     * @return the vDLR
+     */
+    public String getvDLR() {
+        return vDLR;
+    }
+
+    /**
+     * @param vDLR the vDLR to set
+     */
+    public void setvDLR(String vDLR) {
+        this.vDLR = vDLR;
+    }
+
+    /**
+     * @return the curaVdlr
+     */
+    public String getCuraVdlr() {
+        return curaVdlr;
+    }
+
+    /**
+     * @param curaVdlr the curaVdlr to set
+     */
+    public void setCuraVdlr(String curaVdlr) {
+        this.curaVdlr = curaVdlr;
+    }
+
+    /**
+     * @return the qtdVdlr
+     */
+    public int getQtdVdlr() {
+        return qtdVdlr;
+    }
+
+    /**
+     * @param qtdVdlr the qtdVdlr to set
+     */
+    public void setQtdVdlr(int qtdVdlr) {
+        this.qtdVdlr = qtdVdlr;
+    }
+
+    /**
+     * @return the vacina
+     */
+    public String getVacina() {
+        return vacina;
+    }
+
+    /**
+     * @param vacina the vacina to set
+     */
+    public void setVacina(String vacina) {
+        this.vacina = vacina;
+    }
+
+    /**
+     * @return the vacinaCura
+     */
+    public String getVacinaCura() {
+        return vacinaCura;
+    }
+
+    /**
+     * @param vacinaCura the vacinaCura to set
+     */
+    public void setVacinaCura(String vacinaCura) {
+        this.vacinaCura = vacinaCura;
+    }
+
+    /**
+     * @return the qtdVacina
+     */
+    public int getQtdVacina() {
+        return qtdVacina;
+    }
+
+    /**
+     * @param qtdVacina the qtdVacina to set
+     */
+    public void setQtdVacina(int qtdVacina) {
+        this.qtdVacina = qtdVacina;
     }
 
     /**

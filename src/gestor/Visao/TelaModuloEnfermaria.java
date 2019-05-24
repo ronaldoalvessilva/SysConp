@@ -230,6 +230,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     //
     public static String telaIndAcompanhaManu = "Movimentação:Programa de Indicadores de Acompanhamento:Manutenção";
     public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento:Enfermaria";
+    public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento:Pedagogia";
+    public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento:Juridico/CRC";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -2139,7 +2141,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
 
     private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaIndAcompanhaManu);
+        buscarAcessoUsuario(telaIndAcompanhaManu);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codAbrirENF == 1) {
             if (objIndAcomp == null || objIndAcomp.isClosed()) {
                 objIndAcomp = new TelaIndicadoresAcompanhamento();

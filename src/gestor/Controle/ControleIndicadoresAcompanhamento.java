@@ -7,7 +7,6 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
-import gestor.Modelo.PerfilCarcerarioInterno;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -37,7 +36,7 @@ public class ControleIndicadoresAcompanhamento {
             pst.setString(8, objPerfilInter.getOpcaoSexual());
             pst.setInt(9, objPerfilInter.getAnoNascimento());
             pst.setInt(10, objPerfilInter.getAnoReferencia());
-            pst.setString(10, objPerfilInter.getMesReferencia());
+            pst.setString(11, objPerfilInter.getMesReferencia());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -50,7 +49,7 @@ public class ControleIndicadoresAcompanhamento {
         buscarInternoCrc(objPerfilInter.getNomeInternoPerfil(), objPerfilInter.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INDICADOR_ACOMPANHAMENTO_INTERNO SET StatusPerfil=?,DataPerfil=?,IdInternoCrc=?,ObservacaoPerfil=?,UsuarioUp=?,DataUp=?,HorarioUp=?,OpcaoSexual=?,AnoNasc=?,AnoRef=? WHERE IdPerfil='" + objPerfilInter.getIdIndAco()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INDICADOR_ACOMPANHAMENTO_INTERNO SET StatusPerfil=?,DataPerfil=?,IdInternoCrc=?,ObservacaoPerfil=?,UsuarioUp=?,DataUp=?,HorarioUp=?,OpcaoSexual=?,AnoNasc=?,AnoRef=?,MesRef=? WHERE IdIndAco='" + objPerfilInter.getIdIndAco()+ "'");
             pst.setString(1, objPerfilInter.getStatusPerfil());
             pst.setTimestamp(2, new java.sql.Timestamp(objPerfilInter.getDataPerfil().getTime()));
             pst.setInt(3, codInt);
@@ -61,6 +60,7 @@ public class ControleIndicadoresAcompanhamento {
             pst.setString(8, objPerfilInter.getOpcaoSexual());
             pst.setInt(9, objPerfilInter.getAnoNascimento());
             pst.setInt(10, objPerfilInter.getAnoReferencia());
+            pst.setString(11, objPerfilInter.getMesReferencia());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
@@ -73,7 +73,7 @@ public class ControleIndicadoresAcompanhamento {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INDICADOR_ACOMPANHAMENTO_INTERNO WHERE IdPerfil='" + objPerfilInter.getIdIndAco() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM INDICADOR_ACOMPANHAMENTO_INTERNO WHERE IdIndAco='" + objPerfilInter.getIdIndAco() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
@@ -86,7 +86,7 @@ public class ControleIndicadoresAcompanhamento {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INDICADOR_ACOMPANHAMENTO_INTERNO SET StatusPerfil=? WHERE IdPerfil='" + objPerfilInter.getIdIndAco() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE INDICADOR_ACOMPANHAMENTO_INTERNO SET StatusPerfil=? WHERE IdIndAco='" + objPerfilInter.getIdIndAco() + "'");
             pst.setString(1, objPerfilInter.getStatusPerfil());
             pst.executeUpdate();
         } catch (SQLException ex) {

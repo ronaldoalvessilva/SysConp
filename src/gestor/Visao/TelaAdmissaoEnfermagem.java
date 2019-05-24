@@ -2919,7 +2919,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jComboBoxHipertensao.setEnabled(false);
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel38.setText("Cadiopatias?");
+        jLabel38.setText("Cardiopatias?");
 
         jComboBoxCardiopatias.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCardiopatias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "Não Sei" }));
