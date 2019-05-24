@@ -65,7 +65,7 @@ public class ControleEntradaSaidaVisitasReligiosa {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA WHERE IdEntSaiVisita=" + objEntSaiVisitasRel.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA WHERE IdEntSaiVisita='" + objEntSaiVisitasRel.getIdLanc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
