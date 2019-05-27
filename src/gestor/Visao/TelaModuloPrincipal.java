@@ -89,6 +89,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     //SELECT NomeUsuario, GRUPOUSUARIOS.IdGrupo,NomeGrupo,ACESSOS.Permissao FROM ACESSOS INNER JOIN GRUPOUSUARIOS ON ACESSOS.IdGrupo=GRUPOUSUARIOS.IdGrupo INNER JOIN USUARIOS ON GRUPOUSUARIOS.IdGrupo=USUARIOS.IdGrupo WHERE NomeGrupo='CRC'
     public static TelaTrocaSenha telaTrocaSenha;
     public static TelaSobre telaSobre;
+    //
 
     /**
      * Creates new form TelaPrincipal
@@ -7067,13 +7068,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
-       
-         Produtividade pPSP = new Produtividade();
-       // this.jPanielPrincipal.add(pPSP);
+
+        Produtividade pPSP = new Produtividade();
+        // this.jPanielPrincipal.add(pPSP);
         pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pPSP.setExtendedState(MAXIMIZED_BOTH);
-        pPSP.setVisible(true);       
-        
+        pPSP.setVisible(true);
+
 //        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
 //        this.jPanielPrincipal.add(tpPSP);
 //        tpPSP.show();
@@ -7087,6 +7088,14 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
     private void jPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPRORESActionPerformed
         // TODO add your handling code here:
+//         buscarAcessoUsuario(telaIndAcompanhaManu);
+//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codAbrirENF == 1) {
+        TelaPRORES objPRORES = new TelaPRORES();
+        this.jPanielPrincipal.add(objPRORES);
+        objPRORES.show();
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+//        }
     }//GEN-LAST:event_jPRORESActionPerformed
 
     /**
