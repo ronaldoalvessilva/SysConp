@@ -293,6 +293,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuSobre = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jPRORES = new javax.swing.JMenuItem();
         jMenuSair = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -1284,6 +1286,19 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuSobre.add(jMenuItem1);
 
         jMenuBar1.add(jMenuSobre);
+
+        jMenu5.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu5.setText("PRORES");
+
+        jPRORES.setText("Indicadores de Resultado - PRORES");
+        jPRORES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPRORESActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jPRORES);
+
+        jMenuBar1.add(jMenu5);
 
         jMenuSair.setForeground(new java.awt.Color(204, 0, 0));
         jMenuSair.setMnemonic('a');
@@ -7070,6 +7085,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 //        private TelaPeriodoProdutividade objPeriodoProdPSP = null;
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
 
+    private void jPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPRORESActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPRORESActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -7215,6 +7234,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenuAdministracao;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
@@ -7249,6 +7269,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuSair;
     private javax.swing.JMenu jMenuSobre;
     private javax.swing.JLabel jNomeUnidade;
+    private javax.swing.JMenuItem jPRORES;
     private javax.swing.JPanel jPanelNomeSistema;
     private javax.swing.JPanel jPanelPainelCentral;
     private javax.swing.JPanel jPanelRodape;

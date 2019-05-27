@@ -228,13 +228,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaRegistroAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso";
     public static String telaRegistroLibAtenImpENF = "Cadastro:Registro de Atendimento de Internos Impresso:Liberação";
     //
-    public static String telaIndAcompanhaManu = "Movimentação:Programa de Indicadores de Acompanhamento:Manutenção";
-    public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento:Enfermaria";
-    public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento:Pedagogia";
-    public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento:Juridico/CRC";
-    public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento:TO";
-    public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento:Psicologia";
-    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento:Serviço Social";
+    public static String telaIndAcompanhaManu = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Manutenção";
+    public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Enfermaria";
+    public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Pedagogia";
+    public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Juridico/CRC";
+    public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:TO";
+    public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Psicologia";
+    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Serviço Social";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -315,6 +315,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomeRAII = "";
     //    
     String pNomeRLAI = "";
+    //PRORES
+    String pNomeIAM = "";
+    String pNomeIAE = "";
+    String pNomeIAP = "";
+    String pNomeIAC = "";
+    String pNomeIAT = "";
+    String pNomeIAPS = "";
+    String pNomeIAS = "";
 
     /**
      * Creates new form TelaMedico
@@ -394,9 +402,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         JPerfilCarcerario = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
-        jMenu3 = new javax.swing.JMenu();
         jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
@@ -760,8 +766,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Movimentacao.add(jMenuItem3);
         Movimentacao.add(jSeparator14);
 
-        jMenu3.setText("Programa de Indicadores de Acompanhamento");
-
         jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 0));
         jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
         jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
@@ -769,18 +773,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
                 jIndicadoresAcompanhamentoActionPerformed(evt);
             }
         });
-        jMenu3.add(jIndicadoresAcompanhamento);
-
-        jMenuItem1.setForeground(new java.awt.Color(204, 0, 0));
-        jMenuItem1.setText("Indicadores de Acompanhamento - Totalizador");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-
-        Movimentacao.add(jMenu3);
+        Movimentacao.add(jIndicadoresAcompanhamento);
         Movimentacao.add(jSeparator18);
 
         LivroOcorrencia.setText("Livro de Ocorrência");
@@ -2176,10 +2169,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoMedicaPsiquiatrica;
@@ -2225,10 +2214,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -3056,6 +3043,55 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaManu + "'");
+            conecta.rs.first();
+            pNomeIAM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaE + "'");
+            conecta.rs.first();
+            pNomeIAE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaP + "'");
+            conecta.rs.first();
+            pNomeIAP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaC + "'");
+            conecta.rs.first();
+            pNomeIAC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaT + "'");
+            conecta.rs.first();
+            pNomeIAT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaPSI + "'");
+            conecta.rs.first();
+            pNomeIAPS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaS + "'");
+            conecta.rs.first();
+            pNomeIAS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -3442,6 +3478,48 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAM.equals(telaIndAcompanhaManu) || pNomeIAM == null || pNomeIAM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaManu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAE.equals(telaIndAcompanhaAbaE) || pNomeIAE == null || pNomeIAE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaE);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAP.equals(telaIndAcompanhaAbaP) || pNomeIAP == null || pNomeIAP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaP);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAC.equals(telaIndAcompanhaAbaC) || pNomeIAC == null || pNomeIAC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAT.equals(telaIndAcompanhaAbaT) || pNomeIAT == null || pNomeIAT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaT);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAPS.equals(telaIndAcompanhaAbaPSI) || pNomeIAPS == null || pNomeIAPS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAS.equals(telaIndAcompanhaAbaS) || pNomeIAS == null || pNomeIAS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
