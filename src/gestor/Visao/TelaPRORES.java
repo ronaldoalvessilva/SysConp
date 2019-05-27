@@ -104,6 +104,8 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jTextField38 = new javax.swing.JTextField();
         jLabel94 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jBtFechar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -166,37 +168,37 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel69.setText("%");
 
-        jTextField10.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField11.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField11.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField12.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField12.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField13.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField13.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField14.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField14.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField15.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField15.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField16.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField16.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField17.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField17.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField18.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel103.setText("Tratamento de DST %");
 
-        jTextField40.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField40.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -318,69 +320,69 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel55.setText("Int. cursando a alfabetização %");
         jLabel55.setToolTipText("Interno cursando a alfabetização?");
 
-        jTextField19.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField19.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel70.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel70.setText("Internos cursando o 1º grau %");
         jLabel70.setToolTipText("Interno cursando o 1º grau?");
 
-        jTextField20.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField20.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel71.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel71.setText("Int. cursando 2º grau/Prof. %");
         jLabel71.setToolTipText("Interno cursando 2º grau/Profissionalizante?");
 
-        jTextField21.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField21.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel72.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel72.setText("Int. que adquiriu acesso a unid. %");
         jLabel72.setToolTipText("Interno que adquiriu acesso a universidade?");
 
-        jTextField22.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField22.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel73.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel73.setText("Interno cursando 3º grau %");
         jLabel73.setToolTipText("Interno cursando 3º grau?");
 
-        jTextField23.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField23.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel74.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel74.setText("Int. rem. p/ educação/leitura %");
         jLabel74.setToolTipText("Interno com remissão pela educação/leitura?");
 
-        jTextField24.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField24.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel75.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel75.setText("Int. atividade complementar %");
         jLabel75.setToolTipText("Interno na atividade complementar?");
 
-        jTextField25.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField25.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField25.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel38.setText("Quant. Int. concluiu o 1º grau?");
         jLabel38.setToolTipText("Quantidade de  Internos concluiu o 1º grau?");
 
-        jTextField26.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField26.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel45.setText("Quant. Int. concluiu o 2º grau?");
         jLabel45.setToolTipText("Quantidade Interno concluiu o 2º grau?");
 
-        jTextField27.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField27.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel48.setText("Quant. Int. concluiu alfabetização?");
 
-        jTextField28.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField28.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField28.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
@@ -388,7 +390,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel45, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -406,13 +408,14 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextField25, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel22Layout.setVerticalGroup(
@@ -478,16 +481,16 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel82.setText("Quant. livra. condicional");
         jLabel82.setToolTipText("Quantidade de livramento condicional");
 
-        jTextField29.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField29.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField30.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField30.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField30.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField31.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField31.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField31.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField32.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField32.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField32.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -540,7 +543,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel95.setText("Int. familia. acompanhado %");
         jLabel95.setToolTipText("Percentual Internos com familiares acompanhado");
 
-        jTextField39.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField39.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField39.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
@@ -576,13 +579,13 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel88.setText("Int. concl. formação profissional %");
         jLabel88.setToolTipText("Percentual de Internos que concluiram alguma formação profissional");
 
-        jTextField33.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField33.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField34.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField34.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField34.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField35.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField35.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField35.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
@@ -628,13 +631,13 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel92.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel92.setText("Internos em tratamento %");
 
-        jTextField36.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField36.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField36.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField37.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField37.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField37.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTextField38.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField38.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField38.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel94.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -677,6 +680,34 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtFechar.setForeground(new java.awt.Color(0, 102, 51));
+        jBtFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
+        jBtFechar.setText("Fechar");
+        jBtFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFecharActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(202, 202, 202)
+                .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtFechar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -684,25 +715,30 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -716,14 +752,21 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                         .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setBounds(300, 40, 576, 571);
+        setBounds(350, 120, 576, 563);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFecharActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jBtFecharActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtFechar;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -764,6 +807,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel24;
