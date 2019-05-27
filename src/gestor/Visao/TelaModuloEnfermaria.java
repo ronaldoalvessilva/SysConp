@@ -232,6 +232,9 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento:Enfermaria";
     public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento:Pedagogia";
     public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento:Juridico/CRC";
+    public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento:TO";
+    public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento:Psicologia";
+    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento:Serviço Social";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.

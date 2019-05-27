@@ -8,6 +8,9 @@ package gestor.Visao;
 import gestor.Controle.ControleIndicadoresAcompanhaPedagogia;
 import gestor.Controle.ControleIndicadoresAcompanhaEnfermaria;
 import gestor.Controle.ControleIndicadoresAcompanhaJuridicoCrc;
+import gestor.Controle.ControleIndicadoresAcompanhaPSI;
+import gestor.Controle.ControleIndicadoresAcompanhaSS;
+import gestor.Controle.ControleIndicadoresAcompanhaTO;
 import gestor.Controle.ControleIndicadoresAcompanhamento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
@@ -30,6 +33,8 @@ import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaC;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaE;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaP;
+import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaS;
+import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaT;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaManu;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -59,6 +64,9 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     ControleIndicadoresAcompanhaEnfermaria controle = new ControleIndicadoresAcompanhaEnfermaria();
     ControleIndicadoresAcompanhaPedagogia controlPeda = new ControleIndicadoresAcompanhaPedagogia();
     ControleIndicadoresAcompanhaJuridicoCrc controlCrc = new ControleIndicadoresAcompanhaJuridicoCrc();
+    ControleIndicadoresAcompanhaTO controlTO = new ControleIndicadoresAcompanhaTO();
+    ControleIndicadoresAcompanhaPSI controlPSI = new ControleIndicadoresAcompanhaPSI();
+    ControleIndicadoresAcompanhaSS controlSS = new ControleIndicadoresAcompanhaSS();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -67,9 +75,9 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     String nomeModuloTela1 = "Indicadores de Acompanhamento:Enfermaria";
     String nomeModuloTela2 = "Indicadores de Acompanhamento:Pedagogia";
     String nomeModuloTela3 = "Indicadores de Acompanhamento:Juridico/Crc";
-    String nomeModuloTela4 = "Indicadores de Acompanhamento:";
-    String nomeModuloTela5 = "Indicadores de Acompanhamento:";
-    String nomeModuloTela6 = "Indicadores de Acompanhamento:";
+    String nomeModuloTela4 = "Indicadores de Acompanhamento:TO";
+    String nomeModuloTela5 = "Indicadores de Acompanhamento:Psicologia";
+    String nomeModuloTela6 = "Indicadores de Acompanhamento:Serviço Social";
     //
     String statusMov;
     String horaMov;
@@ -79,7 +87,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     int flag;
     int count = 0;
     String dataInicial;
-    String dataFinal, dataPAI, dataPAI1, dataPAI2, dataPAI3;
+    String dataFinal, dataPAI, dataPAI1, dataPAI2, dataPAI3, dataPAI4, dataPAI5, dataPAI6;
     String caminho;
     String codInterno;
     // PERFIL CARCERÁRIO
@@ -104,6 +112,9 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     int codigoEnf = 0;
     int codigoPeda = 0;
     int codigoCrc = 0;
+    int codigoTO = 0;
+    int codigoPSI = 0;
+    int codigoSS = 0;
     //PEDAGOGIA
     int qICAA = 0;
     int qIC1 = 0;
@@ -120,6 +131,16 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     int qtdDocumentacao = 0;
     int qtdProggressao = 0;
     int qtdLivramento = 0;
+    //TERAPIA OCUPACIONAL
+    int qtdPrograma = 0;
+    int qtdCurso = 0;
+    int qtdProfissional = 0;
+    //PSICOLOGIA
+    int qtdTratamento = 0;
+    int qtdAcompanha = 0;
+    int qtdRecuperacao = 0;
+    //SERVIÇO SOCIAL
+    int qtdAcompanhaSS = 0;
 
     /**
      * Creates new form TelaIndicadoresAcompanhamento
@@ -376,9 +397,11 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jPanel41 = new javax.swing.JPanel();
         jLabel96 = new javax.swing.JLabel();
         jComboBoxAcompanhaSS = new javax.swing.JComboBox<>();
+        jLabel110 = new javax.swing.JLabel();
+        jDataSS = new com.toedter.calendar.JDateChooser();
         jPanel42 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jObservaacaoSS = new javax.swing.JTextArea();
+        jObservacaoSS = new javax.swing.JTextArea();
         jPanel43 = new javax.swing.JPanel();
         jBtNovoSS = new javax.swing.JButton();
         jBtAlterarSS = new javax.swing.JButton();
@@ -387,6 +410,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jBtCancelarSS = new javax.swing.JButton();
         jBtSairSS = new javax.swing.JButton();
         jBtAuditoriaSS = new javax.swing.JButton();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jTabelaSS = new javax.swing.JTable();
         jPanel40 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
@@ -2378,7 +2403,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Data", "Processos", "Documentação", "Progressão", "Livramento", "Observação"
+                "Item", "Reg.", "Data", "Processos", "Documentação", "Progressão", "Livramento", "Observação"
             }
         ));
         jTabelaCrcJuridico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2388,17 +2413,22 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(jTabelaCrcJuridico);
         if (jTabelaCrcJuridico.getColumnModel().getColumnCount() > 0) {
-            jTabelaCrcJuridico.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaCrcJuridico.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaCrcJuridico.getColumnModel().getColumn(1).setMinWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(1).setMaxWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(2).setMinWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(3).setMinWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(3).setMaxWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(4).setMinWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(4).setMaxWidth(100);
-            jTabelaCrcJuridico.getColumnModel().getColumn(5).setMinWidth(150);
+            jTabelaCrcJuridico.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(2).setMinWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(3).setMinWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTabelaCrcJuridico.getColumnModel().getColumn(4).setMinWidth(90);
+            jTabelaCrcJuridico.getColumnModel().getColumn(4).setMaxWidth(90);
+            jTabelaCrcJuridico.getColumnModel().getColumn(5).setMinWidth(70);
+            jTabelaCrcJuridico.getColumnModel().getColumn(5).setMaxWidth(70);
+            jTabelaCrcJuridico.getColumnModel().getColumn(6).setMinWidth(70);
+            jTabelaCrcJuridico.getColumnModel().getColumn(6).setMaxWidth(70);
+            jTabelaCrcJuridico.getColumnModel().getColumn(7).setMinWidth(250);
+            jTabelaCrcJuridico.getColumnModel().getColumn(7).setMaxWidth(250);
         }
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Observação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
@@ -2491,23 +2521,25 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel85)
-                    .addComponent(jLabel84)
-                    .addComponent(jLabel83))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxPassouCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxConcluiuFP, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel27Layout.createSequentialGroup()
+                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel85)
+                            .addComponent(jLabel84)
+                            .addComponent(jLabel83))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxPassouCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxConcluiuFP, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel101)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataTO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel101)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataTO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(184, 184, 184))
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2682,20 +2714,30 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Data", "Inserido", "Algum Curso", "Concluiu", "Observação"
+                "Item", "Reg.", "Data", "Inserido", "Algum Curso", "Concluiu", "Observação"
             }
         ));
+        jTabelaTO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaTOMouseClicked(evt);
+            }
+        });
         jScrollPane11.setViewportView(jTabelaTO);
         if (jTabelaTO.getColumnModel().getColumnCount() > 0) {
-            jTabelaTO.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaTO.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaTO.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaTO.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaTO.getColumnModel().getColumn(2).setMinWidth(100);
-            jTabelaTO.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTabelaTO.getColumnModel().getColumn(3).setMinWidth(90);
-            jTabelaTO.getColumnModel().getColumn(3).setMaxWidth(90);
-            jTabelaTO.getColumnModel().getColumn(4).setMinWidth(150);
+            jTabelaTO.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaTO.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaTO.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaTO.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaTO.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaTO.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaTO.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaTO.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaTO.getColumnModel().getColumn(4).setMinWidth(100);
+            jTabelaTO.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTabelaTO.getColumnModel().getColumn(5).setMinWidth(90);
+            jTabelaTO.getColumnModel().getColumn(5).setMaxWidth(90);
+            jTabelaTO.getColumnModel().getColumn(6).setMinWidth(250);
+            jTabelaTO.getColumnModel().getColumn(6).setMaxWidth(250);
         }
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -2954,20 +2996,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Data", "Tratamento", "Acompanha", "Recuperação", "Observação"
+                "Item", "Reg.", "Data", "Tratamento", "Acompanha", "Recuperação", "Observação"
             }
         ));
+        jTabelaPSI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaPSIMouseClicked(evt);
+            }
+        });
         jScrollPane12.setViewportView(jTabelaPSI);
         if (jTabelaPSI.getColumnModel().getColumnCount() > 0) {
-            jTabelaPSI.getColumnModel().getColumn(0).setMinWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(1).setMinWidth(90);
-            jTabelaPSI.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTabelaPSI.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(3).setMinWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTabelaPSI.getColumnModel().getColumn(4).setMinWidth(150);
+            jTabelaPSI.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaPSI.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaPSI.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaPSI.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaPSI.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaPSI.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaPSI.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaPSI.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaPSI.getColumnModel().getColumn(4).setMinWidth(100);
+            jTabelaPSI.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTabelaPSI.getColumnModel().getColumn(4).setHeaderValue("Acompanha");
+            jTabelaPSI.getColumnModel().getColumn(5).setMinWidth(90);
+            jTabelaPSI.getColumnModel().getColumn(5).setMaxWidth(90);
+            jTabelaPSI.getColumnModel().getColumn(5).setHeaderValue("Recuperação");
+            jTabelaPSI.getColumnModel().getColumn(6).setMinWidth(250);
+            jTabelaPSI.getColumnModel().getColumn(6).setMaxWidth(250);
         }
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -3009,33 +3063,51 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jComboBoxAcompanhaSS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxAcompanhaSS.setEnabled(false);
 
+        jLabel110.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel110.setText("Data:");
+
+        jDataSS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataSS.setEnabled(false);
+
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
         jPanel41Layout.setHorizontalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel41Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jLabel96)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxAcompanhaSS, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel41Layout.createSequentialGroup()
+                        .addComponent(jLabel96)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAcompanhaSS, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel41Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel110)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataSS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel41Layout.createSequentialGroup()
-                .addContainerGap(128, Short.MAX_VALUE)
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel96)
                     .addComponent(jComboBoxAcompanhaSS, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(121, 121, 121))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel110)
+                    .addComponent(jDataSS, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42))
         );
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Observação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
-        jObservaacaoSS.setColumns(20);
-        jObservaacaoSS.setRows(5);
-        jObservaacaoSS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jScrollPane8.setViewportView(jObservaacaoSS);
+        jObservacaoSS.setColumns(20);
+        jObservacaoSS.setRows(5);
+        jObservacaoSS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane8.setViewportView(jObservacaoSS);
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
@@ -3049,8 +3121,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jPanel42Layout.setVerticalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel42Layout.createSequentialGroup()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jPanel43.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -3174,6 +3246,34 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 .addComponent(jBtAuditoriaSS))
         );
 
+        jTabelaSS.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaSS.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item", "Reg.", "Data", "Acompanhamento", "Observação"
+            }
+        ));
+        jTabelaSS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaSSMouseClicked(evt);
+            }
+        });
+        jScrollPane13.setViewportView(jTabelaSS);
+        if (jTabelaSS.getColumnModel().getColumnCount() > 0) {
+            jTabelaSS.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaSS.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaSS.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaSS.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTabelaSS.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaSS.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaSS.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaSS.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaSS.getColumnModel().getColumn(4).setMinWidth(250);
+            jTabelaSS.getColumnModel().getColumn(4).setMaxWidth(250);
+        }
+
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
@@ -3183,17 +3283,20 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane13))
                 .addContainerGap())
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
@@ -4073,6 +4176,15 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         //JURIDICO/CRC
         preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
                 + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+        //TERAPIA OCUPACIONAL
+        preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+        //PSICOLOGIA
+        preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+        //serviço social
+        preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
     }//GEN-LAST:event_jTabelaPerfilCarcerarioMouseClicked
 
     private void jBtPesquisaInternoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoPerfilActionPerformed
@@ -4136,6 +4248,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 if (resposta == JOptionPane.YES_OPTION) {
                     objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                     control.excluirIndicadorAcompanhamento(objPerfilInter);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     limparCamposNovo();
                     bloquearBotoes();
@@ -4185,6 +4299,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();
                         bloquearBotoes();
+                        zerarVariaveis();
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
@@ -4199,6 +4314,9 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    zerarVariaveis();
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -4310,6 +4428,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     objPerfilInter.setIdEnf(codigoEnf);
                     objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                     controle.excluirIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     ExcluirEnfermaria();
                     preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
                             + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
@@ -4557,6 +4677,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     objPerfilInter.setIdPedago(codigoPeda);
                     objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                     controlPeda.excluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     ExcluirPedagogia();
                     preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
                             + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
@@ -4665,7 +4787,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 controlPeda.incluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
                 buscarCodigoPedagogia();
                 //
-                objLog2();
+                objLog3();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
                 bloquearBotoes();
@@ -4684,7 +4806,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                 controlPeda.alterarIndicadorAcompanhamentoPedagogia(objPerfilInter);
                 //
-                objLog2();
+                objLog3();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
                 bloquearBotoes();
@@ -4776,6 +4898,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     objPerfilInter.setIdJurCrc(codigoCrc);
                     objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                     controlCrc.excluirIndicadorAcompanhamentoCrc(objPerfilInter);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     ExcluirCrc();
                     preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
                             + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
@@ -4798,7 +4922,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             objPerfilInter.setDocumentacao((String) jComboBoxDocumentacao.getSelectedItem());
             objPerfilInter.setLivramento((String) jComboBoxLivramentoCond.getSelectedItem());
             objPerfilInter.setDataJurCrc(jDataCrc.getDate());
-            objPerfilInter.setiREL((String) jObservacaoCrc.getText());
+            objPerfilInter.setObservacaoCrc((String) jObservacaoCrc.getText());
             if (jComboBoxProcessoAcomp.getSelectedItem().equals("Sim")) {
                 qtdProcessos = 1;
                 objPerfilInter.setQtdProgresso(qtdProcessos);
@@ -4835,7 +4959,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 controlCrc.incluirIndicadorAcompanhamentoCrc(objPerfilInter);
                 buscarCodigoCrc();
                 //
-                objLog2();
+                objLog4();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
                 bloquearBotoes();
@@ -4850,11 +4974,11 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 objPerfilInter.setDataUp(dataModFinal);
                 objPerfilInter.setHorarioUp(horaMov);
                 //
-                objPerfilInter.setIdPedago(codigoPeda);
+                objPerfilInter.setIdJurCrc(codigoCrc);
                 objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
                 controlCrc.alterarIndicadorAcompanhamentoCrc(objPerfilInter);
                 //
-                objLog2();
+                objLog4();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
                 bloquearBotoes();
@@ -4887,26 +5011,163 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtNovoTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoTOActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaT);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 9;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoTO();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoTOActionPerformed
 
     private void jBtAlterarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarTOActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaT);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codAlterarENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 10;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarTO();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarTOActionPerformed
 
     private void jBtExcluirTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirTOActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaT);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdTo(codigoTO);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlTO.excluirIndicadorAcompanhamentoTO(objPerfilInter);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirTO();
+                    preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirTOActionPerformed
 
     private void jBtSalvarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarTOActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaT);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codGravarENF == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setPrograma((String) jComboBoxPrograma.getSelectedItem());
+            objPerfilInter.setCurso((String) jComboBoxPassouCurso.getSelectedItem());
+            objPerfilInter.setProfissional((String) jComboBoxConcluiuFP.getSelectedItem());
+            objPerfilInter.setDataTo(jDataTO.getDate());
+            objPerfilInter.setObservacaoTo(jObservacaoTO.getText());
+            if (jComboBoxPrograma.getSelectedItem().equals("Sim")) {
+                qtdPrograma = 1;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            } else if (jComboBoxPrograma.getSelectedItem().equals("Não")) {
+                qtdPrograma = 0;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            }
+            if (jComboBoxPassouCurso.getSelectedItem().equals("Sim")) {
+                qtdCurso = 1;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            } else if (jComboBoxPassouCurso.getSelectedItem().equals("Não")) {
+                qtdCurso = 0;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            }
+            if (jComboBoxConcluiuFP.getSelectedItem().equals("Sim")) {
+                qtdProfissional = 1;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            } else if (jComboBoxConcluiuFP.getSelectedItem().equals("Não")) {
+                qtdProfissional = 0;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            }
+            if (acao == 9) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlTO.incluirIndicadorAcompanhamentoTO(objPerfilInter);
+                buscarCodigoTo();
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 10) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdTo(codigoTO);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlTO.alterarIndicadorAcompanhamentoTO(objPerfilInter);
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarTOActionPerformed
 
     private void jBtCancelarTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarTOActionPerformed
         // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        CancelarTO();
     }//GEN-LAST:event_jBtCancelarTOActionPerformed
 
     private void jBtSairTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairTOActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBtSairTOActionPerformed
 
     private void jBtAuditoriaTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaTOActionPerformed
@@ -4915,22 +5176,158 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtNovoPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPSIActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoPSI();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoPSIActionPerformed
 
     private void jBtAlterarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPSIActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codAlterarENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarPSI();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarPSIActionPerformed
 
     private void jBtExcluirPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPSIActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdPsi(codigoPSI);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlPSI.excluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirPSI();
+                    preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirPSIActionPerformed
 
     private void jBtSalvarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPSIActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codGravarENF == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setTratamento((String) jComboBoxTratamentoPSI.getSelectedItem());
+            objPerfilInter.setAcompanha((String) jComboBoxAcompanhamentoPSI.getSelectedItem());
+            objPerfilInter.setRecuparacao((String) jComboBoxRecuparacaoPSI.getSelectedItem());
+            objPerfilInter.setDataPsi(jDataPSI.getDate());
+            objPerfilInter.setObservacaoPsi(jObservacaoPSI.getText());
+            if (jComboBoxTratamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdTratamento = 1;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            } else if (jComboBoxTratamentoPSI.getSelectedItem().equals("Não")) {
+                qtdTratamento = 0;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            }
+            if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdAcompanha = 1;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            } else if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Não")) {
+                qtdAcompanha = 0;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            }
+            if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Sim")) {
+                qtdRecuperacao = 1;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            } else if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Não")) {
+                qtdRecuperacao = 0;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlPSI.incluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                buscarCodigoPSI();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdPsi(codigoPSI);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlPSI.alterarIndicadorAcompanhamentoPSI(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarPSIActionPerformed
 
     private void jBtCancelarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarPSIActionPerformed
         // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        CancelarPSI();
     }//GEN-LAST:event_jBtCancelarPSIActionPerformed
 
     private void jBtSairPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairPSIActionPerformed
@@ -4944,22 +5341,142 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtNovoSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSSActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoSS();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoSSActionPerformed
 
     private void jBtAlterarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSSActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaP);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codAlterarENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarSS();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarSSActionPerformed
 
     private void jBtExcluirSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirSSActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaS) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdSS(codigoSS);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlSS.excluirIndicadorAcompanhamentoSS(objPerfilInter);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirSS();
+                    preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirSSActionPerformed
 
     private void jBtSalvarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarSSActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaAbaS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaS) && codGravarENF == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setAcompanhaSS((String) jComboBoxAcompanhaSS.getSelectedItem());
+            objPerfilInter.setDataSS(jDataSS.getDate());
+            objPerfilInter.setObservacao(jObservacaoSS.getText());
+            if (jComboBoxAcompanhaSS.getSelectedItem().equals("Sim")) {
+                qtdAcompanhaSS = 1;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            } else if (jComboBoxAcompanhaSS.getSelectedItem().equals("Não")) {
+                qtdAcompanhaSS = 0;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlSS.incluirIndicadorAcompanhamentoSS(objPerfilInter);
+                buscarCodigoSS();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdSS(codigoSS);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlSS.alterarIndicadorAcompanhamentoSS(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarSSActionPerformed
 
     private void jBtCancelarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarSSActionPerformed
         // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        CancelarSS();
     }//GEN-LAST:event_jBtCancelarSSActionPerformed
 
     private void jBtSairSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairSSActionPerformed
@@ -5217,6 +5734,124 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaCrcJuridicoMouseClicked
 
+    private void jTabelaTOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaTOMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String idCrc = "" + jTabelaTO.getValueAt(jTabelaTO.getSelectedRow(), 0);
+            String idIndAcoCrc = "" + jTabelaTO.getValueAt(jTabelaTO.getSelectedRow(), 1);
+            bloquearCampos();
+            bloquearBotoes();
+            //MANUTENÇÃO
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //PEDAGOGIA
+            jBtNovoTO.setEnabled(true);
+            jBtAlterarTO.setEnabled(true);
+            jBtExcluirTO.setEnabled(true);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO "
+                        + "ON INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco "
+                        + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdTo='" + idCrc + "' "
+                        + "AND INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco='" + idIndAcoCrc + "'");
+                conecta.rs.first();
+                codigoTO = conecta.rs.getInt("IdTo");
+                jComboBoxPrograma.setSelectedItem(conecta.rs.getString("Programa"));
+                jComboBoxPassouCurso.setSelectedItem(conecta.rs.getString("Curso"));
+                jComboBoxConcluiuFP.setSelectedItem(conecta.rs.getString("Profissional"));
+                jDataTO.setDate(conecta.rs.getDate("DataTo"));
+                jObservacaoTO.setText(conecta.rs.getString("Observacao"));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível realizar a pesquisa.\nERROR: " + e);
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaTOMouseClicked
+
+    private void jTabelaPSIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPSIMouseClicked
+        // TODO add your handling code here:        
+        flag = 1;
+        if (flag == 1) {
+            String idCrc = "" + jTabelaPSI.getValueAt(jTabelaPSI.getSelectedRow(), 0);
+            String idIndAcoCrc = "" + jTabelaPSI.getValueAt(jTabelaPSI.getSelectedRow(), 1);
+            bloquearCampos();
+            bloquearBotoes();
+            //MANUTENÇÃO
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //PEDAGOGIA
+            jBtNovoPSI.setEnabled(true);
+            jBtAlterarPSI.setEnabled(true);
+            jBtExcluirPSI.setEnabled(true);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO "
+                        + "ON INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco "
+                        + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdPsi='" + idCrc + "' "
+                        + "AND INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco='" + idIndAcoCrc + "'");
+                conecta.rs.first();
+                codigoPSI = conecta.rs.getInt("IdPsi");
+                jComboBoxTratamentoPSI.setSelectedItem(conecta.rs.getString("Tratamento"));
+                jComboBoxAcompanhamentoPSI.setSelectedItem(conecta.rs.getString("Acompanha"));
+                jComboBoxRecuparacaoPSI.setSelectedItem(conecta.rs.getString("Recuperacao"));
+                jDataPSI.setDate(conecta.rs.getDate("DataPsi"));
+                jObservacaoPSI.setText(conecta.rs.getString("Observacao"));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível realizar a pesquisa.\nERROR: " + e);
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaPSIMouseClicked
+
+    private void jTabelaSSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaSSMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String idCrc = "" + jTabelaSS.getValueAt(jTabelaSS.getSelectedRow(), 0);
+            String idIndAcoCrc = "" + jTabelaSS.getValueAt(jTabelaSS.getSelectedRow(), 1);
+            bloquearCampos();
+            bloquearBotoes();
+            //MANUTENÇÃO
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //
+            jBtNovoSS.setEnabled(true);
+            jBtAlterarSS.setEnabled(true);
+            jBtExcluirSS.setEnabled(true);
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO "
+                        + "ON INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco "
+                        + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdSS='" + idCrc + "' "
+                        + "AND INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco='" + idIndAcoCrc + "'");
+                conecta.rs.first();
+                codigoSS = conecta.rs.getInt("IdSS");
+                jComboBoxAcompanhaSS.setSelectedItem(conecta.rs.getString("AcompanhaSS"));
+                jDataSS.setDate(conecta.rs.getDate("DataSS"));
+                jObservacaoSS.setText(conecta.rs.getString("Observacao"));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível realizar a pesquisa.\nERROR: " + e);
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaSSMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JYearChooser jAnoNascimento;
@@ -5329,6 +5964,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataPeda;
     private com.toedter.calendar.JDateChooser jDataPerfil;
     private com.toedter.calendar.JDateChooser jDataRegEnfermaria;
+    private com.toedter.calendar.JDateChooser jDataSS;
     private com.toedter.calendar.JDateChooser jDataTO;
     public static javax.swing.JTextField jEtiniaInternoPerfil;
     public static javax.swing.JLabel jFotoInternoPerfil;
@@ -5347,6 +5983,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel108;
     private javax.swing.JLabel jLabel109;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -5446,12 +6083,12 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JMonthChooser jMesReferencia;
     public static javax.swing.JTextField jNomeInternoPerfil;
     private javax.swing.JTextField jNomeInternoPesquisa;
-    private javax.swing.JTextArea jObservaacaoSS;
     private javax.swing.JTextArea jObservacaoCrc;
     private javax.swing.JTextField jObservacaoEnfermaria;
     private javax.swing.JTextArea jObservacaoInternoPerfil;
     private javax.swing.JTextArea jObservacaoPSI;
     private javax.swing.JTextField jObservacaoPeda;
+    private javax.swing.JTextArea jObservacaoSS;
     private javax.swing.JTextArea jObservacaoTO;
     private javax.swing.JTextField jOpcaoSexual;
     private javax.swing.JPanel jPanel1;
@@ -5501,6 +6138,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -5516,6 +6154,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaPSI;
     private javax.swing.JTable jTabelaPedagogia;
     private javax.swing.JTable jTabelaPerfilCarcerario;
+    private javax.swing.JTable jTabelaSS;
     private javax.swing.JTable jTabelaTO;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -5568,8 +6207,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jObservacaoPSI.setLineWrap(true);
         jObservacaoPSI.setLineWrap(true);
         //SERVIÇO SOCIAL
-        jObservaacaoSS.setLineWrap(true);
-        jObservaacaoSS.setLineWrap(true);
+        jObservacaoSS.setLineWrap(true);
+        jObservacaoSS.setLineWrap(true);
     }
 
     public void corCampos() {
@@ -5598,7 +6237,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         //PSICOLOGIA
         jObservacaoPSI.setBackground(Color.white);
         // SERVIÇO SOCIAL
-        jObservaacaoSS.setBackground(Color.white);
+        jObservacaoSS.setBackground(Color.white);
     }
 
     public void bloquearBotoes() {
@@ -5718,7 +6357,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jObservacaoPSI.setEnabled(!true);
         // SERVIÇO SOCIAL
         jComboBoxAcompanhaSS.setEnabled(!true);
-        jObservaacaoSS.setEnabled(!true);
+        jObservacaoSS.setEnabled(!true);
     }
 
     public void limparCamposNovo() {
@@ -5793,7 +6432,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jObservacaoPSI.setText("");
         // SERVIÇO SOCIAL
         jComboBoxAcompanhaSS.setSelectedItem("Não");
-        jObservaacaoSS.setText("");
+        jObservacaoSS.setText("");
     }
 
     public void Novo() {
@@ -6040,6 +6679,16 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         qtdDocumentacao = 0;
         qtdProggressao = 0;
         qtdLivramento = 0;
+        //TERAPAI OCUPACIONAL
+        qtdPrograma = 0;
+        qtdCurso = 0;
+        qtdProfissional = 0;
+        //PSICOLOGIA
+        qtdTratamento = 0;
+        qtdAcompanha = 0;
+        qtdRecuperacao = 0;
+        // SERVIÇO SOCIAL
+        qtdAcompanhaSS = 0;
     }
 
     public void NovoPedagogia() {
@@ -6307,6 +6956,350 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
+    public void NovoTO() {
+        jComboBoxPrograma.setSelectedItem("Não");
+        jComboBoxPassouCurso.setSelectedItem("Não");
+        jComboBoxConcluiuFP.setSelectedItem("Não");
+        jDataTO.setDate(null);
+        jObservacaoTO.setText("");
+        //
+        jDataTO.setCalendar(Calendar.getInstance());
+        //
+        jComboBoxPrograma.setEnabled(true);
+        jComboBoxPassouCurso.setEnabled(true);
+        jComboBoxConcluiuFP.setEnabled(true);
+        jDataTO.setEnabled(true);
+        jObservacaoTO.setEnabled(true);
+        //
+        jBtSalvarTO.setEnabled(true);
+        jBtCancelarTO.setEnabled(true);
+    }
+
+    public void AlterarTO() {
+        jComboBoxPrograma.setEnabled(true);
+        jComboBoxPassouCurso.setEnabled(true);
+        jComboBoxConcluiuFP.setEnabled(true);
+        jDataTO.setEnabled(true);
+        jObservacaoTO.setEnabled(true);
+        //
+        jBtSalvarTO.setEnabled(true);
+        jBtCancelarTO.setEnabled(true);
+    }
+
+    public void ExcluirTO() {
+        jComboBoxPrograma.setSelectedItem("Não");
+        jComboBoxPassouCurso.setSelectedItem("Não");
+        jComboBoxConcluiuFP.setSelectedItem("Não");
+        jDataTO.setDate(null);
+        jObservacaoTO.setText("");
+        //
+        jComboBoxPrograma.setEnabled(!true);
+        jComboBoxPassouCurso.setEnabled(!true);
+        jComboBoxConcluiuFP.setEnabled(!true);
+        jDataTO.setEnabled(!true);
+        jObservacaoTO.setEnabled(!true);
+        //
+        jBtNovoTO.setEnabled(true);
+        //
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void SalvarTO() {
+        jComboBoxPrograma.setEnabled(!true);
+        jComboBoxPassouCurso.setEnabled(!true);
+        jComboBoxConcluiuFP.setEnabled(!true);
+        jDataTO.setEnabled(!true);
+        jObservacaoTO.setEnabled(!true);
+        //
+        jBtNovoTO.setEnabled(true);
+        //
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void CancelarTO() {
+        jComboBoxPrograma.setEnabled(!true);
+        jComboBoxPassouCurso.setEnabled(!true);
+        jComboBoxConcluiuFP.setEnabled(!true);
+        jDataTO.setEnabled(!true);
+        jObservacaoTO.setEnabled(!true);
+        //
+        jBtNovoTO.setEnabled(true);
+        //
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void buscarCodigoTo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO");
+            conecta.rs.last();
+            codigoTO = conecta.rs.getInt("IdTo");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
+        }
+        conecta.desconecta();
+    }
+
+    public void NovoPSI() {
+        jComboBoxTratamentoPSI.setSelectedItem("Não");
+        jComboBoxAcompanhamentoPSI.setSelectedItem("Não");
+        jComboBoxRecuparacaoPSI.setSelectedItem("Não");
+        jDataPSI.setDate(null);
+        jObservacaoPSI.setText("");
+        //
+        jDataPSI.setCalendar(Calendar.getInstance());
+        //
+        jComboBoxTratamentoPSI.setEnabled(true);
+        jComboBoxAcompanhamentoPSI.setEnabled(true);
+        jComboBoxRecuparacaoPSI.setEnabled(true);
+        jDataPSI.setEnabled(true);
+        jObservacaoPSI.setEnabled(true);
+        //
+        jBtSalvarPSI.setEnabled(true);
+        jBtCancelarPSI.setEnabled(true);
+    }
+
+    public void AlterarPSI() {
+        jComboBoxTratamentoPSI.setEnabled(true);
+        jComboBoxAcompanhamentoPSI.setEnabled(true);
+        jComboBoxRecuparacaoPSI.setEnabled(true);
+        jDataPSI.setEnabled(true);
+        jObservacaoPSI.setEnabled(true);
+        //
+        jBtSalvarPSI.setEnabled(true);
+        jBtCancelarPSI.setEnabled(true);
+    }
+
+    public void ExcluirPSI() {
+        jComboBoxTratamentoPSI.setSelectedItem("Não");
+        jComboBoxAcompanhamentoPSI.setSelectedItem("Não");
+        jComboBoxRecuparacaoPSI.setSelectedItem("Não");
+        jDataPSI.setDate(null);
+        jObservacaoPSI.setText("");
+        //        
+        jComboBoxTratamentoPSI.setEnabled(!true);
+        jComboBoxAcompanhamentoPSI.setEnabled(!true);
+        jComboBoxRecuparacaoPSI.setEnabled(!true);
+        jDataPSI.setEnabled(!true);
+        jObservacaoPSI.setEnabled(!true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        //
+        jBtNovoTO.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void SalvarPSI() {
+        jComboBoxTratamentoPSI.setSelectedItem("Não");
+        jComboBoxAcompanhamentoPSI.setSelectedItem("Não");
+        jComboBoxRecuparacaoPSI.setSelectedItem("Não");
+        jDataPSI.setDate(null);
+        jObservacaoPSI.setText("");
+        //        
+        jComboBoxTratamentoPSI.setEnabled(!true);
+        jComboBoxAcompanhamentoPSI.setEnabled(!true);
+        jComboBoxRecuparacaoPSI.setEnabled(!true);
+        jDataPSI.setEnabled(!true);
+        jObservacaoPSI.setEnabled(!true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        //
+        jBtNovoTO.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void CancelarPSI() {
+        jComboBoxTratamentoPSI.setSelectedItem("Não");
+        jComboBoxAcompanhamentoPSI.setSelectedItem("Não");
+        jComboBoxRecuparacaoPSI.setSelectedItem("Não");
+        jDataPSI.setDate(null);
+        jObservacaoPSI.setText("");
+        //        
+        jComboBoxTratamentoPSI.setEnabled(!true);
+        jComboBoxAcompanhamentoPSI.setEnabled(!true);
+        jComboBoxRecuparacaoPSI.setEnabled(!true);
+        jDataPSI.setEnabled(!true);
+        jObservacaoPSI.setEnabled(!true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        //
+        jBtNovoTO.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void buscarCodigoPSI() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI");
+            conecta.rs.last();
+            codigoPSI = conecta.rs.getInt("IdPsi");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
+        }
+        conecta.desconecta();
+    }
+
+    public void NovoSS() {
+        jComboBoxAcompanhaSS.setSelectedItem("Não");
+        jDataSS.setDate(null);
+        jObservacaoSS.setText("");
+        //
+        jDataSS.setCalendar(Calendar.getInstance());
+        //
+        jComboBoxAcompanhaSS.setEnabled(true);
+        jDataSS.setEnabled(true);
+        jObservacaoSS.setEnabled(true);
+        //
+        jBtSalvarSS.setEnabled(true);
+        jBtCancelarSS.setEnabled(true);
+    }
+
+    public void AlterarSS() {
+        jComboBoxAcompanhaSS.setEnabled(true);
+        jDataSS.setEnabled(true);
+        jObservacaoSS.setEnabled(true);
+        //
+        jBtSalvarSS.setEnabled(true);
+        jBtCancelarSS.setEnabled(true);
+    }
+
+    public void ExcluirSS() {
+        jComboBoxAcompanhaSS.setSelectedItem("Não");
+        jDataSS.setDate(null);
+        jObservacaoSS.setText("");
+        //
+        jComboBoxAcompanhaSS.setEnabled(!true);
+        jDataSS.setEnabled(!true);
+        jObservacaoSS.setEnabled(!true);
+        //
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoTO.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void SalvarSS() {
+        jComboBoxAcompanhaSS.setEnabled(!true);
+        jDataSS.setEnabled(!true);
+        jObservacaoSS.setEnabled(!true);
+        //
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoTO.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void CancelarSS() {
+        jComboBoxAcompanhaSS.setSelectedItem("Não");
+        jDataSS.setDate(null);
+        jObservacaoSS.setText("");
+        //
+        jComboBoxAcompanhaSS.setEnabled(!true);
+        jDataSS.setEnabled(!true);
+        jObservacaoSS.setEnabled(!true);
+        //
+        jBtNovoSS.setEnabled(true);
+        //
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoTO.setEnabled(true);
+        jBtNovoPSI.setEnabled(true);
+        jBtNovoPeda.setEnabled(true);
+        jBtNovoCrc.setEnabled(true);
+        jBtNovoEnfermaria.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+    }
+
+    public void buscarCodigoSS() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS");
+            conecta.rs.last();
+            codigoSS = conecta.rs.getInt("IdSS");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
+        }
+        conecta.desconecta();
+    }
+
     public void verificarExistenciaIndicadorAcompanha() {
         conecta.abrirConexao();
         try {
@@ -6494,7 +7487,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     public void preencherTabelaCrc(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Processos", "Documentação", "Progressão", "Livramento"};
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Processos", "Documentação", "Progressão", "Livramento", "Observação"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -6506,30 +7499,151 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 String mese = dataPAI3.substring(5, 7);
                 String anoe = dataPAI3.substring(0, 4);
                 dataPAI3 = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getInt("IdJurCrc"), conecta.rs.getInt("IdIndAco"), dataPAI3, conecta.rs.getString("Processos"), conecta.rs.getString("Documentacao"), conecta.rs.getString("Progressao"), conecta.rs.getString("Livramento")});
+                dados.add(new Object[]{conecta.rs.getInt("IdJurCrc"), conecta.rs.getInt("IdIndAco"), dataPAI3, conecta.rs.getString("Processos"), conecta.rs.getString("Documentacao"), conecta.rs.getString("Progressao"), conecta.rs.getString("Livramento"), conecta.rs.getString("Observacao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaCrcJuridico.setModel(modelo);
-        jTabelaCrcJuridico.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaCrcJuridico.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(1).setPreferredWidth(60);
         jTabelaCrcJuridico.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaCrcJuridico.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTabelaCrcJuridico.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(3).setPreferredWidth(60);
         jTabelaCrcJuridico.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(4).setPreferredWidth(90);
         jTabelaCrcJuridico.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(5).setPreferredWidth(70);
         jTabelaCrcJuridico.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaCrcJuridico.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTabelaCrcJuridico.getColumnModel().getColumn(6).setPreferredWidth(70);
         jTabelaCrcJuridico.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(7).setPreferredWidth(250);
+        jTabelaCrcJuridico.getColumnModel().getColumn(7).setResizable(false);
         jTabelaCrcJuridico.getTableHeader().setReorderingAllowed(false);
         jTabelaCrcJuridico.setAutoResizeMode(jTabelaCrcJuridico.AUTO_RESIZE_OFF);
         jTabelaCrcJuridico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinhaCamposTabelaPedagogia();
+        alinharCamposTabelaCrc();
+        conecta.desconecta();
+    }
+
+    public void preencherTabelaTO(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Inserido", "Algum Curso", "Concluiu", "Observação"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataPAI4 = conecta.rs.getString("DataTO");
+                String diae = dataPAI4.substring(8, 10);
+                String mese = dataPAI4.substring(5, 7);
+                String anoe = dataPAI4.substring(0, 4);
+                dataPAI4 = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getInt("IdTo"), conecta.rs.getInt("IdIndAco"), dataPAI4, conecta.rs.getString("Programa"), conecta.rs.getString("Curso"), conecta.rs.getString("Profissional"), conecta.rs.getString("Observacao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTO.setModel(modelo);
+        jTabelaTO.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTabelaTO.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaTO.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(6).setPreferredWidth(250);
+        jTabelaTO.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaTO.getTableHeader().setReorderingAllowed(false);
+        jTabelaTO.setAutoResizeMode(jTabelaTO.AUTO_RESIZE_OFF);
+        jTabelaTO.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaTO();
+        conecta.desconecta();
+    }
+
+    public void preencherTabelaPSI(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Tratamento", "Acompanha", "Recuperação", "Observação"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataPAI5 = conecta.rs.getString("DataPsi");
+                String diae = dataPAI5.substring(8, 10);
+                String mese = dataPAI5.substring(5, 7);
+                String anoe = dataPAI5.substring(0, 4);
+                dataPAI5 = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getInt("IdPsi"), conecta.rs.getInt("IdIndAco"), dataPAI5, conecta.rs.getString("Tratamento"), conecta.rs.getString("Acompanha"), conecta.rs.getString("Recuperacao"), conecta.rs.getString("Observacao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPSI.setModel(modelo);
+        jTabelaPSI.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPSI.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaPSI.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaPSI.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaPSI.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaPSI.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(5).setPreferredWidth(90);
+        jTabelaPSI.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(6).setPreferredWidth(250);
+        jTabelaPSI.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaPSI.getTableHeader().setReorderingAllowed(false);
+        jTabelaPSI.setAutoResizeMode(jTabelaPSI.AUTO_RESIZE_OFF);
+        jTabelaPSI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaPSI();
+        conecta.desconecta();
+    }
+
+    public void preencherTabelaSS(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Acompanhamento", "Observação"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataPAI6 = conecta.rs.getString("DataSS");
+                String diae = dataPAI6.substring(8, 10);
+                String mese = dataPAI6.substring(5, 7);
+                String anoe = dataPAI6.substring(0, 4);
+                dataPAI6 = diae + "/" + mese + "/" + anoe;
+                dados.add(new Object[]{conecta.rs.getInt("IdSS"), conecta.rs.getInt("IdIndAco"), dataPAI6, conecta.rs.getString("AcompanhaSS"), conecta.rs.getString("Observacao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaSS.setModel(modelo);
+        jTabelaSS.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaSS.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaSS.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaSS.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaSS.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaSS.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaSS.getTableHeader().setReorderingAllowed(false);
+        jTabelaSS.setAutoResizeMode(jTabelaSS.AUTO_RESIZE_OFF);
+        jTabelaSS.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaSS();
         conecta.desconecta();
     }
 
@@ -6707,6 +7821,157 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jTabelaPedagogia.getColumnModel().getColumn(12).setCellRenderer(centralizado);
     }
 
+    public void limparTabelaCRCUridico() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Processos", "Documentação", "Progressão", "Livramento", "Observação"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaCrcJuridico.setModel(modelo);
+        jTabelaCrcJuridico.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaCrcJuridico.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaCrcJuridico.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaCrcJuridico.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaCrcJuridico.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTabelaCrcJuridico.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaCrcJuridico.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(6).setPreferredWidth(70);
+        jTabelaCrcJuridico.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaCrcJuridico.getColumnModel().getColumn(7).setPreferredWidth(250);
+        jTabelaCrcJuridico.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaCrcJuridico.getTableHeader().setReorderingAllowed(false);
+        jTabelaCrcJuridico.setAutoResizeMode(jTabelaCrcJuridico.AUTO_RESIZE_OFF);
+        jTabelaCrcJuridico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaCrc() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaCrcJuridico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        jTabelaCrcJuridico.getColumnModel().getColumn(6).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaTO() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Inserido", "Algum Curso", "Concluiu", "Observação"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTO.setModel(modelo);
+        jTabelaTO.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaTO.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTabelaTO.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaTO.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(6).setPreferredWidth(70);
+        jTabelaTO.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaTO.getColumnModel().getColumn(7).setPreferredWidth(250);
+        jTabelaTO.getColumnModel().getColumn(7).setResizable(false);
+        jTabelaTO.getTableHeader().setReorderingAllowed(false);
+        jTabelaTO.setAutoResizeMode(jTabelaTO.AUTO_RESIZE_OFF);
+        jTabelaTO.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaTO() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaTO.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTO.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaTO.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaTO.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaTO.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaTO.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaPSI() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Tratamento", "Acompanha", "Recuperação", "Observação"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPSI.setModel(modelo);
+        jTabelaPSI.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaPSI.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaPSI.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaPSI.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaPSI.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaPSI.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(5).setPreferredWidth(90);
+        jTabelaPSI.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaPSI.getColumnModel().getColumn(6).setPreferredWidth(250);
+        jTabelaPSI.getColumnModel().getColumn(6).setResizable(false);
+        jTabelaPSI.setAutoResizeMode(jTabelaPSI.AUTO_RESIZE_OFF);
+        jTabelaPSI.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaPSI() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaPSI.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPSI.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaPSI.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaPSI.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaPSI.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaPSI.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaSS() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Reg.", "Data", "Acompanhamento", "Observação"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaSS.setModel(modelo);
+        jTabelaSS.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaSS.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTabelaSS.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaSS.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaSS.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaSS.getColumnModel().getColumn(4).setPreferredWidth(250);
+        jTabelaSS.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaSS.getTableHeader().setReorderingAllowed(false);
+        jTabelaSS.setAutoResizeMode(jTabelaSS.AUTO_RESIZE_OFF);
+        jTabelaSS.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void alinharCamposTabelaSS() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaSS.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaSS.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaSS.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaSS.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+    }
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -6720,6 +7985,51 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela1);
+        objLogSys.setIdLancMov(codigoEnf);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog3() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela2);
+        objLogSys.setIdLancMov(codigoEnf);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog4() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela3);
+        objLogSys.setIdLancMov(codigoEnf);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog5() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela4);
+        objLogSys.setIdLancMov(codigoEnf);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog6() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela5);
+        objLogSys.setIdLancMov(codigoEnf);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog7() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela6);
         objLogSys.setIdLancMov(codigoEnf);
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);

@@ -41,7 +41,7 @@ public class ControleIndicadoresAcompanhaJuridicoCrc {
             pst.setInt(9, objPerfilInter.getQtdProgressao());
             pst.setString(10, objPerfilInter.getLivramento());
             pst.setInt(11, objPerfilInter.getQtdLivramento());           
-            pst.setString(12, objPerfilInter.getObservacao());
+            pst.setString(12, objPerfilInter.getObservacaoCrc());
             pst.setString(13, objPerfilInter.getUsuarioInsert());
             pst.setString(14, objPerfilInter.getDataInsert());
             pst.setString(15, objPerfilInter.getHorarioInsert());
@@ -69,7 +69,7 @@ public class ControleIndicadoresAcompanhaJuridicoCrc {
             pst.setInt(9, objPerfilInter.getQtdProgressao());
             pst.setString(10, objPerfilInter.getLivramento());
             pst.setInt(11, objPerfilInter.getQtdLivramento());           
-            pst.setString(12, objPerfilInter.getObservacao());
+            pst.setString(12, objPerfilInter.getObservacaoCrc());
             pst.setString(13, objPerfilInter.getUsuarioUp());
             pst.setString(14, objPerfilInter.getDataUp());
             pst.setString(15, objPerfilInter.getHorarioUp());

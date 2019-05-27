@@ -122,6 +122,8 @@ public class IndicadoresAcompanhamento {
     private int qtdTratamento;
     private String acompanha;
     private int qtdAcompanha;
+    private String recuparacao;
+    private int qtdRecuparacao;
     private String observacaoPsi;
     // SERVIÇO SOCIAL
     private int idSS;
@@ -133,7 +135,7 @@ public class IndicadoresAcompanhamento {
     public IndicadoresAcompanhamento() {
     }
 
-    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, String hivControlada, int qtdHib, String hepatiteB, String hepatiBCont, int qtdHepatiteB, String hepatiteC, String hepatiCcont, int qtdHepatiteC, String dst, String curaDst, int qdtDst, String vDLR, String curaVdlr, int qtdVdlr, String vacina, String vacinaCura, int qtdVacina, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
+    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, String hivControlada, int qtdHib, String hepatiteB, String hepatiBCont, int qtdHepatiteB, String hepatiteC, String hepatiCcont, int qtdHepatiteC, String dst, String curaDst, int qdtDst, String vDLR, String curaVdlr, int qtdVdlr, String vacina, String vacinaCura, int qtdVacina, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String recuparacao, int qtdRecuparacao, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
         this.IdIndAco = IdIndAco;
         this.statusPerfil = statusPerfil;
         this.dataPerfil = dataPerfil;
@@ -238,6 +240,8 @@ public class IndicadoresAcompanhamento {
         this.qtdTratamento = qtdTratamento;
         this.acompanha = acompanha;
         this.qtdAcompanha = qtdAcompanha;
+        this.recuparacao = recuparacao;
+        this.qtdRecuparacao = qtdRecuparacao;
         this.observacaoPsi = observacaoPsi;
         this.idSS = idSS;
         this.dataSS = dataSS;
@@ -1700,6 +1704,34 @@ public class IndicadoresAcompanhamento {
      */
     public void setQtdAcompanha(int qtdAcompanha) {
         this.qtdAcompanha = qtdAcompanha;
+    }
+
+    /**
+     * @return the recuparacao
+     */
+    public String getRecuparacao() {
+        return recuparacao;
+    }
+
+    /**
+     * @param recuparacao the recuparacao to set
+     */
+    public void setRecuparacao(String recuparacao) {
+        this.recuparacao = recuparacao;
+    }
+
+    /**
+     * @return the qtdRecuparacao
+     */
+    public int getQtdRecuparacao() {
+        return qtdRecuparacao;
+    }
+
+    /**
+     * @param qtdRecuparacao the qtdRecuparacao to set
+     */
+    public void setQtdRecuparacao(int qtdRecuparacao) {
+        this.qtdRecuparacao = qtdRecuparacao;
     }
 
     /**
