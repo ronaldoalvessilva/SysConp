@@ -33,9 +33,26 @@ import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaC;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaE;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaP;
+import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaPSI;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaS;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaAbaT;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAcompanhaManu;
+import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
+import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codGravarJURI;
+import static gestor.Visao.TelaModuloJuridico.codIncluirJURI;
+import static gestor.Visao.TelaModuloJuridico.codUserAcessoJURI;
+import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codExcluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codGravarPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codIncluirPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codUserAcessoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -109,12 +126,12 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     int qtdVdlr = 0;
     int qtdVacina = 0;
     //
-    int codigoEnf = 0;
-    int codigoPeda = 0;
-    int codigoCrc = 0;
-    int codigoTO = 0;
-    int codigoPSI = 0;
-    int codigoSS = 0;
+    public static int codigoEnf = 0;
+    public static int codigoPeda = 0;
+    public static int codigoCrc = 0;
+    public static int codigoTO = 0;
+    public static int codigoPSI = 0;
+    public static int codigoSS = 0;
     //PEDAGOGIA
     int qICAA = 0;
     int qIC1 = 0;
@@ -790,12 +807,14 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                             .addComponent(jIdInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jNomeInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jNomeInternoPerfil)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesquisaInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -810,7 +829,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                             .addComponent(jOpcaoSexual)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel43)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 109, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jAnoNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -836,9 +855,9 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNomeInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisaInternoPerfil)
-                    .addComponent(jIdInternoPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesquisaInternoPerfil))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -3498,14 +3517,49 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
     private void jBtPesquisaInternoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoPerfilActionPerformed
         // TODO add your handling code here:
         TelaPesqInternoIndicadoresAcompanhamento objPesqInternoPerfil = new TelaPesqInternoIndicadoresAcompanhamento();
-        TelaModuloEnfermaria.jPainelMedico.add(objPesqInternoPerfil);
-        objPesqInternoPerfil.show();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
+            TelaModuloPedagogia.jPainelPedagogia.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        } else if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        } else if (TelaModuloPsicologia.jPainelPsicologia != null) {
+            TelaModuloPsicologia.jPainelPsicologia.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        } else if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objPesqInternoPerfil);
+            objPesqInternoPerfil.show();
+        }
     }//GEN-LAST:event_jBtPesquisaInternoPerfilActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaManu);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codIncluirENF == 1) {
+            acao = 1;
+            bloquearCampos();
+            limparCamposNovo();
+            bloquearBotoes();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaENF.equals(telaIndAcompanhaManu) && codIncluirJURI == 1) {
+            acao = 1;
+            bloquearCampos();
+            limparCamposNovo();
+            bloquearBotoes();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaManu) && codIncluirPEDA == 1) {
             acao = 1;
             bloquearCampos();
             limparCamposNovo();
@@ -3535,6 +3589,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaENF.equals(telaIndAcompanhaManu) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaManu) && codAlterarPEDA == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3544,6 +3624,48 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaManu);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codExcluirENF == 1) {
+            verificarInternoIndicadorAcompanha();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdInternoPerfil.getText().equals(codInterno)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o interno tem perfil carcerário cadastrado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    control.excluirIndicadorAcompanhamento(objPerfilInter);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    limparCamposNovo();
+                    bloquearBotoes();
+                    Excluir();
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaENF.equals(telaIndAcompanhaManu) && codExcluirJURI == 1) {
+            verificarInternoIndicadorAcompanha();
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            if (jIdInternoPerfil.getText().equals(codInterno)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o interno tem perfil carcerário cadastrado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    control.excluirIndicadorAcompanhamento(objPerfilInter);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    limparCamposNovo();
+                    bloquearBotoes();
+                    Excluir();
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaManu) && codExcluirPEDA == 1) {
             verificarInternoIndicadorAcompanha();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -3629,6 +3751,120 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaManu) && codGravarJURI == 1) {
+            verificarExistenciaIndicadorAcompanha();
+            if (jDataPerfil.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do perfil carcerário");
+            } else if (jIdInternoPerfil.getText().equals("") || jNomeInternoPerfil.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno do perfil carcerário.");
+            } else if (jAnoNascimento.getValue() == 0 || jAnoNascimento.getValue() < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o ano de nascimento do interno corretamente.");
+            } else if (jOpcaoSexual.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a opção sexual do interno.");
+            } else {
+                objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+                objPerfilInter.setDataPerfil(jDataPerfil.getDate());
+                objPerfilInter.setAnoReferencia(jAnoReferencia.getValue());
+                objPerfilInter.setMesReferencia(jMesReferencia.getName());
+                objPerfilInter.setOpcaoSexual(jOpcaoSexual.getText());
+                objPerfilInter.setAnoNascimento(jAnoNascimento.getValue());
+                objPerfilInter.setObservacaoPerfil(jObservacaoInternoPerfil.getText());
+                objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+                objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+                if (acao == 1) {
+                    if (jIdInternoPerfil.getText().equals(codInterno) && objPerfilInter.getAnoReferencia() == anoReferencia) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez o cadastro do perfil carcerário.");
+                    } else {
+                        objPerfilInter.setUsuarioInsert(nameUser);
+                        objPerfilInter.setDataInsert(dataModFinal);
+                        objPerfilInter.setHorarioInsert(horaMov);
+                        //
+                        control.incluirIndicadorAcompanhamento(objPerfilInter);
+                        buscarCodigo();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearCampos();
+                        bloquearBotoes();
+                        zerarVariaveis();
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objPerfilInter.setUsuarioUp(nameUser);
+                    objPerfilInter.setDataUp(dataModFinal);
+                    objPerfilInter.setHorarioUp(horaMov);
+                    //
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    control.alterarIndicadorAcompanhamento(objPerfilInter);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    zerarVariaveis();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaManu) && codGravarPEDA == 1) {
+            verificarExistenciaIndicadorAcompanha();
+            if (jDataPerfil.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro do perfil carcerário");
+            } else if (jIdInternoPerfil.getText().equals("") || jNomeInternoPerfil.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno do perfil carcerário.");
+            } else if (jAnoNascimento.getValue() == 0 || jAnoNascimento.getValue() < 0) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o ano de nascimento do interno corretamente.");
+            } else if (jOpcaoSexual.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a opção sexual do interno.");
+            } else {
+                objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+                objPerfilInter.setDataPerfil(jDataPerfil.getDate());
+                objPerfilInter.setAnoReferencia(jAnoReferencia.getValue());
+                objPerfilInter.setMesReferencia(jMesReferencia.getName());
+                objPerfilInter.setOpcaoSexual(jOpcaoSexual.getText());
+                objPerfilInter.setAnoNascimento(jAnoNascimento.getValue());
+                objPerfilInter.setObservacaoPerfil(jObservacaoInternoPerfil.getText());
+                objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+                objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+                if (acao == 1) {
+                    if (jIdInternoPerfil.getText().equals(codInterno) && objPerfilInter.getAnoReferencia() == anoReferencia) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez o cadastro do perfil carcerário.");
+                    } else {
+                        objPerfilInter.setUsuarioInsert(nameUser);
+                        objPerfilInter.setDataInsert(dataModFinal);
+                        objPerfilInter.setHorarioInsert(horaMov);
+                        //
+                        control.incluirIndicadorAcompanhamento(objPerfilInter);
+                        buscarCodigo();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearCampos();
+                        bloquearBotoes();
+                        zerarVariaveis();
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    objPerfilInter.setUsuarioUp(nameUser);
+                    objPerfilInter.setDataUp(dataModFinal);
+                    objPerfilInter.setHorarioUp(horaMov);
+                    //
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    control.alterarIndicadorAcompanhamento(objPerfilInter);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    zerarVariaveis();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3648,9 +3884,14 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaIncadoresAcompanhamento objPerfilCarEnf = new TelaAuditoriaIncadoresAcompanhamento();
-        TelaModuloEnfermaria.jPainelMedico.add(objPerfilCarEnf);
-        objPerfilCarEnf.show();
+        TelaAuditoriaIndicadoresManu objAudIndica = new TelaAuditoriaIndicadoresManu();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudIndica);
+            objAudIndica.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudIndica);
+            objAudIndica.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -3665,7 +3906,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         if (resposta == JOptionPane.YES_OPTION) {
             objPerfilInter.setStatusPerfil(statusAtend);
             objPerfilInter.setIdIndAco(Integer.parseInt(jIdPerfil.getText()));
-//            control.finalizarPerfilCarcerarioInterno(objPerfilInter);
+            control.finalizarIndicadorAcompanhamento(objPerfilInter);
             objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
             jStatusPerfil.setText(statusAtend);
             //
@@ -3679,6 +3920,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaE);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaE) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoEnfermaria();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaE) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoEnfermaria();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaE) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3712,6 +3979,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaE) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarEnfermaria();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaE) && codAlterarPEDA == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarEnfermaria();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3721,6 +4014,52 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaE);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaE) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdEnf(codigoEnf);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controle.excluirIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirEnfermaria();
+                    preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaE) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdEnf(codigoEnf);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controle.excluirIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirEnfermaria();
+                    preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaE) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -3900,6 +4239,304 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaE) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
+            objPerfilInter.setEscabiose((String) jComboBoxEscabiose.getSelectedItem());
+            objPerfilInter.setEscabioseCura((String) jComboBoxEscabioseCont.getSelectedItem());
+            objPerfilInter.setHanseniase((String) jComboBoxHanseniase.getSelectedItem());
+            objPerfilInter.setSifilis((String) jComboBoxSifilis.getSelectedItem());
+            objPerfilInter.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
+            objPerfilInter.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
+            objPerfilInter.setDiabControl((String) jComboBoxDiabetesCont.getSelectedItem());
+            objPerfilInter.setHiperControl((String) jComboBoxHipertensaoCont.getSelectedItem());
+            objPerfilInter.setHanseniaseCura((String) jComboBoxHanseniaseCont.getSelectedItem());
+            objPerfilInter.setSifilisCura((String) jComboBoxSifilisCont.getSelectedItem());
+            objPerfilInter.setTuberculoseCura((String) jComboBoxTuberculoseCont.getSelectedItem());
+            objPerfilInter.setHiv((String) jComboBoxHIV.getSelectedItem());
+            objPerfilInter.setHivControlada((String) jComboBoxHIVCont.getSelectedItem());
+            objPerfilInter.setHepatiteB((String) jComboBoxHepatiteB.getSelectedItem());
+            objPerfilInter.setHepatiBCont((String) jComboBoxhepatiteBContro.getSelectedItem());
+            objPerfilInter.setHepatiteC((String) jComboBoxHepatiteC.getSelectedItem());
+            objPerfilInter.setHepatiCcont((String) jComboBoxHepatiteCcurada.getSelectedItem());
+            objPerfilInter.setDst((String) jComboBoxDST.getSelectedItem());
+            objPerfilInter.setvDLR((String) jComboBoxVDRL.getSelectedItem());
+            objPerfilInter.setVacina((String) jComboBoxVacina.getSelectedItem());
+            objPerfilInter.setDataReg(jDataRegEnfermaria.getDate());
+            objPerfilInter.setObservacaoEnf(jObservacaoEnfermaria.getText());
+            //
+            if (jComboBoxDiabetesCont.getSelectedItem().equals("Sim")) {
+                qtdDiabetes = 1;
+                objPerfilInter.setQtdDiabetes(qtdDiabetes);
+            } else if (jComboBoxDiabetesCont.getSelectedItem().equals("Não")) {
+                qtdDiabetes = 0;
+                objPerfilInter.setQtdDiabetes(qtdDiabetes);
+            }
+            if (jComboBoxHipertensaoCont.getSelectedItem().equals("Sim")) {
+                qtdHipertensao = 1;
+                objPerfilInter.setQtdHipertensao(qtdHipertensao);
+            } else if (jComboBoxHipertensaoCont.getSelectedItem().equals("Não")) {
+                qtdHipertensao = 0;
+                objPerfilInter.setQtdHipertensao(qtdHipertensao);
+            }
+            if (jComboBoxEscabioseCont.getSelectedItem().equals("Sim")) {
+                qtdEscabiose = 1;
+                objPerfilInter.setQtdEscabiose(qtdEscabiose);
+            } else if (jComboBoxEscabioseCont.getSelectedItem().equals("Não")) {
+                qtdEscabiose = 0;
+                objPerfilInter.setQtdEscabiose(qtdEscabiose);
+            }
+            if (jComboBoxHanseniaseCont.getSelectedItem().equals("Sim")) {
+                qtdHanseniase = 1;
+                objPerfilInter.setQtdHanseniase(qtdHanseniase);
+            } else if (jComboBoxHanseniaseCont.getSelectedItem().equals("Não")) {
+                qtdHanseniase = 0;
+                objPerfilInter.setQtdHanseniase(qtdHanseniase);
+            }
+            if (jComboBoxSifilisCont.getSelectedItem().equals("Sim")) {
+                qtdSifilis = 1;
+                objPerfilInter.setQtdSifilis(qtdSifilis);
+            } else if (jComboBoxSifilisCont.getSelectedItem().equals("Não")) {
+                qtdSifilis = 0;
+                objPerfilInter.setQtdSifilis(qtdSifilis);
+            }
+            if (jComboBoxTuberculoseCont.getSelectedItem().equals("Sim")) {
+                qtdTuberculose = 1;
+                objPerfilInter.setQtdTuberculose(qtdTuberculose);
+            } else if (jComboBoxTuberculoseCont.getSelectedItem().equals("Não")) {
+                qtdTuberculose = 0;
+                objPerfilInter.setQtdTuberculose(qtdTuberculose);
+            }
+            if (jComboBoxHIVCont.getSelectedItem().equals("Sim")) {
+                qtdHib = 1;
+                objPerfilInter.setQtdHib(qtdHib);
+            } else if (jComboBoxHIVCont.getSelectedItem().equals("Não")) {
+                qtdHib = 0;
+                objPerfilInter.setQtdHib(qtdHib);
+            }
+            if (jComboBoxhepatiteBContro.getSelectedItem().equals("Sim")) {
+                qtdHepatiteB = 1;
+                objPerfilInter.setQtdHepatiteB(qtdHepatiteB);
+            } else if (jComboBoxhepatiteBContro.getSelectedItem().equals("Não")) {
+                qtdHepatiteB = 0;
+                objPerfilInter.setQtdHepatiteB(qtdHepatiteB);
+            }
+            if (jComboBoxHepatiteCcurada.getSelectedItem().equals("Sim")) {
+                qtdHepatiteC = 1;
+                objPerfilInter.setQtdHepatiteC(qtdHepatiteC);
+            } else if (jComboBoxHepatiteCcurada.getSelectedItem().equals("Não")) {
+                qtdHepatiteC = 0;
+                objPerfilInter.setQtdHepatiteC(qtdHepatiteC);
+            }
+            if (jComboBoxDST.getSelectedItem().equals("Sim")) {
+                qtdDst = 1;
+                objPerfilInter.setQdtDst(qtdDst);
+            } else if (jComboBoxDST.getSelectedItem().equals("Não")) {
+                qtdDst = 0;
+                objPerfilInter.setQdtDst(qtdDst);
+            }
+            if (jComboBoxVacina.getSelectedItem().equals("Sim")) {
+                qtdVacina = 1;
+                objPerfilInter.setQtdVacina(qtdVacina);
+            } else if (jComboBoxVacina.getSelectedItem().equals("Não")) {
+                qtdVacina = 0;
+                objPerfilInter.setQtdVacina(qtdVacina);
+            }
+            if (jComboBoxVDRL.getSelectedItem().equals("Reagente")) {
+                qtdVdlr = 1;
+                objPerfilInter.setQtdVdlr(qtdVdlr);
+            } else if (jComboBoxVDRL.getSelectedItem().equals("Não Reagente")) {
+                qtdVdlr = 0;
+                objPerfilInter.setQtdVdlr(qtdVdlr);
+            }
+            if (acao == 3) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controle.incluirIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                buscarCodigoEnfermaria();
+                //
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarEnfermaria();
+                zerarVariaveis();
+                preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 4) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdEnf(codigoEnf);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controle.alterarIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                //
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarEnfermaria();
+                zerarVariaveis();
+                preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaE) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
+            objPerfilInter.setEscabiose((String) jComboBoxEscabiose.getSelectedItem());
+            objPerfilInter.setEscabioseCura((String) jComboBoxEscabioseCont.getSelectedItem());
+            objPerfilInter.setHanseniase((String) jComboBoxHanseniase.getSelectedItem());
+            objPerfilInter.setSifilis((String) jComboBoxSifilis.getSelectedItem());
+            objPerfilInter.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
+            objPerfilInter.setDiabetes((String) jComboBoxDiabetes.getSelectedItem());
+            objPerfilInter.setDiabControl((String) jComboBoxDiabetesCont.getSelectedItem());
+            objPerfilInter.setHiperControl((String) jComboBoxHipertensaoCont.getSelectedItem());
+            objPerfilInter.setHanseniaseCura((String) jComboBoxHanseniaseCont.getSelectedItem());
+            objPerfilInter.setSifilisCura((String) jComboBoxSifilisCont.getSelectedItem());
+            objPerfilInter.setTuberculoseCura((String) jComboBoxTuberculoseCont.getSelectedItem());
+            objPerfilInter.setHiv((String) jComboBoxHIV.getSelectedItem());
+            objPerfilInter.setHivControlada((String) jComboBoxHIVCont.getSelectedItem());
+            objPerfilInter.setHepatiteB((String) jComboBoxHepatiteB.getSelectedItem());
+            objPerfilInter.setHepatiBCont((String) jComboBoxhepatiteBContro.getSelectedItem());
+            objPerfilInter.setHepatiteC((String) jComboBoxHepatiteC.getSelectedItem());
+            objPerfilInter.setHepatiCcont((String) jComboBoxHepatiteCcurada.getSelectedItem());
+            objPerfilInter.setDst((String) jComboBoxDST.getSelectedItem());
+            objPerfilInter.setvDLR((String) jComboBoxVDRL.getSelectedItem());
+            objPerfilInter.setVacina((String) jComboBoxVacina.getSelectedItem());
+            objPerfilInter.setDataReg(jDataRegEnfermaria.getDate());
+            objPerfilInter.setObservacaoEnf(jObservacaoEnfermaria.getText());
+            //
+            if (jComboBoxDiabetesCont.getSelectedItem().equals("Sim")) {
+                qtdDiabetes = 1;
+                objPerfilInter.setQtdDiabetes(qtdDiabetes);
+            } else if (jComboBoxDiabetesCont.getSelectedItem().equals("Não")) {
+                qtdDiabetes = 0;
+                objPerfilInter.setQtdDiabetes(qtdDiabetes);
+            }
+            if (jComboBoxHipertensaoCont.getSelectedItem().equals("Sim")) {
+                qtdHipertensao = 1;
+                objPerfilInter.setQtdHipertensao(qtdHipertensao);
+            } else if (jComboBoxHipertensaoCont.getSelectedItem().equals("Não")) {
+                qtdHipertensao = 0;
+                objPerfilInter.setQtdHipertensao(qtdHipertensao);
+            }
+            if (jComboBoxEscabioseCont.getSelectedItem().equals("Sim")) {
+                qtdEscabiose = 1;
+                objPerfilInter.setQtdEscabiose(qtdEscabiose);
+            } else if (jComboBoxEscabioseCont.getSelectedItem().equals("Não")) {
+                qtdEscabiose = 0;
+                objPerfilInter.setQtdEscabiose(qtdEscabiose);
+            }
+            if (jComboBoxHanseniaseCont.getSelectedItem().equals("Sim")) {
+                qtdHanseniase = 1;
+                objPerfilInter.setQtdHanseniase(qtdHanseniase);
+            } else if (jComboBoxHanseniaseCont.getSelectedItem().equals("Não")) {
+                qtdHanseniase = 0;
+                objPerfilInter.setQtdHanseniase(qtdHanseniase);
+            }
+            if (jComboBoxSifilisCont.getSelectedItem().equals("Sim")) {
+                qtdSifilis = 1;
+                objPerfilInter.setQtdSifilis(qtdSifilis);
+            } else if (jComboBoxSifilisCont.getSelectedItem().equals("Não")) {
+                qtdSifilis = 0;
+                objPerfilInter.setQtdSifilis(qtdSifilis);
+            }
+            if (jComboBoxTuberculoseCont.getSelectedItem().equals("Sim")) {
+                qtdTuberculose = 1;
+                objPerfilInter.setQtdTuberculose(qtdTuberculose);
+            } else if (jComboBoxTuberculoseCont.getSelectedItem().equals("Não")) {
+                qtdTuberculose = 0;
+                objPerfilInter.setQtdTuberculose(qtdTuberculose);
+            }
+            if (jComboBoxHIVCont.getSelectedItem().equals("Sim")) {
+                qtdHib = 1;
+                objPerfilInter.setQtdHib(qtdHib);
+            } else if (jComboBoxHIVCont.getSelectedItem().equals("Não")) {
+                qtdHib = 0;
+                objPerfilInter.setQtdHib(qtdHib);
+            }
+            if (jComboBoxhepatiteBContro.getSelectedItem().equals("Sim")) {
+                qtdHepatiteB = 1;
+                objPerfilInter.setQtdHepatiteB(qtdHepatiteB);
+            } else if (jComboBoxhepatiteBContro.getSelectedItem().equals("Não")) {
+                qtdHepatiteB = 0;
+                objPerfilInter.setQtdHepatiteB(qtdHepatiteB);
+            }
+            if (jComboBoxHepatiteCcurada.getSelectedItem().equals("Sim")) {
+                qtdHepatiteC = 1;
+                objPerfilInter.setQtdHepatiteC(qtdHepatiteC);
+            } else if (jComboBoxHepatiteCcurada.getSelectedItem().equals("Não")) {
+                qtdHepatiteC = 0;
+                objPerfilInter.setQtdHepatiteC(qtdHepatiteC);
+            }
+            if (jComboBoxDST.getSelectedItem().equals("Sim")) {
+                qtdDst = 1;
+                objPerfilInter.setQdtDst(qtdDst);
+            } else if (jComboBoxDST.getSelectedItem().equals("Não")) {
+                qtdDst = 0;
+                objPerfilInter.setQdtDst(qtdDst);
+            }
+            if (jComboBoxVacina.getSelectedItem().equals("Sim")) {
+                qtdVacina = 1;
+                objPerfilInter.setQtdVacina(qtdVacina);
+            } else if (jComboBoxVacina.getSelectedItem().equals("Não")) {
+                qtdVacina = 0;
+                objPerfilInter.setQtdVacina(qtdVacina);
+            }
+            if (jComboBoxVDRL.getSelectedItem().equals("Reagente")) {
+                qtdVdlr = 1;
+                objPerfilInter.setQtdVdlr(qtdVdlr);
+            } else if (jComboBoxVDRL.getSelectedItem().equals("Não Reagente")) {
+                qtdVdlr = 0;
+                objPerfilInter.setQtdVdlr(qtdVdlr);
+            }
+            if (acao == 3) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controle.incluirIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                buscarCodigoEnfermaria();
+                //
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarEnfermaria();
+                zerarVariaveis();
+                preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 4) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdEnf(codigoEnf);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controle.alterarIndicadorAcompanhamentoEnfermaria(objPerfilInter);
+                //
+                objLog2();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarEnfermaria();
+                zerarVariaveis();
+                preencherTabelaEnfermaria("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3919,15 +4556,46 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaEnfermariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEnfermariaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaItensPerfilCarcerarioEnf objAudiItensPerfilCarEnf = new TelaAuditoriaItensPerfilCarcerarioEnf();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudiItensPerfilCarEnf);
-        objAudiItensPerfilCarEnf.show();
+        TelaAuditoriaIndicadoresEnfermaria objAudEnf = new TelaAuditoriaIndicadoresEnfermaria();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudEnf);
+            objAudEnf.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudEnf);
+            objAudEnf.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaEnfermariaActionPerformed
 
     private void jBtNovoPedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPedaActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaP);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoPedagogia();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaP) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 5;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoPedagogia();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaP) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3961,6 +4629,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaP) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarPedagogia();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaP) && codAlterarPEDA == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 6;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarPedagogia();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -3970,6 +4664,52 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaP);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdPedago(codigoPeda);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlPeda.excluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirPedagogia();
+                    preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaP) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdPedago(codigoPeda);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlPeda.excluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                    objLog3();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirPedagogia();
+                    preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaP) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -4124,6 +4864,254 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaP) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setiCAA((String) jComboBoxICAA.getSelectedItem());
+            objPerfilInter.setiC1((String) jComboBoxIC1.getSelectedItem());
+            objPerfilInter.setiC2P((String) jComboBoxIC2P.getSelectedItem());
+            objPerfilInter.setiAAU((String) jComboBoxIAAU.getSelectedItem());
+            objPerfilInter.setiC3((String) jComboBoxIC3.getSelectedItem());
+            objPerfilInter.setiREL((String) jComboBoxIREL.getSelectedItem());
+            objPerfilInter.setiAC((String) jComboBoxIAC.getSelectedItem());
+            objPerfilInter.setiCU1((String) jComboBoxICU1.getSelectedItem());
+            objPerfilInter.setiC2((String) jComboBoxIC2.getSelectedItem());
+            objPerfilInter.setiCA((String) jComboBoxICA.getSelectedItem());
+            objPerfilInter.setDataPeda(jDataPeda.getDate());
+            objPerfilInter.setObservacaoPeda(jObservacaoPeda.getText());
+            //
+            if (jComboBoxICAA.getSelectedItem().equals("Sim")) {
+                qICAA = 1;
+                objPerfilInter.setQtdICAA(qICAA);
+            } else if (jComboBoxICAA.getSelectedItem().equals("Não")) {
+                qICAA = 0;
+                objPerfilInter.setQtdICAA(qICAA);
+            }
+            if (jComboBoxIC1.getSelectedItem().equals("Sim")) {
+                qIC1 = 1;
+                objPerfilInter.setQtdIC1(qIC1);
+            } else if (jComboBoxIC1.getSelectedItem().equals("Não")) {
+                qIC1 = 0;
+                objPerfilInter.setQtdIC1(qIC1);
+            }
+            if (jComboBoxIC2P.getSelectedItem().equals("Sim")) {
+                qIC2P = 1;
+                objPerfilInter.setQtdIC2P(qIC2P);
+            } else if (jComboBoxIC2P.getSelectedItem().equals("Não")) {
+                qIC2P = 0;
+                objPerfilInter.setQtdIC2P(qIC2P);
+            }
+            if (jComboBoxIAAU.getSelectedItem().equals("Sim")) {
+                qIAAU = 1;
+                objPerfilInter.setQtdIAAU(qIAAU);
+            } else if (jComboBoxIAAU.getSelectedItem().equals("Não")) {
+                qIAAU = 0;
+                objPerfilInter.setQtdIAAU(qIAAU);
+            }
+            if (jComboBoxIC3.getSelectedItem().equals("Sim")) {
+                qIC3 = 1;
+                objPerfilInter.setQtdIC3(qIC3);
+            } else if (jComboBoxIC3.getSelectedItem().equals("Não")) {
+                qIC3 = 0;
+                objPerfilInter.setQtdIC3(qIC3);
+            }
+            if (jComboBoxIREL.getSelectedItem().equals("Sim")) {
+                qIREL = 1;
+                objPerfilInter.setQtdIREL(qIREL);
+            } else if (jComboBoxIREL.getSelectedItem().equals("Não")) {
+                qIREL = 0;
+                objPerfilInter.setQtdIREL(qIREL);
+            }
+            if (jComboBoxIAC.getSelectedItem().equals("Sim")) {
+                qIAC = 1;
+                objPerfilInter.setQtdIAC(qIAC);
+            } else if (jComboBoxIAC.getSelectedItem().equals("Não")) {
+                qIAC = 0;
+                objPerfilInter.setQtdIAC(qIAC);
+            }
+            if (jComboBoxICU1.getSelectedItem().equals("Sim")) {
+                qICU1 = 1;
+                objPerfilInter.setQtdICU1(qICU1);
+            } else if (jComboBoxICU1.getSelectedItem().equals("Não")) {
+                qICU1 = 0;
+                objPerfilInter.setQtdICU1(qICU1);
+            }
+            if (jComboBoxIC2.getSelectedItem().equals("Sim")) {
+                qIC2 = 1;
+                objPerfilInter.setQtdIC2(qIC2);
+            } else if (jComboBoxIC2.getSelectedItem().equals("Não")) {
+                qIC2 = 0;
+                objPerfilInter.setQtdIC2(qIC2);
+            }
+            if (jComboBoxICA.getSelectedItem().equals("Sim")) {
+                qICA = 1;
+                objPerfilInter.setQtdICA(qICA);
+            } else if (jComboBoxICA.getSelectedItem().equals("Não")) {
+                qICA = 0;
+                objPerfilInter.setQtdICA(qICA);
+            }
+            if (acao == 5) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlPeda.incluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                buscarCodigoPedagogia();
+                //
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPedagogia();
+                zerarVariaveis();
+                preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 6) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdPedago(codigoPeda);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlPeda.alterarIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                //
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPedagogia();
+                zerarVariaveis();
+                preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaP) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setiCAA((String) jComboBoxICAA.getSelectedItem());
+            objPerfilInter.setiC1((String) jComboBoxIC1.getSelectedItem());
+            objPerfilInter.setiC2P((String) jComboBoxIC2P.getSelectedItem());
+            objPerfilInter.setiAAU((String) jComboBoxIAAU.getSelectedItem());
+            objPerfilInter.setiC3((String) jComboBoxIC3.getSelectedItem());
+            objPerfilInter.setiREL((String) jComboBoxIREL.getSelectedItem());
+            objPerfilInter.setiAC((String) jComboBoxIAC.getSelectedItem());
+            objPerfilInter.setiCU1((String) jComboBoxICU1.getSelectedItem());
+            objPerfilInter.setiC2((String) jComboBoxIC2.getSelectedItem());
+            objPerfilInter.setiCA((String) jComboBoxICA.getSelectedItem());
+            objPerfilInter.setDataPeda(jDataPeda.getDate());
+            objPerfilInter.setObservacaoPeda(jObservacaoPeda.getText());
+            //
+            if (jComboBoxICAA.getSelectedItem().equals("Sim")) {
+                qICAA = 1;
+                objPerfilInter.setQtdICAA(qICAA);
+            } else if (jComboBoxICAA.getSelectedItem().equals("Não")) {
+                qICAA = 0;
+                objPerfilInter.setQtdICAA(qICAA);
+            }
+            if (jComboBoxIC1.getSelectedItem().equals("Sim")) {
+                qIC1 = 1;
+                objPerfilInter.setQtdIC1(qIC1);
+            } else if (jComboBoxIC1.getSelectedItem().equals("Não")) {
+                qIC1 = 0;
+                objPerfilInter.setQtdIC1(qIC1);
+            }
+            if (jComboBoxIC2P.getSelectedItem().equals("Sim")) {
+                qIC2P = 1;
+                objPerfilInter.setQtdIC2P(qIC2P);
+            } else if (jComboBoxIC2P.getSelectedItem().equals("Não")) {
+                qIC2P = 0;
+                objPerfilInter.setQtdIC2P(qIC2P);
+            }
+            if (jComboBoxIAAU.getSelectedItem().equals("Sim")) {
+                qIAAU = 1;
+                objPerfilInter.setQtdIAAU(qIAAU);
+            } else if (jComboBoxIAAU.getSelectedItem().equals("Não")) {
+                qIAAU = 0;
+                objPerfilInter.setQtdIAAU(qIAAU);
+            }
+            if (jComboBoxIC3.getSelectedItem().equals("Sim")) {
+                qIC3 = 1;
+                objPerfilInter.setQtdIC3(qIC3);
+            } else if (jComboBoxIC3.getSelectedItem().equals("Não")) {
+                qIC3 = 0;
+                objPerfilInter.setQtdIC3(qIC3);
+            }
+            if (jComboBoxIREL.getSelectedItem().equals("Sim")) {
+                qIREL = 1;
+                objPerfilInter.setQtdIREL(qIREL);
+            } else if (jComboBoxIREL.getSelectedItem().equals("Não")) {
+                qIREL = 0;
+                objPerfilInter.setQtdIREL(qIREL);
+            }
+            if (jComboBoxIAC.getSelectedItem().equals("Sim")) {
+                qIAC = 1;
+                objPerfilInter.setQtdIAC(qIAC);
+            } else if (jComboBoxIAC.getSelectedItem().equals("Não")) {
+                qIAC = 0;
+                objPerfilInter.setQtdIAC(qIAC);
+            }
+            if (jComboBoxICU1.getSelectedItem().equals("Sim")) {
+                qICU1 = 1;
+                objPerfilInter.setQtdICU1(qICU1);
+            } else if (jComboBoxICU1.getSelectedItem().equals("Não")) {
+                qICU1 = 0;
+                objPerfilInter.setQtdICU1(qICU1);
+            }
+            if (jComboBoxIC2.getSelectedItem().equals("Sim")) {
+                qIC2 = 1;
+                objPerfilInter.setQtdIC2(qIC2);
+            } else if (jComboBoxIC2.getSelectedItem().equals("Não")) {
+                qIC2 = 0;
+                objPerfilInter.setQtdIC2(qIC2);
+            }
+            if (jComboBoxICA.getSelectedItem().equals("Sim")) {
+                qICA = 1;
+                objPerfilInter.setQtdICA(qICA);
+            } else if (jComboBoxICA.getSelectedItem().equals("Não")) {
+                qICA = 0;
+                objPerfilInter.setQtdICA(qICA);
+            }
+            if (acao == 5) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlPeda.incluirIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                buscarCodigoPedagogia();
+                //
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPedagogia();
+                zerarVariaveis();
+                preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 6) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdPedago(codigoPeda);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlPeda.alterarIndicadorAcompanhamentoPedagogia(objPerfilInter);
+                //
+                objLog3();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPedagogia();
+                zerarVariaveis();
+                preencherTabelaPedagogia("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4143,12 +5131,46 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPedaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaIndicadoresPedagogia objAudPeda = new TelaAuditoriaIndicadoresPedagogia();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudPeda);
+            objAudPeda.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudPeda);
+            objAudPeda.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaPedaActionPerformed
 
     private void jBtNovoCrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoCrcActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaC) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 7;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoCrc();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaC) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 7;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoCrc();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaC) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4182,6 +5204,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaC) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 8;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarCrc();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaC) && codAlterarPEDA == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 8;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarCrc();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4191,6 +5239,52 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaC) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdJurCrc(codigoCrc);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlCrc.excluirIndicadorAcompanhamentoCrc(objPerfilInter);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirCrc();
+                    preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaC) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdJurCrc(codigoCrc);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlCrc.excluirIndicadorAcompanhamentoCrc(objPerfilInter);
+                    objLog4();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirCrc();
+                    preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaC) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -4296,6 +5390,156 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaC) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setProcessos((String) jComboBoxProcessoAcomp.getSelectedItem());
+            objPerfilInter.setProgressao((String) jComboBoxProgressaoRegime.getSelectedItem());
+            objPerfilInter.setDocumentacao((String) jComboBoxDocumentacao.getSelectedItem());
+            objPerfilInter.setLivramento((String) jComboBoxLivramentoCond.getSelectedItem());
+            objPerfilInter.setDataJurCrc(jDataCrc.getDate());
+            objPerfilInter.setObservacaoCrc((String) jObservacaoCrc.getText());
+            if (jComboBoxProcessoAcomp.getSelectedItem().equals("Sim")) {
+                qtdProcessos = 1;
+                objPerfilInter.setQtdProgresso(qtdProcessos);
+            } else if (jComboBoxProcessoAcomp.getSelectedItem().equals("Não")) {
+                qtdProcessos = 0;
+                objPerfilInter.setQtdProgresso(qtdProcessos);
+            }
+            if (jComboBoxProgressaoRegime.getSelectedItem().equals("Sim")) {
+                qtdProggressao = 1;
+                objPerfilInter.setQtdProgressao(qtdProggressao);
+            } else if (jComboBoxProgressaoRegime.getSelectedItem().equals("Não")) {
+                qtdProggressao = 0;
+                objPerfilInter.setQtdProgressao(qtdProggressao);
+            }
+            if (jComboBoxDocumentacao.getSelectedItem().equals("Sim")) {
+                qtdDocumentacao = 1;
+                objPerfilInter.setQtdDocumentacao(qtdDocumentacao);
+            } else if (jComboBoxDocumentacao.getSelectedItem().equals("Não")) {
+                qtdDocumentacao = 0;
+                objPerfilInter.setQtdDocumentacao(qtdDocumentacao);
+            }
+            if (jComboBoxLivramentoCond.getSelectedItem().equals("Sim")) {
+                qtdLivramento = 1;
+                objPerfilInter.setQtdLivramento(qtdLivramento);
+            } else if (jComboBoxLivramentoCond.getSelectedItem().equals("Não")) {
+                qtdLivramento = 0;
+                objPerfilInter.setQtdLivramento(qtdLivramento);
+            }
+            if (acao == 7) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlCrc.incluirIndicadorAcompanhamentoCrc(objPerfilInter);
+                buscarCodigoCrc();
+                //
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarCrc();
+                zerarVariaveis();
+                preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 8) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdJurCrc(codigoCrc);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlCrc.alterarIndicadorAcompanhamentoCrc(objPerfilInter);
+                //
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarCrc();
+                zerarVariaveis();
+                preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaC) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setProcessos((String) jComboBoxProcessoAcomp.getSelectedItem());
+            objPerfilInter.setProgressao((String) jComboBoxProgressaoRegime.getSelectedItem());
+            objPerfilInter.setDocumentacao((String) jComboBoxDocumentacao.getSelectedItem());
+            objPerfilInter.setLivramento((String) jComboBoxLivramentoCond.getSelectedItem());
+            objPerfilInter.setDataJurCrc(jDataCrc.getDate());
+            objPerfilInter.setObservacaoCrc((String) jObservacaoCrc.getText());
+            if (jComboBoxProcessoAcomp.getSelectedItem().equals("Sim")) {
+                qtdProcessos = 1;
+                objPerfilInter.setQtdProgresso(qtdProcessos);
+            } else if (jComboBoxProcessoAcomp.getSelectedItem().equals("Não")) {
+                qtdProcessos = 0;
+                objPerfilInter.setQtdProgresso(qtdProcessos);
+            }
+            if (jComboBoxProgressaoRegime.getSelectedItem().equals("Sim")) {
+                qtdProggressao = 1;
+                objPerfilInter.setQtdProgressao(qtdProggressao);
+            } else if (jComboBoxProgressaoRegime.getSelectedItem().equals("Não")) {
+                qtdProggressao = 0;
+                objPerfilInter.setQtdProgressao(qtdProggressao);
+            }
+            if (jComboBoxDocumentacao.getSelectedItem().equals("Sim")) {
+                qtdDocumentacao = 1;
+                objPerfilInter.setQtdDocumentacao(qtdDocumentacao);
+            } else if (jComboBoxDocumentacao.getSelectedItem().equals("Não")) {
+                qtdDocumentacao = 0;
+                objPerfilInter.setQtdDocumentacao(qtdDocumentacao);
+            }
+            if (jComboBoxLivramentoCond.getSelectedItem().equals("Sim")) {
+                qtdLivramento = 1;
+                objPerfilInter.setQtdLivramento(qtdLivramento);
+            } else if (jComboBoxLivramentoCond.getSelectedItem().equals("Não")) {
+                qtdLivramento = 0;
+                objPerfilInter.setQtdLivramento(qtdLivramento);
+            }
+            if (acao == 7) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlCrc.incluirIndicadorAcompanhamentoCrc(objPerfilInter);
+                buscarCodigoCrc();
+                //
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarCrc();
+                zerarVariaveis();
+                preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 8) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdJurCrc(codigoCrc);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlCrc.alterarIndicadorAcompanhamentoCrc(objPerfilInter);
+                //
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarCrc();
+                zerarVariaveis();
+                preencherTabelaCrc("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4315,12 +5559,46 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaCrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaCrcActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaIndicadoresJuridico objAudJuri = new TelaAuditoriaIndicadoresJuridico();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudJuri);
+            objAudJuri.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudJuri);
+            objAudJuri.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaCrcActionPerformed
 
     private void jBtNovoTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoTOActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaT);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 9;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoTO();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaT) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 9;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoTO();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaT) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4354,6 +5632,32 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
             }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaT) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 10;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarTO();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaT) && codAlterarPEDA == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 10;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarTO();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4363,6 +5667,52 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaT);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaT) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdTo(codigoTO);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlTO.excluirIndicadorAcompanhamentoTO(objPerfilInter);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirTO();
+                    preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaT) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdTo(codigoTO);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlTO.excluirIndicadorAcompanhamentoTO(objPerfilInter);
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirTO();
+                    preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaT) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -4460,7 +5810,140 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaT) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setPrograma((String) jComboBoxPrograma.getSelectedItem());
+            objPerfilInter.setCurso((String) jComboBoxPassouCurso.getSelectedItem());
+            objPerfilInter.setProfissional((String) jComboBoxConcluiuFP.getSelectedItem());
+            objPerfilInter.setDataTo(jDataTO.getDate());
+            objPerfilInter.setObservacaoTo(jObservacaoTO.getText());
+            if (jComboBoxPrograma.getSelectedItem().equals("Sim")) {
+                qtdPrograma = 1;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            } else if (jComboBoxPrograma.getSelectedItem().equals("Não")) {
+                qtdPrograma = 0;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            }
+            if (jComboBoxPassouCurso.getSelectedItem().equals("Sim")) {
+                qtdCurso = 1;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            } else if (jComboBoxPassouCurso.getSelectedItem().equals("Não")) {
+                qtdCurso = 0;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            }
+            if (jComboBoxConcluiuFP.getSelectedItem().equals("Sim")) {
+                qtdProfissional = 1;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            } else if (jComboBoxConcluiuFP.getSelectedItem().equals("Não")) {
+                qtdProfissional = 0;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            }
+            if (acao == 9) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlTO.incluirIndicadorAcompanhamentoTO(objPerfilInter);
+                buscarCodigoTo();
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 10) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdTo(codigoTO);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlTO.alterarIndicadorAcompanhamentoTO(objPerfilInter);
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaT) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setPrograma((String) jComboBoxPrograma.getSelectedItem());
+            objPerfilInter.setCurso((String) jComboBoxPassouCurso.getSelectedItem());
+            objPerfilInter.setProfissional((String) jComboBoxConcluiuFP.getSelectedItem());
+            objPerfilInter.setDataTo(jDataTO.getDate());
+            objPerfilInter.setObservacaoTo(jObservacaoTO.getText());
+            if (jComboBoxPrograma.getSelectedItem().equals("Sim")) {
+                qtdPrograma = 1;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            } else if (jComboBoxPrograma.getSelectedItem().equals("Não")) {
+                qtdPrograma = 0;
+                objPerfilInter.setQtdprograma(qtdPrograma);
+            }
+            if (jComboBoxPassouCurso.getSelectedItem().equals("Sim")) {
+                qtdCurso = 1;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            } else if (jComboBoxPassouCurso.getSelectedItem().equals("Não")) {
+                qtdCurso = 0;
+                objPerfilInter.setQtdCurso(qtdCurso);
+            }
+            if (jComboBoxConcluiuFP.getSelectedItem().equals("Sim")) {
+                qtdProfissional = 1;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            } else if (jComboBoxConcluiuFP.getSelectedItem().equals("Não")) {
+                qtdProfissional = 0;
+                objPerfilInter.setQtdProfissional(qtdProfissional);
+            }
+            if (acao == 9) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlTO.incluirIndicadorAcompanhamentoTO(objPerfilInter);
+                buscarCodigoTo();
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 10) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdTo(codigoTO);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlTO.alterarIndicadorAcompanhamentoTO(objPerfilInter);
+                //
+                objLog5();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarTO();
+                zerarVariaveis();
+                preencherTabelaTO("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4480,12 +5963,46 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaTOActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaIndicadoresTO objAudTO = new TelaAuditoriaIndicadoresTO();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudTO);
+            objAudTO.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudTO);
+            objAudTO.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaTOActionPerformed
 
     private void jBtNovoPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPSIActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaPSI) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoPSI();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaPSI) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoPSI();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaPSI) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4505,8 +6022,34 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAlterarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPSIActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaPSI) && codAlterarENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarPSI();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaPSI) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarPSI();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaPSI) && codAlterarPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4526,8 +6069,54 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtExcluirPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPSIActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaPSI) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdPsi(codigoPSI);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlPSI.excluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirPSI();
+                    preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaPSI) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdPsi(codigoPSI);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlPSI.excluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                    objLog6();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirPSI();
+                    preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaPSI) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -4557,8 +6146,8 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtSalvarPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPSIActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaPSI) && codGravarENF == 1) {
             objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
             objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
             objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
@@ -4625,7 +6214,140 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaPSI) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setTratamento((String) jComboBoxTratamentoPSI.getSelectedItem());
+            objPerfilInter.setAcompanha((String) jComboBoxAcompanhamentoPSI.getSelectedItem());
+            objPerfilInter.setRecuparacao((String) jComboBoxRecuparacaoPSI.getSelectedItem());
+            objPerfilInter.setDataPsi(jDataPSI.getDate());
+            objPerfilInter.setObservacaoPsi(jObservacaoPSI.getText());
+            if (jComboBoxTratamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdTratamento = 1;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            } else if (jComboBoxTratamentoPSI.getSelectedItem().equals("Não")) {
+                qtdTratamento = 0;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            }
+            if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdAcompanha = 1;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            } else if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Não")) {
+                qtdAcompanha = 0;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            }
+            if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Sim")) {
+                qtdRecuperacao = 1;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            } else if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Não")) {
+                qtdRecuperacao = 0;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlPSI.incluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                buscarCodigoPSI();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdPsi(codigoPSI);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlPSI.alterarIndicadorAcompanhamentoPSI(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaPSI) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setTratamento((String) jComboBoxTratamentoPSI.getSelectedItem());
+            objPerfilInter.setAcompanha((String) jComboBoxAcompanhamentoPSI.getSelectedItem());
+            objPerfilInter.setRecuparacao((String) jComboBoxRecuparacaoPSI.getSelectedItem());
+            objPerfilInter.setDataPsi(jDataPSI.getDate());
+            objPerfilInter.setObservacaoPsi(jObservacaoPSI.getText());
+            if (jComboBoxTratamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdTratamento = 1;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            } else if (jComboBoxTratamentoPSI.getSelectedItem().equals("Não")) {
+                qtdTratamento = 0;
+                objPerfilInter.setQtdTratamento(qtdTratamento);
+            }
+            if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Sim")) {
+                qtdAcompanha = 1;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            } else if (jComboBoxAcompanhamentoPSI.getSelectedItem().equals("Não")) {
+                qtdAcompanha = 0;
+                objPerfilInter.setQtdAcompanha(qtdAcompanha);
+            }
+            if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Sim")) {
+                qtdRecuperacao = 1;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            } else if (jComboBoxRecuparacaoPSI.getSelectedItem().equals("Não")) {
+                qtdRecuperacao = 0;
+                objPerfilInter.setQtdRecuparacao(qtdRecuperacao);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlPSI.incluirIndicadorAcompanhamentoPSI(objPerfilInter);
+                buscarCodigoPSI();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdPsi(codigoPSI);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlPSI.alterarIndicadorAcompanhamentoPSI(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarPSI();
+                zerarVariaveis();
+                preencherTabelaPSI("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4645,12 +6367,46 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPSIActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaIndicadoresPSI objAudPSI = new TelaAuditoriaIndicadoresPSI();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudPSI);
+            objAudPSI.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudPSI);
+            objAudPSI.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaPSIActionPerformed
 
     private void jBtNovoSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoSSActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaS) && codIncluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoSS();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaS) && codIncluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 11;
+                bloquearCampos();
+                bloquearBotoes();
+                NovoSS();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaS) && codIncluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4670,8 +6426,34 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAlterarSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarSSActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaAbaP);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaP) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAcompanhaAbaS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaS) && codAlterarENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarSS();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaS) && codAlterarJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 12;
+                bloquearCampos();
+                bloquearBotoes();
+                AlterarSS();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaS) && codAlterarPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -4693,6 +6475,52 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAcompanhaAbaS);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaS) && codExcluirENF == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdSS(codigoSS);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlSS.excluirIndicadorAcompanhamentoSS(objPerfilInter);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirSS();
+                    preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaS) && codExcluirJURI == 1) {
+            objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
+            if (jStatusPerfil.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    bloquearCampos();
+                    bloquearBotoes();
+                    objPerfilInter.setIdSS(codigoSS);
+                    objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                    controlSS.excluirIndicadorAcompanhamentoSS(objPerfilInter);
+                    objLog7();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    ExcluirSS();
+                    preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                            + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaS) && codExcluirPEDA == 1) {
             objPerfilInter.setStatusPerfil(jStatusPerfil.getText());
             if (jStatusPerfil.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -4774,7 +6602,108 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
                         + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaAbaS) && codGravarJURI == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setAcompanhaSS((String) jComboBoxAcompanhaSS.getSelectedItem());
+            objPerfilInter.setDataSS(jDataSS.getDate());
+            objPerfilInter.setObservacao(jObservacaoSS.getText());
+            if (jComboBoxAcompanhaSS.getSelectedItem().equals("Sim")) {
+                qtdAcompanhaSS = 1;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            } else if (jComboBoxAcompanhaSS.getSelectedItem().equals("Não")) {
+                qtdAcompanhaSS = 0;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlSS.incluirIndicadorAcompanhamentoSS(objPerfilInter);
+                buscarCodigoSS();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdSS(codigoSS);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlSS.alterarIndicadorAcompanhamentoSS(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaAbaS) && codGravarPEDA == 1) {
+            objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoPerfil.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoPerfil.getText());
+            objPerfilInter.setAcompanhaSS((String) jComboBoxAcompanhaSS.getSelectedItem());
+            objPerfilInter.setDataSS(jDataSS.getDate());
+            objPerfilInter.setObservacao(jObservacaoSS.getText());
+            if (jComboBoxAcompanhaSS.getSelectedItem().equals("Sim")) {
+                qtdAcompanhaSS = 1;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            } else if (jComboBoxAcompanhaSS.getSelectedItem().equals("Não")) {
+                qtdAcompanhaSS = 0;
+                objPerfilInter.setQtdAcompanhaSS(qtdAcompanhaSS);
+            }
+            if (acao == 11) {
+                objPerfilInter.setUsuarioInsert(nameUser);
+                objPerfilInter.setDataInsert(dataModFinal);
+                objPerfilInter.setHorarioInsert(horaMov);
+                //
+                controlSS.incluirIndicadorAcompanhamentoSS(objPerfilInter);
+                buscarCodigoSS();
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
+            if (acao == 12) {
+                objPerfilInter.setUsuarioUp(nameUser);
+                objPerfilInter.setDataUp(dataModFinal);
+                objPerfilInter.setHorarioUp(horaMov);
+                //
+                objPerfilInter.setIdSS(codigoSS);
+                objPerfilInter.setIdIndAco(Integer.valueOf(jIdPerfil.getText()));
+                controlSS.alterarIndicadorAcompanhamentoSS(objPerfilInter);
+                //
+                objLog6();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                SalvarSS();
+                zerarVariaveis();
+                preencherTabelaSS("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                        + "WHERE IdIndAco='" + jIdPerfil.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -4794,6 +6723,14 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaSSActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaIndicadoresSS objAudSS = new TelaAuditoriaIndicadoresSS();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objAudSS);
+            objAudSS.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objAudSS);
+            objAudSS.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaSSActionPerformed
 
     private void jTabelaEnfermariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEnfermariaMouseClicked
@@ -4814,6 +6751,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoEnfermaria.setEnabled(true);
             jBtAlterarEnfermaria.setEnabled(true);
             jBtExcluirEnfermaria.setEnabled(true);
+            jBtAuditoriaEnfermaria.setEnabled(true);
             //PEDAGOGIA/CRC/TO/PSICOLOGIA/SERVIÇO SOCIAL
             jBtNovoPeda.setEnabled(true);
             jBtNovoCrc.setEnabled(true);
@@ -4972,6 +6910,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoPeda.setEnabled(true);
             jBtAlterarPeda.setEnabled(true);
             jBtExcluirPeda.setEnabled(true);
+            jBtAuditoriaPeda.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -5019,6 +6958,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoCrc.setEnabled(true);
             jBtAlterarCrc.setEnabled(true);
             jBtExcluirCrc.setEnabled(true);
+            jBtAuditoriaCrc.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -5060,6 +7000,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoTO.setEnabled(true);
             jBtAlterarTO.setEnabled(true);
             jBtExcluirTO.setEnabled(true);
+            jBtAuditoriaTO.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -5100,6 +7041,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoPSI.setEnabled(true);
             jBtAlterarPSI.setEnabled(true);
             jBtExcluirPSI.setEnabled(true);
+            jBtAuditoriaPSI.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -5140,6 +7082,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
             jBtNovoSS.setEnabled(true);
             jBtAlterarSS.setEnabled(true);
             jBtExcluirSS.setEnabled(true);
+            jBtAuditoriaSS.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -6376,6 +8319,7 @@ public class TelaIndicadoresAcompanhamento extends javax.swing.JInternalFrame {
         jBtNovoCrc.setEnabled(true);
         jBtNovoPeda.setEnabled(true);
         jBtNovoEnfermaria.setEnabled(true);
+        jBtNovoSS.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);

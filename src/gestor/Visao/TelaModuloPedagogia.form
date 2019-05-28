@@ -375,6 +375,19 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jIndicadoresAcompanhamento">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="66" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Programa de Indicadores de Acompanhamento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jIndicadoresAcompanhamentoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="LivroOcorrencias">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Livro de Ocorr&#xea;ncias"/>

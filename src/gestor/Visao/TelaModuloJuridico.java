@@ -40,12 +40,6 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
-import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
-import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
-import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
-import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
 import static gestor.Visao.TelaRecadosCrc.jBtCancelar;
 import static gestor.Visao.TelaRecadosCrc.jBtConfirmar;
@@ -109,6 +103,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private TelaPAI_NOVO objPaiNovo = null;
     private TelaRegistroInternosAtendimentoJURI objRegAtendJURI = null;
     private TelaRegistroInternosAtendimentoImpressoJURI objAutoImp = null;
+    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     //
     public static String nomeModuloJURI = "JURIDICO";
     Calendar agenda = new GregorianCalendar();
@@ -179,7 +174,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     public static String telaAudienciaJustificativaManuJURI = "Movimentação:Audiência de Justificativa:Manutenção";
     //
     public static String telaOcorrenciaJURI = "Movimentação:Ocorrências Diárias - Juídico:Manutenção";
-     //P.A.I. - CADASTRADO NO SERVIÇO SOCIAL
+    //P.A.I. - CADASTRADO NO SERVIÇO SOCIAL
     public static String telaPAISS_JURI = "Movimentação:P.A.I. - Serviços Social:Manutenção";
     public static String telaPaiCCGF_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social";
     public static String telaPaiCCGFFam_JURI = "Movimentação:P.A.I.:C.C.G.F. - Serviços Social:Familia";
@@ -192,6 +187,14 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     public static String telaPaiEAPI1_JURI = "Movimentação:P.A.I.:E.A.P.I.-1 - Serviços Social";
     public static String telaPaiEAPI2_JURI = "Movimentação:P.A.I.:E.A.P.I.-2 - Serviços Social";
     public static String telaPaiEPAI_JURI = "Movimentação:P.A.I.:E-PAI - Serviços Social";
+    //
+    public static String telaIndAcompanhaManu = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Manutenção";
+    public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Enfermaria";
+    public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Pedagogia";
+    public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Juridico/CRC";
+    public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:TO";
+    public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Psicologia";
+    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Serviço Social";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -222,6 +225,14 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     String pNomeADJM_JURI = "";
     //
     String pNomeOcrJURI = "";
+    //PRORES
+    String pNomeIAM = "";
+    String pNomeIAE = "";
+    String pNomeIAP = "";
+    String pNomeIAC = "";
+    String pNomeIAT = "";
+    String pNomeIAPS = "";
+    String pNomeIAS = "";
 
     /**
      * Creates new form TelaJuridico
@@ -273,6 +284,8 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AtendimentoFamiliar = new javax.swing.JMenuItem();
         AtendimentoJudiciario = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
@@ -478,6 +491,16 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(AtendimentoJudiciario);
+        Movimentacao.add(jSeparator11);
+
+        jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
+        jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
+        jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jIndicadoresAcompanhamentoActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jIndicadoresAcompanhamento);
         Movimentacao.add(jSeparator7);
 
         LivroOcorrencia.setText("Livro de Ocorrências");
@@ -1327,6 +1350,40 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         objRelaSaidaPort.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaManu) && codAbrirJURI == 1) {
+            if (objIndAcomp == null || objIndAcomp.isClosed()) {
+                objIndAcomp = new TelaIndicadoresAcompanhamento();
+                jPainelJuridico.add(objIndAcomp);
+                objIndAcomp.setVisible(true);
+            } else {
+                if (objIndAcomp.isVisible()) {
+                    if (objIndAcomp.isIcon()) { // Se esta minimizado
+                        try {
+                            objIndAcomp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objIndAcomp.toFront(); // traz para frente
+                        objIndAcomp.pack();//volta frame 
+                    }
+                } else {
+                    objIndAcomp = new TelaIndicadoresAcompanhamento();
+                    TelaModuloJuridico.jPainelJuridico.add(objIndAcomp);//adicona frame ao JDesktopPane  
+                    objIndAcomp.setVisible(true);
+                }
+            }
+            try {
+                objIndAcomp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1362,6 +1419,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem jCalculadoraPena1;
+    private javax.swing.JMenuItem jIndicadoresAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1372,6 +1430,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelJuridico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1703,42 +1762,84 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     }
 
     public void preencherTabelaAgendamento() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
-                    + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
-                    + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + jDataSistema.getText() + "' "
-                    + "AND StatusReg='" + statusRegistro + "'");
-            conecta.rs.first();
-            do {
-                // Formatar a data Saida
-                dataAgenda = conecta.rs.getString("DataAg");
-                String dia = dataAgenda.substring(8, 10);
-                String mes = dataAgenda.substring(5, 7);
-                String ano = dataAgenda.substring(0, 4);
-                dataAgenda = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            ArrayList dados = new ArrayList();
+            String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
+                        + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + dataSisConvert + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                do {
+                    // Formatar a data Saida
+                    dataAgenda = conecta.rs.getString("DataAg");
+                    String dia = dataAgenda.substring(8, 10);
+                    String mes = dataAgenda.substring(5, 7);
+                    String ano = dataAgenda.substring(0, 4);
+                    dataAgenda = dia + "/" + mes + "/" + ano;
+                    dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
+                } while (conecta.rs.next());
+            } catch (SQLException ex) {
+            }
+            ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+            jTabelaAgendaInternos.setModel(modelo);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
+            jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
+            jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
+            jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            alinharCamposTabelaInternos();
+            conecta.desconecta();
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            ArrayList dados = new ArrayList();
+            String[] Colunas = new String[]{"Código", "Nome do Interno", "Agendamento"};
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_AGENDA_BENEFICIO_INTERNOS "
+                        + "INNER JOIN AGENDA_BENEFICIO_INTERNOS "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdReg=AGENDA_BENEFICIO_INTERNOS.IdReg "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_AGENDA_BENEFICIO_INTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE AGENDA_BENEFICIO_INTERNOS.DataAg<='" + jDataSistema.getText() + "' "
+                        + "AND StatusReg='" + statusRegistro + "'");
+                conecta.rs.first();
+                do {
+                    // Formatar a data Saida
+                    dataAgenda = conecta.rs.getString("DataAg");
+                    String dia = dataAgenda.substring(8, 10);
+                    String mes = dataAgenda.substring(5, 7);
+                    String ano = dataAgenda.substring(0, 4);
+                    dataAgenda = dia + "/" + mes + "/" + ano;
+                    dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataAgenda});
+                } while (conecta.rs.next());
+            } catch (SQLException ex) {
+            }
+            ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+            jTabelaAgendaInternos.setModel(modelo);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
+            jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
+            jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
+            jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            alinharCamposTabelaInternos();
+            conecta.desconecta();
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaAgendaInternos.setModel(modelo);
-        jTabelaAgendaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaAgendaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaAgendaInternos.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaAgendaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaAgendaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaAgendaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaAgendaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaAgendaInternos.setAutoResizeMode(jTabelaAgendaInternos.AUTO_RESIZE_OFF);
-        jTabelaAgendaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaInternos();
-        conecta.desconecta();
     }
 
     public void alinharCamposTabelaInternos() {
@@ -1944,6 +2045,56 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             pNomeOcrJURI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PRORES
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaManu + "'");
+            conecta.rs.first();
+            pNomeIAM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaE + "'");
+            conecta.rs.first();
+            pNomeIAE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaP + "'");
+            conecta.rs.first();
+            pNomeIAP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaC + "'");
+            conecta.rs.first();
+            pNomeIAC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaT + "'");
+            conecta.rs.first();
+            pNomeIAT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaPSI + "'");
+            conecta.rs.first();
+            pNomeIAPS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaS + "'");
+            conecta.rs.first();
+            pNomeIAS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomeAJ.equals(telaAtividadesJuridicasJURI) || pNomeAJ == null || pNomeAJ.equals("")) {
             buscarCodigoModulo();
@@ -2060,6 +2211,49 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaOcorrenciaJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRORES
+        if (!pNomeIAM.equals(telaIndAcompanhaManu) || pNomeIAM == null || pNomeIAM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaManu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAE.equals(telaIndAcompanhaAbaE) || pNomeIAE == null || pNomeIAE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaE);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAP.equals(telaIndAcompanhaAbaP) || pNomeIAP == null || pNomeIAP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaP);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAC.equals(telaIndAcompanhaAbaC) || pNomeIAC == null || pNomeIAC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAT.equals(telaIndAcompanhaAbaT) || pNomeIAT == null || pNomeIAT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaT);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAPS.equals(telaIndAcompanhaAbaPSI) || pNomeIAPS == null || pNomeIAPS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAS.equals(telaIndAcompanhaAbaS) || pNomeIAS == null || pNomeIAS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

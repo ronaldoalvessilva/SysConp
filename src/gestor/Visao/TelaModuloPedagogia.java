@@ -116,6 +116,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private TelaAtualizacaoDocumentosPedagogia objAtualizaEsco = null;
     private TelaRegistroInternosAtendimentoPEDA objRegistroAtendBio = null;
     private TelaRegistroInternosAtendimentoImpressoPEDA objRegistroImpBio = null;
+    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     //
     int flag;
     int codUsuario;
@@ -229,6 +230,14 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //LIVRO DE OCORRÊNCIAS
     public static String telaLivroOcorrenciaManu_PEDA = "Movimentação:Livro de Ocorrência - Pedagogia:Manutenção";
     //
+    public static String telaIndAcompanhaManu = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Manutenção";
+    public static String telaIndAcompanhaAbaE = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Enfermaria";
+    public static String telaIndAcompanhaAbaP = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Pedagogia";
+    public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Juridico/CRC";
+    public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:TO";
+    public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Psicologia";
+    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Serviço Social";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -313,6 +322,14 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     String pNomeASEI_PEDA = "";
     //LIVRO DE OCORRENCIA
     String pNomeLO_PEDA = "";
+    //PRORES
+    String pNomeIAM = "";
+    String pNomeIAE = "";
+    String pNomeIAP = "";
+    String pNomeIAC = "";
+    String pNomeIAT = "";
+    String pNomeIAPS = "";
+    String pNomeIAS = "";
 
     /**
      * Creates new form TelaPedagogia
@@ -393,6 +410,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         AssistenciaEducacionalExterna = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencias = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -765,6 +784,16 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         });
         Movimentacao.add(AssistenciaEducacionalExterna);
         Movimentacao.add(jSeparator7);
+
+        jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
+        jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
+        jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jIndicadoresAcompanhamentoActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jIndicadoresAcompanhamento);
+        Movimentacao.add(jSeparator20);
 
         LivroOcorrencias.setText("Livro de Ocorrências");
         LivroOcorrencias.addActionListener(new java.awt.event.ActionListener() {
@@ -2142,6 +2171,40 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRegistroAtendimentoImpressoActionPerformed
 
+    private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAcompanhaManu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaIndAcompanhaManu) && codAbrirPEDA == 1) {
+            if (objIndAcomp == null || objIndAcomp.isClosed()) {
+                objIndAcomp = new TelaIndicadoresAcompanhamento();
+                jPainelPedagogia.add(objIndAcomp);
+                objIndAcomp.setVisible(true);
+            } else {
+                if (objIndAcomp.isVisible()) {
+                    if (objIndAcomp.isIcon()) { // Se esta minimizado
+                        try {
+                            objIndAcomp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objIndAcomp.toFront(); // traz para frente
+                        objIndAcomp.pack();//volta frame 
+                    }
+                } else {
+                    objIndAcomp = new TelaIndicadoresAcompanhamento();
+                    TelaModuloPedagogia.jPainelPedagogia.add(objIndAcomp);//adicona frame ao JDesktopPane  
+                    objIndAcomp.setVisible(true);
+                }
+            }
+            try {
+                objIndAcomp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -2189,6 +2252,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SalaAula;
     private javax.swing.JMenuItem TurmasAulas;
     private javax.swing.JMenuItem jAgendaAtendimentoInternos;
+    private javax.swing.JMenuItem jIndicadoresAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2211,6 +2275,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -2929,6 +2994,56 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             pNomeLO_PEDA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PRORES
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaManu + "'");
+            conecta.rs.first();
+            pNomeIAM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaE + "'");
+            conecta.rs.first();
+            pNomeIAE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaP + "'");
+            conecta.rs.first();
+            pNomeIAP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaC + "'");
+            conecta.rs.first();
+            pNomeIAC = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaT + "'");
+            conecta.rs.first();
+            pNomeIAT = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaPSI + "'");
+            conecta.rs.first();
+            pNomeIAPS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAcompanhaAbaS + "'");
+            conecta.rs.first();
+            pNomeIAS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         //INSTITUIÇÃO DE ENSINO   
         if (!pNomeIEM_PEDA.equals(telaInstituicaoEnsinoManu_PEDA) || pNomeIEM_PEDA == null || pNomeIEM_PEDA.equals("")) {
@@ -3260,6 +3375,49 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaLivroOcorrenciaManu_PEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PRORES
+        if (!pNomeIAM.equals(telaIndAcompanhaManu) || pNomeIAM == null || pNomeIAM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaManu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAE.equals(telaIndAcompanhaAbaE) || pNomeIAE == null || pNomeIAE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaE);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAP.equals(telaIndAcompanhaAbaP) || pNomeIAP == null || pNomeIAP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaP);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAC.equals(telaIndAcompanhaAbaC) || pNomeIAC == null || pNomeIAC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAT.equals(telaIndAcompanhaAbaT) || pNomeIAT == null || pNomeIAT.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaT);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAPS.equals(telaIndAcompanhaAbaPSI) || pNomeIAPS == null || pNomeIAPS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIAS.equals(telaIndAcompanhaAbaS) || pNomeIAS == null || pNomeIAS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAcompanhaAbaS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();

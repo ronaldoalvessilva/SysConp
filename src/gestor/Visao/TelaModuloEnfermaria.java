@@ -3043,6 +3043,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeCPID = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PRORES
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaIndAcompanhaManu + "'");
@@ -3480,6 +3481,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaConsultaProntuarioInternosDocENF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //PRORES
         if (!pNomeIAM.equals(telaIndAcompanhaManu) || pNomeIAM == null || pNomeIAM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
