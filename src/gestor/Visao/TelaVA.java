@@ -9,8 +9,8 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEnfermagem;
 import static gestor.Visao.TelaAdmissaoEnfermagem.acao;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdLanc;
-import static gestor.Visao.TelaAdmissaoEnfermagem.qualAlteracaoFala;
-import static gestor.Visao.TelaAdmissaoEnfermagem.statusFalaLinguagem;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pQuaisVacinas;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pVacina;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class TelaFA extends javax.swing.JDialog {
+public class TelaVA extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoEnfermagem objAdmEnfermagem = new AdmissaoEnfermagem();
@@ -27,12 +27,12 @@ public class TelaFA extends javax.swing.JDialog {
     /**
      * Creates new form TelaFA
      */
-    public static TelaAdmissaoEnfermagem tae;
+    public static TelaAdmissaoEnfermagem tva;
 
-    public TelaFA(TelaAdmissaoEnfermagem parent, boolean modal) {
-        this.tae = parent;
+    public TelaVA(TelaAdmissaoEnfermagem parent, boolean modal) {
+        this.tva = parent;
         this.setModal(modal);
-        setLocationRelativeTo(tae);
+        setLocationRelativeTo(tva);
         initComponents();
         corCampos();
         buscarDadosExistentes();
@@ -47,42 +47,69 @@ public class TelaFA extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btGrupoFA = new javax.swing.ButtonGroup();
+        btGrupoV = new javax.swing.ButtonGroup();
+        btGrupoG = new javax.swing.ButtonGroup();
         jPanel20 = new javax.swing.JPanel();
-        jRBComAlteracaoFala = new javax.swing.JRadioButton();
-        jRBSemAlteracaoFala = new javax.swing.JRadioButton();
-        jQualAlteracaoFala = new javax.swing.JTextField();
-        jLabel59 = new javax.swing.JLabel();
+        jPanel39 = new javax.swing.JPanel();
+        jComboBoxVacinado = new javax.swing.JComboBox();
+        jLabel90 = new javax.swing.JLabel();
+        jQuaisVacinas = new javax.swing.JTextField();
+        jLabel93 = new javax.swing.JLabel();
         jBtAlterar = new javax.swing.JButton();
         jBtConfirmar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::: Fala/Linguagem :::...");
+        setTitle("...::: Vacinas :::...");
 
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fala/Linguagem", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vacina", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
 
-        btGrupoFA.add(jRBComAlteracaoFala);
-        jRBComAlteracaoFala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBComAlteracaoFala.setText("C/Alteração");
-        jRBComAlteracaoFala.setEnabled(false);
+        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vacinas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        btGrupoFA.add(jRBSemAlteracaoFala);
-        jRBSemAlteracaoFala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBSemAlteracaoFala.setSelected(true);
-        jRBSemAlteracaoFala.setText("S/Alteração");
-        jRBSemAlteracaoFala.setEnabled(false);
-        jRBSemAlteracaoFala.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRBSemAlteracaoFalaItemStateChanged(evt);
-            }
-        });
+        jComboBoxVacinado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxVacinado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sabe", "Sim" }));
+        jComboBoxVacinado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxVacinado.setEnabled(false);
 
-        jQualAlteracaoFala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQualAlteracaoFala.setEnabled(false);
+        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel90.setText("Quais:");
 
-        jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel59.setText("Qual alteração?");
+        jQuaisVacinas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQuaisVacinas.setEnabled(false);
+
+        jLabel93.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel93.setText("Vacinado:");
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel39Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel93)
+                    .addComponent(jLabel90))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel39Layout.createSequentialGroup()
+                        .addComponent(jComboBoxVacinado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 364, Short.MAX_VALUE))
+                    .addComponent(jQuaisVacinas))
+                .addContainerGap())
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxVacinado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel93))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel90)
+                    .addComponent(jQuaisVacinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -90,30 +117,12 @@ public class TelaFA extends javax.swing.JDialog {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jQualAlteracaoFala)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel59)
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addComponent(jRBComAlteracaoFala)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRBSemAlteracaoFala)))
-                        .addGap(0, 162, Short.MAX_VALUE)))
+                .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBComAlteracaoFala)
-                    .addComponent(jRBSemAlteracaoFala))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel59)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jQualAlteracaoFala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
@@ -150,15 +159,14 @@ public class TelaFA extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtConfirmar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jBtConfirmar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtConfirmar});
@@ -168,12 +176,12 @@ public class TelaFA extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtAlterar)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -183,9 +191,9 @@ public class TelaFA extends javax.swing.JDialog {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         if (acao == 1 || acao == 2) {
-            jRBComAlteracaoFala.setEnabled(true);
-            jRBSemAlteracaoFala.setEnabled(true);
-            jQualAlteracaoFala.setEnabled(true);
+            jComboBoxVacinado.setEnabled(true);
+            jQuaisVacinas.setEnabled(true);
+            //           
             jBtAlterar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtConfirmar.setEnabled(true);
@@ -196,14 +204,8 @@ public class TelaFA extends javax.swing.JDialog {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jRBComAlteracaoFala.isSelected()) {
-            statusFalaLinguagem = 0;
-        } else if (jRBSemAlteracaoFala.isSelected()) {
-            statusFalaLinguagem = 1;
-            jQualAlteracaoFala.setText("");
-        }
-        objAdmEnfermagem.setFalaLinguagem(statusFalaLinguagem);
-        qualAlteracaoFala = jQualAlteracaoFala.getText(); 
+        pVacina = ((String) jComboBoxVacinado.getSelectedItem());
+        pQuaisVacinas = jQuaisVacinas.getText();
         dispose();
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -211,18 +213,13 @@ public class TelaFA extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarDadosExistentes();
         //
-        jRBComAlteracaoFala.setEnabled(!true);
-        jRBSemAlteracaoFala.setEnabled(!true);
-        jQualAlteracaoFala.setEnabled(!true);
+        jComboBoxVacinado.setEnabled(!true);
+        jQuaisVacinas.setEnabled(!true);
+        //
         jBtAlterar.setEnabled(true);
         jBtCancelar.setEnabled(!true);
         jBtConfirmar.setEnabled(!true);
     }//GEN-LAST:event_jBtCancelarActionPerformed
-
-    private void jRBSemAlteracaoFalaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRBSemAlteracaoFalaItemStateChanged
-        // TODO add your handling code here:
-        jQualAlteracaoFala.setText("");
-    }//GEN-LAST:event_jRBSemAlteracaoFalaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -241,20 +238,83 @@ public class TelaFA extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaFA dialog = new TelaFA(tae, true);
+                TelaVA dialog = new TelaVA(tva, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -267,19 +327,21 @@ public class TelaFA extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup btGrupoFA;
+    private javax.swing.ButtonGroup btGrupoG;
+    private javax.swing.ButtonGroup btGrupoV;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtConfirmar;
-    private javax.swing.JLabel jLabel59;
+    private javax.swing.JComboBox jComboBoxVacinado;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel93;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JTextField jQualAlteracaoFala;
-    private javax.swing.JRadioButton jRBComAlteracaoFala;
-    private javax.swing.JRadioButton jRBSemAlteracaoFala;
+    private javax.swing.JPanel jPanel39;
+    private javax.swing.JTextField jQuaisVacinas;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
-        jQualAlteracaoFala.setBackground(Color.white);
+        jQuaisVacinas.setBackground(Color.white);
     }
 
     public void buscarDadosExistentes() {
@@ -290,12 +352,8 @@ public class TelaFA extends javax.swing.JDialog {
                     + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "'");
             conecta.rs.first();
-            if (statusFalaLinguagem == 0) {
-                jRBComAlteracaoFala.setSelected(true);
-            } else if (statusFalaLinguagem == 1) {
-                jRBSemAlteracaoFala.setSelected(true);
-            }
-            jQualAlteracaoFala.setText(conecta.rs.getString("QualFala"));
+            jComboBoxVacinado.setSelectedItem(conecta.rs.getString("Vacinado"));
+            jQuaisVacinas.setText(conecta.rs.getString("QuaisVacinas"));
         } catch (SQLException e) {
         }
         conecta.desconecta();

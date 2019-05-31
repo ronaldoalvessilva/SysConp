@@ -78,11 +78,16 @@ public class AdmissaoEnfermagem {
     private String diabetes;
     private String hipertensao;
     private String tuberculose;
+    private String escabiose;
+    private String hanseniase;
+    private String vacina;
+    private String dst;
+    private String hpv;
 
     public AdmissaoEnfermagem() {
     }
 
-    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao, String tuberculose) {
+    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao, String tuberculose, String escabiose, String hanseniase, String vacina, String dst, String hpv) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -148,6 +153,11 @@ public class AdmissaoEnfermagem {
         this.diabetes = diabetes;
         this.hipertensao = hipertensao;
         this.tuberculose = tuberculose;
+        this.escabiose = escabiose;
+        this.hanseniase = hanseniase;
+        this.vacina = vacina;
+        this.dst = dst;
+        this.hpv = hpv;
     }
 
     /**
@@ -1059,5 +1069,74 @@ public class AdmissaoEnfermagem {
     public void setTuberculose(String tuberculose) {
         this.tuberculose = tuberculose;
     }
-    
+
+    /**
+     * @return the escabiose
+     */
+    public String getEscabiose() {
+        return escabiose;
+    }
+
+    /**
+     * @param escabiose the escabiose to set
+     */
+    public void setEscabiose(String escabiose) {
+        this.escabiose = escabiose;
+    }
+
+    /**
+     * @return the hanseniase
+     */
+    public String getHanseniase() {
+        return hanseniase;
+    }
+
+    /**
+     * @param hanseniase the hanseniase to set
+     */
+    public void setHanseniase(String hanseniase) {
+        this.hanseniase = hanseniase;
+    }
+
+    /**
+     * @return the vacina
+     */
+    public String getVacina() {
+        return vacina;
+    }
+
+    /**
+     * @param vacina the vacina to set
+     */
+    public void setVacina(String vacina) {
+        this.vacina = vacina;
+    }
+
+    /**
+     * @return the dst
+     */
+    public String getDst() {
+        return dst;
+    }
+
+    /**
+     * @param dst the dst to set
+     */
+    public void setDst(String dst) {
+        this.dst = dst;
+    }
+
+    /**
+     * @return the hpv
+     */
+    public String getHpv() {
+        return hpv;
+    }
+
+    /**
+     * @param hpv the hpv to set
+     */
+    public void setHpv(String hpv) {
+        this.hpv = hpv;
+    }
 }

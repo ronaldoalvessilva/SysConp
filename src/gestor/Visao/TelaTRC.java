@@ -7,11 +7,27 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEnfermagem;
+import static gestor.Visao.TelaAdmissaoEnfermagem.acao;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdLanc;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pCirurgias;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pDiabetes;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pDst;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pEscabiose;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHanseniase;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHepatiteB;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHepatiteC;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHipertensao;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHiv;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pHpv;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pQualCirurgias;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pSifilis;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pTuberculose;
+import static gestor.Visao.TelaAdmissaoEnfermagem.pVdrl;
 import static gestor.Visao.TelaAdmissaoEnfermagem.qualAlteracaoFala;
 import static gestor.Visao.TelaAdmissaoEnfermagem.statusFalaLinguagem;
 import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,13 +80,19 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel36 = new javax.swing.JLabel();
         jComboBoxSifilis = new javax.swing.JComboBox<>();
         jLabel106 = new javax.swing.JLabel();
-        jComboBoxDiabetesMasc = new javax.swing.JComboBox();
+        jComboBoxDiabetes = new javax.swing.JComboBox();
         jLabel109 = new javax.swing.JLabel();
         jComboBoxTuberculose = new javax.swing.JComboBox<>();
         jLabel84 = new javax.swing.JLabel();
-        jComboBoxHipertensaoMasc = new javax.swing.JComboBox();
+        jComboBoxHipertensao = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxEscabiose = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBoxHanseniase = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxDST = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxHPV = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Testes Rápidos :::...");
@@ -149,11 +171,6 @@ public class TelaTRC extends javax.swing.JDialog {
 
         jQualCirurgia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jQualCirurgia.setEnabled(false);
-        jQualCirurgia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jQualCirurgiaActionPerformed(evt);
-            }
-        });
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Sifilis:");
@@ -166,10 +183,10 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel106.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel106.setText("Diabetes:");
 
-        jComboBoxDiabetesMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDiabetesMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDiabetesMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxDiabetesMasc.setEnabled(false);
+        jComboBoxDiabetes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDiabetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxDiabetes.setEnabled(false);
 
         jLabel109.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel109.setText("Tuberculose:");
@@ -184,18 +201,46 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel84.setText("Hipertensão:");
         jLabel84.setToolTipText("Hipertensão");
 
-        jComboBoxHipertensaoMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensaoMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxHipertensaoMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHipertensaoMasc.setEnabled(false);
+        jComboBoxHipertensao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHipertensao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHipertensao.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("Escabiose:");
 
         jComboBoxEscabiose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxEscabiose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
         jComboBoxEscabiose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscabiose.setEnabled(false);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setText("Hanseniase:");
+
+        jComboBoxHanseniase.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHanseniase.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não reagente", "Reagente", "Não Realizado" }));
+        jComboBoxHanseniase.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHanseniase.setEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel3.setText("DST:");
+
+        jComboBoxDST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDST.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não reagente", "Reagente", "Não Realizado" }));
+        jComboBoxDST.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxDST.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel4.setText("HPV:");
+
+        jComboBoxHPV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxHPV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHPV.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxHPV.setEnabled(false);
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
@@ -205,54 +250,56 @@ public class TelaTRC extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel91, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxHIV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxHanseniase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxVDRL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxSifilis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel92, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel109, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel41Layout.createSequentialGroup()
-                        .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel92)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jQualCirurgia))
-                    .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel41Layout.createSequentialGroup()
-                            .addComponent(jLabel106)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel41Layout.createSequentialGroup()
-                            .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxDST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel41Layout.createSequentialGroup()
                                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel41Layout.createSequentialGroup()
-                                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel109, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel41Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxVDRL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxHIV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxSifilis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(19, 19, 19)
-                            .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel41Layout.createSequentialGroup()
-                                    .addComponent(jLabel84)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel41Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxEscabiose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxEscabiose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxHPV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel41Layout.createSequentialGroup()
+                                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel106)
+                                    .addComponent(jLabel84))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxHipertensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxDiabetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jQualCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
+
+        jPanel41Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxDST, jComboBoxHepatiteB, jComboBoxHepatiteC, jComboBoxTuberculose});
+
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel41Layout.createSequentialGroup()
@@ -263,7 +310,7 @@ public class TelaTRC extends javax.swing.JDialog {
                     .addComponent(jComboBoxVDRL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel106)
-                    .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxDiabetes, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel13)
@@ -271,7 +318,7 @@ public class TelaTRC extends javax.swing.JDialog {
                     .addComponent(jLabel12)
                     .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel84)
-                    .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxHipertensao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel36)
@@ -282,11 +329,19 @@ public class TelaTRC extends javax.swing.JDialog {
                     .addComponent(jComboBoxEscabiose, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxHanseniase, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBoxDST, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxHPV, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel91)
                     .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel92)
                     .addComponent(jQualCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -327,24 +382,47 @@ public class TelaTRC extends javax.swing.JDialog {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-//        jRBComAlteracaoFala.setEnabled(true);
-//        jRBSemAlteracaoFala.setEnabled(true);
-//        jQualAlteracaoFala.setEnabled(true);
-        jBtAlterar.setEnabled(!true);
-        jBtCancelar.setEnabled(true);
-        jBtConfirmar.setEnabled(true);
+        if (acao == 1 || acao == 2) {
+            jComboBoxDiabetes.setEnabled(true);
+            jComboBoxHipertensao.setEnabled(true);
+            jComboBoxEscabiose.setEnabled(true);
+            jComboBoxHanseniase.setEnabled(true);
+            jComboBoxSifilis.setEnabled(true);
+            jComboBoxTuberculose.setEnabled(true);
+            jComboBoxEscabiose.setEnabled(true);
+            jComboBoxHIV.setEnabled(true);
+            jComboBoxDST.setEnabled(true);
+            jComboBoxVDRL.setEnabled(true);
+            jComboBoxHepatiteB.setEnabled(true);
+            jComboBoxHepatiteC.setEnabled(true);
+            jComboBoxHPV.setEnabled(true);
+            jComboBoxCirurgia.setEnabled(true);
+            jQualCirurgia.setEnabled(true);
+            //
+            jBtAlterar.setEnabled(!true);
+            jBtCancelar.setEnabled(true);
+            jBtConfirmar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Você não está em modo de inserção ou alteração para poder modificar o registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-//        if (jRBComAlteracaoFala.isSelected()) {
-//            statusFalaLinguagem = 0;
-//        } else if (jRBSemAlteracaoFala.isSelected()) {
-//            statusFalaLinguagem = 1;
-//            jQualAlteracaoFala.setText("");
-//        }
-//        objAdmEnfermagem.setFalaLinguagem(statusFalaLinguagem);
-//        qualAlteracaoFala = jQualAlteracaoFala.getText();
+        pVdrl = (String) jComboBoxVDRL.getSelectedItem();
+        pHepatiteC = (String) jComboBoxHepatiteC.getSelectedItem();
+        pHepatiteB = (String) jComboBoxHIV.getSelectedItem();
+        pHiv = (String) jComboBoxHIV.getSelectedItem();
+        pCirurgias = (String) jComboBoxCirurgia.getSelectedItem();
+        pQualCirurgias = jQualCirurgia.getText();
+        pSifilis = (String) jComboBoxSifilis.getSelectedItem();
+        pHipertensao = (String) jComboBoxHipertensao.getSelectedItem();
+        pDiabetes = (String) jComboBoxDiabetes.getSelectedItem();
+        pTuberculose = (String) jComboBoxTuberculose.getSelectedItem();
+        pHanseniase = (String) jComboBoxHanseniase.getSelectedItem();
+        pDst = (String) jComboBoxDST.getSelectedItem();
+        pEscabiose = (String) jComboBoxEscabiose.getSelectedItem();
+        pHpv = (String) jComboBoxHPV.getSelectedItem();     
         dispose();
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -352,15 +430,26 @@ public class TelaTRC extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarDadosExistentes();
         //
-
+        jComboBoxDiabetes.setEnabled(!true);
+        jComboBoxHipertensao.setEnabled(!true);
+        jComboBoxEscabiose.setEnabled(!true);
+        jComboBoxHanseniase.setEnabled(!true);
+        jComboBoxSifilis.setEnabled(!true);
+        jComboBoxTuberculose.setEnabled(!true);
+        jComboBoxEscabiose.setEnabled(!true);
+        jComboBoxHIV.setEnabled(!true);
+        jComboBoxDST.setEnabled(!true);
+        jComboBoxVDRL.setEnabled(!true);
+        jComboBoxHepatiteB.setEnabled(!true);
+        jComboBoxHepatiteC.setEnabled(!true);
+        jComboBoxHPV.setEnabled(!true);
+        jComboBoxCirurgia.setEnabled(!true);
+        jQualCirurgia.setEnabled(!true);
+        //
         jBtAlterar.setEnabled(true);
         jBtCancelar.setEnabled(!true);
         jBtConfirmar.setEnabled(!true);
     }//GEN-LAST:event_jBtCancelarActionPerformed
-
-    private void jQualCirurgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jQualCirurgiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jQualCirurgiaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,12 +499,15 @@ public class TelaTRC extends javax.swing.JDialog {
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JComboBox jComboBoxCirurgia;
-    private javax.swing.JComboBox jComboBoxDiabetesMasc;
+    private javax.swing.JComboBox<String> jComboBoxDST;
+    private javax.swing.JComboBox jComboBoxDiabetes;
     private javax.swing.JComboBox jComboBoxEscabiose;
     private javax.swing.JComboBox jComboBoxHIV;
+    private javax.swing.JComboBox jComboBoxHPV;
+    private javax.swing.JComboBox<String> jComboBoxHanseniase;
     private javax.swing.JComboBox jComboBoxHepatiteB;
     private javax.swing.JComboBox jComboBoxHepatiteC;
-    private javax.swing.JComboBox jComboBoxHipertensaoMasc;
+    private javax.swing.JComboBox jComboBoxHipertensao;
     private javax.swing.JComboBox<String> jComboBoxSifilis;
     private javax.swing.JComboBox<String> jComboBoxTuberculose;
     private javax.swing.JComboBox jComboBoxVDRL;
@@ -426,7 +518,10 @@ public class TelaTRC extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
@@ -450,12 +545,16 @@ public class TelaTRC extends javax.swing.JDialog {
             jComboBoxHepatiteC.setSelectedItem(conecta.rs.getString("HepatiteC"));
             jComboBoxHepatiteB.setSelectedItem(conecta.rs.getString("HepatiteB"));
             jComboBoxHIV.setSelectedItem(conecta.rs.getString("Hiv"));
+            jComboBoxSifilis.setSelectedItem(conecta.rs.getString("Sifilis"));
+            jComboBoxHipertensao.setSelectedItem(conecta.rs.getString("Hipertensao"));
+            jComboBoxDiabetes.setSelectedItem(conecta.rs.getString("Diabetes"));
+            jComboBoxTuberculose.setSelectedItem(conecta.rs.getString("Tuberculose"));
             jComboBoxCirurgia.setSelectedItem(conecta.rs.getString("Cirurgias"));
             jQualCirurgia.setText(conecta.rs.getString("QuaisCirurgias"));
-            jComboBoxSifilis.setSelectedItem(conecta.rs.getString("Sifilis"));
-            jComboBoxHipertensaoMasc.setSelectedItem(conecta.rs.getString("Hipertensao"));
-            jComboBoxDiabetesMasc.setSelectedItem(conecta.rs.getString("Diabetes"));
-            jComboBoxTuberculose.setSelectedItem(conecta.rs.getString("Tuberculose"));
+            jComboBoxEscabiose.setSelectedItem(conecta.rs.getString("Escabiose"));
+            jComboBoxDST.setSelectedItem(conecta.rs.getString("Dst"));
+            jComboBoxHPV.setSelectedItem(conecta.rs.getString("Hpv"));
+            jComboBoxHanseniase.setSelectedItem(conecta.rs.getString("Hanseniase"));
         } catch (SQLException e) {
         }
         conecta.desconecta();

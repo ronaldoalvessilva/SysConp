@@ -120,7 +120,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String horaMov;
     String dataModFinal;
     //
-    int acao;
+    public static int acao;
     int flag;
     String dataInicial, dataFinal, dataEntrada, dataEvolu;
     String statusLanc = "ABERTO";
@@ -135,6 +135,13 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     int statusAcuidadeAuditiva;
     int statusFuncaoMotora;
     //
+    public static String pTipo = "";
+    public static String pLocalizacao = "";
+    public static String pCostipacaoDias = "";
+    public static String pQualGenitalia = "";
+    public static String pVacina = "";
+    public static String pQuaisVacinas = "";
+    //
     public static int statusFalaLinguagem = 0;
     public static String qualAlteracaoFala = "";
     public static int statusPele = 0;
@@ -147,6 +154,21 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public static int statusAbdome = 0;
     public static int statusFuncaoVesical = 0;
     public static int statusGenitalia = 0;
+    //
+    public static String pVdrl;
+    public static String pHepatiteB;
+    public static String pHepatiteC;
+    public static String pHiv;
+    public static String pCirurgias;
+    public static String pQualCirurgias;
+    public static String pSifilis;
+    public static String pHipertensao;
+    public static String pDiabetes;
+    public static String pTuberculose;
+    public static String pHanseniase;
+    public static String pDst;
+    public static String pEscabiose;
+    public static String pHpv;
     //
     int idItemEvol;
     String codEvolucao;
@@ -203,6 +225,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     // TELAS TESTES RÁPIDOS E OUTRAS
     public static TelaFA tFA;
     public static TelaTRC tTRC;
+    public static TelaPE tPE;
+    public static TelaCC tCC;
+    public static TelaFT tFT;
+    public static TelaFIA tFI;
+    public static TelaFVG tFVG;
+    public static TelaVA tVA;
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -219,27 +247,33 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     }
 
     public void mostrarPE() {
-
+        tPE = new TelaPE(this, true);
+        tPE.setVisible(true);
     }
 
     public void mostrarCC() {
-
+        tCC = new TelaCC(this, true);
+        tCC.setVisible(true);
     }
 
     public void mostrarFT() {
-
+        tFT = new TelaFT(this, true);
+        tFT.setVisible(true);
     }
 
     public void mostrarFIA() {
-
+        tFI = new TelaFIA(this, true);
+        tFI.setVisible(true);
     }
 
     public void mostrarFVG() {
-
+        tFVG = new TelaFVG(this, true);
+        tFVG.setVisible(true);
     }
 
     public void mostrarVA() {
-
+        tVA = new TelaVA(this, true);
+        tVA.setVisible(true);
     }
 
     public void mostrarTRC() {
@@ -625,97 +659,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jBtImpressao = new javax.swing.JButton();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel23 = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JPanel();
-        jRBComAlteracaoFala = new javax.swing.JRadioButton();
-        jRBSemAlteracaoFala = new javax.swing.JRadioButton();
-        jQualAlteracaoFala = new javax.swing.JTextField();
-        jLabel59 = new javax.swing.JLabel();
-        jPanel24 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
-        jRBPeleHipohidratada = new javax.swing.JRadioButton();
-        jRBPeleIntegra = new javax.swing.JRadioButton();
-        jRBPeleLesao = new javax.swing.JRadioButton();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel66 = new javax.swing.JLabel();
-        jLocalizacao = new javax.swing.JTextField();
-        jTipo = new javax.swing.JTextField();
-        jLabel65 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jRBPeleNormocoradas = new javax.swing.JRadioButton();
-        jRBPeleHipocoradas = new javax.swing.JRadioButton();
-        jRBPeleHidratadas = new javax.swing.JRadioButton();
-        jPanel26 = new javax.swing.JPanel();
-        jPanel29 = new javax.swing.JPanel();
-        jRBBocaHalitose = new javax.swing.JRadioButton();
-        jRBBocaHalitoseCetonica = new javax.swing.JRadioButton();
-        jRBProteseDentaria = new javax.swing.JRadioButton();
-        jRBBocaAusenDenteCarie = new javax.swing.JRadioButton();
-        jPanel27 = new javax.swing.JPanel();
-        jRBCabelosIntegro = new javax.swing.JRadioButton();
-        jRBCabelosCalvice = new javax.swing.JRadioButton();
-        jRBCabelosSujidade = new javax.swing.JRadioButton();
-        jPanel30 = new javax.swing.JPanel();
-        jPanel34 = new javax.swing.JPanel();
-        jRBToraxSimetrico = new javax.swing.JRadioButton();
-        jRBToraxAssimetrico = new javax.swing.JRadioButton();
-        jPanel33 = new javax.swing.JPanel();
-        jRBFuncaoRespDispneico = new javax.swing.JRadioButton();
-        jRBFuncaoRespTaquipenico = new javax.swing.JRadioButton();
-        jRBFuncaoRespEupneico = new javax.swing.JRadioButton();
-        jPanel31 = new javax.swing.JPanel();
-        jPanel36 = new javax.swing.JPanel();
-        jLabel96 = new javax.swing.JLabel();
-        jCostipacaoDias = new javax.swing.JTextField();
-        jRBFuncaoIntesRegular = new javax.swing.JRadioButton();
-        jRBFuncaoIntesAusente = new javax.swing.JRadioButton();
-        jRBFuncaoIntesConstipacao = new javax.swing.JRadioButton();
-        jRBFuncaoIntesDiarreia = new javax.swing.JRadioButton();
-        jPanel35 = new javax.swing.JPanel();
-        jRBAbdomeGloboso = new javax.swing.JRadioButton();
-        jRBAbdomeFlacido = new javax.swing.JRadioButton();
-        jRBAbdomePlano = new javax.swing.JRadioButton();
-        jPanel32 = new javax.swing.JPanel();
-        jPanel37 = new javax.swing.JPanel();
-        jRBFuncaoVesicalFralda = new javax.swing.JRadioButton();
-        jRBFuncaoVesicalCV = new javax.swing.JRadioButton();
-        jRBFuncaVeisicalEspontanea = new javax.swing.JRadioButton();
-        jPanel38 = new javax.swing.JPanel();
-        jLabel95 = new javax.swing.JLabel();
-        jQualGenitalia = new javax.swing.JTextField();
-        jRBGenitaliaComAlteracao = new javax.swing.JRadioButton();
-        jRBGenitaliaIntegra = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel39 = new javax.swing.JPanel();
-        jComboBoxVacinado = new javax.swing.JComboBox();
-        jLabel90 = new javax.swing.JLabel();
-        jQuaisVacinas = new javax.swing.JTextField();
-        jLabel93 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel41 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBoxVDRL = new javax.swing.JComboBox();
-        jComboBoxHepatiteC = new javax.swing.JComboBox();
-        jComboBoxHepatiteB = new javax.swing.JComboBox();
-        jComboBoxHIV = new javax.swing.JComboBox();
-        jLabel91 = new javax.swing.JLabel();
-        jComboBoxCirurgia = new javax.swing.JComboBox();
-        jLabel92 = new javax.swing.JLabel();
-        jQualCirurgia = new javax.swing.JTextField();
-        jLabel36 = new javax.swing.JLabel();
-        jComboBoxSifilis = new javax.swing.JComboBox<>();
-        jLabel106 = new javax.swing.JLabel();
-        jComboBoxDiabetesMasc = new javax.swing.JComboBox();
-        jLabel109 = new javax.swing.JLabel();
-        jComboBoxTuberculose = new javax.swing.JComboBox<>();
-        jLabel84 = new javax.swing.JLabel();
-        jComboBoxHipertensaoMasc = new javax.swing.JComboBox();
 
         jLabel94.setText("jLabel94");
 
@@ -948,7 +891,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1140,7 +1083,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addComponent(jRBTrite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRBAgitado)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1263,7 +1206,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         .addComponent(jFrequenciaCardiaca, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel31)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel12Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFrequenciaCardiaca, jFrequenciaRespira, jHemograma, jPeso, jPressaoArterial, jTemperatura});
@@ -1383,30 +1326,29 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel42)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxUsaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel50)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jQualMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxUsaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jQualMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1422,7 +1364,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxUsaMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel50)
                     .addComponent(jQualMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Aendimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -1664,10 +1606,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(555, 555, 555))
+                .addGap(548, 548, 548))
         );
 
         jTabbedPane1.addTab("Admissão", Admissao);
@@ -1956,7 +1898,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jComboBoxAlergias, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19)
                     .addComponent(jQuaisAlergias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jPanel60Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jQuaisAlergias, jQuaisDoencas, jQuaisDrogas});
@@ -1982,7 +1924,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jPanel61Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel61Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2286,7 +2228,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel59, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2660,7 +2602,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel53)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2695,7 +2637,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel54)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2730,7 +2672,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel55)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2765,7 +2707,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel56)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3549,7 +3491,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel85)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3888,7 +3830,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jAlturaUterina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel83))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -4239,990 +4181,13 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressao, jBtNovaEvolucao, jBtSalvarEvolucao});
 
         jTabbedPane1.addTab("Anotação/Evolução", Evolucao);
-
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Avaliações Admissionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        jTabbedPane2.setForeground(new java.awt.Color(51, 153, 0));
-        jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
-        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fala/Linguagem", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        FalaLinguagem.add(jRBComAlteracaoFala);
-        jRBComAlteracaoFala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBComAlteracaoFala.setText("C/Alteração");
-        jRBComAlteracaoFala.setEnabled(false);
-
-        FalaLinguagem.add(jRBSemAlteracaoFala);
-        jRBSemAlteracaoFala.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBSemAlteracaoFala.setSelected(true);
-        jRBSemAlteracaoFala.setText("S/Alteração");
-        jRBSemAlteracaoFala.setEnabled(false);
-
-        jQualAlteracaoFala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQualAlteracaoFala.setEnabled(false);
-
-        jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel59.setText("Qual?:");
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBSemAlteracaoFala)
-                    .addComponent(jRBComAlteracaoFala))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(jLabel59)
-                        .addGap(0, 349, Short.MAX_VALUE))
-                    .addComponent(jQualAlteracaoFala))
-                .addContainerGap())
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBComAlteracaoFala)
-                    .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBSemAlteracaoFala)
-                    .addComponent(jQualAlteracaoFala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("Fala", jPanel23);
-
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pele", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        Pele.add(jRBPeleHipohidratada);
-        jRBPeleHipohidratada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleHipohidratada.setText("Hipohidratada");
-        jRBPeleHipohidratada.setEnabled(false);
-
-        Pele.add(jRBPeleIntegra);
-        jRBPeleIntegra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleIntegra.setSelected(true);
-        jRBPeleIntegra.setText("Integra");
-        jRBPeleIntegra.setEnabled(false);
-
-        Pele.add(jRBPeleLesao);
-        jRBPeleLesao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleLesao.setText("Lesão");
-        jRBPeleLesao.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jRBPeleHipohidratada)
-            .addComponent(jRBPeleIntegra)
-            .addComponent(jRBPeleLesao)
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addComponent(jRBPeleHipohidratada)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBPeleIntegra)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBPeleLesao)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel66.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel66.setText("Localização:");
-
-        jLocalizacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jLocalizacao.setEnabled(false);
-
-        jTipo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTipo.setEnabled(false);
-
-        jLabel65.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel65.setText("Tipo");
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel65)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel66)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLocalizacao))
-                    .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(141, 141, 141))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel65)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel66)
-                    .addComponent(jLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mucosa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        Mucosa.add(jRBPeleNormocoradas);
-        jRBPeleNormocoradas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleNormocoradas.setSelected(true);
-        jRBPeleNormocoradas.setText("Normocoradas");
-        jRBPeleNormocoradas.setEnabled(false);
-
-        Mucosa.add(jRBPeleHipocoradas);
-        jRBPeleHipocoradas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleHipocoradas.setText("Hipocoradas");
-        jRBPeleHipocoradas.setEnabled(false);
-
-        Mucosa.add(jRBPeleHidratadas);
-        jRBPeleHidratadas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBPeleHidratadas.setText("Hidratadas");
-        jRBPeleHidratadas.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBPeleNormocoradas)
-                    .addComponent(jRBPeleHipocoradas)
-                    .addComponent(jRBPeleHidratadas))
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jRBPeleNormocoradas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBPeleHipocoradas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBPeleHidratadas)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
-        jPanel24.setLayout(jPanel24Layout);
-        jPanel24Layout.setHorizontalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel24Layout.setVerticalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel24Layout.createSequentialGroup()
-                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-
-        jTabbedPane2.addTab("Pele/Mucosa", jPanel24);
-
-        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Boca", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        Boca.add(jRBBocaHalitose);
-        jRBBocaHalitose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBBocaHalitose.setText("Halitose");
-        jRBBocaHalitose.setEnabled(false);
-
-        Boca.add(jRBBocaHalitoseCetonica);
-        jRBBocaHalitoseCetonica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBBocaHalitoseCetonica.setText("Halitose Cetônico");
-        jRBBocaHalitoseCetonica.setEnabled(false);
-
-        Boca.add(jRBProteseDentaria);
-        jRBProteseDentaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBProteseDentaria.setSelected(true);
-        jRBProteseDentaria.setText("Protese Dentária");
-        jRBProteseDentaria.setEnabled(false);
-
-        Boca.add(jRBBocaAusenDenteCarie);
-        jRBBocaAusenDenteCarie.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBBocaAusenDenteCarie.setText("Ausencia de Dente/Caries");
-        jRBBocaAusenDenteCarie.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
-        jPanel29.setLayout(jPanel29Layout);
-        jPanel29Layout.setHorizontalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBBocaHalitoseCetonica)
-                    .addComponent(jRBBocaHalitose))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBBocaAusenDenteCarie)
-                    .addComponent(jRBProteseDentaria))
-                .addContainerGap())
-        );
-        jPanel29Layout.setVerticalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBBocaHalitose)
-                    .addComponent(jRBProteseDentaria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBBocaHalitoseCetonica)
-                    .addComponent(jRBBocaAusenDenteCarie))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cabelos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        Cabelos.add(jRBCabelosIntegro);
-        jRBCabelosIntegro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBCabelosIntegro.setSelected(true);
-        jRBCabelosIntegro.setText("Integro");
-        jRBCabelosIntegro.setEnabled(false);
-
-        Cabelos.add(jRBCabelosCalvice);
-        jRBCabelosCalvice.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBCabelosCalvice.setText("Calvicie");
-        jRBCabelosCalvice.setEnabled(false);
-
-        Cabelos.add(jRBCabelosSujidade);
-        jRBCabelosSujidade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBCabelosSujidade.setText("Sujidade");
-        jRBCabelosSujidade.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
-        jPanel27.setLayout(jPanel27Layout);
-        jPanel27Layout.setHorizontalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel27Layout.createSequentialGroup()
-                        .addComponent(jRBCabelosIntegro)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel27Layout.createSequentialGroup()
-                        .addComponent(jRBCabelosCalvice)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRBCabelosSujidade)))
-                .addContainerGap())
-        );
-        jPanel27Layout.setVerticalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel27Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRBCabelosIntegro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBCabelosCalvice)
-                    .addComponent(jRBCabelosSujidade))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("C/Cabeludo", jPanel26);
-
-        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Toráx", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        Torax.add(jRBToraxSimetrico);
-        jRBToraxSimetrico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBToraxSimetrico.setSelected(true);
-        jRBToraxSimetrico.setText("Simétrico");
-        jRBToraxSimetrico.setEnabled(false);
-
-        Torax.add(jRBToraxAssimetrico);
-        jRBToraxAssimetrico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBToraxAssimetrico.setText("Assimétrico");
-        jRBToraxAssimetrico.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBToraxAssimetrico)
-                    .addComponent(jRBToraxSimetrico))
-                .addContainerGap(166, Short.MAX_VALUE))
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRBToraxSimetrico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBToraxAssimetrico)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Função Respiratória", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        FuncaoRespiratoria.add(jRBFuncaoRespDispneico);
-        jRBFuncaoRespDispneico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoRespDispneico.setText("Dispnéico");
-        jRBFuncaoRespDispneico.setEnabled(false);
-
-        FuncaoRespiratoria.add(jRBFuncaoRespTaquipenico);
-        jRBFuncaoRespTaquipenico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoRespTaquipenico.setText("Taquipénico");
-        jRBFuncaoRespTaquipenico.setEnabled(false);
-
-        FuncaoRespiratoria.add(jRBFuncaoRespEupneico);
-        jRBFuncaoRespEupneico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoRespEupneico.setSelected(true);
-        jRBFuncaoRespEupneico.setText("Eupnéico");
-        jRBFuncaoRespEupneico.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
-        jPanel33.setLayout(jPanel33Layout);
-        jPanel33Layout.setHorizontalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel33Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addComponent(jRBFuncaoRespTaquipenico)
-                        .addGap(32, 32, 32)
-                        .addComponent(jRBFuncaoRespDispneico))
-                    .addComponent(jRBFuncaoRespEupneico))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel33Layout.setVerticalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel33Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRBFuncaoRespEupneico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBFuncaoRespTaquipenico)
-                    .addComponent(jRBFuncaoRespDispneico))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
-        jPanel30.setLayout(jPanel30Layout);
-        jPanel30Layout.setHorizontalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel30Layout.setVerticalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("FR/T", jPanel30);
-
-        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Função Intestinal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel96.setText("Dias:");
-
-        jCostipacaoDias.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCostipacaoDias.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCostipacaoDias.setEnabled(false);
-
-        FuncaoIntestinal.add(jRBFuncaoIntesRegular);
-        jRBFuncaoIntesRegular.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoIntesRegular.setSelected(true);
-        jRBFuncaoIntesRegular.setText("Regular");
-        jRBFuncaoIntesRegular.setEnabled(false);
-
-        FuncaoIntestinal.add(jRBFuncaoIntesAusente);
-        jRBFuncaoIntesAusente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoIntesAusente.setText("Ausênte");
-        jRBFuncaoIntesAusente.setEnabled(false);
-
-        FuncaoIntestinal.add(jRBFuncaoIntesConstipacao);
-        jRBFuncaoIntesConstipacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoIntesConstipacao.setText("Constipado");
-        jRBFuncaoIntesConstipacao.setEnabled(false);
-
-        FuncaoIntestinal.add(jRBFuncaoIntesDiarreia);
-        jRBFuncaoIntesDiarreia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoIntesDiarreia.setText("Diarréia");
-        jRBFuncaoIntesDiarreia.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
-        jPanel36.setLayout(jPanel36Layout);
-        jPanel36Layout.setHorizontalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel36Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBFuncaoIntesRegular)
-                    .addComponent(jRBFuncaoIntesAusente))
-                .addGap(14, 14, 14)
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addComponent(jRBFuncaoIntesConstipacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel96)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCostipacaoDias, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jRBFuncaoIntesDiarreia))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-        jPanel36Layout.setVerticalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel36Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel96)
-                            .addComponent(jCostipacaoDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jRBFuncaoIntesConstipacao))
-                    .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRBFuncaoIntesRegular)
-                            .addComponent(jRBFuncaoIntesDiarreia))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBFuncaoIntesAusente)))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-
-        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Abome", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        Abdome.add(jRBAbdomeGloboso);
-        jRBAbdomeGloboso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBAbdomeGloboso.setText("Globoso");
-        jRBAbdomeGloboso.setEnabled(false);
-
-        Abdome.add(jRBAbdomeFlacido);
-        jRBAbdomeFlacido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBAbdomeFlacido.setSelected(true);
-        jRBAbdomeFlacido.setText("Flácido");
-        jRBAbdomeFlacido.setEnabled(false);
-
-        Abdome.add(jRBAbdomePlano);
-        jRBAbdomePlano.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBAbdomePlano.setText("Plano");
-        jRBAbdomePlano.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
-        jPanel35.setLayout(jPanel35Layout);
-        jPanel35Layout.setHorizontalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel35Layout.createSequentialGroup()
-                        .addComponent(jRBAbdomeFlacido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRBAbdomePlano))
-                    .addComponent(jRBAbdomeGloboso))
-                .addContainerGap(93, Short.MAX_VALUE))
-        );
-        jPanel35Layout.setVerticalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRBAbdomeGloboso)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRBAbdomeFlacido)
-                    .addComponent(jRBAbdomePlano))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(53, 53, 53))
-        );
-
-        jTabbedPane2.addTab("AB/FI", jPanel31);
-
-        jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Função Vesical", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        FuncaoVesical.add(jRBFuncaoVesicalFralda);
-        jRBFuncaoVesicalFralda.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoVesicalFralda.setSelected(true);
-        jRBFuncaoVesicalFralda.setText("Fralda");
-        jRBFuncaoVesicalFralda.setEnabled(false);
-
-        FuncaoVesical.add(jRBFuncaoVesicalCV);
-        jRBFuncaoVesicalCV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaoVesicalCV.setText("CV");
-        jRBFuncaoVesicalCV.setToolTipText("");
-        jRBFuncaoVesicalCV.setEnabled(false);
-
-        FuncaoVesical.add(jRBFuncaVeisicalEspontanea);
-        jRBFuncaVeisicalEspontanea.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBFuncaVeisicalEspontanea.setText("Espontâneo");
-        jRBFuncaVeisicalEspontanea.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
-        jPanel37.setLayout(jPanel37Layout);
-        jPanel37Layout.setHorizontalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel37Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBFuncaoVesicalFralda)
-                    .addComponent(jRBFuncaVeisicalEspontanea)
-                    .addComponent(jRBFuncaoVesicalCV))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        jPanel37Layout.setVerticalGroup(
-            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel37Layout.createSequentialGroup()
-                .addComponent(jRBFuncaoVesicalFralda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBFuncaoVesicalCV)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRBFuncaVeisicalEspontanea))
-        );
-
-        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Genitália", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        jLabel95.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel95.setText("Qual?");
-
-        jQualGenitalia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQualGenitalia.setEnabled(false);
-
-        Genitalia.add(jRBGenitaliaComAlteracao);
-        jRBGenitaliaComAlteracao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBGenitaliaComAlteracao.setText("Com Alteração");
-        jRBGenitaliaComAlteracao.setEnabled(false);
-
-        Genitalia.add(jRBGenitaliaIntegra);
-        jRBGenitaliaIntegra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRBGenitaliaIntegra.setSelected(true);
-        jRBGenitaliaIntegra.setText("Integra");
-        jRBGenitaliaIntegra.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
-        jPanel38.setLayout(jPanel38Layout);
-        jPanel38Layout.setHorizontalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel38Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBGenitaliaIntegra)
-                    .addComponent(jRBGenitaliaComAlteracao))
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel38Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel95)
-                        .addContainerGap(234, Short.MAX_VALUE))
-                    .addGroup(jPanel38Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jQualGenitalia)
-                        .addContainerGap())))
-        );
-        jPanel38Layout.setVerticalGroup(
-            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel38Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel95)
-                    .addComponent(jRBGenitaliaIntegra))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jQualGenitalia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRBGenitaliaComAlteracao))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
-        jPanel32.setLayout(jPanel32Layout);
-        jPanel32Layout.setHorizontalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel32Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel32Layout.setVerticalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel32Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel37, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("FV/GE", jPanel32);
-
-        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vacinas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        jComboBoxVacinado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxVacinado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sabe", "Sim" }));
-        jComboBoxVacinado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxVacinado.setEnabled(false);
-
-        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel90.setText("Quais:");
-
-        jQuaisVacinas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQuaisVacinas.setEnabled(false);
-
-        jLabel93.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel93.setText("Vacinado:");
-
-        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
-        jPanel39.setLayout(jPanel39Layout);
-        jPanel39Layout.setHorizontalGroup(
-            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel39Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel93)
-                    .addComponent(jLabel90))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel39Layout.createSequentialGroup()
-                        .addComponent(jComboBoxVacinado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 364, Short.MAX_VALUE))
-                    .addComponent(jQuaisVacinas))
-                .addContainerGap())
-        );
-        jPanel39Layout.setVerticalGroup(
-            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxVacinado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel93))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel90)
-                    .addComponent(jQuaisVacinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, 87, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane2.addTab("Vacina", jPanel1);
-
-        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Teste rápido/Cirurgias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("VDRL:");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Hepatite C:");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Hepatite B:");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("HIV:");
-
-        jComboBoxVDRL.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxVDRL.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não reagente", "Reagente", "Não Realizado" }));
-        jComboBoxVDRL.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxVDRL.setEnabled(false);
-
-        jComboBoxHepatiteC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHepatiteC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não reagente", "Reagente", "Não realizado" }));
-        jComboBoxHepatiteC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHepatiteC.setEnabled(false);
-
-        jComboBoxHepatiteB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHepatiteB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não reagente", "Reagente", "Não realizado" }));
-        jComboBoxHepatiteB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHepatiteB.setEnabled(false);
-
-        jComboBoxHIV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHIV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não reagente", "Reagente", "Não realizado" }));
-        jComboBoxHIV.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHIV.setEnabled(false);
-
-        jLabel91.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel91.setText("Cirurgias:");
-
-        jComboBoxCirurgia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCirurgia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxCirurgia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxCirurgia.setEnabled(false);
-
-        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel92.setText("Quais:");
-
-        jQualCirurgia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQualCirurgia.setEnabled(false);
-
-        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel36.setText("Sifilis:");
-
-        jComboBoxSifilis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSifilis.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não reagente", "Reagente", "Não Realizado" }));
-        jComboBoxSifilis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxSifilis.setEnabled(false);
-
-        jLabel106.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel106.setText("Diabetes:");
-
-        jComboBoxDiabetesMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDiabetesMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDiabetesMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxDiabetesMasc.setEnabled(false);
-
-        jLabel109.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel109.setText("Tuberculose:");
-        jLabel109.setToolTipText("Tuberculose");
-
-        jComboBoxTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negativo", "Positivo" }));
-        jComboBoxTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTuberculose.setEnabled(false);
-
-        jLabel84.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel84.setText("Hiper:");
-        jLabel84.setToolTipText("Hipertensão");
-
-        jComboBoxHipertensaoMasc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensaoMasc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxHipertensaoMasc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxHipertensaoMasc.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
-        jPanel41.setLayout(jPanel41Layout);
-        jPanel41Layout.setHorizontalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel41Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel36)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxVDRL, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxHIV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxSifilis, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel91, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel106, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel41Layout.createSequentialGroup()
-                        .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel41Layout.createSequentialGroup()
-                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel41Layout.createSequentialGroup()
-                                .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel84))
-                            .addGroup(jPanel41Layout.createSequentialGroup()
-                                .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel92)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jQualCirurgia)
-                            .addGroup(jPanel41Layout.createSequentialGroup()
-                                .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel109, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
-        );
-
-        jPanel41Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxHIV, jComboBoxHepatiteB, jComboBoxHepatiteC, jComboBoxVDRL});
-
-        jPanel41Layout.setVerticalGroup(
-            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel41Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel10)
-                    .addComponent(jComboBoxVDRL, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jComboBoxHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBoxHepatiteB, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel13)
-                    .addComponent(jComboBoxHIV, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel91)
-                    .addComponent(jComboBoxCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel92)
-                    .addComponent(jQualCirurgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel36)
-                    .addComponent(jComboBoxSifilis, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel106)
-                    .addComponent(jComboBoxDiabetesMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel84)
-                    .addComponent(jComboBoxHipertensaoMasc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel109)
-                    .addComponent(jComboBoxTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, 118, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Testes Rápidos", jPanel2);
-
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addGap(152, 152, 152)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(168, Short.MAX_VALUE)))
-        );
-
-        jTabbedPane1.addTab("tab9", jPanel15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -5232,10 +4197,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(350, 10, 610, 554);
+        setBounds(350, 10, 610, 544);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -5342,38 +4309,47 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setAcuidadeAuditiva(statusAcuidadeAuditiva);
                 objAdmEnfermagem.setFuncaoMotora(statusFuncaoMotora);
                 objAdmEnfermagem.setQualFuncaoMotora(jQualFuncaoMotora.getText());
-                //
+                //FALA/LINGUAGEM
                 objAdmEnfermagem.setFalaLinguagem(statusFalaLinguagem);
-
-//                objAdmEnfermagem.setQualFala(jQualAlteracaoFala.getText());
                 objAdmEnfermagem.setQualFala(qualAlteracaoFala);
-
+                //PELE-MUCOSA
                 objAdmEnfermagem.setPele(statusPele);
                 objAdmEnfermagem.setMucosa(statusMucosa);
-                objAdmEnfermagem.setTipoPele(jTipo.getText());
-                objAdmEnfermagem.setLocalizacao(jLocalizacao.getText());
+                objAdmEnfermagem.setTipoPele(pTipo);
+                objAdmEnfermagem.setLocalizacao(pLocalizacao);
+                //CABELOS/BOCA
                 objAdmEnfermagem.setCabelos(statusCabelos);
                 objAdmEnfermagem.setBoca(statusBoca);
+                //RESPIRAÇÃO/TORAX
                 objAdmEnfermagem.setFuncaoRespiratoria(statusFuncaoRespiratoria);
                 objAdmEnfermagem.setTorax(statusTorax);
+                //FUNÇÃO INSTESTINAL
                 objAdmEnfermagem.setFuncaoIntestinal(statusFuncaoIntestinal);
-                objAdmEnfermagem.setDiasConstipado(jCostipacaoDias.getText());
+                objAdmEnfermagem.setDiasConstipado(pCostipacaoDias);
                 objAdmEnfermagem.setAbdome(statusAbdome);
+                //FUNÇÃO VESICAL
                 objAdmEnfermagem.setFuncaoVesical(statusFuncaoVesical);
                 objAdmEnfermagem.setGenitalia(statusGenitalia);
-                objAdmEnfermagem.setQualGenitalia(jQualGenitalia.getText());
-                objAdmEnfermagem.setVacinado((String) jComboBoxVacinado.getSelectedItem());
-                objAdmEnfermagem.setQuaisVacinas(jQuaisVacinas.getText());
-                objAdmEnfermagem.setVdrl((String) jComboBoxVDRL.getSelectedItem());
-                objAdmEnfermagem.setHepatiteC((String) jComboBoxHepatiteC.getSelectedItem());
-                objAdmEnfermagem.setHepatiteB((String) jComboBoxHepatiteB.getSelectedItem());
-                objAdmEnfermagem.setHiv((String) jComboBoxHIV.getSelectedItem());
-                objAdmEnfermagem.setCirurgias((String) jComboBoxCirurgia.getSelectedItem());
-                objAdmEnfermagem.setQuaisCirurgias(jQualCirurgia.getText());
-                objAdmEnfermagem.setSifilis((String) jComboBoxSifilis.getSelectedItem());
-                objAdmEnfermagem.setHipertensao((String) jComboBoxHipertensaoMasc.getSelectedItem());
-                objAdmEnfermagem.setDiabetes((String) jComboBoxDiabetesMasc.getSelectedItem());
-                objAdmEnfermagem.setTuberculose((String) jComboBoxTuberculose.getSelectedItem());
+                objAdmEnfermagem.setQualGenitalia(pQualGenitalia);
+                // VACINAS
+                objAdmEnfermagem.setVacinado(pVacina);
+                objAdmEnfermagem.setQuaisVacinas(pQuaisVacinas);
+                //TESTES RÁPIDOS
+                objAdmEnfermagem.setVdrl(pVdrl);
+                objAdmEnfermagem.setHepatiteC(pHepatiteC);
+                objAdmEnfermagem.setHepatiteB(pHepatiteB);
+                objAdmEnfermagem.setHiv(pHiv);
+                objAdmEnfermagem.setCirurgias(pCirurgias);
+                objAdmEnfermagem.setQuaisCirurgias(pQualCirurgias);
+                objAdmEnfermagem.setSifilis(pSifilis);
+                objAdmEnfermagem.setHipertensao(pHipertensao);
+                objAdmEnfermagem.setDiabetes(pDiabetes);
+                objAdmEnfermagem.setTuberculose(pTuberculose);
+                objAdmEnfermagem.setHanseniase(pHanseniase);
+                objAdmEnfermagem.setDst(pDst);
+                objAdmEnfermagem.setEscabiose(pEscabiose);
+                objAdmEnfermagem.setHpv(pHpv);
+                //
                 objAdmEnfermagem.setUsuarioDrogas((String) jComboBoxUsuarioDrogas.getSelectedItem());
                 objAdmEnfermagem.setQuaisDrogas(jQuaisDrogas.getText());
                 objAdmEnfermagem.setPortadorDoenca((String) jComboBoxPortadorDoencas.getSelectedItem());
@@ -5594,7 +4570,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String IdLanc = "" + jTabelaAdmissaoEnfermeira.getValueAt(jTabelaAdmissaoEnfermeira.getSelectedRow(), 0);
             jCodigoLanc.setText(IdLanc);
-            //  jDatalancamento.setDate(jDatalancamento.getDate());
+            //  
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -5602,6 +4578,17 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            jBtImpressaoFicha.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(!true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
+            jBtImpressaoFicha1.setEnabled(true);
+            //
             jBtNovaEvolucao.setEnabled(true);
             jBtImpressaoFicha.setEnabled(true);
             //
@@ -5698,110 +4685,24 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     jRBFuncaoSemAlteracao.setSelected(true);
                 }
                 jQualFuncaoMotora.setText(conecta.rs.getString("QualFuncaoMotora"));
-//                statusFalaLinguagem = conecta.rs.getInt("FalaLinguagem");
-//                if (statusFalaLinguagem == 0) {
-//                    jRBComAlteracaoFala.setSelected(true);
-//                } else if (statusFalaLinguagem == 1) {
-//                    jRBSemAlteracaoFala.setSelected(true);
-//                }
-//                jQualAlteracaoFala.setText(conecta.rs.getString("QualFala"));
+                statusFalaLinguagem = conecta.rs.getInt("FalaLinguagem");
+                qualAlteracaoFala = conecta.rs.getString("QualFala");
                 statusMucosa = conecta.rs.getInt("Mucosa");
-                if (statusMucosa == 0) {
-                    jRBPeleNormocoradas.setSelected(true);
-                } else if (statusMucosa == 1) {
-                    jRBPeleHipocoradas.setSelected(true);
-                } else if (statusMucosa == 2) {
-                    jRBPeleHidratadas.setSelected(true);
-                }
                 statusPele = conecta.rs.getInt("Pele");
-                if (statusPele == 0) {
-                    jRBPeleHipohidratada.setSelected(true);
-                } else if (statusPele == 1) {
-                    jRBPeleIntegra.setSelected(true);
-                } else if (statusPele == 2) {
-                    jRBPeleLesao.setSelected(true);
-                }
-                jTipo.setText(conecta.rs.getString("TipoPele"));
-                jLocalizacao.setText(conecta.rs.getString("Localizacao"));
+                pTipo = conecta.rs.getString("TipoPele");
+                pLocalizacao = conecta.rs.getString("Localizacao");
                 statusCabelos = conecta.rs.getInt("Cabelos");
-                if (statusCabelos == 0) {
-                    jRBCabelosIntegro.setSelected(true);
-                } else if (statusCabelos == 1) {
-                    jRBCabelosCalvice.setSelected(true);
-                } else if (statusCabelos == 2) {
-                    jRBCabelosSujidade.setSelected(true);
-                }
                 statusBoca = conecta.rs.getInt("Boca");
-                if (statusBoca == 0) {
-                    jRBBocaHalitose.setSelected(true);
-                } else if (statusBoca == 1) {
-                    jRBBocaHalitoseCetonica.setSelected(true);
-                } else if (statusBoca == 2) {
-                    jRBProteseDentaria.setSelected(true);
-                } else if (statusBoca == 3) {
-                    jRBBocaAusenDenteCarie.setSelected(true);
-                }
                 statusFuncaoRespiratoria = conecta.rs.getInt("FuncaoRespiratoria");
-                if (statusFuncaoRespiratoria == 0) {
-                    jRBFuncaoRespEupneico.setSelected(true);
-                } else if (statusFuncaoRespiratoria == 1) {
-                    jRBFuncaoRespTaquipenico.setSelected(true);
-                } else if (statusFuncaoRespiratoria == 2) {
-                    jRBFuncaoRespDispneico.setSelected(true);
-                }
                 statusTorax = conecta.rs.getInt("Torax");
-                if (statusTorax == 0) {
-                    jRBToraxSimetrico.setSelected(true);
-                } else if (statusTorax == 1) {
-                    jRBToraxAssimetrico.setSelected(true);
-                }
                 statusFuncaoIntestinal = conecta.rs.getInt("FuncaoIntestinal");
-                if (statusFuncaoIntestinal == 0) {
-                    jRBFuncaoRespEupneico.setSelected(true);
-                } else if (statusFuncaoIntestinal == 1) {
-                    jRBFuncaoRespTaquipenico.setSelected(true);
-                } else if (statusFuncaoIntestinal == 2) {
-                    jRBFuncaoRespDispneico.setSelected(true);
-                } else if (statusFuncaoIntestinal == 3) {
-                    jRBFuncaoIntesConstipacao.setSelected(true);
-                }
-                jCostipacaoDias.setText(conecta.rs.getString("DiasConstipado"));
+                pCostipacaoDias = conecta.rs.getString("DiasConstipado");
                 statusAbdome = conecta.rs.getInt("Abdome");
-                if (statusAbdome == 0) {
-                    jRBAbdomeGloboso.setSelected(true);
-                } else if (statusAbdome == 1) {
-                    jRBAbdomeFlacido.setSelected(true);
-                } else if (statusAbdome == 2) {
-                    jRBAbdomePlano.setSelected(true);
-                }
                 statusFuncaoVesical = conecta.rs.getInt("FuncaoVesical");
-                if (statusFuncaoVesical == 0) {
-                    jRBFuncaoVesicalFralda.setSelected(true);
-                } else if (statusFuncaoVesical == 1) {
-                    jRBFuncaoVesicalCV.setSelected(true);
-                } else if (statusFuncaoVesical == 2) {
-                    jRBFuncaVeisicalEspontanea.setSelected(true);
-                }
                 statusGenitalia = conecta.rs.getInt("Genitalia");
-                if (statusGenitalia == 0) {
-                    jRBGenitaliaIntegra.setSelected(true);
-                } else if (statusGenitalia == 1) {
-                    jRBGenitaliaComAlteracao.setSelected(true);
-                }
-                jQualGenitalia.setText(conecta.rs.getString("QualGenitalia"));
-                jComboBoxVacinado.setSelectedItem(conecta.rs.getString("Vacinado"));
-                jQuaisVacinas.setText(conecta.rs.getString("QuaisVacinas"));
-                //
-//                jComboBoxVDRL.setSelectedItem(conecta.rs.getString("Vdrl"));
-//                jComboBoxHepatiteC.setSelectedItem(conecta.rs.getString("HepatiteC"));
-//                jComboBoxHepatiteB.setSelectedItem(conecta.rs.getString("HepatiteB"));
-//                jComboBoxHIV.setSelectedItem(conecta.rs.getString("Hiv"));
-//                jComboBoxCirurgia.setSelectedItem(conecta.rs.getString("Cirurgias"));
-//                jQualCirurgia.setText(conecta.rs.getString("QuaisCirurgias"));
-//                jComboBoxSifilis.setSelectedItem(conecta.rs.getString("Sifilis"));
-//                jComboBoxHipertensaoMasc.setSelectedItem(conecta.rs.getString("Hipertensao"));
-//                jComboBoxDiabetesMasc.setSelectedItem(conecta.rs.getString("Diabetes"));
-//                jComboBoxTuberculose.setSelectedItem(conecta.rs.getString("Tuberculose"));
+                pQualGenitalia = conecta.rs.getString("QualGenitalia");
+                pVacina = conecta.rs.getString("Vacinado");
+                pQuaisVacinas = conecta.rs.getString("QuaisVacinas");
                 //
                 jComboBoxUsuarioDrogas.setSelectedItem(conecta.rs.getString("UsuarioDrogas"));
                 jQuaisDrogas.setText(conecta.rs.getString("QuaisDrogas"));
@@ -7066,6 +5967,166 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codGravarENF == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else if (jNomeInternoMedico.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para atendimento.");
+                jNomeInternoMedico.requestFocus();
+                jNomeInternoMedico.setBackground(Color.red);
+            } else {
+                compararRadioButtons(); // Compara qual botão foi assionado pelo usuário
+                objAdmEnfermagem.setStatusLanc(statusLanc);
+                objAdmEnfermagem.setDataLanc(jDataLanc.getDate());
+                objAdmEnfermagem.setEstadoEmocional(statusEstadoEmocional);
+                objAdmEnfermagem.setSonoRepouso(statusSonoRepouso);
+                objAdmEnfermagem.setPressaoArterial(jPressaoArterial.getText());
+                objAdmEnfermagem.setHemograma(jHemograma.getText());
+                objAdmEnfermagem.setTemperatura(jTemperatura.getText());
+                objAdmEnfermagem.setFrequenciaRespitatoria(jFrequenciaRespira.getText());
+                objAdmEnfermagem.setPeso(jPeso.getText());
+                objAdmEnfermagem.setFrequenciaCardiaca(jFrequenciaCardiaca.getText());
+                objAdmEnfermagem.setNivelConciencia(statusNivelConsciencia);
+                objAdmEnfermagem.setUsaMedicamentos((String) jComboBoxUsuarioDrogas.getSelectedItem());
+                objAdmEnfermagem.setQualMedicacao(jQualMedicamento.getText());
+                objAdmEnfermagem.setLocomocao(statusLocomocao);
+                objAdmEnfermagem.setAcuidadeVisual(statusAcuidadeVisual);
+                objAdmEnfermagem.setAcuidadeAuditiva(statusAcuidadeAuditiva);
+                objAdmEnfermagem.setFuncaoMotora(statusFuncaoMotora);
+                objAdmEnfermagem.setQualFuncaoMotora(jQualFuncaoMotora.getText());
+                //FALA/LINGUAGEM
+                objAdmEnfermagem.setFalaLinguagem(statusFalaLinguagem);
+                objAdmEnfermagem.setQualFala(qualAlteracaoFala);
+                //PELE-MUCOSA
+                objAdmEnfermagem.setPele(statusPele);
+                objAdmEnfermagem.setMucosa(statusMucosa);
+                objAdmEnfermagem.setTipoPele(pTipo);
+                objAdmEnfermagem.setLocalizacao(pLocalizacao);
+                //CABELOS/BOCA
+                objAdmEnfermagem.setCabelos(statusCabelos);
+                objAdmEnfermagem.setBoca(statusBoca);
+                //RESPIRAÇÃO/TORAX
+                objAdmEnfermagem.setFuncaoRespiratoria(statusFuncaoRespiratoria);
+                objAdmEnfermagem.setTorax(statusTorax);
+                //FUNÇÃO INSTESTINAL
+                objAdmEnfermagem.setFuncaoIntestinal(statusFuncaoIntestinal);
+                objAdmEnfermagem.setDiasConstipado(pCostipacaoDias);
+                objAdmEnfermagem.setAbdome(statusAbdome);
+                //FUNÇÃO VESICAL
+                objAdmEnfermagem.setFuncaoVesical(statusFuncaoVesical);
+                objAdmEnfermagem.setGenitalia(statusGenitalia);
+                objAdmEnfermagem.setQualGenitalia(pQualGenitalia);
+                // VACINAS
+                objAdmEnfermagem.setVacinado(pVacina);
+                objAdmEnfermagem.setQuaisVacinas(pQuaisVacinas);
+                //TESTES RÁPIDOS
+                objAdmEnfermagem.setVdrl(pVdrl);
+                objAdmEnfermagem.setHepatiteC(pHepatiteC);
+                objAdmEnfermagem.setHepatiteB(pHepatiteB);
+                objAdmEnfermagem.setHiv(pHiv);
+                objAdmEnfermagem.setCirurgias(pCirurgias);
+                objAdmEnfermagem.setQuaisCirurgias(pQualCirurgias);
+                objAdmEnfermagem.setSifilis(pSifilis);
+                objAdmEnfermagem.setHipertensao(pHipertensao);
+                objAdmEnfermagem.setDiabetes(pDiabetes);
+                objAdmEnfermagem.setTuberculose(pTuberculose);
+                objAdmEnfermagem.setHanseniase(pHanseniase);
+                objAdmEnfermagem.setDst(pDst);
+                objAdmEnfermagem.setEscabiose(pEscabiose);
+                objAdmEnfermagem.setHpv(pHpv);
+                //
+                objAdmEnfermagem.setUsuarioDrogas((String) jComboBoxUsuarioDrogas.getSelectedItem());
+                objAdmEnfermagem.setQuaisDrogas(jQuaisDrogas.getText());
+                objAdmEnfermagem.setPortadorDoenca((String) jComboBoxPortadorDoencas.getSelectedItem());
+                objAdmEnfermagem.setQuaisDoencas(jQuaisDoencas.getText());
+                objAdmEnfermagem.setAlergias((String) jComboBoxAlergias.getSelectedItem());
+                objAdmEnfermagem.setQuaisAlergias(jQuaisAlergias.getText());
+                objAdmEnfermagem.setObservacao(jObservacao.getText());
+                if (acao == 1) {
+                    // log de usuario
+                    objAdmEnfermagem.setUsuarioInsert(nameUser);
+                    objAdmEnfermagem.setDataInsert(dataModFinal);
+                    objAdmEnfermagem.setHoraInsert(horaMov);
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
+                    buscarID();
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setDeptoMedico(deptoTecnico);
+                    controle.incluirMovTec(objAdmEnfermagem);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    objEvolEnferma.setAdmEvo(admEvolucao);
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    buscarEvolucao();
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objAdmEnfermagem.setUsuarioUp(nameUser);
+                    objAdmEnfermagem.setDataUp(dataModFinal);
+                    objAdmEnfermagem.setHoraUp(horaMov);
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarAdmissaoEnfermagem(objAdmEnfermagem);
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setDeptoMedico(deptoTecnico);
+                    controle.alterarMovTec(objAdmEnfermagem);
+                    // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
+                    objEvolEnferma.setIdItem(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    // log de usuario
+                    objEvolEnferma.setUsuarioInsert(nameUser);
+                    objEvolEnferma.setDataInsert(dataModFinal);
+                    objEvolEnferma.setHoraInsert(horaMov);
+                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    Salvar();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvar1ActionPerformed
 
     private void jBtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelar1ActionPerformed
@@ -7142,26 +6203,32 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtPEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPEActionPerformed
         // TODO add your handling code here:
+        mostrarPE();
     }//GEN-LAST:event_jBtPEActionPerformed
 
     private void jBtCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCCActionPerformed
         // TODO add your handling code here:
+        mostrarCC();
     }//GEN-LAST:event_jBtCCActionPerformed
 
     private void jBtFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFTActionPerformed
         // TODO add your handling code here:
+        mostrarFT();
     }//GEN-LAST:event_jBtFTActionPerformed
 
     private void jBtFIAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFIAActionPerformed
         // TODO add your handling code here:
+        mostrarFIA();
     }//GEN-LAST:event_jBtFIAActionPerformed
 
     private void jBtFVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFVGActionPerformed
         // TODO add your handling code here:
+        mostrarFVG();
     }//GEN-LAST:event_jBtFVGActionPerformed
 
     private void jBtVAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVAActionPerformed
         // TODO add your handling code here:
+        mostrarVA();
     }//GEN-LAST:event_jBtVAActionPerformed
 
     private void jBtTRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtTRCActionPerformed
@@ -7287,29 +6354,18 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxAlergias;
     private javax.swing.JComboBox jComboBoxAnemias;
     private javax.swing.JComboBox jComboBoxCardiopatias;
-    private javax.swing.JComboBox jComboBoxCirurgia;
     private javax.swing.JComboBox jComboBoxCirurgias;
     private javax.swing.JComboBox jComboBoxDiabetes;
-    private javax.swing.JComboBox jComboBoxDiabetesMasc;
     private javax.swing.JComboBox jComboBoxDoencasRenais;
     private javax.swing.JComboBox jComboBoxGestante;
-    private javax.swing.JComboBox jComboBoxHIV;
-    private javax.swing.JComboBox jComboBoxHepatiteB;
-    private javax.swing.JComboBox jComboBoxHepatiteC;
     private javax.swing.JComboBox jComboBoxHipertensao;
-    private javax.swing.JComboBox jComboBoxHipertensaoMasc;
     private javax.swing.JComboBox jComboBoxInternacaoGestacao;
     private javax.swing.JComboBox jComboBoxPortadorDoencas;
     private javax.swing.JComboBox jComboBoxPortadorHIV;
     private javax.swing.JComboBox jComboBoxRetroviarias;
-    private javax.swing.JComboBox<String> jComboBoxSifilis;
     private javax.swing.JComboBox jComboBoxTransfusao;
-    private javax.swing.JComboBox<String> jComboBoxTuberculose;
     private javax.swing.JComboBox jComboBoxUsaMedica;
     private javax.swing.JComboBox jComboBoxUsuarioDrogas;
-    private javax.swing.JComboBox jComboBoxVDRL;
-    private javax.swing.JComboBox jComboBoxVacinado;
-    private javax.swing.JTextField jCostipacaoDias;
     private com.toedter.calendar.JDateChooser jDataCirurgia;
     private com.toedter.calendar.JDateChooser jDataEvolu;
     private com.toedter.calendar.JDateChooser jDataFinal;
@@ -7338,24 +6394,18 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jIntervaloGestacoes;
     private javax.swing.JFormattedTextField jIsoimunizacaoRH;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel104;
     private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
-    private javax.swing.JLabel jLabel109;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel112;
     private javax.swing.JLabel jLabel113;
     private javax.swing.JLabel jLabel114;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -7380,7 +6430,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -7405,15 +6454,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
@@ -7433,24 +6479,16 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
-    private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
-    private javax.swing.JTextField jLocalizacao;
     public static javax.swing.JTextField jMaeInterno;
     private javax.swing.JTextField jMedicamentoGestacao;
     private javax.swing.JTextArea jMetodosAnticoncepcionais;
@@ -7471,42 +6509,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jOndeGestacao;
     public static javax.swing.JTextField jPaiInternoMedico;
     private javax.swing.JTextArea jPalpacaoTireoide;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
-    private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel35;
-    private javax.swing.JPanel jPanel36;
-    private javax.swing.JPanel jPanel37;
-    private javax.swing.JPanel jPanel38;
-    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel40;
-    private javax.swing.JPanel jPanel41;
     private javax.swing.JPanel jPanel42;
     private javax.swing.JPanel jPanel43;
     private javax.swing.JPanel jPanel44;
@@ -7530,7 +6545,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel61;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JFormattedTextField jPeso;
     private javax.swing.JFormattedTextField jPesoGestante;
@@ -7543,15 +6557,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jQuaisDrogas;
     private javax.swing.JTextField jQuaisDrogras;
     private javax.swing.JTextField jQuaisRetroviarias;
-    private javax.swing.JTextField jQuaisVacinas;
-    private javax.swing.JTextField jQualAlteracaoFala;
-    private javax.swing.JTextField jQualCirurgia;
     private javax.swing.JTextField jQualFuncaoMotora;
-    private javax.swing.JTextField jQualGenitalia;
     private javax.swing.JTextField jQualMedicamento;
-    private javax.swing.JRadioButton jRBAbdomeFlacido;
-    private javax.swing.JRadioButton jRBAbdomeGloboso;
-    private javax.swing.JRadioButton jRBAbdomePlano;
     private javax.swing.JRadioButton jRBAcuAudiPreservado;
     private javax.swing.JRadioButton jRBAcuiVisualPreservado;
     private javax.swing.JRadioButton jRBAcuiVisulaDiminuido;
@@ -7559,44 +6566,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRBAgeressivo;
     private javax.swing.JRadioButton jRBAgitado;
     private javax.swing.JRadioButton jRBAnsioso;
-    private javax.swing.JRadioButton jRBBocaAusenDenteCarie;
-    private javax.swing.JRadioButton jRBBocaHalitose;
-    private javax.swing.JRadioButton jRBBocaHalitoseCetonica;
-    private javax.swing.JRadioButton jRBCabelosCalvice;
-    private javax.swing.JRadioButton jRBCabelosIntegro;
-    private javax.swing.JRadioButton jRBCabelosSujidade;
-    private javax.swing.JRadioButton jRBComAlteracaoFala;
     private javax.swing.JRadioButton jRBDeambulando;
     private javax.swing.JRadioButton jRBDeficiente;
     private javax.swing.JRadioButton jRBDesorientado;
     private javax.swing.JRadioButton jRBDifiDeambulando;
     private javax.swing.JRadioButton jRBDiminuido;
-    private javax.swing.JRadioButton jRBFuncaVeisicalEspontanea;
     private javax.swing.JRadioButton jRBFuncaoComAlteracao;
-    private javax.swing.JRadioButton jRBFuncaoIntesAusente;
-    private javax.swing.JRadioButton jRBFuncaoIntesConstipacao;
-    private javax.swing.JRadioButton jRBFuncaoIntesDiarreia;
-    private javax.swing.JRadioButton jRBFuncaoIntesRegular;
-    private javax.swing.JRadioButton jRBFuncaoRespDispneico;
-    private javax.swing.JRadioButton jRBFuncaoRespEupneico;
-    private javax.swing.JRadioButton jRBFuncaoRespTaquipenico;
     private javax.swing.JRadioButton jRBFuncaoSemAlteracao;
-    private javax.swing.JRadioButton jRBFuncaoVesicalCV;
-    private javax.swing.JRadioButton jRBFuncaoVesicalFralda;
-    private javax.swing.JRadioButton jRBGenitaliaComAlteracao;
-    private javax.swing.JRadioButton jRBGenitaliaIntegra;
     private javax.swing.JRadioButton jRBOrientado;
-    private javax.swing.JRadioButton jRBPeleHidratadas;
-    private javax.swing.JRadioButton jRBPeleHipocoradas;
-    private javax.swing.JRadioButton jRBPeleHipohidratada;
-    private javax.swing.JRadioButton jRBPeleIntegra;
-    private javax.swing.JRadioButton jRBPeleLesao;
-    private javax.swing.JRadioButton jRBPeleNormocoradas;
     private javax.swing.JRadioButton jRBPreservado;
-    private javax.swing.JRadioButton jRBProteseDentaria;
-    private javax.swing.JRadioButton jRBSemAlteracaoFala;
-    private javax.swing.JRadioButton jRBToraxAssimetrico;
-    private javax.swing.JRadioButton jRBToraxSimetrico;
     private javax.swing.JRadioButton jRBTranquilo;
     private javax.swing.JRadioButton jRBTrite;
     private javax.swing.JScrollPane jScrollPane1;
@@ -7620,14 +6598,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jSinaisSintomas;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTabelaAdmissaoEnfermeira;
     private javax.swing.JTable jTabelaEvolucaoEnfermagem;
     private javax.swing.JFormattedTextField jTemperatura;
     private javax.swing.JTextArea jTextoEvolucao;
-    private javax.swing.JTextField jTipo;
     private javax.swing.JTextField jTipoCirurgia;
     private javax.swing.JFormattedTextField jTransfusao;
     private javax.swing.JLabel jtotalRegistros;
@@ -7659,12 +6635,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         //
         jQualMedicamento.setDocument(new LimiteDigitosAlfa(37));
         jQualFuncaoMotora.setDocument(new LimiteDigitosAlfa(43));
-        jQualAlteracaoFala.setDocument(new LimiteDigitosAlfa(60));
-        jTipo.setDocument(new LimiteDigitosAlfa(37));
-        jLocalizacao.setDocument(new LimiteDigitosAlfa(25));
-        jQualGenitalia.setDocument(new LimiteDigitosAlfa(43));
-        jQuaisVacinas.setDocument(new LimiteDigitosAlfa(67));
-        jQualCirurgia.setDocument(new LimiteDigitosAlfa(40));
         jQuaisDrogas.setDocument(new LimiteDigitosAlfa(40));
         jQuaisDoencas.setDocument(new LimiteDigitosAlfa(40));
         jQuaisAlergias.setDocument(new LimiteDigitosAlfa(40));
@@ -7751,23 +6721,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jFrequenciaCardiaca.setBackground(Color.white);
         jQualMedicamento.setBackground(Color.white);
         jQualFuncaoMotora.setBackground(Color.white);
-        jQualAlteracaoFala.setBackground(Color.white);
-        jTipo.setBackground(Color.white);
-        jLocalizacao.setBackground(Color.white);
-        jCostipacaoDias.setBackground(Color.white);
-        jQualGenitalia.setBackground(Color.white);
-        jQuaisVacinas.setBackground(Color.white);
-        jQualCirurgia.setBackground(Color.white);
         jComboBoxUsuarioDrogas.setBackground(Color.white);
         jComboBoxPortadorDoencas.setBackground(Color.white);
         jComboBoxAlergias.setBackground(Color.white);
         jQuaisDrogas.setBackground(Color.white);
         jQuaisDoencas.setBackground(Color.white);
         jQuaisAlergias.setBackground(Color.white);
-        jComboBoxVDRL.setBackground(Color.white);
-        jComboBoxHepatiteC.setBackground(Color.white);
-        jComboBoxHepatiteB.setBackground(Color.white);
-        jComboBoxHIV.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
         // AEF-P1
         jComboBoxHipertensao.setBackground(Color.white);
@@ -7873,63 +6832,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jRBFuncaoComAlteracao.setEnabled(!true);
         jRBFuncaoSemAlteracao.setEnabled(!true);
         jQualFuncaoMotora.setEnabled(!true);
-        // Fala/Linguagem
-        jRBComAlteracaoFala.setEnabled(!true);
-        jRBSemAlteracaoFala.setEnabled(!true);
-        jQualAlteracaoFala.setEnabled(!true);
-        //Pele/Mucosa
-        jRBPeleNormocoradas.setEnabled(!true);
-        jRBPeleHipocoradas.setEnabled(!true);
-        jRBPeleHidratadas.setEnabled(!true);
-        jRBPeleHipohidratada.setEnabled(!true);
-        jRBPeleIntegra.setEnabled(!true);
-        jRBPeleLesao.setEnabled(!true);
-        jTipo.setEnabled(!true);
-        jLocalizacao.setEnabled(!true);
-        // Cabelos
-        jRBCabelosCalvice.setEnabled(!true);
-        jRBCabelosIntegro.setEnabled(!true);
-        jRBCabelosSujidade.setEnabled(!true);
-        // Boca        
-        jRBBocaHalitose.setEnabled(!true);
-        jRBBocaHalitoseCetonica.setEnabled(!true);
-        jRBProteseDentaria.setEnabled(!true);
-        jRBBocaAusenDenteCarie.setEnabled(!true);
-        //Função Respiratoria         
-        jRBFuncaoRespEupneico.setEnabled(!true);
-        jRBFuncaoRespTaquipenico.setEnabled(!true);
-        jRBFuncaoRespDispneico.setEnabled(!true);
-        // Torax
-        jRBToraxSimetrico.setEnabled(!true);
-        jRBToraxAssimetrico.setEnabled(!true);
-        // Função Intestinal
-        jRBFuncaoIntesRegular.setEnabled(!true);
-        jRBFuncaoIntesAusente.setEnabled(!true);
-        jRBFuncaoIntesDiarreia.setEnabled(!true);
-        jRBFuncaoIntesConstipacao.setEnabled(!true);
-        jCostipacaoDias.setEnabled(!true);
-        // Abdome
-        jRBAbdomeGloboso.setEnabled(!true);
-        jRBAbdomeFlacido.setEnabled(!true);
-        jRBAbdomePlano.setEnabled(!true);
-        // Função Vesical
-        jRBFuncaoVesicalFralda.setEnabled(!true);
-        jRBFuncaoVesicalCV.setEnabled(!true);
-        jRBFuncaVeisicalEspontanea.setEnabled(!true);
-        // Genitalia
-        jRBGenitaliaIntegra.setEnabled(!true);
-        jRBGenitaliaComAlteracao.setEnabled(!true);
-        jQualGenitalia.setEnabled(!true);
-        // Vacinas
-        jComboBoxVacinado.setEnabled(!true);
-        jQuaisVacinas.setEnabled(!true);
-        //
-        jComboBoxVDRL.setEnabled(!true);
-        jComboBoxHepatiteC.setEnabled(!true);
-        jComboBoxHepatiteB.setEnabled(!true);
-        jComboBoxHIV.setEnabled(!true);
-        jComboBoxCirurgia.setEnabled(!true);
-        jQualCirurgia.setEnabled(!true);
         //
         jComboBoxUsuarioDrogas.setEnabled(!true);
         jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8037,22 +6939,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQualMedicamento.setText("");
         //Função Motora
         jQualFuncaoMotora.setText("");
-        //Fala/Pele        
-        jQualAlteracaoFala.setText("");
-        jTipo.setText("");
-        jLocalizacao.setText("");
-        // Função Intestinal
-        jCostipacaoDias.setText("");
-        // Genitália
-        jQualGenitalia.setText("");
-        // Vacinação
-        jComboBoxVacinado.setSelectedItem("Não");
-        jQuaisVacinas.setText("");
-        // Testes Rápidos
-        jComboBoxVDRL.setSelectedItem("Não reagente");
-        jComboBoxHepatiteC.setSelectedItem("Não reagente");
-        jComboBoxHepatiteB.setSelectedItem("Não reagente");
-        jComboBoxHIV.setSelectedItem("Não reagente");
         jComboBoxUsuarioDrogas.setSelectedItem("Não");
         jComboBoxPortadorDoencas.setSelectedItem("Não");
         jComboBoxAlergias.setSelectedItem("Não");
@@ -8099,67 +6985,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jRBFuncaoComAlteracao.setEnabled(true);
         jRBFuncaoSemAlteracao.setEnabled(true);
         jQualFuncaoMotora.setEnabled(true);
-        // Fala/Linguagem
-        jRBComAlteracaoFala.setEnabled(true);
-        jRBSemAlteracaoFala.setEnabled(true);
-        jQualAlteracaoFala.setEnabled(true);
-        //Pele/Mucosa
-        jRBPeleNormocoradas.setEnabled(true);
-        jRBPeleHipocoradas.setEnabled(true);
-        jRBPeleHidratadas.setEnabled(true);
-        jRBPeleHipohidratada.setEnabled(true);
-        jRBPeleIntegra.setEnabled(true);
-        jRBPeleLesao.setEnabled(true);
-        jTipo.setEnabled(true);
-        jLocalizacao.setEnabled(true);
-        // Cabelos
-        jRBCabelosCalvice.setEnabled(true);
-        jRBCabelosIntegro.setEnabled(true);
-        jRBCabelosSujidade.setEnabled(true);
-        // Boca        
-        jRBBocaHalitose.setEnabled(true);
-        jRBBocaHalitoseCetonica.setEnabled(true);
-        jRBProteseDentaria.setEnabled(true);
-        jRBBocaAusenDenteCarie.setEnabled(true);
-        //Função Respiratoria         
-        jRBFuncaoRespEupneico.setEnabled(true);
-        jRBFuncaoRespTaquipenico.setEnabled(true);
-        jRBFuncaoRespDispneico.setEnabled(true);
-        // Torax
-        jRBToraxSimetrico.setEnabled(true);
-        jRBToraxAssimetrico.setEnabled(true);
-        // Função Intestinal
-        jRBFuncaoIntesRegular.setEnabled(true);
-        jRBFuncaoIntesAusente.setEnabled(true);
-        jRBFuncaoIntesDiarreia.setEnabled(true);
-        jRBFuncaoIntesConstipacao.setEnabled(true);
-        jCostipacaoDias.setEnabled(true);
-        // Abdome
-        jRBAbdomeGloboso.setEnabled(true);
-        jRBAbdomeFlacido.setEnabled(true);
-        jRBAbdomePlano.setEnabled(true);
-        // Função Vesical
-        jRBFuncaoVesicalFralda.setEnabled(true);
-        jRBFuncaoVesicalCV.setEnabled(true);
-        jRBFuncaVeisicalEspontanea.setEnabled(true);
-        // Genitalia
-        jRBGenitaliaIntegra.setEnabled(true);
-        jRBGenitaliaComAlteracao.setEnabled(true);
-        jQualGenitalia.setEnabled(true);
-        // Vacinas
-        jComboBoxVacinado.setEnabled(true);
-        jQuaisVacinas.setEnabled(true);
-        // TESTES RÁPIDOS
-        jComboBoxVDRL.setEnabled(true);
-        jComboBoxHepatiteC.setEnabled(true);
-        jComboBoxHepatiteB.setEnabled(true);
-        jComboBoxHIV.setEnabled(true);
-        jComboBoxCirurgia.setEnabled(true);
-        jQualCirurgia.setEnabled(true);
-        jComboBoxSifilis.setEnabled(true);
-        jComboBoxHipertensaoMasc.setEnabled(true);
-        jComboBoxDiabetesMasc.setEnabled(true);
-        jComboBoxTuberculose.setEnabled(true);
         //
         jComboBoxUsuarioDrogas.setEnabled(true);
         jComboBoxPortadorDoencas.setEnabled(true);
@@ -8176,6 +7001,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(true);
+        jBtCancelar1.setEnabled(true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         // AEF-P1
         jBtNovoAFP1.setEnabled(!true);
         jBtAlterarAFP1.setEnabled(!true);
@@ -8256,67 +7089,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jRBFuncaoComAlteracao.setEnabled(true);
         jRBFuncaoSemAlteracao.setEnabled(true);
         jQualFuncaoMotora.setEnabled(true);
-        // Fala/Linguagem
-        jRBComAlteracaoFala.setEnabled(true);
-        jRBSemAlteracaoFala.setEnabled(true);
-        jQualAlteracaoFala.setEnabled(true);
-        //Pele/Mucosa
-        jRBPeleNormocoradas.setEnabled(true);
-        jRBPeleHipocoradas.setEnabled(true);
-        jRBPeleHidratadas.setEnabled(true);
-        jRBPeleHipohidratada.setEnabled(true);
-        jRBPeleIntegra.setEnabled(true);
-        jRBPeleLesao.setEnabled(true);
-        jTipo.setEnabled(true);
-        jLocalizacao.setEnabled(true);
-        // Cabelos
-        jRBCabelosCalvice.setEnabled(true);
-        jRBCabelosIntegro.setEnabled(true);
-        jRBCabelosSujidade.setEnabled(true);
-        // Boca        
-        jRBBocaHalitose.setEnabled(true);
-        jRBBocaHalitoseCetonica.setEnabled(true);
-        jRBProteseDentaria.setEnabled(true);
-        jRBBocaAusenDenteCarie.setEnabled(true);
-        //Função Respiratoria         
-        jRBFuncaoRespEupneico.setEnabled(true);
-        jRBFuncaoRespTaquipenico.setEnabled(true);
-        jRBFuncaoRespDispneico.setEnabled(true);
-        // Torax
-        jRBToraxSimetrico.setEnabled(true);
-        jRBToraxAssimetrico.setEnabled(true);
-        // Função Intestinal
-        jRBFuncaoIntesRegular.setEnabled(true);
-        jRBFuncaoIntesAusente.setEnabled(true);
-        jRBFuncaoIntesDiarreia.setEnabled(true);
-        jRBFuncaoIntesConstipacao.setEnabled(true);
-        jCostipacaoDias.setEnabled(true);
-        // Abdome
-        jRBAbdomeGloboso.setEnabled(true);
-        jRBAbdomeFlacido.setEnabled(true);
-        jRBAbdomePlano.setEnabled(true);
-        // Função Vesical
-        jRBFuncaoVesicalFralda.setEnabled(true);
-        jRBFuncaoVesicalCV.setEnabled(true);
-        jRBFuncaVeisicalEspontanea.setEnabled(true);
-        // Genitalia
-        jRBGenitaliaIntegra.setEnabled(true);
-        jRBGenitaliaComAlteracao.setEnabled(true);
-        jQualGenitalia.setEnabled(true);
-        // Vacinas
-        jComboBoxVacinado.setEnabled(true);
-        jQuaisVacinas.setEnabled(true);
-        // TESTES RÁPIDOS
-        jComboBoxVDRL.setEnabled(true);
-        jComboBoxHepatiteC.setEnabled(true);
-        jComboBoxHepatiteB.setEnabled(true);
-        jComboBoxHIV.setEnabled(true);
-        jComboBoxCirurgia.setEnabled(true);
-        jQualCirurgia.setEnabled(true);
-        jComboBoxSifilis.setEnabled(true);
-        jComboBoxHipertensaoMasc.setEnabled(true);
-        jComboBoxDiabetesMasc.setEnabled(true);
-        jComboBoxTuberculose.setEnabled(true);
         //
         jComboBoxUsuarioDrogas.setEnabled(true);
         jComboBoxPortadorDoencas.setEnabled(true);
@@ -8333,6 +7105,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(true);
+        jBtCancelar1.setEnabled(true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         // AEF-P1
         jBtNovoAFP1.setEnabled(!true);
         jBtAlterarAFP1.setEnabled(!true);
@@ -8415,32 +7195,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQualMedicamento.setText("");
         //Função Motora
         jQualFuncaoMotora.setText("");
-        //Fala/Pele        
-        jQualAlteracaoFala.setText("");
-        jTipo.setText("");
-        jLocalizacao.setText("");
-        // Função Intestinal
-        jCostipacaoDias.setText("");
-        // Genitália
-        jQualGenitalia.setText("");
-        // Vacinação
-        jComboBoxVacinado.setSelectedItem(null);
-        jQuaisVacinas.setText("");
-        // Testes Rápidos
-        jComboBoxVDRL.setSelectedItem("Não reagente");
-        jComboBoxHepatiteC.setSelectedItem("Não reagente");
-        jComboBoxHepatiteB.setSelectedItem("Não reagente");
-        jComboBoxHIV.setSelectedItem("Não reagente");
         jComboBoxUsuarioDrogas.setSelectedItem("Não");
         jComboBoxPortadorDoencas.setSelectedItem("Não");
         jComboBoxAlergias.setSelectedItem("Não");
         jQuaisDrogas.setText("");
         jQuaisDoencas.setText("");
         jQuaisAlergias.setText("");
-        jComboBoxSifilis.setSelectedItem("Não reagente");
-        jComboBoxHipertensaoMasc.setSelectedItem("Não reagente");
-        jComboBoxDiabetesMasc.setSelectedItem("Não reagente");
-        jComboBoxTuberculose.setSelectedItem("Negativo");
         // Observação
         jObservacao.setText("");
         //Habilitar/Desabilitar Campos   
@@ -8481,67 +7241,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jRBFuncaoComAlteracao.setEnabled(!true);
         jRBFuncaoSemAlteracao.setEnabled(!true);
         jQualFuncaoMotora.setEnabled(!true);
-        // Fala/Linguagem
-        jRBComAlteracaoFala.setEnabled(!true);
-        jRBSemAlteracaoFala.setEnabled(!true);
-        jQualAlteracaoFala.setEnabled(!true);
-        //Pele/Mucosa
-        jRBPeleNormocoradas.setEnabled(!true);
-        jRBPeleHipocoradas.setEnabled(!true);
-        jRBPeleHidratadas.setEnabled(!true);
-        jRBPeleHipohidratada.setEnabled(!true);
-        jRBPeleIntegra.setEnabled(!true);
-        jRBPeleLesao.setEnabled(!true);
-        jTipo.setEnabled(!true);
-        jLocalizacao.setEnabled(!true);
-        // Cabelos
-        jRBCabelosCalvice.setEnabled(!true);
-        jRBCabelosIntegro.setEnabled(!true);
-        jRBCabelosSujidade.setEnabled(!true);
-        // Boca        
-        jRBBocaHalitose.setEnabled(!true);
-        jRBBocaHalitoseCetonica.setEnabled(!true);
-        jRBProteseDentaria.setEnabled(!true);
-        jRBBocaAusenDenteCarie.setEnabled(!true);
-        //Função Respiratoria         
-        jRBFuncaoRespEupneico.setEnabled(!true);
-        jRBFuncaoRespTaquipenico.setEnabled(!true);
-        jRBFuncaoRespDispneico.setEnabled(!true);
-        // Torax
-        jRBToraxSimetrico.setEnabled(!true);
-        jRBToraxAssimetrico.setEnabled(!true);
-        // Função Intestinal
-        jRBFuncaoIntesRegular.setEnabled(!true);
-        jRBFuncaoIntesAusente.setEnabled(!true);
-        jRBFuncaoIntesDiarreia.setEnabled(!true);
-        jRBFuncaoIntesConstipacao.setEnabled(!true);
-        jCostipacaoDias.setEnabled(!true);
-        // Abdome
-        jRBAbdomeGloboso.setEnabled(!true);
-        jRBAbdomeFlacido.setEnabled(!true);
-        jRBAbdomePlano.setEnabled(!true);
-        // Função Vesical
-        jRBFuncaoVesicalFralda.setEnabled(!true);
-        jRBFuncaoVesicalCV.setEnabled(!true);
-        jRBFuncaVeisicalEspontanea.setEnabled(!true);
-        // Genitalia
-        jRBGenitaliaIntegra.setEnabled(!true);
-        jRBGenitaliaComAlteracao.setEnabled(!true);
-        jQualGenitalia.setEnabled(!true);
-        // Vacinas
-        jComboBoxVacinado.setEnabled(!true);
-        jQuaisVacinas.setEnabled(!true);
-        // TESTES RÁPIDOS
-        jComboBoxVDRL.setEnabled(!true);
-        jComboBoxHepatiteC.setEnabled(!true);
-        jComboBoxHepatiteB.setEnabled(!true);
-        jComboBoxHIV.setEnabled(!true);
-        jComboBoxCirurgia.setEnabled(!true);
-        jQualCirurgia.setEnabled(!true);
-        jComboBoxSifilis.setEnabled(!true);
-        jComboBoxHipertensaoMasc.setEnabled(!true);
-        jComboBoxDiabetesMasc.setEnabled(!true);
-        jComboBoxTuberculose.setEnabled(!true);
         //
         jComboBoxUsuarioDrogas.setEnabled(!true);
         jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8558,6 +7257,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         // AEF-P1
         jBtNovoAFP1.setEnabled(!true);
         jBtAlterarAFP1.setEnabled(!true);
@@ -8635,67 +7342,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jRBFuncaoComAlteracao.setEnabled(!true);
         jRBFuncaoSemAlteracao.setEnabled(!true);
         jQualFuncaoMotora.setEnabled(!true);
-        // Fala/Linguagem
-        jRBComAlteracaoFala.setEnabled(!true);
-        jRBSemAlteracaoFala.setEnabled(!true);
-        jQualAlteracaoFala.setEnabled(!true);
-        //Pele/Mucosa
-        jRBPeleNormocoradas.setEnabled(!true);
-        jRBPeleHipocoradas.setEnabled(!true);
-        jRBPeleHidratadas.setEnabled(!true);
-        jRBPeleHipohidratada.setEnabled(!true);
-        jRBPeleIntegra.setEnabled(!true);
-        jRBPeleLesao.setEnabled(!true);
-        jTipo.setEnabled(!true);
-        jLocalizacao.setEnabled(!true);
-        // Cabelos
-        jRBCabelosCalvice.setEnabled(!true);
-        jRBCabelosIntegro.setEnabled(!true);
-        jRBCabelosSujidade.setEnabled(!true);
-        // Boca        
-        jRBBocaHalitose.setEnabled(!true);
-        jRBBocaHalitoseCetonica.setEnabled(!true);
-        jRBProteseDentaria.setEnabled(!true);
-        jRBBocaAusenDenteCarie.setEnabled(!true);
-        //Função Respiratoria         
-        jRBFuncaoRespEupneico.setEnabled(!true);
-        jRBFuncaoRespTaquipenico.setEnabled(!true);
-        jRBFuncaoRespDispneico.setEnabled(!true);
-        // Torax
-        jRBToraxSimetrico.setEnabled(!true);
-        jRBToraxAssimetrico.setEnabled(!true);
-        // Função Intestinal
-        jRBFuncaoIntesRegular.setEnabled(!true);
-        jRBFuncaoIntesAusente.setEnabled(!true);
-        jRBFuncaoIntesDiarreia.setEnabled(!true);
-        jRBFuncaoIntesConstipacao.setEnabled(!true);
-        jCostipacaoDias.setEnabled(!true);
-        // Abdome
-        jRBAbdomeGloboso.setEnabled(!true);
-        jRBAbdomeFlacido.setEnabled(!true);
-        jRBAbdomePlano.setEnabled(!true);
-        // Função Vesical
-        jRBFuncaoVesicalFralda.setEnabled(!true);
-        jRBFuncaoVesicalCV.setEnabled(!true);
-        jRBFuncaVeisicalEspontanea.setEnabled(!true);
-        // Genitalia
-        jRBGenitaliaIntegra.setEnabled(!true);
-        jRBGenitaliaComAlteracao.setEnabled(!true);
-        jQualGenitalia.setEnabled(!true);
-        // Vacinas
-        jComboBoxVacinado.setEnabled(!true);
-        jQuaisVacinas.setEnabled(!true);
-        // TESTES RÁPIDOS
-        jComboBoxVDRL.setEnabled(!true);
-        jComboBoxHepatiteC.setEnabled(!true);
-        jComboBoxHepatiteB.setEnabled(!true);
-        jComboBoxHIV.setEnabled(!true);
-        jComboBoxCirurgia.setEnabled(!true);
-        jQualCirurgia.setEnabled(!true);
-        jComboBoxSifilis.setEnabled(!true);
-        jComboBoxHipertensaoMasc.setEnabled(!true);
-        jComboBoxDiabetesMasc.setEnabled(!true);
-        jComboBoxTuberculose.setEnabled(!true);
         //
         jComboBoxUsuarioDrogas.setEnabled(!true);
         jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8712,6 +7358,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
         // AEF-P1
         jBtNovoAFP1.setEnabled(true);
         jBtAlterarAFP1.setEnabled(!true);
@@ -8793,32 +7447,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jQualMedicamento.setText("");
             //Função Motora
             jQualFuncaoMotora.setText("");
-            //Fala/Pele        
-            jQualAlteracaoFala.setText("");
-            jTipo.setText("");
-            jLocalizacao.setText("");
-            // Função Intestinal
-            jCostipacaoDias.setText("");
-            // Genitália
-            jQualGenitalia.setText("");
-            // Vacinação
-            jComboBoxVacinado.setSelectedItem("Não");
-            jQuaisVacinas.setText("");
-            // Testes Rápidos
-            jComboBoxVDRL.setSelectedItem("Não reagente");
-            jComboBoxHepatiteC.setSelectedItem("Não reagente");
-            jComboBoxHepatiteB.setSelectedItem("Não reagente");
-            jComboBoxHIV.setSelectedItem("Não reagente");
             jComboBoxUsuarioDrogas.setSelectedItem("Não");
             jComboBoxPortadorDoencas.setSelectedItem("Não");
             jComboBoxAlergias.setSelectedItem("Não");
             jQuaisDrogas.setText("");
             jQuaisDoencas.setText("");
             jQuaisAlergias.setText("");
-            jComboBoxSifilis.setSelectedItem("Não");
-            jComboBoxHipertensaoMasc.setSelectedItem("Não");
-            jComboBoxDiabetesMasc.setSelectedItem("Não");
-            jComboBoxTuberculose.setSelectedItem("Negativo");
             // Observação
             jObservacao.setText("");
             //Habilitar/Desabilitar Campos        
@@ -8859,67 +7493,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jRBFuncaoComAlteracao.setEnabled(!true);
             jRBFuncaoSemAlteracao.setEnabled(!true);
             jQualFuncaoMotora.setEnabled(!true);
-            // Fala/Linguagem
-            jRBComAlteracaoFala.setEnabled(!true);
-            jRBSemAlteracaoFala.setEnabled(!true);
-            jQualAlteracaoFala.setEnabled(!true);
-            //Pele/Mucosa
-            jRBPeleNormocoradas.setEnabled(!true);
-            jRBPeleHipocoradas.setEnabled(!true);
-            jRBPeleHidratadas.setEnabled(!true);
-            jRBPeleHipohidratada.setEnabled(!true);
-            jRBPeleIntegra.setEnabled(!true);
-            jRBPeleLesao.setEnabled(!true);
-            jTipo.setEnabled(!true);
-            jLocalizacao.setEnabled(!true);
-            // Cabelos
-            jRBCabelosCalvice.setEnabled(!true);
-            jRBCabelosIntegro.setEnabled(!true);
-            jRBCabelosSujidade.setEnabled(!true);
-            // Boca        
-            jRBBocaHalitose.setEnabled(!true);
-            jRBBocaHalitoseCetonica.setEnabled(!true);
-            jRBProteseDentaria.setEnabled(!true);
-            jRBBocaAusenDenteCarie.setEnabled(!true);
-            //Função Respiratoria         
-            jRBFuncaoRespEupneico.setEnabled(!true);
-            jRBFuncaoRespTaquipenico.setEnabled(!true);
-            jRBFuncaoRespDispneico.setEnabled(!true);
-            // Torax
-            jRBToraxSimetrico.setEnabled(!true);
-            jRBToraxAssimetrico.setEnabled(!true);
-            // Função Intestinal
-            jRBFuncaoIntesRegular.setEnabled(!true);
-            jRBFuncaoIntesAusente.setEnabled(!true);
-            jRBFuncaoIntesDiarreia.setEnabled(!true);
-            jRBFuncaoIntesConstipacao.setEnabled(!true);
-            jCostipacaoDias.setEnabled(!true);
-            // Abdome
-            jRBAbdomeGloboso.setEnabled(!true);
-            jRBAbdomeFlacido.setEnabled(!true);
-            jRBAbdomePlano.setEnabled(!true);
-            // Função Vesical
-            jRBFuncaoVesicalFralda.setEnabled(!true);
-            jRBFuncaoVesicalCV.setEnabled(!true);
-            jRBFuncaVeisicalEspontanea.setEnabled(!true);
-            // Genitalia
-            jRBGenitaliaIntegra.setEnabled(!true);
-            jRBGenitaliaComAlteracao.setEnabled(!true);
-            jQualGenitalia.setEnabled(!true);
-            // Vacinas
-            jComboBoxVacinado.setEnabled(!true);
-            jQuaisVacinas.setEnabled(!true);
-            // TESTES RÁPIDOS
-            jComboBoxVDRL.setEnabled(!true);
-            jComboBoxHepatiteC.setEnabled(!true);
-            jComboBoxHepatiteB.setEnabled(!true);
-            jComboBoxHIV.setEnabled(!true);
-            jComboBoxCirurgia.setEnabled(!true);
-            jQualCirurgia.setEnabled(!true);
-            jComboBoxSifilis.setEnabled(!true);
-            jComboBoxHipertensaoMasc.setEnabled(!true);
-            jComboBoxDiabetesMasc.setEnabled(!true);
-            jComboBoxTuberculose.setEnabled(!true);
             //
             jComboBoxUsuarioDrogas.setEnabled(!true);
             jComboBoxPortadorDoencas.setEnabled(!true);
@@ -8936,6 +7509,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(!true);
             jBtFinalizar.setEnabled(!true);
             jBtAuditoria.setEnabled(!true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(!true);
+            jBtExcluir1.setEnabled(!true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtFinalizar1.setEnabled(!true);
+            jBtAuditoria1.setEnabled(!true);
             // AEF-P1
             jBtNovoAFP1.setEnabled(!true);
             jBtAlterarAFP1.setEnabled(!true);
@@ -9011,67 +7592,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jRBFuncaoComAlteracao.setEnabled(!true);
             jRBFuncaoSemAlteracao.setEnabled(!true);
             jQualFuncaoMotora.setEnabled(!true);
-            // Fala/Linguagem
-            jRBComAlteracaoFala.setEnabled(!true);
-            jRBSemAlteracaoFala.setEnabled(!true);
-            jQualAlteracaoFala.setEnabled(!true);
-            //Pele/Mucosa
-            jRBPeleNormocoradas.setEnabled(!true);
-            jRBPeleHipocoradas.setEnabled(!true);
-            jRBPeleHidratadas.setEnabled(!true);
-            jRBPeleHipohidratada.setEnabled(!true);
-            jRBPeleIntegra.setEnabled(!true);
-            jRBPeleLesao.setEnabled(!true);
-            jTipo.setEnabled(!true);
-            jLocalizacao.setEnabled(!true);
-            // Cabelos
-            jRBCabelosCalvice.setEnabled(!true);
-            jRBCabelosIntegro.setEnabled(!true);
-            jRBCabelosSujidade.setEnabled(!true);
-            // Boca        
-            jRBBocaHalitose.setEnabled(!true);
-            jRBBocaHalitoseCetonica.setEnabled(!true);
-            jRBProteseDentaria.setEnabled(!true);
-            jRBBocaAusenDenteCarie.setEnabled(!true);
-            //Função Respiratoria         
-            jRBFuncaoRespEupneico.setEnabled(!true);
-            jRBFuncaoRespTaquipenico.setEnabled(!true);
-            jRBFuncaoRespDispneico.setEnabled(!true);
-            // Torax
-            jRBToraxSimetrico.setEnabled(!true);
-            jRBToraxAssimetrico.setEnabled(!true);
-            // Função Intestinal
-            jRBFuncaoIntesRegular.setEnabled(!true);
-            jRBFuncaoIntesAusente.setEnabled(!true);
-            jRBFuncaoIntesDiarreia.setEnabled(!true);
-            jRBFuncaoIntesConstipacao.setEnabled(!true);
-            jCostipacaoDias.setEnabled(!true);
-            // Abdome
-            jRBAbdomeGloboso.setEnabled(!true);
-            jRBAbdomeFlacido.setEnabled(!true);
-            jRBAbdomePlano.setEnabled(!true);
-            // Função Vesical
-            jRBFuncaoVesicalFralda.setEnabled(!true);
-            jRBFuncaoVesicalCV.setEnabled(!true);
-            jRBFuncaVeisicalEspontanea.setEnabled(!true);
-            // Genitalia
-            jRBGenitaliaIntegra.setEnabled(!true);
-            jRBGenitaliaComAlteracao.setEnabled(!true);
-            jQualGenitalia.setEnabled(!true);
-            // Vacinas
-            jComboBoxVacinado.setEnabled(!true);
-            jQuaisVacinas.setEnabled(!true);
-            //
-            jComboBoxVDRL.setEnabled(!true);
-            jComboBoxHepatiteC.setEnabled(!true);
-            jComboBoxHepatiteB.setEnabled(!true);
-            jComboBoxHIV.setEnabled(!true);
-            jComboBoxCirurgia.setEnabled(!true);
-            jQualCirurgia.setEnabled(!true);
-            jComboBoxSifilis.setEnabled(!true);
-            jComboBoxHipertensaoMasc.setEnabled(!true);
-            jComboBoxDiabetesMasc.setEnabled(!true);
-            jComboBoxTuberculose.setEnabled(!true);
             //
             jComboBoxUsuarioDrogas.setEnabled(!true);
             jComboBoxPortadorDoencas.setEnabled(!true);
@@ -9089,6 +7609,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtImpressaoFicha.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
             // AEF-P1
             jBtNovoAFP1.setEnabled(true);
             jBtAlterarAFP1.setEnabled(!true);
@@ -9178,6 +7706,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         // AEFP2
         jBtNovoAFP2.setEnabled(!true);
         jBtAlterarAFP2.setEnabled(!true);
@@ -9242,6 +7778,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         // AEFP2
         jBtNovoAFP2.setEnabled(!true);
         jBtAlterarAFP2.setEnabled(!true);
@@ -9325,6 +7869,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // AEFP2
         jBtNovoAFP2.setEnabled(true);
         jBtAlterarAFP2.setEnabled(!true);
@@ -9390,6 +7943,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // AEFP2
         jBtNovoAFP2.setEnabled(true);
         jBtAlterarAFP2.setEnabled(!true);
@@ -9488,6 +8050,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
         } else {
             // ADMISSÃO
             jBtNovo.setEnabled(true);
@@ -9498,6 +8069,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
             //
             jBtNovoAFP1.setEnabled(true);
             jBtNovoAFP2.setEnabled(true);
@@ -9597,6 +8177,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
         // AEFP3
         jBtNovoAFP3.setEnabled(!true);
         jBtAlterarAFP3.setEnabled(!true);
@@ -9664,6 +8253,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
         // AEFP3
         jBtNovoAFP3.setEnabled(!true);
         jBtAlterarAFP3.setEnabled(!true);
@@ -9752,6 +8350,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // AEFP3
         jBtNovoAFP3.setEnabled(true);
         jBtAlterarAFP3.setEnabled(!true);
@@ -9819,6 +8426,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // AEFP3
         jBtNovoAFP3.setEnabled(true);
         jBtAlterarAFP3.setEnabled(!true);
@@ -9915,6 +8531,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
         } else {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -10033,6 +8658,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10097,6 +8731,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(!true);
@@ -10182,6 +8825,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha.setEnabled(true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10247,6 +8899,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10360,6 +9021,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
         } else {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -10464,6 +9134,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10522,6 +9201,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10592,6 +9280,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10650,6 +9347,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
         // EVOLUÇÃO
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -10748,6 +9454,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
         } else {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -10757,6 +9472,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(!true);
+            jBtImpressaoFicha1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
             //
             jBtNovoAFP1.setEnabled(true);
             jBtNovoAFP2.setEnabled(true);
@@ -10871,6 +9595,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        jBtImpressaoFicha1.setEnabled(!true);
     }
 
     public void AlterarEvolucao() {
@@ -10893,6 +9626,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
     }
 
     public void ExcluirEvolucao() {
@@ -10919,6 +9660,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
     }
 
     public void SalvarEvolucao() {
@@ -10941,6 +9691,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressaoFicha.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(true);
+        jBtFinalizar1.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
+        jBtImpressaoFicha1.setEnabled(true);
     }
 
     public void CancelarEvolucao() {
@@ -10968,6 +9727,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtImpressaoFicha.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
+            jBtImpressaoFicha1.setEnabled(true);
         } else if (!jIdEvolucao.getText().equals("")) {
             jDataEvolu.setEnabled(!true);
             jTextoEvolucao.setEnabled(!true);
@@ -10987,6 +9755,15 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtImpressaoFicha.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(true);
+            jBtFinalizar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
+            jBtImpressaoFicha1.setEnabled(true);
         }
     }
 
@@ -11176,92 +9953,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             statusFuncaoMotora = 0;
         } else if (jRBFuncaoSemAlteracao.isSelected()) {
             statusFuncaoMotora = 1;
-        }
-        // Fala/Linguagem
-//        if (jRBComAlteracaoFala.isSelected()) {
-//            statusFalaLinguagem = 0;
-//        } else if (jRBSemAlteracaoFala.isSelected()) {
-//            statusFalaLinguagem = 1;
-//        }
-        // Mucosa
-        if (jRBPeleNormocoradas.isSelected()) {
-            statusMucosa = 0;
-        } else if (jRBPeleHipocoradas.isSelected()) {
-            statusMucosa = 1;
-        } else if (jRBPeleHidratadas.isSelected()) {
-            statusMucosa = 2;
-        }
-        // Pele
-        if (jRBPeleHipohidratada.isSelected()) {
-            statusPele = 0;
-        } else if (jRBPeleIntegra.isSelected()) {
-            statusPele = 1;
-        } else if (jRBPeleLesao.isSelected()) {
-            statusPele = 2;
-        }
-        // Cabelos
-        if (jRBCabelosIntegro.isSelected()) {
-            statusCabelos = 0;
-        } else if (jRBCabelosCalvice.isSelected()) {
-            statusCabelos = 1;
-        } else if (jRBCabelosSujidade.isSelected()) {
-            statusCabelos = 2;
-        }
-        // Boca
-        if (jRBBocaHalitose.isSelected()) {
-            statusBoca = 0;
-        } else if (jRBBocaHalitoseCetonica.isSelected()) {
-            statusBoca = 1;
-        } else if (jRBProteseDentaria.isSelected()) {
-            statusBoca = 2;
-        } else if (jRBBocaAusenDenteCarie.isSelected()) {
-            statusBoca = 3;
-        }
-        // Função Respiratória
-        if (jRBFuncaoRespEupneico.isSelected()) {
-            statusFuncaoRespiratoria = 0;
-        } else if (jRBFuncaoRespTaquipenico.isSelected()) {
-            statusFuncaoRespiratoria = 1;
-        } else if (jRBFuncaoRespDispneico.isSelected()) {
-            statusFuncaoRespiratoria = 2;
-        }
-        // Torax
-        if (jRBToraxSimetrico.isSelected()) {
-            statusTorax = 0;
-        } else if (jRBToraxAssimetrico.isSelected()) {
-            statusTorax = 1;
-        }
-        // Função Intestinal
-        if (jRBFuncaoIntesRegular.isSelected()) {
-            statusFuncaoIntestinal = 0;
-        } else if (jRBFuncaoIntesAusente.isSelected()) {
-            statusFuncaoIntestinal = 1;
-        } else if (jRBFuncaoIntesDiarreia.isSelected()) {
-            statusFuncaoIntestinal = 2;
-        } else if (jRBFuncaoIntesConstipacao.isSelected()) {
-            statusFuncaoIntestinal = 3;
-        }
-        // Abdome
-        if (jRBAbdomeGloboso.isSelected()) {
-            statusAbdome = 0;
-        } else if (jRBAbdomeFlacido.isSelected()) {
-            statusAbdome = 1;
-        } else if (jRBAbdomePlano.isSelected()) {
-            statusAbdome = 2;
-        }
-        // Função Vesiccal
-        if (jRBFuncaoVesicalFralda.isSelected()) {
-            statusFuncaoVesical = 0;
-        } else if (jRBFuncaoVesicalCV.isSelected()) {
-            statusFuncaoVesical = 1;
-        } else if (jRBFuncaVeisicalEspontanea.isSelected()) {
-            statusFuncaoVesical = 2;
-        }
-        // Genitália
-        if (jRBGenitaliaIntegra.isSelected()) {
-            statusGenitalia = 0;
-        } else if (jRBGenitaliaComAlteracao.isSelected()) {
-            statusGenitalia = 1;
         }
     }
 
