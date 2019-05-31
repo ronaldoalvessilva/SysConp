@@ -6,7 +6,14 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.IndicadoresAcompanhamento;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,6 +22,51 @@ import java.awt.Color;
 public class TelaPRORES extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    IndicadoresAcompanhamento objPerfilInter = new IndicadoresAcompanhamento();
+    //
+    //ENFERMARIA
+    int qtdDiabetes = 0;
+    int qtdHipertensao = 0;
+    int qtdEscabiose = 0;
+    int qtdHanseniase = 0;
+    int qtdSifilis = 0;
+    int qtdTuberculose = 0;
+    int qtdHib = 0;
+    int qtdHepatiteB = 0;
+    int qtdHepatiteC = 0;
+    int qtdDst = 0;
+    int qtdVdlr = 0;
+    int qtdVacina = 0;
+    //PEDAGOGIA
+    int qICAA = 0;
+    int qIC1 = 0;
+    int qIC2P = 0;
+    int qIAAU = 0;
+    int qIC3 = 0;
+    int qIREL = 0;
+    int qIAC = 0;
+    int qICU1 = 0;
+    int qIC2 = 0;
+    int qICA = 0;
+    //JURIDICO/CRC
+    int qtdProcessos = 0;
+    int qtdDocumentacao = 0;
+    int qtdProggressao = 0;
+    int qtdLivramento = 0;
+    //TERAPIA OCUPACIONAL
+    int qtdPrograma = 0;
+    int qtdCurso = 0;
+    int qtdProfissional = 0;
+    //PSICOLOGIA
+    int qtdTratamento = 0;
+    int qtdAcompanha = 0;
+    int qtdRecuperacao = 0;
+    //SERVIÇO SOCIAL
+    int qtdAcompanhaSS = 0;
+    //
+    int qtdProd = 0;
+    //
+    String dataInicial, dataFinal = "";
 
     /**
      * Creates new form TelaPRORES
@@ -23,6 +75,21 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         initComponents();
         corCampos();
         limparCampos();
+        preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
+                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+                + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
+                + "AND '" + dataFinal + "'");
     }
 
     /**
@@ -822,7 +889,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtFechar)
                     .addComponent(jBtImpressao))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1111,4 +1178,234 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         //SERVIÇO SOCIAL
         jFamiliaAcompanhada.setText("0");
     }
+
+    public void preencherTabelaEstatistica(String sql) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            qtdDiabetes = conecta.rs.getInt("QtdDiabetes");
+            qtdHipertensao = conecta.rs.getInt("QtdHipertensao");
+            qtdEscabiose = conecta.rs.getInt("QtdEscabiose");
+            qtdHanseniase = conecta.rs.getInt("QtdHanseniase");
+            qtdSifilis = conecta.rs.getInt("QtdSifilis");
+            qtdTuberculose = conecta.rs.getInt("QtdTuberculose");
+            qtdHib = conecta.rs.getInt("QtdHiv");
+            qtdHepatiteB = conecta.rs.getInt("QtdHepatiteB");
+            qtdHepatiteC = conecta.rs.getInt("QtdHepatiteC");
+            qtdDst = conecta.rs.getInt("QtdDst");
+            qtdVdlr = conecta.rs.getInt("QtdVdlr");
+            qtdVacina = conecta.rs.getInt("qQtdVacina");
+            //PEDAGOGIA
+            qICAA = conecta.rs.getInt("QtdICAA");
+            qIC1 = conecta.rs.getInt("QtdIC1");
+            qIC2P = conecta.rs.getInt("QtdIC2P");
+            qIAAU = conecta.rs.getInt("QtdIAAU");
+            qIC3 = conecta.rs.getInt("QtdIC3");
+            qIREL = conecta.rs.getInt("QtdIREL");
+            qIAC = conecta.rs.getInt("QtdIAC");
+            qICU1 = conecta.rs.getInt("QtdICU1");
+            qIC2 = conecta.rs.getInt("QtdIC2");
+            qICA = conecta.rs.getInt("QtdICA");
+            //JURIDICO/CRC
+            qtdProcessos = conecta.rs.getInt("QtdProgresso");
+            qtdDocumentacao = conecta.rs.getInt("QtdDocumentacao");
+            qtdProggressao = conecta.rs.getInt("QtdProgressao");
+            qtdLivramento = conecta.rs.getInt("QtdLivramento");
+            //TERAPIA OCUPACIONAL
+            qtdPrograma = conecta.rs.getInt("Qtdprograma");
+            qtdCurso = conecta.rs.getInt("QtdCurso");
+            qtdProfissional = conecta.rs.getInt("QtdProfissional");
+            //PSICOLOGIA
+            qtdTratamento = conecta.rs.getInt("QtdTratamento");
+            qtdAcompanha = conecta.rs.getInt("QtdAcompanha");
+            qtdRecuperacao = conecta.rs.getInt("QtdRecuparacao");
+            //SERVIÇO SOCIAL
+            qtdAcompanhaSS = conecta.rs.getInt("QtdAcompanhaSS");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public List<IndicadoresAcompanhamento> read() throws Exception {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+        conecta.abrirConexao();
+        List<IndicadoresAcompanhamento> listaInternosPavilhaoSelecionados = new ArrayList<IndicadoresAcompanhamento>();
+        try {
+            conecta.executaSQL("SELECT "
+                    + "SUM(Qtdprograma) AS QtdePrograma, "
+                    + "SUM(QtdDiabetes)AS QtdeDiabetes, "
+                    + "SUM(QtdHipertensao)AS QtdeHipertensao, "
+                    + "SUM(QtdEscabiose) AS QtdeEscabiose, "
+                    + "SUM(QtdHanseniase) AS QtdeHanseniase, "
+                    + "SUM(QtdSifilis) AS QtdeSifilis, "
+                    + "SUM(QtdTuberculose) AS QtdeTuberculose, "
+                    + "SUM(QtdHiv) AS QtdeHiv, "
+                    + "SUM(QtdHepatiteB) AS QtdeEpaB, "
+                    + "SUM(QtdHepatiteC) AS QtdeEpaC, "
+                    + "SUM(QtdDst) AS QtdeDst, "
+                    + "SUM(QtdVdlr) AS QtdeVdls, "
+                    + "SUM(QtdVacina) AS QtdeVacina, "
+                    + "SUM(QtdICAA) AS QtdeICCA, "
+                    + "SUM(QtdIC1) AS QtdeIC1, "
+                    + "SUM(QtdIC2P) AS QtdeIC2P, "
+                    + "SUM(QtdIAAU) AS QtdeIAAU, "
+                    + "SUM(QtdIC3) AS QtdeIC3, "
+                    + "SUM(QtdIREL)  AS QtdeRel, "
+                    + "SUM(QtdIAC) AS QtdeIAC, "
+                    + "SUM(QtdICU1) AS QtdeICU1, "
+                    + "SUM(QtdIC2) AS QtdeIC2, "
+                    + "SUM(QtdICA) AS QtdeICA, "
+                    + "SUM(QtdProgresso) AS QtdeProgresso, "
+                    + "SUM(QtdDocumentacao) AS QtdeDocumentacao, "
+                    + "SUM(QtdProgressao) AS QtdeProgressao, "
+                    + "SUM(QtdLivramento) AS QtdeLivramento, "
+                    + "SUM(Qtdprograma) AS QtdePrograma, "
+                    + "SUM(QtdCurso) AS QtdeCurso, "
+                    + "SUM(QtdProfissional) AS QtdeProfissional, "
+                    + "SUM(QtdTratamento) AS QtdeTratamento, "
+                    + "SUM(QtdAcompanha) AS QtdeAcompanha, "
+                    + "SUM(QtdRecuperacao) AS QtdeRecuperacao, "
+                    + "SUM(QtdAcompanhaSS) AS QtdeAcompanhaSS FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
+                    + "AND '" + dataFinal + "'");
+            while (conecta.rs.next()) {
+                IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
+                pDigiProd.setQtdDiabetes(conecta.rs.getInt("QtdeDiabetes"));
+                pDigiProd.setQtdHipertensao(conecta.rs.getInt("QtdeHipertensao"));
+                pDigiProd.setQtdEscabiose(conecta.rs.getInt("QtdeEscabiose"));
+                pDigiProd.setQtdHanseniase(conecta.rs.getInt("QtedHanseniase"));
+                pDigiProd.setQtdSifilis(conecta.rs.getInt("QtdeSifilis"));
+                pDigiProd.setQtdTuberculose(conecta.rs.getInt("QtdeTuberculose"));
+                pDigiProd.setQtdHib(conecta.rs.getInt("QtdeHiv"));
+                pDigiProd.setQtdHepatiteB(conecta.rs.getInt("QtdeHepatiteB"));
+                pDigiProd.setQtdHepatiteC(conecta.rs.getInt("QtdeHepatiteC"));
+                pDigiProd.setQdtDst(conecta.rs.getInt("QtdeDst"));
+                pDigiProd.setQtdVdlr(conecta.rs.getInt("QtdeVdlr"));
+                pDigiProd.setQtdVacina(conecta.rs.getInt("QtdeVacina"));
+                //PEDAGOGIA
+                pDigiProd.setQtdICAA(conecta.rs.getInt("QtdeICAA"));
+                pDigiProd.setQtdIC1(conecta.rs.getInt("QtdeIC1"));
+                pDigiProd.setQtdIC2P(conecta.rs.getInt("QtdeIC2P"));
+                pDigiProd.setQtdIAAU(conecta.rs.getInt("QtdeIAAU"));
+                pDigiProd.setQtdIC3(conecta.rs.getInt("QtdeIC3"));
+                pDigiProd.setQtdIREL(conecta.rs.getInt("QtdeIREL"));
+                pDigiProd.setQtdIAC(conecta.rs.getInt("QtdeIAC"));
+                pDigiProd.setQtdICU1(conecta.rs.getInt("QtdeICU1"));
+                pDigiProd.setQtdIC2(conecta.rs.getInt("QtdeIC2"));
+                pDigiProd.setQtdICA(conecta.rs.getInt("QtdeICA"));
+                //JURIDICO/CRC
+                pDigiProd.setQtdProgresso(conecta.rs.getInt("QtdeProgresso"));
+                pDigiProd.setQtdDocumentacao(conecta.rs.getInt("QtdeDocumentacao"));
+                pDigiProd.setQtdProgressao(conecta.rs.getInt("QtdeProgressao"));
+                pDigiProd.setQtdLivramento(conecta.rs.getInt("QtdeLivramento"));
+                //TERAPIA OCUPACIONAL
+                pDigiProd.setQtdprograma(conecta.rs.getInt("QtdePrograma"));
+                pDigiProd.setQtdCurso(conecta.rs.getInt("QtdeCurso"));
+                pDigiProd.setQtdProfissional(conecta.rs.getInt("QtdeProfissional"));
+                //PSICOLOGIA
+                pDigiProd.setQtdTratamento(conecta.rs.getInt("QtdeTratamento"));
+                pDigiProd.setQtdAcompanha(conecta.rs.getInt("QtdeAcompanha"));
+                pDigiProd.setQtdRecuparacao(conecta.rs.getInt("QtdeRecuperacao"));
+                //SERVIÇO SOCIAL
+                pDigiProd.setQtdAcompanhaSS(conecta.rs.getInt("QtdeAcompanhaSS"));
+                listaInternosPavilhaoSelecionados.add(pDigiProd);
+                qtdProd = qtdProd + 1;
+            }
+            return listaInternosPavilhaoSelecionados;
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
+    }
+
+//    public List<IndicadoresAcompanhamento> read() throws Exception {
+//        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+//        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+//        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+//        conecta.abrirConexao();
+//        List<IndicadoresAcompanhamento> listaInternosPavilhaoSelecionados = new ArrayList<IndicadoresAcompanhamento>();
+//        try {
+//            conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco "
+//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+//                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
+//                    + "AND '" + dataFinal + "'");
+//            while (conecta.rs.next()) {
+//                IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
+//                pDigiProd.setQtdDiabetes(conecta.rs.getInt("QtdDiabetes"));
+//                pDigiProd.setQtdHipertensao(conecta.rs.getInt("QtdHipertensao"));
+//                pDigiProd.setQtdEscabiose(conecta.rs.getInt("QtdEscabiose"));
+//                pDigiProd.setQtdHanseniase(conecta.rs.getInt("QtdHanseniase"));
+//                pDigiProd.setQtdSifilis(conecta.rs.getInt("QtdSifilis"));
+//                pDigiProd.setQtdTuberculose(conecta.rs.getInt("QtdTuberculose"));
+//                pDigiProd.setQtdHib(conecta.rs.getInt("QtdHiv"));
+//                pDigiProd.setQtdHepatiteB(conecta.rs.getInt("QtdHepatiteB"));
+//                pDigiProd.setQtdHepatiteC(conecta.rs.getInt("QtdHepatiteC"));
+//                pDigiProd.setQdtDst(conecta.rs.getInt("QtdDst"));
+//                pDigiProd.setQtdVdlr(conecta.rs.getInt("QtdVdlr"));
+//                pDigiProd.setQtdVacina(conecta.rs.getInt("QtdVacina"));
+//                //PEDAGOGIA
+//                pDigiProd.setQtdICAA(conecta.rs.getInt("QtdICAA"));
+//                pDigiProd.setQtdIC1(conecta.rs.getInt("QtdIC1"));
+//                pDigiProd.setQtdIC2P(conecta.rs.getInt("QtdIC2P"));
+//                pDigiProd.setQtdIAAU(conecta.rs.getInt("QtdIAAU"));
+//                pDigiProd.setQtdIC3(conecta.rs.getInt("QtdIC3"));
+//                pDigiProd.setQtdIREL(conecta.rs.getInt("QtdIREL"));
+//                pDigiProd.setQtdIAC(conecta.rs.getInt("QtdIAC"));
+//                pDigiProd.setQtdICU1(conecta.rs.getInt("QtdICU1"));
+//                pDigiProd.setQtdIC2(conecta.rs.getInt("QtdIC2"));
+//                pDigiProd.setQtdICA(conecta.rs.getInt("QtdICA"));
+//                //JURIDICO/CRC
+//                pDigiProd.setQtdProgresso(conecta.rs.getInt("QtdProgresso"));
+//                pDigiProd.setQtdDocumentacao(conecta.rs.getInt("QtdDocumentacao"));
+//                pDigiProd.setQtdProgressao(conecta.rs.getInt("QtdProgressao"));
+//                pDigiProd.setQtdLivramento(conecta.rs.getInt("QtdLivramento"));
+//                //TERAPIA OCUPACIONAL
+//                pDigiProd.setQtdprograma(conecta.rs.getInt("Qtdprograma"));
+//                pDigiProd.setQtdCurso(conecta.rs.getInt("QtdCurso"));
+//                pDigiProd.setQtdProfissional(conecta.rs.getInt("QtdProfissional"));
+//                //PSICOLOGIA
+//                pDigiProd.setQtdTratamento(conecta.rs.getInt("QtdTratamento"));
+//                pDigiProd.setQtdAcompanha(conecta.rs.getInt("QtdAcompanha"));
+//                pDigiProd.setQtdRecuparacao(conecta.rs.getInt("QtdRecuperacao"));
+//                //SERVIÇO SOCIAL
+//                pDigiProd.setQtdAcompanhaSS(conecta.rs.getInt("QtdAcompanhaSS"));
+//                listaInternosPavilhaoSelecionados.add(pDigiProd);
+//                qtdProd = qtdProd + 1;
+//            }
+//            return listaInternosPavilhaoSelecionados;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            conecta.desconecta();
+//        }
+//        return null;
+//    }
 }

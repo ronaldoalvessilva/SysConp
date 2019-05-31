@@ -27,7 +27,7 @@ public class ControleIndicadoresAcompanhaSS {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO "
                     + "INDICADOR_ACOMPANHAMENTO_INTERNO_SS (IdIndAco,IdInternoCrc,DataSS,"
-                    + "AcompanhaSS,QtdAcompanha,"
+                    + "AcompanhaSS,QtdAcompanhaSS,"
                     + "Observacao,UsuarioInsert,DataInsert,"
                     + "HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objPerfilInter.getIdIndAco());
