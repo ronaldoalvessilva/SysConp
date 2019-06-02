@@ -121,6 +121,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String dataModFinal;
     //
     public static int acao;
+    public static int pGravar = 0;
     int flag;
     String dataInicial, dataFinal, dataEntrada, dataEvolu;
     String statusLanc = "ABERTO";
@@ -231,6 +232,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public static TelaFIA tFI;
     public static TelaFVG tFVG;
     public static TelaVA tVA;
+    public static TelaTPC tPC;
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -279,6 +281,11 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public void mostrarTRC() {
         tTRC = new TelaTRC(this, true);
         tTRC.setVisible(true);
+    }
+
+    public void mostrarPC() {
+        tPC = new TelaTPC(this, true);
+        tPC.setVisible(true);
     }
 
     /**
@@ -659,6 +666,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jBtImpressao = new javax.swing.JButton();
+        jBtDoencasInfectos = new javax.swing.JButton();
 
         jLabel94.setText("jLabel94");
 
@@ -4132,6 +4140,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtDoencasInfectos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtDoencasInfectos.setToolTipText("Acompanhamento Patologico");
+        jBtDoencasInfectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDoencasInfectosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EvolucaoLayout = new javax.swing.GroupLayout(Evolucao);
         Evolucao.setLayout(EvolucaoLayout);
         EvolucaoLayout.setHorizontalGroup(
@@ -4153,6 +4169,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtDoencasInfectos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
                         .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(125, 125, 125)
                         .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -4177,7 +4195,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jBtExcluirEvolucao)
                     .addComponent(jBtSalvarEvolucao)
                     .addComponent(jBtCancelarEvolucao)
-                    .addComponent(jBtAuditoriaEvolucao))
+                    .addComponent(jBtAuditoriaEvolucao)
+                    .addComponent(jBtDoencasInfectos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5076,68 +5095,78 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAdmissaoEnfeIntEvolENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntEvolENF) && codGravarENF == 1) {
             if (jDataEvolu.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data da evolução do interno.");
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento/evolução do interno.");
                 jDataEvolu.requestFocus();
                 jDataEvolu.setBackground(Color.red);
+            } else if (jTextoEvolucao.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o texto do atendimento/evolução do interno.");
             } else {
                 objEvolEnferma.setDataEvol(jDataEvolu.getDate());
                 objEvolEnferma.setTextoEvolucao(jTextoEvolucao.getText());
                 objEvolEnferma.setStatusLanc(jStatusLanc.getText());
                 if (acao == 5) {
-                    // log de usuario
-                    objEvolEnferma.setUsuarioInsert(nameUser);
-                    objEvolEnferma.setDataInsert(dataModFinal);
-                    objEvolEnferma.setHoraInsert(horaMov);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
-                    //
-                    buscarEvolucao();
-                    objEvolEnferma.setDeptoMedico(deptoTecnico);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
-                    controlMovEvolEnfa.incluirMovTecEnf(objEvolEnferma); // Histórico de Movimento Técnico
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
-                    objRegAtend.setAtendeEvol(atendido);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegEvol(objRegAtend);
-                    SalvarEvolucao();
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (pGravar == 0) {
+                        mostrarPC();
+                    } else {
+                        // log de usuario
+                        objEvolEnferma.setUsuarioInsert(nameUser);
+                        objEvolEnferma.setDataInsert(dataModFinal);
+                        objEvolEnferma.setHoraInsert(horaMov);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                        //
+                        buscarEvolucao();
+                        objEvolEnferma.setDeptoMedico(deptoTecnico);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
+                        controlMovEvolEnfa.incluirMovTecEnf(objEvolEnferma); // Histórico de Movimento Técnico
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setAtendeEvol(atendido);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegEvol(objRegAtend);
+                        SalvarEvolucao();
+                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
                 if (acao == 6) {
-                    // log de usuario
-                    objEvolEnferma.setUsuarioUp(nameUser);
-                    objEvolEnferma.setDataUp(dataModFinal);
-                    objEvolEnferma.setHoraUp(horaMov);
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objEvolEnferma.setIdItem(idItemEvol);
-                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
-                    //
-                    objEvolEnferma.setDeptoMedico(deptoTecnico);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setIdItem(idItemEvol);
-                    objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
-                    controlMovEvolEnfa.alterarMovTecEnf(objEvolEnferma);
-                    SalvarEvolucao();
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdLanc='" + jCodigoLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (pGravar == 0) {
+                        mostrarPC();
+                    } else {
+                        // log de usuario
+                        objEvolEnferma.setUsuarioUp(nameUser);
+                        objEvolEnferma.setDataUp(dataModFinal);
+                        objEvolEnferma.setHoraUp(horaMov);
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdItem(idItemEvol);
+                        controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                        //
+                        objEvolEnferma.setDeptoMedico(deptoTecnico);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setIdItem(idItemEvol);
+                        objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
+                        controlMovEvolEnfa.alterarMovTecEnf(objEvolEnferma);
+                        SalvarEvolucao();
+                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdLanc='" + jCodigoLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
             }
         } else {
@@ -6236,6 +6265,11 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         mostrarTRC();
     }//GEN-LAST:event_jBtTRCActionPerformed
 
+    private void jBtDoencasInfectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDoencasInfectosActionPerformed
+        // TODO add your handling code here:
+        mostrarPC();
+    }//GEN-LAST:event_jBtDoencasInfectosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AEFP1;
@@ -6291,6 +6325,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelarAFP3;
     private javax.swing.JButton jBtCancelarAFP4;
     private javax.swing.JButton jBtCancelarEvolucao;
+    private javax.swing.JButton jBtDoencasInfectos;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluir1;
     private javax.swing.JButton jBtExcluirAFP1;
@@ -6596,7 +6631,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jSinaisSintomas;
-    private javax.swing.JTextField jStatusLanc;
+    public static javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;

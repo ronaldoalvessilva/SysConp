@@ -1548,6 +1548,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -6072,6 +6075,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtCancelarEvolucao" linkSize="39" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jBtDoencasInfectos" min="-2" pref="34" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Component id="jBtImpressao" linkSize="39" min="-2" pref="36" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                               <Component id="jBtAuditoriaEvolucao" min="-2" pref="28" max="-2" attributes="0"/>
@@ -6098,6 +6103,7 @@
                           <Component id="jBtSalvarEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtCancelarEvolucao" linkSize="40" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaEvolucao" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtDoencasInfectos" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="2" max="-2" attributes="0"/>
@@ -6384,6 +6390,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtDoencasInfectos">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/061218140238_16.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Acompanhamento Patologico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDoencasInfectosActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
