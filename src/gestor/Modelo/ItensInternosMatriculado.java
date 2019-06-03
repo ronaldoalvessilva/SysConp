@@ -5,6 +5,8 @@
  */
 package gestor.Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author ronaldo
@@ -22,8 +24,15 @@ public class ItensInternosMatriculado {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;   
+    private String statusAluno;
+    private String situacaoAluno;
+    private Date dataConclusaoDesistencia;
+    private String observacao;   
 
-    public ItensInternosMatriculado(int idItem, int idMat, int idInternoCrc, String nomeInternoCrc, String bloqueio, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ItensInternosMatriculado() {
+    }
+
+    public ItensInternosMatriculado(int idItem, int idMat, int idInternoCrc, String nomeInternoCrc, String bloqueio, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String statusAluno, String situacaoAluno, Date dataConclusaoDesistencia, String observacao) {
         this.idItem = idItem;
         this.idMat = idMat;
         this.idInternoCrc = idInternoCrc;
@@ -35,9 +44,10 @@ public class ItensInternosMatriculado {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensInternosMatriculado() {
+        this.statusAluno = statusAluno;
+        this.situacaoAluno = situacaoAluno;
+        this.dataConclusaoDesistencia = dataConclusaoDesistencia;
+        this.observacao = observacao;
     }
 
     /**
@@ -192,5 +202,61 @@ public class ItensInternosMatriculado {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the statusAluno
+     */
+    public String getStatusAluno() {
+        return statusAluno;
+    }
+
+    /**
+     * @param statusAluno the statusAluno to set
+     */
+    public void setStatusAluno(String statusAluno) {
+        this.statusAluno = statusAluno;
+    }
+
+    /**
+     * @return the situacaoAluno
+     */
+    public String getSituacaoAluno() {
+        return situacaoAluno;
+    }
+
+    /**
+     * @param situacaoAluno the situacaoAluno to set
+     */
+    public void setSituacaoAluno(String situacaoAluno) {
+        this.situacaoAluno = situacaoAluno;
+    }
+
+    /**
+     * @return the dataConclusaoDesistencia
+     */
+    public Date getDataConclusaoDesistencia() {
+        return dataConclusaoDesistencia;
+    }
+
+    /**
+     * @param dataConclusaoDesistencia the dataConclusaoDesistencia to set
+     */
+    public void setDataConclusaoDesistencia(Date dataConclusaoDesistencia) {
+        this.dataConclusaoDesistencia = dataConclusaoDesistencia;
+    }
+
+    /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 }

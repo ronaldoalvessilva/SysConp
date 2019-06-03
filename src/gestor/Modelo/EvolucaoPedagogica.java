@@ -30,9 +30,14 @@ public class EvolucaoPedagogica {
     private String horarioUp;   
     private Date dataEncaminhamento;
     private String horaEncaminhamento;
-    private String nomeDepartamento;           
+    private String nomeDepartamento;        
+    private String acessoUniverso;
+    private int anoIngresso;
 
-    public EvolucaoPedagogica(int idEvolucao, String statusEvo, Date dataEvolucao, int idAdm, int idInternoCrc, String nomeInternoCrc, String historico, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, Date dataEncaminhamento, String horaEncaminhamento, String nomeDepartamento) {
+    public EvolucaoPedagogica() {
+    }
+
+    public EvolucaoPedagogica(int idEvolucao, String statusEvo, Date dataEvolucao, int idAdm, int idInternoCrc, String nomeInternoCrc, String historico, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, Date dataEncaminhamento, String horaEncaminhamento, String nomeDepartamento, String acessoUniverso, int anoIngresso) {
         this.idEvolucao = idEvolucao;
         this.statusEvo = statusEvo;
         this.dataEvolucao = dataEvolucao;
@@ -51,9 +56,8 @@ public class EvolucaoPedagogica {
         this.dataEncaminhamento = dataEncaminhamento;
         this.horaEncaminhamento = horaEncaminhamento;
         this.nomeDepartamento = nomeDepartamento;
-    }
-
-    public EvolucaoPedagogica() {
+        this.acessoUniverso = acessoUniverso;
+        this.anoIngresso = anoIngresso;
     }
 
     /**
@@ -306,5 +310,33 @@ public class EvolucaoPedagogica {
      */
     public void setNomeDepartamento(String nomeDepartamento) {
         this.nomeDepartamento = nomeDepartamento;
+    }
+
+    /**
+     * @return the acessoUniverso
+     */
+    public String getAcessoUniverso() {
+        return acessoUniverso;
+    }
+
+    /**
+     * @param acessoUniverso the acessoUniverso to set
+     */
+    public void setAcessoUniverso(String acessoUniverso) {
+        this.acessoUniverso = acessoUniverso;
+    }
+
+    /**
+     * @return the anoIngresso
+     */
+    public int getAnoIngresso() {
+        return anoIngresso;
+    }
+
+    /**
+     * @param anoIngresso the anoIngresso to set
+     */
+    public void setAnoIngresso(int anoIngresso) {
+        this.anoIngresso = anoIngresso;
     }
 }

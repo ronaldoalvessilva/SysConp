@@ -26,7 +26,7 @@ public class ControleEvolucaoPedagogia {
         buscarInternoCrc(objEvolucaoAdmPedago.getNomeInternoCrc(), objEvolucaoAdmPedago.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_ADMISSAO_PEDAGOGIA (IdAdm,IdInternoCrc,DataEvolucao,NomeDepartamento,DataEncaminhamento,HoraEncaminhamento,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_ADMISSAO_PEDAGOGIA (IdAdm,IdInternoCrc,DataEvolucao,NomeDepartamento,DataEncaminhamento,HoraEncaminhamento,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert,AcessoUni,AnoIngresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objEvolucaoAdmPedago.getIdAdm());
             pst.setInt(2, codInterno);
             pst.setTimestamp(3, new java.sql.Timestamp(objEvolucaoAdmPedago.getDataEvolucao().getTime()));
@@ -37,6 +37,8 @@ public class ControleEvolucaoPedagogia {
             pst.setString(8, objEvolucaoAdmPedago.getUsuarioInsert());
             pst.setString(9, objEvolucaoAdmPedago.getDataInsert());
             pst.setString(10, objEvolucaoAdmPedago.getHorarioInsert());
+            pst.setString(11, objEvolucaoAdmPedago.getAcessoUniverso());
+            pst.setInt(12, objEvolucaoAdmPedago.getAnoIngresso());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO:" + ex);
@@ -49,7 +51,7 @@ public class ControleEvolucaoPedagogia {
         buscarInternoCrc(objEvolucaoAdmPedago.getNomeInternoCrc(), objEvolucaoAdmPedago.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ADMISSAO_PEDAGOGIA SET IdAdm=?,IdInternoCrc=?,DataEvolucao=?,NomeDepartamento=?,DataEncaminhamento=?,HoraEncaminhamento=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEvolucao='" + objEvolucaoAdmPedago.getIdEvolucao() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ADMISSAO_PEDAGOGIA SET IdAdm=?,IdInternoCrc=?,DataEvolucao=?,NomeDepartamento=?,DataEncaminhamento=?,HoraEncaminhamento=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,AcessoUni=?,AnoIngresso=? WHERE IdEvolucao='" + objEvolucaoAdmPedago.getIdEvolucao() + "'");
             pst.setInt(1, objEvolucaoAdmPedago.getIdAdm());
             pst.setInt(2, codInterno);
             pst.setTimestamp(3, new java.sql.Timestamp(objEvolucaoAdmPedago.getDataEvolucao().getTime()));
@@ -60,6 +62,8 @@ public class ControleEvolucaoPedagogia {
             pst.setString(8, objEvolucaoAdmPedago.getUsuarioUp());
             pst.setString(9, objEvolucaoAdmPedago.getDataUp());
             pst.setString(10, objEvolucaoAdmPedago.getHorarioUp());
+            pst.setString(11, objEvolucaoAdmPedago.getAcessoUniverso());
+            pst.setInt(12, objEvolucaoAdmPedago.getAnoIngresso());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);

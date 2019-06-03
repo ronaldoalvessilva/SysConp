@@ -137,6 +137,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     String tipoAtendimentoAdm = "Admissão Pedagogia";
     String tipoAtendimentoEvol = "Evolução Pedagogia";
     String pHabilitaPEDA = "";
+    int pAnoIngresso = 0;
 
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
@@ -354,6 +355,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jCodigoEvolucao = new javax.swing.JTextField();
         jNomeInternoEvolucao = new javax.swing.JTextField();
         jDataEvolucao = new com.toedter.calendar.JDateChooser();
+        jLabel61 = new javax.swing.JLabel();
+        jComboBoxAcessoUni = new javax.swing.JComboBox<>();
+        jLabel62 = new javax.swing.JLabel();
+        AnoIngresso = new com.toedter.calendar.JYearChooser();
         jBtNovaEvolucao = new javax.swing.JButton();
         jBtAlterarEvolucao = new javax.swing.JButton();
         jBtExcluirEvolucao = new javax.swing.JButton();
@@ -2168,7 +2173,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTabelaEvolucaoPedagoga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoPedagoga.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Evolução"
@@ -2210,6 +2215,23 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataEvolucao.setEnabled(false);
 
+        jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(204, 51, 0));
+        jLabel61.setText("Acesso a Universidade?");
+
+        jComboBoxAcessoUni.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAcessoUni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxAcessoUni.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAcessoUni.setEnabled(false);
+
+        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(204, 51, 0));
+        jLabel62.setText("Ano de Ingresso:");
+
+        AnoIngresso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        AnoIngresso.setEnabled(false);
+        AnoIngresso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
@@ -2217,18 +2239,29 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCodigoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel36)
-                    .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInternoEvolucao)
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCodigoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel36)
+                            .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeInternoEvolucao)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel37)
+                                .addGap(0, 193, Short.MAX_VALUE))))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel61)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAcessoUni, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AnoIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -2244,7 +2277,13 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jCodigoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNomeInternoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel62)
+                    .addComponent(AnoIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAcessoUni, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel61))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
@@ -2423,9 +2462,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBtAlterarEvolucao)
@@ -2438,7 +2477,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
@@ -3568,6 +3607,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 objEvolucaoAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                 objEvolucaoAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objEvolucaoAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                if (jComboBoxAcessoUni.getSelectedItem().equals("Sim")) {
+                    objEvolucaoAdmPedago.setAcessoUniverso((String) jComboBoxAcessoUni.getSelectedItem());
+                    objEvolucaoAdmPedago.setAnoIngresso(AnoIngresso.getValue());
+                } else if (jComboBoxAcessoUni.getSelectedItem().equals("Não")) {
+                    objEvolucaoAdmPedago.setAnoIngresso(pAnoIngresso);
+                }
                 if (acao == 9) {
                     objEvolucaoAdmPedago.setUsuarioInsert(nameUser);
                     objEvolucaoAdmPedago.setDataInsert(dataModFinal);
@@ -3685,7 +3730,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA WHERE IdEvolucao='" + IdEvolucao + "'");
+                conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
+                        + "WHERE IdEvolucao='" + IdEvolucao + "'");
                 conecta.rs.first();
                 jCodigoEvolucao.setText(conecta.rs.getString("IdEvolucao"));
                 jDataEvolucao.setDate(conecta.rs.getDate("DataEvolucao"));
@@ -3694,6 +3740,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 jDataEncaminhamentoEvo.setDate(conecta.rs.getDate("DataEncaminhamento"));
                 jHoraEnvioEvo.setText(conecta.rs.getString("HoraEncaminhamento"));
                 jTextoEvolucao.setText(conecta.rs.getString("TextoEvolucao"));
+                jComboBoxAcessoUni.setSelectedItem(conecta.rs.getString("AcessoUni"));
+                AnoIngresso.setValue(conecta.rs.getInt("AnoIngresso"));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Erro na seleção...\nERRO: " + e);
             }
@@ -3704,6 +3752,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Admissao;
+    private com.toedter.calendar.JYearChooser AnoIngresso;
     private javax.swing.JPanel EducacaoFamilia;
     private javax.swing.JPanel Evolucao;
     private javax.swing.JPanel Feminino;
@@ -3751,6 +3800,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jCheckBox9;
     public static javax.swing.JTextField jCodigoAdmissao;
     public static javax.swing.JTextField jCodigoEvolucao;
+    private javax.swing.JComboBox<String> jComboBoxAcessoUni;
     private javax.swing.JComboBox jComboBoxAchaEscola;
     private javax.swing.JComboBox jComboBoxAntecedentes;
     private javax.swing.JComboBox jComboBoxDificuldadeFala;
@@ -3845,6 +3895,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -4078,6 +4130,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEvolucao.setEnabled(!true);
         jNomeInternoEvolucao.setEnabled(!true);
         jTextoEvolucao.setEnabled(!true);
+        jComboBoxAcessoUni.setEnabled(!true);
+        AnoIngresso.setEnabled(!true);
     }
 
     public void limparTodosCampos() {
@@ -4148,6 +4202,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEvolucao.setDate(null);
         jNomeInternoEvolucao.setText("");
         jTextoEvolucao.setText("");
+        jComboBoxAcessoUni.setSelectedItem("Não");
+        AnoIngresso.setValue(0);
     }
 
     public void bloquearBotoes() {
@@ -4198,6 +4254,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
         jObservacao.setEnabled(true);
+        jComboBoxAcessoUni.setEnabled(true);
+        AnoIngresso.setEnabled(true);
         //
         jBtPesquisarInterno.setEnabled(true);
         //
@@ -4216,6 +4274,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
         jObservacao.setEnabled(true);
+        jComboBoxAcessoUni.setEnabled(true);
+        AnoIngresso.setEnabled(true);
         //
         jBtPesquisarInterno.setEnabled(true);
         //
@@ -5122,6 +5182,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setEnabled(true);
         jHoraEnvioEvo.setEnabled(true);
         jTextoEvolucao.setEnabled(true);
+        jComboBoxAcessoUni.setEnabled(true);
+        AnoIngresso.setEnabled(true);
         //
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -5137,6 +5199,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setEnabled(true);
         jHoraEnvioEvo.setEnabled(true);
         jTextoEvolucao.setEnabled(true);
+        jComboBoxAcessoUni.setEnabled(true);
+        AnoIngresso.setEnabled(true);
         //
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -5154,12 +5218,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setDate(null);
         jHoraEnvioEvo.setText("");
         jTextoEvolucao.setText("");
+        jComboBoxAcessoUni.setSelectedItem("Não");
+        AnoIngresso.setValue(0);
         //
         jDataEvolucao.setEnabled(!true);
         jComboBoxEncaminharSetorEvo.setEnabled(!true);
         jDataEncaminhamentoEvo.setEnabled(!true);
         jHoraEnvioEvo.setEnabled(!true);
         jTextoEvolucao.setEnabled(!true);
+        jComboBoxAcessoUni.setEnabled(!true);
+        AnoIngresso.setEnabled(!true);
         //
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -5204,6 +5272,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setEnabled(!true);
         jHoraEnvioEvo.setEnabled(!true);
         jTextoEvolucao.setEnabled(!true);
+        jComboBoxAcessoUni.setEnabled(!true);
+        AnoIngresso.setEnabled(!true);
         //
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -5250,12 +5320,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jDataEncaminhamentoEvo.setDate(null);
             jHoraEnvioEvo.setText("");
             jTextoEvolucao.setText("");
+            jComboBoxAcessoUni.setSelectedItem("Não");
+            AnoIngresso.setValue(0);
             //
             jDataEvolucao.setEnabled(!true);
             jComboBoxEncaminharSetorEvo.setEnabled(!true);
             jDataEncaminhamentoEvo.setEnabled(!true);
             jHoraEnvioEvo.setEnabled(!true);
             jTextoEvolucao.setEnabled(!true);
+            jComboBoxAcessoUni.setEnabled(!true);
+            AnoIngresso.setEnabled(!true);
             //
             jBtNovaEvolucao.setEnabled(true);
             jBtAlterarEvolucao.setEnabled(!true);
@@ -5298,6 +5372,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jDataEncaminhamentoEvo.setEnabled(!true);
             jHoraEnvioEvo.setEnabled(!true);
             jTextoEvolucao.setEnabled(!true);
+            jComboBoxAcessoUni.setEnabled(!true);
+            AnoIngresso.setEnabled(!true);
             //
             jBtNovaEvolucao.setEnabled(true);
             jBtAlterarEvolucao.setEnabled(!true);

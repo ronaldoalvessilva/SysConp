@@ -402,8 +402,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         JPerfilCarcerario = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
-        jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
-        jSeparator18 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
@@ -765,16 +763,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         });
         Movimentacao.add(jMenuItem3);
         Movimentacao.add(jSeparator14);
-
-        jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 0));
-        jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
-        jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIndicadoresAcompanhamentoActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(jIndicadoresAcompanhamento);
-        Movimentacao.add(jSeparator18);
 
         LivroOcorrencia.setText("Livro de Ocorrência");
         LivroOcorrencia.addActionListener(new java.awt.event.ActionListener() {
@@ -2135,40 +2123,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
-    private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaManu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codAbrirENF == 1) {
-            if (objIndAcomp == null || objIndAcomp.isClosed()) {
-                objIndAcomp = new TelaIndicadoresAcompanhamento();
-                jPainelMedico.add(objIndAcomp);
-                objIndAcomp.setVisible(true);
-            } else {
-                if (objIndAcomp.isVisible()) {
-                    if (objIndAcomp.isIcon()) { // Se esta minimizado
-                        try {
-                            objIndAcomp.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objIndAcomp.toFront(); // traz para frente
-                        objIndAcomp.pack();//volta frame 
-                    }
-                } else {
-                    objIndAcomp = new TelaIndicadoresAcompanhamento();
-                    TelaModuloEnfermaria.jPainelMedico.add(objIndAcomp);//adicona frame ao JDesktopPane  
-                    objIndAcomp.setVisible(true);
-                }
-            }
-            try {
-                objIndAcomp.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoMedicaPsiquiatrica;
@@ -2210,7 +2164,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitantesMedicamentos;
     private javax.swing.JMenuItem jCalendarioVacinas;
     private javax.swing.JMenuItem jEncaminhamentosCirurgiasEspecialistas;
-    private javax.swing.JMenuItem jIndicadoresAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2231,7 +2184,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
-    private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
