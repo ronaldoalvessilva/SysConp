@@ -117,6 +117,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoPEDA objRegistroAtendBio = null;
     private TelaRegistroInternosAtendimentoImpressoPEDA objRegistroImpBio = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaRegistroLivroResenhaInterno objRegistroResenha = null;
     //
     int flag;
     int codUsuario;
@@ -238,6 +239,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaPSIPEDA = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PE:Psicologia";
     public static String telaIndAcompanhaAbaSPEDA = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PE:Serviço Social";
     //
+    public static String telaRegistroResenhaPEDA = "Movimentação:Registro de Leitura de Livros e Resenha de Internos:";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -330,6 +333,10 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    //
+    String pNomeRLRI = "";
+//    pNomeRLRI
+//    telaRegistroResenhaPEDA
 
     /**
      * Creates new form TelaPedagogia
@@ -403,6 +410,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Matriculas = new javax.swing.JMenuItem();
         ControleFrequencia = new javax.swing.JMenuItem();
         BaixaAlunos = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        jRegistroLeituraResenhaInternos = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
         AtualizarEscolaridadeInterno = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
@@ -754,6 +763,16 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(BaixaAlunos);
+        Movimentacao.add(jSeparator20);
+
+        jRegistroLeituraResenhaInternos.setForeground(new java.awt.Color(204, 0, 0));
+        jRegistroLeituraResenhaInternos.setText("Registro de Leitura/Resenha de Internos");
+        jRegistroLeituraResenhaInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistroLeituraResenhaInternosActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jRegistroLeituraResenhaInternos);
         Movimentacao.add(jSeparator16);
 
         AtualizarEscolaridadeInterno.setText("Atualizar Escolaridade de Interno");
@@ -2159,6 +2178,40 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRegistroAtendimentoImpressoActionPerformed
 
+    private void jRegistroLeituraResenhaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroLeituraResenhaInternosActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoImpressaoBio_PEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroAtendimentoImpressaoBio_PEDA) && codAbrirPEDA == 1) {
+            if (objRegistroResenha == null || objRegistroResenha.isClosed()) {
+                objRegistroResenha = new TelaRegistroLivroResenhaInterno();
+                jPainelPedagogia.add(objRegistroResenha);
+                objRegistroResenha.setVisible(true);
+            } else {
+                if (objRegistroResenha.isVisible()) {
+                    if (objRegistroResenha.isIcon()) { // Se esta minimizado
+                        try {
+                            objRegistroResenha.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objRegistroResenha.toFront(); // traz para frente
+                        objRegistroResenha.pack();//volta frame 
+                    }
+                } else {
+                    objRegistroResenha = new TelaRegistroLivroResenhaInterno();
+                    TelaModuloPedagogia.jPainelPedagogia.add(objRegistroResenha);//adicona frame ao JDesktopPane  
+                    objRegistroImpBio.setVisible(true);
+                }
+            }
+            try {
+                objRegistroResenha.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jRegistroLeituraResenhaInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -2216,6 +2269,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelPedagogia;
     private javax.swing.JMenuItem jRegistraAtendimentoBiometria;
     private javax.swing.JMenuItem jRegistroAtendimentoImpresso;
+    private javax.swing.JMenuItem jRegistroLeituraResenhaInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -2228,6 +2282,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
