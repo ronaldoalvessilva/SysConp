@@ -28,7 +28,7 @@ public class ControleResenhaInterno {
         buscarLivro(objResenha.getTituloLivro(), objResenha.getIdLivro());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO RESENHA_REMICAO_INTERNO (StatusResenha,DataResenha,IdLivro,IdInternoCrc,IdFunc,ResenhaEntregue,DataEntraga,NrResenha,ValidacaoResenha,Paragrafo,Margens,Legivel,Rasuras,Compreensao,Compatibilidade,Tema,Fidedignidade,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO RESENHA_REMICAO_INTERNO (StatusResenha,DataResenha,IdLivro,IdInternoCrc,IdFunc,ResenhaEntregue,DataEntraga,NrResenha,ValidacaoResenha,Paragrafo,Margens,Legivel,Rasuras,Compreensao,Compatibilidade,Tema,Fidedignidade,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objResenha.getStatusResenha());
             if (objResenha.getDataResenha() != null) {
                 pst.setTimestamp(2, new java.sql.Timestamp(objResenha.getDataResenha().getTime()));
@@ -45,20 +45,19 @@ public class ControleResenhaInterno {
                 pst.setDate(7, null);
             }
             pst.setInt(8, objResenha.getNrResenha());
-            pst.setString(9, objResenha.getTituloLivro());
-            pst.setFloat(10, objResenha.getValidacaoResenha());
-            pst.setFloat(11, objResenha.getParagrafo());
-            pst.setFloat(12, objResenha.getMargens());
-            pst.setFloat(13, objResenha.getLegivel());
-            pst.setFloat(14, objResenha.getRasuras());
-            pst.setFloat(15, objResenha.getCompreensao());
-            pst.setFloat(16, objResenha.getCompatibilidade());
-            pst.setFloat(17, objResenha.getTema());
-            pst.setString(18, objResenha.getFidedignidade());
-            pst.setString(19, objResenha.getObservacao());
-            pst.setString(20, objResenha.getUsuarioInsert());
-            pst.setString(21, objResenha.getDataInsert());
-            pst.setString(22, objResenha.getHorarioInsert());
+            pst.setFloat(9, objResenha.getValidacaoResenha());
+            pst.setFloat(10, objResenha.getParagrafo());
+            pst.setFloat(11, objResenha.getMargens());
+            pst.setFloat(12, objResenha.getLegivel());
+            pst.setFloat(13, objResenha.getRasuras());
+            pst.setFloat(14, objResenha.getCompreensao());
+            pst.setFloat(15, objResenha.getCompatibilidade());
+            pst.setFloat(16, objResenha.getTema());
+            pst.setString(17, objResenha.getFidedignidade());
+            pst.setString(18, objResenha.getObservacao());
+            pst.setString(19, objResenha.getUsuarioInsert());
+            pst.setString(20, objResenha.getDataInsert());
+            pst.setString(21, objResenha.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -90,20 +89,19 @@ public class ControleResenhaInterno {
                 pst.setDate(7, null);
             }
             pst.setInt(8, objResenha.getNrResenha());
-            pst.setString(9, objResenha.getTituloLivro());
-            pst.setFloat(10, objResenha.getValidacaoResenha());
-            pst.setFloat(11, objResenha.getParagrafo());
-            pst.setFloat(12, objResenha.getMargens());
-            pst.setFloat(13, objResenha.getLegivel());
-            pst.setFloat(14, objResenha.getRasuras());
-            pst.setFloat(15, objResenha.getCompreensao());
-            pst.setFloat(16, objResenha.getCompatibilidade());
-            pst.setFloat(17, objResenha.getTema());
-            pst.setString(18, objResenha.getFidedignidade());
-            pst.setString(19, objResenha.getObservacao());
-            pst.setString(20, objResenha.getUsuarioUp());
-            pst.setString(21, objResenha.getDataUp());
-            pst.setString(22, objResenha.getHorarioUp());
+            pst.setFloat(9, objResenha.getValidacaoResenha());
+            pst.setFloat(10, objResenha.getParagrafo());
+            pst.setFloat(11, objResenha.getMargens());
+            pst.setFloat(12, objResenha.getLegivel());
+            pst.setFloat(13, objResenha.getRasuras());
+            pst.setFloat(14, objResenha.getCompreensao());
+            pst.setFloat(15, objResenha.getCompatibilidade());
+            pst.setFloat(16, objResenha.getTema());
+            pst.setString(17, objResenha.getFidedignidade());
+            pst.setString(18, objResenha.getObservacao());
+            pst.setString(19, objResenha.getUsuarioUp());
+            pst.setString(20, objResenha.getDataUp());
+            pst.setString(21, objResenha.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
@@ -144,7 +142,7 @@ public class ControleResenhaInterno {
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE NomeInternoCrc='" + nome0 + "' "
-                    + "AND IdInernoCrc='" + codigo0 + "'");
+                    + "AND IdInternoCrc='" + codigo0 + "'");
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {
@@ -157,7 +155,7 @@ public class ControleResenhaInterno {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM LIVROS_REVISTAS_JORNAIS "
-                    + "WHERE NomeFunc='" + desc + "' "
+                    + "WHERE TituloLivro='" + desc + "' "
                     + "AND IdLivro='" + codigoDes + "'");
             conecta.rs.first();
             codLivro = conecta.rs.getInt("IdLivro");

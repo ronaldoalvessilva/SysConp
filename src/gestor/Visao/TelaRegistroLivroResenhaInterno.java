@@ -5,9 +5,11 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleResenhaInterno;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.LogSistema;
 import gestor.Modelo.ResenhaRemicaoInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
@@ -28,9 +30,15 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -46,6 +54,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     ResenhaRemicaoInterno objResenha = new ResenhaRemicaoInterno();
     ControleResenhaInterno control = new ControleResenhaInterno();
     //
+    ControleLogSistema controlLog = new ControleLogSistema();
+    LogSistema objLogSys = new LogSistema();
+    // Variáveis para gravar o log
+    String nomeModuloTela = "PEDAGOGIA:Registro de Resenha de Internos:Manutenção";
+    //
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -56,6 +69,16 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     String dataFinal;
     String dataEntrada;
     String dataSaida;
+    public static int idColaborador = 0;
+    //
+    Float pValidacaoResenha;
+    Float pParagrafo;
+    Float pMargens;
+    Float pLegivel;
+    Float pRasuras;
+    Float pCompreensao;
+    Float pCompatibilidade;
+    Float pTema;
 
     /**
      * Creates new form TelaRegistroLivroResenhaInterno
@@ -301,7 +324,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTabelaEntradaSaidaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -313,6 +336,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             }
         });
         jScrollPane3.setViewportView(jTabelaEntradaSaidaVisitasInternos);
+        if (jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setMinWidth(250);
+        }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
@@ -601,6 +633,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Nome do Interno");
 
+        jIdInternoCrcPEDA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoCrcPEDA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdInternoCrcPEDA.setEnabled(false);
 
@@ -1363,12 +1396,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jTabelaEntradaSaidaVisitasInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEntradaSaidaVisitasInternosMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:       
         flag = 1;
         if (flag == 1) {
             String IdLanc = "" + jTabelaEntradaSaidaVisitasInternos.getValueAt(jTabelaEntradaSaidaVisitasInternos.getSelectedRow(), 0);
             jIDPesqLanc.setText(IdLanc);
             //
+            bloquearCampos();
+            bloquearBotoes();
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -1376,7 +1411,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             //
-            bloquearCampos();
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtSalvar1.setEnabled(!true);
+            jBtCancelar1.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -1386,9 +1425,13 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON RESENHA_REMICAO_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN ITENS_AUTOR_LIVROS "
-                        + "ON LIVROS_REVISTAS_JORNAIS.IdLivro=ITENS_AUTOR_LIVROS "
+                        + "ON LIVROS_REVISTAS_JORNAIS.IdLivro=ITENS_AUTOR_LIVROS.IdLivro "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN AUTORES_LIVROS "
+                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor INNER JOIN COLABORADOR ON RESENHA_REMICAO_INTERNO.IdFunc=COLABORADOR.IdFunc "
                         + "WHERE IdResenha='" + IdLanc + "'");
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdResenha")));
@@ -1397,6 +1440,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                 jIdLivro.setText(conecta.rs.getString("IdLivro"));
                 jAutor.setText(conecta.rs.getString("NomeAutor"));
                 jNomeLivroRevista.setText(conecta.rs.getString("TituloLivro"));
+                idColaborador = conecta.rs.getInt("IdFunc");
                 jResponsavelAplicacaoResenha.setText(conecta.rs.getString("NomeFunc"));
                 jIdInternoCrcPEDA.setText(conecta.rs.getString("IdInternoCrc"));
                 jCnc.setText(conecta.rs.getString("Cnc"));
@@ -1405,28 +1449,68 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                 jComboBoxResenha.setSelectedItem(conecta.rs.getString("ResenhaEntregue"));
                 jDataEntregaResenha.setDate(conecta.rs.getDate("DataEntraga"));
                 jNrResenha.setText(conecta.rs.getString("NrResenha"));
-                jValidacaoResenha.setText(conecta.rs.getString("ValidacaoResenha"));
-                jParagrafo.setText(conecta.rs.getString("Paragrafo"));
-                jMargens.setText(conecta.rs.getString("Margens"));
-                jLegivel.setText(conecta.rs.getString("Legivel"));
-                jRasuras.setText(conecta.rs.getString("Rasuras"));
-                jCompreensao.setText(conecta.rs.getString("Compreensao"));
-                jCompatibilidade.setText(conecta.rs.getString("Compatibilidade"));
-                jTema.setText(conecta.rs.getString("Tema"));
+                //
+                pValidacaoResenha = conecta.rs.getFloat("ValidacaoResenha");
+                DecimalFormat vr = new DecimalFormat("#,##0.00");
+                String vlCusto = vr.format(pValidacaoResenha);
+                jValidacaoResenha.setText(vlCusto);
+                //
+                pParagrafo = conecta.rs.getFloat("Paragrafo");
+                DecimalFormat vp = new DecimalFormat("#,##0.00");
+                String vlparagrafo = vp.format(pParagrafo);
+                jParagrafo.setText(vlparagrafo);
+                //
+                pMargens = conecta.rs.getFloat("Margens");
+                DecimalFormat vm = new DecimalFormat("#,##0.00");
+                String vlMargens = vm.format(pMargens);
+                jMargens.setText(vlMargens);
+                //
+                pLegivel = conecta.rs.getFloat("Legivel");
+                DecimalFormat vl = new DecimalFormat("#,##0.00");
+                String vlLegivel = vl.format(pLegivel);
+                jLegivel.setText(vlLegivel);
+                //
+                pRasuras = conecta.rs.getFloat("Rasuras");
+                DecimalFormat vr0 = new DecimalFormat("#,##0.00");
+                String vlRasuras = vr0.format(pRasuras);
+                jRasuras.setText(vlRasuras);
+                //
+                pCompreensao = conecta.rs.getFloat("Compreensao");
+                DecimalFormat vc = new DecimalFormat("#,##0.00");
+                String vlCompreensao = vc.format(pCompreensao);
+                jCompreensao.setText(vlCompreensao);
+                //
+                pCompatibilidade = conecta.rs.getFloat("Compatibilidade");
+                DecimalFormat vcc = new DecimalFormat("#,##0.00");
+                String vlCompatibilidade = vcc.format(pCompatibilidade);
+                jCompatibilidade.setText(vlCompatibilidade);
+                //
+                pTema = conecta.rs.getFloat("Tema");
+                DecimalFormat vt = new DecimalFormat("#,##0.00");
+                String vlTema = vt.format(pTema);
+                jTema.setText(vlTema);
+                //
                 jFidedignidade.setText(conecta.rs.getString("Fidedignidade"));
-                jObservacaoPEDA.setText(conecta.rs.getString("ObsLanc"));
+                jObservacaoPEDA.setText(conecta.rs.getString("Observacao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
+            conecta.desconecta();
         }
     }//GEN-LAST:event_jTabelaEntradaSaidaVisitasInternosMouseClicked
 
     private void jBtPesquisarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarLivroActionPerformed
         // TODO add your handling code here:
+        TelaPesqLivroAcervoResenha objPesquisaAutorLivro = new TelaPesqLivroAcervoResenha();
+        TelaModuloPedagogia.jPainelPedagogia.add(objPesquisaAutorLivro);
+        objPesquisaAutorLivro.show();
     }//GEN-LAST:event_jBtPesquisarLivroActionPerformed
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // TODO add your handling code here:
+        TelaPesquisarInternoResenha objPesquisaInterno = new TelaPesquisarInternoResenha();
+        TelaModuloPedagogia.jPainelPedagogia.add(objPesquisaInterno);
+        objPesquisaInterno.show();
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -1470,13 +1554,22 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
         if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-            limparCampos();
-            bloquearCampos();
-            bloquearBotoes();
-            Excluir();
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                control.excluirResenhaInterno(objResenha);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                limparCampos();
+                bloquearCampos();
+                bloquearBotoes();
+                Excluir();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1486,12 +1579,74 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
         if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codGravarPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-
-            if (acao == 1) {
-
-            }
-            if (acao == 2) {
-
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataRealizacao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de realização do resumo.");
+            } else if (jIdLivro.getText().equals("") || jNomeLivroRevista.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual livro para o resumo.");
+            } else if (jResponsavelAplicacaoResenha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Favor informar o responsavél pelo resumo.");
+            } else if (jIdInternoCrcPEDA.getText().equals("") || jNomeInternoPEDA.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar para qual interno foi aplicado a resenha.");
+            } else if (jDataEntregaResenha.getDate() == null && jComboBoxResenha.getSelectedItem().equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar a data de entrega da resenha.");
+            } else {
+                objResenha.setStatusResenha(jStatusRegistro.getText());
+                objResenha.setDataResenha(jDataRealizacao.getDate());
+                objResenha.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                objResenha.setTituloLivro(jNomeLivroRevista.getText());
+                objResenha.setAutorLivro(jAutor.getText());
+                objResenha.setIdFunc(idColaborador);
+                objResenha.setNomeColaboradorResp(jResponsavelAplicacaoResenha.getText());
+                objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                objResenha.setResenhaEntregue((String) jComboBoxResenha.getSelectedItem());
+                objResenha.setNrResenha(Integer.valueOf(jNrResenha.getText()));
+                objResenha.setDataEntraga(jDataEntregaResenha.getDate());
+                try {
+                    objResenha.setValidacaoResenha(valorReal.parse(jValidacaoResenha.getText()).floatValue());
+                    objResenha.setParagrafo(valorReal.parse(jParagrafo.getText()).floatValue());
+                    objResenha.setMargens(valorReal.parse(jMargens.getText()).floatValue());
+                    objResenha.setLegivel(valorReal.parse(jLegivel.getText()).floatValue());
+                    objResenha.setRasuras(valorReal.parse(jRasuras.getText()).floatValue());
+                    objResenha.setCompreensao(valorReal.parse(jCompreensao.getText()).floatValue());
+                    objResenha.setCompatibilidade(valorReal.parse(jCompatibilidade.getText()).floatValue());
+                    objResenha.setTema(valorReal.parse(jTema.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaRegistroLivroResenhaInterno.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objResenha.setFidedignidade(jFidedignidade.getText());
+                objResenha.setObservacao(jObservacaoPEDA.getText());
+                if (acao == 1) {
+                    objResenha.setUsuarioInsert(nameUser);
+                    objResenha.setDataInsert(dataModFinal);
+                    objResenha.setHorarioInsert(horaMov);
+                    //
+                    control.incluirResenhaInterno(objResenha);
+                    BuscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objResenha.setUsuarioUp(nameUser);
+                    objResenha.setDataUp(dataModFinal);
+                    objResenha.setHorarioUp(horaMov);
+                    //
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarResenhaInterno(objResenha);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1516,22 +1671,154 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codIncluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
+            acao = 1;
+            limparCampos();
+            bloquearCampos();
+            bloquearBotoes();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovo1ActionPerformed
 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                control.excluirResenhaInterno(objResenha);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                limparCampos();
+                bloquearCampos();
+                bloquearBotoes();
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterar1ActionPerformed
 
     private void jBtExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluir1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                control.excluirResenhaInterno(objResenha);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                limparCampos();
+                bloquearCampos();
+                bloquearBotoes();
+                Excluir();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluir1ActionPerformed
 
     private void jBtSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvar1ActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codGravarPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataRealizacao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de realização do resumo.");
+            } else if (jIdLivro.getText().equals("") || jNomeLivroRevista.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual livro para o resumo.");
+            } else if (jResponsavelAplicacaoResenha.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Favor informar o responsavél pelo resumo.");
+            } else if (jIdInternoCrcPEDA.getText().equals("") || jNomeInternoPEDA.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar para qual interno foi aplicado a resenha.");
+            } else if (jDataEntregaResenha.getDate() == null && jComboBoxResenha.getSelectedItem().equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar a data de entrega da resenha.");
+            } else {
+                objResenha.setStatusResenha(jStatusRegistro.getText());
+                objResenha.setDataResenha(jDataRealizacao.getDate());
+                objResenha.setIdLivro(Integer.valueOf(jIdLivro.getText()));
+                objResenha.setTituloLivro(jNomeLivroRevista.getText());
+                objResenha.setAutorLivro(jAutor.getText());
+                objResenha.setIdFunc(idColaborador);
+                objResenha.setNomeColaboradorResp(jResponsavelAplicacaoResenha.getText());
+                objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                objResenha.setResenhaEntregue((String) jComboBoxResenha.getSelectedItem());
+                objResenha.setNrResenha(Integer.valueOf(jNrResenha.getText()));
+                objResenha.setDataEntraga(jDataEntregaResenha.getDate());
+                try {
+                    objResenha.setValidacaoResenha(valorReal.parse(jValidacaoResenha.getText()).floatValue());
+                    objResenha.setParagrafo(valorReal.parse(jParagrafo.getText()).floatValue());
+                    objResenha.setMargens(valorReal.parse(jMargens.getText()).floatValue());
+                    objResenha.setLegivel(valorReal.parse(jLegivel.getText()).floatValue());
+                    objResenha.setRasuras(valorReal.parse(jRasuras.getText()).floatValue());
+                    objResenha.setCompreensao(valorReal.parse(jCompreensao.getText()).floatValue());
+                    objResenha.setCompatibilidade(valorReal.parse(jCompatibilidade.getText()).floatValue());
+                    objResenha.setTema(valorReal.parse(jTema.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaRegistroLivroResenhaInterno.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objResenha.setFidedignidade(jFidedignidade.getText());
+                objResenha.setObservacao(jObservacaoPEDA.getText());
+                if (acao == 1) {
+                    objResenha.setUsuarioInsert(nameUser);
+                    objResenha.setDataInsert(dataModFinal);
+                    objResenha.setHorarioInsert(horaMov);
+                    //
+                    control.incluirResenhaInterno(objResenha);
+                    BuscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objResenha.setUsuarioUp(nameUser);
+                    objResenha.setDataUp(dataModFinal);
+                    objResenha.setHorarioUp(horaMov);
+                    //
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarResenhaInterno(objResenha);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvar1ActionPerformed
 
     private void jBtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelar1ActionPerformed
         // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
+        Cancelar();
     }//GEN-LAST:event_jBtCancelar1ActionPerformed
 
     private void jBtAuditoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoria1ActionPerformed
@@ -1540,15 +1827,19 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     private void jBtSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSair1ActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBtSair1ActionPerformed
 
     private void jBtColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtColaboradorActionPerformed
         // TODO add your handling code here:
+        TelaPesquisarColaboradorResenha objPesquisarCola = new TelaPesquisarColaboradorResenha();
+        TelaModuloPedagogia.jPainelPedagogia.add(objPesquisarCola);
+        objPesquisarCola.show();
     }//GEN-LAST:event_jBtColaboradorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jAutor;
+    public static javax.swing.JTextField jAutor;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterar1;
     private javax.swing.JButton jBtAuditoria;
@@ -1573,7 +1864,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvar1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JTextField jCnc;
+    public static javax.swing.JTextField jCnc;
     private javax.swing.JComboBox<String> jComboBoxResenha;
     private javax.swing.JFormattedTextField jCompatibilidade;
     private javax.swing.JFormattedTextField jCompreensao;
@@ -1581,11 +1872,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRealizacao;
-    private javax.swing.JTextField jEnderecoCela;
+    public static javax.swing.JTextField jEnderecoCela;
     private javax.swing.JTextArea jFidedignidade;
     private javax.swing.JTextField jIDPesqLanc;
-    private javax.swing.JTextField jIdInternoCrcPEDA;
-    private javax.swing.JTextField jIdLivro;
+    public static javax.swing.JTextField jIdInternoCrcPEDA;
+    public static javax.swing.JTextField jIdLivro;
     private javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1616,8 +1907,8 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel9;
     private javax.swing.JFormattedTextField jLegivel;
     private javax.swing.JFormattedTextField jMargens;
-    private javax.swing.JTextField jNomeInternoPEDA;
-    private javax.swing.JTextField jNomeLivroRevista;
+    public static javax.swing.JTextField jNomeInternoPEDA;
+    public static javax.swing.JTextField jNomeLivroRevista;
     private javax.swing.JTextField jNrResenha;
     private javax.swing.JTextArea jObservacaoPEDA;
     private javax.swing.JPanel jPanel1;
@@ -1641,7 +1932,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JFormattedTextField jParagrafo;
     private javax.swing.JTextField jPesqNomeInternoVisitado;
     private javax.swing.JFormattedTextField jRasuras;
-    private javax.swing.JTextField jResponsavelAplicacaoResenha;
+    public static javax.swing.JTextField jResponsavelAplicacaoResenha;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1686,6 +1977,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     public void formatarCampos() {
         jObservacaoPEDA.setLineWrap(true);
         jObservacaoPEDA.setWrapStyleWord(true);
+        //
+        jValidacaoResenha.setText("0,0");
+        jParagrafo.setText("0,0");
+        jMargens.setText("0,0");
+        jLegivel.setText("0,0");
+        jRasuras.setText("0,0");
+        jCompreensao.setText("0,0");
+        jCompatibilidade.setText("0,0");
+        jTema.setText("0,0");
     }
 
     public void bloquearCampos() {
@@ -1714,6 +2014,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTema.setEnabled(!true);
         jFidedignidade.setEnabled(!true);
         jObservacaoPEDA.setEnabled(!true);
+        //
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
@@ -1744,15 +2052,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jComboBoxResenha.setSelectedItem(null);
         jDataEntregaResenha.setDate(null);
         jNrResenha.setText("");
-        jValidacaoResenha.setText("");
+        jValidacaoResenha.setText("0,0");
         //
-        jParagrafo.setText("");
-        jMargens.setText("");
-        jLegivel.setText("");
-        jRasuras.setText("");
-        jCompreensao.setText("");
-        jCompatibilidade.setText("");
-        jTema.setText("");
+        jParagrafo.setText("0,0");
+        jMargens.setText("0,0");
+        jLegivel.setText("0,0");
+        jRasuras.setText("0,0");
+        jCompreensao.setText("0,0");
+        jCompatibilidade.setText("0,0");
+        jTema.setText("0,0");
         jFidedignidade.setText("");
         jObservacaoPEDA.setText("");
     }
@@ -1760,6 +2068,19 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     public void Novo() {
         jStatusRegistro.setText("ABERTO");
         jDataRealizacao.setCalendar(Calendar.getInstance());
+        jComboBoxResenha.setSelectedItem("Selecione...");
+        jValidacaoResenha.setText("0,0");
+        jParagrafo.setText("0,0");
+        jMargens.setText("0,0");
+        jLegivel.setText("0,0");
+        jRasuras.setText("0,0");
+        jCompreensao.setText("0,0");
+        jCompatibilidade.setText("0,0");
+        jTema.setText("0,0");
+        //
+        jBtPesquisarLivro.setEnabled(true);
+        jBtColaborador.setEnabled(true);
+        jBtPesquisarInterno.setEnabled(true);
         //
         jDataRealizacao.setEnabled(true);
         jComboBoxResenha.setEnabled(true);
@@ -1787,6 +2108,10 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jDataEntregaResenha.setEnabled(true);
         jNrResenha.setEnabled(true);
         jValidacaoResenha.setEnabled(true);
+        //
+        jBtPesquisarLivro.setEnabled(true);
+        jBtColaborador.setEnabled(true);
+        jBtPesquisarInterno.setEnabled(true);
         //
         jParagrafo.setEnabled(true);
         jMargens.setEnabled(true);
@@ -1836,6 +2161,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         try {
             conecta.executaSQL("SELECT * FROM RESENHA_REMICAO_INTERNO");
             conecta.rs.last();
+            jIdRegistro.setText(conecta.rs.getString("IdResenha"));
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -1851,26 +2177,26 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataLanc");
+                dataEntrada = conecta.rs.getString("DataResenha");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("ObsLanc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdResenha"), dataEntrada, conecta.rs.getString("StatusResenha"), conecta.rs.getString("Observacao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaSaidaVisitasInternos.setModel(modelo);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(470);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaEntradaSaidaVisitasInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaSaidaVisitasInternos.setAutoResizeMode(jTabelaEntradaSaidaVisitasInternos.AUTO_RESIZE_OFF);
@@ -1889,26 +2215,26 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataLanc");
+                dataEntrada = conecta.rs.getString("DataResenha");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdResenha"), dataEntrada, conecta.rs.getString("StatusResenha"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaSaidaVisitasInternos.setModel(modelo);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(470);
+        jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaEntradaSaidaVisitasInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaSaidaVisitasInternos.setAutoResizeMode(jTabelaEntradaSaidaVisitasInternos.AUTO_RESIZE_OFF);
@@ -1947,6 +2273,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaEntradaSaidaVisitasInternos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
