@@ -37,7 +37,8 @@ public class ControleInternoCrc {
         try (
                 PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PRONTUARIOSCRC (MatriculaCrc,DataCadastCrc,DataNasciCrc,"
                         + "FotoInternoCrc,NomeInternoCrc,MaeInternoCrc,PaiInternoCrc,AlcunhaCrc,RgInternoCrc,CpfInternoCrc,EscolaridadeCrc,EstadoCivilCrc,SexoCrc,"
-                        + "SituacaoCrc,ReligiaoCrc,ProfissaoCrc,EnderecoCrc,BairroCrc,CidadeCrc,EstadoCrc,IdPais,IdCidade,TelefoneCrc,Telefone1Crc,CelularCrc,UsuarioInsert,DataInsert,HorarioInsert,CartaoSus,Cnc,ImagemFrente) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+                        + "SituacaoCrc,ReligiaoCrc,ProfissaoCrc,EnderecoCrc,BairroCrc,CidadeCrc,EstadoCrc,IdPais,IdCidade,TelefoneCrc,Telefone1Crc,CelularCrc,"
+                        + "UsuarioInsert,DataInsert,HorarioInsert,CartaoSus,Cnc,ImagemFrente,DocumentacaoCompleta,QuaisDocumentosFaltam) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
             pst.setString(1, objProCrc.getMatricula());
             pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataCadast().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objProCrc.getDataNasci().getTime()));
@@ -69,6 +70,8 @@ public class ControleInternoCrc {
             pst.setString(29, objProCrc.getCartoaSus());
             pst.setString(30, objProCrc.getCnc());
             pst.setBytes(31, objProCrc.getImagemInterno());
+            pst.setString(32, objProCrc.getDocumentacaoCompleta());
+            pst.setString(33, objProCrc.getQuaisDocumentosFaltam());
             pst.execute();
         }
         conecta.desconecta();
@@ -83,7 +86,8 @@ public class ControleInternoCrc {
         // Alterar Registro na tabela de INTERNOS CRC
         try (PreparedStatement pst = conecta.con.prepareStatement("UPDATE PRONTUARIOSCRC SET MatriculaCrc=?,DataCadastCrc=?,DataNasciCrc=?,"
                 + "NomeInternoCrc=?,MaeInternoCrc=?,PaiInternoCrc=?,AlcunhaCrc=?,RgInternoCrc=?,CpfInternoCrc=?,FotoInternoCrc=?,EscolaridadeCrc=?,EstadoCivilCrc=?,SexoCrc=?,"
-                + "SituacaoCrc=?,ReligiaoCrc=?,ProfissaoCrc=?,EnderecoCrc=?,BairroCrc=?,CidadeCrc=?,EstadoCrc=?,IdCidade=?,IdPais=?,TelefoneCrc=?,Telefone1Crc=?,CelularCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=?,CartaoSus=?,Cnc=?,ImagemFrente=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'")) {
+                + "SituacaoCrc=?,ReligiaoCrc=?,ProfissaoCrc=?,EnderecoCrc=?,BairroCrc=?,CidadeCrc=?,EstadoCrc=?,IdCidade=?,IdPais=?,TelefoneCrc=?,Telefone1Crc=?,CelularCrc=?,"
+                + "UsuarioUp=?,DataUp=?,HorarioUp=?,CartaoSus=?,Cnc=?,ImagemFrente=?,DocumentacaoCompleta=?,QuaisDocumentosFaltam=? WHERE IdInternoCrc='" + objProCrc.getIdInterno() + "'")) {
             pst.setString(1, objProCrc.getMatricula());
             pst.setTimestamp(2, new java.sql.Timestamp(objProCrc.getDataCadast().getTime()));
             pst.setTimestamp(3, new java.sql.Timestamp(objProCrc.getDataNasci().getTime()));
@@ -115,6 +119,8 @@ public class ControleInternoCrc {
             pst.setString(29, objProCrc.getCartoaSus());
             pst.setString(30, objProCrc.getCnc());
             pst.setBytes(31, objProCrc.getImagemInterno());
+            pst.setString(32, objProCrc.getDocumentacaoCompleta());
+            pst.setString(33, objProCrc.getQuaisDocumentosFaltam());
             pst.executeUpdate();
         }
         conecta.desconecta();
