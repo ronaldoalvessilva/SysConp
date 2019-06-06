@@ -25,7 +25,7 @@ public class ControleInternosMatriculado {
         buscarInterno(objItensMat.getNomeInternoCrc(), objItensMat.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSMATRICULA (IdMat,IdInternoCrc,Bloqueio,UsuarioInsert,DataInsert,HorarioInsert,StatusAluno,SituacaoAluno,DataConDes) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSMATRICULA (IdMat,IdInternoCrc,Bloqueio,UsuarioInsert,DataInsert,HorarioInsert,StatusAluno,SituacaoAluno,DataConDes,Observacao) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensMat.getIdMat());
             pst.setInt(2, codInterno);
             pst.setString(3, objItensMat.getBloqueio());
@@ -39,6 +39,7 @@ public class ControleInternosMatriculado {
             } else {
                 pst.setDate(9, null);
             }
+            pst.setString(10, objItensMat.getObservacao());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -51,7 +52,7 @@ public class ControleInternosMatriculado {
         buscarInterno(objItensMat.getNomeInternoCrc(), objItensMat.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSMATRICULA SET IdMat=?,IdInternoCrc=?,Bloqueio=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAluno=?,SituacaoAluno=?,DataConDes=? WHERE IdItem='" + objItensMat.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSMATRICULA SET IdMat=?,IdInternoCrc=?,Bloqueio=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAluno=?,SituacaoAluno=?,DataConDes=?,Observacao=? WHERE IdItem='" + objItensMat.getIdItem() + "'");
             pst.setInt(1, objItensMat.getIdMat());
             pst.setInt(2, codInterno);
             pst.setString(3, objItensMat.getBloqueio());
@@ -65,6 +66,7 @@ public class ControleInternosMatriculado {
             } else {
                 pst.setDate(9, null);
             }
+            pst.setString(10, objItensMat.getObservacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);

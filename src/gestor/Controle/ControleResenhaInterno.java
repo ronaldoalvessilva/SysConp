@@ -123,6 +123,76 @@ public class ControleResenhaInterno {
         return objResenha;
     }
 
+    public ResenhaRemicaoInterno finalizarResenhaInterno(ResenhaRemicaoInterno objResenha) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE RESENHA_REMICAO_INTERNO SET StatusResenha=? WHERE IdResenha='" + objResenha.getIdResenha() + "'");
+            pst.setString(1, objResenha.getStatusResenha());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objResenha;
+    }
+
+    public ResenhaRemicaoInterno incluirDiaResenhaInterno(ResenhaRemicaoInterno objResenha) {
+        buscarInterno(objResenha.getNomeInternoCrc(), objResenha.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ACUMULADOR_REMICAO_INTERNO (DataRegistro,IdInternoCrc,IdResenha,DiaResenha,Validacao) VALUES(?,?,?,?,?)");
+            if (objResenha.getDataResenha() != null) {
+                pst.setTimestamp(1, new java.sql.Timestamp(objResenha.getDataResenha().getTime()));
+            } else {
+                pst.setDate(1, null);
+            }
+            pst.setInt(2, codInterno);
+            pst.setInt(3, objResenha.getIdResenha());
+            pst.setInt(4, objResenha.getDiaResenha());
+            pst.setFloat(5, objResenha.getValidacaoResenha());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objResenha;
+    }
+
+    public ResenhaRemicaoInterno alterarDiaResenhaInterno(ResenhaRemicaoInterno objResenha) {
+        buscarInterno(objResenha.getNomeInternoCrc(), objResenha.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACUMULADOR_REMICAO_INTERNO SET DataRegistro=?,IdInternoCrc=?,IdResenha=?,DiaResenha=?,Validacao=? WHERE IdAcum='" + objResenha.getIdAcum() + "'");
+            if (objResenha.getDataResenha() != null) {
+                pst.setTimestamp(1, new java.sql.Timestamp(objResenha.getDataResenha().getTime()));
+            } else {
+                pst.setDate(1, null);
+            }
+            pst.setInt(2, codInterno);
+            pst.setInt(3, objResenha.getIdResenha());
+            pst.setInt(4, objResenha.getDiaResenha());
+            pst.setFloat(5, objResenha.getValidacaoResenha());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objResenha;
+    }
+
+    public ResenhaRemicaoInterno excluirDiaResenhaInterno(ResenhaRemicaoInterno objResenha) {
+        buscarInterno(objResenha.getNomeInternoCrc(), objResenha.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ACUMULADOR_REMICAO_INTERNO WHERE IdAcum='" + objResenha.getIdAcum() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objResenha;
+    }
+
     public void buscarColaborador(String nome, int codigo) {
         conecta.abrirConexao();
         try {

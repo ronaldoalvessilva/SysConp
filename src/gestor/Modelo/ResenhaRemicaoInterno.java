@@ -36,17 +36,20 @@ public class ResenhaRemicaoInterno {
     private float tema;
     private String fidedignidade;
     private String observacao;
+    private int idAcum;
+    private int diaResenha;
+    private int totalDias;
     private String usuarioInsert;
     private String usuarioUp;
     private String dataInsert;
     private String dataUp;
     private String horarioInsert;
-    private String horarioUp;   
+    private String horarioUp;  
 
     public ResenhaRemicaoInterno() {
     }
 
-    public ResenhaRemicaoInterno(int idResenha, String statusResenha, Date dataResenha, int idLivro, String tituloLivro, String autorLivro, int idInternoCrc, String nomeInternoCrc, int idFunc, String nomeColaboradorResp, String resenhaEntregue, Date dataEntraga, int nrResenha, float validacaoResenha, float paragrafo, float margens, float legivel, float rasuras, float compreensao, float compatibilidade, float tema, String fidedignidade, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ResenhaRemicaoInterno(int idResenha, String statusResenha, Date dataResenha, int idLivro, String tituloLivro, String autorLivro, int idInternoCrc, String nomeInternoCrc, int idFunc, String nomeColaboradorResp, String resenhaEntregue, Date dataEntraga, int nrResenha, float validacaoResenha, float paragrafo, float margens, float legivel, float rasuras, float compreensao, float compatibilidade, float tema, String fidedignidade, String observacao, int idAcum, int diaResenha, int totalDias, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idResenha = idResenha;
         this.statusResenha = statusResenha;
         this.dataResenha = dataResenha;
@@ -70,6 +73,9 @@ public class ResenhaRemicaoInterno {
         this.tema = tema;
         this.fidedignidade = fidedignidade;
         this.observacao = observacao;
+        this.idAcum = idAcum;
+        this.diaResenha = diaResenha;
+        this.totalDias = totalDias;
         this.usuarioInsert = usuarioInsert;
         this.usuarioUp = usuarioUp;
         this.dataInsert = dataInsert;
@@ -398,6 +404,48 @@ public class ResenhaRemicaoInterno {
      */
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    /**
+     * @return the idAcum
+     */
+    public int getIdAcum() {
+        return idAcum;
+    }
+
+    /**
+     * @param idAcum the idAcum to set
+     */
+    public void setIdAcum(int idAcum) {
+        this.idAcum = idAcum;
+    }
+
+    /**
+     * @return the diaResenha
+     */
+    public int getDiaResenha() {
+        return diaResenha;
+    }
+
+    /**
+     * @param diaResenha the diaResenha to set
+     */
+    public void setDiaResenha(int diaResenha) {
+        this.diaResenha = diaResenha;
+    }
+
+    /**
+     * @return the totalDias
+     */
+    public int getTotalDias() {
+        return totalDias;
+    }
+
+    /**
+     * @param totalDias the totalDias to set
+     */
+    public void setTotalDias(int totalDias) {
+        this.totalDias = totalDias;
     }
 
     /**

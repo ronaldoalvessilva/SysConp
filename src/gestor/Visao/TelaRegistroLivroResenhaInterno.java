@@ -11,6 +11,8 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ResenhaRemicaoInterno;
+import gestor.Modelo.UnidadePenal;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
@@ -29,6 +31,9 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -36,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +49,11 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -65,6 +76,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     int acao;
     int flag;
     int count = 0;
+    int count1 = 0;
     String dataInicial;
     String dataFinal;
     String dataEntrada;
@@ -79,6 +91,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     Float pCompreensao;
     Float pCompatibilidade;
     Float pTema;
+    //
+    int pDiasRemissao = 0;
+    int pDiasTotal = 0;
 
     /**
      * Creates new form TelaRegistroLivroResenhaInterno
@@ -201,6 +216,16 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jBtAuditoria1 = new javax.swing.JButton();
         jBtSair1 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jTotalDiasAcumulado = new javax.swing.JFormattedTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTabelaDiasRemissao = new javax.swing.JTable();
+        jPanel33 = new javax.swing.JPanel();
+        jLabel64 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jtotalRegistrosDias = new javax.swing.JLabel();
+        jPanel35 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -489,10 +514,20 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jBtImpressao.setContentAreaFilled(false);
         jBtImpressao.setEnabled(false);
+        jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImpressaoActionPerformed(evt);
+            }
+        });
 
         jBtManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Pdf16.png"))); // NOI18N
         jBtManual.setToolTipText("Texto sobre a lei de remição");
         jBtManual.setContentAreaFilled(false);
+        jBtManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtManualActionPerformed(evt);
+            }
+        });
 
         jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
         jBtFinalizar.setToolTipText("Finalizar Registro");
@@ -1279,15 +1314,135 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
         jTabbedPane1.addTab("Itens Avaliados/Pontuação", jPanel8);
 
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Total de Dias Acumulado:");
+
+        jTotalDiasAcumulado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotalDiasAcumulado.setForeground(new java.awt.Color(204, 0, 0));
+        jTotalDiasAcumulado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotalDiasAcumulado.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jTotalDiasAcumulado.setEnabled(false);
+        jTotalDiasAcumulado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTotalDiasAcumulado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTotalDiasAcumulado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jTabelaDiasRemissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDiasRemissao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data Registro", "Dias", "Validação Resenha"
+            }
+        ));
+        jScrollPane4.setViewportView(jTabelaDiasRemissao);
+        if (jTabelaDiasRemissao.getColumnModel().getColumnCount() > 0) {
+            jTabelaDiasRemissao.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaDiasRemissao.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaDiasRemissao.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaDiasRemissao.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaDiasRemissao.getColumnModel().getColumn(2).setMinWidth(60);
+            jTabelaDiasRemissao.getColumnModel().getColumn(2).setMaxWidth(60);
+            jTabelaDiasRemissao.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaDiasRemissao.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
+
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel64.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel33Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel64))
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel64)
+        );
+
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistrosDias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistrosDias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistrosDias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Dias Remição", jPanel15);
@@ -1396,7 +1551,10 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jTabelaEntradaSaidaVisitasInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEntradaSaidaVisitasInternosMouseClicked
-        // TODO add your handling code here:       
+        // TODO add your handling code here:   
+        pDiasTotal = 0;
+        count = 0;
+        count1 = 0;
         flag = 1;
         if (flag == 1) {
             String IdLanc = "" + jTabelaEntradaSaidaVisitasInternos.getValueAt(jTabelaEntradaSaidaVisitasInternos.getSelectedRow(), 0);
@@ -1410,12 +1568,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
+            jBtImpressao.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
             //
             jBtNovo1.setEnabled(true);
             jBtAlterar1.setEnabled(true);
             jBtExcluir1.setEnabled(true);
             jBtSalvar1.setEnabled(!true);
             jBtCancelar1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -1431,7 +1592,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                         + "INNER JOIN CELAS "
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN AUTORES_LIVROS "
-                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor INNER JOIN COLABORADOR ON RESENHA_REMICAO_INTERNO.IdFunc=COLABORADOR.IdFunc "
+                        + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
+                        + "INNER JOIN COLABORADOR "
+                        + "ON RESENHA_REMICAO_INTERNO.IdFunc=COLABORADOR.IdFunc "
                         + "WHERE IdResenha='" + IdLanc + "'");
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdResenha")));
@@ -1496,6 +1659,10 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             conecta.desconecta();
+            popularTabelaDiasRemicaoInterno("SELECT * FROM ACUMULADOR_REMICAO_INTERNO "
+                    + "INNER JOIN RESENHA_REMICAO_INTERNO "
+                    + "ON ACUMULADOR_REMICAO_INTERNO.IdResenha=RESENHA_REMICAO_INTERNO.IdResenha "
+                    + "WHERE ACUMULADOR_REMICAO_INTERNO.IdInternoCrc='" + jIdInternoCrcPEDA.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaEntradaSaidaVisitasInternosMouseClicked
 
@@ -1515,6 +1682,26 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        objResenha.setStatusResenha(jStatusRegistro.getText());
+        if (jStatusRegistro.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Essa registro já foi FINALIZADO.");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Finalizou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                String statusEntrada = "FINALIZADO";
+                objResenha.setStatusResenha(statusEntrada);
+                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                control.finalizarResenhaInterno(objResenha);
+                jStatusRegistro.setText(statusEntrada);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1525,6 +1712,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             limparCampos();
             bloquearCampos();
             bloquearBotoes();
+            limparTabelaRemicao();
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -1538,13 +1726,18 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
         if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codAlterarPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objResenha.setStatusResenha(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1554,21 +1747,27 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
         if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
-                control.excluirResenhaInterno(objResenha);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                limparCampos();
-                bloquearCampos();
-                bloquearBotoes();
-                Excluir();
+            objResenha.setStatusResenha(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                    control.excluirResenhaInterno(objResenha);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    limparCampos();
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Excluir();
+
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1625,6 +1824,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     //
                     control.incluirResenhaInterno(objResenha);
                     BuscarCodigo();
+                    //INCLUIR DIAS DE REMIÇÃO (4)
+                    objResenha.setDataResenha(jDataRealizacao.getDate());
+                    objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                    pDiasRemissao = 4;
+                    objResenha.setDiaResenha(pDiasRemissao);
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.incluirDiaResenhaInterno(objResenha);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
@@ -1639,6 +1846,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     //
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.alterarResenhaInterno(objResenha);
+                    //INCLUIR DIAS DE REMIÇÃO (4)
+                    objResenha.setDataResenha(jDataRealizacao.getDate());
+                    objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                    pDiasRemissao = 4;
+                    objResenha.setDiaResenha(pDiasRemissao);
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarDiaResenhaInterno(objResenha);
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1667,6 +1882,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRemicao objAudiRemi = new TelaAuditoriaRemicao();
+        TelaModuloPedagogia.jPainelPedagogia.add(objAudiRemi);
+        objAudiRemi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo1ActionPerformed
@@ -1689,22 +1907,18 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private void jBtAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterar1ActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
-        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
-                control.excluirResenhaInterno(objResenha);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                limparCampos();
+        if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codAlterarPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
+            objResenha.setStatusResenha(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
                 bloquearCampos();
                 bloquearBotoes();
-                Excluir();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1715,21 +1929,26 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         // TODO add your handling code here:
         buscarAcessoUsuario(telaRegistroResenhaPEDA);
         if (codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codExcluirPEDA == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES")) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
-                control.excluirResenhaInterno(objResenha);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                limparCampos();
-                bloquearCampos();
-                bloquearBotoes();
-                Excluir();
+            objResenha.setStatusResenha(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objResenha.setIdResenha(Integer.parseInt(jIdRegistro.getText()));
+                    control.excluirResenhaInterno(objResenha);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    limparCampos();
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Excluir();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1786,6 +2005,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     //
                     control.incluirResenhaInterno(objResenha);
                     BuscarCodigo();
+                    //INCLUIR DIAS DE REMIÇÃO (4)
+                    objResenha.setDataResenha(jDataRealizacao.getDate());
+                    objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                    pDiasRemissao = 4;
+                    objResenha.setDiaResenha(pDiasRemissao);
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.incluirDiaResenhaInterno(objResenha);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
@@ -1800,6 +2027,14 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     //
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.alterarResenhaInterno(objResenha);
+                    //INCLUIR DIAS DE REMIÇÃO (4)
+                    objResenha.setDataResenha(jDataRealizacao.getDate());
+                    objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
+                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
+                    pDiasRemissao = 4;
+                    objResenha.setDiaResenha(pDiasRemissao);
+                    objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarDiaResenhaInterno(objResenha);
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1823,6 +2058,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     private void jBtAuditoria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoria1ActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRemicao objAudiRemi = new TelaAuditoriaRemicao();
+        TelaModuloPedagogia.jPainelPedagogia.add(objAudiRemi);
+        objAudiRemi.show();
     }//GEN-LAST:event_jBtAuditoria1ActionPerformed
 
     private void jBtSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSair1ActionPerformed
@@ -1836,6 +2074,54 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         TelaModuloPedagogia.jPainelPedagogia.add(objPesquisarCola);
         objPesquisarCola.show();
     }//GEN-LAST:event_jBtColaboradorActionPerformed
+
+    private void jBtManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtManualActionPerformed
+        // TODO add your handling code here:
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File("C:\\SysConp\\Manuais\\Projeto Remicao pela Leitura.pdf\\"));
+        } catch (IOException ex) {
+            Logger.getLogger(TelaRegistroLivroResenhaInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtManualActionPerformed
+
+    private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioResenhaInterno.jasper";
+            conecta.executaSQL("SELECT * FROM RESENHA_REMICAO_INTERNO "
+                    + "INNER JOIN LIVROS_REVISTAS_JORNAIS "
+                    + "ON RESENHA_REMICAO_INTERNO.IdLivro=LIVROS_REVISTAS_JORNAIS.IdLivro "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON RESENHA_REMICAO_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN ITENS_AUTOR_LIVROS "
+                    + "ON LIVROS_REVISTAS_JORNAIS.IdLivro=ITENS_AUTOR_LIVROS.IdLivro "
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN AUTORES_LIVROS "
+                    + "ON ITENS_AUTOR_LIVROS.IdAutor=AUTORES_LIVROS.IdAutor "
+                    + "INNER JOIN COLABORADOR "
+                    + "ON RESENHA_REMICAO_INTERNO.IdFunc=COLABORADOR.IdFunc "
+                    + "WHERE RESENHA_REMICAO_INTERNO.IdResenha='" + jIdRegistro.getText() + "'");
+            HashMap parametros = new HashMap();
+            parametros.put("pUnidade", descricaoUnidade);
+            parametros.put("pRegistro", jIdRegistro.getText());
+            parametros.put("pNomeUsuario", nameUser);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório Resenha de Internos");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_jBtImpressaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1877,11 +2163,12 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JTextField jIDPesqLanc;
     public static javax.swing.JTextField jIdInternoCrcPEDA;
     public static javax.swing.JTextField jIdLivro;
-    private javax.swing.JTextField jIdRegistro;
+    public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1902,6 +2189,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1915,6 +2203,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -1923,6 +2212,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1936,12 +2228,16 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jStatusRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTabelaDiasRemissao;
     private javax.swing.JTable jTabelaEntradaSaidaVisitasInternos;
     private javax.swing.JFormattedTextField jTema;
+    private javax.swing.JFormattedTextField jTotalDiasAcumulado;
     private javax.swing.JFormattedTextField jValidacaoResenha;
     private javax.swing.JLabel jtotalRegistros;
+    private javax.swing.JLabel jtotalRegistrosDias;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
@@ -1971,10 +2267,13 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTema.setBackground(Color.white);
         jFidedignidade.setBackground(Color.white);
         jObservacaoPEDA.setBackground(Color.white);
-
+        jObservacaoPEDA.setBackground(Color.white);
     }
 
     public void formatarCampos() {
+        jFidedignidade.setLineWrap(true);
+        jFidedignidade.setWrapStyleWord(true);
+        //
         jObservacaoPEDA.setLineWrap(true);
         jObservacaoPEDA.setWrapStyleWord(true);
         //
@@ -2014,26 +2313,26 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTema.setEnabled(!true);
         jFidedignidade.setEnabled(!true);
         jObservacaoPEDA.setEnabled(!true);
-        //
-        jBtNovo.setEnabled(!true);
-        jBtAlterar.setEnabled(!true);
-        jBtExcluir.setEnabled(!true);
-        jBtSalvar.setEnabled(!true);
-        jBtCancelar.setEnabled(!true);
-        jBtFinalizar.setEnabled(!true);
-        jBtAuditoria.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
         jBtPesquisarLivro.setEnabled(!true);
         jBtPesquisarInterno.setEnabled(!true);
         jBtColaborador.setEnabled(!true);
-        jBtFinalizar.setEnabled(!true);
+        jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
     }
 
     public void limparCampos() {
@@ -2053,6 +2352,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jDataEntregaResenha.setDate(null);
         jNrResenha.setText("");
         jValidacaoResenha.setText("0,0");
+        jTotalDiasAcumulado.setText("0");
         //
         jParagrafo.setText("0,0");
         jMargens.setText("0,0");
@@ -2100,6 +2400,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         //
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
+        //
+        jBtSalvar1.setEnabled(true);
+        jBtCancelar1.setEnabled(true);
     }
 
     public void Alterar() {
@@ -2125,10 +2428,15 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         //
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
+        //
+        jBtSalvar1.setEnabled(true);
+        jBtCancelar1.setEnabled(true);
     }
 
     public void Excluir() {
         jBtNovo.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
     }
 
     public void Salvar() {
@@ -2137,6 +2445,12 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jBtExcluir.setEnabled(true);
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        //
+        jBtNovo1.setEnabled(true);
+        jBtAlterar1.setEnabled(true);
+        jBtExcluir1.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtAuditoria1.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -2147,12 +2461,23 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             jBtExcluir.setEnabled(!true);
             jBtFinalizar.setEnabled(!true);
             jBtAuditoria.setEnabled(!true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(!true);
+            jBtExcluir1.setEnabled(!true);
+            jBtFinalizar.setEnabled(!true);
+            jBtAuditoria1.setEnabled(!true);
         } else {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtNovo1.setEnabled(true);
+            jBtAlterar1.setEnabled(true);
+            jBtExcluir1.setEnabled(true);
+            jBtAuditoria1.setEnabled(true);
         }
     }
 
@@ -2241,6 +2566,78 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTabelaEntradaSaidaVisitasInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharTabelaTodas();
         conecta.desconecta();
+    }
+
+    public void popularTabelaDiasRemicaoInterno(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                count1 = count1 + 1;
+                pDiasTotal = pDiasTotal + 4;
+                // Formatar a data Entrada
+                dataEntrada = conecta.rs.getString("DataRegistro");
+                String diae = dataEntrada.substring(8, 10);
+                String mese = dataEntrada.substring(5, 7);
+                String anoe = dataEntrada.substring(0, 4);
+                dataEntrada = diae + "/" + mese + "/" + anoe;
+                jTotalDiasAcumulado.setText(Integer.toString(pDiasTotal));
+                jtotalRegistrosDias.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdAcum"), dataEntrada, conecta.rs.getString("DiaResenha"), conecta.rs.getString("Validacao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaDiasRemissao.setModel(modelo);
+        jTabelaDiasRemissao.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaDiasRemissao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaDiasRemissao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaDiasRemissao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaDiasRemissao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaDiasRemissao.getTableHeader().setReorderingAllowed(false);
+        jTabelaDiasRemissao.setAutoResizeMode(jTabelaDiasRemissao.AUTO_RESIZE_OFF);
+        jTabelaDiasRemissao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaRemicao();
+        conecta.desconecta();
+    }
+
+    public void limparTabelaRemicao() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaDiasRemissao.setModel(modelo);
+        jTabelaDiasRemissao.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaDiasRemissao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaDiasRemissao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jTabelaDiasRemissao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaDiasRemissao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaDiasRemissao.getTableHeader().setReorderingAllowed(false);
+        jTabelaDiasRemissao.setAutoResizeMode(jTabelaDiasRemissao.AUTO_RESIZE_OFF);
+        jTabelaDiasRemissao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabelaRemicao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaDiasRemissao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaDiasRemissao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaDiasRemissao.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaDiasRemissao.getColumnModel().getColumn(3).setCellRenderer(centralizado);
     }
 
     public void limparTabelaEntradaVisitas() {

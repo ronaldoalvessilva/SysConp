@@ -317,8 +317,8 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
             jTabelaMatriculas.getColumnModel().getColumn(1).setMaxWidth(70);
             jTabelaMatriculas.getColumnModel().getColumn(2).setMinWidth(300);
             jTabelaMatriculas.getColumnModel().getColumn(2).setMaxWidth(300);
-            jTabelaMatriculas.getColumnModel().getColumn(3).setMinWidth(220);
-            jTabelaMatriculas.getColumnModel().getColumn(3).setMaxWidth(220);
+            jTabelaMatriculas.getColumnModel().getColumn(3).setMinWidth(300);
+            jTabelaMatriculas.getColumnModel().getColumn(3).setMaxWidth(300);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1444,6 +1444,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                     objItensMat.setStatusAluno((String) jComboBoxStatusAluno.getSelectedItem());
                     objItensMat.setSituacaoAluno((String) jComboBoxSituacaoAluno.getSelectedItem());
                     objItensMat.setDataConclusaoDesistencia(jDataConclusaoDesistencia.getDate());
+                    objItensMat.setObservacao(jObservacao.getText());
                     controle.incluirInternosMatricula(objItensMat);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                
@@ -1465,6 +1466,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                     objItensMat.setStatusAluno((String) jComboBoxStatusAluno.getSelectedItem());
                     objItensMat.setSituacaoAluno((String) jComboBoxSituacaoAluno.getSelectedItem());
                     objItensMat.setDataConclusaoDesistencia(jDataConclusaoDesistencia.getDate());
+                    objItensMat.setObservacao(jObservacao.getText());
                     objItensMat.setIdItem(idItem);
                     controle.alterarInternosMatricula(objItensMat);
                     objLog2();
@@ -1606,6 +1608,10 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 FotoInternoPedagogia.setIcon(i);
                 FotoInternoPedagogia.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoPedagogia.getWidth(), FotoInternoPedagogia.getHeight(), Image.SCALE_DEFAULT)));
                 //
+                jComboBoxStatusAluno.setSelectedItem(conecta.rs.getString("StatusAluno"));
+                jComboBoxSituacaoAluno.setSelectedItem(conecta.rs.getString("SituacaoAluno"));
+                jDataConclusaoDesistencia.setDate(conecta.rs.getDate("DataConDes"));
+                jObservacao.setText(conecta.rs.getString("Observacao"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1633,21 +1639,23 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
 
     private void jComboBoxStatusAlunoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusAlunoItemStateChanged
         // TODO add your handling code here:
-        if (jComboBoxStatusAluno.getSelectedItem().equals("Cursando")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(!true);
-            jDataConclusaoDesistencia.setDate(null);
-            jDataConclusaoDesistencia.setEnabled(!true);
-        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Concluído")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(true);
-            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
-            jDataConclusaoDesistencia.setEnabled(true);
-        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Desistente")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(!true);
-            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
-            jDataConclusaoDesistencia.setEnabled(true);
+        if (acao == 3 || acao == 4) {
+            if (jComboBoxStatusAluno.getSelectedItem().equals("Cursando")) {
+                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setEnabled(!true);
+                jDataConclusaoDesistencia.setDate(null);
+                jDataConclusaoDesistencia.setEnabled(!true);
+            } else if (jComboBoxStatusAluno.getSelectedItem().equals("Concluído")) {
+                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setEnabled(true);
+                jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
+                jDataConclusaoDesistencia.setEnabled(true);
+            } else if (jComboBoxStatusAluno.getSelectedItem().equals("Desistente")) {
+                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setEnabled(!true);
+                jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
+                jDataConclusaoDesistencia.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_jComboBoxStatusAlunoItemStateChanged
 
@@ -2079,22 +2087,22 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         //
         jComboBoxStatusAluno.setEnabled(true);
         jObservacao.setEnabled(true);
-        if (jComboBoxStatusAluno.getSelectedItem().equals("Cursando")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(!true);
-            jDataConclusaoDesistencia.setDate(null);
-            jDataConclusaoDesistencia.setEnabled(!true);
-        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Concluído")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(true);
-            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
-            jDataConclusaoDesistencia.setEnabled(true);
-        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Desistente")) {
-            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-            jComboBoxSituacaoAluno.setEnabled(!true);
-            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
-            jDataConclusaoDesistencia.setEnabled(true);
-        }
+//        if (jComboBoxStatusAluno.getSelectedItem().equals("Cursando")) {
+//            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+//            jComboBoxSituacaoAluno.setEnabled(!true);
+//            jDataConclusaoDesistencia.setDate(null);
+//            jDataConclusaoDesistencia.setEnabled(!true);
+//        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Concluído")) {
+//            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+//            jComboBoxSituacaoAluno.setEnabled(true);
+//            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
+//            jDataConclusaoDesistencia.setEnabled(true);
+//        } else if (jComboBoxStatusAluno.getSelectedItem().equals("Desistente")) {
+//            jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+//            jComboBoxSituacaoAluno.setEnabled(!true);
+//            jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
+//            jDataConclusaoDesistencia.setEnabled(true);
+//        }
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
@@ -2193,6 +2201,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        acao = 0;
     }
 
     public void CancelarInterno() {
@@ -2227,6 +2236,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        acao = 0;
     }
 
     public void preencherTodasMatriculas(String sql) {
@@ -2296,7 +2306,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jTabelaMatriculas.getColumnModel().getColumn(1).setResizable(false);
         jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(300);
         jTabelaMatriculas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(220);
+        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaMatriculas.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMatriculas.getTableHeader().setReorderingAllowed(false);
         jTabelaMatriculas.setAutoResizeMode(jTabelaMatriculas.AUTO_RESIZE_OFF);
@@ -2316,7 +2326,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jTabelaMatriculas.getColumnModel().getColumn(1).setResizable(false);
         jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(300);
         jTabelaMatriculas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(220);
+        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaMatriculas.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMatriculas.getTableHeader().setReorderingAllowed(false);
         jTabelaMatriculas.setAutoResizeMode(jTabelaMatriculas.AUTO_RESIZE_OFF);
