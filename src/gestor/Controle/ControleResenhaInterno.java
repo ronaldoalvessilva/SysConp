@@ -162,7 +162,7 @@ public class ControleResenhaInterno {
         buscarInterno(objResenha.getNomeInternoCrc(), objResenha.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACUMULADOR_REMICAO_INTERNO SET DataRegistro=?,IdInternoCrc=?,IdResenha=?,DiaResenha=?,Validacao=? WHERE IdAcum='" + objResenha.getIdAcum() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ACUMULADOR_REMICAO_INTERNO SET DataRegistro=?,IdInternoCrc=?,IdResenha=?,DiaResenha=?,Validacao=? WHERE IdResenha='" + objResenha.getIdResenha()+ "'");
             if (objResenha.getDataResenha() != null) {
                 pst.setTimestamp(1, new java.sql.Timestamp(objResenha.getDataResenha().getTime()));
             } else {
