@@ -4,17 +4,18 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="descricaoUnidade" class="java.lang.String"/>
-	<parameter name="dataInicial" class="java.sql.Timestamp">
+	<parameter name="dataInicial" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="dataFinal" class="java.sql.Timestamp">
+	<parameter name="dataFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pNomeUsuario" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA
 INNER JOIN PRONTUARIOSCRC ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
 WHERE DataEvolucao BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert]]>
+order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert,EVOLUCAO_ADMISSAO_PEDAGOGIA.DataEvolucao]]>
 	</queryString>
 	<field name="IdEvolucao" class="java.lang.Integer"/>
 	<field name="IdAdm" class="java.lang.Integer"/>
@@ -23,13 +24,15 @@ order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert]]>
 	<field name="NomeDepartamento" class="java.lang.String"/>
 	<field name="DataEncaminhamento" class="java.sql.Timestamp"/>
 	<field name="HoraEncaminhamento" class="java.lang.String"/>
-	<field name="TextoEvolucao" class="java.sql.Clob"/>
+	<field name="TextoEvolucao" class="java.lang.String"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="DataInsert" class="java.lang.String"/>
 	<field name="DataUp" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="AcessoUni" class="java.lang.String"/>
+	<field name="AnoIngresso" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -42,6 +45,7 @@ order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert]]>
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -57,8 +61,11 @@ order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert]]>
 	<field name="CelularCrc" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
 	<field name="DataDelete" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 		<groupFooter>
@@ -263,6 +270,13 @@ order by EVOLUCAO_ADMISSAO_PEDAGOGIA.UsuarioInsert]]>
 	</detail>
 	<pageFooter>
 		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="158" y="2" width="275" height="20" uuid="5b786e89-aa28-42a1-b1ac-62010c348571"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pNomeUsuario}]]></textFieldExpression>
+			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="0" y="0" width="433" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
 				<textElement verticalAlignment="Middle"/>
