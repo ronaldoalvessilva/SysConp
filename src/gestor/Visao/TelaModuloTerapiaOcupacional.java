@@ -335,6 +335,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         RelatorioInternosCNC = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -676,6 +678,16 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(RelatorioInternosCNC);
+        jMenu3.add(jSeparator13);
+
+        jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(0, 102, 51));
+        jRelatorioAtendimentoInternos.setText("Relatório de Atendimento de Internos");
+        jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtendimentoInternosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioAtendimentoInternos);
 
         jMenuBar1.add(jMenu3);
 
@@ -1622,6 +1634,13 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
 
+    private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoTO objRelProdTO = new TelaRelatorioProducaoTO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objRelProdTO);
+        objRelProdTO.show();
+    }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1669,10 +1688,12 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem6;
     public static javax.swing.JDesktopPane jPainelTerapia;
     private javax.swing.JMenuItem jPerfilCarcerario;
+    private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

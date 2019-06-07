@@ -4,23 +4,24 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="descricaoUnidade" class="java.lang.String"/>
-	<parameter name="dataInicial" class="java.sql.Timestamp">
+	<parameter name="dataInicial" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="dataFinal" class="java.sql.Timestamp">
+	<parameter name="dataFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pNomeUsuario" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL
 INNER JOIN PRONTUARIOSCRC ON EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
 WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
+order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.DataEvol]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="DataEvol" class="java.sql.Timestamp"/>
 	<field name="IdAtend" class="java.lang.Integer"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="TextoEvolucao" class="java.sql.Clob"/>
+	<field name="TextoEvolucao" class="java.lang.String"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
@@ -41,6 +42,7 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -54,8 +56,11 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 		<groupFooter>
@@ -274,6 +279,13 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 				<reportElement x="513" y="4" width="40" height="20" uuid="ca4e3faf-5bcc-426f-9fd2-27389ed7eb9c"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="4" width="275" height="20" uuid="8378ffff-23db-4e34-8ae1-4ad9e8112daa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pNomeUsuario}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

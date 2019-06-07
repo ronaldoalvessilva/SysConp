@@ -203,6 +203,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         RelatorioGeralConfere = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -377,6 +379,16 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(RelatorioEntradaInternosUnidade);
+        jMenu3.add(jSeparator5);
+
+        jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(0, 102, 51));
+        jRelatorioAtendimentoInternos.setText("Relatório de Atendimento Internos");
+        jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtendimentoInternosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioAtendimentoInternos);
 
         jMenuBar1.add(jMenu3);
 
@@ -790,6 +802,13 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
+    private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoOdontologia objRelProdOdon = new TelaRelatorioProducaoOdontologia();
+        TelaModuloOdontologia.jPainelOdontologia.add(objRelProdOdon);
+        objRelProdOdon.show();
+    }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgenaRecados;
@@ -815,10 +834,12 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     public static javax.swing.JDesktopPane jPainelOdontologia;
+    private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JMenuItem jTiposProcedimentos;
     // End of variables declaration//GEN-END:variables

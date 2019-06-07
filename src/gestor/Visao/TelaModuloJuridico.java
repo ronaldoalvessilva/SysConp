@@ -302,6 +302,8 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         RelatorioInternosRegimePenal = new javax.swing.JMenuItem();
         RelatorioInternosRegimePenalSexo = new javax.swing.JMenuItem();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraPena1 = new javax.swing.JMenuItem();
@@ -603,6 +605,16 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(RelatorioEntradaInternosUnidade);
+        Relatorios.add(jSeparator12);
+
+        jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(153, 0, 0));
+        jRelatorioAtendimentoInternos.setText("Relatório de Atendimento Internos");
+        jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtendimentoInternosActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioAtendimentoInternos);
 
         jMenuBar1.add(Relatorios);
 
@@ -1384,6 +1396,13 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
 
+    private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoJuridico objRelProdJu = new TelaRelatorioProducaoJuridico();
+        TelaModuloJuridico.jPainelJuridico.add(objRelProdJu);
+        objRelProdJu.show();
+    }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1428,9 +1447,11 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jPai;
     public static javax.swing.JDesktopPane jPainelJuridico;
+    private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

@@ -268,7 +268,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jIndicadorAcompanhamento = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencias = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jRelatorioAtendimentoInternos = new javax.swing.JMenu();
         RelatoriosConfere = new javax.swing.JMenu();
         RelatorioGeralConfere = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
@@ -282,6 +282,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         RelatorioVisitasInternos = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         RelatorioEntradaUnidade = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAtendimentoPsicologico = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -465,7 +467,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Relatórios");
+        jRelatorioAtendimentoInternos.setText("Relatórios");
 
         RelatoriosConfere.setText("Relatórios de Confere");
 
@@ -485,8 +487,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         });
         RelatoriosConfere.add(ListagemConfere);
 
-        jMenu3.add(RelatoriosConfere);
-        jMenu3.add(jSeparator1);
+        jRelatorioAtendimentoInternos.add(RelatoriosConfere);
+        jRelatorioAtendimentoInternos.add(jSeparator1);
 
         ListagemAtividadesLaborativas.setText("Listagem de Internos com Atividades Laborativas");
 
@@ -506,7 +508,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         });
         ListagemAtividadesLaborativas.add(AtividadesExternas);
 
-        jMenu3.add(ListagemAtividadesLaborativas);
+        jRelatorioAtendimentoInternos.add(ListagemAtividadesLaborativas);
 
         RelatorioAconpanhamentoFamiliar.setText("Relatório de Acompanhamento Laborativo de Internos");
         RelatorioAconpanhamentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
@@ -514,7 +516,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                 RelatorioAconpanhamentoFamiliarActionPerformed(evt);
             }
         });
-        jMenu3.add(RelatorioAconpanhamentoFamiliar);
+        jRelatorioAtendimentoInternos.add(RelatorioAconpanhamentoFamiliar);
 
         ListagemFrequenciaExterna.setText("Atividade laborativa Externa (Frequência)");
         ListagemFrequenciaExterna.addActionListener(new java.awt.event.ActionListener() {
@@ -522,8 +524,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                 ListagemFrequenciaExternaActionPerformed(evt);
             }
         });
-        jMenu3.add(ListagemFrequenciaExterna);
-        jMenu3.add(jSeparator2);
+        jRelatorioAtendimentoInternos.add(ListagemFrequenciaExterna);
+        jRelatorioAtendimentoInternos.add(jSeparator2);
 
         RelatorioVisitasInternos.setText("Relatório de Visitas aos Internos");
         RelatorioVisitasInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -531,8 +533,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                 RelatorioVisitasInternosActionPerformed(evt);
             }
         });
-        jMenu3.add(RelatorioVisitasInternos);
-        jMenu3.add(jSeparator8);
+        jRelatorioAtendimentoInternos.add(RelatorioVisitasInternos);
+        jRelatorioAtendimentoInternos.add(jSeparator8);
 
         RelatorioEntradaUnidade.setText("Relatório de Entrada de Internos na Unidade");
         RelatorioEntradaUnidade.addActionListener(new java.awt.event.ActionListener() {
@@ -540,9 +542,19 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
                 RelatorioEntradaUnidadeActionPerformed(evt);
             }
         });
-        jMenu3.add(RelatorioEntradaUnidade);
+        jRelatorioAtendimentoInternos.add(RelatorioEntradaUnidade);
+        jRelatorioAtendimentoInternos.add(jSeparator12);
 
-        jMenuBar1.add(jMenu3);
+        jRelatorioAtendimentoPsicologico.setForeground(new java.awt.Color(0, 102, 51));
+        jRelatorioAtendimentoPsicologico.setText("Relatório de Atendimento Internos");
+        jRelatorioAtendimentoPsicologico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtendimentoPsicologicoActionPerformed(evt);
+            }
+        });
+        jRelatorioAtendimentoInternos.add(jRelatorioAtendimentoPsicologico);
+
+        jMenuBar1.add(jRelatorioAtendimentoInternos);
 
         setJMenuBar(jMenuBar1);
 
@@ -1189,6 +1201,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jIndicadorAcompanhamentoActionPerformed
 
+    private void jRelatorioAtendimentoPsicologicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoPsicologicoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoPsicologia objRelProdPsi = new TelaRelatorioProducaoPsicologia();
+        TelaModuloPsicologia.jPainelPsicologia.add(objRelProdPsi);
+        objRelProdPsi.show();
+    }//GEN-LAST:event_jRelatorioAtendimentoPsicologicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1217,7 +1236,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1225,9 +1243,12 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelPsicologia;
     private javax.swing.JMenuItem jPerfilCarcerario;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
+    private javax.swing.JMenu jRelatorioAtendimentoInternos;
+    private javax.swing.JMenuItem jRelatorioAtendimentoPsicologico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
