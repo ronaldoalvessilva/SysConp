@@ -372,6 +372,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         RelatorioInternosPorBairro = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioQuantidadeAtendimentoFamiliar = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -887,6 +889,16 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(jRelatorioAtendimentoInternos);
+        jMenu3.add(jSeparator23);
+
+        jRelatorioQuantidadeAtendimentoFamiliar.setForeground(new java.awt.Color(204, 0, 0));
+        jRelatorioQuantidadeAtendimentoFamiliar.setText("Relatório de Quantidade de Atendimento Familiar");
+        jRelatorioQuantidadeAtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioQuantidadeAtendimentoFamiliarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioQuantidadeAtendimentoFamiliar);
 
         jMenuBar1.add(jMenu3);
 
@@ -2193,6 +2205,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         objRelProdSS.show();
     }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
 
+    private void jRelatorioQuantidadeAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioQuantidadeAconpanhamentoFamiliar objRelAF = new TelaRelatorioQuantidadeAconpanhamentoFamiliar();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objRelAF);
+        objRelAF.show();
+    }//GEN-LAST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2259,6 +2278,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelServicoSocial;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
+    private javax.swing.JMenuItem jRelatorioQuantidadeAtendimentoFamiliar;
     private javax.swing.JMenuItem jRelatorioVisitasInternos;
     private javax.swing.JMenuItem jRolVisitas;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -2276,6 +2296,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3199,7 +3220,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaBiometriaInterno);
             controle.incluirTelaAcesso(objCadastroTela);
         }
-         //PRORES
+        //PRORES
         if (!pNomeIAM.equals(telaIndAcompanhaManuSS) || pNomeIAM == null || pNomeIAM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
