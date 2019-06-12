@@ -24,7 +24,7 @@ ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CELAS
 ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav
 INNER JOIN ITENSATENDIMENTOJURI ON PRONTUARIOSCRC.IdInternoCrc=ITENSATENDIMENTOJURI.IdInternoCrc
 INNER JOIN ATIVIDADESJURIDICOS ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv
-WHERE DescricaoAtiv=$P{TipoAtividade} AND SituacaoCrc='ENTRADA NA UNIDADE' AND DataItem BETWEEN $P{dataInicial} AND $P{dataFinal} OR SituacaoCrc='RETORNO A UNIDADE' AND DataItem BETWEEN $P{dataInicial} AND $P{dataFinal}]]>
+WHERE DescricaoAtiv=$P{TipoAtividade} AND SituacaoCrc='ENTRADA NA UNIDADE' AND DataItem BETWEEN $P{dataInicial} AND $P{dataFinal} OR DescricaoAtiv=$P{TipoAtividade} AND SituacaoCrc='RETORNO A UNIDADE' AND DataItem BETWEEN $P{dataInicial} AND $P{dataFinal}]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>

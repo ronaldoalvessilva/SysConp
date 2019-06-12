@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioCapacitacaoInternosTO" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a128041-c874-4157-8d46-db81f364438f">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pIdCap" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENS_CAPACITACAO_INTERNO_TO INNER JOIN PRONTUARIOSCRC ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CAPACITACAO_INTERNO_TO ON ITENS_CAPACITACAO_INTERNO_TO.IdCap=CAPACITACAO_INTERNO_TO.IdCap]]>
+	</queryString>
+	<field name="IdItemCap" class="java.lang.Integer"/>
+	<field name="DataInicio" class="java.sql.Timestamp"/>
+	<field name="DataConclusao" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="IdCap" class="java.lang.Integer"/>
+	<field name="SituacaoCurso" class="java.lang.String"/>
+	<field name="CargaHoraria" class="java.lang.String"/>
+	<field name="NotaAvalia" class="java.lang.Float"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="StatusRegistro" class="java.lang.String"/>
+	<field name="DataRegistro" class="java.sql.Timestamp"/>
+	<field name="IdCurso" class="java.lang.Integer"/>
+	<field name="Observacao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="38" height="20" uuid="0f5e48ff-77ae-469d-9b2a-4ead38dc80c8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdItemCap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="0" width="56" height="20" uuid="46b5b42b-3a4a-4502-ab0b-bea7699c7ae0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdCap}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="0" width="242" height="20" uuid="e8a8f973-7ca1-46ef-9db1-a145ecac6fbe"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="339" y="0" width="67" height="20" uuid="ba23a173-f0a4-47f7-9cd6-1be104a17f4f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DataInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="406" y="0" width="75" height="20" uuid="3b72cf4f-d749-443b-82c9-a91072bbe3c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{DataConclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="41" height="20" uuid="07d7b979-aa76-444e-9fb7-154014dd16b4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CargaHoraria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="522" y="0" width="33" height="20" uuid="4793331e-0675-4467-904b-ac6615fafcc1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{NotaAvalia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

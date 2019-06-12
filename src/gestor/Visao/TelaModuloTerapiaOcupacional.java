@@ -104,7 +104,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private TelaMovimentacaoCrcTO objMovCrcTo = null;
     private TelaRegistroInternosAtendimentoTO objRegInt = null;
     private TelaRegistroInternosAtendimentoImpressoTO objRegAtenImp = null;
-    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+//    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaCapacitacaoInternoTO objCapaInt = null;
     //
     public static String nomeModuloTERA = "TERAPIA";
     String dataLanc;
@@ -206,6 +207,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaTTO = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/TO:TO";
     public static String telaIndAcompanhaAbaPSITO = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/TO:Psicologia";
     public static String telaIndAcompanhaAbaSTO = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/TO:Serviço Social";
+    //
+    public static String telaCapacitacaoInternoManuTO = "Movimentação:Capacitação de Interno:Manutenção";
+    public static String telaCapacitacaoInternoIntTO = "Movimentação:Capacitação de Interno:Interno";
     // MENU CADASTRO
     String pNomeELB_TO = "";
     //
@@ -257,6 +261,10 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    //
+    String pNomeCIM = "";
+    String pNomeCII = "";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
 
     /**
@@ -308,16 +316,17 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         HistoricoMovimentacaoTecnica = new javax.swing.JMenuItem();
         jHistoricoMovimentacaoExterna = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        TriagemOcupacional = new javax.swing.JMenuItem();
         AtendimentoLaborativo = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        TriagemOcupacional = new javax.swing.JMenuItem();
         ControleDiasTrabalhados = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jPerfilCarcerario = new javax.swing.JMenuItem();
         PAI_NOVO = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
-        jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
-        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         OcorrenciasLaborativa = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jCapacitacaoInterno = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -517,14 +526,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
         jMenu2.setText("Movimentação");
 
-        TriagemOcupacional.setText("Triagem Ocupacional");
-        TriagemOcupacional.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TriagemOcupacionalActionPerformed(evt);
-            }
-        });
-        jMenu2.add(TriagemOcupacional);
-
         AtendimentoLaborativo.setText("Admissão/Evolução Laborativa");
         AtendimentoLaborativo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -532,6 +533,15 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(AtendimentoLaborativo);
+        jMenu2.add(jSeparator12);
+
+        TriagemOcupacional.setText("Triagem Ocupacional");
+        TriagemOcupacional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TriagemOcupacionalActionPerformed(evt);
+            }
+        });
+        jMenu2.add(TriagemOcupacional);
 
         ControleDiasTrabalhados.setText("Controle de Dias Trabalhados");
         ControleDiasTrabalhados.addActionListener(new java.awt.event.ActionListener() {
@@ -561,16 +571,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu2.add(PAI_NOVO);
         jMenu2.add(jSeparator6);
 
-        jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
-        jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
-        jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIndicadoresAcompanhamentoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jIndicadoresAcompanhamento);
-        jMenu2.add(jSeparator12);
-
         OcorrenciasLaborativa.setText("Livro de Ocorrências");
         OcorrenciasLaborativa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -578,6 +578,16 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(OcorrenciasLaborativa);
+        jMenu2.add(jSeparator14);
+
+        jCapacitacaoInterno.setForeground(new java.awt.Color(0, 102, 0));
+        jCapacitacaoInterno.setText("Capacitação/Oficinas para Internos");
+        jCapacitacaoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCapacitacaoInternoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCapacitacaoInterno);
 
         jMenuBar1.add(jMenu2);
 
@@ -1600,46 +1610,46 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RegistroAtendimentoPorImpressaoActionPerformed
 
-    private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaManuTO);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAcompanhaManuTO) && codAbrirTO == 1) {
-            if (objIndAcomp == null || objIndAcomp.isClosed()) {
-                objIndAcomp = new TelaIndicadoresAcompanhamento();
-                jPainelTerapia.add(objIndAcomp);
-                objIndAcomp.setVisible(true);
-            } else {
-                if (objIndAcomp.isVisible()) {
-                    if (objIndAcomp.isIcon()) { // Se esta minimizado
-                        try {
-                            objIndAcomp.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objIndAcomp.toFront(); // traz para frente
-                        objIndAcomp.pack();//volta frame 
-                    }
-                } else {
-                    objIndAcomp = new TelaIndicadoresAcompanhamento();
-                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objIndAcomp);//adicona frame ao JDesktopPane  
-                    objIndAcomp.setVisible(true);
-                }
-            }
-            try {
-                objIndAcomp.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
-
     private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoTO objRelProdTO = new TelaRelatorioProducaoTO();
         TelaModuloTerapiaOcupacional.jPainelTerapia.add(objRelProdTO);
         objRelProdTO.show();
     }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
+
+    private void jCapacitacaoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCapacitacaoInternoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtenImpTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaRegistroAtenImpTO) && codAbrirTO == 1) {
+            if (objCapaInt == null || objCapaInt.isClosed()) {
+                objCapaInt = new TelaCapacitacaoInternoTO();
+                jPainelTerapia.add(objCapaInt);
+                objCapaInt.setVisible(true);
+            } else {
+                if (objCapaInt.isVisible()) {
+                    if (objCapaInt.isIcon()) { // Se esta minimizado
+                        try {
+                            objCapaInt.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCapaInt.toFront(); // traz para frente
+                        objCapaInt.pack();//volta frame 
+                    }
+                } else {
+                    objCapaInt = new TelaCapacitacaoInternoTO();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objCapaInt);//adicona frame ao JDesktopPane  
+                    objCapaInt.setVisible(true);
+                }
+            }
+            try {
+                objCapaInt.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCapacitacaoInternoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1668,8 +1678,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioListaInterna;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem TriagemOcupacional;
+    private javax.swing.JMenuItem jCapacitacaoInterno;
     private javax.swing.JMenuItem jHistoricoMovimentacaoExterna;
-    private javax.swing.JMenuItem jIndicadoresAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1694,6 +1704,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -2246,6 +2257,20 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCapacitacaoInternoManuTO + "'");
+            conecta.rs.first();
+            pNomeCIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCapacitacaoInternoIntTO + "'");
+            conecta.rs.first();
+            pNomeCII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomeELB_TO.equals(telaEmpresasLabManuTO) || pNomeELB_TO == null || pNomeELB_TO.equals("")) {
             buscarCodigoModulo();
@@ -2453,6 +2478,18 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaSTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCIM.equals(telaCapacitacaoInternoManuTO) || pNomeCIM == null || pNomeCIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCapacitacaoInternoManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCII.equals(telaCapacitacaoInternoIntTO) || pNomeCII == null || pNomeCII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCapacitacaoInternoIntTO);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

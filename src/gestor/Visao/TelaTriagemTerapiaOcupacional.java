@@ -826,7 +826,7 @@ public class TelaTriagemTerapiaOcupacional extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 30, 577, 524);
+        setBounds(300, 30, 577, 520);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtTodos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtTodos1ActionPerformed
