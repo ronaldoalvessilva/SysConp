@@ -284,6 +284,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         RelatorioEntradaUnidade = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jRelatorioAtendimentoPsicologico = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -553,6 +555,15 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             }
         });
         jRelatorioAtendimentoInternos.add(jRelatorioAtendimentoPsicologico);
+        jRelatorioAtendimentoInternos.add(jSeparator13);
+
+        jMenuItem1.setText("Relatório Tratamento Psicologico");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jRelatorioAtendimentoInternos.add(jMenuItem1);
 
         jMenuBar1.add(jRelatorioAtendimentoInternos);
 
@@ -1208,6 +1219,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         objRelProdPsi.show();
     }//GEN-LAST:event_jRelatorioAtendimentoPsicologicoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioTratamentoPsicologia objRelTP = new TelaRelatorioTratamentoPsicologia();
+        TelaModuloPsicologia.jPainelPsicologia.add(objRelTP);
+        objRelTP.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1239,6 +1257,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jPaiNovo;
     public static javax.swing.JDesktopPane jPainelPsicologia;
     private javax.swing.JMenuItem jPerfilCarcerario;
@@ -1249,6 +1268,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
