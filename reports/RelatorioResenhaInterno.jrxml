@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioResenhaInterno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcc4c51d-74e8-4c9b-9291-e8b1c7024ee7">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="238"/>
+	<property name="ireport.y" value="190"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -133,6 +133,9 @@
 	<field name="EstadoNaturalidade" class="java.lang.String"/>
 	<field name="StatusFunc" class="java.lang.String"/>
 	<field name="ImagemFrenteCO" class="java.lang.Object"/>
+	<variable name="pResultado" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{ValidacaoResenha}>=6 ? "Aprovado" : "Reprovado"]]></variableExpression>
+	</variable>
 	<group name="IdResenha">
 		<groupExpression><![CDATA[$F{IdResenha}]]></groupExpression>
 		<groupFooter>
@@ -205,12 +208,12 @@
 				<textFieldExpression><![CDATA[$F{DataResenha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" x="223" y="245" width="142" height="15" forecolor="#000000" uuid="2831697a-cd04-4f2f-86dd-a6d49f9366a4"/>
+				<reportElement style="Column header" x="223" y="232" width="142" height="15" forecolor="#000000" uuid="2831697a-cd04-4f2f-86dd-a6d49f9366a4"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Validação da Resenha:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="366" y="245" width="24" height="15" uuid="ae405cce-439b-487d-a5c1-23da2b66a263"/>
+				<reportElement style="Detail" x="366" y="232" width="24" height="15" uuid="ae405cce-439b-487d-a5c1-23da2b66a263"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{ValidacaoResenha}]]></textFieldExpression>
 			</textField>
@@ -265,7 +268,7 @@
 				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\LOGO_SEAP_P.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="402" y="245" width="109" height="15" uuid="6eaa87ea-8adb-43ac-8630-1822b5f50776"/>
+				<reportElement x="402" y="232" width="109" height="15" uuid="6eaa87ea-8adb-43ac-8630-1822b5f50776"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[(nota de 0 a 10 pontos)]]></text>
 			</staticText>
@@ -282,6 +285,20 @@
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NomeAutor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="248" width="137" height="20" uuid="b2dc1dee-90c8-4905-846b-baadf185ca8a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resultado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="368" y="247" width="138" height="20" forecolor="#CC0000" uuid="74cb3e14-4de6-4b0d-a1ca-e5c059037fcc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ValidacaoResenha}>=6 ? "APROVADO" : "REPROVADO"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

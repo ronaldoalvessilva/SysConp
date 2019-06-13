@@ -2192,8 +2192,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
     private void jRegistroLeituraResenhaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroLeituraResenhaInternosActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaRegistroAtendimentoImpressaoBio_PEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroAtendimentoImpressaoBio_PEDA) && codAbrirPEDA == 1) {
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codAbrirPEDA == 1) {
             if (objRegistroResenha == null || objRegistroResenha.isClosed()) {
                 objRegistroResenha = new TelaRegistroLivroResenhaInterno();
                 jPainelPedagogia.add(objRegistroResenha);

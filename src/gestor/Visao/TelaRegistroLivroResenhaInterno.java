@@ -94,6 +94,9 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
     //
     int pDiasRemissao = 0;
     int pDiasTotal = 0;
+    float pNotaAvaliacao = 0;
+    String pAvalicaoAprovado = "";
+    String pValorNota;
 
     /**
      * Creates new form TelaRegistroLivroResenhaInterno
@@ -1353,7 +1356,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
             },
             new String [] {
-                "Código", "Data Registro", "Dias", "Validação Resenha"
+                "Código", "Data Registro", "Dias", "Validação Resenha", "Aprovado/Reprovado"
             }
         ));
         jScrollPane4.setViewportView(jTabelaDiasRemissao);
@@ -1366,6 +1369,8 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
             jTabelaDiasRemissao.getColumnModel().getColumn(2).setMaxWidth(60);
             jTabelaDiasRemissao.getColumnModel().getColumn(3).setMinWidth(100);
             jTabelaDiasRemissao.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaDiasRemissao.getColumnModel().getColumn(4).setMinWidth(120);
+            jTabelaDiasRemissao.getColumnModel().getColumn(4).setMaxWidth(120);
         }
 
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1828,7 +1833,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     objResenha.setDataResenha(jDataRealizacao.getDate());
                     objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
                     objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
-                    pDiasRemissao = 4;
+                    if (objResenha.getValidacaoResenha() >= 6) {
+                        pDiasRemissao = 4;
+                    } else if (objResenha.getValidacaoResenha() <= 5.9) {
+                        pDiasRemissao = 0;
+                    }
                     objResenha.setDiaResenha(pDiasRemissao);
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.incluirDiaResenhaInterno(objResenha);
@@ -1850,7 +1859,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     objResenha.setDataResenha(jDataRealizacao.getDate());
                     objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
                     objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
-                    pDiasRemissao = 4;
+                    if (objResenha.getValidacaoResenha() >= 6) {
+                        pDiasRemissao = 4;
+                    } else if (objResenha.getValidacaoResenha() <= 5.9) {
+                        pDiasRemissao = 0;
+                    }
                     objResenha.setDiaResenha(pDiasRemissao);
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.alterarDiaResenhaInterno(objResenha);
@@ -2008,8 +2021,12 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     //INCLUIR DIAS DE REMIÇÃO (4)
                     objResenha.setDataResenha(jDataRealizacao.getDate());
                     objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
-                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
-                    pDiasRemissao = 4;
+                    objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());                 
+                    if (objResenha.getValidacaoResenha() >= 6) {
+                        pDiasRemissao = 4;
+                    } else if (objResenha.getValidacaoResenha() <= 5.9) {
+                        pDiasRemissao = 0;
+                    }
                     objResenha.setDiaResenha(pDiasRemissao);
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.incluirDiaResenhaInterno(objResenha);
@@ -2031,7 +2048,11 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                     objResenha.setDataResenha(jDataRealizacao.getDate());
                     objResenha.setIdInternoCrc(Integer.valueOf(jIdInternoCrcPEDA.getText()));
                     objResenha.setNomeInternoCrc(jNomeInternoPEDA.getText());
-                    pDiasRemissao = 4;
+                    if (objResenha.getValidacaoResenha() >= 6) {
+                        pDiasRemissao = 4;
+                    } else if (objResenha.getValidacaoResenha() <= 5.9) {
+                        pDiasRemissao = 0;
+                    }
                     objResenha.setDiaResenha(pDiasRemissao);
                     objResenha.setIdResenha(Integer.valueOf(jIdRegistro.getText()));
                     control.alterarDiaResenhaInterno(objResenha);
@@ -2570,7 +2591,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     public void popularTabelaDiasRemicaoInterno(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha"};
+        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha", "Aprovado/Reprovado"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2584,9 +2605,18 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
+                //
+                pNotaAvaliacao = conecta.rs.getFloat("ValidacaoResenha");
+//                DecimalFormat vr = new DecimalFormat("#,##0.00");
+//                String vlCusto = vr.format(pValidacaoResenha);
+                if (pNotaAvaliacao >= 6) {
+                    pAvalicaoAprovado = "Aprovado";
+                } else if (pNotaAvaliacao <= 5.9) {
+                    pAvalicaoAprovado = "Reprovado";
+                }
                 jTotalDiasAcumulado.setText(Integer.toString(pDiasTotal));
                 jtotalRegistrosDias.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdAcum"), dataEntrada, conecta.rs.getString("DiaResenha"), conecta.rs.getString("Validacao")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAcum"), dataEntrada, conecta.rs.getString("DiaResenha"), conecta.rs.getFloat("ValidacaoResenha"), pAvalicaoAprovado});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -2600,6 +2630,8 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTabelaDiasRemissao.getColumnModel().getColumn(2).setResizable(false);
         jTabelaDiasRemissao.getColumnModel().getColumn(3).setPreferredWidth(100);
         jTabelaDiasRemissao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(4).setPreferredWidth(120);
+        jTabelaDiasRemissao.getColumnModel().getColumn(4).setResizable(false);
         jTabelaDiasRemissao.getTableHeader().setReorderingAllowed(false);
         jTabelaDiasRemissao.setAutoResizeMode(jTabelaDiasRemissao.AUTO_RESIZE_OFF);
         jTabelaDiasRemissao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2609,7 +2641,7 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
 
     public void limparTabelaRemicao() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha"};
+        String[] Colunas = new String[]{"Código", "Data Registro", "Dias", "Validação Resenha", "Aprovado/Reprovado"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaDiasRemissao.setModel(modelo);
         jTabelaDiasRemissao.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -2620,6 +2652,8 @@ public class TelaRegistroLivroResenhaInterno extends javax.swing.JInternalFrame 
         jTabelaDiasRemissao.getColumnModel().getColumn(2).setResizable(false);
         jTabelaDiasRemissao.getColumnModel().getColumn(3).setPreferredWidth(100);
         jTabelaDiasRemissao.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaDiasRemissao.getColumnModel().getColumn(4).setPreferredWidth(120);
+        jTabelaDiasRemissao.getColumnModel().getColumn(4).setResizable(false);
         jTabelaDiasRemissao.getTableHeader().setReorderingAllowed(false);
         jTabelaDiasRemissao.setAutoResizeMode(jTabelaDiasRemissao.AUTO_RESIZE_OFF);
         jTabelaDiasRemissao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
