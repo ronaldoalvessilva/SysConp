@@ -106,6 +106,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpressoTO objRegAtenImp = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCapacitacaoInternoTO objCapaInt = null;
+    private TelaControleFrequenciaCursosOficina objControlFreq = null;
     //
     public static String nomeModuloTERA = "TERAPIA";
     String dataLanc;
@@ -210,6 +211,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     //
     public static String telaCapacitacaoInternoManuTO = "Movimentação:Capacitação de Interno:Manutenção";
     public static String telaCapacitacaoInternoIntTO = "Movimentação:Capacitação de Interno:Interno";
+    //
+    public static String telaFreqCapacitacaoInternoManuTO = "Movimentação:Frequência Capacitação de Interno:Manutenção";
+    public static String telaFreqCapacitacaoInternoIntTO = "Movimentação:Frequência Capacitação de Interno:Interno";
     // MENU CADASTRO
     String pNomeELB_TO = "";
     //
@@ -264,6 +268,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     //
     String pNomeCIM = "";
     String pNomeCII = "";
+    //
+    String pNomeFCIM = "";
+    String pNomeFCII = "";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
 
@@ -326,7 +333,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         OcorrenciasLaborativa = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jMenuControleFrequenciaCursos = new javax.swing.JMenu();
         jCapacitacaoInterno = new javax.swing.JMenuItem();
+        jControleFrequenciaCursos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -339,6 +348,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu7 = new javax.swing.JMenu();
         RelatorioFichaLaborativa = new javax.swing.JMenuItem();
         AtivaLaborativaExterna = new javax.swing.JMenuItem();
+        jInternosTrabalhandoTrabalho = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
@@ -580,6 +590,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu2.add(OcorrenciasLaborativa);
         jMenu2.add(jSeparator14);
 
+        jMenuControleFrequenciaCursos.setForeground(new java.awt.Color(0, 102, 0));
+        jMenuControleFrequenciaCursos.setText("Capacitação/Oficias/Frequências de Internos");
+
         jCapacitacaoInterno.setForeground(new java.awt.Color(0, 102, 0));
         jCapacitacaoInterno.setText("Capacitação/Oficinas para Internos");
         jCapacitacaoInterno.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +600,18 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
                 jCapacitacaoInternoActionPerformed(evt);
             }
         });
-        jMenu2.add(jCapacitacaoInterno);
+        jMenuControleFrequenciaCursos.add(jCapacitacaoInterno);
+
+        jControleFrequenciaCursos.setForeground(new java.awt.Color(153, 0, 0));
+        jControleFrequenciaCursos.setText("Controle de Frequência de Internos - CURSOS/OFICINAS");
+        jControleFrequenciaCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jControleFrequenciaCursosActionPerformed(evt);
+            }
+        });
+        jMenuControleFrequenciaCursos.add(jControleFrequenciaCursos);
+
+        jMenu2.add(jMenuControleFrequenciaCursos);
 
         jMenuBar1.add(jMenu2);
 
@@ -659,6 +683,15 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu7.add(AtivaLaborativaExterna);
+
+        jInternosTrabalhandoTrabalho.setForeground(new java.awt.Color(0, 0, 204));
+        jInternosTrabalhandoTrabalho.setText("Internos Trabalhando/Trabalharam");
+        jInternosTrabalhandoTrabalho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInternosTrabalhandoTrabalhoActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jInternosTrabalhandoTrabalho);
 
         jMenu3.add(jMenu7);
 
@@ -1651,6 +1684,47 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCapacitacaoInternoActionPerformed
 
+    private void jControleFrequenciaCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jControleFrequenciaCursosActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaFreqCapacitacaoInternoManuTO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAbrirTO == 1) {
+            if (objControlFreq == null || objControlFreq.isClosed()) {
+                objControlFreq = new TelaControleFrequenciaCursosOficina();
+                jPainelTerapia.add(objControlFreq);
+                objControlFreq.setVisible(true);
+            } else {
+                if (objControlFreq.isVisible()) {
+                    if (objControlFreq.isIcon()) { // Se esta minimizado
+                        try {
+                            objControlFreq.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objControlFreq.toFront(); // traz para frente
+                        objControlFreq.pack();//volta frame 
+                    }
+                } else {
+                    objControlFreq = new TelaControleFrequenciaCursosOficina();
+                    TelaModuloTerapiaOcupacional.jPainelTerapia.add(objControlFreq);//adicona frame ao JDesktopPane  
+                    objControlFreq.setVisible(true);
+                }
+            }
+            try {
+                objControlFreq.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jControleFrequenciaCursosActionPerformed
+
+    private void jInternosTrabalhandoTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInternosTrabalhandoTrabalhoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosTrabalhando objRelTrab = new TelaRelatorioInternosTrabalhando();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objRelTrab);
+        objRelTrab.show();
+    }//GEN-LAST:event_jInternosTrabalhandoTrabalhoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1679,7 +1753,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem TriagemOcupacional;
     private javax.swing.JMenuItem jCapacitacaoInterno;
+    private javax.swing.JMenuItem jControleFrequenciaCursos;
     private javax.swing.JMenuItem jHistoricoMovimentacaoExterna;
+    private javax.swing.JMenuItem jInternosTrabalhandoTrabalho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1691,6 +1767,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuControleFrequenciaCursos;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2271,6 +2348,20 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             pNomeCII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFreqCapacitacaoInternoManuTO + "'");
+            conecta.rs.first();
+            pNomeFCIM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaFreqCapacitacaoInternoIntTO + "'");
+            conecta.rs.first();
+            pNomeFCII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MENU CADASTRO
         if (!pNomeELB_TO.equals(telaEmpresasLabManuTO) || pNomeELB_TO == null || pNomeELB_TO.equals("")) {
             buscarCodigoModulo();
@@ -2490,6 +2581,18 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCapacitacaoInternoIntTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeFCIM.equals(telaFreqCapacitacaoInternoManuTO) || pNomeFCIM == null || pNomeFCIM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFreqCapacitacaoInternoManuTO);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeFCII.equals(telaFreqCapacitacaoInternoIntTO) || pNomeFCII == null || pNomeFCII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaFreqCapacitacaoInternoIntTO);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
