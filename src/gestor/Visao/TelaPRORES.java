@@ -5,8 +5,11 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +27,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     IndicadoresAcompanhamento objPerfilInter = new IndicadoresAcompanhamento();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
     //ENFERMARIA
     int qtdDiabetes = 0;
@@ -75,21 +80,42 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         initComponents();
         corCampos();
         limparCampos();
-        preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
-                + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
-                + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
-                + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
-                + "AND '" + dataFinal + "'");
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            convertedata.converter(jDataSistema.getText());
+            preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
+                    + "AND '" + dataFinal + "'");
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
+                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
+                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
+                    + "AND '" + dataFinal + "'");
+        }
     }
 
     /**

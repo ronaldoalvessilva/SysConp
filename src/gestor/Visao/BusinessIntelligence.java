@@ -5,9 +5,13 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.BusinessInterlliigence;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.awt.Color;
 import java.awt.Image;
@@ -32,6 +36,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     BusinessInterlliigence objBusInt = new BusinessInterlliigence();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
     float resultado, qtdExcesso;
     int popCela = 0;
@@ -599,7 +604,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jTabelaCelas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Cela"
@@ -753,7 +758,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Matricula", "Nome do Interno"
@@ -970,70 +975,70 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
     private void jBtConsultaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaInternosPortaria objConsProntInt = new TelaConsultaInternosPortaria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsProntInt);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsProntInt);
         objConsProntInt.show();
     }//GEN-LAST:event_jBtConsultaInternosActionPerformed
 
     private void jBtConsultaRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaRolActionPerformed
         // TODO add your handling code here:
         TelaRolVisitasPortaria objConsRol = new TelaRolVisitasPortaria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsRol);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsRol);
         objConsRol.show();
     }//GEN-LAST:event_jBtConsultaRolActionPerformed
 
     private void jBtConsultaVisitasDiversasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisitasDiversasActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitasDiversasDir objConsVisDir = new TelaConsultaVisitasDiversasDir();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsVisDir);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsVisDir);
         objConsVisDir.show();
     }//GEN-LAST:event_jBtConsultaVisitasDiversasActionPerformed
 
     private void jBtConsultaMovExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovExternaActionPerformed
         // TODO add your handling code here:
         TelaMovimentacaoCrcDiretoria objMovExt = new TelaMovimentacaoCrcDiretoria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objMovExt);
+        TelaModuloPRORES.jPainelDiretoria.add(objMovExt);
         objMovExt.show();
     }//GEN-LAST:event_jBtConsultaMovExternaActionPerformed
 
     private void jBtConsultaLocalInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaLocalInternoActionPerformed
         // TODO add your handling code here:
         TelaConsultaLocalInternoPortaria objLocalInt = new TelaConsultaLocalInternoPortaria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objLocalInt);
+        TelaModuloPRORES.jPainelDiretoria.add(objLocalInt);
         objLocalInt.show();
     }//GEN-LAST:event_jBtConsultaLocalInternoActionPerformed
 
     private void jBtConsultaVisistaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisistaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitaSocial objConsVisitaSosi = new TelaConsultaVisitaSocial();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsVisitaSosi);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsVisitaSosi);
         objConsVisitaSosi.show();
     }//GEN-LAST:event_jBtConsultaVisistaInternosActionPerformed
 
     private void jBtConsultaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaColaboradorActionPerformed
         // TODO add your handling code here:
         TelaConsultaFuncionariosDir objConsFunc = new TelaConsultaFuncionariosDir();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsFunc);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsFunc);
         objConsFunc.show();
     }//GEN-LAST:event_jBtConsultaColaboradorActionPerformed
 
     private void jBtConsultaAdvogadosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaAdvogadosInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaAdvogadosDir objConsuAdv = new TelaConsultaAdvogadosDir();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsuAdv);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsuAdv);
         objConsuAdv.show();
     }//GEN-LAST:event_jBtConsultaAdvogadosInternosActionPerformed
 
     private void jBtConsultaMovInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovInternoActionPerformed
         // TODO add your handling code here:
         TelaMovHistoricoTecDiretoria objMovIntTec = new TelaMovHistoricoTecDiretoria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objMovIntTec);
+        TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
         objMovIntTec.show();
     }//GEN-LAST:event_jBtConsultaMovInternoActionPerformed
 
     private void jBtValoresInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtValoresInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaSaldoFinDir objConsuFin = new TelaConsultaSaldoFinDir();
-        TelaModuloDiretoria.jPainelDiretoria.add(objConsuFin);
+        TelaModuloPRORES.jPainelDiretoria.add(objConsuFin);
         objConsuFin.show();
     }//GEN-LAST:event_jBtValoresInternosActionPerformed
 
@@ -1239,22 +1244,38 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
             do {
                 jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPav"));
             } while (conecta.rs.next());
-        } catch (SQLException ex) {           
+        } catch (SQLException ex) {
         }
         conecta.desconecta();
     }
 
     public void buscarPopulacaoCarceraria() {
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataPopulacao = formatoAmerica.format(jDataAtual.getDate().getTime());         
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM MOVPOPULACAO WHERE DataPopMov>='" + dataPopulacao + "'");
-            conecta.rs.first();
-            jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));           
-        } catch (Exception e) {
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+            dataPopulacao = formatoAmerica.format(jDataAtual.getDate().getTime());
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM MOVPOPULACAO WHERE DataPopMov>='" + dataSisConvert + "'");
+                conecta.rs.first();
+                jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataPopulacao = formatoAmerica.format(jDataAtual.getDate().getTime());
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM MOVPOPULACAO WHERE DataPopMov>='" + dataPopulacao + "'");
+                conecta.rs.first();
+                jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
         }
-        conecta.desconecta();
     }
 
     public void buscarCapacidadePopulacaoCarceraria() {
@@ -1314,8 +1335,8 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
-    public void totalPavilhaoUm(){
+
+    public void totalPavilhaoUm() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
@@ -1325,7 +1346,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE NivelPav='" + pavilhaoI + "'");                    
+                    + "WHERE NivelPav='" + pavilhaoI + "'");
             totalPavilhaoA = -1;
             do {
                 totalPavilhaoA = totalPavilhaoA + 1;
@@ -1336,7 +1357,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void totalPavilhaoDois(){
+    public void totalPavilhaoDois() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
@@ -1347,7 +1368,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
                     + "WHERE NivelPav='" + pavilhaoII + "'");
-                   
+
             totalPavilhaoB = -1;
             do {
                 totalPavilhaoB = totalPavilhaoB + 1;
@@ -1357,6 +1378,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
+
     public void buscarInternosSaidaTemporaria() {
         conecta.abrirConexao();
         try {

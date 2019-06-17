@@ -557,6 +557,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jRelatorioAtendimentoInternos.add(jRelatorioAtendimentoPsicologico);
         jRelatorioAtendimentoInternos.add(jSeparator13);
 
+        jMenuItem1.setForeground(new java.awt.Color(204, 0, 0));
         jMenuItem1.setText("Relatório Tratamento Psicologico");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -1289,9 +1289,11 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuSobre);
 
         jMenu5.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu5.setMnemonic('R');
         jMenu5.setText("PRORES");
 
-        jPRORES.setText("Indicadores de Resultado - PRORES");
+        jPRORES.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        jPRORES.setText("PRORES");
         jPRORES.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPRORESActionPerformed(evt);
@@ -7090,12 +7092,92 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 //         buscarAcessoUsuario(telaIndAcompanhaManu);
 //        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codAbrirENF == 1) {
-        TelaPRORES objPRORES = new TelaPRORES();
-        this.jPanielPrincipal.add(objPRORES);
-        objPRORES.show();
+//        TelaPRORES objPRORES = new TelaPRORES();
+//        this.jPanielPrincipal.add(objPRORES);
+//        objPRORES.show();
 //        } else {
 //            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
 //        }
+        String grupoAdm = "ADMINISTRADORES";
+        String permissaoGrupoAdm = "Sim";
+        String moduloAdm = "DIRETORIA GERAL";
+        idGrupo = 0;
+        nomeGrupo = "";
+        idModulo = 0;
+        idGrupoModulo = 0;
+        permissaoModulo = "";
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+            conecta.rs.first();
+            nomeGrupo = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+        // SE O FOR O ADMINISTRADOR DO SISTEMA
+        if (loginUsusario.equals(nameUser)) {
+            TelaModuloPRORES mPRORES = new TelaModuloPRORES();
+            this.jPanielPrincipal.add(mPRORES);
+            mPRORES.show();
+            try {
+                mPRORES.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (nomeGrupo.equals(grupoAdministrador)) {
+                TelaModuloPRORES mPRORES = new TelaModuloPRORES();
+                this.jPanielPrincipal.add(mPRORES);
+                mPRORES.show();
+                try {
+                    mPRORES.setMaximum(true);
+                } catch (PropertyVetoException ex) {
+                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                            + "INNER JOIN GRUPOUSUARIOS "
+                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idGrupo = conecta.rs.getInt("IdGrupo");
+                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+                } catch (Exception e) {
+                }
+                try {
+                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+                            + "INNER JOIN MODULOS "
+                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+                            + "WHERE MODULOS.NomeModulo='" + moduloAdm + "' "
+                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+                    conecta.rs.first();
+                    idModulo = conecta.rs.getInt("IdModulo");
+                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+                    permissaoModulo = conecta.rs.getString("Permissao");
+                } catch (Exception er) {
+                }
+                conecta.desconecta();
+                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoAdm)) {
+                    TelaModuloPRORES mPRORES = new TelaModuloPRORES();
+                    this.jPanielPrincipal.add(mPRORES);
+                    mPRORES.show();
+                    try {
+                        mPRORES.setMaximum(true);
+                    } catch (PropertyVetoException ex) {
+                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+                }
+            }
+        }
     }//GEN-LAST:event_jPRORESActionPerformed
 
     /**

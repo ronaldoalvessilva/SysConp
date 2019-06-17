@@ -423,11 +423,17 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu10">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="0" red="99" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos em Capacitados/Em Capacita&#xe7;&#xe3;o"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoConcluido">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="cc" green="0" red="0" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Internos com curso conclu&#xed;do"/>
                   </Properties>
                   <Events>
@@ -436,6 +442,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoAndamento">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Internos com curso em andamento"/>
                   </Properties>
                   <Events>

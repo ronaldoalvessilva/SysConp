@@ -735,8 +735,10 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu3.add(jRelatorioAtendimentoInternos);
 
+        jMenu10.setForeground(new java.awt.Color(153, 0, 102));
         jMenu10.setText("Relatório de Internos em Capacitados/Em Capacitação");
 
+        jRelatorioInternosCursoConcluido.setForeground(new java.awt.Color(0, 0, 204));
         jRelatorioInternosCursoConcluido.setText("Internos com curso concluído");
         jRelatorioInternosCursoConcluido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -745,6 +747,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu10.add(jRelatorioInternosCursoConcluido);
 
+        jRelatorioInternosCursoAndamento.setForeground(new java.awt.Color(204, 0, 0));
         jRelatorioInternosCursoAndamento.setText("Internos com curso em andamento");
         jRelatorioInternosCursoAndamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
