@@ -421,6 +421,29 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioAtendimentoInternosActionPerformed"/>
               </Events>
             </MenuItem>
+            <Menu class="javax.swing.JMenu" name="jMenu10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos em Capacitados/Em Capacita&#xe7;&#xe3;o"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoConcluido">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Internos com curso conclu&#xed;do"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioInternosCursoConcluidoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoAndamento">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Internos com curso em andamento"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioInternosCursoAndamentoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>

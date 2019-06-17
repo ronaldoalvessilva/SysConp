@@ -356,6 +356,9 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         RelatorioInternosCNC = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        jRelatorioInternosCursoConcluido = new javax.swing.JMenuItem();
+        jRelatorioInternosCursoAndamento = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -731,6 +734,26 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
             }
         });
         jMenu3.add(jRelatorioAtendimentoInternos);
+
+        jMenu10.setText("Relatório de Internos em Capacitados/Em Capacitação");
+
+        jRelatorioInternosCursoConcluido.setText("Internos com curso concluído");
+        jRelatorioInternosCursoConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioInternosCursoConcluidoActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jRelatorioInternosCursoConcluido);
+
+        jRelatorioInternosCursoAndamento.setText("Internos com curso em andamento");
+        jRelatorioInternosCursoAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioInternosCursoAndamentoActionPerformed(evt);
+            }
+        });
+        jMenu10.add(jRelatorioInternosCursoAndamento);
+
+        jMenu3.add(jMenu10);
 
         jMenuBar1.add(jMenu3);
 
@@ -1725,6 +1748,20 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         objRelTrab.show();
     }//GEN-LAST:event_jInternosTrabalhandoTrabalhoActionPerformed
 
+    private void jRelatorioInternosCursoConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosCursoConcluidoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosCursoConcluido objIntEstudando = new TelaRelatorioInternosCursoConcluido();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objIntEstudando);
+        objIntEstudando.show();
+    }//GEN-LAST:event_jRelatorioInternosCursoConcluidoActionPerformed
+
+    private void jRelatorioInternosCursoAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosCursoAndamentoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosCursoCursando objRelConclu = new TelaRelatorioInternosCursoCursando();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objRelConclu);
+        objRelConclu.show();
+    }//GEN-LAST:event_jRelatorioInternosCursoAndamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1758,6 +1795,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jInternosTrabalhandoTrabalho;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -1776,6 +1814,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelTerapia;
     private javax.swing.JMenuItem jPerfilCarcerario;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
+    private javax.swing.JMenuItem jRelatorioInternosCursoAndamento;
+    private javax.swing.JMenuItem jRelatorioInternosCursoConcluido;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
