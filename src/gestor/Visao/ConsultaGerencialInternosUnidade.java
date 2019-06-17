@@ -696,8 +696,13 @@ public class ConsultaGerencialInternosUnidade extends javax.swing.JInternalFrame
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
         } else {
             TelaConsultaProntuarioInternoCrcExt objConsultaIntExt = new TelaConsultaProntuarioInternoCrcExt();
-            TelaModuloCRC.jPainelCRC.add(objConsultaIntExt);
-            objConsultaIntExt.show();
+            if (TelaModuloCRC.jPainelCRC != null) {
+                TelaModuloCRC.jPainelCRC.add(objConsultaIntExt);
+                objConsultaIntExt.show();
+            } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+                TelaModuloPRORES.jPainelDiretoria.add(objConsultaIntExt);
+                objConsultaIntExt.show();
+            }
         }
     }//GEN-LAST:event_jBtProntuarioCrcActionPerformed
 

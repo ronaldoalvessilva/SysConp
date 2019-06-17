@@ -2102,6 +2102,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxDocumentacaoCompleta.setEnabled(false);
 
         jLabel194.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel194.setForeground(new java.awt.Color(153, 0, 0));
         jLabel194.setText("Quais?");
 
         jQuaisDocumentosFaltam.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -4414,312 +4415,295 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
+            } else if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
+                jMaeInterno.requestFocus();
+            } else if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
+                jPaiInterno.requestFocus();
+            } else if (caminho == null) {
+                JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
+            } else if (jDataNascimento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
+                jDataCadastro.requestFocus();
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
+                jDataEntrada.requestFocus();
+            } else if (jDataCrime.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
+                jDataCrime.requestFocus();
+            } else if (jDataPrisao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
+                jDataPrisao.requestFocus();
+            } else if (jDataCondenacao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
+                jDataCondenacao.requestFocus();
+            } else if (jComboBoxUnid.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
+                jComboBoxUnid.requestFocus();
+                jComboBoxUnid.setBackground(Color.red);
+            } else if (jComboBoxPais.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
+                jComboBoxPais.requestFocus();
+                jComboBoxPais.setBackground(Color.red);
+            } else if (jComboBoxCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
+                jComboBoxCidade.requestFocus();
+                jComboBoxCidade.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
+                jComboBoxDocumentacaoCompleta.requestFocus();
+                jComboBoxDocumentacaoCompleta.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não") && jQuaisDocumentosFaltam.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe quais documentos do interno estão faltando.");
+                jComboBoxDocumentacaoCompleta.requestFocus();
+                jComboBoxDocumentacaoCompleta.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
+                jComboBoxDocumentacaoCompleta.requestFocus();
+                jComboBoxDocumentacaoCompleta.setBackground(Color.red);
             } else {
-                if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
-                    jMaeInterno.requestFocus();
-                } else {
-                    if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
-                        jPaiInterno.requestFocus();
+                objProCrc.setMatricula(jMatriculaPenal.getText());
+                objProCrc.setDataCadast(jDataCadastro.getDate());
+                objProCrc.setDataNasci(jDataNascimento.getDate());
+                objProCrc.setNomeInterno(jNomeInterno.getText());
+                objProCrc.setMaeInterno(jMaeInterno.getText());
+                objProCrc.setPaiInterno(jPaiInterno.getText());
+                objProCrc.setAlcunha(jAlcunha.getText());
+                objProCrc.setRgInterno(jRGInterno.getText());
+                objProCrc.setCpfInterno(jCPFInterno.getText());
+                objProCrc.setCartoaSus(jCartaoSus.getText());
+                objProCrc.setFotoInterno(caminho);
+                objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                objProCrc.setSituacao(jSituacao.getText());
+                objProCrc.setNomePais(jComboBoxPais.getText());
+                objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                objProCrc.setReligiao(jReligiao.getText());
+                objProCrc.setProfissao(jProfissao.getText());
+                objProCrc.setEndereco(jEndereco.getText());
+                objProCrc.setBairro(jBairro.getText());
+                objProCrc.setCidade(jCidade.getText());
+                objProCrc.setEstado(jEstado.getText());
+                objProCrc.setTelefone(jTelefone.getText());
+                objProCrc.setTelefone1(jTelefone1.getText());
+                objProCrc.setCelular(jCelular.getText());
+                objProCrc.setCnc(jCNC.getText());
+                objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
+                objProCrc.setQuaisDocumentosFaltam(jQuaisDocumentosFaltam.getText());
+                // Classe Dados Fisicos
+                objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                objDadosFis.setCamisa(jCamisa.getText());
+                objDadosFis.setCalca(jCalca.getText());
+                objDadosFis.setSapato(jSapato.getText());
+                objDadosFis.setPeso(jPeso.getText());
+                objDadosFis.setAltura(jAltura.getText());
+                objDadosFis.setSinais(jParticularidade.getText());
+                objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                // Dados Penais
+                objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                objDadosPena.setDataCrime(jDataCrime.getDate());
+                objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                objDadosPena.setPena(jPena.getText());
+                objDadosPena.setArtigo1(jArtigo1.getText());
+                objDadosPena.setArtigo2(jArtigo2.getText());
+                objDadosPena.setArtigo3(jArtigo3.getText());
+                objDadosPena.setParagrafo1(jParagrafo1.getText());
+                objDadosPena.setParagrafo2(jParagrafo2.getText());
+                objDadosPena.setParagrafo3(jParagrafo3.getText());
+                objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                objDadosPena.setIdentificador(jIdentificador.getText());
+                objDadosPena.setIdentificador1(jIdentificador1.getText());
+                objDadosPena.setIdentificador2(jIdentificador2.getText());
+                objDadosPena.setIdentificador3(jIdentificador3.getText());
+                objDadosPena.setPerfil(jPerfil.getText());
+                objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                objProCrc.setUsuarioInsert(nameUser);
+                objProCrc.setDataInsert(jDataSistema.getText());
+                objProCrc.setHoraInsert(jHoraSistema.getText());
+                try {
+                    // Verificar se o interno já foi cadastrado, se foi avisa
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
+                    conecta.rs.first();
+                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
+                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
+                    conecta.desconecta();
+                } catch (SQLException | HeadlessException | NumberFormatException e) {
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE                                                         
+                Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                        img.getWidth(null),
+                        img.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = bi.createGraphics();
+                g2.drawImage(img, 0, 0, null);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(bi, "jpg", buffer);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objProCrc.setImagemInterno(buffer.toByteArray());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                if (jFotoPerfil.getIcon() != null) {
+                    Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
+                    BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgp.getWidth(null),
+                            imgp.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2a = bip.createGraphics();
+                    g2a.drawImage(imgp, 0, 0, null);
+                    ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bip, "jpg", bufferp);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                if (jFotoCorpo.getIcon() != null) {
+                    Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
+                    BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc.getWidth(null),
+                            imgc.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2b = bic.createGraphics();
+                    g2b.drawImage(imgc, 0, 0, null);
+                    ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic, "jpg", bufferc);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                if (jFotoCorpo1.getIcon() != null) {
+                    Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
+                    BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc1.getWidth(null),
+                            imgc1.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2c = bic1.createGraphics();
+                    g2c.drawImage(imgc1, 0, 0, null);
+                    ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic1, "jpg", bufferc1);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                if (jFotoCorpo2.getIcon() != null) {
+                    Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
+                    BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc2.getWidth(null),
+                            imgc2.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2c2 = bic2.createGraphics();
+                    g2c2.drawImage(imgc2, 0, 0, null);
+                    ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic2, "jpg", bufferc2);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
+                }
+                if (acao == 1) {
+                    if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                        conecta.desconecta();
                     } else {
-                        if (caminho == null) {
-                            JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
-                        } else {
-                            if (jDataNascimento.getDate() == null) {
-                                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
-                                jDataCadastro.requestFocus();
+                        try {
+                            //GRAVA NA TABELA PRONTUARIOSCRC
+                            control.incluirInternoCrc(objProCrc);
+                            buscarCodInt();
+                            // TABELA DADOSFISICOSINTERNOS
+                            controlFisicos.incluirDadosFisicos(objDadosFis);
+                            // TABELA DADOSPENAISINTERNOS
+                            controlPenais.incluirDadosPenais(objDadosPena);
+                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
+                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                            verificarGravacaoInterno();
+                            if (jIdInterno.getText().equals(codIntPenal)) {
+                                // Confirma a utilização do registro do interno iniciado pela portaria.
+                                objProCrc.setNomeInterno(jNomeInterno.getText());
+                                objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                control.confirmarRegInternoCrc(objProCrc);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
                             } else {
-                                if (jDataEntrada.getDate() == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
-                                    jDataEntrada.requestFocus();
-                                } else {
-                                    if (jDataCrime.getDate() == null) {
-                                        JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
-                                        jDataCrime.requestFocus();
-                                    } else {
-                                        if (jDataPrisao.getDate() == null) {
-                                            JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
-                                            jDataPrisao.requestFocus();
-                                        } else {
-                                            if (jDataCondenacao.getDate() == null) {
-                                                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
-                                                jDataCondenacao.requestFocus();
-                                            } else {
-
-                                                if (jComboBoxUnid.getText().equals("")) {
-                                                    JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
-                                                    jComboBoxUnid.requestFocus();
-                                                    jComboBoxUnid.setBackground(Color.red);
-                                                } else {
-                                                    if (jComboBoxPais.getText().equals("")) {
-                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
-                                                        jComboBoxPais.requestFocus();
-                                                        jComboBoxPais.setBackground(Color.red);
-                                                    } else {
-                                                        if (jComboBoxCidade.getText().equals("")) {
-                                                            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
-                                                            jComboBoxCidade.requestFocus();
-                                                            jComboBoxCidade.setBackground(Color.red);
-                                                        } else {
-                                                            objProCrc.setMatricula(jMatriculaPenal.getText());
-                                                            objProCrc.setDataCadast(jDataCadastro.getDate());
-                                                            objProCrc.setDataNasci(jDataNascimento.getDate());
-                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                            objProCrc.setMaeInterno(jMaeInterno.getText());
-                                                            objProCrc.setPaiInterno(jPaiInterno.getText());
-                                                            objProCrc.setAlcunha(jAlcunha.getText());
-                                                            objProCrc.setRgInterno(jRGInterno.getText());
-                                                            objProCrc.setCpfInterno(jCPFInterno.getText());
-                                                            objProCrc.setCartoaSus(jCartaoSus.getText());
-                                                            objProCrc.setFotoInterno(caminho);
-                                                            objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                                            objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                                            objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                                            objProCrc.setSituacao(jSituacao.getText());
-                                                            objProCrc.setNomePais(jComboBoxPais.getText());
-                                                            objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                                                            objProCrc.setReligiao(jReligiao.getText());
-                                                            objProCrc.setProfissao(jProfissao.getText());
-                                                            objProCrc.setEndereco(jEndereco.getText());
-                                                            objProCrc.setBairro(jBairro.getText());
-                                                            objProCrc.setCidade(jCidade.getText());
-                                                            objProCrc.setEstado(jEstado.getText());
-                                                            objProCrc.setTelefone(jTelefone.getText());
-                                                            objProCrc.setTelefone1(jTelefone1.getText());
-                                                            objProCrc.setCelular(jCelular.getText());
-                                                            objProCrc.setCnc(jCNC.getText());
-                                                            objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
-                                                            objProCrc.setQuaisDocumentosFaltam(jQuaisDocumentosFaltam.getText());
-                                                            // Classe Dados Fisicos
-                                                            objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                                                            objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                                                            objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                                                            objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                                                            objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                                                            objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                                                            objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                                                            objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                                                            objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                                                            objDadosFis.setCamisa(jCamisa.getText());
-                                                            objDadosFis.setCalca(jCalca.getText());
-                                                            objDadosFis.setSapato(jSapato.getText());
-                                                            objDadosFis.setPeso(jPeso.getText());
-                                                            objDadosFis.setAltura(jAltura.getText());
-                                                            objDadosFis.setSinais(jParticularidade.getText());
-                                                            objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                                                            objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                                                            objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                                                            // Dados Penais
-                                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                                                            objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                                                            objDadosPena.setDataCrime(jDataCrime.getDate());
-                                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                                                            objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                                                            objDadosPena.setPena(jPena.getText());
-                                                            objDadosPena.setArtigo1(jArtigo1.getText());
-                                                            objDadosPena.setArtigo2(jArtigo2.getText());
-                                                            objDadosPena.setArtigo3(jArtigo3.getText());
-                                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
-                                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
-                                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
-                                                            objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                                                            objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                                                            objDadosPena.setIdentificador(jIdentificador.getText());
-                                                            objDadosPena.setIdentificador1(jIdentificador1.getText());
-                                                            objDadosPena.setIdentificador2(jIdentificador2.getText());
-                                                            objDadosPena.setIdentificador3(jIdentificador3.getText());
-                                                            objDadosPena.setPerfil(jPerfil.getText());
-                                                            objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                                                            objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                                                            objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                                                            objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                                                            objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                                                            objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                                                            objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                                                            objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                                                            objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                                                            objProCrc.setUsuarioInsert(nameUser);
-                                                            objProCrc.setDataInsert(jDataSistema.getText());
-                                                            objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                            try {
-                                                                // Verificar se o interno já foi cadastrado, se foi avisa
-                                                                conecta.abrirConexao();
-                                                                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                                                                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                                                                        + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                                conecta.rs.first();
-                                                                nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                                nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                                conecta.desconecta();
-                                                            } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                                                            if (jLabelFotoInterno.getIcon() != null) {
-                                                                Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
-                                                                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        img.getWidth(null),
-                                                                        img.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2 = bi.createGraphics();
-                                                                g2.drawImage(img, 0, 0, null);
-                                                                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bi, "jpg", buffer);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objProCrc.setImagemInterno(buffer.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                                                            if (jFotoPerfil.getIcon() != null) {
-                                                                Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
-                                                                BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgp.getWidth(null),
-                                                                        imgp.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2a = bip.createGraphics();
-                                                                g2a.drawImage(imgp, 0, 0, null);
-                                                                ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bip, "jpg", bufferp);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemPerfil(bufferp.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
-                                                            if (jFotoCorpo.getIcon() != null) {
-                                                                Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
-                                                                BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc.getWidth(null),
-                                                                        imgc.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2b = bic.createGraphics();
-                                                                g2b.drawImage(imgc, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic, "jpg", bufferc);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo(bufferc.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                                                            if (jFotoCorpo1.getIcon() != null) {
-                                                                Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
-                                                                BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc1.getWidth(null),
-                                                                        imgc1.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2c = bic1.createGraphics();
-                                                                g2c.drawImage(imgc1, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic1, "jpg", bufferc1);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                                                            if (jFotoCorpo2.getIcon() != null) {
-                                                                Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
-                                                                BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc2.getWidth(null),
-                                                                        imgc2.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2c2 = bic2.createGraphics();
-                                                                g2c2.drawImage(imgc2, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic2, "jpg", bufferc2);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
-                                                            }
-                                                            if (acao == 1) {
-                                                                if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                                                                    conecta.desconecta();
-                                                                } else {
-                                                                    try {
-                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                        control.incluirInternoCrc(objProCrc);
-                                                                        buscarCodInt();
-                                                                        // TABELA DADOSFISICOSINTERNOS
-                                                                        controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                        // TABELA DADOSPENAISINTERNOS
-                                                                        controlPenais.incluirDadosPenais(objDadosPena);
-                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                        verificarGravacaoInterno();
-                                                                        if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                            control.confirmarRegInternoCrc(objProCrc);
-                                                                            //QUANDO O PRONTUARIO VEM DE OUTRA UNIDADE PENAL A SER TRANSFERIDO
-                                                                            pPront.setNomeInterno(jNomeInterno.getText());
-                                                                            pPront.setMaeInterno(jMaeInterno.getText());
-                                                                            pPront.setTransConf(confirmarTransf);
-                                                                            control.confirmarCadastroInterno(pPront);
-                                                                            objLog();
-                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                            Salvar();
-                                                                        } else {
-                                                                            apagarRegistroInterno();
-                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                                                        }
-
-                                                                    } catch (SQLException ex) {
-                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
-                                                                    }
-                                                                }
-                                                            }
-                                                            if (acao == 2) {
-                                                                try {
-                                                                    objProCrc.setUsuarioUp(nameUser);
-                                                                    objProCrc.setDataUp(jDataSistema.getText());
-                                                                    objProCrc.setHoraUp(jHoraSistema.getText());
-                                                                    objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                                                                    objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                    objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                    control.alterarInternoCrc(objProCrc);
-                                                                    controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                    controlPenais.alterarDadosPenais(objDadosPena);
-                                                                    objLog();
-                                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                                                    Salvar();
-                                                                } catch (Exception e) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                apagarRegistroInterno();
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
                             }
+
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                         }
                     }
+                }
+                if (acao == 2) {
+                    try {
+                        objProCrc.setUsuarioUp(nameUser);
+                        objProCrc.setDataUp(jDataSistema.getText());
+                        objProCrc.setHoraUp(jHoraSistema.getText());
+                        objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                        objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                        control.alterarInternoCrc(objProCrc);
+                        controlFisicos.alterarDadosFisicos(objDadosFis);
+                        controlPenais.alterarDadosPenais(objDadosPena);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                        Salvar();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                    }
+
                 }
             }
         } else {
@@ -5351,305 +5335,295 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             if (jNomeInterno.getText().isEmpty() || jNomeInterno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Nome do INTERNO não pode ser em branco...");
                 jNomeInterno.requestFocus();
+            } else if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
+                jMaeInterno.requestFocus();
+            } else if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
+                jPaiInterno.requestFocus();
+            } else if (caminho == null) {
+                JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
+            } else if (jDataNascimento.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
+                jDataCadastro.requestFocus();
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
+                jDataEntrada.requestFocus();
+            } else if (jDataCrime.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
+                jDataCrime.requestFocus();
+            } else if (jDataPrisao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
+                jDataPrisao.requestFocus();
+            } else if (jDataCondenacao.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
+                jDataCondenacao.requestFocus();
+            } else if (jComboBoxUnid.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
+                jComboBoxUnid.requestFocus();
+                jComboBoxUnid.setBackground(Color.red);
+            } else if (jComboBoxPais.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
+                jComboBoxPais.requestFocus();
+                jComboBoxPais.setBackground(Color.red);
+            } else if (jComboBoxCidade.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
+                jComboBoxCidade.requestFocus();
+                jComboBoxCidade.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
+                jComboBoxDocumentacaoCompleta.requestFocus();
+                jComboBoxDocumentacaoCompleta.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não") && jQuaisDocumentosFaltam.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe quais documentos do interno estão faltando.");
+                jQuaisDocumentosFaltam.requestFocus();
+                jQuaisDocumentosFaltam.setBackground(Color.red);
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
+                jComboBoxDocumentacaoCompleta.requestFocus();
+                jComboBoxDocumentacaoCompleta.setBackground(Color.red);
             } else {
-                if (jMaeInterno.getText().isEmpty() || jMaeInterno.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Nome da MÃE do INTERNO não pode ser em branco...");
-                    jMaeInterno.requestFocus();
-                } else {
-                    if (jPaiInterno.getText().isEmpty() || jPaiInterno.getText().equals("")) {
-                        JOptionPane.showMessageDialog(rootPane, "Nome do PAI do INTERNO não pode ser em branco...");
-                        jPaiInterno.requestFocus();
+                objProCrc.setMatricula(jMatriculaPenal.getText());
+                objProCrc.setDataCadast(jDataCadastro.getDate());
+                objProCrc.setDataNasci(jDataNascimento.getDate());
+                objProCrc.setNomeInterno(jNomeInterno.getText());
+                objProCrc.setMaeInterno(jMaeInterno.getText());
+                objProCrc.setPaiInterno(jPaiInterno.getText());
+                objProCrc.setAlcunha(jAlcunha.getText());
+                objProCrc.setRgInterno(jRGInterno.getText());
+                objProCrc.setCpfInterno(jCPFInterno.getText());
+                objProCrc.setCartoaSus(jCartaoSus.getText());
+                objProCrc.setFotoInterno(caminho);
+                objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
+                objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
+                objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                objProCrc.setSituacao(jSituacao.getText());
+                objProCrc.setNomePais(jComboBoxPais.getText());
+                objProCrc.setNomeCidade(jComboBoxCidade.getText());
+                objProCrc.setReligiao(jReligiao.getText());
+                objProCrc.setProfissao(jProfissao.getText());
+                objProCrc.setEndereco(jEndereco.getText());
+                objProCrc.setBairro(jBairro.getText());
+                objProCrc.setCidade(jCidade.getText());
+                objProCrc.setEstado(jEstado.getText());
+                objProCrc.setTelefone(jTelefone.getText());
+                objProCrc.setTelefone1(jTelefone1.getText());
+                objProCrc.setCelular(jCelular.getText());
+                objProCrc.setCnc(jCNC.getText());
+                objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
+                objProCrc.setQuaisDocumentosFaltam(jQuaisDocumentosFaltam.getText());
+                // Classe Dados Fisicos
+                objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
+                objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
+                objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
+                objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
+                objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
+                objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
+                objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
+                objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
+                objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
+                objDadosFis.setCamisa(jCamisa.getText());
+                objDadosFis.setCalca(jCalca.getText());
+                objDadosFis.setSapato(jSapato.getText());
+                objDadosFis.setPeso(jPeso.getText());
+                objDadosFis.setAltura(jAltura.getText());
+                objDadosFis.setSinais(jParticularidade.getText());
+                objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
+                objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
+                objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
+                // Dados Penais
+                objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
+                objDadosPena.setDataCrime(jDataCrime.getDate());
+                objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
+                objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                objDadosPena.setPena(jPena.getText());
+                objDadosPena.setArtigo1(jArtigo1.getText());
+                objDadosPena.setArtigo2(jArtigo2.getText());
+                objDadosPena.setArtigo3(jArtigo3.getText());
+                objDadosPena.setParagrafo1(jParagrafo1.getText());
+                objDadosPena.setParagrafo2(jParagrafo2.getText());
+                objDadosPena.setParagrafo3(jParagrafo3.getText());
+                objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
+                objDadosPena.setTerminoPena(jDataTerPena.getDate());
+                objDadosPena.setIdentificador(jIdentificador.getText());
+                objDadosPena.setIdentificador1(jIdentificador1.getText());
+                objDadosPena.setIdentificador2(jIdentificador2.getText());
+                objDadosPena.setIdentificador3(jIdentificador3.getText());
+                objDadosPena.setPerfil(jPerfil.getText());
+                objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
+                objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
+                objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
+                objDadosPena.setFotoPerfil(caminhoFotoPerfil);
+                objDadosPena.setFotoCorpo(caminhoFotoCorpo);
+                objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
+                objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
+                objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
+                objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
+                objProCrc.setUsuarioInsert(nameUser);
+                objProCrc.setDataInsert(jDataSistema.getText());
+                objProCrc.setHoraInsert(jHoraSistema.getText());
+                try {
+                    // Verificar se o interno já foi cadastrado, se foi avisa
+                    conecta.abrirConexao();
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                            + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                            + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
+                    conecta.rs.first();
+                    nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
+                    nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
+                    conecta.desconecta();
+                } catch (SQLException | HeadlessException | NumberFormatException e) {
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE                                                         
+                Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
+                BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                        img.getWidth(null),
+                        img.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2 = bi.createGraphics();
+                g2.drawImage(img, 0, 0, null);
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(bi, "jpg", buffer);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objProCrc.setImagemInterno(buffer.toByteArray());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
+                if (jFotoPerfil.getIcon() != null) {
+                    Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
+                    BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgp.getWidth(null),
+                            imgp.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2a = bip.createGraphics();
+                    g2a.drawImage(imgp, 0, 0, null);
+                    ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bip, "jpg", bufferp);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
+                if (jFotoCorpo.getIcon() != null) {
+                    Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
+                    BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc.getWidth(null),
+                            imgc.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2b = bic.createGraphics();
+                    g2b.drawImage(imgc, 0, 0, null);
+                    ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic, "jpg", bufferc);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
+                if (jFotoCorpo1.getIcon() != null) {
+                    Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
+                    BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc1.getWidth(null),
+                            imgc1.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2c = bic1.createGraphics();
+                    g2c.drawImage(imgc1, 0, 0, null);
+                    ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic1, "jpg", bufferc1);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                }
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
+                if (jFotoCorpo2.getIcon() != null) {
+                    Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
+                    BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            imgc2.getWidth(null),
+                            imgc2.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2c2 = bic2.createGraphics();
+                    g2c2.drawImage(imgc2, 0, 0, null);
+                    ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bic2, "jpg", bufferc2);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
+                }
+                if (acao == 1) {
+                    if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
+                        conecta.desconecta();
                     } else {
-                        if (caminho == null) {
-                            JOptionPane.showMessageDialog(rootPane, "FOTO do INTERNO não pode ser em branco...");
-                        } else {
-                            if (jDataNascimento.getDate() == null) {
-                                JOptionPane.showMessageDialog(rootPane, "DATA NASCIMENTO não pode ser em branco");
-                                jDataCadastro.requestFocus();
+                        try {
+                            //GRAVA NA TABELA PRONTUARIOSCRC
+                            control.incluirInternoCrc(objProCrc);
+                            buscarCodInt();
+                            // TABELA DADOSFISICOSINTERNOS
+                            controlFisicos.incluirDadosFisicos(objDadosFis);
+                            // TABELA DADOSPENAISINTERNOS
+                            controlPenais.incluirDadosPenais(objDadosPena);
+                            // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
+                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                            verificarGravacaoInterno();
+                            if (jIdInterno.getText().equals(codIntPenal)) {
+                                // Confirma a utilização do registro do interno iniciado pela portaria.
+                                objProCrc.setNomeInterno(jNomeInterno.getText());
+                                objProCrc.setConfirmaEntrada(confirmaEntrada);
+                                control.confirmarRegInternoCrc(objProCrc);
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                                Salvar();
                             } else {
-                                if (jDataEntrada.getDate() == null) {
-                                    JOptionPane.showMessageDialog(rootPane, "DATA ENTRADA não pode ser em branco");
-                                    jDataEntrada.requestFocus();
-                                } else {
-                                    if (jDataCrime.getDate() == null) {
-                                        JOptionPane.showMessageDialog(rootPane, "DATA CRIME não pode ser em branco");
-                                        jDataCrime.requestFocus();
-                                    } else {
-                                        if (jDataPrisao.getDate() == null) {
-                                            JOptionPane.showMessageDialog(rootPane, "DATA PRISÃO não pode ser em branco");
-                                            jDataPrisao.requestFocus();
-                                        } else {
-                                            if (jDataCondenacao.getDate() == null) {
-                                                JOptionPane.showMessageDialog(rootPane, "DATA CONDENAÇÃO não pode ser em branco");
-                                                jDataCondenacao.requestFocus();
-                                            } else {
-
-                                                if (jComboBoxUnid.getText().equals("")) {
-                                                    JOptionPane.showMessageDialog(rootPane, "Informe a unidade penal");
-                                                    jComboBoxUnid.requestFocus();
-                                                    jComboBoxUnid.setBackground(Color.red);
-                                                } else {
-                                                    if (jComboBoxPais.getText().equals("")) {
-                                                        JOptionPane.showMessageDialog(rootPane, "Informe o nome do Paíes");
-                                                        jComboBoxPais.requestFocus();
-                                                        jComboBoxPais.setBackground(Color.red);
-                                                    } else {
-                                                        if (jComboBoxCidade.getText().equals("")) {
-                                                            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Cidade");
-                                                            jComboBoxCidade.requestFocus();
-                                                            jComboBoxCidade.setBackground(Color.red);
-                                                        } else {
-                                                            objProCrc.setMatricula(jMatriculaPenal.getText());
-                                                            objProCrc.setDataCadast(jDataCadastro.getDate());
-                                                            objProCrc.setDataNasci(jDataNascimento.getDate());
-                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                            objProCrc.setMaeInterno(jMaeInterno.getText());
-                                                            objProCrc.setPaiInterno(jPaiInterno.getText());
-                                                            objProCrc.setAlcunha(jAlcunha.getText());
-                                                            objProCrc.setRgInterno(jRGInterno.getText());
-                                                            objProCrc.setCpfInterno(jCPFInterno.getText());
-                                                            objProCrc.setCartoaSus(jCartaoSus.getText());
-                                                            objProCrc.setFotoInterno(caminho);
-                                                            objProCrc.setEscolaridade((String) jComboBoxEscolaridade.getSelectedItem());
-                                                            objProCrc.setEstadoCivil((String) jComboBoxEstadoCivil.getSelectedItem());
-                                                            objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
-                                                            objProCrc.setSituacao(jSituacao.getText());
-                                                            objProCrc.setNomePais(jComboBoxPais.getText());
-                                                            objProCrc.setNomeCidade(jComboBoxCidade.getText());
-                                                            objProCrc.setReligiao(jReligiao.getText());
-                                                            objProCrc.setProfissao(jProfissao.getText());
-                                                            objProCrc.setEndereco(jEndereco.getText());
-                                                            objProCrc.setBairro(jBairro.getText());
-                                                            objProCrc.setCidade(jCidade.getText());
-                                                            objProCrc.setEstado(jEstado.getText());
-                                                            objProCrc.setTelefone(jTelefone.getText());
-                                                            objProCrc.setTelefone1(jTelefone1.getText());
-                                                            objProCrc.setCelular(jCelular.getText());
-                                                            objProCrc.setCnc(jCNC.getText());
-                                                            objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
-                                                            objProCrc.setQuaisDocumentosFaltam(jQuaisDocumentosFaltam.getText());
-                                                            // Classe Dados Fisicos
-                                                            objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
-                                                            objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
-                                                            objDadosFis.setCabelos((String) jComboBoxCabelos.getSelectedItem());
-                                                            objDadosFis.setBarba((String) jComboBoxBarba.getSelectedItem());
-                                                            objDadosFis.setBigode((String) jComboBoxBigode.getSelectedItem());
-                                                            objDadosFis.setNariz((String) jComboBoxNariz.getSelectedItem());
-                                                            objDadosFis.setBoca((String) jComboBoxBoca.getSelectedItem());
-                                                            objDadosFis.setRosto((String) jComboBoxRosto.getSelectedItem());
-                                                            objDadosFis.setLabios((String) jComboBoxLabios.getSelectedItem());
-                                                            objDadosFis.setCamisa(jCamisa.getText());
-                                                            objDadosFis.setCalca(jCalca.getText());
-                                                            objDadosFis.setSapato(jSapato.getText());
-                                                            objDadosFis.setPeso(jPeso.getText());
-                                                            objDadosFis.setAltura(jAltura.getText());
-                                                            objDadosFis.setSinais(jParticularidade.getText());
-                                                            objDadosFis.setOrelha((String) jComboBoxOrelha.getSelectedItem());
-                                                            objDadosFis.setPescoco((String) jComboBoxPescoco.getSelectedItem());
-                                                            objDadosFis.setCompleicao((String) jComboBoxCompleicao.getSelectedItem());
-                                                            // Dados Penais
-                                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
-                                                            objDadosPena.setNomeUnidade(jComboBoxUnid.getText());
-                                                            objDadosPena.setDataCrime(jDataCrime.getDate());
-                                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
-                                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
-                                                            objDadosPena.setParticipacao((String) jComboBoxParticipacao.getSelectedItem());
-                                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
-                                                            objDadosPena.setPena(jPena.getText());
-                                                            objDadosPena.setArtigo1(jArtigo1.getText());
-                                                            objDadosPena.setArtigo2(jArtigo2.getText());
-                                                            objDadosPena.setArtigo3(jArtigo3.getText());
-                                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
-                                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
-                                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
-                                                            objDadosPena.setCrimeEdiondo((String) jComboBoxEdiondo.getSelectedItem());
-                                                            objDadosPena.setTerminoPena(jDataTerPena.getDate());
-                                                            objDadosPena.setIdentificador(jIdentificador.getText());
-                                                            objDadosPena.setIdentificador1(jIdentificador1.getText());
-                                                            objDadosPena.setIdentificador2(jIdentificador2.getText());
-                                                            objDadosPena.setIdentificador3(jIdentificador3.getText());
-                                                            objDadosPena.setPerfil(jPerfil.getText());
-                                                            objDadosPena.setRegiaoCorpo(jRegiaoCorpo.getText());
-                                                            objDadosPena.setRegiaoCorpo1(jRegiaoCorpo1.getText());
-                                                            objDadosPena.setRegiaoCorpo2(jRegiaoCorpo2.getText());
-                                                            objDadosPena.setFotoPerfil(caminhoFotoPerfil);
-                                                            objDadosPena.setFotoCorpo(caminhoFotoCorpo);
-                                                            objDadosPena.setFotoCorpo1(caminhoFotoCorpo1);
-                                                            objDadosPena.setFotoCorpo2(caminhoFotoCorpo2);
-                                                            objDadosPena.setVaraCondenatoria(jVaraCondenacao.getText());
-                                                            objDadosPena.setDataNovaEntrada(jDataNovaEntrada.getDate());
-                                                            objProCrc.setUsuarioInsert(nameUser);
-                                                            objProCrc.setDataInsert(jDataSistema.getText());
-                                                            objProCrc.setHoraInsert(jHoraSistema.getText());
-                                                            try {
-                                                                // Verificar se o interno já foi cadastrado, se foi avisa
-                                                                conecta.abrirConexao();
-                                                                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                                                                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
-                                                                        + "AND MaeInternoCrc='" + jMaeInterno.getText() + "'");
-                                                                conecta.rs.first();
-                                                                nomeInternoCrc = conecta.rs.getString("NomeInternoCrc");
-                                                                nomeMaeInterno = conecta.rs.getString("MaeInternoCrc");
-                                                                conecta.desconecta();
-                                                            } catch (SQLException | HeadlessException | NumberFormatException e) {
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE                                                         
-                                                            Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
-                                                            BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                    img.getWidth(null),
-                                                                    img.getHeight(null),
-                                                                    BufferedImage.TYPE_INT_RGB);
-                                                            Graphics2D g2 = bi.createGraphics();
-                                                            g2.drawImage(img, 0, 0, null);
-                                                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                                            try {
-                                                                ImageIO.write(bi, "jpg", buffer);
-                                                            } catch (FileNotFoundException ex) {
-                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                            } catch (IOException ex) {
-                                                                Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                            }
-                                                            objProCrc.setImagemInterno(buffer.toByteArray());
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                                                            if (jFotoPerfil.getIcon() != null) {
-                                                                Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
-                                                                BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgp.getWidth(null),
-                                                                        imgp.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2a = bip.createGraphics();
-                                                                g2a.drawImage(imgp, 0, 0, null);
-                                                                ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bip, "jpg", bufferp);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemPerfil(bufferp.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
-                                                            if (jFotoCorpo.getIcon() != null) {
-                                                                Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
-                                                                BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc.getWidth(null),
-                                                                        imgc.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2b = bic.createGraphics();
-                                                                g2b.drawImage(imgc, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic, "jpg", bufferc);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo(bufferc.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                                                            if (jFotoCorpo1.getIcon() != null) {
-                                                                Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
-                                                                BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc1.getWidth(null),
-                                                                        imgc1.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2c = bic1.createGraphics();
-                                                                g2c.drawImage(imgc1, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic1, "jpg", bufferc1);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
-                                                            }
-                                                            // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                                                            if (jFotoCorpo2.getIcon() != null) {
-                                                                Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
-                                                                BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                                        imgc2.getWidth(null),
-                                                                        imgc2.getHeight(null),
-                                                                        BufferedImage.TYPE_INT_RGB);
-                                                                Graphics2D g2c2 = bic2.createGraphics();
-                                                                g2c2.drawImage(imgc2, 0, 0, null);
-                                                                ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
-                                                                try {
-                                                                    ImageIO.write(bic2, "jpg", bufferc2);
-                                                                } catch (FileNotFoundException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                } catch (IOException ex) {
-                                                                    Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                                                                }
-                                                                objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
-                                                            }
-                                                            if (acao == 1) {
-                                                                if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Esse Interno já foi cadastrado.");
-                                                                    conecta.desconecta();
-                                                                } else {
-                                                                    try {
-                                                                        //GRAVA NA TABELA PRONTUARIOSCRC
-                                                                        control.incluirInternoCrc(objProCrc);
-                                                                        buscarCodInt();
-                                                                        // TABELA DADOSFISICOSINTERNOS
-                                                                        controlFisicos.incluirDadosFisicos(objDadosFis);
-                                                                        // TABELA DADOSPENAISINTERNOS
-                                                                        controlPenais.incluirDadosPenais(objDadosPena);
-                                                                        // VERIFICAR SE O INTERNO FOI GRAVADO NA TABELA DADOSPENAISINTERNOS
-                                                                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                                                                        verificarGravacaoInterno();
-                                                                        if (jIdInterno.getText().equals(codIntPenal)) {
-                                                                            // Confirma a utilização do registro do interno iniciado pela portaria.
-                                                                            objProCrc.setNomeInterno(jNomeInterno.getText());
-                                                                            objProCrc.setConfirmaEntrada(confirmaEntrada);
-                                                                            control.confirmarRegInternoCrc(objProCrc);
-                                                                            objLog();
-                                                                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
-                                                                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                                                                            Salvar();
-                                                                        } else {
-                                                                            apagarRegistroInterno();
-                                                                            JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
-                                                                        }
-
-                                                                    } catch (SQLException ex) {
-                                                                        JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
-                                                                    }
-                                                                }
-                                                            }
-                                                            if (acao == 2) {
-                                                                try {
-                                                                    objProCrc.setUsuarioUp(nameUser);
-                                                                    objProCrc.setDataUp(jDataSistema.getText());
-                                                                    objProCrc.setHoraUp(jHoraSistema.getText());
-                                                                    objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
-                                                                    objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                    objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
-                                                                    control.alterarInternoCrc(objProCrc);
-                                                                    controlFisicos.alterarDadosFisicos(objDadosFis);
-                                                                    controlPenais.alterarDadosPenais(objDadosPena);
-                                                                    objLog();
-                                                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
-                                                                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
-                                                                    Salvar();
-                                                                } catch (Exception e) {
-                                                                    JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                apagarRegistroInterno();
+                                JOptionPane.showMessageDialog(rootPane, "Não foi possível concluir a gravação do registro, por favor tente novamente.");
                             }
+
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(rootPane, "Não foi possivel gravar registro\nERRO: " + ex);
                         }
                     }
+                }
+                if (acao == 2) {
+                    try {
+                        objProCrc.setUsuarioUp(nameUser);
+                        objProCrc.setDataUp(jDataSistema.getText());
+                        objProCrc.setHoraUp(jHoraSistema.getText());
+                        objProCrc.setIdInterno(Integer.parseInt(jIdInterno.getText()));
+                        objDadosFis.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                        objDadosPena.setIdInternoCrc(Integer.parseInt(jIdInterno.getText()));
+                        control.alterarInternoCrc(objProCrc);
+                        controlFisicos.alterarDadosFisicos(objDadosFis);
+                        controlPenais.alterarDadosPenais(objDadosPena);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
+                        Salvar();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o registro.\nERRO: " + e);
+                    }
+
                 }
             }
         } else {

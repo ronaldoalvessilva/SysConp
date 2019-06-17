@@ -189,7 +189,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jIndicadoresResultado = new javax.swing.JMenuItem();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jConsultaInternosUnidades = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
@@ -326,6 +326,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu22 = new javax.swing.JMenu();
         jRelatorioInternosCursoTO = new javax.swing.JMenuItem();
         jRelatorioInternosCursoAndamento = new javax.swing.JMenuItem();
+        jInternosAtividadeLaborativa = new javax.swing.JMenuItem();
         jUtilitaria = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraWindows = new javax.swing.JMenuItem();
@@ -512,14 +513,14 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         Consultas.add(jIndicadoresResultado);
         Consultas.add(jSeparator23);
 
-        jMenuItem6.setForeground(new java.awt.Color(0, 0, 204));
-        jMenuItem6.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jConsultaInternosUnidades.setForeground(new java.awt.Color(0, 0, 204));
+        jConsultaInternosUnidades.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
+        jConsultaInternosUnidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jConsultaInternosUnidadesActionPerformed(evt);
             }
         });
-        Consultas.add(jMenuItem6);
+        Consultas.add(jConsultaInternosUnidades);
 
         jMenuItem12.setForeground(new java.awt.Color(153, 0, 0));
         jMenuItem12.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
@@ -1270,7 +1271,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.setForeground(new java.awt.Color(0, 102, 51));
         jMenu20.setText("Relatórios PRORES");
 
-        jEnfermagem.setText("Enfermagem");
+        jEnfermagem.setText("Relatório de Acompanhamento de Saúde - ENFERMARIA");
         jEnfermagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEnfermagemActionPerformed(evt);
@@ -1279,7 +1280,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jEnfermagem);
         jMenu20.add(jSeparator32);
 
-        jRelatorioServicoSocial.setText("Serviço Social");
+        jRelatorioServicoSocial.setText("Relatório de Acompanhamento Familiar - SERVIÇO SOCIAL");
         jRelatorioServicoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioServicoSocialActionPerformed(evt);
@@ -1288,7 +1289,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jRelatorioServicoSocial);
         jMenu20.add(jSeparator28);
 
-        jRelatorioJuridico.setText("Jurídico - Relatório de Acompanhamento de Processos");
+        jRelatorioJuridico.setText("Relatório de Acompanhamento de Processos - JURÍDICO");
         jRelatorioJuridico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioJuridicoActionPerformed(evt);
@@ -1297,7 +1298,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jRelatorioJuridico);
         jMenu20.add(jSeparator31);
 
-        jRelatorioPsicologia.setText("Psicologia");
+        jRelatorioPsicologia.setText("Relatório de Tratamento Psicologico - PSICOLOGIA");
         jRelatorioPsicologia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioPsicologiaActionPerformed(evt);
@@ -1306,7 +1307,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jRelatorioPsicologia);
         jMenu20.add(jSeparator30);
 
-        jRelatorioPedagogia.setText("Pedagogia");
+        jRelatorioPedagogia.setText("Relatório de Internos com/sem Documentação -  PEDAGOGIA");
         jRelatorioPedagogia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioPedagogiaActionPerformed(evt);
@@ -1317,6 +1318,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
 
         jMenu22.setText("Relatório de Internos em Capacitados/Em Capacitação - TO");
 
+        jRelatorioInternosCursoTO.setForeground(new java.awt.Color(0, 102, 51));
         jRelatorioInternosCursoTO.setText("Internos com curso concluído");
         jRelatorioInternosCursoTO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1325,6 +1327,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         });
         jMenu22.add(jRelatorioInternosCursoTO);
 
+        jRelatorioInternosCursoAndamento.setForeground(new java.awt.Color(204, 0, 0));
         jRelatorioInternosCursoAndamento.setText("Internos com curso em andamento");
         jRelatorioInternosCursoAndamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1332,6 +1335,15 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
             }
         });
         jMenu22.add(jRelatorioInternosCursoAndamento);
+
+        jInternosAtividadeLaborativa.setForeground(new java.awt.Color(0, 0, 153));
+        jInternosAtividadeLaborativa.setText("Internos com e sem Atividade Laborativa");
+        jInternosAtividadeLaborativa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInternosAtividadeLaborativaActionPerformed(evt);
+            }
+        });
+        jMenu22.add(jInternosAtividadeLaborativa);
 
         jMenu20.add(jMenu22);
 
@@ -1963,7 +1975,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private void RelatorioNaturalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioNaturalidadeActionPerformed
         // TODO add your handling code here:
         TelaRelatorioNaturalidade objRelNat = new TelaRelatorioNaturalidade();
-        TelaModuloCRC.jPainelCRC.add(objRelNat);
+        TelaModuloPRORES.jPainelDiretoria.add(objRelNat);
         objRelNat.show();
     }//GEN-LAST:event_RelatorioNaturalidadeActionPerformed
 
@@ -2451,7 +2463,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private void RelatorioProdutosConsumoAvulso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioProdutosConsumoAvulso1ActionPerformed
         // TODO add your handling code here:
         TelaRelatorioConsumoProdutosAvulso objRelConsuProdAvul = new TelaRelatorioConsumoProdutosAvulso();
-        TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelConsuProdAvul);
+        TelaModuloPRORES.jPainelDiretoria.add(objRelConsuProdAvul);
         objRelConsuProdAvul.show();
     }//GEN-LAST:event_RelatorioProdutosConsumoAvulso1ActionPerformed
 
@@ -2563,7 +2575,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jIndicadoresResultadoActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jConsultaInternosUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaInternosUnidadesActionPerformed
         // TODO add your handling code here:
         if (objConsultaGIU == null || objConsultaGIU.isClosed()) {
             objConsultaGIU = new ConsultaGerencialInternosUnidade();
@@ -2590,7 +2602,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
             objConsultaGIU.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jConsultaInternosUnidadesActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
@@ -2829,7 +2841,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
                 }
             } else {
                 objRelProgKit = new TelaRelatorioProgramacaoKits();
-                TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objRelProgKit);//adicona frame ao JDesktopPane  
+                TelaModuloPRORES.jPainelDiretoria.add(objRelProgKit);//adicona frame ao JDesktopPane  
                 objRelProgKit.setVisible(true);
             }
         }
@@ -3020,6 +3032,13 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCartaoCPFActionPerformed
 
+    private void jInternosAtividadeLaborativaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInternosAtividadeLaborativaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosTrabalhando objRelTrab = new TelaRelatorioInternosTrabalhando();
+        TelaModuloPRORES.jPainelDiretoria.add(objRelTrab);
+        objRelTrab.show();
+    }//GEN-LAST:event_jInternosAtividadeLaborativaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3088,11 +3107,13 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCartaoRG;
     private javax.swing.JMenuItem jCartaoSUS;
     private javax.swing.JMenuItem jConsultaGerencial;
+    private javax.swing.JMenuItem jConsultaInternosUnidades;
     private javax.swing.JMenuItem jEnfermagem;
     private javax.swing.JMenuItem jIndicadoresResultado;
     private javax.swing.JMenuItem jInternoSemCPF;
     private javax.swing.JMenuItem jInternoSemCartaoSUS;
     private javax.swing.JMenuItem jInternoSemRG;
+    private javax.swing.JMenuItem jInternosAtividadeLaborativa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jListagemUnidadePenal;
     private javax.swing.JMenu jMenu1;
@@ -3132,7 +3153,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

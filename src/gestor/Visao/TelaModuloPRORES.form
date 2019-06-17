@@ -192,7 +192,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator23">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+            <MenuItem class="javax.swing.JMenuItem" name="jConsultaInternosUnidades">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="0" red="0" type="rgb"/>
@@ -200,7 +200,7 @@
                 <Property name="text" type="java.lang.String" value="Consulta Gerencial de  Internos nas Unidades Externas - CGIUE"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConsultaInternosUnidadesActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
@@ -1095,7 +1095,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jEnfermagem">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Enfermagem"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Acompanhamento de Sa&#xfa;de - ENFERMARIA"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEnfermagemActionPerformed"/>
@@ -1105,7 +1105,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioServicoSocial">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Servi&#xe7;o Social"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Acompanhamento Familiar - SERVI&#xc7;O SOCIAL"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioServicoSocialActionPerformed"/>
@@ -1115,7 +1115,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioJuridico">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Jur&#xed;dico - Relat&#xf3;rio de Acompanhamento de Processos"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Acompanhamento de Processos - JUR&#xcd;DICO"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioJuridicoActionPerformed"/>
@@ -1125,7 +1125,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPsicologia">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Psicologia"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Tratamento Psicologico - PSICOLOGIA"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPsicologiaActionPerformed"/>
@@ -1135,7 +1135,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPedagogia">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Pedagogia"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos com/sem Documenta&#xe7;&#xe3;o -  PEDAGOGIA"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPedagogiaActionPerformed"/>
@@ -1150,6 +1150,9 @@
                   <SubComponents>
                     <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoTO">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="33" green="66" red="0" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Internos com curso conclu&#xed;do"/>
                       </Properties>
                       <Events>
@@ -1158,10 +1161,24 @@
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoAndamento">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="cc" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Internos com curso em andamento"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioInternosCursoAndamentoActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="jInternosAtividadeLaborativa">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="99" green="0" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Internos com e sem Atividade Laborativa"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jInternosAtividadeLaborativaActionPerformed"/>
                       </Events>
                     </MenuItem>
                   </SubComponents>

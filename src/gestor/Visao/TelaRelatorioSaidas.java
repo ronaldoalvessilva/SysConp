@@ -212,6 +212,9 @@ public class TelaRelatorioSaidas extends javax.swing.JInternalFrame {
         } else if (TelaModuloAlmoxarifado.jPainelAlmoxarifado != null) {
             TelaModuloAlmoxarifado.jPainelAlmoxarifado.add(objPesqOp);
             objPesqOp.show();
+        } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objPesqOp);
+            objPesqOp.show();
         }
     }//GEN-LAST:event_jBtPesqOperacaoActionPerformed
 
