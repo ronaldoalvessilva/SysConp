@@ -437,6 +437,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         RelatorioConfere = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
         jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
+        jSeparator22 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAcompanhamentoPedagogico = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -891,6 +893,16 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(jRelatorioAtendimentoInternos);
+        Relatorios.add(jSeparator22);
+
+        jRelatorioAcompanhamentoPedagogico.setForeground(new java.awt.Color(153, 0, 0));
+        jRelatorioAcompanhamentoPedagogico.setText("Relatório de Acompanhamento Pedagogico");
+        jRelatorioAcompanhamentoPedagogico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAcompanhamentoPedagogicoActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioAcompanhamentoPedagogico);
 
         jMenuBar1.add(Relatorios);
 
@@ -2231,6 +2243,13 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         objRelProdPe.show();
     }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
 
+    private void jRelatorioAcompanhamentoPedagogicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAcompanhamentoPedagogicoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII objRelIndAcompPE = new TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII();
+        TelaModuloPedagogia.jPainelPedagogia.add(objRelIndAcompPE);
+        objRelIndAcompPE.show();
+    }//GEN-LAST:event_jRelatorioAcompanhamentoPedagogicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -2289,6 +2308,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRegistraAtendimentoBiometria;
     private javax.swing.JMenuItem jRegistroAtendimentoImpresso;
     private javax.swing.JMenuItem jRegistroLeituraResenhaInternos;
+    private javax.swing.JMenuItem jRelatorioAcompanhamentoPedagogico;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
@@ -2304,6 +2324,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
+    private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;

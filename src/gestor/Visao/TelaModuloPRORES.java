@@ -279,7 +279,10 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jRelatorioProdPsiquiatra = new javax.swing.JMenuItem();
         jRelatorioProdEnfermagem = new javax.swing.JMenuItem();
         jRelatorioProdTecnicoEnfermagem = new javax.swing.JMenuItem();
+        jSeparator36 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jSeparator37 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAcompanhamento = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jRelatorioAtendimentoOdontologia = new javax.swing.JMenuItem();
         jRelatorioAtendimentoPsiscologia = new javax.swing.JMenu();
@@ -327,6 +330,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jRelatorioInternosCursoTO = new javax.swing.JMenuItem();
         jRelatorioInternosCursoAndamento = new javax.swing.JMenuItem();
         jInternosAtividadeLaborativa = new javax.swing.JMenuItem();
+        jRelatorioDocumentacaoInternos = new javax.swing.JMenuItem();
         jUtilitaria = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraWindows = new javax.swing.JMenuItem();
@@ -337,7 +341,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("..::: Diretoria Geral:::...");
+        setTitle("..::: Gerenciamento das Unidades - {GU} :::...");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Diretoria18.png"))); // NOI18N
 
         jPainelDiretoria.setBackground(new java.awt.Color(255, 255, 255));
@@ -1072,6 +1076,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu21.add(jRelatorioProdTecnicoEnfermagem);
 
         jMenu8.add(jMenu21);
+        jMenu8.add(jSeparator36);
 
         jMenuItem10.setText("Relatório de Internos sem Cartão SUS");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -1080,6 +1085,16 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
             }
         });
         jMenu8.add(jMenuItem10);
+        jMenu8.add(jSeparator37);
+
+        jRelatorioAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
+        jRelatorioAcompanhamento.setText("Relatório de Indicativo Acompanhamento de Saúde");
+        jRelatorioAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAcompanhamentoActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jRelatorioAcompanhamento);
 
         RelatoriosSeguranca.add(jMenu8);
 
@@ -1346,6 +1361,14 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu22.add(jInternosAtividadeLaborativa);
 
         jMenu20.add(jMenu22);
+
+        jRelatorioDocumentacaoInternos.setText("Relatório de documentação de Internos - CRC");
+        jRelatorioDocumentacaoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioDocumentacaoInternosActionPerformed(evt);
+            }
+        });
+        jMenu20.add(jRelatorioDocumentacaoInternos);
 
         RelatoriosSeguranca.add(jMenu20);
 
@@ -2799,6 +2822,9 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
 
     private void jRelatorioPedagogiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPedagogiaActionPerformed
         // TODO add your handling code here:
+        TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII objRelIndAcompPE = new TelaRelatorioIndicadoresDeAcompanhamentoPedagogicoII();
+        TelaModuloPRORES.jPainelDiretoria.add(objRelIndAcompPE);
+        objRelIndAcompPE.show();
     }//GEN-LAST:event_jRelatorioPedagogiaActionPerformed
 
     private void jRelatorioInternosCursoTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosCursoTOActionPerformed
@@ -3039,6 +3065,20 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         objRelTrab.show();
     }//GEN-LAST:event_jInternosAtividadeLaborativaActionPerformed
 
+    private void jRelatorioDocumentacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioDocumentacaoInternosActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosDocumentacaoCompleta objRelDocComp = new TelaRelatorioInternosDocumentacaoCompleta();
+        TelaModuloPRORES.jPainelDiretoria.add(objRelDocComp);
+        objRelDocComp.show();
+    }//GEN-LAST:event_jRelatorioDocumentacaoInternosActionPerformed
+
+    private void jRelatorioAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAcompanhamentoActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioIndicadoresAcompanhamento_I objRelIndAcomp = new TelaRelatorioIndicadoresAcompanhamento_I();
+        TelaModuloPRORES.jPainelDiretoria.add(objRelIndAcomp);
+        objRelIndAcomp.show();
+    }//GEN-LAST:event_jRelatorioAcompanhamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3164,10 +3204,12 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelDiretoria;
     private javax.swing.JMenuItem jProntuarioIndividualInterno;
     private javax.swing.JMenuItem jProntuarioInternos;
+    private javax.swing.JMenuItem jRelatorioAcompanhamento;
     private javax.swing.JMenuItem jRelatorioAtendimentoOdontologia;
     private javax.swing.JMenuItem jRelatorioAtendimentoPedagogico;
     private javax.swing.JMenu jRelatorioAtendimentoPsiscologia;
     private javax.swing.JMenuItem jRelatorioAtendimentoServicoSocial;
+    private javax.swing.JMenuItem jRelatorioDocumentacaoInternos;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRelatorioGeralProgramacaoKit;
     private javax.swing.JMenuItem jRelatorioInternosCursoAndamento;
@@ -3209,6 +3251,8 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator33;
     private javax.swing.JPopupMenu.Separator jSeparator34;
     private javax.swing.JPopupMenu.Separator jSeparator35;
+    private javax.swing.JPopupMenu.Separator jSeparator36;
+    private javax.swing.JPopupMenu.Separator jSeparator37;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;

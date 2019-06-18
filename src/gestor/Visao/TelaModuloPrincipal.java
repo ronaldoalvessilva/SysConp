@@ -292,10 +292,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemTriagem = new javax.swing.JMenuItem();
         jMenuConfiguracoes = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuSobre = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jPRORES = new javax.swing.JMenuItem();
+        jMenuSobre = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuSair = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -1264,6 +1264,21 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuConfiguracoes);
 
+        jMenu5.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu5.setMnemonic('R');
+        jMenu5.setText("PRORES - GU");
+
+        jPRORES.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        jPRORES.setText("PRORES - GU");
+        jPRORES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPRORESActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jPRORES);
+
+        jMenuBar1.add(jMenu5);
+
         jMenuSobre.setMnemonic('S');
         jMenuSobre.setText("Sobre");
         jMenuSobre.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
@@ -1287,21 +1302,6 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuSobre.add(jMenuItem1);
 
         jMenuBar1.add(jMenuSobre);
-
-        jMenu5.setForeground(new java.awt.Color(0, 102, 0));
-        jMenu5.setMnemonic('R');
-        jMenu5.setText("PRORES");
-
-        jPRORES.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        jPRORES.setText("PRORES");
-        jPRORES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPRORESActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jPRORES);
-
-        jMenuBar1.add(jMenu5);
 
         jMenuSair.setForeground(new java.awt.Color(204, 0, 0));
         jMenuSair.setMnemonic('a');
@@ -7100,7 +7100,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 //        }
         String grupoAdm = "ADMINISTRADORES";
         String permissaoGrupoAdm = "Sim";
-        String moduloAdm = "DIRETORIA GERAL";
+        String moduloAdm = "GERENCIAMENTO DAS UNIDADES";
         idGrupo = 0;
         nomeGrupo = "";
         idModulo = 0;

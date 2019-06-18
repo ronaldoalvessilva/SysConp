@@ -273,7 +273,7 @@ public class TelaMovimentacaoCrcDiretoria extends javax.swing.JInternalFrame {
         jTabelaMovimentacao.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jTabelaMovimentacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Data Mov.", "Documento", "Descrição do Operação", "Origem/Destino do Interno"
@@ -386,8 +386,13 @@ public class TelaMovimentacaoCrcDiretoria extends javax.swing.JInternalFrame {
         // Pesquisar Internos
         count = 0;
         TelaPesquisaMovInternoCrcDiretoria objTelaMovInt = new TelaPesquisaMovInternoCrcDiretoria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objTelaMovInt);
-        objTelaMovInt.show();
+        if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objTelaMovInt);
+            objTelaMovInt.show();
+        } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objTelaMovInt);
+            objTelaMovInt.show();
+        }
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed

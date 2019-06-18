@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAcompanhamentoProcesso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
+<!-- Created with Jaspersoft Studio version 7.3.0.final using JasperReports Library version 6.8.1-SNAPSHOT-1ebbe47629f595df82c137d4edda18ac1dafc9f1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAcompanhamentoProcesso" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,20 +8,12 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="249"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="742"/>
-	<parameter name="pDataInicial" class="java.lang.String">
-		<defaultValueExpression><![CDATA[new java.lang.String("2000/01/01")]]></defaultValueExpression>
-	</parameter>
-	<parameter name="pDataFinal" class="java.lang.String">
-		<defaultValueExpression><![CDATA[new java.lang.String("2100/12/31")]]></defaultValueExpression>
-	</parameter>
-	<parameter name="pUnidade" class="java.lang.String">
-		<defaultValueExpression><![CDATA[new java.lang.String("SOCIALIZA - Soluções em Gestão")]]></defaultValueExpression>
-	</parameter>
-	<parameter name="pUsuario" class="java.lang.String">
-		<defaultValueExpression><![CDATA[new java.lang.String("Usuário não informado")]]></defaultValueExpression>
-	</parameter>
+	<parameter name="pDataInicial" class="java.lang.String"/>
+	<parameter name="pDataFinal" class="java.lang.String"/>
+	<parameter name="pUnidade" class="java.lang.String"/>
+	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT
+		<![CDATA[SELECT 
 P.IdInternoCrc,
 P.NomeInternoCrc,
 A.DataUp,
@@ -39,7 +32,7 @@ A.Hanseniase,
 A.HanseniaseCura,
 A.QtdHanseniase,
 A.Sifilis,
-A.SifilisCura,
+A.SifilisCura, 
 A.QtdSifilis,
 A.Tuberculose,
 A.TuberculoseCura,
@@ -61,11 +54,12 @@ A.QtdDst,
 A.VdlrCurada,
 A.Vacina ,
 A.QtdVacina
-FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA AS A
-	INNER JOIN "PRONTUARIOSCRC" AS P ON
+FROM "ACOMPANHAMENTO_INTERNO_ENFERMARIA" AS A
+	INNER JOIN "PRONTUARIOSCRC" AS P ON 
 	P.IdInternoCrc=A.IdInternoCrc
-WHERE
-	 A.DataUp BETWEEN $P{pDataInicial} AND $P{pDataFinal}
+WHERE 
+	P.SituacaoCrc='ENTRADA NA UNIDADE' OR P.SituacaoCrc='RETORNO A UNIDADE' AND (
+	 A.DataUp BETWEEN $P{pDataInicial} AND $P{pDataFinal} )
 ORDER BY NomeInternoCrc DESC]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer">
@@ -188,7 +182,7 @@ ORDER BY NomeInternoCrc DESC]]>
 	<field name="QtdVacina" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="QtdVacina"/>
 	</field>
-	<variable name="QtdDiabetes1" class="java.lang.Integer" calculation="Sum">
+	<variable name="QtdDiabetes1" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[$F{QtdDiabetes}]]></variableExpression>
 	</variable>
 	<variable name="QtdDst1" class="java.lang.Integer" calculation="Sum">
@@ -223,6 +217,39 @@ ORDER BY NomeInternoCrc DESC]]>
 	</variable>
 	<variable name="QtdVdlr1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{QtdVdlr}]]></variableExpression>
+	</variable>
+	<variable name="DiabControl1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{DiabControl}]]></variableExpression>
+	</variable>
+	<variable name="DstCurada1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{DstCurada}]]></variableExpression>
+	</variable>
+	<variable name="EscabioseCura1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{EscabioseCura}]]></variableExpression>
+	</variable>
+	<variable name="HanseniaseCura1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{HanseniaseCura}]]></variableExpression>
+	</variable>
+	<variable name="HepatiteBCont1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{HepatiteBCont}]]></variableExpression>
+	</variable>
+	<variable name="HepatiteCCont1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{HepatiteCCont}]]></variableExpression>
+	</variable>
+	<variable name="VdlrCurada1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{VdlrCurada}]]></variableExpression>
+	</variable>
+	<variable name="HivControlada1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{HivControlada}]]></variableExpression>
+	</variable>
+	<variable name="HiperControl1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{HiperControl}]]></variableExpression>
+	</variable>
+	<variable name="TuberculoseCura1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{TuberculoseCura}]]></variableExpression>
+	</variable>
+	<variable name="SifilisCura1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{SifilisCura}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -374,18 +401,27 @@ ORDER BY NomeInternoCrc DESC]]>
 				<reportElement x="234" y="0" width="68" height="19" uuid="30e1aee8-8787-468c-a905-68e6dc32bfd8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4b12921-5fab-48f4-9857-d8e8775dbebe"/>
 				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DataUp}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="311" y="0" width="67" height="19" uuid="1e46893e-9c34-4041-96d9-c769c6ca7cad">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fc23a4e-58b8-4acf-9578-389b3ee89ac2"/>
 				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HorarioUp}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="386" y="-2" width="169" height="19" uuid="1be548c2-ad46-455c-972c-132e544b963c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a7ca9b0-2f7c-45df-ba57-8629352055e5"/>
 				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -806,7 +842,7 @@ ORDER BY NomeInternoCrc DESC]]>
 		</band>
 	</columnFooter>
 	<summary>
-		<band height="83" splitType="Stretch">
+		<band height="168" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="8" width="555" height="20" uuid="d2c531de-a089-468f-8fc5-7074a1b6b5ab"/>
 				<textElement verticalAlignment="Middle">
@@ -815,8 +851,13 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Total de Incidências
 ]]></text>
 			</staticText>
+			<line>
+				<reportElement x="2" y="1" width="552" height="1" uuid="6646a0a8-a28d-4d9d-88fd-9599336646fb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
 			<staticText>
-				<reportElement x="0" y="35" width="50" height="20" uuid="bde82fd1-4933-4f64-8ec1-2e069c76b4ff">
+				<reportElement x="2" y="32" width="50" height="20" uuid="31fa44d6-4153-4989-a1b4-83c21b58c1a5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -825,12 +866,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Diabetes]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="46" y="35" width="35" height="20" uuid="62862bab-d134-4368-9d18-44cf8fbd1af4">
+				<reportElement x="48" y="32" width="35" height="20" uuid="c058c859-c5a5-4df2-981d-7b0f252f50fc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="87" y="35" width="34" height="20" uuid="40a82150-d7f7-4fa8-b9ef-72a5765ec149">
+				<reportElement x="89" y="32" width="34" height="20" uuid="86e94d27-aa0e-4fd7-a583-6d21fb1c50b0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -839,12 +880,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[DST]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="116" y="35" width="35" height="20" uuid="44ec62f3-18a4-491a-99e0-a3fb4b35155c">
+				<reportElement x="118" y="32" width="35" height="20" uuid="f684269a-6278-4a00-903a-ac41221c06fb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="157" y="35" width="56" height="20" uuid="1fa60c00-498d-46cb-8281-d0b2eb29744d">
+				<reportElement x="159" y="32" width="56" height="20" uuid="9599d365-ee37-48b5-87df-bd157b8417b1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -853,12 +894,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Escabiose]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="214" y="35" width="35" height="20" uuid="9e3e8b80-adff-4f78-9f88-8a074e402ad0">
+				<reportElement x="216" y="32" width="35" height="20" uuid="18510981-b516-4b00-b22c-4c42861f99f1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="259" y="35" width="59" height="20" uuid="5e7dbcac-60af-480a-911a-d0321ef3c6d8">
+				<reportElement x="261" y="32" width="59" height="20" uuid="ccd0368e-742d-4c4a-933a-0fe9d452e05e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -867,15 +908,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Hanseníase]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="319" y="35" width="35" height="20" uuid="2b67f3a5-84ee-4960-94e1-09a5f05ad3a1">
+				<reportElement x="321" y="32" width="35" height="20" uuid="4b692716-f0d4-422f-af48-34106d92e2f7">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
-			<line>
-				<reportElement x="2" y="1" width="550" height="1" uuid="6646a0a8-a28d-4d9d-88fd-9599336646fb"/>
-			</line>
 			<staticText>
-				<reportElement x="365" y="35" width="52" height="20" uuid="85aca62e-58bb-40d0-947b-b2a0ef7e20c2">
+				<reportElement x="367" y="32" width="52" height="20" uuid="9d3206c5-bfca-4e8d-ae73-19b7fee1a686">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -884,12 +922,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Hepatite B]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="418" y="36" width="35" height="20" uuid="3c93b0ea-0abc-47a9-a8b0-f392feca399c">
+				<reportElement x="420" y="33" width="35" height="20" uuid="ca6f9782-e333-432e-b566-10b8c29e6b0a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="463" y="35" width="52" height="20" uuid="0e958661-d07d-430f-8052-b39a02964e6f">
+				<reportElement x="465" y="32" width="52" height="20" uuid="53349dfa-52e3-4b31-9fd4-712552c1d36a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -898,12 +936,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Hepatite C]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="517" y="36" width="35" height="20" uuid="868e1fee-f218-4f65-a9d2-849c6a0776f0">
+				<reportElement x="519" y="33" width="35" height="20" uuid="1f9dc673-fa26-446b-aa49-ec32f89a3b08">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="62" width="50" height="20" uuid="344b847f-1404-47b8-b04d-6495ab0d5e0d">
+				<reportElement x="3" y="59" width="50" height="20" uuid="414cd6c4-373c-4a99-9779-12d49421c147">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -912,12 +950,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[VDLR]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="47" y="62" width="35" height="20" uuid="b3991c68-d3b4-412e-818d-6a640e0583aa">
+				<reportElement x="49" y="59" width="35" height="20" uuid="b3523231-7567-44e7-a24a-07f5153f6dd0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="88" y="62" width="34" height="20" uuid="e7b319b9-7552-4642-ae1d-b1c012d58d5d">
+				<reportElement x="90" y="59" width="34" height="20" uuid="c9066b49-add2-4ab8-8d1a-3b36ecf559f4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -926,12 +964,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[HIV]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="117" y="62" width="35" height="20" uuid="c027bef9-2467-474d-a1a5-111a0e91cde1">
+				<reportElement x="119" y="59" width="35" height="20" uuid="6cb32200-b7f2-49a5-bcbd-9a1e3fc70dfb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="156" y="62" width="60" height="20" uuid="d2148c59-2544-41f0-971d-352161217b07">
+				<reportElement x="158" y="59" width="60" height="20" uuid="af97aeec-5a16-458e-a5c6-29fff4ca842d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -940,12 +978,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Hipertensão]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="215" y="62" width="35" height="20" uuid="f300598f-d1b1-4c98-bcd2-3efe9bb4a4ee">
+				<reportElement x="217" y="59" width="35" height="20" uuid="7475ffc8-0862-4728-b7f0-1be41402407b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="258" y="62" width="70" height="20" uuid="37cfa76c-2299-412b-aa73-27c43cab82fb">
+				<reportElement x="260" y="59" width="70" height="20" uuid="e3a44085-cac6-44dd-ac35-957f145bb40f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -954,12 +992,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Tuberculose]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="320" y="62" width="35" height="20" uuid="41010eb6-a84c-48c4-982b-3365fb351e99">
+				<reportElement x="322" y="59" width="35" height="20" uuid="0401664a-a31a-49c9-bcf0-dc597150c292">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="366" y="62" width="52" height="20" uuid="b7d75398-b691-4f0e-9f02-5cb8a342a4d4">
+				<reportElement x="368" y="59" width="52" height="20" uuid="9ffb6752-c521-49b9-bcf2-303eef9b20fc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -968,12 +1006,12 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Sífilis]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="419" y="63" width="35" height="20" uuid="9ce9abec-f3d8-476c-bc6e-82ac676c86b3">
+				<reportElement x="421" y="60" width="35" height="20" uuid="ff2dc76b-6511-46ac-bbab-2ef55b3ea2f0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="464" y="62" width="52" height="20" uuid="3f0fb026-0bfa-495d-96ef-ef7b6f743c17">
+				<reportElement x="466" y="59" width="52" height="20" uuid="d3dd060f-f1c9-4b3a-87f9-a786a69f49a2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -982,69 +1020,287 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Vacinas]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="518" y="63" width="35" height="20" uuid="bcc903b9-6908-406a-9d84-ba77a69b02e5">
+				<reportElement x="520" y="60" width="35" height="20" uuid="8813ca07-eb1f-4373-9e30-97f0a7233993">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement x="46" y="35" width="34" height="20" uuid="ae424799-cc3f-4749-ad94-7215f2cc0a84"/>
+				<reportElement x="48" y="32" width="34" height="20" uuid="6e2dc6e8-821c-4040-b86a-eee3cef75730"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdDiabetes1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="36" width="30" height="19" uuid="054ade47-1457-46e3-ba35-374979b77ed8"/>
+				<reportElement x="120" y="33" width="30" height="19" uuid="59f7db1b-5c12-4f94-97f3-4367835c8c8d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdDst1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="215" y="35" width="34" height="21" uuid="38129d25-91bf-4089-afa1-a15794a275df"/>
+				<reportElement x="217" y="32" width="34" height="21" uuid="2f45b5be-2021-4d35-954f-2542c48f4a2a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdEscabiose1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="322" y="35" width="33" height="20" uuid="166deb31-e395-41f7-87dc-e9e3543bdcb3"/>
+				<reportElement x="324" y="32" width="33" height="20" uuid="c547c877-444e-438e-a2c4-1f6b008242ce"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdHanseniase1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="35" width="33" height="21" uuid="ef0068a0-56d4-4773-b07b-73f9008556bc"/>
+				<reportElement x="422" y="32" width="33" height="21" uuid="c77684b7-9bb6-4f7e-b400-a291138a6e78"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdHepatiteB1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="519" y="36" width="34" height="19" uuid="3a811da5-03b0-47a2-8c8e-03453ca85a36"/>
+				<reportElement x="521" y="33" width="34" height="19" uuid="b401a4d1-9856-4a1e-930b-543b2be10e7b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdHepatiteC1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="117" y="63" width="34" height="19" uuid="0aa03ae4-374f-4aff-833d-95d773e5855b"/>
+				<reportElement x="119" y="60" width="34" height="19" uuid="60158c39-6a99-476a-a22c-5157edf99eff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdHiv1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="213" y="60" width="36" height="22" uuid="9166c5e1-a154-4431-a01a-cf1769988321"/>
+				<reportElement x="215" y="57" width="36" height="22" uuid="01f0b866-2e2c-493b-9480-2e8d07f45fda"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdHipertensao1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="320" y="62" width="34" height="18" uuid="362ab649-c0f2-424e-92b8-710f8d1268b7"/>
+				<reportElement x="322" y="59" width="34" height="18" uuid="3123c7df-44f4-42e6-b899-91486acdc0cb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdTuberculose1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="64" width="33" height="16" uuid="d71bc01e-66f8-4820-ada2-304475468a6f"/>
+				<reportElement x="422" y="61" width="33" height="16" uuid="42b252ab-ecdb-4f92-9a35-65f24413bb82"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdSifilis1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="517" y="62" width="35" height="20" uuid="ccdd3778-e118-48d5-876d-bc4f8682ca1d"/>
+				<reportElement x="519" y="59" width="35" height="20" uuid="fccf62ff-806d-4b12-ace4-7088b5a77b2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdVacina1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="47" y="62" width="33" height="18" uuid="92709a82-d5f4-4b9e-b4d0-7433cf459687"/>
+				<reportElement x="49" y="59" width="33" height="18" uuid="d4c05135-013a-4a41-96a3-01e0ca1d94e8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{QtdVdlr1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="114" width="50" height="20" uuid="d9de2874-30bf-4a7a-8fee-d334864199e5">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Diabetes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="47" y="114" width="35" height="20" uuid="610e7870-1bf3-45be-8a8e-6e2b39cc1482">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="88" y="114" width="34" height="20" uuid="3d1273b8-157c-400c-96d2-41e37f2e6b4d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[DST]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="117" y="114" width="35" height="20" uuid="886aa1ca-4937-4b4f-8888-380d18e9cc92">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="158" y="114" width="56" height="20" uuid="ad8486c8-8ab8-4b7d-8bba-f31a80efdc96">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Escabiose]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="215" y="114" width="35" height="20" uuid="f4dac5dd-8583-4835-b226-3b6f978eae1e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="260" y="114" width="59" height="20" uuid="d75619ce-22d4-4493-ac96-cecd9293ce4b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Hanseníase]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="320" y="114" width="35" height="20" uuid="56634a6d-f5e7-4eb6-8450-579743d78a47">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="366" y="114" width="52" height="20" uuid="a75d91fb-539d-45cb-b877-d54bfb848e38">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Hepatite B]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="419" y="115" width="35" height="20" uuid="6d89deae-f028-44c3-a801-6be1378f8e81">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="464" y="114" width="52" height="20" uuid="522fe5b6-ff1a-42c8-857e-720e24183d0a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Hepatite C]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="518" y="115" width="35" height="20" uuid="b9191d1e-48cc-475d-a07d-08639831d1dc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="141" width="50" height="20" uuid="04af69f6-b32d-4bd2-90d4-cc1e6b4ed5c9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[VDLR]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="47" y="141" width="35" height="20" uuid="600a3af1-645c-4c71-85a1-d3f3aaed876b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="89" y="141" width="34" height="20" uuid="0c342d59-73f5-4116-acc9-cc2b53a1b351">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[HIV]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="117" y="141" width="35" height="20" uuid="69a8dd8f-8a1e-45fa-851e-c70d08680fa9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="157" y="141" width="60" height="20" uuid="88acab3b-3012-4afa-9fd7-201f677ac33b">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Hipertensão]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="215" y="141" width="35" height="20" uuid="d513b8e2-5c1a-4661-88cd-4133ef2e5e5d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="259" y="141" width="70" height="20" uuid="f1d8d483-8ec9-433e-a5b6-c9a45082480a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Tuberculose]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="320" y="141" width="35" height="20" uuid="1be9a96c-db36-4ee8-8b72-e6d720eed6bc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="367" y="141" width="52" height="20" uuid="634e34da-eb9c-4720-9afd-d44ce1bb94f8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Sífilis]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="419" y="142" width="35" height="20" uuid="fdb8c1b7-3b52-4b39-93e8-7491ffa1eb85">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="87" width="555" height="20" uuid="90e16a7c-09db-4487-afc5-b4d8a7765fca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Incidências Controladas/Curadas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="114" width="32" height="20" uuid="20aa6f5d-6427-4973-8338-10af3ff35fb3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DiabControl1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="114" width="37" height="20" uuid="37332621-89cb-429a-84eb-586bac9dfeec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{DstCurada1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="114" width="35" height="20" uuid="55ad82bc-9d92-4c88-a813-5b324978d248"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{EscabioseCura1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="114" width="35" height="20" uuid="faa7b8c3-663a-49a1-af7c-09fef794ddc1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{HanseniaseCura1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="115" width="34" height="19" uuid="cb99a931-3e6e-4b6e-9954-502837a9d771"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{HepatiteBCont1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="519" y="115" width="36" height="19" uuid="b839b37c-8dc3-4fcb-8f54-808d6afc0304"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{HepatiteCCont1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="49" y="142" width="31" height="19" uuid="779e82c5-3fa4-40b9-90c8-031f3b5a8d17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{VdlrCurada1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="141" width="32" height="20" uuid="a150d66b-53cd-4c78-987d-543675c02738"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{HivControlada1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="215" y="141" width="37" height="20" uuid="1066d4d0-d804-4ebe-978c-a781ed77e817"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{HiperControl1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="141" width="36" height="20" uuid="2e6d6027-81b6-4a4d-96bf-09fc3e068df1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TuberculoseCura1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="142" width="34" height="19" uuid="d4ea34ad-e366-4424-8607-58518d77e870"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{SifilisCura1}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

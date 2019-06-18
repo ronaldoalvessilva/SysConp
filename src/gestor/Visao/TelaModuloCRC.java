@@ -482,6 +482,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         CartaoSUS1 = new javax.swing.JMenuItem();
         DocumentoRG = new javax.swing.JMenuItem();
         DocumentoCPF = new javax.swing.JMenuItem();
+        jSeparator30 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioDocumentacaoCompleta = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         ListagemInternosUnidadeEntrada = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
@@ -1112,6 +1114,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenu8.add(DocumentoCPF);
 
         jMenuRelatorios.add(jMenu8);
+        jMenuRelatorios.add(jSeparator30);
+
+        jRelatorioDocumentacaoCompleta.setForeground(new java.awt.Color(0, 102, 0));
+        jRelatorioDocumentacaoCompleta.setText("Relatório de Documentação Completa");
+        jRelatorioDocumentacaoCompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioDocumentacaoCompletaActionPerformed(evt);
+            }
+        });
+        jMenuRelatorios.add(jRelatorioDocumentacaoCompleta);
         jMenuRelatorios.add(jSeparator7);
 
         ListagemInternosUnidadeEntrada.setText("Listagem de Entradas de Internos na Unidade");
@@ -3261,6 +3273,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jEmissaoAtestadoReclusaoCRCActionPerformed
 
+    private void jRelatorioDocumentacaoCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioDocumentacaoCompletaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosDocumentacaoCompleta objRelDocComp = new TelaRelatorioInternosDocumentacaoCompleta();
+        TelaModuloCRC.jPainelCRC.add(objRelDocComp);
+        objRelDocComp.show();
+    }//GEN-LAST:event_jRelatorioDocumentacaoCompletaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3358,6 +3377,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jPopulacaoCarceraria;
     private javax.swing.JMenuItem jProntuarioInternosUnidade;
     private javax.swing.JMenuItem jProntuariosIntrernos;
+    private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;
     private javax.swing.JMenuItem jSaidaInternos;
@@ -3385,6 +3405,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator28;
     private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator30;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
