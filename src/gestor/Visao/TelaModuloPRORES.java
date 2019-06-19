@@ -94,8 +94,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private TelaOcorrenciaBaseUmDir objOcorBaseI = null;
     private TelaOcorrenciaPortariaExternaDir objOcrPortExtDir = null;
     private TelaPRORES objPRORES = null;
-    private ConsultaGerencialInternosUnidade objConsultaGIU = null;
-    private TelaConsultaProntuarioInternoCrc objProntMedicoInt = null;
+    private ConsultaGerencialInternosUnidade objConsultaGIU = null;   
     private TelaRelatorioProgramacaoKits objRelProgKit = null;
     // 
     String pathFoto;
@@ -190,7 +189,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jIndicadoresResultado = new javax.swing.JMenuItem();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jConsultaInternosUnidades = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         RelatorioGeralPavilhaoCelas = new javax.swing.JMenuItem();
@@ -419,7 +417,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         });
         Consultas.add(LocalInternos);
 
-        jProntuarioInternos.setText("Prontuário de Internos");
+        jProntuarioInternos.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
         jProntuarioInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jProntuarioInternosActionPerformed(evt);
@@ -532,15 +530,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
             }
         });
         Consultas.add(jConsultaInternosUnidades);
-
-        jMenuItem12.setForeground(new java.awt.Color(153, 0, 0));
-        jMenuItem12.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        Consultas.add(jMenuItem12);
 
         jMenuBar1.add(Consultas);
 
@@ -2769,35 +2758,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         objRelIndSaude.show();
     }//GEN-LAST:event_jEnfermagemActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // TODO add your handling code here:
-        if (objProntMedicoInt == null || objProntMedicoInt.isClosed()) {
-            objProntMedicoInt = new TelaConsultaProntuarioInternoCrc();
-            jPainelDiretoria.add(objProntMedicoInt);
-            objProntMedicoInt.setVisible(true);
-        } else {
-            if (objProntMedicoInt.isVisible()) {
-                if (objProntMedicoInt.isIcon()) { // Se esta minimizado
-                    try {
-                        objProntMedicoInt.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objProntMedicoInt.toFront(); // traz para frente
-                    objProntMedicoInt.pack();//volta frame 
-                }
-            } else {
-                objProntMedicoInt = new TelaConsultaProntuarioInternoCrc();
-                TelaModuloPRORES.jPainelDiretoria.add(objProntMedicoInt);//adicona frame ao JDesktopPane  
-                objProntMedicoInt.setVisible(true);
-            }
-        }
-        try {
-            objProntMedicoInt.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
-
     private void jRelatorioAtendimentoOdontologiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoOdontologiaActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoOdontologia objRelProdOdon = new TelaRelatorioProducaoOdontologia();
@@ -3232,7 +3192,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem18;
