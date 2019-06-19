@@ -13,14 +13,21 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT PRONTUARIOSCRC.IdInternoCrc, PRONTUARIOSCRC.NomeInternoCrc, RazaoSocial FROM ITENSAGENDALABORATIVA INNER JOIN PRONTUARIOSCRC ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-INNER JOIN EMPRESALAB ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp WHERE StatusInterno=$P{ativoInativo}
-AND ITENSAGENDALABORATIVA.TipoEmpresa='Interna' AND SituacaoCrc='ENTRADA NA UNIDADE' OR StatusInterno=$P{ativoInativo} AND ITENSAGENDALABORATIVA.TipoEmpresa='Externa'
-AND SituacaoCrc='RETORNO A UNIDADE' ORDER BY RazaoSocial,NomeInternoCrc]]>
+		<![CDATA[SELECT PRONTUARIOSCRC.IdInternoCrc, PRONTUARIOSCRC.NomeInternoCrc, RazaoSocial, StatusInterno FROM ITENSAGENDALABORATIVA
+INNER JOIN PRONTUARIOSCRC ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
+INNER JOIN EMPRESALAB ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp
+WHERE StatusInterno=$P{ativoInativo} AND  SituacaoCrc='ENTRADA NA UNIDADE' OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='RETORNO A UNIDADE'
+OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='ENTRADA NA UNIDADE' OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='RETORNO A UNIDADE'
+OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='ENTRADA NA UNIDADE' OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='RETORNO A UNIDADE'
+OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='ENTRADA NA UNIDADE' OR StatusInterno=$P{ativoInativo} AND SituacaoCrc='RETORNO A UNIDADE']]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="RazaoSocial" class="java.lang.String"/>
+	<field name="StatusInterno" class="java.lang.String"/>
+	<variable name="laboral" class="java.lang.String">
+		<variableExpression><![CDATA[new java.lang.String("teste")]]></variableExpression>
+	</variable>
 	<group name="RazaoSocial">
 		<groupExpression><![CDATA[$F{RazaoSocial}]]></groupExpression>
 		<groupHeader>
@@ -118,7 +125,7 @@ AND SituacaoCrc='RETORNO A UNIDADE' ORDER BY RazaoSocial,NomeInternoCrc]]>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="1" width="197" height="20" uuid="25b35460-e5bf-403c-a54d-bb8c65346ae5"/>
+				<reportElement x="130" y="0" width="197" height="20" uuid="25b35460-e5bf-403c-a54d-bb8c65346ae5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -172,7 +179,7 @@ AND SituacaoCrc='RETORNO A UNIDADE' ORDER BY RazaoSocial,NomeInternoCrc]]>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="21" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement x="430" y="0" width="80" height="20" uuid="594c04ce-cfef-438a-883b-aee033f56b5a"/>
 				<textElement textAlignment="Right"/>
@@ -185,29 +192,29 @@ AND SituacaoCrc='RETORNO A UNIDADE' ORDER BY RazaoSocial,NomeInternoCrc]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="33" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<line>
 				<reportElement x="1" y="0" width="553" height="1" uuid="17d04ca4-5f6c-4462-8c5a-63c63c013fc2"/>
 			</line>
 			<rectangle>
-				<reportElement x="3" y="10" width="176" height="20" uuid="dd5cf39e-0cef-4211-87ab-7e0f9c0df8e1"/>
+				<reportElement x="0" y="7" width="200" height="20" uuid="dd5cf39e-0cef-4211-87ab-7e0f9c0df8e1"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="179" y="10" width="31" height="20" uuid="3fb87f0d-654e-459e-88f3-781698e5d8a9"/>
+				<reportElement x="200" y="7" width="41" height="20" uuid="3fb87f0d-654e-459e-88f3-781698e5d8a9"/>
 			</rectangle>
-			<staticText>
-				<reportElement x="3" y="10" width="166" height="20" uuid="6241d0bf-b81e-4cca-83c0-c1c6bb1d53c0"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total de Internos Laborando]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="179" y="10" width="31" height="20" uuid="f125d1d6-3c8f-4f9e-8965-08804a2ac1ff"/>
+				<reportElement x="200" y="7" width="41" height="20" uuid="f125d1d6-3c8f-4f9e-8965-08804a2ac1ff"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="7" width="200" height="20" uuid="ef3e79cd-0626-47d4-baad-d71e64e99428"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ativoInativo}.equals( "Ativo" ) ? "Total de Internos Trabalhando" : "Total de Internos que Trabalharam"]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

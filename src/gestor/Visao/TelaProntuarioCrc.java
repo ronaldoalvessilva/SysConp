@@ -950,6 +950,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 0, 0));
         jLabel5.setText("Código:");
 
         jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -960,6 +961,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel7.setText("Data Cadastro:");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 0, 0));
         jLabel8.setText("Nome:");
 
         jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -973,9 +975,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jMatriculaPenal.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(153, 0, 0));
         jLabel10.setText("Mãe:");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(153, 0, 0));
         jLabel11.setText("Pai:");
 
         jMaeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1046,9 +1050,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(153, 0, 0));
         jLabel18.setText("Nacionalidade:");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(153, 0, 0));
         jLabel19.setText("Naturalidade:");
 
         jBtPesqPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
@@ -1089,7 +1095,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jRGInterno.setEnabled(false);
 
         jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel60.setForeground(new java.awt.Color(0, 0, 153));
         jLabel60.setText("Situação do Interno");
 
         jSituacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1569,6 +1575,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBairro.setEnabled(false);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(153, 0, 0));
         jLabel25.setText("Cidade:");
 
         jCidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1992,6 +1999,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxParticipacao.setEnabled(false);
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(153, 0, 0));
         jLabel45.setText("Procedência:");
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2095,6 +2103,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxDocumentacaoCompleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Não", "Sim" }));
         jComboBoxDocumentacaoCompleta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocumentacaoCompleta.setEnabled(false);
+        jComboBoxDocumentacaoCompleta.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxDocumentacaoCompletaItemStateChanged(evt);
+            }
+        });
 
         jLabel194.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel194.setForeground(new java.awt.Color(153, 0, 0));
@@ -4356,7 +4369,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             limparTabelaAmparolegal();
             limparTabelaDocumentos();
             limparTabelaProcessos();
-            preencherCheckBoxDocumentos();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -4380,7 +4392,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             acao = 2;
             Alterar();
             corCampos();
-            preencherCheckBoxDocumentos();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5293,7 +5304,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             acao = 1;
             Novo();
             corCampos();
-            preencherCheckBoxDocumentos();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5317,7 +5327,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             acao = 2;
             Alterar();
             corCampos();
-            preencherCheckBoxDocumentos();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -5988,6 +5997,21 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtPDFActionPerformed
+
+    private void jComboBoxDocumentacaoCompletaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxDocumentacaoCompletaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Sim")) {
+                jComboBoxQuaisDocumentosFaltam.removeAllItems();
+                jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não")) {
+                preencherCheckBoxDocumentos();
+            } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
+                jComboBoxQuaisDocumentosFaltam.removeAllItems();
+                jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+            }
+        }
+    }//GEN-LAST:event_jComboBoxDocumentacaoCompletaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

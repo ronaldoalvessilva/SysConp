@@ -24,8 +24,6 @@ public class TelaRelatorioInternosTrabalhando extends javax.swing.JInternalFrame
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     //
-    String pEmpresaExterna = "Externa";
-    String pEmpresaInterna = "Interna";
     String entradaUnidade = "ENTRADA NA UNIDADE";
     String retornoUnidade = "RETORNO A UNIDADE";
     String pAtivoInativo = "";
@@ -152,17 +150,15 @@ public class TelaRelatorioInternosTrabalhando extends javax.swing.JInternalFrame
                 conecta.abrirConexao();
                 String path = "reports/RelatorioInternosAtividadeLaborativa.jasper";
                 conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
-                        + "PRONTUARIOSCRC.NomeInternoCrc, RazaoSocial "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, RazaoSocial,StatusInterno "
                         + "FROM ITENSAGENDALABORATIVA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN EMPRESALAB "
                         + "ON ITENSAGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE StatusInterno='" + pAtivoInativo + "' "
-                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pEmpresaInterna + "' "
                         + "AND SituacaoCrc='" + entradaUnidade + "' "
                         + "OR StatusInterno='" + pAtivoInativo + "' "
-                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pEmpresaExterna + "' "
                         + "AND SituacaoCrc='" + retornoUnidade + "' "
                         + "ORDER BY RazaoSocial,NomeInternoCrc");
                 HashMap parametros = new HashMap();

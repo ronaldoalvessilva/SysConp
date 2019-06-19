@@ -502,7 +502,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTabelaAdmissaoPedagogica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAdmissaoPedagogica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -2230,7 +2230,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
         AnoIngresso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         AnoIngresso.setEnabled(false);
-        AnoIngresso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -2605,6 +2604,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            limparCamposEvolucao();
             //
             jBtNovaFamilia.setEnabled(true);
             jBtNovaSocializacao.setEnabled(true);
@@ -4206,6 +4207,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         AnoIngresso.setValue(0);
     }
 
+    public void limparCamposEvolucao() {
+        jCodigoEvolucao.setText("");
+        jDataEvolucao.setDate(null);
+        jNomeInternoEvolucao.setText("");
+        jTextoEvolucao.setText("");
+        jComboBoxAcessoUni.setSelectedItem("Não");
+        jComboBoxEncaminharSetorEvo.setSelectedItem("Selecione...");
+        AnoIngresso.setValue(WIDTH);
+    }
+
     public void bloquearBotoes() {
         // ADMISSÃO
         jBtNovo.setEnabled(!true);
@@ -4254,8 +4265,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
         jObservacao.setEnabled(true);
-        jComboBoxAcessoUni.setEnabled(true);
-        AnoIngresso.setEnabled(true);
         //
         jBtPesquisarInterno.setEnabled(true);
         //
@@ -4273,9 +4282,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jUltimaEscola.setEnabled(true);
         jSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
-        jObservacao.setEnabled(true);
-        jComboBoxAcessoUni.setEnabled(true);
-        AnoIngresso.setEnabled(true);
+        jObservacao.setEnabled(true);        
         //
         jBtPesquisarInterno.setEnabled(true);
         //

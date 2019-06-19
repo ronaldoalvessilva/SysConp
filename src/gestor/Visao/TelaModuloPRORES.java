@@ -316,20 +316,27 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jRelatorioGeralProgramacaoKit = new javax.swing.JMenuItem();
         jSeparator24 = new javax.swing.JPopupMenu.Separator();
         jMenu20 = new javax.swing.JMenu();
+        jMenu25 = new javax.swing.JMenu();
         jEnfermagem = new javax.swing.JMenuItem();
         jSeparator32 = new javax.swing.JPopupMenu.Separator();
+        jMenu26 = new javax.swing.JMenu();
         jRelatorioServicoSocial = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
+        jMenu27 = new javax.swing.JMenu();
         jRelatorioJuridico = new javax.swing.JMenuItem();
         jSeparator31 = new javax.swing.JPopupMenu.Separator();
+        jMenu28 = new javax.swing.JMenu();
         jRelatorioPsicologia = new javax.swing.JMenuItem();
         jSeparator30 = new javax.swing.JPopupMenu.Separator();
+        jMenu29 = new javax.swing.JMenu();
         jRelatorioPedagogia = new javax.swing.JMenuItem();
         jSeparator29 = new javax.swing.JPopupMenu.Separator();
+        jMenu30 = new javax.swing.JMenu();
         jMenu22 = new javax.swing.JMenu();
         jRelatorioInternosCursoTO = new javax.swing.JMenuItem();
         jRelatorioInternosCursoAndamento = new javax.swing.JMenuItem();
         jInternosAtividadeLaborativa = new javax.swing.JMenuItem();
+        jMenu31 = new javax.swing.JMenu();
         jRelatorioDocumentacaoInternos = new javax.swing.JMenuItem();
         jUtilitaria = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
@@ -1286,52 +1293,80 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.setForeground(new java.awt.Color(0, 102, 51));
         jMenu20.setText("Relatórios PRORES");
 
-        jEnfermagem.setText("Relatório de Acompanhamento de Saúde - ENFERMARIA");
+        jMenu25.setForeground(new java.awt.Color(153, 0, 0));
+        jMenu25.setText("ENFERMARIA");
+
+        jEnfermagem.setText("Relatório de Acompanhamento de Saúde");
         jEnfermagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEnfermagemActionPerformed(evt);
             }
         });
-        jMenu20.add(jEnfermagem);
+        jMenu25.add(jEnfermagem);
+
+        jMenu20.add(jMenu25);
         jMenu20.add(jSeparator32);
 
-        jRelatorioServicoSocial.setText("Relatório de Acompanhamento Familiar - SERVIÇO SOCIAL");
+        jMenu26.setForeground(new java.awt.Color(0, 102, 51));
+        jMenu26.setText("SERVIÇO SOCIAL");
+
+        jRelatorioServicoSocial.setText("Relatório de Acompanhamento Familiar");
         jRelatorioServicoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioServicoSocialActionPerformed(evt);
             }
         });
-        jMenu20.add(jRelatorioServicoSocial);
+        jMenu26.add(jRelatorioServicoSocial);
+
+        jMenu20.add(jMenu26);
         jMenu20.add(jSeparator28);
 
-        jRelatorioJuridico.setText("Relatório de Acompanhamento de Processos - JURÍDICO");
+        jMenu27.setForeground(new java.awt.Color(0, 0, 204));
+        jMenu27.setText("JURÍDICO");
+
+        jRelatorioJuridico.setText("Relatório de Acompanhamento de Processos");
         jRelatorioJuridico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioJuridicoActionPerformed(evt);
             }
         });
-        jMenu20.add(jRelatorioJuridico);
+        jMenu27.add(jRelatorioJuridico);
+
+        jMenu20.add(jMenu27);
         jMenu20.add(jSeparator31);
 
-        jRelatorioPsicologia.setText("Relatório de Tratamento Psicologico - PSICOLOGIA");
+        jMenu28.setForeground(new java.awt.Color(204, 0, 204));
+        jMenu28.setText("PSICOLOGIA");
+
+        jRelatorioPsicologia.setText("Relatório de Tratamento Psicologico\n");
         jRelatorioPsicologia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioPsicologiaActionPerformed(evt);
             }
         });
-        jMenu20.add(jRelatorioPsicologia);
+        jMenu28.add(jRelatorioPsicologia);
+
+        jMenu20.add(jMenu28);
         jMenu20.add(jSeparator30);
 
-        jRelatorioPedagogia.setText("Relatório de Internos com/sem Documentação -  PEDAGOGIA");
+        jMenu29.setForeground(new java.awt.Color(0, 102, 0));
+        jMenu29.setText("PEDAGOGIA");
+
+        jRelatorioPedagogia.setText("Relatório de Internos com Acesso a Universidade\n");
         jRelatorioPedagogia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioPedagogiaActionPerformed(evt);
             }
         });
-        jMenu20.add(jRelatorioPedagogia);
+        jMenu29.add(jRelatorioPedagogia);
+
+        jMenu20.add(jMenu29);
         jMenu20.add(jSeparator29);
 
-        jMenu22.setText("Relatório de Internos em Capacitados/Em Capacitação - TO");
+        jMenu30.setForeground(new java.awt.Color(204, 51, 0));
+        jMenu30.setText("TERAPIA OCUPACIONAL");
+
+        jMenu22.setText("Relatório de Internos em Capacitados/Em Capacitação");
 
         jRelatorioInternosCursoTO.setForeground(new java.awt.Color(0, 102, 51));
         jRelatorioInternosCursoTO.setText("Internos com curso concluído");
@@ -1360,15 +1395,21 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         });
         jMenu22.add(jInternosAtividadeLaborativa);
 
-        jMenu20.add(jMenu22);
+        jMenu30.add(jMenu22);
 
-        jRelatorioDocumentacaoInternos.setText("Relatório de documentação de Internos - CRC");
+        jMenu20.add(jMenu30);
+
+        jMenu31.setText("CRC");
+
+        jRelatorioDocumentacaoInternos.setText("Relatório de Internos com/sem Documentação");
         jRelatorioDocumentacaoInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioDocumentacaoInternosActionPerformed(evt);
             }
         });
-        jMenu20.add(jRelatorioDocumentacaoInternos);
+        jMenu31.add(jRelatorioDocumentacaoInternos);
+
+        jMenu20.add(jMenu31);
 
         RelatoriosSeguranca.add(jMenu20);
 
@@ -3173,7 +3214,14 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu22;
     private javax.swing.JMenu jMenu23;
     private javax.swing.JMenu jMenu24;
+    private javax.swing.JMenu jMenu25;
+    private javax.swing.JMenu jMenu26;
+    private javax.swing.JMenu jMenu27;
+    private javax.swing.JMenu jMenu28;
+    private javax.swing.JMenu jMenu29;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu30;
+    private javax.swing.JMenu jMenu31;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;

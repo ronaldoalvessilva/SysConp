@@ -840,7 +840,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jLabel8.setText("Status do Aluno");
 
         jComboBoxStatusAluno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatusAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Cursando", "Concluído", "Desistente" }));
+        jComboBoxStatusAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Cursando", "Concluído", "Desistente", "Não Concluído" }));
         jComboBoxStatusAluno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusAluno.setEnabled(false);
         jComboBoxStatusAluno.addItemListener(new java.awt.event.ItemListener() {
@@ -853,7 +853,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jLabel16.setText("Situação do Aluno");
 
         jComboBoxSituacaoAluno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSituacaoAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Aprovado", "Reprovado" }));
+        jComboBoxSituacaoAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Aprovado", "Reprovado", "Desistente", "Em Andamento" }));
         jComboBoxSituacaoAluno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSituacaoAluno.setEnabled(false);
 
@@ -1641,18 +1641,23 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (acao == 3 || acao == 4) {
             if (jComboBoxStatusAluno.getSelectedItem().equals("Cursando")) {
-                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setSelectedItem("Em Andamento");
                 jComboBoxSituacaoAluno.setEnabled(!true);
                 jDataConclusaoDesistencia.setDate(null);
                 jDataConclusaoDesistencia.setEnabled(!true);
             } else if (jComboBoxStatusAluno.getSelectedItem().equals("Concluído")) {
-                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
-                jComboBoxSituacaoAluno.setEnabled(true);
+                jComboBoxSituacaoAluno.setSelectedItem("Aprovado");
+                jComboBoxSituacaoAluno.setEnabled(!true);
                 jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
                 jDataConclusaoDesistencia.setEnabled(true);
             } else if (jComboBoxStatusAluno.getSelectedItem().equals("Desistente")) {
-                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setSelectedItem("Reprovado");
                 jComboBoxSituacaoAluno.setEnabled(!true);
+                jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
+                jDataConclusaoDesistencia.setEnabled(true);
+            } else if (jComboBoxStatusAluno.getSelectedItem().equals("Não Concluído")) {
+                jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+                jComboBoxSituacaoAluno.setEnabled(true);
                 jDataConclusaoDesistencia.setCalendar(Calendar.getInstance());
                 jDataConclusaoDesistencia.setEnabled(true);
             }
