@@ -73,6 +73,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jProntuarioInternos">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="99" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Prontu&#xe1;rios de Internos - {PRONTU&#xc1;RIO &#xda;NICO}"/>
               </Properties>
               <Events>
@@ -778,7 +781,7 @@
             </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Enfermaria"/>
+                <Property name="text" type="java.lang.String" value="Posto M&#xe9;dico"/>
               </Properties>
               <SubComponents>
                 <Menu class="javax.swing.JMenu" name="jMenu21">
@@ -880,10 +883,13 @@
                 <Property name="text" type="java.lang.String" value="Psicologia"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioAtendimentoPsicologia">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Atendimento - Psicologia"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioAtendimentoPsicologiaActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -1102,7 +1108,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="99" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ENFERMARIA"/>
+                    <Property name="text" type="java.lang.String" value="POSTO M&#xc9;DICO"/>
                   </Properties>
                   <SubComponents>
                     <MenuItem class="javax.swing.JMenuItem" name="jEnfermagem">

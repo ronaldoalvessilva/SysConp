@@ -382,8 +382,13 @@ public class TelaMovHistoricoTecDiretoria extends javax.swing.JInternalFrame {
         // Pesquisar Internos
         count = 0;
         TelaPesqMovIntTecnicoDiretoria objMovIntTec = new TelaPesqMovIntTecnicoDiretoria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objMovIntTec);
-        objMovIntTec.show();
+        if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        }
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed

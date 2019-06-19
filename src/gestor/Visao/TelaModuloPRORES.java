@@ -284,7 +284,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu9 = new javax.swing.JMenu();
         jRelatorioAtendimentoOdontologia = new javax.swing.JMenuItem();
         jRelatorioAtendimentoPsiscologia = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        jRelatorioAtendimentoPsicologia = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         RelatorioCadastroProdutos = new javax.swing.JMenuItem();
         RelatorioProdutosConsumoAvulso = new javax.swing.JMenuItem();
@@ -417,6 +417,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         });
         Consultas.add(LocalInternos);
 
+        jProntuarioInternos.setForeground(new java.awt.Color(153, 0, 0));
         jProntuarioInternos.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
         jProntuarioInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1030,7 +1031,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
 
         RelatoriosSeguranca.add(jMenu6);
 
-        jMenu8.setText("Enfermaria");
+        jMenu8.setText("Posto Médico");
 
         jMenu21.setForeground(new java.awt.Color(0, 0, 204));
         jMenu21.setText("Relatórios de Atendimentos");
@@ -1108,8 +1109,13 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
 
         jRelatorioAtendimentoPsiscologia.setText("Psicologia");
 
-        jMenuItem11.setText("Relatório Atendimento - Psicologia");
-        jRelatorioAtendimentoPsiscologia.add(jMenuItem11);
+        jRelatorioAtendimentoPsicologia.setText("Relatório Atendimento - Psicologia");
+        jRelatorioAtendimentoPsicologia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtendimentoPsicologiaActionPerformed(evt);
+            }
+        });
+        jRelatorioAtendimentoPsiscologia.add(jRelatorioAtendimentoPsicologia);
 
         RelatoriosSeguranca.add(jRelatorioAtendimentoPsiscologia);
 
@@ -1283,7 +1289,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.setText("Relatórios PRORES");
 
         jMenu25.setForeground(new java.awt.Color(153, 0, 0));
-        jMenu25.setText("ENFERMARIA");
+        jMenu25.setText("POSTO MÉDICO");
 
         jEnfermagem.setText("Relatório de Acompanhamento de Saúde");
         jEnfermagem.addActionListener(new java.awt.event.ActionListener() {
@@ -3080,6 +3086,13 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         objRelIndAcomp.show();
     }//GEN-LAST:event_jRelatorioAcompanhamentoActionPerformed
 
+    private void jRelatorioAtendimentoPsicologiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoPsicologiaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioProducaoPsicologia objRelProdPsi = new TelaRelatorioProducaoPsicologia();
+        TelaModuloPRORES.jPainelDiretoria.add(objRelProdPsi);
+        objRelProdPsi.show();
+    }//GEN-LAST:event_jRelatorioAtendimentoPsicologiaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3191,7 +3204,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem18;
@@ -3214,6 +3226,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioAcompanhamento;
     private javax.swing.JMenuItem jRelatorioAtendimentoOdontologia;
     private javax.swing.JMenuItem jRelatorioAtendimentoPedagogico;
+    private javax.swing.JMenuItem jRelatorioAtendimentoPsicologia;
     private javax.swing.JMenu jRelatorioAtendimentoPsiscologia;
     private javax.swing.JMenuItem jRelatorioAtendimentoServicoSocial;
     private javax.swing.JMenuItem jRelatorioDocumentacaoInternos;

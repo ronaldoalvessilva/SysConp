@@ -201,7 +201,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         jTabelaTodosRecados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTodosRecados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Remetente", "Destinatário"
@@ -277,7 +277,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -292,7 +292,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,13 +436,12 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jNomeDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtPesqDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jNomeDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jBtPesqDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -476,10 +475,8 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jBtNovo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
-        jBtNovo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -489,10 +486,8 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAlterar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setText("Alterar");
-        jBtAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtAlterar.setEnabled(false);
         jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtAlterar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -503,10 +498,8 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtExcluir.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
         jBtExcluir.setText("Excluir");
-        jBtExcluir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtExcluir.setEnabled(false);
         jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtExcluir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -517,10 +510,8 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSalvar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setText("Gravar");
-        jBtSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtSalvar.setEnabled(false);
         jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSalvar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -531,10 +522,8 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtCancelar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setText("Cancelar");
-        jBtCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtCancelar.setEnabled(false);
         jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -548,7 +537,6 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         jBtSair.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
-        jBtSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -558,11 +546,9 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtResponder.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtResponder.setForeground(new java.awt.Color(255, 0, 0));
         jBtResponder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtResponder.setText("Responder");
-        jBtResponder.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtResponder.setEnabled(false);
         jBtResponder.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtResponder.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -573,11 +559,9 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtConfirmar.setForeground(new java.awt.Color(0, 0, 255));
         jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtConfirmar.setText("Confirmar");
-        jBtConfirmar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jBtConfirmar.setEnabled(false);
         jBtConfirmar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtConfirmar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -610,14 +594,15 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
                         .addComponent(jBtResponder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtSair))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 172, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtCancelar, jBtSalvar});
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtResponder});
 
@@ -633,16 +618,15 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBtNovo)
-                                .addComponent(jBtAlterar)
-                                .addComponent(jBtExcluir)
-                                .addComponent(jBtSalvar)
-                                .addComponent(jBtCancelar)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtNovo)
+                            .addComponent(jBtAlterar)
+                            .addComponent(jBtExcluir)
+                            .addComponent(jBtSalvar)
+                            .addComponent(jBtCancelar))
                         .addComponent(jBtResponder))
-                    .addComponent(jBtConfirmar))
+                    .addComponent(jBtConfirmar)
+                    .addComponent(jBtSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -670,7 +654,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -678,7 +662,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 10, 504, 508);
+        setBounds(300, 10, 829, 539);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -797,8 +781,13 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
     private void jBtPesqDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDestinatarioActionPerformed
         // TODO add your handling code here:
         TelaPesqAgendaRecUsuarioDiretoria objBuscarUser = new TelaPesqAgendaRecUsuarioDiretoria();
-        TelaModuloDiretoria.jPainelDiretoria.add(objBuscarUser);
-        objBuscarUser.show();
+        if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objBuscarUser);
+            objBuscarUser.show();
+        } else if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objBuscarUser);
+            objBuscarUser.show();
+        }
     }//GEN-LAST:event_jBtPesqDestinatarioActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
@@ -854,7 +843,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         flag = 1;
         if (jPesqDestinatario.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                     + "INNER JOIN USUARIOS "
                     + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
@@ -868,7 +857,7 @@ public class TelaRecadosDiretoria extends javax.swing.JInternalFrame {
         flag = 1;
         if (jCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
-        } else {            
+        } else {
             preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                     + "INNER JOIN USUARIOS "
                     + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "

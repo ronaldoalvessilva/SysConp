@@ -509,7 +509,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jBtServicoMedico2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtServicoMedico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Enfermaria48.png"))); // NOI18N
-        jBtServicoMedico2.setToolTipText("Enfermaria");
+        jBtServicoMedico2.setToolTipText("Posto Médico");
         jBtServicoMedico2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtServicoMedico2.setMaximumSize(new java.awt.Dimension(53, 53));
         jBtServicoMedico2.setMinimumSize(new java.awt.Dimension(48, 48));
@@ -1042,7 +1042,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jMenuItemEnfermaria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemEnfermaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Enfermaria18.png"))); // NOI18N
         jMenuItemEnfermaria.setMnemonic('E');
-        jMenuItemEnfermaria.setText("Enfermaria");
+        jMenuItemEnfermaria.setText("Posto Médico");
         jMenuItemEnfermaria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemEnfermariaActionPerformed(evt);

@@ -160,7 +160,7 @@
                   <Image iconType="3" name="/gestor/Imagens/Enfermaria18.png"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="69"/>
-                <Property name="text" type="java.lang.String" value="Enfermaria"/>
+                <Property name="text" type="java.lang.String" value="Posto M&#xe9;dico"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEnfermariaActionPerformed"/>
@@ -897,7 +897,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/gestor/Imagens/Enfermaria48.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Enfermaria"/>
+                <Property name="toolTipText" type="java.lang.String" value="Posto M&#xe9;dico"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[53, 53]"/>
