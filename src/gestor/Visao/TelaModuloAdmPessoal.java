@@ -249,7 +249,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("...::: Administração Pessoal {GE} :::...");
+        setTitle("...::: Gerência Administrativa {GA} :::...");
         setPreferredSize(new java.awt.Dimension(840, 653));
 
         jPainelAdmPessoal.setBackground(new java.awt.Color(255, 255, 255));
