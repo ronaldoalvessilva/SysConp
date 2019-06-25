@@ -5,8 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleRefreshDataMovi;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.ItensEntradaLote;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaPesquisaMovInterno.idInt;
 import java.awt.Image;
@@ -26,6 +28,8 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
+    ControleRefreshDataMovi controle = new ControleRefreshDataMovi();
+    ItensEntradaLote objItens = new ItensEntradaLote();
     String caminho;
     String dataMovimento;
 
@@ -332,7 +336,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
-        dispose(); 
+        dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
@@ -366,7 +370,10 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível exibir os dados!!! \nERRO :" + ex);
             }
-            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+            //ZERAR HORARIOS DAS DATAS
+            controle.alterarDataMovimentacao(objItens);
+            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
                     + "ORDER BY DataMov");
         }
     }//GEN-LAST:event_jBtAtualizarActionPerformed
@@ -444,6 +451,6 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaMovimentacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);        
+        jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
 }

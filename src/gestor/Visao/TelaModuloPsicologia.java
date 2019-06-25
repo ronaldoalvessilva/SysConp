@@ -95,7 +95,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private TelaPAI_NOVO_Psicologia objPAI_NOVO = null;
     private TelaRegistroInternosAtendimentoPSI objRegBioPSI = null;
     private TelaRegistroInternosAtendimentoImpressoPSI objAutoImp = null;
-    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+//    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     //
     String dataLanc;
     int codUsuario;
@@ -265,8 +265,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jPerfilCarcerario = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jIndicadorAcompanhamento = new javax.swing.JMenuItem();
-        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencias = new javax.swing.JMenuItem();
         jRelatorioAtendimentoInternos = new javax.swing.JMenu();
         RelatoriosConfere = new javax.swing.JMenu();
@@ -448,16 +446,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         });
         jMenu2.add(jPerfilCarcerario);
         jMenu2.add(jSeparator9);
-
-        jIndicadorAcompanhamento.setForeground(new java.awt.Color(0, 102, 0));
-        jIndicadorAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
-        jIndicadorAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIndicadorAcompanhamentoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jIndicadorAcompanhamento);
-        jMenu2.add(jSeparator11);
 
         LivroOcorrencias.setText("Livro de Ocorrências");
         LivroOcorrencias.addActionListener(new java.awt.event.ActionListener() {
@@ -1179,40 +1167,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
 
-    private void jIndicadorAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadorAcompanhamentoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaManuPSI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAcompanhaManuPSI) && codAbrirPSI == 1) {
-            if (objIndAcomp == null || objIndAcomp.isClosed()) {
-                objIndAcomp = new TelaIndicadoresAcompanhamento();
-                jPainelPsicologia.add(objIndAcomp);
-                objIndAcomp.setVisible(true);
-            } else {
-                if (objIndAcomp.isVisible()) {
-                    if (objIndAcomp.isIcon()) { // Se esta minimizado
-                        try {
-                            objIndAcomp.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objIndAcomp.toFront(); // traz para frente
-                        objIndAcomp.pack();//volta frame 
-                    }
-                } else {
-                    objIndAcomp = new TelaIndicadoresAcompanhamento();
-                    TelaModuloPsicologia.jPainelPsicologia.add(objIndAcomp);//adicona frame ao JDesktopPane  
-                    objIndAcomp.setVisible(true);
-                }
-            }
-            try {
-                objIndAcomp.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jIndicadorAcompanhamentoActionPerformed
-
     private void jRelatorioAtendimentoPsicologicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoPsicologicoActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoPsicologia objRelProdPsi = new TelaRelatorioProducaoPsicologia();
@@ -1251,7 +1205,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioVisitasInternos;
     private javax.swing.JMenu RelatoriosConfere;
     private javax.swing.JMenuItem Sair;
-    private javax.swing.JMenuItem jIndicadorAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1267,7 +1220,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioAtendimentoPsicologico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
-    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;

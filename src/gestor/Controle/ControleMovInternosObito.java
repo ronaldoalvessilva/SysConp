@@ -442,7 +442,7 @@ public class ControleMovInternosObito {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVIMENTOCRC SET DataMov=? WHERE IdDoc='" + objEvadidoInd.getIdLanc() + "'AND IdInternoCrc='" + objEvadidoInd.getIdInternoCrc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO MOVIMENTOCRC (IdInternoCrc,IdDoc,NomeOpe,DataMov,OrigemDestino) VALUES(?,?,?,?,?)");
             pst.setInt(1, objEvadidoInd.getIdInternoCrc());
             pst.setInt(2, objEvadidoInd.getIdLanc());
             pst.setString(3, nomeOpeObitoAudiencia);
@@ -450,7 +450,7 @@ public class ControleMovInternosObito {
             pst.setString(5, objEvadidoInd.getTipoOperacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO:" + ex);
         }
         conecta.desconecta();
         return objEvadidoInd;

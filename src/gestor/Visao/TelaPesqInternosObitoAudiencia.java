@@ -5,14 +5,17 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaObitoInternoExterna.jDataSaida;
 import static gestor.Visao.TelaObitoInternoExterna.jDocumentoSaida;
 import static gestor.Visao.TelaObitoInternoExterna.jIdInternoEvadido;
 import static gestor.Visao.TelaObitoInternoExterna.jIdSaida;
 import static gestor.Visao.TelaObitoInternoExterna.jNomeInternoEvadido;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -27,7 +30,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
     String dataEntrada, dataSaida, dataSaidaTemp;
     String dataRetorno, dataPrevRetorno;
     String dataBrasil;
@@ -142,7 +146,7 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaTemporaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaIntEvadidosSaidaTemporaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão"
@@ -172,21 +176,17 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
                                 .addComponent(jBtSelecionar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtSair))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -195,10 +195,10 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
@@ -208,7 +208,7 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 452, 252);
+        setBounds(300, 20, 536, 276);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
@@ -249,12 +249,26 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
         if (jPesqNomeInternoEvadido.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NrDocRetorno='" + NrDocRetorno + "' "                 
-                    + "AND DataEvasao='" + dataEvasao + "' "
-                    + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' ");
+            convertedata.converter(jDataSistema.getText());
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'");
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
+                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%'");
+            }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
 
@@ -272,12 +286,24 @@ public class TelaPesqInternosObitoAudiencia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                    + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
-                    + "AND DataEvasao='" + dataEvasao + "'");
+            convertedata.converter(jDataSistema.getText());
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + dataSisConvert + "' "
+                        + "AND DataEvasao='" + dataEvasao + "'");
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
+                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
+                        + "AND DataEvasao='" + dataEvasao + "'");
+            }
         } else {
             limparTabela();
         }

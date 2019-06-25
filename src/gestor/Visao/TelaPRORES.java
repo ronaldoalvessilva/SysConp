@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,42 +81,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         initComponents();
         corCampos();
         limparCampos();
-        if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-            convertedata.converter(jDataSistema.getText());
-            preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
-                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            preencherTabelaEstatistica("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco"
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
-                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
-        }
     }
 
     /**
@@ -1030,6 +995,69 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
 
     private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
         // TODO add your handling code here:
+        if (jDataInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataInicial.requestFocus();
+        } else if (jDataFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+            jDataFinal.requestFocus();
+        } else if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+        } else {
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                jDataInicial.setCalendar(Calendar.getInstance());
+                jDataFinal.setCalendar(Calendar.getInstance());
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                preencherTabelaEstatistica("SELECT * FROM PRONTUARIOSCRC "
+                        + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
+                        + "LEFT JOIN ADMISSAOENFERMEIRA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
+                        + "LEFT JOIN ITENSMATRICULA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
+                        + "LEFT JOIN RESENHA_REMICAO_INTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
+                        + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                        + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                        + "LEFT JOIN EVOLUCAOPSICOLOGICA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
+                        + "LEFT JOIN ATENDIMENTOFAMILIAR "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
+                        + "WHERE ACOMPANHAMENTO_INTERNO_ENFERMARIA.DataReg BETWEEN '" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                jDataInicial.setCalendar(Calendar.getInstance());
+                jDataFinal.setCalendar(Calendar.getInstance());
+                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                preencherTabelaEstatistica("SELECT * FROM PRONTUARIOSCRC "
+                        + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
+                        + "LEFT JOIN ADMISSAOENFERMEIRA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
+                        + "LEFT JOIN ITENSMATRICULA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
+                        + "LEFT JOIN RESENHA_REMICAO_INTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
+                        + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                        + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                        + "LEFT JOIN EVOLUCAOPSICOLOGICA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
+                        + "LEFT JOIN ATENDIMENTOFAMILIAR "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
+                        + "WHERE ACOMPANHAMENTO_INTERNO_ENFERMARIA.DataReg BETWEEN '" + dataInicial + "' "
+                        + "AND '" + dataFinal + "'");
+            }
+        }
     }//GEN-LAST:event_jBtPesquisaActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
@@ -1294,19 +1322,23 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     + "SUM(QtdTratamento) AS QtdeTratamento, "
                     + "SUM(QtdAcompanha) AS QtdeAcompanha, "
                     + "SUM(QtdRecuperacao) AS QtdeRecuperacao, "
-                    + "SUM(QtdAcompanhaSS) AS QtdeAcompanhaSS FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco "
-                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
-                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
+                    + "SUM(QtdAcompanhaSS) AS QtdeAcompanhaSS FROM PRONTUARIOSCRC "
+                    + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
+                    + "LEFT JOIN ADMISSAOENFERMEIRA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
+                    + "LEFT JOIN ITENSMATRICULA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
+                    + "LEFT JOIN RESENHA_REMICAO_INTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
+                    + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                    + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                    + "LEFT JOIN EVOLUCAOPSICOLOGICA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
+                    + "LEFT JOIN ATENDIMENTOFAMILIAR "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
                     + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
                     + "AND '" + dataFinal + "'");
             while (conecta.rs.next()) {

@@ -5,13 +5,16 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.converterDataStringDataDate;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaObitoInternoExterna.jDataSaida;
 import static gestor.Visao.TelaObitoInternoExterna.jIdInternoEvadido;
 import static gestor.Visao.TelaObitoInternoExterna.jIdSaida;
 import static gestor.Visao.TelaObitoInternoExterna.jNomeInternoEvadido;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,7 +29,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    //
     String dataEntrada, dataSaida, dataSaidaTemp;
     String dataRetorno, dataPrevRetorno;
     String dataBrasil;
@@ -142,7 +146,7 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaLaborativa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaIntEvadidosSaidaLaborativa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Id Doc.", "Data Saída", "H. Saída", "Data Entrada", "H. Entrada"
@@ -165,10 +169,10 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setMaxWidth(70);
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMinWidth(50);
             jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setMaxWidth(50);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(70);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(60);
-            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(60);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMinWidth(70);
+            jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setMaxWidth(70);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +182,7 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,10 +197,9 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
@@ -206,7 +209,7 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 472, 252);
+        setBounds(300, 20, 652, 295);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
@@ -245,14 +248,27 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (jPesqNomeInternoEvadido.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {            
-            preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE Evadido='" + evadido + "' "
-                    + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
-                    + "AND DataEntrada<'" + jDataSistema.getText() + "' "
-                    + "AND HorarioEntrada='" + horarioEntrada + "'");
+        } else {
+            convertedata.converter(jDataSistema.getText());
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DataEntrada<'" + dataSisConvert + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DataEntrada<'" + jDataSistema.getText() + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
 
@@ -269,11 +285,25 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
-            this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE Evadido='" + evadido + "'AND DataEntrada<'" + jDataSistema.getText() + "'AND HorarioEntrada='" + horarioEntrada + "'");
+        if (evt.getStateChange() == evt.SELECTED) {
+            convertedata.converter(jDataSistema.getText());
+            if (tipoServidor == null || tipoServidor.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND DataEntrada<'" + dataSisConvert + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM INTERNOS_ENTRADA_SAIDA_EDUCACAO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON INTERNOS_ENTRADA_SAIDA_EDUCACAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE Evadido='" + evadido + "' "
+                        + "AND DataEntrada<'" + jDataSistema.getText() + "' "
+                        + "AND HorarioEntrada='" + horarioEntrada + "'");
+            }
         } else {
             limparTabela();
         }
@@ -328,9 +358,9 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(50);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(60);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(70);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getTableHeader().setReorderingAllowed(false);
         jTabelaIntEvadidosSaidaLaborativa.setAutoResizeMode(jTabelaIntEvadidosSaidaLaborativa.AUTO_RESIZE_OFF);
@@ -355,9 +385,9 @@ public class TelaPesqInternosObitoEducacao extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(3).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setPreferredWidth(50);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setPreferredWidth(80);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(5).setResizable(false);
-        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(60);
+        jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setPreferredWidth(70);
         jTabelaIntEvadidosSaidaLaborativa.getColumnModel().getColumn(6).setResizable(false);
         jTabelaIntEvadidosSaidaLaborativa.getTableHeader().setReorderingAllowed(false);
         jTabelaIntEvadidosSaidaLaborativa.setAutoResizeMode(jTabelaIntEvadidosSaidaLaborativa.AUTO_RESIZE_OFF);

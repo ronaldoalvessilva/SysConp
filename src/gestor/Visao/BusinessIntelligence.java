@@ -162,7 +162,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dados Carcerária", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dados Carcerária", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Data");
@@ -224,12 +224,10 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jQtdExcesso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel16.setText("Pavilhão A");
+        jLabel16.setText("Pavilhão A(I)");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel17.setText("Pavilhão B");
+        jLabel17.setText("Pavilhão B(II)");
 
         jTotalPavilhaoA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotalPavilhaoA.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -270,23 +268,20 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                         .addComponent(jPercentualExcessoPop, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jQtdExcesso)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel16))
-                    .addComponent(jTotalPavilhaoA, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                    .addComponent(jTotalPavilhaoA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTotalPavilhaoB, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                    .addComponent(jTotalPavilhaoB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTotalPavilhaoA, jTotalPavilhaoB});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -311,7 +306,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Saídas Laborativa/Educacional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Saídas Laborativa/Educacional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("A. Educacional:");
@@ -399,7 +394,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         jBtConsultaColaborador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaColaborador.setForeground(new java.awt.Color(153, 153, 0));
         jBtConsultaColaborador.setText("Colaboradores");
         jBtConsultaColaborador.setToolTipText("Colaboradores da Unidade");
         jBtConsultaColaborador.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -411,7 +405,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaVisitasDiversas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaVisitasDiversas.setForeground(new java.awt.Color(102, 0, 102));
         jBtConsultaVisitasDiversas.setText("Visitas Diversas");
         jBtConsultaVisitasDiversas.setToolTipText("Visitas Diversas na Unidade");
         jBtConsultaVisitasDiversas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -423,7 +416,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaVisistaInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaVisistaInternos.setForeground(new java.awt.Color(0, 153, 0));
         jBtConsultaVisistaInternos.setText("Visitas Internos");
         jBtConsultaVisistaInternos.setToolTipText("Visitas Familiar de Internos");
         jBtConsultaVisistaInternos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -435,7 +427,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaRol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaRol.setForeground(new java.awt.Color(0, 0, 255));
         jBtConsultaRol.setText("Rol Visitas");
         jBtConsultaRol.setToolTipText("Rol de Visitas");
         jBtConsultaRol.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -447,7 +438,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaInternos.setForeground(new java.awt.Color(204, 0, 0));
         jBtConsultaInternos.setText("Internos");
         jBtConsultaInternos.setToolTipText("Prontuários de Internos");
         jBtConsultaInternos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -459,7 +449,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaAdvogadosInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaAdvogadosInternos.setForeground(new java.awt.Color(255, 51, 0));
         jBtConsultaAdvogadosInternos.setText("Advogados");
         jBtConsultaAdvogadosInternos.setToolTipText("Advogados de Internos");
         jBtConsultaAdvogadosInternos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -471,7 +460,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaMovExterna.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaMovExterna.setForeground(new java.awt.Color(0, 102, 255));
         jBtConsultaMovExterna.setText("Mov.Externo");
         jBtConsultaMovExterna.setToolTipText("Movimento de Entrada/Saída Externa");
         jBtConsultaMovExterna.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -483,7 +471,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtConsultaMovInterno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtConsultaMovInterno.setForeground(new java.awt.Color(102, 0, 51));
         jBtConsultaMovInterno.setText("Mov.Interno");
         jBtConsultaMovInterno.setToolTipText("Movimentação do Interno C. Técnico");
         jBtConsultaMovInterno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -506,7 +493,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         });
 
         jBtValoresInternos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtValoresInternos.setForeground(new java.awt.Color(153, 0, 102));
         jBtValoresInternos.setText("Valores");
         jBtValoresInternos.setToolTipText("Crédito/Débito R$");
         jBtValoresInternos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
@@ -522,7 +508,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jBtConsultaVisistaInternos)
@@ -566,7 +552,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                     .addComponent(jBtConsultaAdvogadosInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtConsultaMovInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtValoresInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtConsultaAdvogadosInternos, jBtConsultaColaborador, jBtConsultaInternos, jBtConsultaLocalInterno, jBtConsultaMovExterna, jBtConsultaMovInterno, jBtConsultaRol, jBtConsultaVisistaInternos, jBtConsultaVisitasDiversas, jBtValoresInternos});
@@ -591,7 +577,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Celas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(51, 153, 0))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Celas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Pavilhão:");
@@ -665,7 +651,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
         jLabel68.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel68.setForeground(new java.awt.Color(0, 153, 0));
         jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel68.setText("Total de Celas:");
 
@@ -753,7 +738,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
@@ -795,7 +780,6 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(0, 0, 255));
         jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel67.setText("Total de Internos:");
 
@@ -929,7 +913,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

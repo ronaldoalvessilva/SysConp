@@ -284,8 +284,6 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         AtendimentoFamiliar = new javax.swing.JMenuItem();
         AtendimentoJudiciario = new javax.swing.JMenuItem();
-        jSeparator11 = new javax.swing.JPopupMenu.Separator();
-        jIndicadoresAcompanhamento = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
@@ -495,16 +493,6 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(AtendimentoJudiciario);
-        Movimentacao.add(jSeparator11);
-
-        jIndicadoresAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
-        jIndicadoresAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
-        jIndicadoresAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIndicadoresAcompanhamentoActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(jIndicadoresAcompanhamento);
         Movimentacao.add(jSeparator7);
 
         LivroOcorrencia.setText("Livro de Ocorrências");
@@ -1374,40 +1362,6 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         objRelaSaidaPort.show();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jIndicadoresAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadoresAcompanhamentoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaManuJURI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaIndAcompanhaManuJURI) && codAbrirJURI == 1) {
-            if (objIndAcomp == null || objIndAcomp.isClosed()) {
-                objIndAcomp = new TelaIndicadoresAcompanhamento();
-                jPainelJuridico.add(objIndAcomp);
-                objIndAcomp.setVisible(true);
-            } else {
-                if (objIndAcomp.isVisible()) {
-                    if (objIndAcomp.isIcon()) { // Se esta minimizado
-                        try {
-                            objIndAcomp.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objIndAcomp.toFront(); // traz para frente
-                        objIndAcomp.pack();//volta frame 
-                    }
-                } else {
-                    objIndAcomp = new TelaIndicadoresAcompanhamento();
-                    TelaModuloJuridico.jPainelJuridico.add(objIndAcomp);//adicona frame ao JDesktopPane  
-                    objIndAcomp.setVisible(true);
-                }
-            }
-            try {
-                objIndAcomp.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jIndicadoresAcompanhamentoActionPerformed
-
     private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoJuridico objRelProdJu = new TelaRelatorioProducaoJuridico();
@@ -1457,7 +1411,6 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem jCalculadoraPena1;
-    private javax.swing.JMenuItem jIndicadoresAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1470,7 +1423,6 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
-    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;

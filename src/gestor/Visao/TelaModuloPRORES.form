@@ -52,9 +52,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Consulta Gerencial"/>
               </Properties>
               <Events>
@@ -73,9 +70,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jProntuarioInternos">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="99" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Prontu&#xe1;rios de Internos - {PRONTU&#xc1;RIO &#xda;NICO}"/>
               </Properties>
               <Events>
@@ -184,9 +178,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jIndicadoresResultado">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="66" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Indicadores de Resultados - PRORES"/>
               </Properties>
               <Events>
@@ -197,9 +188,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jConsultaInternosUnidades">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="0" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Consulta Gerencial de  Internos nas Unidades Externas - CGIUE"/>
               </Properties>
               <Events>
@@ -1105,9 +1093,6 @@
               <SubComponents>
                 <Menu class="javax.swing.JMenu" name="jMenu25">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="99" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="POSTO M&#xc9;DICO"/>
                   </Properties>
                   <SubComponents>
@@ -1125,9 +1110,6 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu26">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="66" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="SERVI&#xc7;O SOCIAL"/>
                   </Properties>
                   <SubComponents>
@@ -1145,9 +1127,6 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu27">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="0" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="JUR&#xcd;DICO"/>
                   </Properties>
                   <SubComponents>
@@ -1165,9 +1144,6 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu28">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="0" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="PSICOLOGIA"/>
                   </Properties>
                   <SubComponents>
@@ -1185,9 +1161,6 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu29">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="66" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="PEDAGOGIA"/>
                   </Properties>
                   <SubComponents>
@@ -1205,9 +1178,6 @@
                 </MenuItem>
                 <Menu class="javax.swing.JMenu" name="jMenu30">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="33" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="TERAPIA OCUPACIONAL"/>
                   </Properties>
                   <SubComponents>

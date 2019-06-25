@@ -399,7 +399,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         Consultas.setText("Consultas Diversas");
 
         jConsultaGerencial.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jConsultaGerencial.setForeground(new java.awt.Color(255, 0, 0));
         jConsultaGerencial.setText("Consulta Gerencial");
         jConsultaGerencial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,7 +416,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         });
         Consultas.add(LocalInternos);
 
-        jProntuarioInternos.setForeground(new java.awt.Color(153, 0, 0));
         jProntuarioInternos.setText("Prontuários de Internos - {PRONTUÁRIO ÚNICO}");
         jProntuarioInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,7 +511,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         Consultas.add(jMenuItem7);
         Consultas.add(jSeparator22);
 
-        jIndicadoresResultado.setForeground(new java.awt.Color(0, 102, 0));
         jIndicadoresResultado.setText("Indicadores de Resultados - PRORES");
         jIndicadoresResultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,7 +520,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         Consultas.add(jIndicadoresResultado);
         Consultas.add(jSeparator23);
 
-        jConsultaInternosUnidades.setForeground(new java.awt.Color(0, 0, 204));
         jConsultaInternosUnidades.setText("Consulta Gerencial de  Internos nas Unidades Externas - CGIUE");
         jConsultaInternosUnidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1288,7 +1284,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.setForeground(new java.awt.Color(0, 102, 51));
         jMenu20.setText("Relatórios PRORES");
 
-        jMenu25.setForeground(new java.awt.Color(153, 0, 0));
         jMenu25.setText("POSTO MÉDICO");
 
         jEnfermagem.setText("Relatório de Acompanhamento de Saúde");
@@ -1302,7 +1297,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jMenu25);
         jMenu20.add(jSeparator32);
 
-        jMenu26.setForeground(new java.awt.Color(0, 102, 51));
         jMenu26.setText("SERVIÇO SOCIAL");
 
         jRelatorioServicoSocial.setText("Relatório de Acompanhamento Familiar");
@@ -1316,7 +1310,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jMenu26);
         jMenu20.add(jSeparator28);
 
-        jMenu27.setForeground(new java.awt.Color(0, 0, 204));
         jMenu27.setText("JURÍDICO");
 
         jRelatorioJuridico.setText("Relatório de Acompanhamento de Processos");
@@ -1330,7 +1323,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jMenu27);
         jMenu20.add(jSeparator31);
 
-        jMenu28.setForeground(new java.awt.Color(204, 0, 204));
         jMenu28.setText("PSICOLOGIA");
 
         jRelatorioPsicologia.setText("Relatório de Tratamento Psicologico\n");
@@ -1344,7 +1336,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jMenu28);
         jMenu20.add(jSeparator30);
 
-        jMenu29.setForeground(new java.awt.Color(0, 102, 0));
         jMenu29.setText("PEDAGOGIA");
 
         jRelatorioPedagogia.setText("Relatório de Internos com Acesso a Universidade\n");
@@ -1358,7 +1349,6 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jMenu20.add(jMenu29);
         jMenu20.add(jSeparator29);
 
-        jMenu30.setForeground(new java.awt.Color(204, 51, 0));
         jMenu30.setText("TERAPIA OCUPACIONAL");
 
         jMenu22.setText("Relatório de Internos em Capacitados/Em Capacitação");

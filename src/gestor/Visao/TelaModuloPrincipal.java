@@ -1266,10 +1266,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jMenu5.setForeground(new java.awt.Color(0, 102, 0));
         jMenu5.setMnemonic('R');
-        jMenu5.setText("PRORES - GU");
+        jMenu5.setText("GER. UNIDADE");
 
         jPRORES.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        jPRORES.setText("PRORES - GU");
+        jPRORES.setText("GERENCIAMENTO DA UNIDADE");
         jPRORES.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPRORESActionPerformed(evt);

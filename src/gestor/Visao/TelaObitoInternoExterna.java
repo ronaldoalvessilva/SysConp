@@ -85,7 +85,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     String tipoOperacao2 = "EVASÃO - SAIDA ESTUDOS";
     String statusEva = "ABERTO";
     String evadidoInd = "OBITO";
-    String situacao = "OBITO NA UNIDADE"; // Máximo 19 caracteres   
+    String situacao = "OBITO FORA UNIDADE"; // Máximo 19 caracteres   
     String confirmaRetorno = "Não";
     String confirmaEvasao = "Sim";
     String operacaoSaida = "SAIDA TEMPORARIA"; //Quando o interno estiver evadido ALTERAR na tabela ITENSSAIDA

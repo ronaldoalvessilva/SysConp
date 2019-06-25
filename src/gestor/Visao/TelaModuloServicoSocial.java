@@ -107,7 +107,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoSS objRegBio = null;
     private TelaRegistroInternosAtendimentoImpressoSS objAutoImp = null;
     private TelaSolicitacaoAuxilioReclusao objSoliPedRec = null;
-    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+//    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -332,8 +332,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         HistoricoAvaliacaoEmprego = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         jSolicitacaoAtestadoReclusao = new javax.swing.JMenuItem();
-        jSeparator21 = new javax.swing.JPopupMenu.Separator();
-        jIndicadorAcompanhamento = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jRolVisitas = new javax.swing.JMenuItem();
         RelatorioVisitasGrauParentesco = new javax.swing.JMenuItem();
@@ -662,16 +660,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(jSolicitacaoAtestadoReclusao);
-        jMenu2.add(jSeparator21);
-
-        jIndicadorAcompanhamento.setForeground(new java.awt.Color(0, 102, 51));
-        jIndicadorAcompanhamento.setText("Programa de Indicadores de Acompanhamento");
-        jIndicadorAcompanhamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jIndicadorAcompanhamentoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jIndicadorAcompanhamento);
 
         jMenuBar1.add(jMenu2);
 
@@ -2164,40 +2152,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jSolicitacaoAtestadoReclusaoActionPerformed
 
-    private void jIndicadorAcompanhamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIndicadorAcompanhamentoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAcompanhaManuSS);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaIndAcompanhaManuSS) && codAbrirSS == 1) {
-            if (objIndAcomp == null || objIndAcomp.isClosed()) {
-                objIndAcomp = new TelaIndicadoresAcompanhamento();
-                jPainelServicoSocial.add(objIndAcomp);
-                objIndAcomp.setVisible(true);
-            } else {
-                if (objIndAcomp.isVisible()) {
-                    if (objIndAcomp.isIcon()) { // Se esta minimizado
-                        try {
-                            objIndAcomp.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objIndAcomp.toFront(); // traz para frente
-                        objIndAcomp.pack();//volta frame 
-                    }
-                } else {
-                    objIndAcomp = new TelaIndicadoresAcompanhamento();
-                    TelaModuloServicoSocial.jPainelServicoSocial.add(objIndAcomp);//adicona frame ao JDesktopPane  
-                    objIndAcomp.setVisible(true);
-                }
-            }
-            try {
-                objIndAcomp.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jIndicadorAcompanhamentoActionPerformed
-
     private void jRelatorioAtendimentoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtendimentoInternosActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoSS objRelProdSS = new TelaRelatorioProducaoSS();
@@ -2255,7 +2209,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem VisitantesReligiosos;
     private javax.swing.JMenuItem Vistantes;
-    private javax.swing.JMenuItem jIndicadorAcompanhamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2294,7 +2247,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator20;
-    private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator3;
