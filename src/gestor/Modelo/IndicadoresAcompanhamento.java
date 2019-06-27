@@ -93,6 +93,21 @@ public class IndicadoresAcompanhamento {
     private String iCA;
     private int qtdICA;
     private String observacaoPeda;
+    private int idTempo;
+    private String tempoFormativo;
+    private String statusAluno;
+    private String situacaoAluno;
+    private String resenhaEntregue;
+    private String acessoUni;
+    private int qTdStatusAluno;
+    private int qTdSituacaoAluno;
+    private int qTdResenhaEntregue;
+    private int qTdAcessoUni;
+    private int qTdAprova;
+    private int qTdReprova;
+    private int qTdConcluido;
+    private int qTdCursando;
+    private int qTdDesistente;
     // JURIDICO/CRC
     private int idJurCrc;
     private Date dataJurCrc;
@@ -130,12 +145,12 @@ public class IndicadoresAcompanhamento {
     private Date dataSS;
     private String acompanhaSS;
     private int qtdAcompanhaSS;
-    private String observacao;   
+    private String observacao;
 
     public IndicadoresAcompanhamento() {
     }
 
-    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, String hivControlada, int qtdHib, String hepatiteB, String hepatiBCont, int qtdHepatiteB, String hepatiteC, String hepatiCcont, int qtdHepatiteC, String dst, String curaDst, int qdtDst, String vDLR, String curaVdlr, int qtdVdlr, String vacina, String vacinaCura, int qtdVacina, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String recuparacao, int qtdRecuparacao, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
+    public IndicadoresAcompanhamento(int IdIndAco, String statusPerfil, Date dataPerfil, int idInternoCrc, String nomeInternoPerfil, String opcaoSexual, int anoNascimento, int anoReferencia, String mesReferencia, String observacaoPerfil, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idEnf, Date dataReg, String diabetes, String diabControl, int qtdDiabetes, String hipertensao, String hiperControl, int qtdHipertensao, String escabiose, String escabioseCura, int qtdEscabiose, String hanseniase, String hanseniaseCura, int qtdHanseniase, String sifilis, String sifilisCura, int qtdSifilis, String tuberculose, String tuberculoseCura, int qtdTuberculose, String hiv, String hivControlada, int qtdHib, String hepatiteB, String hepatiBCont, int qtdHepatiteB, String hepatiteC, String hepatiCcont, int qtdHepatiteC, String dst, String curaDst, int qdtDst, String vDLR, String curaVdlr, int qtdVdlr, String vacina, String vacinaCura, int qtdVacina, String observacaoEnf, int idPedago, Date dataPeda, String iCAA, int qtdICAA, String iC1, int qtdIC1, String iC2P, int qtdIC2P, String iAAU, int qtdIAAU, String iC3, int qtdIC3, String iREL, int qtdIREL, String iAC, int qtdIAC, String iCU1, int qtdICU1, String iC2, int qtdIC2, String iCA, int qtdICA, String observacaoPeda, int idTempo, String tempoFormativo, String statusAluno, String situacaoAluno, String resenhaEntregue, String acessoUni, int qTdStatusAluno, int qTdSituacaoAluno, int qTdResenhaEntregue, int qTdAcessoUni, int qTdAprova, int qTdReprova, int qTdConcluido, int qTdCursando, int qTdDesistente, int idJurCrc, Date dataJurCrc, String processos, int qtdProgresso, String documentacao, int qtdDocumentacao, String progressao, int qtdProgressao, String livramento, int qtdLivramento, String observacaoCrc, int idTo, Date dataTo, String programa, int qtdprograma, String curso, int qtdCurso, String profissional, int qtdProfissional, String observacaoTo, int idPsi, Date dataPsi, String tratamento, int qtdTratamento, String acompanha, int qtdAcompanha, String recuparacao, int qtdRecuparacao, String observacaoPsi, int idSS, Date dataSS, String acompanhaSS, int qtdAcompanhaSS, String observacao) {
         this.IdIndAco = IdIndAco;
         this.statusPerfil = statusPerfil;
         this.dataPerfil = dataPerfil;
@@ -214,6 +229,21 @@ public class IndicadoresAcompanhamento {
         this.iCA = iCA;
         this.qtdICA = qtdICA;
         this.observacaoPeda = observacaoPeda;
+        this.idTempo = idTempo;
+        this.tempoFormativo = tempoFormativo;
+        this.statusAluno = statusAluno;
+        this.situacaoAluno = situacaoAluno;
+        this.resenhaEntregue = resenhaEntregue;
+        this.acessoUni = acessoUni;
+        this.qTdStatusAluno = qTdStatusAluno;
+        this.qTdSituacaoAluno = qTdSituacaoAluno;
+        this.qTdResenhaEntregue = qTdResenhaEntregue;
+        this.qTdAcessoUni = qTdAcessoUni;
+        this.qTdAprova = qTdAprova;
+        this.qTdReprova = qTdReprova;
+        this.qTdConcluido = qTdConcluido;
+        this.qTdCursando = qTdCursando;
+        this.qTdDesistente = qTdDesistente;
         this.idJurCrc = idJurCrc;
         this.dataJurCrc = dataJurCrc;
         this.processos = processos;
@@ -1340,6 +1370,216 @@ public class IndicadoresAcompanhamento {
      */
     public void setObservacaoPeda(String observacaoPeda) {
         this.observacaoPeda = observacaoPeda;
+    }
+
+    /**
+     * @return the idTempo
+     */
+    public int getIdTempo() {
+        return idTempo;
+    }
+
+    /**
+     * @param idTempo the idTempo to set
+     */
+    public void setIdTempo(int idTempo) {
+        this.idTempo = idTempo;
+    }
+
+    /**
+     * @return the tempoFormativo
+     */
+    public String getTempoFormativo() {
+        return tempoFormativo;
+    }
+
+    /**
+     * @param tempoFormativo the tempoFormativo to set
+     */
+    public void setTempoFormativo(String tempoFormativo) {
+        this.tempoFormativo = tempoFormativo;
+    }
+
+    /**
+     * @return the statusAluno
+     */
+    public String getStatusAluno() {
+        return statusAluno;
+    }
+
+    /**
+     * @param statusAluno the statusAluno to set
+     */
+    public void setStatusAluno(String statusAluno) {
+        this.statusAluno = statusAluno;
+    }
+
+    /**
+     * @return the situacaoAluno
+     */
+    public String getSituacaoAluno() {
+        return situacaoAluno;
+    }
+
+    /**
+     * @param situacaoAluno the situacaoAluno to set
+     */
+    public void setSituacaoAluno(String situacaoAluno) {
+        this.situacaoAluno = situacaoAluno;
+    }
+
+    /**
+     * @return the resenhaEntregue
+     */
+    public String getResenhaEntregue() {
+        return resenhaEntregue;
+    }
+
+    /**
+     * @param resenhaEntregue the resenhaEntregue to set
+     */
+    public void setResenhaEntregue(String resenhaEntregue) {
+        this.resenhaEntregue = resenhaEntregue;
+    }
+
+    /**
+     * @return the acessoUni
+     */
+    public String getAcessoUni() {
+        return acessoUni;
+    }
+
+    /**
+     * @param acessoUni the acessoUni to set
+     */
+    public void setAcessoUni(String acessoUni) {
+        this.acessoUni = acessoUni;
+    }
+
+    /**
+     * @return the qTdStatusAluno
+     */
+    public int getqTdStatusAluno() {
+        return qTdStatusAluno;
+    }
+
+    /**
+     * @param qTdStatusAluno the qTdStatusAluno to set
+     */
+    public void setqTdStatusAluno(int qTdStatusAluno) {
+        this.qTdStatusAluno = qTdStatusAluno;
+    }
+
+    /**
+     * @return the qTdSituacaoAluno
+     */
+    public int getqTdSituacaoAluno() {
+        return qTdSituacaoAluno;
+    }
+
+    /**
+     * @param qTdSituacaoAluno the qTdSituacaoAluno to set
+     */
+    public void setqTdSituacaoAluno(int qTdSituacaoAluno) {
+        this.qTdSituacaoAluno = qTdSituacaoAluno;
+    }
+
+    /**
+     * @return the qTdResenhaEntregue
+     */
+    public int getqTdResenhaEntregue() {
+        return qTdResenhaEntregue;
+    }
+
+    /**
+     * @param qTdResenhaEntregue the qTdResenhaEntregue to set
+     */
+    public void setqTdResenhaEntregue(int qTdResenhaEntregue) {
+        this.qTdResenhaEntregue = qTdResenhaEntregue;
+    }
+
+    /**
+     * @return the qTdAcessoUni
+     */
+    public int getqTdAcessoUni() {
+        return qTdAcessoUni;
+    }
+
+    /**
+     * @param qTdAcessoUni the qTdAcessoUni to set
+     */
+    public void setqTdAcessoUni(int qTdAcessoUni) {
+        this.qTdAcessoUni = qTdAcessoUni;
+    }
+
+    /**
+     * @return the qTdAprova
+     */
+    public int getqTdAprova() {
+        return qTdAprova;
+    }
+
+    /**
+     * @param qTdAprova the qTdAprova to set
+     */
+    public void setqTdAprova(int qTdAprova) {
+        this.qTdAprova = qTdAprova;
+    }
+
+    /**
+     * @return the qTdReprova
+     */
+    public int getqTdReprova() {
+        return qTdReprova;
+    }
+
+    /**
+     * @param qTdReprova the qTdReprova to set
+     */
+    public void setqTdReprova(int qTdReprova) {
+        this.qTdReprova = qTdReprova;
+    }
+
+    /**
+     * @return the qTdConcluido
+     */
+    public int getqTdConcluido() {
+        return qTdConcluido;
+    }
+
+    /**
+     * @param qTdConcluido the qTdConcluido to set
+     */
+    public void setqTdConcluido(int qTdConcluido) {
+        this.qTdConcluido = qTdConcluido;
+    }
+
+    /**
+     * @return the qTdCursando
+     */
+    public int getqTdCursando() {
+        return qTdCursando;
+    }
+
+    /**
+     * @param qTdCursando the qTdCursando to set
+     */
+    public void setqTdCursando(int qTdCursando) {
+        this.qTdCursando = qTdCursando;
+    }
+
+    /**
+     * @return the qTdDesistente
+     */
+    public int getqTdDesistente() {
+        return qTdDesistente;
+    }
+
+    /**
+     * @param qTdDesistente the qTdDesistente to set
+     */
+    public void setqTdDesistente(int qTdDesistente) {
+        this.qTdDesistente = qTdDesistente;
     }
 
     /**

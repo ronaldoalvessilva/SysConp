@@ -5,20 +5,20 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleListaIndicadoresAcompanhamento;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURI;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoPEDA;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
-import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
-import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -29,6 +29,10 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     IndicadoresAcompanhamento objPerfilInter = new IndicadoresAcompanhamento();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
+    ControleListaIndicadoresAcompanhamento control = new ControleListaIndicadoresAcompanhamento();
+    ControleListaIndicadoresAcompanhamentoPEDA controle = new ControleListaIndicadoresAcompanhamentoPEDA();
+    ControleListaIndicadoresAcompanhamentoJURI controleJURI = new ControleListaIndicadoresAcompanhamentoJURI();
+    ControleListaIndicadoresAcompanhamentoJURICRC controleJURI_CRC = new ControleListaIndicadoresAcompanhamentoJURICRC();
     //
     //ENFERMARIA
     int qtdDiabetes = 0;
@@ -43,17 +47,17 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     int qtdDst = 0;
     int qtdVdlr = 0;
     int qtdVacina = 0;
-    //PEDAGOGIA
-    int qICAA = 0;
-    int qIC1 = 0;
-    int qIC2P = 0;
-    int qIAAU = 0;
-    int qIC3 = 0;
-    int qIREL = 0;
-    int qIAC = 0;
-    int qICU1 = 0;
-    int qIC2 = 0;
-    int qICA = 0;
+    //PEDAGOGIA   
+//    int qICAA = 0;
+//    int qIC1 = 0;
+//    int qIC2P = 0;
+//    int qIAAU = 0;
+//    int qIC3 = 0;
+//    int qIREL = 0;
+//    int qIAC = 0;
+//    int qICU1 = 0;
+//    int qIC2 = 0;
+//    int qICA = 0;
     //JURIDICO/CRC
     int qtdProcessos = 0;
     int qtdDocumentacao = 0;
@@ -73,6 +77,36 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     int qtdProd = 0;
     //
     String dataInicial, dataFinal = "";
+    //ENFERMAGEM
+    double pPopulacaoAtual = 0;
+    double pDiab = 0;
+    double pHiper = 0;
+    public static int pAcessoUni = 0;
+    public static int pAprovado = 0;
+    public static int pReprovado = 0;
+    public static int pCursando = 0;
+    public static int pConcluido = 0;
+    public static int pDesistente = 0;
+    public static int pResenhaEntregue = 0;
+    double pHepatiteB = 0;
+    double pHepatiteC = 0;
+    double pEscabiose = 0;
+    double pHanseniase = 0;
+    double pSifilis = 0;
+    double pHiv = 0;
+    double pTuberculose = 0;
+    double pDst = 0;
+    double pVdlr = 0;
+    double pVacina = 0;
+    //PEDAGOGIA
+    double pqTdResenha = 0;
+    //JURIDICO/CRC
+    double pQTdDocumentacao = 0;
+    double pQTdProgressao = 0;
+    double pQtdLivramento = 0;
+    public static int pDocumento = 0;
+    public static int pPROGRESSAO = 0;
+    public static int pLIVRAMENTO = 0;
 
     /**
      * Creates new form TelaPRORES
@@ -80,7 +114,10 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     public TelaPRORES() {
         initComponents();
         corCampos();
+        //  formatarCampos();
         limparCampos();
+        pesquisarPopulacao("SELECT DataPopMov,TotalGeralInternos FROM MOVPOPULACAO");
+        pesquisarDadosPRORES();
     }
 
     /**
@@ -111,17 +148,17 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel66 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
-        jDiabetes = new javax.swing.JTextField();
-        jHipertensao = new javax.swing.JTextField();
-        jHepatiteB = new javax.swing.JTextField();
-        jHepatiteC = new javax.swing.JTextField();
-        jEscabiose = new javax.swing.JTextField();
-        jHanseniase = new javax.swing.JTextField();
-        jTuberculose = new javax.swing.JTextField();
-        jHiv = new javax.swing.JTextField();
-        jSifilis = new javax.swing.JTextField();
         jLabel103 = new javax.swing.JLabel();
-        jDst = new javax.swing.JTextField();
+        jDiabetes = new javax.swing.JFormattedTextField();
+        jHipertensao = new javax.swing.JFormattedTextField();
+        jHepatiteB = new javax.swing.JFormattedTextField();
+        jHepatiteC = new javax.swing.JFormattedTextField();
+        jEscabiose = new javax.swing.JFormattedTextField();
+        jHanseniase = new javax.swing.JFormattedTextField();
+        jSifilis = new javax.swing.JFormattedTextField();
+        jHiv = new javax.swing.JFormattedTextField();
+        jTuberculose = new javax.swing.JFormattedTextField();
+        jDst = new javax.swing.JFormattedTextField();
         jPanel22 = new javax.swing.JPanel();
         jLabel55 = new javax.swing.JLabel();
         jCursandoAlfa = new javax.swing.JTextField();
@@ -175,9 +212,8 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDataFinal = new com.toedter.calendar.JDateChooser();
-        jDataInicial = new com.toedter.calendar.JDateChooser();
-        jBtPesquisa = new javax.swing.JButton();
+        jDataPopulacao = new com.toedter.calendar.JDateChooser();
+        jPopulacaoAtual = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -240,68 +276,68 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel69.setText("%");
 
-        jDiabetes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jDiabetes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDiabetes.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jDiabetes.setEnabled(false);
-
-        jHipertensao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jHipertensao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHipertensao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jHipertensao.setEnabled(false);
-
-        jHepatiteB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jHepatiteB.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHepatiteB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHepatiteB.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jHepatiteB.setEnabled(false);
-
-        jHepatiteC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jHepatiteC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHepatiteC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHepatiteC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jHepatiteC.setEnabled(false);
-
-        jEscabiose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jEscabiose.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jEscabiose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jEscabiose.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jEscabiose.setEnabled(false);
-
-        jHanseniase.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jHanseniase.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHanseniase.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHanseniase.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jHanseniase.setEnabled(false);
-
-        jTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTuberculose.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTuberculose.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTuberculose.setEnabled(false);
-
-        jHiv.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jHiv.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHiv.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHiv.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jHiv.setEnabled(false);
-
-        jSifilis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jSifilis.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jSifilis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jSifilis.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jSifilis.setEnabled(false);
-
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel103.setText("Tratamento de DST %");
 
-        jDst.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jDst.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDiabetes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jDiabetes.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jDiabetes.setEnabled(false);
+        jDiabetes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHipertensao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHipertensao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHipertensao.setEnabled(false);
+        jHipertensao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHepatiteB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHepatiteB.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHepatiteB.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHepatiteB.setEnabled(false);
+        jHepatiteB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHepatiteC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHepatiteC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHepatiteC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHepatiteC.setEnabled(false);
+        jHepatiteC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jEscabiose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEscabiose.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEscabiose.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jEscabiose.setEnabled(false);
+        jEscabiose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHanseniase.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHanseniase.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHanseniase.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHanseniase.setEnabled(false);
+        jHanseniase.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jSifilis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSifilis.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jSifilis.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jSifilis.setEnabled(false);
+        jSifilis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jHiv.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHiv.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHiv.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jHiv.setEnabled(false);
+        jHiv.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTuberculose.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTuberculose.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTuberculose.setEnabled(false);
+        jTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
         jDst.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDst.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jDst.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jDst.setEnabled(false);
+        jDst.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -349,19 +385,24 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addComponent(jLabel103))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jDiabetes, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addComponent(jHipertensao)
+                        .addComponent(jHepatiteB)
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jEscabiose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(jHepatiteC, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jHanseniase)
+                        .addComponent(jSifilis)
+                        .addComponent(jHiv))
                     .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jHiv, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSifilis, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jHanseniase, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jEscabiose, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jHepatiteC, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jHepatiteB, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jHipertensao, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDiabetes, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDst, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(jDst, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                        .addComponent(jTuberculose, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(11, 11, 11))
         );
+
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDiabetes, jDst, jEscabiose, jHanseniase, jHepatiteB, jHepatiteC, jHipertensao, jHiv, jSifilis, jTuberculose});
+
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
@@ -384,7 +425,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addComponent(jLabel54)
                     .addComponent(jLabel59)
                     .addComponent(jHepatiteC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel47)
                     .addComponent(jLabel60)
@@ -410,11 +451,13 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addComponent(jLabel69)
                     .addComponent(jTuberculose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel103))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel103)
+                    .addComponent(jDst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jPanel15Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDiabetes, jDst, jEscabiose, jHanseniase, jHepatiteB, jHepatiteC, jHipertensao, jHiv, jSifilis, jTuberculose});
 
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Pedagogia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
@@ -889,38 +932,37 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Data Inicial:");
+        jLabel1.setText("População Atual:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data Final:");
+        jLabel2.setText("Data da População:");
 
-        jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPopulacao.setBackground(new java.awt.Color(255, 255, 255));
+        jDataPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPopulacao.setEnabled(false);
+        jDataPopulacao.setIcon(null);
+        jDataPopulacao.setOpaque(false);
 
-        jDataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jBtPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisa.setContentAreaFilled(false);
-        jBtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisaActionPerformed(evt);
-            }
-        });
+        jPopulacaoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPopulacaoAtual.setForeground(new java.awt.Color(153, 0, 0));
+        jPopulacaoAtual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPopulacaoAtual.setDisabledTextColor(new java.awt.Color(153, 0, 0));
+        jPopulacaoAtual.setEnabled(false);
+        jPopulacaoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDataPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -928,11 +970,10 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisa))
+                    .addComponent(jDataPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -950,7 +991,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -964,7 +1005,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -981,84 +1022,16 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setBounds(350, 120, 576, 622);
+        setBounds(350, 120, 570, 611);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFecharActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtFecharActionPerformed
-
-    private void jBtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaActionPerformed
-        // TODO add your handling code here:
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else if (jDataFinal.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-            jDataFinal.requestFocus();
-        } else if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-        } else {
-            if (tipoServidor == null || tipoServidor.equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-                jDataInicial.setCalendar(Calendar.getInstance());
-                jDataFinal.setCalendar(Calendar.getInstance());
-                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                preencherTabelaEstatistica("SELECT * FROM PRONTUARIOSCRC "
-                        + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
-                        + "LEFT JOIN ADMISSAOENFERMEIRA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
-                        + "LEFT JOIN ITENSMATRICULA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
-                        + "LEFT JOIN RESENHA_REMICAO_INTERNO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
-                        + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                        + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                        + "LEFT JOIN EVOLUCAOPSICOLOGICA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
-                        + "LEFT JOIN ATENDIMENTOFAMILIAR "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                        + "WHERE ACOMPANHAMENTO_INTERNO_ENFERMARIA.DataReg BETWEEN '" + dataInicial + "' "
-                        + "AND '" + dataFinal + "'");
-            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-                jDataInicial.setCalendar(Calendar.getInstance());
-                jDataFinal.setCalendar(Calendar.getInstance());
-                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                preencherTabelaEstatistica("SELECT * FROM PRONTUARIOSCRC "
-                        + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
-                        + "LEFT JOIN ADMISSAOENFERMEIRA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
-                        + "LEFT JOIN ITENSMATRICULA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
-                        + "LEFT JOIN RESENHA_REMICAO_INTERNO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
-                        + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                        + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                        + "LEFT JOIN EVOLUCAOPSICOLOGICA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
-                        + "LEFT JOIN ATENDIMENTOFAMILIAR "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                        + "WHERE ACOMPANHAMENTO_INTERNO_ENFERMARIA.DataReg BETWEEN '" + dataInicial + "' "
-                        + "AND '" + dataFinal + "'");
-            }
-        }
-    }//GEN-LAST:event_jBtPesquisaActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
@@ -1071,7 +1044,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jAtividadeComplementar;
     private javax.swing.JButton jBtFechar;
     private javax.swing.JButton jBtImpressao;
-    private javax.swing.JButton jBtPesquisa;
     private javax.swing.JTextField jConcluiuPrimeiro;
     private javax.swing.JTextField jConcluiuSegundo;
     private javax.swing.JTextField jConcluiualfabetizacao;
@@ -1079,20 +1051,19 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCursandoPrimeiro;
     private javax.swing.JTextField jCursandoSegundo;
     private javax.swing.JTextField jCursandoTerceiro;
-    private com.toedter.calendar.JDateChooser jDataFinal;
-    private com.toedter.calendar.JDateChooser jDataInicial;
-    private javax.swing.JTextField jDiabetes;
+    private com.toedter.calendar.JDateChooser jDataPopulacao;
+    private javax.swing.JFormattedTextField jDiabetes;
     private javax.swing.JTextField jDocumentacaoCompleta;
-    private javax.swing.JTextField jDst;
+    private javax.swing.JFormattedTextField jDst;
     private javax.swing.JTextField jEducacaoLeitura;
-    private javax.swing.JTextField jEscabiose;
+    private javax.swing.JFormattedTextField jEscabiose;
     private javax.swing.JTextField jFamiliaAcompanhada;
     private javax.swing.JTextField jFormacaoProfissional;
-    private javax.swing.JTextField jHanseniase;
-    private javax.swing.JTextField jHepatiteB;
-    private javax.swing.JTextField jHepatiteC;
-    private javax.swing.JTextField jHipertensao;
-    private javax.swing.JTextField jHiv;
+    private javax.swing.JFormattedTextField jHanseniase;
+    private javax.swing.JFormattedTextField jHepatiteB;
+    private javax.swing.JFormattedTextField jHepatiteC;
+    private javax.swing.JFormattedTextField jHipertensao;
+    private javax.swing.JFormattedTextField jHiv;
     private javax.swing.JTextField jInseridoPrograma;
     private javax.swing.JTextField jInternosAcompanhamento;
     private javax.swing.JTextField jInternosRecuperacao;
@@ -1148,13 +1119,48 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JFormattedTextField jPopulacaoAtual;
     private javax.swing.JTextField jProcessosAcompanhado;
     private javax.swing.JTextField jProgressaoRegime;
-    private javax.swing.JTextField jSifilis;
-    private javax.swing.JTextField jTuberculose;
+    private javax.swing.JFormattedTextField jSifilis;
+    private javax.swing.JFormattedTextField jTuberculose;
     // End of variables declaration//GEN-END:variables
 
+    public void mudarCorData() {
+        jDataPopulacao.getDateEditor().getUiComponent().setBackground(new Color(255, 255, 255));
+    }
+
+    public void formatarCampos() {
+
+        try {
+            MaskFormatter diab = new MaskFormatter("###,####");
+            MaskFormatter hiper = new MaskFormatter("###,####");
+            MaskFormatter hepab = new MaskFormatter("###,####");
+            MaskFormatter hepac = new MaskFormatter("###,####");
+            MaskFormatter esca = new MaskFormatter("###,####");
+            MaskFormatter hanse = new MaskFormatter("###,####");
+            MaskFormatter sifi = new MaskFormatter("###,####");
+            MaskFormatter hiv = new MaskFormatter("###,####");
+            MaskFormatter tube = new MaskFormatter("###,####");
+            MaskFormatter dst = new MaskFormatter("###,####");
+            jDiabetes.setFormatterFactory(new DefaultFormatterFactory(diab));
+            jHipertensao.setFormatterFactory(new DefaultFormatterFactory(hiper));
+            jHepatiteB.setFormatterFactory(new DefaultFormatterFactory(hepab));
+            jHepatiteC.setFormatterFactory(new DefaultFormatterFactory(hepac));
+            jEscabiose.setFormatterFactory(new DefaultFormatterFactory(esca));
+            jHanseniase.setFormatterFactory(new DefaultFormatterFactory(hanse));
+            jSifilis.setFormatterFactory(new DefaultFormatterFactory(sifi));
+            jHiv.setFormatterFactory(new DefaultFormatterFactory(hiv));
+            jTuberculose.setFormatterFactory(new DefaultFormatterFactory(tube));
+            jDst.setFormatterFactory(new DefaultFormatterFactory(dst));
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void corCampos() {
+//        jDataPopulacao.setBackground(Color.white);
+        jPopulacaoAtual.setBackground(Color.white);
         //ENFERMARIA
         jDiabetes.setBackground(Color.white);
         jHipertensao.setBackground(Color.white);
@@ -1233,237 +1239,185 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jFamiliaAcompanhada.setText("0");
     }
 
-    public void preencherTabelaEstatistica(String sql) {
+//    public void preencherTabelaEstatistica(String sql) {
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL(sql);
+//            conecta.rs.first();
+//            do {
+//                qtdDiabetes = conecta.rs.getInt("QtdDiabetes");
+//                qtdHipertensao = conecta.rs.getInt("QtdHipertensao");
+//                qtdEscabiose = conecta.rs.getInt("QtdEscabiose");
+//                qtdHanseniase = conecta.rs.getInt("QtdHanseniase");
+//                qtdSifilis = conecta.rs.getInt("QtdSifilis");
+//                qtdTuberculose = conecta.rs.getInt("QtdTuberculose");
+//                qtdHib = conecta.rs.getInt("QtdHiv");
+//                qtdHepatiteB = conecta.rs.getInt("QtdHepatiteB");
+//                qtdHepatiteC = conecta.rs.getInt("QtdHepatiteC");
+//                qtdDst = conecta.rs.getInt("QtdDst");
+//                qtdVdlr = conecta.rs.getInt("QtdVdlr");
+//                qtdVacina = conecta.rs.getInt("qQtdVacina");
+    //PEDAGOGIA
+//                qICAA = conecta.rs.getInt("QtdICAA");
+//                qIC1 = conecta.rs.getInt("QtdIC1");
+//                qIC2P = conecta.rs.getInt("QtdIC2P");
+//                qIAAU = conecta.rs.getInt("QtdIAAU");
+//                qIC3 = conecta.rs.getInt("QtdIC3");
+//                qIREL = conecta.rs.getInt("QtdIREL");
+//                qIAC = conecta.rs.getInt("QtdIAC");
+//                qICU1 = conecta.rs.getInt("QtdICU1");
+//                qIC2 = conecta.rs.getInt("QtdIC2");
+//                qICA = conecta.rs.getInt("QtdICA");
+    //JURIDICO/CRC
+//                qtdProcessos = conecta.rs.getInt("QtdProgresso");
+//                qtdDocumentacao = conecta.rs.getInt("QtdDocumentacao");
+//                qtdProggressao = conecta.rs.getInt("QtdProgressao");
+//                qtdLivramento = conecta.rs.getInt("QtdLivramento");
+//                //TERAPIA OCUPACIONAL
+//                qtdPrograma = conecta.rs.getInt("Qtdprograma");
+//                qtdCurso = conecta.rs.getInt("QtdCurso");
+//                qtdProfissional = conecta.rs.getInt("QtdProfissional");
+//                //PSICOLOGIA
+//                qtdTratamento = conecta.rs.getInt("QtdTratamento");
+//                qtdAcompanha = conecta.rs.getInt("QtdAcompanha");
+//                qtdRecuperacao = conecta.rs.getInt("QtdRecuparacao");
+//                //SERVIÇO SOCIAL
+//                qtdAcompanhaSS = conecta.rs.getInt("QtdAcompanhaSS");
+//            } while (conecta.rs.next());
+//        } catch (Exception e) {
+//        }
+//        conecta.desconecta();
+//    }
+    public void pesquisarPopulacao(String sql) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
-            conecta.rs.first();
-            qtdDiabetes = conecta.rs.getInt("QtdDiabetes");
-            qtdHipertensao = conecta.rs.getInt("QtdHipertensao");
-            qtdEscabiose = conecta.rs.getInt("QtdEscabiose");
-            qtdHanseniase = conecta.rs.getInt("QtdHanseniase");
-            qtdSifilis = conecta.rs.getInt("QtdSifilis");
-            qtdTuberculose = conecta.rs.getInt("QtdTuberculose");
-            qtdHib = conecta.rs.getInt("QtdHiv");
-            qtdHepatiteB = conecta.rs.getInt("QtdHepatiteB");
-            qtdHepatiteC = conecta.rs.getInt("QtdHepatiteC");
-            qtdDst = conecta.rs.getInt("QtdDst");
-            qtdVdlr = conecta.rs.getInt("QtdVdlr");
-            qtdVacina = conecta.rs.getInt("qQtdVacina");
-            //PEDAGOGIA
-            qICAA = conecta.rs.getInt("QtdICAA");
-            qIC1 = conecta.rs.getInt("QtdIC1");
-            qIC2P = conecta.rs.getInt("QtdIC2P");
-            qIAAU = conecta.rs.getInt("QtdIAAU");
-            qIC3 = conecta.rs.getInt("QtdIC3");
-            qIREL = conecta.rs.getInt("QtdIREL");
-            qIAC = conecta.rs.getInt("QtdIAC");
-            qICU1 = conecta.rs.getInt("QtdICU1");
-            qIC2 = conecta.rs.getInt("QtdIC2");
-            qICA = conecta.rs.getInt("QtdICA");
-            //JURIDICO/CRC
-            qtdProcessos = conecta.rs.getInt("QtdProgresso");
-            qtdDocumentacao = conecta.rs.getInt("QtdDocumentacao");
-            qtdProggressao = conecta.rs.getInt("QtdProgressao");
-            qtdLivramento = conecta.rs.getInt("QtdLivramento");
-            //TERAPIA OCUPACIONAL
-            qtdPrograma = conecta.rs.getInt("Qtdprograma");
-            qtdCurso = conecta.rs.getInt("QtdCurso");
-            qtdProfissional = conecta.rs.getInt("QtdProfissional");
-            //PSICOLOGIA
-            qtdTratamento = conecta.rs.getInt("QtdTratamento");
-            qtdAcompanha = conecta.rs.getInt("QtdAcompanha");
-            qtdRecuperacao = conecta.rs.getInt("QtdRecuparacao");
-            //SERVIÇO SOCIAL
-            qtdAcompanhaSS = conecta.rs.getInt("QtdAcompanhaSS");
+            conecta.rs.last();
+            jDataPopulacao.setDate(conecta.rs.getDate("DataPopMov"));
+            jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
+            pPopulacaoAtual = conecta.rs.getDouble("TotalGeralInternos");
         } catch (Exception e) {
         }
         conecta.desconecta();
     }
 
-    public List<IndicadoresAcompanhamento> read() throws Exception {
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-        conecta.abrirConexao();
-        List<IndicadoresAcompanhamento> listaInternosPavilhaoSelecionados = new ArrayList<IndicadoresAcompanhamento>();
-        try {
-            conecta.executaSQL("SELECT "
-                    + "SUM(Qtdprograma) AS QtdePrograma, "
-                    + "SUM(QtdDiabetes)AS QtdeDiabetes, "
-                    + "SUM(QtdHipertensao)AS QtdeHipertensao, "
-                    + "SUM(QtdEscabiose) AS QtdeEscabiose, "
-                    + "SUM(QtdHanseniase) AS QtdeHanseniase, "
-                    + "SUM(QtdSifilis) AS QtdeSifilis, "
-                    + "SUM(QtdTuberculose) AS QtdeTuberculose, "
-                    + "SUM(QtdHiv) AS QtdeHiv, "
-                    + "SUM(QtdHepatiteB) AS QtdeEpaB, "
-                    + "SUM(QtdHepatiteC) AS QtdeEpaC, "
-                    + "SUM(QtdDst) AS QtdeDst, "
-                    + "SUM(QtdVdlr) AS QtdeVdls, "
-                    + "SUM(QtdVacina) AS QtdeVacina, "
-                    + "SUM(QtdICAA) AS QtdeICCA, "
-                    + "SUM(QtdIC1) AS QtdeIC1, "
-                    + "SUM(QtdIC2P) AS QtdeIC2P, "
-                    + "SUM(QtdIAAU) AS QtdeIAAU, "
-                    + "SUM(QtdIC3) AS QtdeIC3, "
-                    + "SUM(QtdIREL)  AS QtdeRel, "
-                    + "SUM(QtdIAC) AS QtdeIAC, "
-                    + "SUM(QtdICU1) AS QtdeICU1, "
-                    + "SUM(QtdIC2) AS QtdeIC2, "
-                    + "SUM(QtdICA) AS QtdeICA, "
-                    + "SUM(QtdProgresso) AS QtdeProgresso, "
-                    + "SUM(QtdDocumentacao) AS QtdeDocumentacao, "
-                    + "SUM(QtdProgressao) AS QtdeProgressao, "
-                    + "SUM(QtdLivramento) AS QtdeLivramento, "
-                    + "SUM(Qtdprograma) AS QtdePrograma, "
-                    + "SUM(QtdCurso) AS QtdeCurso, "
-                    + "SUM(QtdProfissional) AS QtdeProfissional, "
-                    + "SUM(QtdTratamento) AS QtdeTratamento, "
-                    + "SUM(QtdAcompanha) AS QtdeAcompanha, "
-                    + "SUM(QtdRecuperacao) AS QtdeRecuperacao, "
-                    + "SUM(QtdAcompanhaSS) AS QtdeAcompanhaSS FROM PRONTUARIOSCRC "
-                    + "LEFT JOIN ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdInternoCrc "
-                    + "LEFT JOIN ADMISSAOENFERMEIRA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAOENFERMEIRA.IdInternoCrc "
-                    + "LEFT JOIN ITENSMATRICULA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSMATRICULA.IdInternoCrc "
-                    + "LEFT JOIN RESENHA_REMICAO_INTERNO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=RESENHA_REMICAO_INTERNO.IdInternoCrc "
-                    + "LEFT JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                    + "LEFT JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc "
-                    + "LEFT JOIN EVOLUCAOPSICOLOGICA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
-                    + "LEFT JOIN ATENDIMENTOFAMILIAR "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
-                    + "AND '" + dataFinal + "'");
-            while (conecta.rs.next()) {
-                IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
-                pDigiProd.setQtdDiabetes(conecta.rs.getInt("QtdeDiabetes"));
-                pDigiProd.setQtdHipertensao(conecta.rs.getInt("QtdeHipertensao"));
-                pDigiProd.setQtdEscabiose(conecta.rs.getInt("QtdeEscabiose"));
-                pDigiProd.setQtdHanseniase(conecta.rs.getInt("QtedHanseniase"));
-                pDigiProd.setQtdSifilis(conecta.rs.getInt("QtdeSifilis"));
-                pDigiProd.setQtdTuberculose(conecta.rs.getInt("QtdeTuberculose"));
-                pDigiProd.setQtdHib(conecta.rs.getInt("QtdeHiv"));
-                pDigiProd.setQtdHepatiteB(conecta.rs.getInt("QtdeHepatiteB"));
-                pDigiProd.setQtdHepatiteC(conecta.rs.getInt("QtdeHepatiteC"));
-                pDigiProd.setQdtDst(conecta.rs.getInt("QtdeDst"));
-                pDigiProd.setQtdVdlr(conecta.rs.getInt("QtdeVdlr"));
-                pDigiProd.setQtdVacina(conecta.rs.getInt("QtdeVacina"));
-                //PEDAGOGIA
-                pDigiProd.setQtdICAA(conecta.rs.getInt("QtdeICAA"));
-                pDigiProd.setQtdIC1(conecta.rs.getInt("QtdeIC1"));
-                pDigiProd.setQtdIC2P(conecta.rs.getInt("QtdeIC2P"));
-                pDigiProd.setQtdIAAU(conecta.rs.getInt("QtdeIAAU"));
-                pDigiProd.setQtdIC3(conecta.rs.getInt("QtdeIC3"));
-                pDigiProd.setQtdIREL(conecta.rs.getInt("QtdeIREL"));
-                pDigiProd.setQtdIAC(conecta.rs.getInt("QtdeIAC"));
-                pDigiProd.setQtdICU1(conecta.rs.getInt("QtdeICU1"));
-                pDigiProd.setQtdIC2(conecta.rs.getInt("QtdeIC2"));
-                pDigiProd.setQtdICA(conecta.rs.getInt("QtdeICA"));
-                //JURIDICO/CRC
-                pDigiProd.setQtdProgresso(conecta.rs.getInt("QtdeProgresso"));
-                pDigiProd.setQtdDocumentacao(conecta.rs.getInt("QtdeDocumentacao"));
-                pDigiProd.setQtdProgressao(conecta.rs.getInt("QtdeProgressao"));
-                pDigiProd.setQtdLivramento(conecta.rs.getInt("QtdeLivramento"));
-                //TERAPIA OCUPACIONAL
-                pDigiProd.setQtdprograma(conecta.rs.getInt("QtdePrograma"));
-                pDigiProd.setQtdCurso(conecta.rs.getInt("QtdeCurso"));
-                pDigiProd.setQtdProfissional(conecta.rs.getInt("QtdeProfissional"));
-                //PSICOLOGIA
-                pDigiProd.setQtdTratamento(conecta.rs.getInt("QtdeTratamento"));
-                pDigiProd.setQtdAcompanha(conecta.rs.getInt("QtdeAcompanha"));
-                pDigiProd.setQtdRecuparacao(conecta.rs.getInt("QtdeRecuperacao"));
-                //SERVIÇO SOCIAL
-                pDigiProd.setQtdAcompanhaSS(conecta.rs.getInt("QtdeAcompanhaSS"));
-                listaInternosPavilhaoSelecionados.add(pDigiProd);
-                qtdProd = qtdProd + 1;
-            }
-            return listaInternosPavilhaoSelecionados;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conecta.desconecta();
-        }
-        return null;
-    }
+    public void pesquisarDadosPRORES() {
 
-//    public List<IndicadoresAcompanhamento> read() throws Exception {
-//        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-//        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-//        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-//        conecta.abrirConexao();
-//        List<IndicadoresAcompanhamento> listaInternosPavilhaoSelecionados = new ArrayList<IndicadoresAcompanhamento>();
-//        try {
-//            conecta.executaSQL("SELECT * FROM INDICADOR_ACOMPANHAMENTO_INTERNO "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_ENFERMARIA.IdIndAco "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PEDAGOGIA.IdIndAco "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_JURIDICO_CRC.IdIndAco "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_TO "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_TO.IdIndAco "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_PSI "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_PSI.IdIndAco "
-//                    + "INNER JOIN INDICADOR_ACOMPANHAMENTO_INTERNO_SS "
-//                    + "ON INDICADOR_ACOMPANHAMENTO_INTERNO.IdIndAco=INDICADOR_ACOMPANHAMENTO_INTERNO_SS.IdIndAco "
-//                    + "WHERE INDICADOR_ACOMPANHAMENTO_INTERNO.DataPerfil BETWEEN '" + dataInicial + "' "
-//                    + "AND '" + dataFinal + "'");
-//            while (conecta.rs.next()) {
-//                IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
-//                pDigiProd.setQtdDiabetes(conecta.rs.getInt("QtdDiabetes"));
-//                pDigiProd.setQtdHipertensao(conecta.rs.getInt("QtdHipertensao"));
-//                pDigiProd.setQtdEscabiose(conecta.rs.getInt("QtdEscabiose"));
-//                pDigiProd.setQtdHanseniase(conecta.rs.getInt("QtdHanseniase"));
-//                pDigiProd.setQtdSifilis(conecta.rs.getInt("QtdSifilis"));
-//                pDigiProd.setQtdTuberculose(conecta.rs.getInt("QtdTuberculose"));
-//                pDigiProd.setQtdHib(conecta.rs.getInt("QtdHiv"));
-//                pDigiProd.setQtdHepatiteB(conecta.rs.getInt("QtdHepatiteB"));
-//                pDigiProd.setQtdHepatiteC(conecta.rs.getInt("QtdHepatiteC"));
-//                pDigiProd.setQdtDst(conecta.rs.getInt("QtdDst"));
-//                pDigiProd.setQtdVdlr(conecta.rs.getInt("QtdVdlr"));
-//                pDigiProd.setQtdVacina(conecta.rs.getInt("QtdVacina"));
-//                //PEDAGOGIA
-//                pDigiProd.setQtdICAA(conecta.rs.getInt("QtdICAA"));
-//                pDigiProd.setQtdIC1(conecta.rs.getInt("QtdIC1"));
-//                pDigiProd.setQtdIC2P(conecta.rs.getInt("QtdIC2P"));
-//                pDigiProd.setQtdIAAU(conecta.rs.getInt("QtdIAAU"));
-//                pDigiProd.setQtdIC3(conecta.rs.getInt("QtdIC3"));
-//                pDigiProd.setQtdIREL(conecta.rs.getInt("QtdIREL"));
-//                pDigiProd.setQtdIAC(conecta.rs.getInt("QtdIAC"));
-//                pDigiProd.setQtdICU1(conecta.rs.getInt("QtdICU1"));
-//                pDigiProd.setQtdIC2(conecta.rs.getInt("QtdIC2"));
-//                pDigiProd.setQtdICA(conecta.rs.getInt("QtdICA"));
-//                //JURIDICO/CRC
-//                pDigiProd.setQtdProgresso(conecta.rs.getInt("QtdProgresso"));
-//                pDigiProd.setQtdDocumentacao(conecta.rs.getInt("QtdDocumentacao"));
-//                pDigiProd.setQtdProgressao(conecta.rs.getInt("QtdProgressao"));
-//                pDigiProd.setQtdLivramento(conecta.rs.getInt("QtdLivramento"));
-//                //TERAPIA OCUPACIONAL
-//                pDigiProd.setQtdprograma(conecta.rs.getInt("Qtdprograma"));
-//                pDigiProd.setQtdCurso(conecta.rs.getInt("QtdCurso"));
-//                pDigiProd.setQtdProfissional(conecta.rs.getInt("QtdProfissional"));
-//                //PSICOLOGIA
-//                pDigiProd.setQtdTratamento(conecta.rs.getInt("QtdTratamento"));
-//                pDigiProd.setQtdAcompanha(conecta.rs.getInt("QtdAcompanha"));
-//                pDigiProd.setQtdRecuparacao(conecta.rs.getInt("QtdRecuperacao"));
-//                //SERVIÇO SOCIAL
-//                pDigiProd.setQtdAcompanhaSS(conecta.rs.getInt("QtdAcompanhaSS"));
-//                listaInternosPavilhaoSelecionados.add(pDigiProd);
-//                qtdProd = qtdProd + 1;
-//            }
-//            return listaInternosPavilhaoSelecionados;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            conecta.desconecta();
-//        }
-//        return null;
-//    }
+        IndicadoresAcompanhamento d = new IndicadoresAcompanhamento();
+        //ENFERMARIA
+        try {
+            for (IndicadoresAcompanhamento dd : control.read()) {
+                //ENFERMARIA
+                qtdDiabetes = dd.getQtdDiabetes();
+                pDiab = (100 * qtdDiabetes) / pPopulacaoAtual;
+                DecimalFormat vDiab = new DecimalFormat("#,###0.00");
+                String pPerdiab = vDiab.format(pDiab);
+                jDiabetes.setText(String.valueOf(pPerdiab));
+                //
+                qtdHipertensao = dd.getQtdHipertensao();
+                pHiper = (100 * qtdHipertensao) / pPopulacaoAtual;
+                DecimalFormat vHeper = new DecimalFormat("#,###0.00");
+                String pPerdiaHeper = vHeper.format(pHiper);
+                jHipertensao.setText(String.valueOf(pPerdiaHeper));
+                //
+                qtdHepatiteB = dd.getQtdHepatiteB();
+                pHepatiteB = (100 * qtdHepatiteB) / pPopulacaoAtual;
+                DecimalFormat vHepateb = new DecimalFormat("#,###0.00");
+                String pPerdiaHepB = vHepateb.format(pHepatiteB);
+                jHepatiteB.setText(String.valueOf(pPerdiaHepB));
+                //
+                qtdHepatiteC = dd.getQtdHepatiteC();
+                pHepatiteC = (100 * qtdHepatiteC) / pPopulacaoAtual;
+                DecimalFormat vHepatec = new DecimalFormat("#,###0.00");
+                String pPerdiaHepC = vHepatec.format(pHepatiteC);
+                jHepatiteC.setText(String.valueOf(pPerdiaHepC));
+                //
+                qtdEscabiose = dd.getQtdEscabiose();
+                pEscabiose = (100 * qtdEscabiose) / pPopulacaoAtual;
+                DecimalFormat vEscabe = new DecimalFormat("#,###0.00");
+                String pPerdiaEscabe = vEscabe.format(pEscabiose);
+                jEscabiose.setText(String.valueOf(pPerdiaEscabe));
+                //
+                qtdHanseniase = dd.getQtdHanseniase();
+                pHanseniase = (100 * qtdHanseniase) / pPopulacaoAtual;
+                DecimalFormat vHanse = new DecimalFormat("#,###0.00");
+                String pPerdiaHanse = vHanse.format(pHanseniase);
+                jHanseniase.setText(String.valueOf(pPerdiaHanse));
+                //
+                qtdSifilis = dd.getQtdSifilis();
+                pSifilis = (100 * qtdSifilis) / pPopulacaoAtual;
+                DecimalFormat vSifilis = new DecimalFormat("#,###0.00");
+                String pPerdiaSifilis = vSifilis.format(pSifilis);
+                jSifilis.setText(String.valueOf(pPerdiaSifilis));
+                //
+                qtdHib = dd.getQtdHib();
+                pHiv = (100 * qtdHib) / pPopulacaoAtual;
+                DecimalFormat vHiv = new DecimalFormat("#,###0.00");
+                String pPerdiaHiv = vHiv.format(pHiv);
+                jHiv.setText(String.valueOf(pPerdiaHiv));
+                //
+                qtdTuberculose = dd.getQtdTuberculose();
+                pTuberculose = (100 * qtdTuberculose) / pPopulacaoAtual;
+                DecimalFormat vTuberculose = new DecimalFormat("#,###0.00");
+                String pPerdiapTuberculose = vTuberculose.format(pTuberculose);
+                jTuberculose.setText(String.valueOf(pPerdiapTuberculose));
+                //
+                qtdDst = dd.getQdtDst();
+                pDst = (100 * qtdDst) / pPopulacaoAtual;
+                DecimalFormat vDst = new DecimalFormat("#,###0.00");
+                String pPerdiaDst = vDst.format(pDst);
+                jDst.setText(String.valueOf(pPerdiaDst));
+                //                                                                                                                                
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PEDAGOGIA
+        try {
+            for (IndicadoresAcompanhamento bb : controle.read()) {
+                pAcessoUni = bb.getqTdAcessoUni();
+                jAdiquiriu.setText(String.valueOf(pAcessoUni));
+                pAprovado = bb.getqTdAprova();
+                pReprovado = bb.getqTdReprova();
+                pCursando = bb.getqTdCursando();
+                pConcluido = bb.getqTdConcluido();
+                jConcluiuPrimeiro.setText(String.valueOf(pConcluido));
+                pDesistente = bb.getqTdDesistente();
+                //
+                pResenhaEntregue = bb.getqTdResenhaEntregue();
+                pqTdResenha = (100 * pResenhaEntregue) / pPopulacaoAtual;
+                DecimalFormat vDst = new DecimalFormat("#,###0.00");
+                String pPerdiaResen = vDst.format(pqTdResenha);
+                jEducacaoLeitura.setText(String.valueOf(pPerdiaResen));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //JURIDICO
+        try {
+            for (IndicadoresAcompanhamento jj : controleJURI.read()) {
+                //
+                pQTdDocumentacao = jj.getQtdDocumentacao();
+                pQTdDocumentacao = (100 * pDocumento) / pPopulacaoAtual;
+                DecimalFormat vDoc = new DecimalFormat("#,###0.00");
+                String pPerdiaDocu = vDoc.format(pQTdDocumentacao);
+                jDocumentacaoCompleta.setText(String.valueOf(pPerdiaDocu));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        try {
+            for (IndicadoresAcompanhamento pp : controleJURI_CRC.read()) {
+                //
+                pQTdProgressao = pp.getQtdProgressao();
+                pQTdProgressao = (100 * pPROGRESSAO) / pPopulacaoAtual;
+                DecimalFormat vProg = new DecimalFormat("#,###0.00");
+                String pPerdiaProg = vProg.format(pQTdProgressao);
+                jProgressaoRegime.setText(String.valueOf(pPerdiaProg));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
