@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleListaIndicadoresAcompanhamento;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURI;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPEDA;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
@@ -33,6 +34,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     ControleListaIndicadoresAcompanhamentoPEDA controle = new ControleListaIndicadoresAcompanhamentoPEDA();
     ControleListaIndicadoresAcompanhamentoJURI controleJURI = new ControleListaIndicadoresAcompanhamentoJURI();
     ControleListaIndicadoresAcompanhamentoJURICRC controleJURI_CRC = new ControleListaIndicadoresAcompanhamentoJURICRC();
+    ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA controleJURI_CRC_LIVRA = new ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA();
     //
     //ENFERMARIA
     int qtdDiabetes = 0;
@@ -212,8 +214,8 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDataPopulacao = new com.toedter.calendar.JDateChooser();
         jPopulacaoAtual = new javax.swing.JFormattedTextField();
+        jDataPopulacao = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setIconifiable(true);
@@ -385,19 +387,16 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addComponent(jLabel103))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jDiabetes, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addComponent(jHipertensao)
-                        .addComponent(jHepatiteB)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jEscabiose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(jHepatiteC, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addComponent(jHanseniase)
-                        .addComponent(jSifilis)
-                        .addComponent(jHiv))
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jDst, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                        .addComponent(jTuberculose, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(jDiabetes, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jHipertensao)
+                    .addComponent(jHepatiteB)
+                    .addComponent(jEscabiose, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jHepatiteC)
+                    .addComponent(jHanseniase)
+                    .addComponent(jSifilis)
+                    .addComponent(jHiv)
+                    .addComponent(jDst, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(jTuberculose))
                 .addGap(11, 11, 11))
         );
 
@@ -937,18 +936,15 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Data da População:");
 
-        jDataPopulacao.setBackground(new java.awt.Color(255, 255, 255));
-        jDataPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataPopulacao.setEnabled(false);
-        jDataPopulacao.setIcon(null);
-        jDataPopulacao.setOpaque(false);
-
         jPopulacaoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPopulacaoAtual.setForeground(new java.awt.Color(153, 0, 0));
         jPopulacaoAtual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPopulacaoAtual.setDisabledTextColor(new java.awt.Color(153, 0, 0));
         jPopulacaoAtual.setEnabled(false);
         jPopulacaoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jDataPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPopulacao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -959,7 +955,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDataPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -970,10 +966,10 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
                     .addComponent(jDataPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel1)
+                    .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1406,7 +1402,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //
+        //PROGRESSÃO DE REGIME
         try {
             for (IndicadoresAcompanhamento pp : controleJURI_CRC.read()) {
                 //
@@ -1415,6 +1411,19 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 DecimalFormat vProg = new DecimalFormat("#,###0.00");
                 String pPerdiaProg = vProg.format(pQTdProgressao);
                 jProgressaoRegime.setText(String.valueOf(pPerdiaProg));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //LIVERAMENTO CONDICIONAL
+        try {
+            for (IndicadoresAcompanhamento pl : controleJURI_CRC_LIVRA.read()) {
+                //
+                pQtdLivramento = pl.getQtdLivramento();
+                pQtdLivramento = (100 * pLIVRAMENTO) / pPopulacaoAtual;
+                DecimalFormat vLivra = new DecimalFormat("#,###0.00");
+                String pPerdiaLivra = vLivra.format(pQtdLivramento);
+                jLivramentoCondicional.setText(String.valueOf(pPerdiaLivra));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);

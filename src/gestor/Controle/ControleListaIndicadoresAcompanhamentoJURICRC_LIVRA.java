@@ -19,7 +19,7 @@ import static gestor.Visao.TelaPRORES.pLIVRAMENTO;
  *
  * @author Socializa TI 02
  */
-public class ControleListaIndicadoresAcompanhamentoJURICRC {
+public class ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
@@ -46,27 +46,27 @@ public class ControleListaIndicadoresAcompanhamentoJURICRC {
                     + "INNER JOIN ITENSSAIDA "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSSAIDA.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + entradaUniade + "' "
-                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_PROGRESSAO + "' "
+                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_LIVRAMENTO + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + retornoUnidade + "' "
-                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_PROGRESSAO + "'");
+                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_LIVRAMENTO + "'");
             while (conecta.rs.next()) {
                 IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
                 pDigiProd.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigiProd.setNomeInternoPerfil(conecta.rs.getString("NomeInternoCrc"));
                 pDigiProd.setLivramento(conecta.rs.getString("DestinoSaida"));
-                if (pDigiProd.getLivramento().equals("PROGRESSAO DE REGIME")) {
-                    pPROGRESSAO++;
-                    pDigiProd.setQtdProgressao(pPROGRESSAO);
-                }
-//                if (pDigiProd.getLivramento().equals("LIVRAMENTO CONDICIONAL")) {
-//                    pLIVRAMENTO++;
-//                    pDigiProd.setQtdLivramento(pLIVRAMENTO);
+//                if (pDigiProd.getLivramento().equals("PROGRESSAO DE REGIME")) {
+//                    pPROGRESSAO++;
+//                    pDigiProd.setQtdLivramento(pPROGRESSAO);
 //                }
+                if (pDigiProd.getLivramento().equals("LIVRAMENTO CONDICIONAL")) {
+                    pLIVRAMENTO++;
+                    pDigiProd.setQtdLivramento(pLIVRAMENTO);
+                }
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
             }
             return listaInternosPavilhaoSelecionados;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleListaIndicadoresAcompanhamentoJURICRC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }
