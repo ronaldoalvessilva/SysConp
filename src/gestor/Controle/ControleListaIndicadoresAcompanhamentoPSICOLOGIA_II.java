@@ -12,20 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static gestor.Visao.TelaPRORES.pPROGRESSAO;
+import static gestor.Visao.TelaPRORES.pSTATUS_ANDAMENTO;
+import static gestor.Visao.TelaPRORES.pSTATUS_ANDAMENTO_CONCLUIDO;
 
 /**
  *
  * @author Socializa TI 02
  */
-public class ControleListaIndicadoresAcompanhamentoJURICRC {
+public class ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     String entradaUniade = "ENTRADA NA UNIDADE";
     String retornoUnidade = "RETORNO A UNIDADE";
-    String pSaida_PROGRESSAO = "PROGRESSAO DE REGIME";
-    String pSaida_LIVRAMENTO = "LIVRAMENTO CONDICIONAL";
+    String pTRATAMENTO = "Em Andamento";
+    String pCONCLUIDO = "Concluído";
     String pDocumentacaoComp = "Sim";
 
     public List<IndicadoresAcompanhamento> read() throws Exception {
@@ -35,28 +36,28 @@ public class ControleListaIndicadoresAcompanhamentoJURICRC {
             conecta.executaSQL("SELECT "
                     + "PRONTUARIOSCRC.IdInternoCrc,"
                     + "PRONTUARIOSCRC.NomeInternoCrc,"
-                    + "ITENSSAIDA.DestinoSaida "
+                    + "STATUS_INTERNO_PSICOLOGIA.StatusAtendimento "
                     + "FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSSAIDA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSSAIDA.IdInternoCrc "
+                    + "INNER JOIN STATUS_INTERNO_PSICOLOGIA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=STATUS_INTERNO_PSICOLOGIA.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + entradaUniade + "' "
-                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_PROGRESSAO + "' "
+                    + "AND STATUS_INTERNO_PSICOLOGIA.StatusAtendimento='" + pCONCLUIDO + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + retornoUnidade + "' "
-                    + "AND ITENSSAIDA.DestinoSaida='" + pSaida_PROGRESSAO + "'");
+                    + "AND STATUS_INTERNO_PSICOLOGIA.StatusAtendimento='" + pCONCLUIDO + "'");
             while (conecta.rs.next()) {
                 IndicadoresAcompanhamento pDigiProd = new IndicadoresAcompanhamento();
                 pDigiProd.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));
                 pDigiProd.setNomeInternoPerfil(conecta.rs.getString("NomeInternoCrc"));
-                pDigiProd.setLivramento(conecta.rs.getString("DestinoSaida"));
-                if (pDigiProd.getLivramento().equals("PROGRESSAO DE REGIME")) {
-                    pPROGRESSAO++;
-                    pDigiProd.setQtdProgressao(pPROGRESSAO);
-                }
+                pDigiProd.setTratamento(conecta.rs.getString("StatusAtendimento"));
+                if (pDigiProd.getTratamento().equals("Concluído")) {
+                    pSTATUS_ANDAMENTO_CONCLUIDO++;
+                    pDigiProd.setQtdTratamento(pSTATUS_ANDAMENTO_CONCLUIDO);
+                }                
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
             }
             return listaInternosPavilhaoSelecionados;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleListaIndicadoresAcompanhamentoJURICRC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

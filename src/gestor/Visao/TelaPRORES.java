@@ -10,6 +10,8 @@ import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURI;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPEDA;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
@@ -35,6 +37,8 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     ControleListaIndicadoresAcompanhamentoJURI controleJURI = new ControleListaIndicadoresAcompanhamentoJURI();
     ControleListaIndicadoresAcompanhamentoJURICRC controleJURI_CRC = new ControleListaIndicadoresAcompanhamentoJURICRC();
     ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA controleJURI_CRC_LIVRA = new ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA();
+    ControleListaIndicadoresAcompanhamentoPSICOLOGIA controlePSI = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA();
+    ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II controlePSIc = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II();
     //
     //ENFERMARIA
     int qtdDiabetes = 0;
@@ -70,8 +74,10 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     int qtdCurso = 0;
     int qtdProfissional = 0;
     //PSICOLOGIA
-    int qtdTratamento = 0;
-    int qtdAcompanha = 0;
+    double qtdTratamento = 0;
+    double qtdTtratamentioConcluido = 0;
+    public static int pSTATUS_ANDAMENTO = 0;
+    public static int pSTATUS_ANDAMENTO_CONCLUIDO = 0;
     int qtdRecuperacao = 0;
     //SERVIÇO SOCIAL
     int qtdAcompanhaSS = 0;
@@ -202,15 +208,14 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         PassaramCursos = new javax.swing.JTextField();
         jFormacaoProfissional = new javax.swing.JTextField();
         jPanel36 = new javax.swing.JPanel();
-        jLabel92 = new javax.swing.JLabel();
         jInternosTratamento = new javax.swing.JTextField();
-        jInternosAcompanhamento = new javax.swing.JTextField();
-        jInternosRecuperacao = new javax.swing.JTextField();
+        jInternosTratamentoConcluido = new javax.swing.JTextField();
         jLabel94 = new javax.swing.JLabel();
         jLabel93 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtFechar = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
+        jBtAtualizar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -826,65 +831,51 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
 
         jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Psicologia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel92.setText("Internos em tratamento %");
-
         jInternosTratamento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jInternosTratamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jInternosTratamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jInternosTratamento.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jInternosTratamento.setEnabled(false);
 
-        jInternosAcompanhamento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jInternosAcompanhamento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jInternosAcompanhamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jInternosAcompanhamento.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jInternosAcompanhamento.setEnabled(false);
-
-        jInternosRecuperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jInternosRecuperacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jInternosRecuperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jInternosRecuperacao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jInternosRecuperacao.setEnabled(false);
+        jInternosTratamentoConcluido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jInternosTratamentoConcluido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jInternosTratamentoConcluido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jInternosTratamentoConcluido.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jInternosTratamentoConcluido.setEnabled(false);
 
         jLabel94.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel94.setText("Interno em recuperação %");
+        jLabel94.setText("Interno com tratamnto concluído %");
 
         jLabel93.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel93.setText("Internos em acompanhamento %");
+        jLabel93.setText("Internos em Tratamento%");
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
         jPanel36Layout.setHorizontalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel36Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel92)
-                    .addComponent(jLabel94)
-                    .addComponent(jLabel93))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel93, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel94, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jInternosRecuperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jInternosAcompanhamento, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jInternosTratamentoConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jInternosTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel36Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel92)
+                    .addComponent(jLabel93)
                     .addComponent(jInternosTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel93)
-                    .addComponent(jInternosAcompanhamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel94)
-                    .addComponent(jInternosRecuperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(jInternosTratamentoConcluido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -907,6 +898,14 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAtualizar.setText("Refresh");
+        jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -916,14 +915,21 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(174, 174, 174)
                 .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAtualizar)
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizar, jBtFechar});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtFechar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtFechar)
+                        .addComponent(jBtAtualizar))
                     .addComponent(jBtImpressao))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -987,11 +993,11 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1033,11 +1039,19 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
+    private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
+        // TODO add your handling code here:
+        limparCampos();
+        pesquisarPopulacao("SELECT DataPopMov,TotalGeralInternos FROM MOVPOPULACAO");
+        pesquisarDadosPRORES();
+    }//GEN-LAST:event_jBtAtualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField PassaramCursos;
     private javax.swing.JTextField jAdiquiriu;
     private javax.swing.JTextField jAtividadeComplementar;
+    private javax.swing.JButton jBtAtualizar;
     private javax.swing.JButton jBtFechar;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JTextField jConcluiuPrimeiro;
@@ -1061,9 +1075,8 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jHipertensao;
     private javax.swing.JFormattedTextField jHiv;
     private javax.swing.JTextField jInseridoPrograma;
-    private javax.swing.JTextField jInternosAcompanhamento;
-    private javax.swing.JTextField jInternosRecuperacao;
     private javax.swing.JTextField jInternosTratamento;
+    private javax.swing.JTextField jInternosTratamentoConcluido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel2;
@@ -1102,7 +1115,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
@@ -1188,10 +1200,9 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jInseridoPrograma.setBackground(Color.white);
         PassaramCursos.setBackground(Color.white);
         jFormacaoProfissional.setBackground(Color.white);
-        //PSICOLOGIA
+        //PSICOLOGIA       
         jInternosTratamento.setBackground(Color.white);
-        jInternosAcompanhamento.setBackground(Color.white);
-        jInternosRecuperacao.setBackground(Color.white);
+        jInternosTratamentoConcluido.setBackground(Color.white);
         //SERVIÇO SOCIAL
         jFamiliaAcompanhada.setBackground(Color.white);
     }
@@ -1229,8 +1240,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jFormacaoProfissional.setText("0");
         //PSICOLOGIA
         jInternosTratamento.setText("0");
-        jInternosAcompanhamento.setText("0");
-        jInternosRecuperacao.setText("0");
+        jInternosTratamentoConcluido.setText("0");
         //SERVIÇO SOCIAL
         jFamiliaAcompanhada.setText("0");
     }
@@ -1424,6 +1434,31 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 DecimalFormat vLivra = new DecimalFormat("#,###0.00");
                 String pPerdiaLivra = vLivra.format(pQtdLivramento);
                 jLivramentoCondicional.setText(String.valueOf(pPerdiaLivra));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // PSICOLOGIA 
+        try {
+            for (IndicadoresAcompanhamento psi : controlePSI.read()) {
+                //
+                qtdTratamento = psi.getQtdLivramento();
+                qtdTratamento = (100 * pSTATUS_ANDAMENTO) / pPopulacaoAtual;
+                DecimalFormat vLivra = new DecimalFormat("#,###0.00");
+                String pPerdiaLivra = vLivra.format(qtdTratamento);
+                jInternosTratamento.setText(String.valueOf(pPerdiaLivra));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            for (IndicadoresAcompanhamento psi0 : controlePSIc.read()) {
+                //
+                qtdTtratamentioConcluido = psi0.getQtdLivramento();
+                qtdTtratamentioConcluido = (100 * pSTATUS_ANDAMENTO_CONCLUIDO) / pPopulacaoAtual;
+                DecimalFormat vLivra = new DecimalFormat("#,###0.00");
+                String pPerdiaLivra = vLivra.format(qtdTtratamentioConcluido);
+                jInternosTratamentoConcluido.setText(String.valueOf(pPerdiaLivra));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
