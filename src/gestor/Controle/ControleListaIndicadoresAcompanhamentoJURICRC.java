@@ -33,16 +33,11 @@ public class ControleListaIndicadoresAcompanhamentoJURICRC {
         conecta.abrirConexao();
         List<IndicadoresAcompanhamento> listaInternosPavilhaoSelecionados = new ArrayList<IndicadoresAcompanhamento>();
         try {
-            conecta.executaSQL("SELECT DISTINCT "
+            conecta.executaSQL("SELECT "
                     + "PRONTUARIOSCRC.IdInternoCrc,"
                     + "PRONTUARIOSCRC.NomeInternoCrc,"
-                    + "ATIVIDADESJURIDICOS.DescricaoAtiv, "
                     + "ITENSSAIDA.DestinoSaida "
                     + "FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSATENDIMENTOJURI "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSATENDIMENTOJURI.IdInternoCrc "
-                    + "INNER JOIN ATIVIDADESJURIDICOS "
-                    + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
                     + "INNER JOIN ITENSSAIDA "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSSAIDA.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + entradaUniade + "' "
@@ -58,10 +53,6 @@ public class ControleListaIndicadoresAcompanhamentoJURICRC {
                     pPROGRESSAO++;
                     pDigiProd.setQtdProgressao(pPROGRESSAO);
                 }
-//                if (pDigiProd.getLivramento().equals("LIVRAMENTO CONDICIONAL")) {
-//                    pLIVRAMENTO++;
-//                    pDigiProd.setQtdLivramento(pLIVRAMENTO);
-//                }
                 listaInternosPavilhaoSelecionados.add(pDigiProd);
             }
             return listaInternosPavilhaoSelecionados;
