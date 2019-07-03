@@ -27,7 +27,7 @@ public class ControleTempoFormativo {
         buscarTurno(objTempo.getDescricaoTurno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO TEMPOFORMATIVO (StatusTempo,DataCad,IdTurno,DescricaoTempo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO TEMPOFORMATIVO (StatusTempo,DataCad,IdTurno,DescricaoTempo,UsuarioInsert,DataInsert,HorarioInsert,GrauInstrucaoEquivalente) VALUES(?,?,?,?,?,?,?,?)");
             pst.setString(1, objTempo.getStatusTempo());
             pst.setTimestamp(2, new java.sql.Timestamp(objTempo.getDataCad().getTime()));
             pst.setInt(3, codTurno);
@@ -35,6 +35,7 @@ public class ControleTempoFormativo {
             pst.setString(5, objTempo.getUsuarioInsert());
             pst.setString(6, objTempo.getDataInsert());
             pst.setString(7, objTempo.getHorarioInsert());
+            pst.setString(8, objTempo.getGrauInstrucaoEqui());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
@@ -47,7 +48,7 @@ public class ControleTempoFormativo {
         buscarTurno(objTempo.getDescricaoTurno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TEMPOFORMATIVO SET StatusTempo=?,DataCad=?,IdTurno=?,DescricaoTempo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdTempo='" + objTempo.getIdTempo() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TEMPOFORMATIVO SET StatusTempo=?,DataCad=?,IdTurno=?,DescricaoTempo=?,UsuarioUp=?,DataUp=?,HorarioUp=?,GrauInstrucaoEquivalente=? WHERE IdTempo='" + objTempo.getIdTempo() + "'");
             pst.setString(1, objTempo.getStatusTempo());
             pst.setTimestamp(2, new java.sql.Timestamp(objTempo.getDataCad().getTime()));
             pst.setInt(3, codTurno);
@@ -55,6 +56,7 @@ public class ControleTempoFormativo {
             pst.setString(5, objTempo.getUsuarioUp());
             pst.setString(6, objTempo.getDataUp());
             pst.setString(7, objTempo.getHorarioUp());
+            pst.setString(8, objTempo.getGrauInstrucaoEqui());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);

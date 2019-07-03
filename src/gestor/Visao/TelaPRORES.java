@@ -12,6 +12,7 @@ import gestor.Controle.ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPEDA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoSS;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
@@ -39,8 +40,19 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA controleJURI_CRC_LIVRA = new ControleListaIndicadoresAcompanhamentoJURICRC_LIVRA();
     ControleListaIndicadoresAcompanhamentoPSICOLOGIA controlePSI = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA();
     ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II controlePSIc = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II();
+    ControleListaIndicadoresAcompanhamentoSS controleSS = new ControleListaIndicadoresAcompanhamentoSS();
     //
-    //ENFERMARIA
+    //PSICOLOGIA
+    double qtdTratamento = 0;
+    double qtdTtratamentioConcluido = 0;
+    public static int pSTATUS_ANDAMENTO = 0;
+    public static int pSTATUS_ANDAMENTO_CONCLUIDO = 0;
+    int qtdRecuperacao = 0;
+    //
+    int qtdProd = 0;
+    //
+    String dataInicial, dataFinal = "";
+    //ENFERMAGEM
     int qtdDiabetes = 0;
     int qtdHipertensao = 0;
     int qtdEscabiose = 0;
@@ -53,39 +65,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     int qtdDst = 0;
     int qtdVdlr = 0;
     int qtdVacina = 0;
-    //PEDAGOGIA   
-//    int qICAA = 0;
-//    int qIC1 = 0;
-//    int qIC2P = 0;
-//    int qIAAU = 0;
-//    int qIC3 = 0;
-//    int qIREL = 0;
-//    int qIAC = 0;
-//    int qICU1 = 0;
-//    int qIC2 = 0;
-//    int qICA = 0;
-    //JURIDICO/CRC
-    int qtdProcessos = 0;
-    int qtdDocumentacao = 0;
-    int qtdProggressao = 0;
-    int qtdLivramento = 0;
-    //TERAPIA OCUPACIONAL
-    int qtdPrograma = 0;
-    int qtdCurso = 0;
-    int qtdProfissional = 0;
-    //PSICOLOGIA
-    double qtdTratamento = 0;
-    double qtdTtratamentioConcluido = 0;
-    public static int pSTATUS_ANDAMENTO = 0;
-    public static int pSTATUS_ANDAMENTO_CONCLUIDO = 0;
-    int qtdRecuperacao = 0;
-    //SERVIÇO SOCIAL
-    int qtdAcompanhaSS = 0;
-    //
-    int qtdProd = 0;
-    //
-    String dataInicial, dataFinal = "";
-    //ENFERMAGEM
     double pPopulacaoAtual = 0;
     double pDiab = 0;
     double pHiper = 0;
@@ -109,12 +88,23 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     //PEDAGOGIA
     double pqTdResenha = 0;
     //JURIDICO/CRC
+    int qtdProcessos = 0;
+    int qtdDocumentacao = 0;
+    int qtdProggressao = 0;
+    int qtdLivramento = 0;
     double pQTdDocumentacao = 0;
     double pQTdProgressao = 0;
     double pQtdLivramento = 0;
     public static int pDocumento = 0;
     public static int pPROGRESSAO = 0;
     public static int pLIVRAMENTO = 0;
+    //SERVIÇO SOCIAL
+    double qtdAcompanhaSS = 0;
+    public static int pFAMILIA_ATENDIDA = 0;
+    //TERAPIA OCUPACIONAL
+    int qtdPrograma = 0;
+    int qtdCurso = 0;
+    int qtdProfissional = 0;
 
     /**
      * Creates new form TelaPRORES
@@ -122,7 +112,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     public TelaPRORES() {
         initComponents();
         corCampos();
-        //  formatarCampos();
         limparCampos();
         pesquisarPopulacao("SELECT DataPopMov,TotalGeralInternos FROM MOVPOPULACAO");
         pesquisarDadosPRORES();
@@ -1459,6 +1448,19 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 DecimalFormat vLivra = new DecimalFormat("#,###0.00");
                 String pPerdiaLivra = vLivra.format(qtdTtratamentioConcluido);
                 jInternosTratamentoConcluido.setText(String.valueOf(pPerdiaLivra));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SERVIÇO SOCIAL
+        try {
+            for (IndicadoresAcompanhamento ss : controleSS.read()) {
+                //
+                qtdAcompanhaSS = ss.getQtdAcompanhaSS();
+                qtdAcompanhaSS = (100 * pFAMILIA_ATENDIDA) / pPopulacaoAtual;
+                DecimalFormat vLivra = new DecimalFormat("#,###0.00");
+                String pPerdiaLivra = vLivra.format(qtdAcompanhaSS);
+                jFamiliaAcompanhada.setText(String.valueOf(pPerdiaLivra));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);

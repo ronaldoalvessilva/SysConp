@@ -172,6 +172,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static TelaPeculiaridadeFrente telaPeculiaridadeFrente;
     public static TelaPesquisaExternaInterno telaPesquisaExterna;
     public static PdfView pdfView;
+    public static TelaDocumentosInternos docInternos;
 
     //
     public TelaProntuarioCrc() {
@@ -206,6 +207,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void mostrarDocumentosPDF() {
         pdfView = new PdfView(this, true);
         pdfView.setVisible(true);
+    }
+
+    public void mostrarDocumentos() {
+        docInternos = new TelaDocumentosInternos(this, true);
+        docInternos.setVisible(true);
     }
 
     /**
@@ -402,6 +408,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxDocumentacaoCompleta = new javax.swing.JComboBox<>();
         jLabel194 = new javax.swing.JLabel();
         jComboBoxQuaisDocumentosFaltam = new javax.swing.JComboBox<>();
+        jBtAddDocumentos = new javax.swing.JButton();
         jComboBoxUnid = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
         jVaraCondenacao = new javax.swing.JTextField();
@@ -2118,39 +2125,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxQuaisDocumentosFaltam.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxQuaisDocumentosFaltam.setEnabled(false);
 
+        jBtAddDocumentos.setForeground(new java.awt.Color(0, 102, 0));
+        jBtAddDocumentos.setText("ADD Doc.");
+        jBtAddDocumentos.setEnabled(false);
+        jBtAddDocumentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAddDocumentosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel194)
-                            .addComponent(jLabel54))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxQuaisDocumentosFaltam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel52)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel55)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel59)
-                            .addComponent(jLabel58)
-                            .addComponent(jLabel192))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxDocumentacaoCompleta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDataTerPena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel53)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2164,8 +2154,38 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                             .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(jLabel57)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel194)
+                                .addComponent(jLabel54))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel11Layout.createSequentialGroup()
+                                    .addComponent(jComboBoxQuaisDocumentosFaltam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBtAddDocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel52)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(jLabel55)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(22, 22, 22)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel59)
+                                .addComponent(jLabel58)
+                                .addComponent(jLabel192))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxDocumentacaoCompleta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDataTerPena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2203,10 +2223,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         .addComponent(jLabel54)
                         .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel194)
-                    .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAddDocumentos)
+                    .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel194))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jComboBoxUnid.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -2316,7 +2337,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jBtPesqUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -6004,14 +6025,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Sim")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
                 jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+                jBtAddDocumentos.setEnabled(!true);
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não")) {
+                jBtAddDocumentos.setEnabled(true);
                 preencherCheckBoxDocumentos();
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
+                jBtAddDocumentos.setEnabled(!true);
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
                 jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
             }
         }
     }//GEN-LAST:event_jComboBoxDocumentacaoCompletaItemStateChanged
+
+    private void jBtAddDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAddDocumentosActionPerformed
+        // TODO add your handling code here:
+        mostrarDocumentos();
+    }//GEN-LAST:event_jBtAddDocumentosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -6022,6 +6051,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jArtigo2;
     public static javax.swing.JTextField jArtigo3;
     public static javax.swing.JTextField jBairro;
+    private javax.swing.JButton jBtAddDocumentos;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterar1;
     private javax.swing.JButton jBtAuditoriaPronCrc;

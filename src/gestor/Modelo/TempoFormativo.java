@@ -27,8 +27,12 @@ public class TempoFormativo {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;   
+    private String grauInstrucaoEqui;
 
-    public TempoFormativo(int idTempo, String statusTempo, Date dataCad, String descricaoTempo, int idTurno, String descricaoTurno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public TempoFormativo() {
+    }
+
+    public TempoFormativo(int idTempo, String statusTempo, Date dataCad, String descricaoTempo, int idTurno, String descricaoTurno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String grauInstrucaoEqui) {
         this.idTempo = idTempo;
         this.statusTempo = statusTempo;
         this.dataCad = dataCad;
@@ -43,9 +47,7 @@ public class TempoFormativo {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public TempoFormativo() {
+        this.grauInstrucaoEqui = grauInstrucaoEqui;
     }
 
     /**
@@ -242,5 +244,19 @@ public class TempoFormativo {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the grauInstrucaoEqui
+     */
+    public String getGrauInstrucaoEqui() {
+        return grauInstrucaoEqui;
+    }
+
+    /**
+     * @param grauInstrucaoEqui the grauInstrucaoEqui to set
+     */
+    public void setGrauInstrucaoEqui(String grauInstrucaoEqui) {
+        this.grauInstrucaoEqui = grauInstrucaoEqui;
     }
 }
