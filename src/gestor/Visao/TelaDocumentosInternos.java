@@ -5,8 +5,18 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleDocInternosFaltando;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.ProntuarioCrc;
+import static gestor.Visao.TelaProntuarioCrc.acao;
+import static gestor.Visao.TelaProntuarioCrc.obj;
+import static gestor.Visao.TelaProntuarioCrc.pTotalDocumentos;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,6 +25,15 @@ import java.sql.SQLException;
 public class TelaDocumentosInternos extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ProntuarioCrc objProCrc = new ProntuarioCrc();
+    // GRAVAR DOCUMENTOS DO INTERNO FALTANDO.
+    ControleDocInternosFaltando controleDoc = new ControleDocInternosFaltando();
+    //
+
+    String idDocumento;
+    int count = 0;
+    int count2 = 0;
+    int idChek;
     /**
      * Creates new form TelaDocumentosInternos
      */
@@ -25,6 +44,7 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(prontuarioDoc);
         initComponents();
+        preencherCheckBoxDocumentos();
     }
 
     /**
@@ -40,6 +60,9 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxQuaisDocumentosFaltam = new javax.swing.JComboBox<>();
         jBtAdicionarDocumento = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+        jBtSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaDocumentos = new javax.swing.JTable();
         jPanel31 = new javax.swing.JPanel();
@@ -62,7 +85,37 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
 
         jBtAdicionarDocumento.setForeground(new java.awt.Color(0, 102, 0));
         jBtAdicionarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
-        jBtAdicionarDocumento.setText("Add...");
+        jBtAdicionarDocumento.setToolTipText("Add Reg.");
+        jBtAdicionarDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdicionarDocumentoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtExcluir.setToolTipText("Excluir Reg.");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
+        jBtSair.setToolTipText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setToolTipText("Gravar");
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,11 +125,16 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67))
+                    .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtAdicionarDocumento)
+                .addComponent(jBtAdicionarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,8 +145,15 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAdicionarDocumento)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtAdicionarDocumento)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtSalvar)
+                .addContainerGap())
         );
 
         jTabelaDocumentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -97,17 +162,15 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Descrição do Documento", "Faltando"
+                "ID Reg.", "Descrição do Documento"
             }
         ));
         jScrollPane1.setViewportView(jTabelaDocumentos);
         if (jTabelaDocumentos.getColumnModel().getColumnCount() > 0) {
-            jTabelaDocumentos.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaDocumentos.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaDocumentos.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaDocumentos.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaDocumentos.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaDocumentos.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaDocumentos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaDocumentos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaDocumentos.getColumnModel().getColumn(1).setMinWidth(380);
+            jTabelaDocumentos.getColumnModel().getColumn(1).setMaxWidth(380);
         }
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -116,7 +179,7 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 182, Short.MAX_VALUE)
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,36 +226,131 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtAdicionarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarDocumentoActionPerformed
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            if (jComboBoxQuaisDocumentosFaltam.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de documento que está faltando.");
+            } else {
+                objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                documentosInterno((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                Integer row = jTabelaDocumentos.getRowCount();
+                boolean encontrou = !true;
+                if (row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
+                    count = count + 1;
+                    jtotalRegistros.setText(Integer.toString(count));
+                    pTotalDocumentos = count;
+                    //Pega os models das listas, para fazer as inserções e remoções               
+                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDocumentos.getModel();
+                    //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas                    
+                    obj = (new Object[]{objProCrc.getIdChek(), objProCrc.getQuaisDocumentosFaltam()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    //Adiciona no destino e remove da origem
+                    modelDestino.addRow(obj);
+                } else if (row != 0) {
+                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDocumentos.getModel();
+                    // VERIFICAR SE O REGISTRO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+                    for (int i = 0; i < jTabelaDocumentos.getRowCount(); i++) {
+                        idDocumento = "" + jTabelaDocumentos.getValueAt(i, 1).toString();
+                        if (idDocumento.equals(objProCrc.getQuaisDocumentosFaltam())) {
+                            encontrou = true;
+                            break;
+                        } else {
+                            encontrou = !true;
+                        }
+                    }
+                    if (encontrou == true) {
+                        JOptionPane.showMessageDialog(rootPane, "Documento já foi selecionado, escolha outro.");
+                    } else if (encontrou == !true) {
+                        count = count + 1;
+                        pTotalDocumentos = count;
+                        jtotalRegistros.setText(Integer.toString(count));
+                        //Adiciona no destino e remove da origem
+                        obj = (new Object[]{objProCrc.getIdChek(), objProCrc.getQuaisDocumentosFaltam()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        modelDestino.addRow(obj);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, pois, não está em modo de edição.");
+        }
+    }//GEN-LAST:event_jBtAdicionarDocumentoActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:
+        if (jTabelaDocumentos.getSelectedRow() != -1) {
+            DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                dtm.removeRow(jTabelaDocumentos.getSelectedRow());
+                count = count - 1;
+                pTotalDocumentos = count;
+                jtotalRegistros.setText(Integer.toString(count));
+//                objItensDoenca.setIdLanc(Integer.valueOf(jIdAdm.getText()));
+//                objItensDoenca.setIdItem(Integer.valueOf(jIdItem.getText()));
+//                controlePat.excluirDoencas(objItensDoenca);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+        }
+    }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+
+        }
+    }//GEN-LAST:event_jBtSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +396,9 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAdicionarDocumento;
+    private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtSair;
+    private javax.swing.JButton jBtSalvar;
     private javax.swing.JComboBox<String> jComboBoxQuaisDocumentosFaltam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel63;
@@ -246,7 +407,7 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTabelaDocumentos;
+    public static javax.swing.JTable jTabelaDocumentos;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -262,6 +423,20 @@ public class TelaDocumentosInternos extends javax.swing.JDialog {
             } while (conecta.rs.next());
             jComboBoxQuaisDocumentosFaltam.updateUI();
         } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void documentosInterno(String descricaoDoc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
+                    + "WHERE DescricaoDocumentos='" + descricaoDoc + "'");
+            conecta.rs.first();
+            idChek = conecta.rs.getInt("IdChek");
+            objProCrc.setIdChek(idChek);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados dos DOCUMENTOS a serem exibidos !!!");
         }
         conecta.desconecta();
     }

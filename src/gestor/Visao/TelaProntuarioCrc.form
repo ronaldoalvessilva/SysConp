@@ -3430,6 +3430,7 @@
                               </Border>
                             </Property>
                             <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="opaque" type="boolean" value="false"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

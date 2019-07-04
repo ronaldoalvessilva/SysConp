@@ -1464,6 +1464,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }        
     }
 }

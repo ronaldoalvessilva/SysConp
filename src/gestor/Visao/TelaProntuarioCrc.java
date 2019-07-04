@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleDadosFisicos;
 import gestor.Controle.ControleDadosPenais;
+import gestor.Controle.ControleDocInternosFaltando;
 import gestor.Controle.ControleInternoCrc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
@@ -57,7 +58,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -91,10 +91,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     ControleDadosPenais controlPenais = new ControleDadosPenais();
     //
     ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    // GRAVAR DOCUMENTOS DO INTERNO FALTANDO.
+    ControleDocInternosFaltando controleDoc = new ControleDocInternosFaltando();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    int acao;
+    public static int acao;
     int flag;
     String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
     String nomePais;
@@ -160,6 +162,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String codIntPenal;
     //
     String confirmarTransf = "Sim";
+    //
+    public static Object[] obj;
+    public static int pTotalDocumentos = 0;
     //
     /**
      * Creates new form TelaTriagem
@@ -2124,6 +2129,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxQuaisDocumentosFaltam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxQuaisDocumentosFaltam.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxQuaisDocumentosFaltam.setEnabled(false);
+        jComboBoxQuaisDocumentosFaltam.setOpaque(false);
 
         jBtAddDocumentos.setForeground(new java.awt.Color(0, 102, 0));
         jBtAddDocumentos.setText("ADD Doc.");
@@ -5675,6 +5681,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         control.alterarInternoCrc(objProCrc);
                         controlFisicos.alterarDadosFisicos(objDadosFis);
                         controlPenais.alterarDadosPenais(objDadosPena);
+//                        gravarDocumentos();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -6024,11 +6031,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == evt.SELECTED) {
             if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Sim")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
-                jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+                jComboBoxQuaisDocumentosFaltam.addItem("Documentação do Interno está completa.");
+                jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
                 jBtAddDocumentos.setEnabled(!true);
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não")) {
+                jComboBoxQuaisDocumentosFaltam.removeAllItems();
+                jComboBoxQuaisDocumentosFaltam.addItem("Documentação do Interno está Incompleta.");
+                jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
                 jBtAddDocumentos.setEnabled(true);
-                preencherCheckBoxDocumentos();
+                // preencherCheckBoxDocumentos();
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
                 jBtAddDocumentos.setEnabled(!true);
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
@@ -6038,8 +6049,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxDocumentacaoCompletaItemStateChanged
 
     private void jBtAddDocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAddDocumentosActionPerformed
-        // TODO add your handling code here:
-        mostrarDocumentos();
+        // TODO add your handling code here:        
+        mostrarDocumentos();        
     }//GEN-LAST:event_jBtAddDocumentosActionPerformed
 
 
@@ -8439,5 +8450,18 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void gravarDocumentos() {
+
+        for (int i = 0; i < obj.length; i++) {
+            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+            objProCrc.setNomeInterno(jNomeInterno.getText());            
+            try {
+                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaProntuarioCrc.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
