@@ -74,11 +74,12 @@ public class ProntuarioCrc {
     private String documentacaoCompleta;
     private String quaisDocumentosFaltam;
     private int idChek;    
+    private String descricaoDoc;    
 
     public ProntuarioCrc() {
     }
 
-    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek) {
+    public ProntuarioCrc(int IdInterno, String Matricula, Date DataCadast, Date DataNasci, String FotoInterno, String FotoPerfil, String FotoCorpo1, String FotoCorpo2, String FotoCorpo3, String NomeInterno, String MaeInterno, String PaiInterno, String Alcunha, String RgInterno, String CpfInterno, String cartoaSus, String Escolaridade, String EstadoCivil, String Sexo, String situacao, String nomePais, String nomeCidade, String Religiao, String Profissao, String Endereco, String Bairro, String Cidade, String Estado, String telefone, String telefone1, String celular, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String confirmaEntrada, String cnc, byte[] imagemInterno, String kitInicial, String kitDecendial, String kitQuinzenal, String kitMensal, String kitSemestral, String kitAnual, String kitIPago, String kitDPago, String kitQPago, String kitMPago, String kitSPago, String kitAPago, Date dataChegada, String kitPago, String utilizado, String documentacaoCompleta, String quaisDocumentosFaltam, int idChek, String descricaoDoc) {
         this.IdInterno = IdInterno;
         this.Matricula = Matricula;
         this.DataCadast = DataCadast;
@@ -139,6 +140,7 @@ public class ProntuarioCrc {
         this.documentacaoCompleta = documentacaoCompleta;
         this.quaisDocumentosFaltam = quaisDocumentosFaltam;
         this.idChek = idChek;
+        this.descricaoDoc = descricaoDoc;
     }
 
     /**
@@ -979,5 +981,19 @@ public class ProntuarioCrc {
      */
     public void setIdChek(int idChek) {
         this.idChek = idChek;
+    }
+
+    /**
+     * @return the descricaoDoc
+     */
+    public String getDescricaoDoc() {
+        return descricaoDoc;
+    }
+
+    /**
+     * @param descricaoDoc the descricaoDoc to set
+     */
+    public void setDescricaoDoc(String descricaoDoc) {
+        this.descricaoDoc = descricaoDoc;
     }
 }
