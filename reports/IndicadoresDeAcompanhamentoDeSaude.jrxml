@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.3.0.final using JasperReports Library version 6.8.1-SNAPSHOT-1ebbe47629f595df82c137d4edda18ac1dafc9f1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAcompanhamentoProcesso" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioAcompanhamentoProcesso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,12 +7,16 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="249"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="742"/>
-	<parameter name="pDataInicial" class="java.lang.String"/>
-	<parameter name="pDataFinal" class="java.lang.String"/>
+	<parameter name="pDataInicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pDataFinal" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT 
+		<![CDATA[SELECT
 P.IdInternoCrc,
 P.NomeInternoCrc,
 A.DataUp,
@@ -32,7 +35,7 @@ A.Hanseniase,
 A.HanseniaseCura,
 A.QtdHanseniase,
 A.Sifilis,
-A.SifilisCura, 
+A.SifilisCura,
 A.QtdSifilis,
 A.Tuberculose,
 A.TuberculoseCura,
@@ -55,12 +58,12 @@ A.VdlrCurada,
 A.Vacina ,
 A.QtdVacina
 FROM "ACOMPANHAMENTO_INTERNO_ENFERMARIA" AS A
-	INNER JOIN "PRONTUARIOSCRC" AS P ON 
+	INNER JOIN "PRONTUARIOSCRC" AS P ON
 	P.IdInternoCrc=A.IdInternoCrc
-WHERE 
+WHERE
 	P.SituacaoCrc='ENTRADA NA UNIDADE' OR P.SituacaoCrc='RETORNO A UNIDADE' AND (
 	 A.DataUp BETWEEN $P{pDataInicial} AND $P{pDataFinal} )
-ORDER BY NomeInternoCrc DESC]]>
+ORDER BY NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="IdInternoCrc"/>
@@ -182,7 +185,7 @@ ORDER BY NomeInternoCrc DESC]]>
 	<field name="QtdVacina" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="QtdVacina"/>
 	</field>
-	<variable name="QtdDiabetes1" class="java.lang.Integer" calculation="Count">
+	<variable name="QtdDiabetes1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{QtdDiabetes}]]></variableExpression>
 	</variable>
 	<variable name="QtdDst1" class="java.lang.Integer" calculation="Sum">
@@ -218,38 +221,38 @@ ORDER BY NomeInternoCrc DESC]]>
 	<variable name="QtdVdlr1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{QtdVdlr}]]></variableExpression>
 	</variable>
-	<variable name="DiabControl1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{DiabControl}]]></variableExpression>
+	<variable name="DiabControl1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{DiabControl}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="DstCurada1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{DstCurada}]]></variableExpression>
+	<variable name="DstCurada1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{DstCurada}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="EscabioseCura1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{EscabioseCura}]]></variableExpression>
+	<variable name="EscabioseCura1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{EscabioseCura}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="HanseniaseCura1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{HanseniaseCura}]]></variableExpression>
+	<variable name="HanseniaseCura1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HanseniaseCura}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="HepatiteBCont1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{HepatiteBCont}]]></variableExpression>
+	<variable name="HepatiteBCont1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HepatiteBCont}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="HepatiteCCont1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{HepatiteCCont}]]></variableExpression>
+	<variable name="HepatiteCCont1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HepatiteCCont}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="VdlrCurada1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{VdlrCurada}]]></variableExpression>
+	<variable name="VdlrCurada1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{VdlrCurada}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="HivControlada1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{HivControlada}]]></variableExpression>
+	<variable name="HivControlada1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HivControlada}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="HiperControl1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{HiperControl}]]></variableExpression>
+	<variable name="HiperControl1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HiperControl}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="TuberculoseCura1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{TuberculoseCura}]]></variableExpression>
+	<variable name="TuberculoseCura1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{TuberculoseCura}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
-	<variable name="SifilisCura1" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{SifilisCura}]]></variableExpression>
+	<variable name="SifilisCura1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{SifilisCura}.equals( "Sim" ) ? 1 : 0]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -331,55 +334,106 @@ ORDER BY NomeInternoCrc DESC]]>
 		<band height="23" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="45" splitType="Stretch">
+		<band height="55" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
-				<reportElement x="0" y="1" width="49" height="20" uuid="857d9b3a-f24f-4a2e-a94b-bdebde2fa575"/>
+				<reportElement x="0" y="19" width="41" height="15" uuid="857d9b3a-f24f-4a2e-a94b-bdebde2fa575">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Left">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="52" y="1" width="179" height="19" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83"/>
+				<reportElement x="41" y="19" width="179" height="15" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="0" width="104" height="20" uuid="182e01c0-93f7-4372-85a8-7e1047461d14"/>
+				<reportElement x="226" y="18" width="38" height="15" uuid="182e01c0-93f7-4372-85a8-7e1047461d14">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Data atendimento]]></text>
+				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="319" y="0" width="109" height="20" uuid="065482fd-8aef-428c-9582-c6d9d0f4e93c"/>
+				<reportElement x="306" y="18" width="31" height="15" uuid="065482fd-8aef-428c-9582-c6d9d0f4e93c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Hora atendimento]]></text>
+				<text><![CDATA[Hora ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="3" y="40" width="552" height="1" uuid="e5904c69-54e0-44f3-83de-4febc73b4c18"/>
+				<reportElement x="3" y="51" width="552" height="1" uuid="e5904c69-54e0-44f3-83de-4febc73b4c18"/>
 			</line>
 			<staticText>
-				<reportElement x="428" y="1" width="127" height="20" uuid="b1101b68-5b94-4da9-926c-bd69f2d29b52"/>
+				<reportElement x="392" y="18" width="52" height="15" uuid="b1101b68-5b94-4da9-926c-bd69f2d29b52">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Técnico Atendimento]]></text>
+				<text><![CDATA[Técnico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="52" y="23" width="183" height="20" uuid="5fe22521-efc7-4b5e-9a3f-0393d0f6476e">
+				<reportElement x="55" y="33" width="63" height="20" forecolor="#FC0324" uuid="5fe22521-efc7-4b5e-9a3f-0393d0f6476e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Patologias - Curada/Controlada]]></text>
+				<text><![CDATA[Patologias]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="119" y="33" width="121" height="20" forecolor="#0E0AFA" uuid="9783d5e3-34e8-4677-8fd2-cd85a2b21f7f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[- Curada/Controlada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="0" width="83" height="15" uuid="60db31bc-8e12-4a0a-8b19-ae674ec29337">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atendimentos
+]]></text>
+			</staticText>
+			<line>
+				<reportElement x="213" y="15" width="1" height="18" uuid="c1849f74-82fe-4e57-81c6-bc76984caeb9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="454" y="15" width="1" height="18" uuid="d87d081f-aa19-4be5-b953-7cfdae10c011">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="215" y="6" width="68" height="1" uuid="fb4a88e3-4aef-4672-8ad7-2ec498a1e40c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="385" y="7" width="68" height="1" uuid="5438e929-5726-465c-ae0d-bb358b36869d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
@@ -391,14 +445,14 @@ ORDER BY NomeInternoCrc DESC]]>
 				<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="49" y="-1" width="186" height="20" uuid="4af21523-878b-4065-b3ad-07f5f2aed152"/>
+				<reportElement x="41" y="-1" width="186" height="20" uuid="4af21523-878b-4065-b3ad-07f5f2aed152"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="234" y="0" width="68" height="19" uuid="30e1aee8-8787-468c-a905-68e6dc32bfd8">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="226" y="0" width="68" height="19" uuid="30e1aee8-8787-468c-a905-68e6dc32bfd8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4b12921-5fab-48f4-9857-d8e8775dbebe"/>
 				</reportElement>
 				<textElement>
@@ -407,7 +461,7 @@ ORDER BY NomeInternoCrc DESC]]>
 				<textFieldExpression><![CDATA[$F{DataUp}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="311" y="0" width="67" height="19" uuid="1e46893e-9c34-4041-96d9-c769c6ca7cad">
+				<reportElement x="306" y="0" width="67" height="19" uuid="1e46893e-9c34-4041-96d9-c769c6ca7cad">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5fc23a4e-58b8-4acf-9578-389b3ee89ac2"/>
 				</reportElement>
 				<textElement>
@@ -416,7 +470,7 @@ ORDER BY NomeInternoCrc DESC]]>
 				<textFieldExpression><![CDATA[$F{HorarioUp}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="386" y="-2" width="169" height="19" uuid="1be548c2-ad46-455c-972c-132e544b963c">
+				<reportElement x="390" y="-2" width="165" height="19" uuid="1be548c2-ad46-455c-972c-132e544b963c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a7ca9b0-2f7c-45df-ba57-8629352055e5"/>
 				</reportElement>
 				<textElement>
@@ -649,167 +703,213 @@ ORDER BY NomeInternoCrc DESC]]>
 				<text><![CDATA[Hepatite B]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="111" y="18" width="19" height="20" uuid="594ecf1d-b1b0-4627-8a14-cbbb04881c04">
+				<reportElement x="111" y="18" width="19" height="20" forecolor="#FC0324" uuid="594ecf1d-b1b0-4627-8a14-cbbb04881c04">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Diabetes}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="19" width="19" height="20" uuid="60709ca4-fe1d-48f1-bde0-872977d14ac5">
+				<reportElement x="135" y="18" width="19" height="20" forecolor="#0E0AFA" uuid="60709ca4-fe1d-48f1-bde0-872977d14ac5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DiabControl}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="234" y="20" width="19" height="20" uuid="90f279d9-b5b1-43e5-bd61-296b7f96e454">
+				<reportElement x="234" y="20" width="19" height="20" forecolor="#FC0324" uuid="90f279d9-b5b1-43e5-bd61-296b7f96e454">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Dst}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="258" y="21" width="19" height="20" uuid="98cdebf7-4292-4ac2-b350-a8eed319d4e1">
+				<reportElement x="258" y="21" width="19" height="20" forecolor="#0E0AFA" uuid="98cdebf7-4292-4ac2-b350-a8eed319d4e1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DstCurada}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="362" y="21" width="19" height="20" uuid="90d5bf28-f408-4984-ae2b-faa36234fb8c">
+				<reportElement x="362" y="21" width="19" height="20" forecolor="#FC0324" uuid="90d5bf28-f408-4984-ae2b-faa36234fb8c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Escabiose}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="387" y="23" width="19" height="20" uuid="5a0beecf-4703-4ce3-a792-483a3e4375b9">
+				<reportElement x="388" y="21" width="19" height="20" forecolor="#0E0AFA" uuid="5a0beecf-4703-4ce3-a792-483a3e4375b9">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{EscabioseCura}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="489" y="21" width="19" height="20" uuid="32e8954e-1e07-4605-a647-93c75886905f">
+				<reportElement x="489" y="21" width="19" height="20" forecolor="#FC0324" uuid="32e8954e-1e07-4605-a647-93c75886905f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Hanseniase}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="512" y="21" width="19" height="20" uuid="a80053b6-49e2-4bb2-8b09-17b33795433b">
+				<reportElement x="512" y="20" width="19" height="20" forecolor="#0E0AFA" uuid="a80053b6-49e2-4bb2-8b09-17b33795433b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HanseniaseCura}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="43" width="19" height="20" uuid="92de6dde-2f47-4419-8f09-18cd8f5bd540">
+				<reportElement x="110" y="43" width="19" height="20" forecolor="#FC0324" uuid="92de6dde-2f47-4419-8f09-18cd8f5bd540">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HepatiteB}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="43" width="19" height="20" uuid="16fbf28d-7bbe-4d99-a3db-4c70168c7a0b">
+				<reportElement x="135" y="43" width="19" height="20" forecolor="#0E0AFA" uuid="16fbf28d-7bbe-4d99-a3db-4c70168c7a0b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HepatiteBCont}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="234" y="46" width="19" height="20" uuid="a627245d-4050-4b64-adc9-f13f21db3f2f">
+				<reportElement x="234" y="46" width="19" height="20" forecolor="#FC0324" uuid="a627245d-4050-4b64-adc9-f13f21db3f2f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HepatiteC}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="363" y="48" width="19" height="20" uuid="dc4bdb75-2c49-423c-a91e-af04e36653f5">
+				<reportElement x="363" y="48" width="19" height="20" forecolor="#FC0324" uuid="dc4bdb75-2c49-423c-a91e-af04e36653f5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Hiv}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="387" y="46" width="19" height="20" uuid="20370738-c29d-4f1c-8568-8c425c0d7e18">
+				<reportElement x="387" y="46" width="19" height="20" forecolor="#0E0AFA" uuid="20370738-c29d-4f1c-8568-8c425c0d7e18">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HivControlada}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="489" y="46" width="19" height="20" uuid="b0a9594b-e4dc-4c3f-97de-4d1fed305403">
+				<reportElement x="489" y="46" width="19" height="20" forecolor="#FC0324" uuid="b0a9594b-e4dc-4c3f-97de-4d1fed305403">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Hipertensao}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="513" y="46" width="19" height="20" uuid="cabe0afa-aa10-4644-bd07-360aa61e64c1">
+				<reportElement x="513" y="46" width="19" height="20" forecolor="#0E0AFA" uuid="cabe0afa-aa10-4644-bd07-360aa61e64c1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HanseniaseCura}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="68" width="19" height="20" uuid="f0d3fe69-64f1-41a1-a81d-6d2ecc1ad43f">
+				<reportElement x="110" y="68" width="19" height="20" forecolor="#FC0324" uuid="f0d3fe69-64f1-41a1-a81d-6d2ecc1ad43f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Tuberculose}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="135" y="68" width="19" height="20" uuid="ac1d3f15-aba4-4b09-8d0b-6b32af312e65">
+				<reportElement x="135" y="68" width="19" height="20" forecolor="#0E0AFA" uuid="ac1d3f15-aba4-4b09-8d0b-6b32af312e65">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{TuberculoseCura}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="234" y="70" width="19" height="20" uuid="793ed412-71d1-4f8e-9cf5-dfb4e9e1781f">
+				<reportElement x="234" y="70" width="19" height="20" forecolor="#FC0324" uuid="793ed412-71d1-4f8e-9cf5-dfb4e9e1781f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Sifilis}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="258" y="70" width="19" height="20" uuid="0e39e6ba-b5f1-46b7-8706-c16b3da5e865">
+				<reportElement x="258" y="70" width="19" height="20" forecolor="#0E0AFA" uuid="0e39e6ba-b5f1-46b7-8706-c16b3da5e865">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{SifilisCura}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="363" y="70" width="19" height="20" uuid="d1771bd1-d2e4-4df7-8a89-ac9d966461c1">
+				<reportElement x="363" y="70" width="19" height="20" forecolor="#FC0324" uuid="d1771bd1-d2e4-4df7-8a89-ac9d966461c1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Vdlr}.equals("Reagente" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="386" y="71" width="19" height="20" uuid="00f667c9-2b1f-4561-9328-1fcdf9ff2589">
+				<reportElement x="386" y="71" width="19" height="20" forecolor="#0E0AFA" uuid="00f667c9-2b1f-4561-9328-1fcdf9ff2589">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{VdlrCurada}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="489" y="70" width="19" height="20" uuid="e34e826a-d867-4701-9903-7f7640b6ebda">
+				<reportElement x="489" y="70" width="19" height="20" forecolor="#FC0324" uuid="e34e826a-d867-4701-9903-7f7640b6ebda">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Vacina}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="2" y="95" width="552" height="1" uuid="13c9637f-b06c-4d99-8233-61ebaf392cbf"/>
 			</line>
 			<textField>
-				<reportElement x="258" y="46" width="19" height="20" uuid="431f5189-86cf-4808-acd4-b92f9cb77966">
+				<reportElement x="258" y="46" width="19" height="20" forecolor="#0E0AFA" uuid="431f5189-86cf-4808-acd4-b92f9cb77966">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="377bb33e-b793-4f21-869c-c3bd4e6f26f3"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{HepatiteCCont}.equals("Sim" ) ? "X" : ""]]></textFieldExpression>
 			</textField>
 		</band>
@@ -844,11 +944,11 @@ ORDER BY NomeInternoCrc DESC]]>
 	<summary>
 		<band height="168" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="8" width="555" height="20" uuid="d2c531de-a089-468f-8fc5-7074a1b6b5ab"/>
+				<reportElement x="0" y="8" width="555" height="20" forecolor="#FC0324" uuid="d2c531de-a089-468f-8fc5-7074a1b6b5ab"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Incidências
+				<text><![CDATA[Total de Incidências Diagnosticadas
 ]]></text>
 			</staticText>
 			<line>
@@ -1026,62 +1126,86 @@ ORDER BY NomeInternoCrc DESC]]>
 			</rectangle>
 			<textField>
 				<reportElement x="48" y="32" width="34" height="20" uuid="6e2dc6e8-821c-4040-b86a-eee3cef75730"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdDiabetes1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="33" width="30" height="19" uuid="59f7db1b-5c12-4f94-97f3-4367835c8c8d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdDst1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="217" y="32" width="34" height="21" uuid="2f45b5be-2021-4d35-954f-2542c48f4a2a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdEscabiose1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="324" y="32" width="33" height="20" uuid="c547c877-444e-438e-a2c4-1f6b008242ce"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdHanseniase1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="422" y="32" width="33" height="21" uuid="c77684b7-9bb6-4f7e-b400-a291138a6e78"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdHepatiteB1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="521" y="33" width="34" height="19" uuid="b401a4d1-9856-4a1e-930b-543b2be10e7b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdHepatiteC1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="119" y="60" width="34" height="19" uuid="60158c39-6a99-476a-a22c-5157edf99eff"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdHiv1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="215" y="57" width="36" height="22" uuid="01f0b866-2e2c-493b-9480-2e8d07f45fda"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdHipertensao1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="322" y="59" width="34" height="18" uuid="3123c7df-44f4-42e6-b899-91486acdc0cb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdTuberculose1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="422" y="61" width="33" height="16" uuid="42b252ab-ecdb-4f92-9a35-65f24413bb82"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdSifilis1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="519" y="59" width="35" height="20" uuid="fccf62ff-806d-4b12-ace4-7088b5a77b2c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdVacina1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="49" y="59" width="33" height="18" uuid="d4c05135-013a-4a41-96a3-01e0ca1d94e8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{QtdVdlr1}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -1239,7 +1363,7 @@ ORDER BY NomeInternoCrc DESC]]>
 				</reportElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="87" width="555" height="20" uuid="90e16a7c-09db-4487-afc5-b4d8a7765fca"/>
+				<reportElement x="1" y="87" width="555" height="20" forecolor="#0E0AFA" uuid="90e16a7c-09db-4487-afc5-b4d8a7765fca"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -1248,58 +1372,78 @@ ORDER BY NomeInternoCrc DESC]]>
 			<textField>
 				<reportElement x="48" y="114" width="32" height="20" uuid="20aa6f5d-6427-4973-8338-10af3ff35fb3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{DiabControl1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="117" y="114" width="37" height="20" uuid="37332621-89cb-429a-84eb-586bac9dfeec"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{DstCurada1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="215" y="114" width="35" height="20" uuid="55ad82bc-9d92-4c88-a813-5b324978d248"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{EscabioseCura1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="321" y="114" width="35" height="20" uuid="faa7b8c3-663a-49a1-af7c-09fef794ddc1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{HanseniaseCura1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="420" y="115" width="34" height="19" uuid="cb99a931-3e6e-4b6e-9954-502837a9d771"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{HepatiteBCont1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="519" y="115" width="36" height="19" uuid="b839b37c-8dc3-4fcb-8f54-808d6afc0304"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{HepatiteCCont1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="49" y="142" width="31" height="19" uuid="779e82c5-3fa4-40b9-90c8-031f3b5a8d17"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{VdlrCurada1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="118" y="141" width="32" height="20" uuid="a150d66b-53cd-4c78-987d-543675c02738"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{HivControlada1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="215" y="141" width="37" height="20" uuid="1066d4d0-d804-4ebe-978c-a781ed77e817"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{HiperControl1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="321" y="141" width="36" height="20" uuid="2e6d6027-81b6-4a4d-96bf-09fc3e068df1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{TuberculoseCura1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="420" y="142" width="34" height="19" uuid="d4ea34ad-e366-4424-8607-58518d77e870"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{SifilisCura1}]]></textFieldExpression>
 			</textField>
 		</band>

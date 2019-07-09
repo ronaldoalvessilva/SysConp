@@ -169,9 +169,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static int pTotalDocumentos = 0;
     public static int codigoDocumento = 0;
     String idDocumento;
-    String c_INTERNO;
-    String c_REGISTRO;
+    int c_INTERNO;
+    int c_REGISTRO;
     int idChek;
+    //
+    String codigoCheck;
     //
     /**
      * Creates new form TelaTriagem
@@ -2182,11 +2184,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel49Layout.createSequentialGroup()
-                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
@@ -2253,7 +2252,20 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             new String [] {
                 "ID Registro", "Descrição do Documento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTabelaDocumentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaDocumentosMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTabelaDocumentos);
         if (jTabelaDocumentos.getColumnModel().getColumnCount() > 0) {
             jTabelaDocumentos.getColumnModel().getColumn(0).setMinWidth(70);
@@ -4808,6 +4820,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 objProCrc.setNomeInterno(jNomeInterno.getText());
                                 objProCrc.setConfirmaEntrada(confirmaEntrada);
                                 control.confirmarRegInternoCrc(objProCrc);
+                                //
+                                gravarDocumentos();
+                                //
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -4833,6 +4848,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         control.alterarInternoCrc(objProCrc);
                         controlFisicos.alterarDadosFisicos(objDadosFis);
                         controlPenais.alterarDadosPenais(objDadosPena);
+                        //
+                        gravarDocumentos();
+                        //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -5116,9 +5134,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jRegiaoCorpo1.setText(conecta.rs.getString("RegiaoCorpo1"));
                 jRegiaoCorpo2.setText(conecta.rs.getString("RegiaoCorpo2"));
                 lerDigitaisCadastradas();
+                limparTabela();
+                consultaDocumentos();
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
+                // JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
             }
             // FICHA JURIDICA                        
             conecta.abrirConexao();
@@ -5132,8 +5152,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 codigoInterno = conecta.rs.getString("IdInternoCrc");
             } catch (SQLException e) {
             }
-            //
-            consultaDocumentos();
             //
             if (jIdInterno.getText().equals(codigoInterno)) {
                 preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
@@ -5747,6 +5765,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 objProCrc.setNomeInterno(jNomeInterno.getText());
                                 objProCrc.setConfirmaEntrada(confirmaEntrada);
                                 control.confirmarRegInternoCrc(objProCrc);
+                                //
+                                gravarDocumentos();
+                                //
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -6130,9 +6151,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
                 jComboBoxQuaisDocumentosFaltam.addItem("Documentação do Interno está Incompleta.");
-                jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+                jComboBoxQuaisDocumentosFaltam.setEnabled(true);
                 jBtAdicionarDocumento.setEnabled(true);
-                jBtExcluirRegistro.setEnabled(true);
+//                jBtExcluirRegistro.setEnabled(true);
                 preencherCheckBoxDocumentos();
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
@@ -6208,23 +6229,32 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jBtExcluirRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirRegistroActionPerformed
         // TODO add your handling code here:
-        if (jTabelaDocumentos.getSelectedRow() != -1) {
-            DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                dtm.removeRow(jTabelaDocumentos.getSelectedRow());
-                count = count - 1;
-                pTotalDocumentos = count;
-                jtotalRegistros.setText(Integer.toString(count));
-                //                objItensDoenca.setIdLanc(Integer.valueOf(jIdAdm.getText()));
-                //                objItensDoenca.setIdItem(Integer.valueOf(jIdItem.getText()));
-                //                controlePat.excluirDoencas(objItensDoenca);
+        if (acao == 1 || acao == 2) {
+            if (jTabelaDocumentos.getSelectedRow() != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    dtm.removeRow(jTabelaDocumentos.getSelectedRow());
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                    objProCrc.setIdChek(Integer.valueOf(codigoCheck));
+                    controleDoc.excluirDocumentoInternoCrc(objProCrc);
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
         }
     }//GEN-LAST:event_jBtExcluirRegistroActionPerformed
+
+    private void jTabelaDocumentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaDocumentosMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            jBtExcluirRegistro.setEnabled(true);
+            codigoCheck = "" + jTabelaDocumentos.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+        }
+    }//GEN-LAST:event_jTabelaDocumentosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -7102,8 +7132,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxEstadoCivil.setEnabled(true);
         jComboBoxSexo.setEnabled(true);
         jSituacao.setEnabled(!true);
-        //  jComboBoxPais.setEnabled(true);
-        //   jComboBoxCidade.setEnabled(true);
         jReligiao.setEnabled(true);
         jProfissao.setEnabled(true);
         jEndereco.setEnabled(true);
@@ -7341,6 +7369,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jVaraCondenacao.setEnabled(!true);
         jDataNovaEntrada.setEnabled(!true);
         jComboBoxDocumentacaoCompleta.setEnabled(!true);
+        jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
         // Habilitar/Desabilitar  Botões
         jBtZoonFoto.setEnabled(!true);
         jBtNovaFoto.setEnabled(!true);
@@ -7498,6 +7527,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtBuscarRegPortaria1.setEnabled(!true);
         jBtAuditoriaPronCrc1.setEnabled(true);
         jBtImportarProntuario.setEnabled(!true);
+        //
+        jBtAdicionarDocumento.setEnabled(!true);
+        jBtExcluirRegistro.setEnabled(!true);
     }
 
     public void Cancelar() {
@@ -7598,6 +7630,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtObservacao.setEnabled(!true);
             jComboBoxDocumentacaoCompleta.setSelectedItem("Selecione...");
             jComboBoxQuaisDocumentosFaltam.setSelectedItem("Selecione...");
+            jComboBoxDocumentacaoCompleta.setEnabled(!true);
             jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
@@ -8635,27 +8668,21 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void gravarDocumentos() {
 
         for (int i = 0; i < jTabelaDocumentos.getRowCount(); i++) {
-            try {
-                objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
-                objProCrc.setNomeInterno(jNomeInterno.getText());
-                objProCrc.setIdChek((int) jTabelaDocumentos.getValueAt(i, 0));
-                objProCrc.setIdChek((int) jTabelaDocumentos.getValueAt(i, 0));
-                objProCrc.setDescricaoDoc((String) jTabelaDocumentos.getValueAt(i, 1));
-                verificarInternoBancoDados(jIdInterno.getText(), jTabelaDocumentos.getValueAt(i, 0).toString());
-                if (jIdInterno.getText().equals(c_INTERNO) && !jTabelaDocumentos.getValueAt(i, 0).equals(c_REGISTRO)) {
-                    controleDoc.incluirDocumentoInternoCrc(objProCrc);
-                } else if (c_INTERNO == null) {
-                    controleDoc.incluirDocumentoInternoCrc(objProCrc);
-                } else if (c_INTERNO.equals("")) {
-                    controleDoc.incluirDocumentoInternoCrc(objProCrc);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaProntuarioCrc.class.getName()).log(Level.SEVERE, null, ex);
+            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+            objProCrc.setNomeInterno(jNomeInterno.getText());
+            objProCrc.setIdChek((int) jTabelaDocumentos.getValueAt(i, 0));
+            objProCrc.setDescricaoDoc((String) jTabelaDocumentos.getValueAt(i, 1));
+            verificarInternoBancoDados(objProCrc.getIdInterno(), objProCrc.getIdChek());
+            if (c_INTERNO == 0) {
+                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+            } else if (c_INTERNO == objProCrc.getIdInterno() && c_REGISTRO != objProCrc.getIdChek()) {
+                controleDoc.incluirDocumentoInternoCrc(objProCrc);
             }
         }
     }
 
     public void consultaDocumentos() {
+
         DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaDocumentos.getModel();
         ProntuarioCrc d = new ProntuarioCrc();
         try {
@@ -8668,22 +8695,31 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
                 jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void limparTabela() {
+        if (jTabelaDocumentos.getSelectedRow() != -1) {
+            DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
+            dtm.removeRow(jTabelaDocumentos.getSelectedRow());
         }
     }
 
     //VERIFICAR SE JÁ FOI GRAVADO O INTERNO COM OS DOCUMENTOS
-    public void verificarInternoBancoDados(String codigoInterno, String codDocumento) {
+    public void verificarInternoBancoDados(int codigoInterno, int codDocumento) {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM LISTA_DOCUMENTOS_INTERNO_CRC "
                     + "WHERE IdInternoCrc='" + codigoInterno + "' "
                     + "AND IdChek='" + codDocumento + "'");
             conecta.rs.last();
-            c_INTERNO = conecta.rs.getString("IdInternoCrc");
-            c_REGISTRO = conecta.rs.getString("IdChek");
+            c_INTERNO = conecta.rs.getInt("IdInternoCrc");
+            c_REGISTRO = conecta.rs.getInt("IdChek");
         } catch (Exception ERROR) {
         }
         conecta.desconecta();

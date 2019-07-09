@@ -64,7 +64,6 @@ order by EVOLUCAOJURIDICO.UsuarioInsert,EVOLUCAOJURIDICO.DataEvo]]>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.lang.Object"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
