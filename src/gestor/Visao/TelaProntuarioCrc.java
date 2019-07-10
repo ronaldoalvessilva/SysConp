@@ -6249,10 +6249,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jTabelaDocumentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaDocumentosMouseClicked
         // TODO add your handling code here:
-        flag = 1;
-        if (flag == 1) {
-            jBtExcluirRegistro.setEnabled(true);
-            codigoCheck = "" + jTabelaDocumentos.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+        if (acao == 1 || acao == 2) {
+            flag = 1;
+            if (flag == 1) {
+                jBtExcluirRegistro.setEnabled(true);
+                codigoCheck = "" + jTabelaDocumentos.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            }
         }
     }//GEN-LAST:event_jTabelaDocumentosMouseClicked
 
@@ -6796,6 +6798,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jRegiaoCorpo1.setEnabled(!true);
         jRegiaoCorpo2.setEnabled(!true);
         jVaraCondenacao.setEnabled(!true);
+        jComboBoxDocumentacaoCompleta.setEnabled(!true);
+        jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
         // Habilitar/Desabilitar  Botões        
         jBtNovaFoto.setEnabled(!true);
         jBtExcluirFoto.setEnabled(!true);
@@ -7746,6 +7750,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(!true);
             jBtImportarProntuario.setEnabled(!true);
+            //
+            jBtAdicionarDocumento.setEnabled(!true);
+            jBtExcluirRegistro.setEnabled(!true);
         } else {
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
@@ -7820,7 +7827,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jVaraCondenacao.setEnabled(!true);
             jDataNovaEntrada.setEnabled(!true);
             jComboBoxDocumentacaoCompleta.setEnabled(!true);
-            jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+            jComboBoxQuaisDocumentosFaltam.setEnabled(!true);            
             // Habilitar/Desabilitar  Botões
             jBtZoonFoto.setEnabled(true);
             jBtNovaFoto.setEnabled(!true);
@@ -7861,6 +7868,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(true);
             jBtImportarProntuario.setEnabled(!true);
+            //
+            jBtAdicionarDocumento.setEnabled(!true);
+            jBtExcluirRegistro.setEnabled(!true);
         }
     }
 
