@@ -533,7 +533,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         });
         Cadastros.add(CargaHoraria);
 
-        jTempoFormativo.setText("Tempo Formativo - Série/Ano");
+        jTempoFormativo.setText("Tempo Formativo/Eixo - Série/Ano");
         jTempoFormativo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTempoFormativoActionPerformed(evt);
@@ -769,7 +769,6 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Movimentacao.add(BaixaAlunos);
         Movimentacao.add(jSeparator20);
 
-        jRegistroLeituraResenhaInternos.setForeground(new java.awt.Color(204, 0, 0));
         jRegistroLeituraResenhaInternos.setText("Registro de Leitura/Resenha de Internos");
         jRegistroLeituraResenhaInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

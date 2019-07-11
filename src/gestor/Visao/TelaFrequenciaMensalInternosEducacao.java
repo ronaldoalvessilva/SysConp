@@ -291,7 +291,7 @@ public class TelaFrequenciaMensalInternosEducacao extends javax.swing.JInternalF
         jTabelaFrequenciaLaborativa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFrequenciaLaborativa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -776,7 +776,7 @@ public class TelaFrequenciaMensalInternosEducacao extends javax.swing.JInternalF
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Interno", "Total Dias"
@@ -1107,7 +1107,7 @@ public class TelaFrequenciaMensalInternosEducacao extends javax.swing.JInternalF
         jTabelaDemostracaoMensal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDemostracaoMensal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Meses", "Ano", "Total Dias/Mês"

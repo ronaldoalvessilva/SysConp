@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -23,6 +25,7 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String statusDisciplina = "Ativo";
+
     /**
      * Creates new form TelaPesqCelasLocacao
      */
@@ -77,16 +80,19 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
         jTabelaDisciplina.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome da Disciplina Escolar"
             }
         ));
         jScrollPane1.setViewportView(jTabelaDisciplina);
+        if (jTabelaDisciplina.getColumnModel().getColumnCount() > 0) {
+            jTabelaDisciplina.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaDisciplina.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaDisciplina.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaDisciplina.getColumnModel().getColumn(1).setMaxWidth(350);
+        }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -95,8 +101,14 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
         jLabel1.setText("Descrição");
 
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPesqDescricaoActionPerformed(evt);
+            }
+        });
 
         jBtPesqDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricao.setContentAreaFilled(false);
         jBtPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoActionPerformed(evt);
@@ -116,10 +128,10 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jPesqDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,40 +157,45 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 240, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(6, 6, 6))
         );
 
-        setBounds(250, 20, 362, 224);
+        setBounds(480, 20, 456, 259);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (flag == 1) {
             String nomeDisciplina = "" + jTabelaDisciplina.getValueAt(jTabelaDisciplina.getSelectedRow(), 1);
-            jPesqDescricao.setText(nomeDisciplina);           
+            jPesqDescricao.setText(nomeDisciplina);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM DISCIPLINAS WHERE Descricao LIKE'" + nomeDisciplina + "%'");
-                conecta.rs.first();                            
+                conecta.executaSQL("SELECT * FROM DISCIPLINAS "
+                        + "WHERE Descricao LIKE'" + nomeDisciplina + "%'");
+                conecta.rs.first();
                 jIdDisc.setText(conecta.rs.getString("IdDisc"));
                 jDescricaoDisciplina.setText(conecta.rs.getString("Descricao"));
                 conecta.desconecta();
@@ -201,8 +218,9 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
         } else {
-            jTabelaDisciplina.setVisible(true);
-            preencherTabelaInstituicao("SELECT * FROM DISCIPLINAS WHERE Descricao LIKE'" + jPesqDescricao.getText() + "%'AND StatusDisc='" + statusDisciplina + "'");
+            preencherTabelaInstituicao("SELECT * FROM DISCIPLINAS "
+                    + "WHERE Descricao LIKE'" + jPesqDescricao.getText() + "%' "
+                    + "AND StatusDisc='" + statusDisciplina + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -210,12 +228,16 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaDisciplina.setVisible(true);
-            this.preencherTabelaInstituicao("SELECT * FROM DISCIPLINAS WHERE StatusDisc='" + statusDisciplina  + "'");
+            this.preencherTabelaInstituicao("SELECT * FROM DISCIPLINAS "
+                    + "WHERE StatusDisc='" + statusDisciplina + "'");
         } else {
-            jTabelaDisciplina.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void jPesqDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPesqDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPesqDescricaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -233,7 +255,7 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
 // Método de pesquisa pela Descrição
     public void preencherTabelaInstituicao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", " Nome da Disciplina Escolar"};
+        String[] Colunas = new String[]{"Código", "Nome da Disciplina Escolar"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -246,13 +268,36 @@ public class TelaPesqDisciplinaTempo extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaDisciplina.setModel(modelo);
-        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDisciplina.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaDisciplina.getColumnModel().getColumn(1).setPreferredWidth(320);
-        jTabelaDisciplina.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaDisciplina.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaDisciplina.getColumnModel().getColumn(1).setResizable(false);
         jTabelaDisciplina.getTableHeader().setReorderingAllowed(false);
         jTabelaDisciplina.setAutoResizeMode(jTabelaDisciplina.AUTO_RESIZE_OFF);
         jTabelaDisciplina.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Disciplina Escolar"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaDisciplina.setModel(modelo);
+        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaDisciplina.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaDisciplina.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaDisciplina.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDisciplina.getTableHeader().setReorderingAllowed(false);
+        jTabelaDisciplina.setAutoResizeMode(jTabelaDisciplina.AUTO_RESIZE_OFF);
+        jTabelaDisciplina.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabela() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaDisciplina.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }

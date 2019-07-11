@@ -10,6 +10,7 @@ import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaControleFrequencia.jDataMatricula;
 import static gestor.Visao.TelaControleFrequencia.jDescricaoSala;
 import static gestor.Visao.TelaControleFrequencia.jDescricaoTurno;
+import static gestor.Visao.TelaControleFrequencia.jEixoFrequencia;
 import static gestor.Visao.TelaControleFrequencia.jIdMatricula;
 import static gestor.Visao.TelaControleFrequencia.jNomeInstituicao;
 import static gestor.Visao.TelaControleFrequencia.jTempoFormativo;
@@ -100,7 +101,7 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
                 .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
                 .addComponent(jCheckBoxTodos)
                 .addContainerGap())
         );
@@ -119,7 +120,7 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
         jTabelaMatricula.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaMatricula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Tempo Formativo", "Turnos de Aulas"
@@ -132,8 +133,8 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaMatricula);
         if (jTabelaMatricula.getColumnModel().getColumnCount() > 0) {
-            jTabelaMatricula.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaMatricula.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaMatricula.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaMatricula.getColumnModel().getColumn(0).setMaxWidth(60);
             jTabelaMatricula.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaMatricula.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaMatricula.getColumnModel().getColumn(2).setMinWidth(200);
@@ -185,12 +186,12 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -205,10 +206,10 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
         );
 
-        setBounds(300, 30, 452, 266);
+        setBounds(300, 30, 594, 313);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqMatriculaActionPerformed
@@ -267,6 +268,7 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
                 jNomeInstituicao.setText(conecta.rs.getString("NomeInstituicao"));
                 jTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
+                jEixoFrequencia.setText(conecta.rs.getString("Eixo"));
                 jDescricaoSala.setText(conecta.rs.getString("Descricao"));
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -321,7 +323,7 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMatricula.setModel(modelo);
-        jTabelaMatricula.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaMatricula.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaMatricula.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMatricula.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaMatricula.getColumnModel().getColumn(1).setResizable(false);
@@ -339,7 +341,7 @@ public class TelaPesqMatricula extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Tempo Formativo", "Turnos de Aulas"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMatricula.setModel(modelo);
-        jTabelaMatricula.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaMatricula.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaMatricula.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMatricula.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaMatricula.getColumnModel().getColumn(1).setResizable(false);

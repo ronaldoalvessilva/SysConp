@@ -149,6 +149,8 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         jIdMatricula = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jDataMatricula = new com.toedter.calendar.JDateChooser();
+        jLabel20 = new javax.swing.JLabel();
+        jEixoFrequencia = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -308,7 +310,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         jTabelaFrequenciaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFrequenciaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data", "Matricula", "Tempo Formativo", "Turno de Aulas"
@@ -403,7 +405,7 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,66 +486,72 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         jDataMatricula.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataMatricula.setEnabled(false);
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel20.setText("Eixo");
+
+        jEixoFrequencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEixoFrequencia.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jIdFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jStatusFreq))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDataFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)))
+                        .addComponent(jLabel4)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jTempoFormativo))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel20)
+                                .addComponent(jEixoFrequencia, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addComponent(jDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6)
+                        .addComponent(jIdMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jDataMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(48, 48, 48)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jStatusFreq))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataFreq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jDescricaoTurno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jNomeInstituicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTempoFormativo)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jIdMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jDataMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDescricaoSala, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap())))
+                    .addComponent(jLabel11)
+                    .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDescricaoTurno, jNomeInstituicao});
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jDescricaoSala, jTempoFormativo});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -563,24 +571,26 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
                     .addComponent(jDataMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(105, 105, 105)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel11))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jEixoFrequencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataFreq, jDataMatricula, jIdFreq, jIdMatricula, jStatusFreq});
@@ -691,10 +701,10 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
-                "Item", "Código", "Nome do Interno", "Matricula Penal"
+                "Item", "Código", "Nome do Interno", "Hora Entrada", "Hora Saída", "Presença"
             }
         ));
         jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -706,12 +716,16 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
             jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(50);
-            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(50);
+            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(60);
             jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(280);
             jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(280);
-            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(100);
-            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(5).setMinWidth(100);
+            jTabelaInternos.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1005,16 +1019,18 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -1029,12 +1045,10 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, Short.MAX_VALUE)
         );
 
-        setBounds(300, 20, 651, 528);
+        setBounds(300, 20, 651, 541);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIdLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdLancActionPerformed
@@ -1064,68 +1078,68 @@ public class TelaControleFrequencia extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (tipoServidor == null || tipoServidor.equals("")) {
-        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    preencherTabelaFrequencia("SELECT * FROM FREQUENCIA "
-                            + "INNER JOIN MATRICULAESCOLAR "
-                            + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
-                            + "INNER JOIN INSTITUICAOESCOLAR "
-                            + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
-                            + "INNER JOIN TEMPOFORMATIVO "
-                            + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                            + "INNER JOIN SALAS "
-                            + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                            + "INNER JOIN TURNOSAULA "
-                            + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                            + "WHERE DataFreq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        preencherTabelaFrequencia("SELECT * FROM FREQUENCIA "
+                                + "INNER JOIN MATRICULAESCOLAR "
+                                + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
+                                + "INNER JOIN INSTITUICAOESCOLAR "
+                                + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
+                                + "INNER JOIN TEMPOFORMATIVO "
+                                + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
+                                + "INNER JOIN SALAS "
+                                + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
+                                + "INNER JOIN TURNOSAULA "
+                                + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
+                                + "WHERE DataFreq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
-        }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    preencherTabelaFrequencia("SELECT * FROM FREQUENCIA "
-                            + "INNER JOIN MATRICULAESCOLAR "
-                            + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
-                            + "INNER JOIN INSTITUICAOESCOLAR "
-                            + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
-                            + "INNER JOIN TEMPOFORMATIVO "
-                            + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                            + "INNER JOIN SALAS "
-                            + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                            + "INNER JOIN TURNOSAULA "
-                            + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                            + "WHERE DataFreq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        preencherTabelaFrequencia("SELECT * FROM FREQUENCIA "
+                                + "INNER JOIN MATRICULAESCOLAR "
+                                + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
+                                + "INNER JOIN INSTITUICAOESCOLAR "
+                                + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
+                                + "INNER JOIN TEMPOFORMATIVO "
+                                + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
+                                + "INNER JOIN SALAS "
+                                + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
+                                + "INNER JOIN TURNOSAULA "
+                                + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
+                                + "WHERE DataFreq BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
-}
     }//GEN-LAST:event_jBtDataLancActionPerformed
 
     private void jBtNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeInternoActionPerformed
@@ -1555,15 +1569,16 @@ if (jDataPesqInicial.getDate() == null) {
                 jDataMatricula.setDate(conecta.rs.getDate("DataMat"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 jTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
+                jEixoFrequencia.setText(conecta.rs.getString("Eixo"));
                 jDescricaoSala.setText(conecta.rs.getString("Descricao"));
                 conecta.desconecta();
-                preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdFreq='" + jIdFreq.getText() + "'");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
+            preencherTabelaInternosFrequencia("SELECT * FROM ITENSFREQUENCIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdFreq='" + jIdFreq.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaFrequenciaInternosMouseClicked
 
@@ -1679,6 +1694,7 @@ if (jDataPesqInicial.getDate() == null) {
     private com.toedter.calendar.JDateChooser jDataSaida;
     public static javax.swing.JTextField jDescricaoSala;
     public static javax.swing.JTextField jDescricaoTurno;
+    public static javax.swing.JTextField jEixoFrequencia;
     private javax.swing.JFormattedTextField jHorarioEntrada;
     private javax.swing.JFormattedTextField jHorarioSaida;
     private javax.swing.JTextField jIDPesqLan;
@@ -1697,6 +1713,7 @@ if (jDataPesqInicial.getDate() == null) {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1759,11 +1776,14 @@ if (jDataPesqInicial.getDate() == null) {
         jDataMatricula.setBackground(Color.white);
         jNomeInstituicao.setBackground(Color.white);
         jTempoFormativo.setBackground(Color.white);
+        jEixoFrequencia.setBackground(Color.white);
         jDescricaoTurno.setBackground(Color.white);
         jDescricaoSala.setBackground(Color.white);
         jIdInternoCrc.setBackground(Color.white);
         jNomeInternoCrc.setBackground(Color.white);
+        jHorarioEntrada.setBackground(Color.white);
         jDataEntrada.setBackground(Color.white);
+        jHorarioSaida.setBackground(Color.white);
         jComboBoxConfFrequencia.setBackground(Color.white);
     }
 
@@ -1777,6 +1797,7 @@ if (jDataPesqInicial.getDate() == null) {
         jNomeInstituicao.setText("");
         jTempoFormativo.setText("");
         jDescricaoTurno.setText("");
+        jEixoFrequencia.setText("");
         jDescricaoSala.setText("");
         //
         jDataFreq.setEnabled(true);
@@ -1841,6 +1862,7 @@ if (jDataPesqInicial.getDate() == null) {
         jDataMatricula.setDate(null);
         jNomeInstituicao.setText("");
         jTempoFormativo.setText("");
+        jEixoFrequencia.setText("");
         jDescricaoTurno.setText("");
         jDescricaoSala.setText("");
         //
@@ -1897,6 +1919,7 @@ if (jDataPesqInicial.getDate() == null) {
             jDataMatricula.setDate(null);
             jNomeInstituicao.setText("");
             jTempoFormativo.setText("");
+            jEixoFrequencia.setText("");
             jDescricaoTurno.setText("");
             jDescricaoSala.setText("");
             //
@@ -2301,13 +2324,13 @@ if (jDataPesqInicial.getDate() == null) {
 
     public void preencherTabelaInternosFrequencia(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Matricula Penal"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Hora Entrada", "Hora Saída", "Presença"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("HorarioEntrada"), conecta.rs.getString("HorarioSaida"), conecta.rs.getString("Presenca")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -2315,12 +2338,16 @@ if (jDataPesqInicial.getDate() == null) {
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(60);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(280);
         jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaInternos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2330,17 +2357,21 @@ if (jDataPesqInicial.getDate() == null) {
 
     public void limparTabelaInternos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Matricula Penal"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Hora Entrada", "Hora Saída", "Presença"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(60);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(280);
         jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaInternos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2355,6 +2386,8 @@ if (jDataPesqInicial.getDate() == null) {
         //
         jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 
     public void objLog() {

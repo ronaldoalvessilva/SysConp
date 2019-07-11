@@ -286,7 +286,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="1">
+                      <Table columnCount="4" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Data" type="java.lang.Object"/>
                         <Column editable="true" title="Status" type="java.lang.Object"/>
@@ -1184,7 +1184,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="1">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="Item" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="C&#xf3;digo Barras" type="java.lang.Object"/>
@@ -1271,9 +1271,16 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jValorCusto" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel11" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                                                      <Component id="jQtd" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jValorCusto" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                               <Component id="jDescricaoProduto" min="-2" pref="286" max="-2" attributes="0"/>
                                           </Group>
@@ -1288,15 +1295,10 @@
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <Component id="jCodigoBarra" min="-2" pref="90" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBoxUnidProduto" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
-                                      <Component id="jQtd" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxUnidProduto" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -1307,42 +1309,29 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jIdProduto" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jDescricaoProduto" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtPesqProdutoInve" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jCodigoBarra" linkSize="16" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jQtd" linkSize="16" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBoxUnidProduto" linkSize="16" min="-2" pref="19" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jValorCusto" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jIdProduto" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDescricaoProduto" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtPesqProdutoInve" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel12" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel11" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel21" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jCodigoBarra" linkSize="16" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxUnidProduto" linkSize="16" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jQtd" linkSize="16" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jValorCusto" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -1467,7 +1456,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="10">
-                        <StringItem index="0" value=""/>
+                        <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Un"/>
                         <StringItem index="2" value="Caixa"/>
                         <StringItem index="3" value="Pacote"/>
@@ -1526,24 +1515,24 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="jBtNovoItem" pref="31" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarItem" pref="31" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirItem" pref="31" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarItem" pref="31" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtCancelarItem" pref="31" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtBuscar" pref="33" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtImpressaoItens" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="jBtAuditoriaItens" min="-2" pref="32" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtNovoItem" linkSize="17" min="-2" pref="36" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="jBtAlterarItem" linkSize="17" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtExcluirItem" linkSize="17" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtSalvarItem" linkSize="17" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtCancelarItem" linkSize="17" min="-2" pref="38" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtBuscar" linkSize="17" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jBtImpressaoItens" linkSize="17" min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBtAuditoriaItens" min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1552,13 +1541,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBtImpressaoItens" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtNovoItem" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtAlterarItem" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtExcluirItem" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtSalvarItem" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtCancelarItem" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtBuscar" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtImpressaoItens" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtNovoItem" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtAlterarItem" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExcluirItem" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtSalvarItem" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtCancelarItem" linkSize="18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtBuscar" linkSize="18" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtAuditoriaItens" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -1678,6 +1667,7 @@
                       <Image iconType="3" name="/gestor/Imagens/book_open.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Auditoria"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
@@ -1692,7 +1682,6 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/gtklp-icone-3770-16.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Impress&#xe3;o"/>
                     <Property name="toolTipText" type="java.lang.String" value="Impress&#xe3;o dos Itens"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>

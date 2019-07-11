@@ -316,7 +316,7 @@ public class TelaReservaAcervo extends javax.swing.JInternalFrame {
         jTabelaReservaAcervo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaReservaAcervo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno", "Observação"

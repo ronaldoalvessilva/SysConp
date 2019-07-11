@@ -274,7 +274,7 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
         jTabelaPesquisaInternosBaixa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesquisaInternosBaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data", "Observação"
@@ -689,7 +689,8 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
 
         jBtAuditoriaInterno.setForeground(new java.awt.Color(255, 0, 0));
         jBtAuditoriaInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaInterno.setText("Auditoria");
+        jBtAuditoriaInterno.setToolTipText("Auditoria");
+        jBtAuditoriaInterno.setContentAreaFilled(false);
         jBtAuditoriaInterno.setEnabled(false);
         jBtAuditoriaInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -711,14 +712,16 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtNovoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtNovoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -749,13 +752,10 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
         jTabelaInternosBaixa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosBaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Item", "Código", "Nome do Interno"
             }
         ));
         jTabelaInternosBaixa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -764,6 +764,14 @@ public class TelaBaixaAlunos extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(jTabelaInternosBaixa);
+        if (jTabelaInternosBaixa.getColumnModel().getColumnCount() > 0) {
+            jTabelaInternosBaixa.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaInternosBaixa.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInternosBaixa.getColumnModel().getColumn(1).setMinWidth(50);
+            jTabelaInternosBaixa.getColumnModel().getColumn(1).setMaxWidth(50);
+            jTabelaInternosBaixa.getColumnModel().getColumn(2).setMinWidth(380);
+            jTabelaInternosBaixa.getColumnModel().getColumn(2).setMaxWidth(380);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

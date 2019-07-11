@@ -303,7 +303,7 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
         jTabelaLivrosRevistasJornais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLivrosRevistasJornais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Titulo do Livro"
@@ -1276,7 +1276,7 @@ public class TelaLivrosRevistasJornais extends javax.swing.JInternalFrame {
         jTabelaAutor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAutor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Nome do Autor"

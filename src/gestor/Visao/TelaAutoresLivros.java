@@ -179,7 +179,7 @@ public class TelaAutoresLivros extends javax.swing.JInternalFrame {
         jTabelaAutores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAutores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome do Autor"

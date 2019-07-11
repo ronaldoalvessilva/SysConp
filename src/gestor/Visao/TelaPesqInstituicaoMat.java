@@ -116,7 +116,7 @@ public class TelaPesqInstituicaoMat extends javax.swing.JInternalFrame {
         jTabelaInstituicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInstituicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome da Instituição"

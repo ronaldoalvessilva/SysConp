@@ -9,7 +9,6 @@ import gestor.Controle.ControleItensTFDisciplina;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleTempoFormativo;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ItensTFDisciplina;
 import gestor.Modelo.LogSistema;
@@ -32,8 +31,14 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -63,6 +68,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
     String codTurma;
     public static String idItem;
     int count = 0;
+    double pDuracao = 0;
 
     /**
      * Creates new form TelaTempoFormativo
@@ -103,7 +109,6 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jDataLanc = new com.toedter.calendar.JDateChooser();
         jIdLanc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jDescricaoTempoFormativo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxStatus = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
@@ -115,6 +120,15 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jComboBoxGrauInstrucaoEqui = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jDuracao = new javax.swing.JFormattedTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBoxEIXO = new javax.swing.JComboBox<>();
+        jComboBoxDescricaoTempoFormativo = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -306,7 +320,6 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jLabel1.setText("Código");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
         jLabel2.setText("Data");
 
         jDataLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -317,11 +330,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jIdLanc.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("Decrição Tempo Formativo");
-
-        jDescricaoTempoFormativo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDescricaoTempoFormativo.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Status");
@@ -332,7 +341,6 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(204, 0, 0));
         jLabel6.setText("Descrição do Turno");
 
         jDescricaoTurno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -355,11 +363,10 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(204, 0, 0));
         jLabel10.setText("Grau de Instrução Equivalente");
 
         jComboBoxGrauInstrucaoEqui.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxGrauInstrucaoEqui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ensino Fundamental - 1º ao 5º ano", "Ensino Médio - 6º ao 9º ano" }));
+        jComboBoxGrauInstrucaoEqui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ensino Fundamental - 1º", "Ensino Fundamental - 2º", "Ensino Fundamental - 3º", "Ensino Fundamental - 4º", "Ensino Fundamental - 5º", "Ensino Fundamental - 6º", "Ensino Fundamental - 7º", "Ensino Fundamental - 8º", "Ensino Fundamental - 9º", "Ensino Médio" }));
         jComboBoxGrauInstrucaoEqui.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxGrauInstrucaoEqui.setEnabled(false);
 
@@ -367,7 +374,44 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jLabel11.setText("Duração");
 
         jDuracao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDuracao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jDuracao.setEnabled(false);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Eixo");
+
+        jComboBoxEIXO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxEIXO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "EIXO I", "EIXO II", "EIXO III", "EIXO IV", "EIXO V", "EIXO VI", "EIXO VII" }));
+        jComboBoxEIXO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxEIXO.setEnabled(false);
+
+        jComboBoxDescricaoTempoFormativo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxDescricaoTempoFormativo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "TEMPO FORMATIVO I - (FUNDAMENTAL I)", "TEMPO FORMATIVO II - (FUNDAMENTAL II)", "TEMPO FORMATIVO III - (ENSINO MÉDIO)" }));
+        jComboBoxDescricaoTempoFormativo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxDescricaoTempoFormativo.setEnabled(false);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel13.setText("*");
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel14.setText("*");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel15.setText("*");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel16.setText("*");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel17.setText("*");
+
+        jLabel18.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel18.setText("* Campo obrigatório");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -382,7 +426,11 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                             .addComponent(jIdTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel15)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jDescricaoTurno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -393,22 +441,43 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                             .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel18))
                             .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addComponent(jDescricaoTempoFormativo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel3)
-                            .addComponent(jComboBoxGrauInstrucaoEqui, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxGrauInstrucaoEqui, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxDescricaoTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel17))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel14)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxEIXO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(16, 16, 16))
         );
 
@@ -420,21 +489,32 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(8, 8, 8)
-                .addComponent(jDescricaoTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel14))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxDescricaoTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxEIXO, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,7 +523,8 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxGrauInstrucaoEqui, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -672,8 +753,8 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTabelaDisciplina);
         if (jTabelaDisciplina.getColumnModel().getColumnCount() > 0) {
-            jTabelaDisciplina.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaDisciplina.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaDisciplina.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaDisciplina.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaDisciplina.getColumnModel().getColumn(1).setMinWidth(200);
             jTabelaDisciplina.getColumnModel().getColumn(1).setMaxWidth(200);
             jTabelaDisciplina.getColumnModel().getColumn(2).setMinWidth(250);
@@ -765,13 +846,13 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addComponent(jBtNovaDisciplina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterarDisciplina)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExcluirDisciplina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSalvarDisciplina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addComponent(jBtCancelarDisciplina)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -800,7 +881,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -830,7 +911,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 30, 514, 340);
+        setBounds(300, 30, 514, 337);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -894,26 +975,63 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTempoFormativoManu_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaTempoFormativoManu_PEDA) && codAbrirPEDA == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
                 jDataLanc.requestFocus();
                 jDataLanc.setBackground(Color.red);
-            } else if (jDescricaoTempoFormativo.getText().equals("")) {
+            } else if (jComboBoxDescricaoTempoFormativo.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição do tempo formativo.");
-                jDescricaoTempoFormativo.requestFocus();
-                jDescricaoTempoFormativo.setBackground(Color.red);
+                jComboBoxDescricaoTempoFormativo.requestFocus();
+                jComboBoxDescricaoTempoFormativo.setBackground(Color.red);
+            } else if (jComboBoxDescricaoTempoFormativo.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do tempo formativo.");
+                jComboBoxDescricaoTempoFormativo.requestFocus();
+                jComboBoxDescricaoTempoFormativo.setBackground(Color.red);
+            } else if (jComboBoxDescricaoTempoFormativo.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a descrição do tempo formativo.");
+                jComboBoxDescricaoTempoFormativo.requestFocus();
+                jComboBoxDescricaoTempoFormativo.setBackground(Color.red);
+            } else if (jComboBoxEIXO.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o eixo");
+                jComboBoxEIXO.requestFocus();
+                jComboBoxEIXO.setBackground(Color.red);
+            } else if (jComboBoxEIXO.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o eixo");
+                jComboBoxEIXO.requestFocus();
+                jComboBoxEIXO.setBackground(Color.red);
+            } else if (jComboBoxEIXO.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe qual é o eixo");
+                jComboBoxEIXO.requestFocus();
+                jComboBoxEIXO.setBackground(Color.red);
             } else if (jDescricaoTurno.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição do turno.");
+                jDescricaoTurno.requestFocus();
+                jDescricaoTurno.setBackground(Color.red);
             } else if (jComboBoxGrauInstrucaoEqui.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o graus de instrução equivalente.");
+                jComboBoxDescricaoTempoFormativo.requestFocus();
+                jComboBoxDescricaoTempoFormativo.setBackground(Color.red);
             } else if (jComboBoxGrauInstrucaoEqui.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o graus de instrução equivalente.");
+                jComboBoxGrauInstrucaoEqui.requestFocus();
+                jComboBoxGrauInstrucaoEqui.setBackground(Color.red);
             } else if (jComboBoxGrauInstrucaoEqui.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe qual é o graus de instrução equivalente.");
+                jComboBoxGrauInstrucaoEqui.requestFocus();
+                jComboBoxGrauInstrucaoEqui.setBackground(Color.red);
             } else {
                 objTempo.setStatusTempo((String) jComboBoxStatus.getSelectedItem());
                 objTempo.setDataCad(jDataLanc.getDate());
-                objTempo.setDescricaoTempo(jDescricaoTempoFormativo.getText());
+                objTempo.setDescricaoTempo((String) jComboBoxDescricaoTempoFormativo.getSelectedItem());
+                objTempo.setEixo((String) jComboBoxEIXO.getSelectedItem());
+                try {
+                    objTempo.setDuracao(valorReal.parse(jDuracao.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaTempoFormativo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objTempo.setGrauInstrucaoEqui((String) jComboBoxGrauInstrucaoEqui.getSelectedItem());
                 if (acao == 1) {
                     objTempo.setUsuarioInsert(nameUser);
                     objTempo.setDataInsert(dataModFinal);
@@ -1011,10 +1129,15 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdTempo")));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusTempo"));
                 jDataLanc.setDate(conecta.rs.getDate("DataCad"));
-                jDescricaoTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
+                jComboBoxDescricaoTempoFormativo.setSelectedItem(conecta.rs.getString("DescricaoTempo"));
+                jComboBoxEIXO.setSelectedItem(conecta.rs.getString("Eixo"));
                 jIdTurno.setText(conecta.rs.getString("IdTurno"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 jComboBoxGrauInstrucaoEqui.setSelectedItem(conecta.rs.getString("GrauInstrucaoEquivalente"));
+                pDuracao = conecta.rs.getFloat("Duracao");
+                DecimalFormat vi = new DecimalFormat("#,##0.00");
+                String vqtdItem = vi.format(pDuracao);
+                jDuracao.setText(vqtdItem);
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa... " + e);
@@ -1100,8 +1223,14 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                     controle.incluirDisciplinas(objItensTPDisc);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarDisciplina();
+                    preencherTabelaDisciplinas("SELECT * FROM ITENSTFDISCIPLINA "
+                            + "INNER JOIN TEMPOFORMATIVO "
+                            + "ON ITENSTFDISCIPLINA.IdTempo=TEMPOFORMATIVO.IdTempo "
+                            + "INNER JOIN DISCIPLINAS ON "
+                            + "ITENSTFDISCIPLINA.IdDisc=DISCIPLINAS.IdDisc "
+                            + "WHERE TEMPOFORMATIVO.IdTempo='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 4) {
                     objItensTPDisc.setUsuarioUp(nameUser);
@@ -1111,15 +1240,15 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                     controle.alterarDisciplinas(objItensTPDisc);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarDisciplina();
+                    preencherTabelaDisciplinas("SELECT * FROM ITENSTFDISCIPLINA "
+                            + "INNER JOIN TEMPOFORMATIVO "
+                            + "ON ITENSTFDISCIPLINA.IdTempo=TEMPOFORMATIVO.IdTempo "
+                            + "INNER JOIN DISCIPLINAS ON "
+                            + "ITENSTFDISCIPLINA.IdDisc=DISCIPLINAS.IdDisc "
+                            + "WHERE TEMPOFORMATIVO.IdTempo='" + jIdLanc.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
-                preencherTabelaDisciplinas("SELECT * FROM ITENSTFDISCIPLINA "
-                        + "INNER JOIN TEMPOFORMATIVO "
-                        + "ON ITENSTFDISCIPLINA.IdTempo=TEMPOFORMATIVO.IdTempo "
-                        + "INNER JOIN DISCIPLINAS ON "
-                        + "ITENSTFDISCIPLINA.IdDisc=DISCIPLINAS.IdDisc "
-                        + "WHERE TEMPOFORMATIVO.IdTempo='" + jIdLanc.getText() + "'");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -1167,7 +1296,10 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
             jBtAuditoriaDisciplina.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSTFDISCIPLINA INNER JOIN DISCIPLINAS ON ITENSTFDISCIPLINA.IdDisc=DISCIPLINAS.IdDisc WHERE IdItem='" + IdItem + "'");
+                conecta.executaSQL("SELECT * FROM ITENSTFDISCIPLINA "
+                        + "INNER JOIN DISCIPLINAS "
+                        + "ON ITENSTFDISCIPLINA.IdDisc=DISCIPLINAS.IdDisc "
+                        + "WHERE IdItem='" + IdItem + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getString("IdItem");
                 jIdDisc.setText(conecta.rs.getString("IdDisc"));
@@ -1198,11 +1330,12 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarDisciplina;
     private javax.swing.JCheckBox jCheckBoxTodos;
+    private javax.swing.JComboBox<String> jComboBoxDescricaoTempoFormativo;
+    private javax.swing.JComboBox<String> jComboBoxEIXO;
     private javax.swing.JComboBox<String> jComboBoxGrauInstrucaoEqui;
     private javax.swing.JComboBox jComboBoxStatus;
     private com.toedter.calendar.JDateChooser jDataLanc;
     public static javax.swing.JTextField jDescricaoDisciplina;
-    private javax.swing.JTextField jDescricaoTempoFormativo;
     public static javax.swing.JTextField jDescricaoTurno;
     private javax.swing.JFormattedTextField jDuracao;
     public static javax.swing.JTextField jIdDisc;
@@ -1211,6 +1344,13 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1241,35 +1381,42 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jDescricaoTempoFormativo.setDocument(new LimiteDigitosAlfa(50));
+//        jComboBoxDescricaoTempoFormativo.setDocument(new LimiteDigitosAlfa(50));
     }
 
     public void corCampos() {
         jIdLanc.setBackground(Color.white);
         jComboBoxStatus.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
-        jDescricaoTempoFormativo.setBackground(Color.white);
+        jComboBoxDescricaoTempoFormativo.setBackground(Color.white);
         jIdTurno.setBackground(Color.white);
         jDescricaoTurno.setBackground(Color.white);
         jIdDisc.setBackground(Color.white);
         jDescricaoDisciplina.setBackground(Color.white);
         jComboBoxGrauInstrucaoEqui.setBackground(Color.white);
+        jComboBoxEIXO.setBackground(Color.white);
+        jDuracao.setBackground(Color.white);
     }
 
     public void Novo() {
         jIdLanc.setText("");
         // jComboBoxStatus.setSelectedItem(null);
         jDataLanc.setCalendar(Calendar.getInstance());
-        jDescricaoTempoFormativo.setText("");
+        jComboBoxDescricaoTempoFormativo.setSelectedItem("Selecione...");
+        jComboBoxEIXO.setSelectedItem("Selecione...");
         jIdTurno.setText("");
         jDescricaoTurno.setText("");
         jComboBoxGrauInstrucaoEqui.setSelectedItem("Selecione...");
+        jDuracao.setText("0,0");
         //
         jComboBoxStatus.setEnabled(true);
         jDataLanc.setEnabled(true);
-        jDescricaoTempoFormativo.setEnabled(true);
+        jComboBoxDescricaoTempoFormativo.setEnabled(true);
         jDescricaoTurno.setEnabled(!true);
+        jComboBoxEIXO.setEnabled(true);
         jComboBoxGrauInstrucaoEqui.setEnabled(true);
+        jDuracao.setEnabled(true);
+        //
         jBtPesqTurno.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
@@ -1296,8 +1443,11 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(true);
         jDataLanc.setEnabled(true);
         jDescricaoTurno.setEnabled(true);
-        jDescricaoTempoFormativo.setEnabled(true);
+        jComboBoxDescricaoTempoFormativo.setEnabled(true);
+        jComboBoxEIXO.setEnabled(true);
         jComboBoxGrauInstrucaoEqui.setEnabled(true);
+        jDuracao.setEnabled(true);
+        //
         jBtPesqTurno.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
@@ -1322,16 +1472,21 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jIdLanc.setText("");
         jComboBoxStatus.setSelectedItem(null);
         jDataLanc.setDate(null);
-        jDescricaoTempoFormativo.setText("");
+        jComboBoxDescricaoTempoFormativo.setSelectedItem("Selecione...");
         jIdTurno.setText("");
         jDescricaoTurno.setText("");
         jComboBoxGrauInstrucaoEqui.setSelectedItem("Selecione...");
+        jComboBoxEIXO.setSelectedItem("Selecione...");
+        jDuracao.setText("0,0");
         //
         jComboBoxStatus.setEnabled(!true);
         jDataLanc.setEnabled(!true);
         jDescricaoTurno.setEnabled(!true);
-        jDescricaoTempoFormativo.setEnabled(!true);
+        jComboBoxDescricaoTempoFormativo.setEnabled(!true);
         jComboBoxGrauInstrucaoEqui.setEnabled(!true);
+        jComboBoxEIXO.setEnabled(!true);
+        jDuracao.setEnabled(!true);
+        //
         jBtPesqTurno.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -1357,8 +1512,11 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(!true);
         jDataLanc.setEnabled(!true);
         jDescricaoTurno.setEnabled(!true);
-        jDescricaoTempoFormativo.setEnabled(!true);
+        jComboBoxDescricaoTempoFormativo.setEnabled(!true);
         jComboBoxGrauInstrucaoEqui.setEnabled(!true);
+        jComboBoxEIXO.setEnabled(!true);
+        jDuracao.setEnabled(!true);
+        //
         jBtPesqTurno.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -1375,15 +1533,21 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         if (jIdLanc.getText().equals("")) {
             jComboBoxStatus.setSelectedItem(null);
             jDataLanc.setDate(null);
-            jDescricaoTempoFormativo.setText("");
+            jComboBoxDescricaoTempoFormativo.setSelectedItem("Selecione...");
+            jComboBoxGrauInstrucaoEqui.setSelectedItem("Selecione...");
+            jComboBoxEIXO.setSelectedItem("Selecione...");
+            jDuracao.setText("0,0");
             jIdTurno.setText("");
             jDescricaoTurno.setText("");
             //
             jComboBoxStatus.setEnabled(!true);
             jDataLanc.setEnabled(!true);
             jDescricaoTurno.setEnabled(!true);
-            jDescricaoTempoFormativo.setEnabled(!true);
+            jComboBoxDescricaoTempoFormativo.setEnabled(!true);
             jComboBoxGrauInstrucaoEqui.setEnabled(!true);
+            jComboBoxEIXO.setEnabled(!true);
+            jDuracao.setEnabled(!true);
+            //
             jBtPesqTurno.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
@@ -1410,8 +1574,11 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(!true);
         jDataLanc.setEnabled(!true);
         jDescricaoTurno.setEnabled(!true);
-        jDescricaoTempoFormativo.setEnabled(!true);
+        jComboBoxDescricaoTempoFormativo.setEnabled(!true);
         jComboBoxGrauInstrucaoEqui.setEnabled(!true);
+        jComboBoxEIXO.setEnabled(!true);
+        jDuracao.setEnabled(!true);
+        //
         jBtPesqTurno.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
@@ -1642,7 +1809,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaDisciplina.setModel(modelo);
-        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDisciplina.getColumnModel().getColumn(0).setResizable(false);
         jTabelaDisciplina.getColumnModel().getColumn(1).setPreferredWidth(200);
         jTabelaDisciplina.getColumnModel().getColumn(1).setResizable(false);
@@ -1660,7 +1827,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Disciplina Escolar", "Tempo Formativo"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaDisciplina.setModel(modelo);
-        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaDisciplina.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDisciplina.getColumnModel().getColumn(0).setResizable(false);
         jTabelaDisciplina.getColumnModel().getColumn(1).setPreferredWidth(200);
         jTabelaDisciplina.getColumnModel().getColumn(1).setResizable(false);

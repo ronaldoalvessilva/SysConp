@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -117,13 +119,10 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
         jTabelaLocalizacaoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocalizacaoInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome do Interno"
             }
         ));
         jTabelaLocalizacaoInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,6 +131,12 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
             }
         });
         jScrollPane1.setViewportView(jTabelaLocalizacaoInterno);
+        if (jTabelaLocalizacaoInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setMinWidth(380);
+            jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setMaxWidth(380);
+        }
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtConfirmar.setForeground(new java.awt.Color(0, 153, 0));
@@ -159,15 +164,17 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jBtConfirmar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jBtSair))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jBtSair)
+                        .addContainerGap(223, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -177,18 +184,18 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
 
-        setBounds(300, 30, 405, 254);
+        setBounds(300, 30, 478, 296);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
@@ -237,7 +244,6 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
         if (jPesqNomeInternoReserva.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
         } else {
-            jTabelaLocalizacaoInterno.setVisible(true);
             preencherTabelaInternos("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN LOCALINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
@@ -253,7 +259,6 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaLocalizacaoInterno.setVisible(true);
             this.preencherTabelaInternos("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN LOCALINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
@@ -262,7 +267,7 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav");
         } else {
-            jTabelaLocalizacaoInterno.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -290,7 +295,7 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
 
     public void preencherTabelaInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "    Nome do Interno "};
+        String[] Colunas = new String[]{"Código", "Nome do Interno "};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -303,13 +308,36 @@ public class TelaPesquisarInternoReservaAcervo extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaLocalizacaoInterno.setModel(modelo);
-        jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setResizable(false);
         jTabelaLocalizacaoInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaLocalizacaoInterno.setAutoResizeMode(jTabelaLocalizacaoInterno.AUTO_RESIZE_OFF);
         jTabelaLocalizacaoInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno "};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaLocalizacaoInterno.setModel(modelo);
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setPreferredWidth(380);
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaLocalizacaoInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaLocalizacaoInterno.setAutoResizeMode(jTabelaLocalizacaoInterno.AUTO_RESIZE_OFF);
+        jTabelaLocalizacaoInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaLocalizacaoInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
