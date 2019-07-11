@@ -7827,7 +7827,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jVaraCondenacao.setEnabled(!true);
             jDataNovaEntrada.setEnabled(!true);
             jComboBoxDocumentacaoCompleta.setEnabled(!true);
-            jComboBoxQuaisDocumentosFaltam.setEnabled(!true);            
+            jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
             // Habilitar/Desabilitar  Botões
             jBtZoonFoto.setEnabled(true);
             jBtNovaFoto.setEnabled(!true);
@@ -8714,9 +8714,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     }
 
     public void limparTabela() {
+        // APAGAR LINHA SELECIONADA
         if (jTabelaDocumentos.getSelectedRow() != -1) {
             DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
             dtm.removeRow(jTabelaDocumentos.getSelectedRow());
+        }
+        // APAGAR TODO O CONTEUDO DA TABELA
+        while (jTabelaDocumentos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaDocumentos.getModel()).removeRow(0);
         }
     }
 
