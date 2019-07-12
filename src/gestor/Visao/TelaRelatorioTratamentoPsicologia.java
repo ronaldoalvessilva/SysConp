@@ -235,23 +235,32 @@ public class TelaRelatorioTratamentoPsicologia extends javax.swing.JInternalFram
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologico.jasper";
-                    conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataEvolucao BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOPSICOLOGICA.UsuarioInsert,EVOLUCAOPSICOLOGICA.DataEvolucao");
+                    String path = "reports/RelatorioInternosTratamentoPsicologico.jasper";
+                    conecta.executaSQL("SELECT DISTINCT "
+                            + "PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc, "
+                            + "PAVILHAO.DescricaoPav, "
+                            + "EndCelaPav FROM ITENSLOCACAOINTERNO INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN CELAS "
+                            + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                            + "INNER JOIN PAVILHAO "
+                            + "ON CELAS.IdPav=PAVILHAO.IdPav  "
+                            + "INNER JOIN EVOLUCAOPSICOLOGICA "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=EVOLUCAOPSICOLOGICA.IdInternoCrc "
+                            + "WHERE StatusEvo='" + jComboBoxTipoTratamento.getSelectedItem() + "' "
+                            + "AND DataEvolucao BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "'");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
-                    parametros.put("pNomeUsuario", nameUser);
-                    parametros.put("descricaoUnidade", descricaoUnidade);
+                    parametros.put("usuario", nameUser);
+                    parametros.put("unidade", descricaoUnidade);
+                    parametros.put("situacaoTratamento", jComboBoxTipoTratamento.getSelectedItem());
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                     jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Quantidade de Atendimento Psicologia por Período");
+                    jv.setTitle("Relatório de Tratamento de Internos - Psicologia");
                     jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                     jv.toFront(); // Traz o relatorio para frente da aplicação            
                     conecta.desconecta();

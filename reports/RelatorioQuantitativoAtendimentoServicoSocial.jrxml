@@ -10,18 +10,18 @@
 	<parameter name="dataFinal" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="pNomeUsuario" class="java.lang.String"/>
+	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL
 INNER JOIN PRONTUARIOSCRC ON EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
 WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.DataEvol]]>
+order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="DataEvol" class="java.sql.Timestamp"/>
 	<field name="IdAtend" class="java.lang.Integer"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="TextoEvolucao" class="java.lang.String"/>
+	<field name="TextoEvolucao" class="java.sql.Clob"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
@@ -42,7 +42,6 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.D
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -56,34 +55,59 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.D
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
-	<field name="ImagemFrente" class="java.lang.Object"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
-	<field name="DocumentacaoCompleta" class="java.lang.String"/>
-	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 		<groupFooter>
 			<band height="37">
 				<rectangle>
-					<reportElement x="1" y="5" width="194" height="20" uuid="43427d9c-3a41-4dd4-9cdf-4c04704c72aa"/>
+					<reportElement x="0" y="5" width="555" height="20" uuid="43427d9c-3a41-4dd4-9cdf-4c04704c72aa"/>
 				</rectangle>
 				<staticText>
-					<reportElement x="2" y="5" width="146" height="20" uuid="87cc0636-6b67-4ed1-94c3-2a3f5a6bffa0"/>
+					<reportElement x="2" y="5" width="149" height="20" uuid="87cc0636-6b67-4ed1-94c3-2a3f5a6bffa0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total de Atendimentos: ]]></text>
+					<text><![CDATA[Total de Atendimentos de ]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="151" y="7" width="41" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
+					<reportElement x="478" y="7" width="76" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
 				</textField>
+				<textField>
+					<reportElement x="152" y="4" width="326" height="20" uuid="97e39200-96a6-490e-950c-b0675e420935"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
+	</group>
+	<group name="Tecnicos que Atendem">
+		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<staticText>
+					<reportElement x="2" y="0" width="106" height="16" uuid="c12d3cfa-4390-4a97-beed-2b800f7c3ab2"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nome do Técnico :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="115" y="0" width="439" height="16" forecolor="#000099" uuid="0e142053-1ee8-4725-9fb8-9f137a04e086"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -193,40 +217,33 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.D
 		</band>
 	</title>
 	<columnHeader>
-		<band height="16" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="16" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="16" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
-				<textElement textAlignment="Center">
+				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nº Doc.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="221" y="0" width="110" height="16" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement>
+				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Data Atendimento]]></text>
+				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="349" y="0" width="100" height="16" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
-				<textElement>
+				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="43" y="0" width="178" height="16" uuid="e4283d7a-0476-47d2-b321-227fe03363ef"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nome do Funcionário]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="478" y="0" width="78" height="16" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -235,29 +252,24 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.D
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="19" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="0" width="55" height="19" uuid="7f8606cf-4e2f-4975-a2c6-e6c397d1ca97"/>
+				<reportElement x="1" y="0" width="44" height="15" uuid="7f8606cf-4e2f-4975-a2c6-e6c397d1ca97"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{IdItem}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="56" y="0" width="161" height="19" uuid="76e7a881-39a5-4705-8ae0-48a13acc1ff0"/>
-				<textElement textAlignment="Justified" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="222" y="0" width="100" height="19" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
+				<reportElement x="50" y="0" width="96" height="15" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{DataEvol}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="0" width="148" height="19" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="163" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="19" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
+				<reportElement x="478" y="0" width="75" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
@@ -266,27 +278,49 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert,EVOLUCAO_ATENDIMENTO_SOCIAL.D
 	<pageFooter>
 		<band height="24" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="0" width="433" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
+				<reportElement x="0" y="0" width="134" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="433" y="4" width="80" height="20" uuid="bd777855-9e4a-4f83-9aa4-11407a8e0087"/>
+				<reportElement x="433" y="0" width="80" height="24" uuid="bd777855-9e4a-4f83-9aa4-11407a8e0087"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="513" y="4" width="40" height="20" uuid="ca4e3faf-5bcc-426f-9fd2-27389ed7eb9c"/>
+				<reportElement x="513" y="0" width="40" height="24" uuid="ca4e3faf-5bcc-426f-9fd2-27389ed7eb9c"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="4" width="275" height="20" uuid="8378ffff-23db-4e34-8ae1-4ad9e8112daa"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{pNomeUsuario}]]></textFieldExpression>
+				<reportElement x="134" y="0" width="299" height="24" uuid="0957b661-9713-4d54-ac9d-58deb1e91240"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{pUsuario}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" forecolor="#999999" uuid="901c46d7-9d9b-46e8-9d32-25c5d075e66a"/>
+			</line>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="25">
+			<rectangle>
+				<reportElement x="1" y="2" width="552" height="20" uuid="a1b44a3f-429b-45d1-a3b4-b2eace0eb4fa"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="2" width="192" height="20" uuid="6dcc7eac-69de-4550-bc54-d0b382b2d792"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Atendimentos do Setor: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="478" y="2" width="76" height="20" uuid="404dd400-3a12-4297-bfce-3f98aa3651a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
