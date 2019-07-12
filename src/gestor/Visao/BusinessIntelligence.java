@@ -959,71 +959,121 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
     private void jBtConsultaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaInternosPortaria objConsProntInt = new TelaConsultaInternosPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsProntInt);
-        objConsProntInt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsProntInt);
+            objConsProntInt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsProntInt);
+            objConsProntInt.show();
+        }
     }//GEN-LAST:event_jBtConsultaInternosActionPerformed
 
     private void jBtConsultaRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaRolActionPerformed
         // TODO add your handling code here:
         TelaRolVisitasPortaria objConsRol = new TelaRolVisitasPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsRol);
-        objConsRol.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsRol);
+            objConsRol.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsRol);
+            objConsRol.show();
+        }
     }//GEN-LAST:event_jBtConsultaRolActionPerformed
 
     private void jBtConsultaVisitasDiversasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisitasDiversasActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitasDiversasDir objConsVisDir = new TelaConsultaVisitasDiversasDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsVisDir);
-        objConsVisDir.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsVisDir);
+            objConsVisDir.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsVisDir);
+            objConsVisDir.show();
+        }
     }//GEN-LAST:event_jBtConsultaVisitasDiversasActionPerformed
 
     private void jBtConsultaMovExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovExternaActionPerformed
         // TODO add your handling code here:
         TelaMovimentacaoCrcDiretoria objMovExt = new TelaMovimentacaoCrcDiretoria();
-        TelaModuloPRORES.jPainelDiretoria.add(objMovExt);
-        objMovExt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objMovExt);
+            objMovExt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objMovExt);
+            objMovExt.show();
+        }
     }//GEN-LAST:event_jBtConsultaMovExternaActionPerformed
 
     private void jBtConsultaLocalInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaLocalInternoActionPerformed
         // TODO add your handling code here:
         TelaConsultaLocalInternoPortaria objLocalInt = new TelaConsultaLocalInternoPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objLocalInt);
-        objLocalInt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objLocalInt);
+            objLocalInt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objLocalInt);
+            objLocalInt.show();
+        }
     }//GEN-LAST:event_jBtConsultaLocalInternoActionPerformed
 
     private void jBtConsultaVisistaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisistaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitaSocial objConsVisitaSosi = new TelaConsultaVisitaSocial();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsVisitaSosi);
-        objConsVisitaSosi.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsVisitaSosi);
+            objConsVisitaSosi.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsVisitaSosi);
+            objConsVisitaSosi.show();
+        }
     }//GEN-LAST:event_jBtConsultaVisistaInternosActionPerformed
 
     private void jBtConsultaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaColaboradorActionPerformed
         // TODO add your handling code here:
         TelaConsultaFuncionariosDir objConsFunc = new TelaConsultaFuncionariosDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsFunc);
-        objConsFunc.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsFunc);
+            objConsFunc.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsFunc);
+            objConsFunc.show();
+        }
     }//GEN-LAST:event_jBtConsultaColaboradorActionPerformed
 
     private void jBtConsultaAdvogadosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaAdvogadosInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaAdvogadosDir objConsuAdv = new TelaConsultaAdvogadosDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsuAdv);
-        objConsuAdv.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsuAdv);
+            objConsuAdv.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsuAdv);
+            objConsuAdv.show();
+        }
     }//GEN-LAST:event_jBtConsultaAdvogadosInternosActionPerformed
 
     private void jBtConsultaMovInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovInternoActionPerformed
         // TODO add your handling code here:
         TelaMovHistoricoTecDiretoria objMovIntTec = new TelaMovHistoricoTecDiretoria();
-        TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
-        objMovIntTec.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        }
     }//GEN-LAST:event_jBtConsultaMovInternoActionPerformed
 
     private void jBtValoresInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtValoresInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaSaldoFinDir objConsuFin = new TelaConsultaSaldoFinDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsuFin);
-        objConsuFin.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsuFin);
+            objConsuFin.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsuFin);
+            objConsuFin.show();
+        }
     }//GEN-LAST:event_jBtValoresInternosActionPerformed
 
     private void jTabelaCelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCelasMouseClicked
