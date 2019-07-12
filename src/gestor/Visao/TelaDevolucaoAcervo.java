@@ -333,7 +333,7 @@ public class TelaDevolucaoAcervo extends javax.swing.JInternalFrame {
         jTabelaReservaAcervo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaReservaAcervo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno", "Observação"
@@ -862,7 +862,7 @@ public class TelaDevolucaoAcervo extends javax.swing.JInternalFrame {
         jTabelaProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Descrição Acervo", "Qtde.", "Prazo", "Localização"

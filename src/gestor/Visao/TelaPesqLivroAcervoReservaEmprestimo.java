@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -61,7 +63,7 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
         jBtPesqDescricaoProd = new javax.swing.JButton();
         jCheckBoxPesqTodosProd = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaProdutos = new javax.swing.JTable();
+        jTabelaProduto = new javax.swing.JTable();
         jBtEnviar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
@@ -92,6 +94,7 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
         jPesqDescricaoProdutos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricaoProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricaoProd.setContentAreaFilled(false);
         jBtPesqDescricaoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoProdActionPerformed(evt);
@@ -133,24 +136,29 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabelaProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaProduto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Descrição do Livro", "Local Armazenamento"
             }
         ));
-        jTabelaProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaProdutosMouseClicked(evt);
+                jTabelaProdutoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaProdutos);
+        jScrollPane1.setViewportView(jTabelaProduto);
+        if (jTabelaProduto.getColumnModel().getColumnCount() > 0) {
+            jTabelaProduto.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaProduto.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaProduto.getColumnModel().getColumn(1).setMinWidth(250);
+            jTabelaProduto.getColumnModel().getColumn(1).setMaxWidth(250);
+            jTabelaProduto.getColumnModel().getColumn(2).setMinWidth(120);
+            jTabelaProduto.getColumnModel().getColumn(2).setMaxWidth(120);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -182,25 +190,28 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jBtEnviar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
+                                .addComponent(jBtSair))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel2);
@@ -213,10 +224,10 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 10, 427, 281);
+        setBounds(300, 10, 473, 300);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoProdActionPerformed
@@ -225,7 +236,7 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
         if (jPesqDescricaoProdutos.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição do produto para pesquisa.");
         } else {
-            jTabelaProdutos.setVisible(true);
+            jTabelaProduto.setVisible(true);
             preencherTabelaProdutos("SELECT * FROM LIVROS_REVISTAS_JORNAIS "
                     + "INNER JOIN LOCAL_ACERVO "
                     + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
@@ -283,21 +294,20 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jTabelaProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutosMouseClicked
+    private void jTabelaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaProdutoMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String nomeProduto = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 1);
+            String nomeProduto = "" + jTabelaProduto.getValueAt(jTabelaProduto.getSelectedRow(), 1);
             jPesqDescricaoProdutos.setText(nomeProduto);
             // String idInt = "" + jTabelaProdutos.getValueAt(jTabelaProdutos.getSelectedRow(), 0);
         }
-    }//GEN-LAST:event_jTabelaProdutosMouseClicked
+    }//GEN-LAST:event_jTabelaProdutoMouseClicked
 
     private void jCheckBoxPesqTodosProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxPesqTodosProdItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaProdutos.setVisible(true);
+        if (evt.getStateChange() == evt.SELECTED) {            
             this.preencherTabelaProdutos("SELECT * FROM LIVROS_REVISTAS_JORNAIS "
                     + "INNER JOIN LOCAL_ACERVO "
                     + "ON LIVROS_REVISTAS_JORNAIS.IdLocal=LOCAL_ACERVO.IdLocal "
@@ -305,7 +315,7 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
                     + "ON LIVROS_REVISTAS_JORNAIS.IdLivro=ITENS_RESERVA_ACERVO.IdLivro "
                     + "WHERE StatusLocal='" + statusProd + "'AND UtilizaReserva='" + utilizaReserva  + "'");
         } else {
-            jTabelaProdutos.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBoxPesqTodosProdItemStateChanged
 
@@ -322,13 +332,13 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
     private javax.swing.JTextField jPesqDescricaoProdutos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaProdutos;
+    private javax.swing.JTable jTabelaProduto;
     // End of variables declaration//GEN-END:variables
 
     // Método de pesquisa pela Matricula
-    public void preencherTabelaProdutos(String sql) {
+     public void preencherTabelaProdutos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", " Descrição Livro", " LocalArmazenamento"};
+        String[] Colunas = new String[]{"Código", "Descrição do Livro", "Local Armazenamento"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -340,16 +350,41 @@ public class TelaPesqLivroAcervoReservaEmprestimo extends javax.swing.JInternalF
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaProdutos.setModel(modelo);
-        jTabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaProdutos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(120);
-        jTabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaProdutos.getTableHeader().setReorderingAllowed(false);
-        jTabelaProdutos.setAutoResizeMode(jTabelaProdutos.AUTO_RESIZE_OFF);
-        jTabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaProduto.setModel(modelo);
+        jTabelaProduto.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaProduto.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaProduto.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaProduto.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTabelaProduto.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaProduto.getTableHeader().setReorderingAllowed(false);
+        jTabelaProduto.setAutoResizeMode(jTabelaProduto.AUTO_RESIZE_OFF);
+        jTabelaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCampos();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição do Livro", "Local Armazenamento"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaProduto.setModel(modelo);
+        jTabelaProduto.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaProduto.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaProduto.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaProduto.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaProduto.getColumnModel().getColumn(2).setPreferredWidth(120);
+        jTabelaProduto.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaProduto.getTableHeader().setReorderingAllowed(false);
+        jTabelaProduto.setAutoResizeMode(jTabelaProduto.AUTO_RESIZE_OFF);
+        jTabelaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCampos() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaProduto.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }
