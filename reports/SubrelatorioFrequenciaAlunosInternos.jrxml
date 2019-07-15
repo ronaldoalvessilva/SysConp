@@ -3,7 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="codFreq" class="java.lang.String"/>
+	<parameter name="codFreq" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{IdFreq}]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM ITENSFREQUENCIA INNER JOIN PRONTUARIOSCRC ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN FREQUENCIA ON ITENSFREQUENCIA.IdFreq=FREQUENCIA.IdFreq WHERE ITENSFREQUENCIA.IdFreq=$P{codFreq}]]>
 	</queryString>

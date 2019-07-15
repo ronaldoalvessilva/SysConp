@@ -163,7 +163,7 @@ public class TelaCursosDiversos extends javax.swing.JInternalFrame {
         jTabelaCursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome do Curso"

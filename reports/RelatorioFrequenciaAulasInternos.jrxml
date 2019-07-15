@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFrequenciaAulasInternos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df34bb63-2882-4ee1-a285-226bb6d875df">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="93"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -232,7 +232,7 @@
 		<band height="22" splitType="Stretch">
 			<elementGroup/>
 			<subreport>
-				<reportElement x="13" y="2" width="200" height="16" uuid="4ea0fa0d-8422-46bf-856a-a4b25607bfc3"/>
+				<reportElement x="12" y="0" width="600" height="22" uuid="583ac27e-11a0-4094-bc8e-09a59950ceba"/>
 				<subreportParameter name="codFreq">
 					<subreportParameterExpression><![CDATA[$F{IdFreq}]]></subreportParameterExpression>
 				</subreportParameter>

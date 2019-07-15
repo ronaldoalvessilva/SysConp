@@ -180,7 +180,7 @@ public class TelaCargaHoraria extends javax.swing.JInternalFrame {
         jTabelaCargaHoraria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCargaHoraria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Descrição"

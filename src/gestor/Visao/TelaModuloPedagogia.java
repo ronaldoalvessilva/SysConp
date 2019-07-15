@@ -407,7 +407,10 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Movimentacao = new javax.swing.JMenu();
         AdmissaoEvolucaoPedagogica = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jMenu4 = new javax.swing.JMenu();
         Matriculas = new javax.swing.JMenuItem();
+        jConcluirMatricula = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
         ControleFrequencia = new javax.swing.JMenuItem();
         BaixaAlunos = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
@@ -744,13 +747,26 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Movimentacao.add(AdmissaoEvolucaoPedagogica);
         Movimentacao.add(jSeparator13);
 
-        Matriculas.setText("Controle de Matriculas");
+        jMenu4.setText("Controle de Matriculas");
+
+        Matriculas.setText("Matriculas de Internos");
         Matriculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MatriculasActionPerformed(evt);
             }
         });
-        Movimentacao.add(Matriculas);
+        jMenu4.add(Matriculas);
+
+        jConcluirMatricula.setText("Concluir Matriculas");
+        jConcluirMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConcluirMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jConcluirMatricula);
+
+        Movimentacao.add(jMenu4);
+        Movimentacao.add(jSeparator23);
 
         ControleFrequencia.setText("Controle de Frequências");
         ControleFrequencia.addActionListener(new java.awt.event.ActionListener() {
@@ -2249,6 +2265,11 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         objRelIndAcompPE.show();
     }//GEN-LAST:event_jRelatorioAcompanhamentoPedagogicoActionPerformed
 
+    private void jConcluirMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConcluirMatriculaActionPerformed
+        // TODO add your handling code here:
+//        TelaAtualizarMatriculaPedagogia
+    }//GEN-LAST:event_jConcluirMatriculaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -2296,10 +2317,12 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SalaAula;
     private javax.swing.JMenuItem TurmasAulas;
     private javax.swing.JMenuItem jAgendaAtendimentoInternos;
+    private javax.swing.JMenuItem jConcluirMatricula;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -2324,6 +2347,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;

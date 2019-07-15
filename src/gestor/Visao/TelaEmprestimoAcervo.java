@@ -1513,11 +1513,12 @@ public class TelaEmprestimoAcervo extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do documento.");
             } else if (jIdInternoReserva.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno que está reservando.");
-
+            } else if (!jIdReserva.getText().equals("")) {
+                objEmprestimoAcervo.setIdReserva(Integer.valueOf(jIdReserva.getText()));
             } else {
                 objEmprestimoAcervo.setStatusLanc(jStatusDoc.getText());
                 objEmprestimoAcervo.setDataEmprestimo(jDataDoc.getDate());
-                objEmprestimoAcervo.setIdReserva(Integer.valueOf(jIdReserva.getText()));
+//                objEmprestimoAcervo.setIdReserva(Integer.valueOf(jIdReserva.getText()));
                 objEmprestimoAcervo.setNomeInterno(jNomeInternoReserva.getText());
                 objEmprestimoAcervo.setObservacao(jObservacao.getText());
                 if (acao == 1) {

@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -66,6 +68,7 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricao.setContentAreaFilled(false);
         jBtPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoActionPerformed(evt);
@@ -110,16 +113,19 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
         jTabelaInstituicaoEscolar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInstituicaoEscolar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome da Instituição Escolar"
             }
         ));
         jScrollPane1.setViewportView(jTabelaInstituicaoEscolar);
+        if (jTabelaInstituicaoEscolar.getColumnModel().getColumnCount() > 0) {
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setMinWidth(370);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setMaxWidth(370);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -147,17 +153,14 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,25 +181,27 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 410, 278);
+        setBounds(250, 20, 453, 278);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (flag == 1) {
             String nomeInstituicao = "" + jTabelaInstituicaoEscolar.getValueAt(jTabelaInstituicaoEscolar.getSelectedRow(), 1);
-            jPesqDescricao.setText(nomeInstituicao);           
+            jPesqDescricao.setText(nomeInstituicao);
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM INSTITUICAOESCOLAR WHERE NomeInstituicao LIKE'" + nomeInstituicao + "%'");
-                conecta.rs.first();                            
+                conecta.rs.first();
                 jNomeInstituicao.setText(conecta.rs.getString("NomeInstituicao"));
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -218,8 +223,9 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
         } else {
-            jTabelaInstituicaoEscolar.setVisible(true);
-            preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR WHERE NomeInstituicao LIKE'" + jPesqDescricao.getText() + "%'AND StatusInst='" + statusUnid + "'");
+            preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR "
+                    + "WHERE NomeInstituicao LIKE'" + jPesqDescricao.getText() + "%' "
+                    + "AND StatusInst='" + statusUnid + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -227,10 +233,10 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInstituicaoEscolar.setVisible(true);
-            this.preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR WHERE StatusInst='" + statusUnid + "'");
+            this.preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR "
+                    + "WHERE StatusInst='" + statusUnid + "'");
         } else {
-            jTabelaInstituicaoEscolar.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -252,7 +258,7 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
 // Método de pesquisa pela Descrição
     public void preencherTabelaInstituicao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", " Nome da Instituição Escolar"};
+        String[] Colunas = new String[]{"Código", "Nome da Instituição Escolar"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -268,10 +274,35 @@ public class TelaPesqInstituicaoEscolar extends javax.swing.JInternalFrame {
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setPreferredWidth(370);
-        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setResizable(false);        
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInstituicaoEscolar.getTableHeader().setReorderingAllowed(false);
         jTabelaInstituicaoEscolar.setAutoResizeMode(jTabelaInstituicaoEscolar.AUTO_RESIZE_OFF);
         jTabelaInstituicaoEscolar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelas();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Instituição Escolar"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInstituicaoEscolar.setModel(modelo);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setPreferredWidth(370);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInstituicaoEscolar.getTableHeader().setReorderingAllowed(false);
+        jTabelaInstituicaoEscolar.setAutoResizeMode(jTabelaInstituicaoEscolar.AUTO_RESIZE_OFF);
+        jTabelaInstituicaoEscolar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelas() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 }

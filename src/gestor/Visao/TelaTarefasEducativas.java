@@ -163,7 +163,7 @@ public class TelaTarefasEducativas extends javax.swing.JInternalFrame {
         jTabelaTarefas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTarefas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome da Tarefa"

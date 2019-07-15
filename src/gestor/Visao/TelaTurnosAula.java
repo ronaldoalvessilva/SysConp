@@ -164,7 +164,7 @@ public class TelaTurnosAula extends javax.swing.JInternalFrame {
         jTabelaTurnos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Descrição"

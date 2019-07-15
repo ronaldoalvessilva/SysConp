@@ -165,7 +165,7 @@ public class TelaDisciplina extends javax.swing.JInternalFrame {
         jTabelaDisciplina.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Descrição da Disciplina"
