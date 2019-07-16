@@ -118,6 +118,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpressoPEDA objRegistroImpBio = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaRegistroLivroResenhaInterno objRegistroResenha = null;
+    private TelaAtualizarMatriculaPedagogia objAtualizarMat = null;
     //
     int flag;
     int codUsuario;
@@ -241,6 +242,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //
     public static String telaRegistroResenhaPEDA = "Movimentação:Registro de Leitura de Livros e Resenha de Internos:";
     //
+    public static String telaAtualizarMaticuliaPEDA = "Movimentação:Controle de Matricula:Concluir Matricula";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -335,8 +338,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     String pNomeIAS = "";
     //
     String pNomeRLRI = "";
-//    pNomeRLRI
-//    telaRegistroResenhaPEDA
+    //
+    String pNomeATM = "";
+    //
 
     /**
      * Creates new form TelaPedagogia
@@ -2266,8 +2270,37 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRelatorioAcompanhamentoPedagogicoActionPerformed
 
     private void jConcluirMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConcluirMatriculaActionPerformed
-        // TODO add your handling code here:
-//        TelaAtualizarMatriculaPedagogia
+        // TODO add your handling code here:       
+        buscarAcessoUsuario(telaRegistroResenhaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codAbrirPEDA == 1) {
+            if (objAtualizarMat == null || objAtualizarMat.isClosed()) {
+                objAtualizarMat = new TelaAtualizarMatriculaPedagogia();
+                jPainelPedagogia.add(objAtualizarMat);
+                objAtualizarMat.setVisible(true);
+            } else {
+                if (objAtualizarMat.isVisible()) {
+                    if (objAtualizarMat.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtualizarMat.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtualizarMat.toFront(); // traz para frente
+                        objAtualizarMat.pack();//volta frame 
+                    }
+                } else {
+                    objAtualizarMat = new TelaAtualizarMatriculaPedagogia();
+                    TelaModuloPedagogia.jPainelPedagogia.add(objAtualizarMat);//adicona frame ao JDesktopPane  
+                    objAtualizarMat.setVisible(true);
+                }
+            }
+            try {
+                objAtualizarMat.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jConcluirMatriculaActionPerformed
 
 
@@ -3116,6 +3149,13 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtualizarMaticuliaPEDA + "'");
+            conecta.rs.first();
+            pNomeATM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         //INSTITUIÇÃO DE ENSINO   
         if (!pNomeIEM_PEDA.equals(telaInstituicaoEnsinoManu_PEDA) || pNomeIEM_PEDA == null || pNomeIEM_PEDA.equals("")) {
@@ -3490,6 +3530,12 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaSPEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeATM.equals(telaAtualizarMaticuliaPEDA) || pNomeATM == null || pNomeATM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtualizarMaticuliaPEDA);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();
