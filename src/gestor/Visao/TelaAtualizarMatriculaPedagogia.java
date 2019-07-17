@@ -10,6 +10,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtualizarMatricula;
+import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
@@ -24,11 +25,21 @@ import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaAtualizarMaticuliaPEDA;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Currency;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -42,6 +53,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtualizarMatricula objAtual = new AtualizarMatricula();
+    ItensInternosMatriculado objItensMat = new ItensInternosMatriculado();
     ControleAtualizarMatricula control = new ControleAtualizarMatricula();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -55,12 +67,14 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
     int count = 0;
     String dataInicial, dataFinal, dataCadastro, dataConDes;
     String codMatricula, caminho;
+    double qtdItem = 0;
 
     /**
      * Creates new form TelaAtualizarMatriculaPedagogia
      */
     public TelaAtualizarMatriculaPedagogia() {
         initComponents();
+        corCampos();
     }
 
     /**
@@ -308,7 +322,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
             },
             new String [] {
-                "Código", "Data", "Nome da Instituição", "Tempo Formativo"
+                "Código", "Data", "Status", "Nome do Interno"
             }
         ));
         jTabelaMatriculas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -317,6 +331,16 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
             }
         });
         jScrollPane2.setViewportView(jTabelaMatriculas);
+        if (jTabelaMatriculas.getColumnModel().getColumnCount() > 0) {
+            jTabelaMatriculas.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaMatriculas.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaMatriculas.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaMatriculas.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaMatriculas.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaMatriculas.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaMatriculas.getColumnModel().getColumn(3).setMinWidth(320);
+            jTabelaMatriculas.getColumnModel().getColumn(3).setMaxWidth(320);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -827,16 +851,11 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTodasMatriculas("SELECT * FROM MATRICULAESCOLAR "
-                                + "INNER JOIN INSTITUICAOESCOLAR "
-                                + "ON MATRICULAESCOLAR.IdCod =INSTITUICAOESCOLAR.IdCod "
-                                + "INNER JOIN TEMPOFORMATIVO "
-                                + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                                + "INNER JOIN CARGAHORARIA "
-                                + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                                + "INNER JOIN SALAS "
-                                + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                                + "WHERE DataMat BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                        preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataMat BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }
@@ -855,16 +874,11 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTodasMatriculas("SELECT * FROM MATRICULAESCOLAR "
-                                + "INNER JOIN INSTITUICAOESCOLAR "
-                                + "ON MATRICULAESCOLAR.IdCod =INSTITUICAOESCOLAR.IdCod "
-                                + "INNER JOIN TEMPOFORMATIVO "
-                                + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                                + "INNER JOIN CARGAHORARIA "
-                                + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                                + "INNER JOIN SALAS "
-                                + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                                + "WHERE DataMat BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                        preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE DataMat BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
                     }
                 }
             }
@@ -877,20 +891,10 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquuisa.");
         } else {
-            preencherTodasMatriculas("SELECT * FROM MATRICULAESCOLAR "
-                    + "INNER JOIN INSTITUICAOESCOLAR "
-                    + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
-                    + "INNER JOIN TEMPOFORMATIVO "
-                    + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                    + "INNER JOIN CARGAHORARIA "
-                    + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                    + "INNER JOIN SALAS "
-                    + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                    + "INNER JOIN ITENSMATRICULA "
-                    + "ON MATRICULAESCOLAR.IdMat=ITENSMATRICULA.IdMat "
+            preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
@@ -900,15 +904,9 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             jTabelaMatriculas.setVisible(true);
-            this.preencherTodasMatriculas("SELECT * FROM MATRICULAESCOLAR "
-                    + "INNER JOIN INSTITUICAOESCOLAR "
-                    + "ON MATRICULAESCOLAR.IdCod =INSTITUICAOESCOLAR.IdCod "
-                    + "INNER JOIN TEMPOFORMATIVO "
-                    + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                    + "INNER JOIN CARGAHORARIA "
-                    + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                    + "INNER JOIN SALAS "
-                    + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala");
+            this.preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -921,15 +919,10 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         if (jIDPesqLan.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
         } else {
-            preencherTodasMatriculas("SELECT * FROM MATRICULAESCOLAR "
-                    + "INNER JOIN INSTITUICAOESCOLAR "
-                    + "ON MATRICULAESCOLAR.IdCod =INSTITUICAOESCOLAR.IdCod "
-                    + "INNER JOIN TEMPOFORMATIVO "
-                    + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                    + "INNER JOIN CARGAHORARIA "
-                    + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                    + "INNER JOIN SALAS "
-                    + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala WHERE IdMat='" + jIDPesqLan.getText() + "'");
+            preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc"
+                    + "WHERE IdAtual='" + jIDPesqLan.getText() + "'");
         }
     }//GEN-LAST:event_jBtIdLancActionPerformed
 
@@ -949,28 +942,27 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
             jBtAuditoria.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM MATRICULAESCOLAR "
-                        + "INNER JOIN INSTITUICAOESCOLAR "
-                        + "ON MATRICULAESCOLAR.IdCod =INSTITUICAOESCOLAR.IdCod "
-                        + "INNER JOIN TEMPOFORMATIVO "
-                        + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                        + "INNER JOIN CARGAHORARIA "
-                        + "ON MATRICULAESCOLAR.IdCarga=CARGAHORARIA.IdCarga "
-                        + "INNER JOIN SALAS "
-                        + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala INNER JOIN TURNOSAULA "
-                        + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno WHERE IdMat='" + IdLanc + "'");
+                conecta.executaSQL("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN MATRICULAESCOLAR "
+                        + "ON ATUALIZAR_MATRICULA_INTERNO.IdMat=MATRICULAESCOLAR.IdMat "
+                        + "WHERE ATUALIZAR_MATRICULA_INTERNO.IdAtual='" + IdLanc + "'");
                 conecta.rs.first();
-                jRegistro.setText(String.valueOf(conecta.rs.getInt("")));
-                jStatusRegistro.setText(conecta.rs.getString(""));
-                jIdInternoReg.setText(conecta.rs.getString(""));
-                jDataRegistro.setDate(conecta.rs.getDate(""));
-                jMatriculaEscolar.setText(conecta.rs.getString(""));
-                jNomeInternoRegistro.setText(conecta.rs.getString(""));
-                jComboBoxStatusAluno.setSelectedItem(conecta.rs.getString(""));
-                jComboBoxSituacaoAluno.setSelectedItem(conecta.rs.getString(""));
-                jDataConclusaoDesistencia.setDate(conecta.rs.getDate(""));
-                jAvaliacao.setText(conecta.rs.getString(""));
-                jObservacao.setText(conecta.rs.getString(""));
+                jRegistro.setText(String.valueOf(conecta.rs.getInt("IdAtual")));
+                jStatusRegistro.setText(conecta.rs.getString("StatusAtual"));
+                jIdInternoReg.setText(conecta.rs.getString("IdInternoCrc"));
+                jDataRegistro.setDate(conecta.rs.getDate("DataRegistro"));
+                jMatriculaEscolar.setText(conecta.rs.getString("IdMat"));
+                jNomeInternoRegistro.setText(conecta.rs.getString("NomeInternoCrc"));
+                jComboBoxStatusAluno.setSelectedItem(conecta.rs.getString("StatusAluno"));
+                jComboBoxSituacaoAluno.setSelectedItem(conecta.rs.getString("SituacaoAluno"));
+                jDataConclusaoDesistencia.setDate(conecta.rs.getDate("DataAvaliacao"));
+                qtdItem = conecta.rs.getFloat("Avaliacao");
+                DecimalFormat vi = new DecimalFormat("#,##0.00");
+                String vqtdItem = vi.format(qtdItem);
+                jAvaliacao.setText(vqtdItem);
+                jObservacao.setText(conecta.rs.getString("Observacao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
@@ -980,22 +972,151 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtualizarMaticuliaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAtualizarMaticuliaPEDA) && codIncluirPEDA == 1) {
+            acao = 1;
+            bloquearCampos();
+            bloquearBotoes();
+            limparCampos();
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtualizarMaticuliaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAtualizarMaticuliaPEDA) && codAlterarPEDA == 1) {
+            objAtual.setStatusAtual(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtualizarMaticuliaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAtualizarMaticuliaPEDA) && codExcluirPEDA == 1) {
+            objAtual.setStatusAtual(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtual.setIdAtual(Integer.parseInt(jRegistro.getText()));
+                    control.excluirAtualizacaoMatricula(objAtual);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    bloquearBotoes();
+                    bloquearCampos();
+                    limparCampos();
+                    Excluir();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtualizarMaticuliaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAtualizarMaticuliaPEDA) && codGravarPEDA == 1) {
+            DecimalFormat valorReal = new DecimalFormat("###,##00.0");
+            valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+            if (jDataRegistro.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data do registro.");
+            } else if (jIdInternoReg.getText().equals("") || jNomeInternoRegistro.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "É necessário informar o nome do interno.");
+            } else if (jComboBoxStatusAluno.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(null, "Informe qual status do aluno.");
+            } else if (jComboBoxSituacaoAluno.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(null, "Informe a situação do interno.");
+            } else {
+                objAtual.setStatusAtual(jStatusRegistro.getText());
+                objAtual.setDataRegistro(jDataRegistro.getDate());
+                objAtual.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                objAtual.setNomeInternoCrc(jNomeInternoRegistro.getText());
+                objAtual.setIdMat(Integer.valueOf(jMatriculaEscolar.getText()));
+                objAtual.setStatusAluno((String) jComboBoxStatusAluno.getSelectedItem());
+                objAtual.setSituacaoAluno((String) jComboBoxSituacaoAluno.getSelectedItem());
+                objAtual.setDataAvaliacao(jDataConclusaoDesistencia.getDate());
+                try {
+                    objAtual.setAvaliacao(valorReal.parse(jAvaliacao.getText()).floatValue());
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaAtualizarMatriculaPedagogia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (acao == 1) {
+                    objAtual.setUsuarioInsert(nameUser);
+                    objAtual.setDataInsert(dataModFinal);
+                    objAtual.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAtualizacaoMatricula(objAtual);
+                    buscarCodigo();
+                    //ATUALIZAR ITENSMATRICULA
+                    objItensMat.setIdMat(Integer.valueOf(jMatriculaEscolar.getText()));
+                    objItensMat.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                    objItensMat.setStatusAluno((String) jComboBoxStatusAluno.getSelectedItem());
+                    objItensMat.setSituacaoAluno((String) jComboBoxSituacaoAluno.getSelectedItem());
+                    objItensMat.setDataConclusaoDesistencia(jDataConclusaoDesistencia.getDate());
+                    control.atualizarInternosMatricula(objItensMat);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objAtual.setUsuarioUp(nameUser);
+                    objAtual.setDataUp(dataModFinal);
+                    objAtual.setHorarioUp(horaMov);
+                    //
+                    objAtual.setIdAtual(Integer.valueOf(jRegistro.getText()));
+                    control.alterarAtualizacaoMatricula(objAtual);
+                    //ATUALIZAR ITENSMATRICULA
+                    objItensMat.setIdMat(Integer.valueOf(jMatriculaEscolar.getText()));
+                    objItensMat.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                    objItensMat.setStatusAluno((String) jComboBoxStatusAluno.getSelectedItem());
+                    objItensMat.setSituacaoAluno((String) jComboBoxSituacaoAluno.getSelectedItem());
+                    objItensMat.setDataConclusaoDesistencia(jDataConclusaoDesistencia.getDate());
+                    control.atualizarInternosMatricula(objItensMat);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação    
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         // TODO add your handling code here:
+        Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -1004,6 +1125,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
@@ -1012,6 +1134,9 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
         // TODO add your handling code here:
+        TelaPesqInternoAtualizarInternos objPesqAtualiza = new TelaPesqInternoAtualizarInternos();
+        TelaModuloPedagogia.jPainelPedagogia.add(objPesqAtualiza);
+        objPesqAtualiza.show();
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
 
@@ -1081,16 +1206,134 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-
+        jObservacao.setLineWrap(true);
+        jObservacao.setWrapStyleWord(true);
     }
 
     public void corCampos() {
+        jRegistro.setBackground(Color.white);
+        jStatusRegistro.setBackground(Color.white);
+        jDataRegistro.setBackground(Color.white);
+        jIdInternoReg.setBackground(Color.white);
+        jMatriculaEscolar.setBackground(Color.white);
+        jNomeInternoRegistro.setBackground(Color.white);
+        jComboBoxStatusAluno.setBackground(Color.white);
+        jComboBoxSituacaoAluno.setBackground(Color.white);
+        jDataConclusaoDesistencia.setBackground(Color.white);
+        jAvaliacao.setBackground(Color.white);
+        jObservacao.setBackground(Color.white);
+    }
 
+    public void bloquearBotoes() {
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
+        jBtPesquisaInterno.setEnabled(!true);
+    }
+
+    public void bloquearCampos() {
+        jRegistro.setEnabled(!true);
+        jStatusRegistro.setEnabled(!true);
+        jDataRegistro.setEnabled(!true);
+        jIdInternoReg.setEnabled(!true);
+        jMatriculaEscolar.setEnabled(!true);
+        jNomeInternoRegistro.setEnabled(!true);
+        jComboBoxStatusAluno.setEnabled(!true);
+        jComboBoxSituacaoAluno.setEnabled(!true);
+        jDataConclusaoDesistencia.setEnabled(!true);
+        jAvaliacao.setEnabled(!true);
+        jObservacao.setEnabled(!true);
+    }
+
+    public void limparCampos() {
+        jRegistro.setText("");
+        jStatusRegistro.setText("");
+        jDataRegistro.setDate(null);
+        jIdInternoReg.setText("");
+        jMatriculaEscolar.setText("");
+        jNomeInternoRegistro.setText("");
+        jComboBoxStatusAluno.setSelectedItem("Selecione...");
+        jComboBoxSituacaoAluno.setSelectedItem("Selecione...");
+        jDataConclusaoDesistencia.setDate(null);
+        jAvaliacao.setText("");
+        jObservacao.setText("");
+    }
+
+    public void Novo() {
+        jStatusRegistro.setText("ABERTO");
+        jDataRegistro.setCalendar(Calendar.getInstance());
+        //
+        jDataRegistro.setEnabled(true);
+        jComboBoxStatusAluno.setEnabled(true);
+        jComboBoxSituacaoAluno.setEnabled(true);
+        jDataConclusaoDesistencia.setEnabled(true);
+        jAvaliacao.setEnabled(true);
+        jObservacao.setEnabled(true);
+        //
+        jBtPesquisaInterno.setEnabled(true);
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }
+
+    public void Alterar() {
+        jDataRegistro.setEnabled(true);
+        jComboBoxStatusAluno.setEnabled(true);
+        jComboBoxSituacaoAluno.setEnabled(true);
+        jDataConclusaoDesistencia.setEnabled(true);
+        jAvaliacao.setEnabled(true);
+        jObservacao.setEnabled(true);
+        //
+        jBtPesquisaInterno.setEnabled(true);
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+    }
+
+    public void Excluir() {
+        jBtNovo.setEnabled(true);
+    }
+
+    public void Salvar() {
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+    }
+
+    public void Cancelar() {
+        if (jRegistro.getText().equals("")) {
+            limparCampos();
+            bloquearBotoes();
+            bloquearCampos();
+            jBtNovo.setEnabled(true);
+        } else {
+            bloquearBotoes();
+            bloquearCampos();
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+        }
+    }
+
+    public void buscarCodigo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO");
+            conecta.rs.last();
+            jRegistro.setText(conecta.rs.getString("IdAtual"));
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaAtualizarMatriculaPedagogia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conecta.desconecta();
     }
 
     public void preencherTodasMatriculas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código ", "Data", "Nome Instituição", "Tempo Formativo"};
+        String[] Colunas = new String[]{"Código ", "Data", "Status", "Nome do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1098,13 +1341,13 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
             do {
                 count = count + 1;
                 // Formatar a data no formato Brasil
-                dataCadastro = conecta.rs.getString("DataMat");
+                dataCadastro = conecta.rs.getString("DataRegistro");
                 String dia = dataCadastro.substring(8, 10);
                 String mes = dataCadastro.substring(5, 7);
                 String ano = dataCadastro.substring(0, 4);
                 dataCadastro = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdMat"), dataCadastro, conecta.rs.getString("NomeInstituicao"), conecta.rs.getString("DescricaoTempo")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAtual"), dataCadastro, conecta.rs.getString("StatusAtual"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1115,9 +1358,9 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         jTabelaMatriculas.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMatriculas.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaMatriculas.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaMatriculas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(220);
+        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(320);
         jTabelaMatriculas.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMatriculas.getTableHeader().setReorderingAllowed(false);
         jTabelaMatriculas.setAutoResizeMode(jTabelaMatriculas.AUTO_RESIZE_OFF);
@@ -1128,16 +1371,16 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código ", "Data", "Nome Instituição", "Tempo Formativo"};
+        String[] Colunas = new String[]{"Código ", "Data", "Status", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMatriculas.setModel(modelo);
         jTabelaMatriculas.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaMatriculas.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMatriculas.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaMatriculas.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(300);
+        jTabelaMatriculas.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaMatriculas.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaMatriculas.getColumnModel().getColumn(3).setPreferredWidth(320);
         jTabelaMatriculas.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMatriculas.getTableHeader().setReorderingAllowed(false);
         jTabelaMatriculas.setAutoResizeMode(jTabelaMatriculas.AUTO_RESIZE_OFF);

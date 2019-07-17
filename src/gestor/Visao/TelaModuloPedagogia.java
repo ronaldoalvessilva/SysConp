@@ -2271,8 +2271,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 
     private void jConcluirMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConcluirMatriculaActionPerformed
         // TODO add your handling code here:       
-        buscarAcessoUsuario(telaRegistroResenhaPEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaRegistroResenhaPEDA) && codAbrirPEDA == 1) {
+        buscarAcessoUsuario(telaAtualizarMaticuliaPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAtualizarMaticuliaPEDA) && codAbrirPEDA == 1) {
             if (objAtualizarMat == null || objAtualizarMat.isClosed()) {
                 objAtualizarMat = new TelaAtualizarMatriculaPedagogia();
                 jPainelPedagogia.add(objAtualizarMat);

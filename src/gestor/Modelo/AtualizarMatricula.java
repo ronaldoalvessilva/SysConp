@@ -18,10 +18,11 @@ public class AtualizarMatricula {
     private Date dataRegistro;
     private int idInternoCrc;
     private String nomeInternoCrc;
+    private int idMat;
     private String statusAluno;
     private String situacaoAluno;
     private Date dataAvaliacao;
-    private Double avaliacao;
+    private float avaliacao;
     private String observacao;
     private String usuarioInsert;
     private String usuarioUp;
@@ -33,12 +34,13 @@ public class AtualizarMatricula {
     public AtualizarMatricula() {
     }
 
-    public AtualizarMatricula(int idAtual, String statusAtual, Date dataRegistro, int idInternoCrc, String nomeInternoCrc, String statusAluno, String situacaoAluno, Date dataAvaliacao, Double avaliacao, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AtualizarMatricula(int idAtual, String statusAtual, Date dataRegistro, int idInternoCrc, String nomeInternoCrc, int idMat, String statusAluno, String situacaoAluno, Date dataAvaliacao, float avaliacao, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idAtual = idAtual;
         this.statusAtual = statusAtual;
         this.dataRegistro = dataRegistro;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
+        this.idMat = idMat;
         this.statusAluno = statusAluno;
         this.situacaoAluno = situacaoAluno;
         this.dataAvaliacao = dataAvaliacao;
@@ -123,6 +125,20 @@ public class AtualizarMatricula {
     }
 
     /**
+     * @return the idMat
+     */
+    public int getIdMat() {
+        return idMat;
+    }
+
+    /**
+     * @param idMat the idMat to set
+     */
+    public void setIdMat(int idMat) {
+        this.idMat = idMat;
+    }
+
+    /**
      * @return the statusAluno
      */
     public String getStatusAluno() {
@@ -167,14 +183,14 @@ public class AtualizarMatricula {
     /**
      * @return the avaliacao
      */
-    public Double getAvaliacao() {
+    public float getAvaliacao() {
         return avaliacao;
     }
 
     /**
      * @param avaliacao the avaliacao to set
      */
-    public void setAvaliacao(Double avaliacao) {
+    public void setAvaliacao(float avaliacao) {
         this.avaliacao = avaliacao;
     }
 
