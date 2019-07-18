@@ -13,6 +13,7 @@ import gestor.Modelo.AtualizarMatricula;
 import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaMatriculaPedagogica.jIdMat;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codConsultarPEDA;
@@ -75,6 +76,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
     public TelaAtualizarMatriculaPedagogia() {
         initComponents();
         corCampos();
+        formatarCampos();
     }
 
     /**
@@ -854,7 +856,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                         preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataMat BETWEEN'" + dataInicial + "' "
+                                + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
                 }
@@ -877,7 +879,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                         preencherTodasMatriculas("SELECT * FROM ATUALIZAR_MATRICULA_INTERNO "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ATUALIZAR_MATRICULA_INTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE DataMat BETWEEN'" + dataInicial + "' "
+                                + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
                 }
@@ -1065,6 +1067,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaAtualizarMatriculaPedagogia.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                objAtual.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     objAtual.setUsuarioInsert(nameUser);
                     objAtual.setDataInsert(dataModFinal);
@@ -1121,6 +1124,12 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        jStatusRegistro.setText("StatusAtual");
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                Finalizar();
+            }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1331,6 +1340,31 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         conecta.desconecta();
     }
 
+    public void Finalizar(){
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusEntrada = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se essa matricula de internos for finalizado, você não poderá\nmais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objAtual.setStatusAtual(statusEntrada);
+            objAtual.setIdMat(Integer.parseInt(jIdMat.getText()));
+            control.finalizarAtualizacaoMatricula(objAtual);
+            jStatusRegistro.setText(statusEntrada);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            //
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(!true);
+            jBtCancelar.setEnabled(!true);
+            jBtFinalizar.setEnabled(!true);            
+        }
+    }
     public void preencherTodasMatriculas(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código ", "Data", "Status", "Nome do Interno"};

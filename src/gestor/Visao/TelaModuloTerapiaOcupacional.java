@@ -565,7 +565,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu2.add(ControleDiasTrabalhados);
         jMenu2.add(jSeparator3);
 
-        jPerfilCarcerario.setForeground(new java.awt.Color(255, 0, 0));
         jPerfilCarcerario.setText("Perfil da População Carcerária");
         jPerfilCarcerario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,7 +573,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu2.add(jPerfilCarcerario);
 
-        PAI_NOVO.setForeground(new java.awt.Color(0, 0, 255));
         PAI_NOVO.setText("P.A.I. - Programa de Assitência Individual");
         PAI_NOVO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -593,10 +591,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu2.add(OcorrenciasLaborativa);
         jMenu2.add(jSeparator14);
 
-        jMenuControleFrequenciaCursos.setForeground(new java.awt.Color(0, 102, 0));
         jMenuControleFrequenciaCursos.setText("Capacitação/Oficias/Frequências de Internos");
 
-        jCapacitacaoInterno.setForeground(new java.awt.Color(0, 102, 0));
         jCapacitacaoInterno.setText("Capacitação/Oficinas para Internos");
         jCapacitacaoInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,7 +601,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenuControleFrequenciaCursos.add(jCapacitacaoInterno);
 
-        jControleFrequenciaCursos.setForeground(new java.awt.Color(153, 0, 0));
         jControleFrequenciaCursos.setText("Controle de Frequência de Internos - CURSOS/OFICINAS");
         jControleFrequenciaCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -716,7 +711,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu3.add(RelatorioEntradaInternosUnidade);
         jMenu3.add(jSeparator9);
 
-        RelatorioInternosCNC.setForeground(new java.awt.Color(204, 0, 0));
         RelatorioInternosCNC.setText("Relatório de Internos com CNC");
         RelatorioInternosCNC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -726,7 +720,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu3.add(RelatorioInternosCNC);
         jMenu3.add(jSeparator13);
 
-        jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(0, 102, 51));
         jRelatorioAtendimentoInternos.setText("Relatório de Atendimento de Internos");
         jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -735,10 +728,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu3.add(jRelatorioAtendimentoInternos);
 
-        jMenu10.setForeground(new java.awt.Color(153, 0, 102));
-        jMenu10.setText("Relatório de Internos em Capacitados/Em Capacitação");
+        jMenu10.setText("Relatório de Internos Capacitados/Em Capacitação");
 
-        jRelatorioInternosCursoConcluido.setForeground(new java.awt.Color(0, 0, 204));
         jRelatorioInternosCursoConcluido.setText("Internos com curso concluído");
         jRelatorioInternosCursoConcluido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -747,7 +738,6 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         });
         jMenu10.add(jRelatorioInternosCursoConcluido);
 
-        jRelatorioInternosCursoAndamento.setForeground(new java.awt.Color(204, 0, 0));
         jRelatorioInternosCursoAndamento.setText("Internos com curso em andamento");
         jRelatorioInternosCursoAndamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

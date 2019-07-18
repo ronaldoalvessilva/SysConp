@@ -84,6 +84,20 @@ public class ControleAtualizarMatricula {
         return objAtual;
     }
 
+    public AtualizarMatricula finalizarAtualizacaoMatricula(AtualizarMatricula objAtual) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATUALIZAR_MATRICULA_INTERNO SET StatusAtual=? WHERE IdAtual='" + objAtual.getIdAtual() + "'");
+            pst.setString(1, objAtual.getStatusAtual());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAtual;
+    }
+
     public ItensInternosMatriculado atualizarInternosMatricula(ItensInternosMatriculado objItensMat) {
 
         conecta.abrirConexao();
