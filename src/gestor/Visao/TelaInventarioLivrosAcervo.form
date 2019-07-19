@@ -555,13 +555,11 @@
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jStatusLanc" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="320" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jUsuarioResponsavel" alignment="1" min="-2" pref="392" max="-2" attributes="0"/>
+                                      <Component id="jStatusLanc" alignment="0" min="-2" pref="222" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -957,8 +955,10 @@
                       <Color blue="66" green="0" red="66" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="1">
-                        <StringItem index="0" value="Estoque Inicial"/>
+                      <StringArray count="3">
+                        <StringItem index="0" value="Selecione..."/>
+                        <StringItem index="1" value="Estoque Inicial"/>
+                        <StringItem index="2" value="Ajuste de Estoque"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

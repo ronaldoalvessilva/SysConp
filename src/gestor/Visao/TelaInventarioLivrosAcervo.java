@@ -530,7 +530,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
 
         jComboBoxTipoInventario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoInventario.setForeground(new java.awt.Color(102, 0, 102));
-        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estoque Inicial" }));
+        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Estoque Inicial", "Ajuste de Estoque" }));
         jComboBoxTipoInventario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoInventario.setEnabled(false);
 
@@ -612,11 +612,10 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
                                     .addGap(283, 283, 283)
                                     .addComponent(jBtResultadoInventario)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(218, 218, 218))
-                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel7)
+                                .addGap(320, 320, 320))
+                            .addComponent(jUsuarioResponsavel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -1155,7 +1154,7 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
         // TODO add your handling code here:
         count = 0;
-        flag = 1;        
+        flag = 1;
         if (jIDPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
@@ -1172,52 +1171,52 @@ public class TelaInventarioLivrosAcervo extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (tipoServidor == null || tipoServidor.equals("")) {
-        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-        if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaInventario("SELECT * FROM INVENTARIO_LIVROS "
-                            + "INNER JOIN LOCAL_ACERVO "
-                            + "ON INVENTARIO_LIVROS.IdLocal=LOCAL_ACERVO.IdLocal "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaInventario("SELECT * FROM INVENTARIO_LIVROS "
+                                + "INNER JOIN LOCAL_ACERVO "
+                                + "ON INVENTARIO_LIVROS.IdLocal=LOCAL_ACERVO.IdLocal "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
-        }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-if (jDataInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataInicial.requestFocus();
-        } else {
-            if (jDataFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataFinal.requestFocus();
+            if (jDataInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataInicial.requestFocus();
             } else {
-                if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                    preencherTabelaInventario("SELECT * FROM INVENTARIO_LIVROS "
-                            + "INNER JOIN LOCAL_ACERVO "
-                            + "ON INVENTARIO_LIVROS.IdLocal=LOCAL_ACERVO.IdLocal "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
+                        preencherTabelaInventario("SELECT * FROM INVENTARIO_LIVROS "
+                                + "INNER JOIN LOCAL_ACERVO "
+                                + "ON INVENTARIO_LIVROS.IdLocal=LOCAL_ACERVO.IdLocal "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
-}
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1303,6 +1302,10 @@ if (jDataInicial.getDate() == null) {
                 jDataInicio.requestFocus();
                 jDataInicio.setBackground(Color.red);
             } else if (jComboBoxTipoInventario.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
+                jComboBoxTipoInventario.requestFocus();
+                jComboBoxTipoInventario.setBackground(Color.red);
+            } else if (jComboBoxTipoInventario.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
                 jComboBoxTipoInventario.requestFocus();
                 jComboBoxTipoInventario.setBackground(Color.red);
@@ -1464,6 +1467,14 @@ if (jDataInicial.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a quantidade do item.");
                 jQtd.requestFocus();
                 jQtd.setBackground(Color.red);
+            } else if (jComboBoxUnidProduto.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade do item.");
+                jComboBoxUnidProduto.requestFocus();
+                jComboBoxUnidProduto.setBackground(Color.red);
+            } else if (jComboBoxUnidProduto.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade do item.");
+                jComboBoxUnidProduto.requestFocus();
+                jComboBoxUnidProduto.setBackground(Color.red);
             } else {
                 try {
                     objItensInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
@@ -2037,9 +2048,9 @@ if (jDataInicial.getDate() == null) {
         jIdProduto.setText("");
         jDescricaoProduto.setText("");
         jCodigoBarra.setText("");
-        jComboBoxUnidProduto.setSelectedItem(null);
+        jComboBoxUnidProduto.setSelectedItem("Selecione...");
         jQtd.setText("");
-        jValorCusto.setText("");
+        jValorCusto.setText("0");
         //
         jBtPesqProdutoInve.setEnabled(true);
         jComboBoxUnidProduto.setEnabled(true);
@@ -2089,9 +2100,9 @@ if (jDataInicial.getDate() == null) {
         jIdProduto.setText("");
         jDescricaoProduto.setText("");
         jCodigoBarra.setText("");
-        jComboBoxUnidProduto.setSelectedItem(null);
+        jComboBoxUnidProduto.setSelectedItem("Selecione...");
         jQtd.setText("");
-        jValorCusto.setText("");
+        jValorCusto.setText("0");
         //
         jBtPesqProdutoInve.setEnabled(!true);
         jComboBoxUnidProduto.setEnabled(!true);
@@ -2118,9 +2129,9 @@ if (jDataInicial.getDate() == null) {
         jIdProduto.setText("");
         jDescricaoProduto.setText("");
         jCodigoBarra.setText("");
-        jComboBoxUnidProduto.setSelectedItem(null);
+        jComboBoxUnidProduto.setSelectedItem("Selecione...");
         jQtd.setText("");
-        jValorCusto.setText("");
+        jValorCusto.setText("0");
         //
         jBtPesqProdutoInve.setEnabled(!true);
         jCodigoBarra.setEnabled(!true);

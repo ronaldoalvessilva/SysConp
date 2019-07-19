@@ -61,9 +61,9 @@ public class ControleAtualizarMatricula {
             pst.setTimestamp(7, new java.sql.Timestamp(objAtual.getDataAvaliacao().getTime()));
             pst.setDouble(8, objAtual.getAvaliacao());
             pst.setString(9, objAtual.getObservacao());
-            pst.setString(10, objAtual.getUsuarioInsert());
-            pst.setString(11, objAtual.getDataInsert());
-            pst.setString(12, objAtual.getHorarioInsert());
+            pst.setString(10, objAtual.getUsuarioUp());
+            pst.setString(11, objAtual.getDataUp());
+            pst.setString(12, objAtual.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);

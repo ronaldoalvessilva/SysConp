@@ -1124,12 +1124,12 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
-        jStatusRegistro.setText("StatusAtual");
-            if (jStatusRegistro.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
-            } else {
-                Finalizar();
-            }
+//        jStatusRegistro.setText("FINALIZADO");
+        if (jStatusRegistro.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+        } else {
+            Finalizar();
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1139,6 +1139,9 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaAtualizacaoMatricula objAtual = new TelaAuditoriaAtualizacaoMatricula();
+        TelaModuloPedagogia.jPainelPedagogia.add(objAtual);
+        objAtual.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
@@ -1310,6 +1313,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -1340,7 +1344,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
         conecta.desconecta();
     }
 
-    public void Finalizar(){
+    public void Finalizar() {
         statusMov = "Finalizou";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
@@ -1350,7 +1354,7 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAtual.setStatusAtual(statusEntrada);
-            objAtual.setIdMat(Integer.parseInt(jIdMat.getText()));
+            objAtual.setIdAtual(Integer.parseInt(jRegistro.getText()));
             control.finalizarAtualizacaoMatricula(objAtual);
             jStatusRegistro.setText(statusEntrada);
             objLog();
@@ -1362,9 +1366,10 @@ public class TelaAtualizarMatriculaPedagogia extends javax.swing.JInternalFrame 
             jBtExcluir.setEnabled(!true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(!true);
-            jBtFinalizar.setEnabled(!true);            
+            jBtFinalizar.setEnabled(!true);
         }
     }
+
     public void preencherTodasMatriculas(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código ", "Data", "Status", "Nome do Interno"};
