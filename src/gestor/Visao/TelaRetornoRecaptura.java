@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleItensEntradasLote;
 import gestor.Controle.ControleItensRecaptura;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
@@ -81,6 +82,8 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
     ControleRolVisitas controlRol = new ControleRolVisitas(); // Classe do Serviço social para FINALIZAR Rol quando interno sair da unidade
     RolVisitas objRol = new RolVisitas();
     //
+    ControleItensEntradasLote controleKit = new ControleItensEntradasLote();
+    //
     String statusRol = "ABERTO"; // Se o Rol estiver ABERTO, irá ser FINALIZADO para não ser mostrado na lista do Rol na portaria
     String statusRolFechado = "FINALIZADO"; // Se o Rol estiver fechado e o usuário excluir, o Rol volta a ser ABERTO
     String observacaoRol; // Varivael que irá informar no Rol do Interno se ele está na unidade
@@ -112,6 +115,7 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
     // VARIAVEIS PARA AVISO DE RETORNO DO INTERNO
     String confirmacaoCrc = "Não";
     String respostaCrc = "Sim";
+    String pagtoKit = "Não";
 
     /**
      * Creates new form TelaRetornoRecapitura
@@ -1409,6 +1413,14 @@ public class TelaRetornoRecaptura extends javax.swing.JInternalFrame {
                             objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
                             objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
                             controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
+                            // INFORMAR OPÇÕES DO KIT DE HIGIENE INICIAL
+                            pagtoKit = "Não";
+                            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                            objProCrc.setNomeInterno(jNomeInterno.getText());
+                            objProCrc.setDataChegada(jDataRetorno.getDate());
+                            objProCrc.setKitPago(pagtoKit);
+                            objProCrc.setUtilizado(pagtoKit);
+                            controleKit.informarkitHigiene(objProCrc);
                             //
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys);

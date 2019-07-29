@@ -535,7 +535,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
 
         jComboBoxTipoInventario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoInventario.setForeground(new java.awt.Color(102, 0, 102));
-        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estoque Inicial", "Ajuste de Estoque", "Inventário Final Ano" }));
+        jComboBoxTipoInventario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Estoque Inicial", "Ajuste de Estoque", "Inventário Final Ano" }));
         jComboBoxTipoInventario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoInventario.setEnabled(false);
 
@@ -919,7 +919,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
         jLote.setEnabled(false);
 
         jComboBoxUnidProduto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxUnidProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "UN", "Caixa", "Pacote", "Ml", "Kg", "Litro", "Peça", "Ampla", "Kit", "PR" }));
+        jComboBoxUnidProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "UN", "Caixa", "Pacote", "Ml", "Kg", "Litro", "Peça", "Ampla", "Kit", "PR" }));
         jComboBoxUnidProduto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidProduto.setEnabled(false);
 
@@ -1344,7 +1344,7 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
-                        objProdMed.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+                        objInventEstoque.setIdLanc(Integer.parseInt(jIdLanc.getText()));
                         control.excluirInventarioAC(objInventEstoque);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1368,6 +1368,10 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
                 jDataInicio.requestFocus();
                 jDataInicio.setBackground(Color.red);
             } else if (jComboBoxTipoInventario.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
+                jComboBoxTipoInventario.requestFocus();
+                jComboBoxTipoInventario.setBackground(Color.red);
+            } else if (jComboBoxTipoInventario.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de inventário...");
                 jComboBoxTipoInventario.requestFocus();
                 jComboBoxTipoInventario.setBackground(Color.red);
@@ -1533,6 +1537,8 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
                 jQtd.setBackground(Color.red);
             } else if (jDataVctoLote.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de validade do produto.");
+            } else if (jComboBoxUnidProduto.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a unidade do produto.");
             } else {
                 try {
                     objItensInventEstoque.setQtdItem(valorReal.parse(jQtd.getText()).floatValue());
@@ -2056,8 +2062,8 @@ public class TelaInventarioProdutosAC extends javax.swing.JInternalFrame {
     public void Excluir() {
         // Limpar campos     
         jIdLanc.setText("");
-        jStatusLanc.setText("CONTANDO");
-        jComboBoxTipoInventario.setSelectedItem(null);
+        jStatusLanc.setText("");
+        jComboBoxTipoInventario.setSelectedItem("Selecione...");
         jDataInicio.setCalendar(Calendar.getInstance());
         jHorarioInicio.setText(jHoraSistema.getText());
         jIdLocal.setText("");
