@@ -95,13 +95,16 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
     int vQuant = 1;
     int qtdDias;
     int qtdDiastotal = 0;
+    //
+    String codigoInternoBio;
+    byte[] pAssinaturaDigital;
 
     /**
      * Creates new form TelaEntradaSaidaInternosPortaria
      */
     public static TelaFotoPortariaSaidaLaborativa telafotosaidalabor;
     public static TelaDatasHorasEntradaSaidas telaDatasHoras;
-//    public static TelaBiometriaEntradaSaidaPortaria biometriaSaidaInterno;
+    public static TelaBiometriaSaidaLaborativaPortaria biometriaSaidaInterno;
 
     public TelaEntradaSaidaInternosPortaria() {
         super();
@@ -121,10 +124,11 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         telaDatasHoras.setVisible(true);
     }
 
-//    public void mostrarBiometriaSaidaInternos(){
-//        biometriaSaidaInterno = new TelaBiometriaEntradaSaidaPortaria(this,true);
-//        biometriaSaidaInterno.setVisible(true);
-//    }
+    public void mostrarBiometriaSaidaInternos() {
+        biometriaSaidaInterno = new TelaBiometriaSaidaLaborativaPortaria(this, true);
+        biometriaSaidaInterno.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -212,6 +216,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtBuscarInterno = new javax.swing.JButton();
         jBtAudiInternos = new javax.swing.JButton();
         jBtDatasHoras = new javax.swing.JButton();
+        jBtBiometria = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaInternos = new javax.swing.JTable();
 
@@ -222,7 +227,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -334,7 +339,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jTabelaLaborInternos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLaborInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -824,40 +829,44 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNomeInterno)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel13))
-                            .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtZoon, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jLabelEvadido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtZoon, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeInterno)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel19))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())))
         );
+
+        jPanel9Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioEntrada, jHorarioSaida});
+
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
@@ -874,18 +883,20 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel11)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel19)
-                        .addComponent(jLabel20)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel11)
+                        .addComponent(jLabel13)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -979,30 +990,43 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             }
         });
 
+        jBtBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
+        jBtBiometria.setText("Biometria");
+        jBtBiometria.setEnabled(false);
+        jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtBiometriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtNovoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtBuscarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jBtAudiInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jBtDatasHoras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jBtExcluirInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtBuscarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtNovoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtDatasHoras))
+                .addGap(24, 24, 24))
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtBiometria))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jBtAudiInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel18Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtBuscarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtSalvarInterno});
+        jPanel18Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtBiometria, jBtBuscarInterno, jBtCancelarInterno, jBtDatasHoras, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
 
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1021,18 +1045,20 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 .addComponent(jBtBuscarInterno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtDatasHoras)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jBtAudiInternos)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtBiometria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAudiInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Código", "Nome do Interno", "Data Entrada", "Horário", "Data Saída", "Horário"
+                "Código", "Nome do Interno", "Data Saída", "Horário", "Data Entrada", "Horário"
             }
         ));
         jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1077,7 +1103,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1093,12 +1119,11 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -1394,13 +1419,18 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                         JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, interno encontra-se evadido");
                     } else {
                         acao = 4;
-                        AlterarInterno();
-                        corCampo();
-                        statusMov = "Alterou";
-                        horaMov = jHoraSistema.getText();
-                        dataModFinal = jDataSistema.getText();
+                        verificarAcessoBiometriaInterno();
+                        //pAssinaturaDigital
+                        if (jIdInterno.getText().equals(codigoInternoBio) && pAssinaturaDigital != null) {
+                            AlterarInternoBiometria();
+                        } else {
+                            corCampo();
+                            statusMov = "Alterou";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                            AlterarInterno();
+                        }
                     }
-
                 }
             }
         } else {
@@ -1415,29 +1445,30 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
+            verificarAcessoBiometriaInterno();
             objEntSaiLabor.setStatusLanc(jStatusEntCola.getText());
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else if (jLabelEvadido.getText().equals("EVADIDO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído, o interno encontra-se evadido.");
+            } else if (jIdInterno.getText().equals(codigoInternoBio) && pAssinaturaDigital != null) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro de interno, o mesmo tem assinatura digital.");
             } else {
-                if (jLabelEvadido.getText().equals("EVADIDO")) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser excluído, o interno encontra-se evadido.");
-                } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        objItenLabor.setIdItem(Integer.valueOf(idItem));
-                        controle.excluirItensLaborInterno(objItenLabor);
-                        objDatasHoras();
-                        controlHist.excluirInterEmp(objHistInterEmp);
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                        ExcluirInterno();
-                        preencherTabelaItens("SELECT * FROM ITENSLABORINTERNO "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE Idlanc='" + jIDlanc.getText() + "'");
-                    }
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o interno selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objItenLabor.setIdItem(Integer.valueOf(idItem));
+                    controle.excluirItensLaborInterno(objItenLabor);
+                    objDatasHoras();
+                    controlHist.excluirInterEmp(objHistInterEmp);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    ExcluirInterno();
+                    preencherTabelaItens("SELECT * FROM ITENSLABORINTERNO "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE Idlanc='" + jIDlanc.getText() + "'");
                 }
             }
         } else {
@@ -1476,6 +1507,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                         objItenLabor.setHoraInsert(horaMov);
                         if (acao == 3) {
                             objItenLabor.setIdLanc(Integer.valueOf(jIDlanc.getText()));
+                            objItenLabor.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                             objItenLabor.setNomeInterno(jNomeInterno.getText());
                             controle.incluirItensLaborInterno(objItenLabor);
                             //Inclusão do histórico do interno na empresa
@@ -1498,13 +1530,13 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                             objItenLabor.setHoraUp(horaMov);
                             objItenLabor.setIdLanc(Integer.valueOf(jIDlanc.getText()));
                             objItenLabor.setIdItem(Integer.valueOf(idItem));
+                            objItenLabor.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                             objItenLabor.setNomeInterno(jNomeInterno.getText());
                             controle.alterarItensLaborInterno(objItenLabor);
                             //Alteração do histórico do interno na empresa
                             objHistInterEmp.setNomeEmpresa(jNomeEmpresa.getText());
                             objHistInterEmp.setNomeInterno(jNomeInterno.getText());
                             objDatasHoras();
-//                objHistInterEmp.setIdLanc(Integer.valueOf(jIDlanc.getText()));
                             controlHist.alterarInterEmp(objHistInterEmp);
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1552,7 +1584,9 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
+            //
             jBtNovoInterno.setEnabled(true);
+            jBtBiometria.setEnabled(true);
             jBtBuscarInterno.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             jBtAuditoriaManu.setEnabled(true);
@@ -1573,13 +1607,13 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 jNomeEmpresa.setText(conecta.rs.getString("RazaoSocial"));
                 jObservacao.setText(conecta.rs.getString("ObsLanc"));
                 conecta.desconecta();
-                preencherTabelaItens("SELECT * FROM ITENSLABORINTERNO "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdLanc='" + IdLanc + "'");
+
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
+            preencherTabelaItens("SELECT * FROM ITENSLABORINTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSLABORINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdLanc='" + IdLanc + "'");
         }
     }//GEN-LAST:event_jTabelaLaborInternosMouseClicked
 
@@ -1651,12 +1685,27 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         mostrarDatgaHorasSaidas();
     }//GEN-LAST:event_jBtDatasHorasActionPerformed
 
+    private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
+        // TODO add your handling code here:       
+        buscarAcessoUsuario(telaEntradaSaidaLABIntP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaLABIntP1) && codAbrirP1 == 1) {
+            if (jStatusEntCola.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa funcionalidade, o registro já foi finalizado");
+            } else {
+                mostrarBiometriaSaidaInternos();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtBiometriaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
     public static javax.swing.JButton jBtAlterarInterno;
     private javax.swing.JButton jBtAudiInternos;
     private javax.swing.JButton jBtAuditoriaManu;
+    private javax.swing.JButton jBtBiometria;
     public static javax.swing.JButton jBtBuscarInterno;
     private javax.swing.JButton jBtCancelar;
     public static javax.swing.JButton jBtCancelarInterno;
@@ -1730,7 +1779,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
     private javax.swing.JTextField jStatusEntCola;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTabelaInternos;
+    public static javax.swing.JTable jTabelaInternos;
     private javax.swing.JTable jTabelaLaborInternos;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
@@ -1802,6 +1851,20 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jHorarioSaida.setBackground(Color.white);
     }
 
+    public void verificarAcessoBiometriaInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND IdLanc='" + jIDlanc.getText() + "'");
+            conecta.rs.first();
+            codigoInternoBio = conecta.rs.getString("IdInternoCrc");
+            pAssinaturaDigital = conecta.rs.getBytes("AssinaturaSaida");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void Novo() {
         if (jIDlanc.getText().equals("")) {
             jIDlanc.setText("");
@@ -1855,6 +1918,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtCancelarInterno.setEnabled(!true);
         jBtBuscarInterno.setEnabled(!true);
         jBtAudiInternos.setEnabled(!true);
+        jBtBiometria.setEnabled(!true);
         //
         //jTabelaInternos.setEnabled(!true);
         jBtPesqInterno.setEnabled(!true);
@@ -1895,6 +1959,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtAudiInternos.setEnabled(!true);
         jBtAuditoriaManu.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
+        jBtBiometria.setEnabled(!true);
     }
 
     public void Excluir() {
@@ -1930,6 +1995,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtBuscarInterno.setEnabled(!true);
+        jBtBiometria.setEnabled(!true);
         //
         //jTabelaInternos.setEnabled(!true);
         jBtPesqInterno.setEnabled(!true);
@@ -1953,6 +2019,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtFinalizar.setEnabled(true);
         //
         jBtNovoInterno.setEnabled(true);
+        jBtBiometria.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -2024,13 +2091,18 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             jBtExcluirInterno.setEnabled(!true);
             jBtSalvarInterno.setEnabled(!true);
             jBtCancelarInterno.setEnabled(!true);
+            jBtBiometria.setEnabled(!true);
         }
     }
 
     public void verificarHoraEntrada() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO WHERE HorarioSaida='" + verHorarioSaida + "'AND Idlanc='" + jIDlanc.getText() + "'OR HorarioEntrada='" + verHorarioEntrada + "'AND Idlanc='" + jIDlanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSLABORINTERNO "
+                    + "WHERE HorarioSaida='" + verHorarioSaida + "' "
+                    + "AND Idlanc='" + jIDlanc.getText() + "' "
+                    + "OR HorarioEntrada='" + verHorarioEntrada + "' "
+                    + "AND Idlanc='" + jIDlanc.getText() + "'");
             conecta.rs.first();
             horaEntradaEncontrada = conecta.rs.getString("HorarioEntrada");
             horaSaidaEncontrado = conecta.rs.getString("HorarioSaida");
@@ -2076,7 +2148,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtAudiInternos.setEnabled(!true);
         jBtAuditoriaManu.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
-        //
+        jBtBiometria.setEnabled(!true);
     }
 
     public void AlterarInterno() {
@@ -2105,6 +2177,36 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtAudiInternos.setEnabled(!true);
         jBtAuditoriaManu.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
+        jBtBiometria.setEnabled(!true);
+    }
+
+    public void AlterarInternoBiometria() {
+        jDatalancamento.setEnabled(!true);
+        jObservacao.setEnabled(!true);
+        //
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        //
+        //  jBtPesqInterno.setEnabled(true);
+        jDataEntrada.setEnabled(true);
+        jHorarioEntrada.setEnabled(true);
+        // jDataSaida.setEnabled(true);
+        // jHorarioSaida.setEnabled(true);
+        //
+        jBtNovoInterno.setEnabled(!true);
+        jBtAlterarInterno.setEnabled(!true);
+        jBtExcluirInterno.setEnabled(!true);
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+        jBtBuscarInterno.setEnabled(!true);
+        jBtAudiInternos.setEnabled(!true);
+        jBtAuditoriaManu.setEnabled(!true);
+        jBtImpressao.setEnabled(!true);
+        jBtBiometria.setEnabled(!true);
     }
 
     public void ExcluirInterno() {
@@ -2132,6 +2234,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtAudiInternos.setEnabled(!true);
         jBtAuditoriaManu.setEnabled(!true);
         jBtImpressao.setEnabled(!true);
+        jBtBiometria.setEnabled(true);
     }
 
     public void SalvarInterno() {
@@ -2157,6 +2260,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtBuscarInterno.setEnabled(true);
+        jBtBiometria.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -2180,6 +2284,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtDatasHoras.setEnabled(!true);
+        jBtBiometria.setEnabled(true);
         //
         if (!jIDlanc.getText().equals("")) {
             //
@@ -2193,7 +2298,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
             jBtAudiInternos.setEnabled(true);
             jBtAuditoriaManu.setEnabled(true);
             jBtImpressao.setEnabled(true);
-            //
+            jBtBiometria.setEnabled(true);
         }
     }
 
@@ -2238,7 +2343,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
 
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Data Saída", "Horario"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Saída", "Horário", "Data Entrada", "Horário"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2247,18 +2352,22 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 count = count + 1;
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
-                String dia = dataEntrada.substring(8, 10);
-                String mes = dataEntrada.substring(5, 7);
-                String ano = dataEntrada.substring(0, 4);
-                dataEntrada = dia + "/" + mes + "/" + ano;
-                // Formatar a data Saida               
+                if (dataEntrada != null) {
+                    String dia = dataEntrada.substring(8, 10);
+                    String mes = dataEntrada.substring(5, 7);
+                    String ano = dataEntrada.substring(0, 4);
+                    dataEntrada = dia + "/" + mes + "/" + ano;
+                }
+                // Formatar a data Saida 
                 dataSaida = conecta.rs.getString("DataSaida");
-                String dias = dataSaida.substring(8, 10);
-                String mess = dataSaida.substring(5, 7);
-                String anos = dataSaida.substring(0, 4);
-                dataSaida = dias + "/" + mess + "/" + anos;
+                if (dataSaida != null) {
+                    String dias = dataSaida.substring(8, 10);
+                    String mess = dataSaida.substring(5, 7);
+                    String anos = dataSaida.substring(0, 4);
+                    dataSaida = dias + "/" + mess + "/" + anos;
+                }
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataEntrada, conecta.rs.getString("HorarioEntrada"), dataSaida, conecta.rs.getString("HorarioSaida")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaida, conecta.rs.getString("HorarioSaida"), dataEntrada, conecta.rs.getString("HorarioEntrada")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -2279,13 +2388,13 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jTabelaInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaLaborInt();
+        alinharCamposTabelaInternos();
         conecta.desconecta();
     }
 
     public void limparTabelaItens() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Data Saída", "Horario"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Saída", "Horário", "Data Entrada", "Horário"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -2357,6 +2466,21 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
         jTabelaLaborInternos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
+    public void alinharCamposTabelaInternos() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+    }
+
     public void limpaTabelaLaborativa() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Status", "Observação"};
@@ -2378,7 +2502,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
 
     public void preencherTodasEntSaiNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horário", "Data Saida", "Horário"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Saída", "Horário", "Data Entrada", "Horário"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2398,7 +2522,7 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
                 String anoe = dataSaida.substring(0, 4);
                 dataSaida = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), conecta.rs.getString("NomeInternoCrc"), dataEntrada, conecta.rs.getString("HorarioEntrada"), dataSaida, conecta.rs.getString("HorarioSaida")});
+                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), conecta.rs.getString("NomeInternoCrc"), dataSaida, conecta.rs.getString("HorarioSaida"), dataEntrada, conecta.rs.getString("HorarioEntrada")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");

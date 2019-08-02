@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -68,6 +70,7 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
         jPesqNomeEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqNomeEmpresa.setContentAreaFilled(false);
         jBtPesqNomeEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeEmpresaActionPerformed(evt);
@@ -109,15 +112,13 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jTabelaEmpresas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEmpresas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID", "Nome da Empresa", "Data Cadastro"
             }
         ));
         jTabelaEmpresas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,6 +127,14 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaEmpresas);
+        if (jTabelaEmpresas.getColumnModel().getColumnCount() > 0) {
+            jTabelaEmpresas.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaEmpresas.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaEmpresas.getColumnModel().getColumn(1).setMinWidth(350);
+            jTabelaEmpresas.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaEmpresas.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaEmpresas.getColumnModel().getColumn(2).setMaxWidth(100);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -153,22 +162,26 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jBtSair)
+                        .addGap(0, 332, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
@@ -182,14 +195,14 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 10, 423, 261);
+        setBounds(300, 10, 553, 280);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeEmpresaActionPerformed
@@ -198,7 +211,6 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
         if (jPesqNomeEmpresa.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome da empresa para pesquis.");
         } else {
-            jTabelaEmpresas.setVisible(true);
             buscarEmpresas("SELECT * FROM EMPRESALAB "
                     + "INNER JOIN AGENDALABORATIVA "
                     + "ON EMPRESALAB.IdEmp=AGENDALABORATIVA.IdEmp "
@@ -236,15 +248,14 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-          flag = 1;
+        flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaEmpresas.setVisible(true);
             this.buscarEmpresas("SELECT * FROM EMPRESALAB "
                     + "INNER JOIN AGENDALABORATIVA "
                     + "ON EMPRESALAB.IdEmp=AGENDALABORATIVA.IdEmp "
                     + "WHERE StatusLanc='" + statusEmp + "'");
         } else {
-            jTabelaEmpresas.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -274,7 +285,7 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
 
     public void buscarEmpresas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" ID", "     Nome da Empresa ", " Data Cadastro"};
+        String[] Colunas = new String[]{"ID", "Nome da Empresa ", "Data Cadastro"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -293,15 +304,40 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEmpresas.setModel(modelo);
-        jTabelaEmpresas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaEmpresas.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEmpresas.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEmpresas.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaEmpresas.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaEmpresas.getColumnModel().getColumn(1).setResizable(false);
         jTabelaEmpresas.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTabelaEmpresas.getColumnModel().getColumn(2).setResizable(false);
         jTabelaEmpresas.getTableHeader().setReorderingAllowed(false);
         jTabelaEmpresas.setAutoResizeMode(jTabelaEmpresas.AUTO_RESIZE_OFF);
         jTabelaEmpresas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"ID", "Nome da Empresa ", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaEmpresas.setModel(modelo);
+        jTabelaEmpresas.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaEmpresas.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaEmpresas.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaEmpresas.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaEmpresas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaEmpresas.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaEmpresas.getTableHeader().setReorderingAllowed(false);
+        jTabelaEmpresas.setAutoResizeMode(jTabelaEmpresas.AUTO_RESIZE_OFF);
+        jTabelaEmpresas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void alinharCamposTabela() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaEmpresas.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaEmpresas.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

@@ -20,8 +20,7 @@
 		<![CDATA[SELECT * FROM ADMISSAO_PEDAGOGIA A
 INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
 WHERE DataAdm BETWEEN '01/07/2019' AND '30/07/2019'
-order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc
-]]>
+order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdAdm" class="java.lang.Integer"/>
 	<field name="StatusAdm" class="java.lang.String"/>

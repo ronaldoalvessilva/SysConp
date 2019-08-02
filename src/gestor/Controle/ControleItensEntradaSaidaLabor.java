@@ -26,7 +26,7 @@ public class ControleItensEntradaSaidaLabor {
 
     public ItensEntradaSaidaLaborInterno incluirItensLaborInterno(ItensEntradaSaidaLaborInterno objItenLabor) {
 
-        buscarInterno(objItenLabor.getNomeInterno());
+        buscarInterno(objItenLabor.getNomeInterno(),objItenLabor.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSLABORINTERNO (IdLanc,IdInternoCrc,DataEntrada,HorarioEntrada,DataSaida,HorarioSaida,Evadido,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -40,13 +40,13 @@ public class ControleItensEntradaSaidaLabor {
             pst.setString(4, objItenLabor.getHorarioEntrada());
             pst.setTimestamp(5, new java.sql.Timestamp(objItenLabor.getDataSaida().getTime()));
             pst.setString(6, objItenLabor.getHorarioSaida());
-            pst.setString(7, evadido);            
+            pst.setString(7, evadido);
             pst.setString(8, objItenLabor.getUsuarioInsert());
             pst.setString(9, objItenLabor.getDataInsert());
             pst.setString(10, objItenLabor.getHoraInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItenLabor;
@@ -54,7 +54,7 @@ public class ControleItensEntradaSaidaLabor {
 
     public ItensEntradaSaidaLaborInterno alterarItensLaborInterno(ItensEntradaSaidaLaborInterno objItenLabor) {
 
-        buscarInterno(objItenLabor.getNomeInterno());
+       buscarInterno(objItenLabor.getNomeInterno(),objItenLabor.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSLABORINTERNO SET IdLanc=?,IdInternoCrc=?,DataEntrada=?,HorarioEntrada=?,DataSaida=?,HorarioSaida=?,Evadido=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItenLabor.getIdItem() + "'");
@@ -74,7 +74,7 @@ public class ControleItensEntradaSaidaLabor {
             pst.setString(10, objItenLabor.getHoraUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItenLabor;
@@ -87,17 +87,69 @@ public class ControleItensEntradaSaidaLabor {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENSLABORINTERNO WHERE IdItem='" + objItenLabor.getIdItem() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItenLabor;
     }
 
-   
-    public void buscarInterno(String desc) {
+    //------------------------- SAÍDA UTILIZADA COM BIOMETRIA -------------------------------------------
+    public ItensEntradaSaidaLaborInterno saidaLaborativaInternoBio(ItensEntradaSaidaLaborInterno objItenLabor) {
+
+       buscarInterno(objItenLabor.getNomeInterno(),objItenLabor.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'AND SituacaoCrc='" + situacaoEnt + "' OR NomeInternoCrc='" + desc + "'AND SituacaoCrc='" + situacaoRet + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSLABORINTERNO (IdLanc,IdInternoCrc,DataSaida,HorarioSaida,AssinaturaSaida,Evadido,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            pst.setInt(1, objItenLabor.getIdLanc());
+            pst.setInt(2, codInterno);
+            pst.setTimestamp(3, new java.sql.Timestamp(objItenLabor.getDataSaida().getTime()));
+            pst.setString(4, objItenLabor.getHorarioSaida());
+            pst.setBytes(5, objItenLabor.getAssinaturaDigital());
+            pst.setString(6, evadido);
+            pst.setString(7, objItenLabor.getUsuarioInsert());
+            pst.setString(8, objItenLabor.getDataInsert());
+            pst.setString(9, objItenLabor.getHoraInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItenLabor;
+    }
+
+    public ItensEntradaSaidaLaborInterno retornoLaborativaInternoBio(ItensEntradaSaidaLaborInterno objItenLabor) {
+
+        buscarInterno(objItenLabor.getNomeInterno(),objItenLabor.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSLABORINTERNO SET IdLanc=?,IdInternoCrc=?,DataEntrada=?,HorarioEntrada=?,AssinaturaEntrada=?,Evadido=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItenLabor.getIdItem() + "'");
+            pst.setInt(1, objItenLabor.getIdLanc());
+            pst.setInt(2, codInterno);
+            pst.setTimestamp(3, new java.sql.Timestamp(objItenLabor.getDataEntrada().getTime()));
+            pst.setString(4, objItenLabor.getHorarioEntrada());
+            pst.setBytes(5, objItenLabor.getAssinaturaDigital());
+            pst.setString(6, evadido);
+            pst.setString(7, objItenLabor.getUsuarioUp());
+            pst.setString(8, objItenLabor.getDataUp());
+            pst.setString(9, objItenLabor.getHoraUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItenLabor;
+    }
+
+    public void buscarInterno(String desc, int id) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + id + "' "
+                    + "AND SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + id + "' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {
@@ -105,16 +157,16 @@ public class ControleItensEntradaSaidaLabor {
         }
         conecta.desconecta();
     }
-    
-     public ItensEntradaSaidaLaborInterno alterarQuantidadeFrequencia(ItensEntradaSaidaLaborInterno objItenLabor) {
-       
+
+    public ItensEntradaSaidaLaborInterno alterarQuantidadeFrequencia(ItensEntradaSaidaLaborInterno objItenLabor) {
+
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_FREQUENCIA_LABORATIVA_EXTERNA SET TotalDias=? WHERE IdInternoCrc='" + objItenLabor.getIdInternoCrc()+ "'AND MesReferencia='" + objItenLabor.getMesReferencia() + "'");
-            pst.setInt(1, objItenLabor.getQtdInt());           
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_FREQUENCIA_LABORATIVA_EXTERNA SET TotalDias=? WHERE IdInternoCrc='" + objItenLabor.getIdInternoCrc() + "'AND MesReferencia='" + objItenLabor.getMesReferencia() + "'");
+            pst.setInt(1, objItenLabor.getQtdInt());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItenLabor;

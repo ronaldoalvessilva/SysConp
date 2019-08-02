@@ -406,7 +406,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jTabelaSaidaInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaSaidaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -885,7 +885,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Data Saída", "Destino", "Documento"
@@ -978,8 +978,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             }
         });
 
-        jBtBiometria.setForeground(new java.awt.Color(0, 102, 0));
-        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216082320_16.png"))); // NOI18N
+        jBtBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtBiometria.setText("Biometria");
         jBtBiometria.setEnabled(false);
         jBtBiometria.addActionListener(new java.awt.event.ActionListener() {

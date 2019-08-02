@@ -32,8 +32,12 @@ public class ItensEntradaSaidaLaborInterno {
     private String dataUp;
     private String horaInsert;
     private String horaUp;        
+    private byte[] assinaturaDigital;  
 
-    public ItensEntradaSaidaLaborInterno(int idItem, int idLanc, String statusLanc, int idInternoCrc, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String observacao, String horarioSaida, String internoEvadido, int qtdInt, String mesReferencia, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp) {
+    public ItensEntradaSaidaLaborInterno() {
+    }
+
+    public ItensEntradaSaidaLaborInterno(int idItem, int idLanc, String statusLanc, int idInternoCrc, String nomeInterno, Date dataEntrada, String horarioEntrada, Date dataSaida, String observacao, String horarioSaida, String internoEvadido, int qtdInt, String mesReferencia, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, byte[] assinaturaDigital) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
@@ -53,9 +57,7 @@ public class ItensEntradaSaidaLaborInterno {
         this.dataUp = dataUp;
         this.horaInsert = horaInsert;
         this.horaUp = horaUp;
-    }
-
-    public ItensEntradaSaidaLaborInterno() {
+        this.assinaturaDigital = assinaturaDigital;
     }
 
     /**
@@ -322,5 +324,19 @@ public class ItensEntradaSaidaLaborInterno {
      */
     public void setHoraUp(String horaUp) {
         this.horaUp = horaUp;
+    }
+
+    /**
+     * @return the assinaturaDigital
+     */
+    public byte[] getAssinaturaDigital() {
+        return assinaturaDigital;
+    }
+
+    /**
+     * @param assinaturaDigital the assinaturaDigital to set
+     */
+    public void setAssinaturaDigital(byte[] assinaturaDigital) {
+        this.assinaturaDigital = assinaturaDigital;
     }
 }

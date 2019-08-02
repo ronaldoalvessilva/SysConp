@@ -64,7 +64,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Pesquisa Agendamento Internos - {P1} :::...");
+        setTitle("...::: Pesquisa Internos - {P1} :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -122,7 +122,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         jTabelaPesqInternosEmpresaLab.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosEmpresaLab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno"
