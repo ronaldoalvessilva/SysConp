@@ -130,7 +130,7 @@ public class TelaPesquisaRegistroRetornoInterno extends javax.swing.JInternalFra
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Saída", "Doc. Saída"

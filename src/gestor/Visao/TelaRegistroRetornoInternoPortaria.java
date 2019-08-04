@@ -220,7 +220,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa Lançamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa Lançamentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Código:");
@@ -334,7 +334,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jTabelaRetorno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaRetorno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Tipo Operação", "Descrição", "Observação"
@@ -522,7 +522,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 .addGap(29, 29, 29))
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jBtNovolanc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovolanc.setText("Novo");
@@ -795,7 +795,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Data Retorno", "Operação", "Documento"
@@ -1173,7 +1173,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
     private void jBtSalvarlancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarlancActionPerformed
         // TODO add your handling code here:
-         buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
+        buscarAcessoUsuario(telaRegistroRetornoRIManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIManuP1) && codGravarP1 == 1) {
             if (jDescricaoOpe.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a descrição da operação de retorno");
@@ -1347,12 +1347,15 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             if (confirma.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo encontra-se efetuado pelo CRC");
             } else {
+                verificarBiometria();
                 statusMov = "Excluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
                 objRetorno.setStatusRetorno(jStatusRetorno.getText());
                 if (jStatusRetorno.getText().equals("FINALIZADO")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+                } else if (retornoBiometria != null) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo tem origem da biometria.");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);

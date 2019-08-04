@@ -108,7 +108,7 @@ public class TelaPesquisaOpRegistroRetorno extends javax.swing.JInternalFrame {
         jTabelaOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição"

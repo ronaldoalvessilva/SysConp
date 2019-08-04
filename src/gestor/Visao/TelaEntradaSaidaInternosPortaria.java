@@ -29,6 +29,7 @@ import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
 import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
 import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
 import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaLABBio;
 import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaLABIntP1;
 import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaLABManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -1687,8 +1688,8 @@ public class TelaEntradaSaidaInternosPortaria extends javax.swing.JInternalFrame
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:       
-        buscarAcessoUsuario(telaEntradaSaidaLABIntP1);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaLABIntP1) && codAbrirP1 == 1) {
+        buscarAcessoUsuario(telaEntradaSaidaLABBio);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaLABBio) && codAbrirP1 == 1) {
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa funcionalidade, o registro já foi finalizado");
             } else {

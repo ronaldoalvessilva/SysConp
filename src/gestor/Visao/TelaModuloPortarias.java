@@ -212,6 +212,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     //
     public static String telaEntradaSaidaLABManuP1 = "Movimentação:Entrada e Saida de Internos Laborativa - P1I:Manutenção";
     public static String telaEntradaSaidaLABIntP1 = "Movimentação:Entrada e Saida de Internos Laborativa:Internos";
+    public static String telaEntradaSaidaLABBio = "Movimentação:Entrada e Saida de Internos Laborativa:Biometria";
     //
     public static String telaEntradaSaidaESIEEManuP1 = "Movimentação:Entrada e Saida de Internos Educação Externa - P1I:Manutenção";
     public static String telaEntradaSaidaESIEEIP1 = "Movimentação:Entrada e Saida de Internos Educação Externa - P1I:Internos";
@@ -302,6 +303,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     //
     String pNomeESLM = "";
     String pNomeESLMI = "";
+    String pNomeESLB = "";
     //
     String pNomeESIEEM = "";
     String pNomeESIEEI = "";
@@ -3513,6 +3515,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEntradaSaidaLABBio + "'");
+            conecta.rs.first();
+            pNomeESLB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaEntradaSaidaESIEEManuP1 + "'");
             conecta.rs.first();
             pNomeESIEEM = conecta.rs.getString("NomeTela");
@@ -3891,6 +3900,12 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaEntradaSaidaLABIntP1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeESLB.equals(telaEntradaSaidaLABBio) || pNomeESLB == null || pNomeESLB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEntradaSaidaLABBio);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeESIEEM.equals(telaEntradaSaidaESIEEManuP1) || pNomeESIEEM == null || pNomeESIEEM.equals("")) {
