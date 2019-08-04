@@ -23,7 +23,7 @@ public class ControleHistoricoInstituicaoInternos {
     int codInst;
 
     public HistoricoInternoEducacao incluirInterEdu(HistoricoInternoEducacao objHistInterEdu) {
-        buscarInterno(objHistInterEdu.getNomeInterno());
+        buscarInterno(objHistInterEdu.getNomeInterno(), objHistInterEdu.getIdInternoCrc());
         buscarInstituicao(objHistInterEdu.getNomeInstituicao());
         conecta.abrirConexao();
         try {
@@ -44,7 +44,7 @@ public class ControleHistoricoInstituicaoInternos {
     }
 
     public HistoricoInternoEducacao alterarInterEdu(HistoricoInternoEducacao objHistInterEdu) {
-        buscarInterno(objHistInterEdu.getNomeInterno());
+        buscarInterno(objHistInterEdu.getNomeInterno(), objHistInterEdu.getIdInternoCrc());
         buscarInstituicao(objHistInterEdu.getNomeInstituicao());
         conecta.abrirConexao();
         try {
@@ -67,7 +67,7 @@ public class ControleHistoricoInstituicaoInternos {
     public HistoricoInternoEducacao excluirInterEdu(HistoricoInternoEducacao objHistInterEdu) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM HISTORICO_EXTERNO_EDUCACIONAL WHERE IdInternoCrc='" + objHistInterEdu.getIdInternoCrc() +"'AND IdItem='" + objHistInterEdu.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM HISTORICO_EXTERNO_EDUCACIONAL WHERE IdInternoCrc='" + objHistInterEdu.getIdInternoCrc() + "'AND IdItem='" + objHistInterEdu.getIdItem() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO" + ex);
@@ -76,10 +76,51 @@ public class ControleHistoricoInstituicaoInternos {
         return objHistInterEdu;
     }
 
-    public void buscarInterno(String desc) {
+    //----------------------------- LANÇAMENTO COM BIOMETRIA --------------------------------
+    public HistoricoInternoEducacao saidaInterEdu(HistoricoInternoEducacao objHistInterEdu) {
+        buscarInterno(objHistInterEdu.getNomeInterno(), objHistInterEdu.getIdInternoCrc());
+        buscarInstituicao(objHistInterEdu.getNomeInstituicao());
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO HISTORICO_EXTERNO_EDUCACIONAL (IdInternoCrc,IdCod,IdItem,DataSaida,HorarioSaida) VALUES(?,?,?,?,?)");
+            pst.setInt(1, codInt);
+            pst.setInt(2, codInst);
+            pst.setInt(3, objHistInterEdu.getIdItem());
+            pst.setTimestamp(4, new java.sql.Timestamp(objHistInterEdu.getDataSaida().getTime()));
+            pst.setString(5, objHistInterEdu.getHorarioSaida());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objHistInterEdu;
+    }
+
+    public HistoricoInternoEducacao retornoInterEdu(HistoricoInternoEducacao objHistInterEdu) {
+        buscarInterno(objHistInterEdu.getNomeInterno(), objHistInterEdu.getIdInternoCrc());
+        buscarInstituicao(objHistInterEdu.getNomeInstituicao());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICO_EXTERNO_EDUCACIONAL SET IdInternoCrc=?,IdCod=?,IdItem=?,DataEntrada=?,HorarioEntrada=? WHERE IdInternoCrc='" + objHistInterEdu.getIdInternoCrc() + "'AND IdItem='" + objHistInterEdu.getIdItem() + "'");
+            pst.setInt(1, codInt);
+            pst.setInt(2, codInst);
+            pst.setInt(3, objHistInterEdu.getIdItem());
+            pst.setTimestamp(4, new java.sql.Timestamp(objHistInterEdu.getDataEntrada().getTime()));
+            pst.setString(5, objHistInterEdu.getHorarioEntrada());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objHistInterEdu;
+    }
+
+    public void buscarInterno(String desc, int id) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + id + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException e) {

@@ -5,12 +5,12 @@
  */
 package gestor.Controle;
 
-import static gestor.Controle.ControleItensRegSaidaInternos.qtdInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensRegSaidaInternos;
 import gestor.Modelo.ItensTransInterno;
 import gestor.Modelo.RegistroSaidaPortaria;
 import gestor.Modelo.TransferenciaInternos;
+import static gestor.Visao.TelaRegistroEntradaSaidaEducacional.jNomeInstituicao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author ronal
  */
-public class ControleSELaborativaPortariaBio {
+public class ControleSEEducacaoPortariaBio {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     RegistroSaidaPortaria objSaida = new RegistroSaidaPortaria();
@@ -32,25 +32,34 @@ public class ControleSELaborativaPortariaBio {
     //
     String pBio = null;
     String pAtivo = "Ativo";
+    int tipoAcesso = 0; // Zero é liberado na tabela de INTERNOS_SAIDA_EDUCACIONAL
+    String evadidoEscola = "";
+    public static int qtdInternosEdu = 0;
 
     public List<DigitalInternos> read() throws Exception {
         conecta.abrirConexao();
         List<DigitalInternos> listaInternosSaida = new ArrayList<DigitalInternos>();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSAGENDALABORATIVA "
+            conecta.executaSQL("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSAGENDALABORATIVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
+                    + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
+                    + "INNER JOIN INSTITUICAOESCOLAR "
+                    + "ON ASSISTENCIA_EDUCACAO_EXTERNA.IdCod=INSTITUICAOESCOLAR.IdCod "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
-                    + "ON ITENSAGENDALABORATIVA.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                     + "INNER JOIN CELAS "
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
                     + "INNER JOIN BIOMETRIA_INTERNOS "
-                    + "ON ITENSAGENDALABORATIVA.IdInternoCrc=BIOMETRIA_INTERNOS.IdInternoCrc "
-                    + "WHERE ITENSAGENDALABORATIVA.StatusInterno='" + pAtivo + "' "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=BIOMETRIA_INTERNOS.IdInternoCrc "
+                    + "WHERE NomeInstituicao='" + jNomeInstituicao.getText() + "' "
+                    + "AND TipoAcesso='" + tipoAcesso + "' "
+                    + "AND Evadido='" + evadidoEscola + "' "
                     + "AND BiometriaDedo1!='" + pBio + "'");
             while (conecta.rs.next()) {
                 DigitalInternos pDigital = new DigitalInternos();
@@ -58,18 +67,17 @@ public class ControleSELaborativaPortariaBio {
                 pDigital.setMatriculaPenal(conecta.rs.getString("MatriculaCrc"));
                 pDigital.setNomeInternoCrc(conecta.rs.getString("NomeInternoCrc"));
                 pDigital.setCaminhoFotoInterno(conecta.rs.getString("FotoInternoCrc"));
+                pDigital.setMatriculaPenal(conecta.rs.getString("MatriculaCrc"));
                 pDigital.setRegime(conecta.rs.getString("Regime"));
                 pDigital.setPavilhao(conecta.rs.getString("DescricaoPav"));
                 pDigital.setCela(conecta.rs.getString("EndCelaPav"));
-                pDigital.setIdItemSaida(conecta.rs.getString("IdAgenda"));
-                pDigital.setIdItemCrcPort(conecta.rs.getInt("IdEmp"));
                 pDigital.setBiometriaDedo1(conecta.rs.getBytes("BiometriaDedo1"));
                 pDigital.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));
                 pDigital.setBiometriaDedo3(conecta.rs.getBytes("BiometriaDedo3"));
                 pDigital.setBiometriaDedo4(conecta.rs.getBytes("BiometriaDedo4"));
                 pDigital.setImagemFrente(conecta.rs.getBytes("ImagemFrente"));
                 listaInternosSaida.add(pDigital);
-                qtdInternos++;
+                qtdInternosEdu++;
             }
             return listaInternosSaida;
         } catch (SQLException ex) {
