@@ -1771,6 +1771,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroSaidaInternoBioP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoBioP1) && codAbrirP1 == 1) {
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa funcionalidade, o registro já foi finalizado");
@@ -1784,7 +1785,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
 
     private void jBtExportarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExportarRegistrosActionPerformed
         // TODO add your handling code here:
-
+        buscarAcessoUsuario(telaRegistroSaidaInternoExpP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoExpP1) && codAbrirP1 == 1) {
             if (jStatusSaida.getText().equals("ABERTO")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário FINALIZAR o documento para poder exportar os registros de internos.");
