@@ -114,7 +114,7 @@ public class TelaPesqTipoExamePsiMedico extends javax.swing.JInternalFrame {
         jTabelaInstituicaoEscolar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInstituicaoEscolar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Exame"

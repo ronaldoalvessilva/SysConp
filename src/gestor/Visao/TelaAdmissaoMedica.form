@@ -3217,7 +3217,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Exames Solicitados"/>
+                <Property name="text" type="java.lang.String" value="Resultado de Exames"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane13">
@@ -4281,7 +4281,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Exames Solicitados"/>
+                <Property name="text" type="java.lang.String" value="Resultado de Exames"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane16">

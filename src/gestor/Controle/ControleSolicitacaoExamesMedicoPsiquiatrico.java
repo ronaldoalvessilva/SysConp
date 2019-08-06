@@ -26,7 +26,7 @@ public class ControleSolicitacaoExamesMedicoPsiquiatrico {
         buscarInterno(objSoliEx.getNomeInternoCrc(),objSoliEx.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO (StatusSolExame,DataSolExame,IdInternoCrc,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO (StatusSolExame,DataSolExame,IdInternoCrc,Observacao,UsuarioInsert,DataInsert,HorarioInsert,NomeSolicitante) VALUES (?,?,?,?,?,?,?,?)");
             pst.setString(1, objSoliEx.getStatusSolExame());
             pst.setTimestamp(2, new java.sql.Timestamp(objSoliEx.getDataSolExame().getTime()));
             pst.setInt(3, codInterno);
@@ -34,6 +34,7 @@ public class ControleSolicitacaoExamesMedicoPsiquiatrico {
             pst.setString(5, objSoliEx.getUsuarioInsert());
             pst.setString(6, objSoliEx.getDataInsert());
             pst.setString(7, objSoliEx.getHorarioInsert());
+            pst.setString(8, objSoliEx.getNomeSolicitante());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -46,7 +47,7 @@ public class ControleSolicitacaoExamesMedicoPsiquiatrico {
         buscarInterno(objSoliEx.getNomeInternoCrc(),objSoliEx.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO SET StatusSolExame=?,DataSolExame=?,IdInternoCrc=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdSolExame='" + objSoliEx.getIdSolExame() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO SET StatusSolExame=?,DataSolExame=?,IdInternoCrc=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,NomeSolicitante=? WHERE IdSolExame='" + objSoliEx.getIdSolExame() + "'");
             pst.setString(1, objSoliEx.getStatusSolExame());
             pst.setTimestamp(2, new java.sql.Timestamp(objSoliEx.getDataSolExame().getTime()));
             pst.setInt(3, codInterno);
@@ -54,6 +55,7 @@ public class ControleSolicitacaoExamesMedicoPsiquiatrico {
             pst.setString(5, objSoliEx.getUsuarioUp());
             pst.setString(6, objSoliEx.getDataUp());
             pst.setString(7, objSoliEx.getHorarioUp());
+            pst.setString(8, objSoliEx.getNomeSolicitante());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);

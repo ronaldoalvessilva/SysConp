@@ -2062,7 +2062,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         }
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel67.setText("Exames Solicitados");
+        jLabel67.setText("Resultado de Exames");
 
         jExamesSolicitadosPsiq.setColumns(20);
         jExamesSolicitadosPsiq.setRows(5);
@@ -2656,7 +2656,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jScrollPane15.setViewportView(jExamesSolcitadosMedicos);
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel51.setText("Exames Solicitados");
+        jLabel51.setText("Resultado de Exames");
 
         jHipotestesDiagnosticosMedico.setColumns(20);
         jHipotestesDiagnosticosMedico.setRows(5);
