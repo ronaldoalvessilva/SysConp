@@ -15,6 +15,7 @@ public class DadosPenaisCrc {
 
     private int IdPenais;
     private int IdInternoCrc;
+    private String nomeInternoCrc;
     private String nomeUnidade;
     private Date DataEntrada;
     private Date DataCrime;
@@ -60,13 +61,22 @@ public class DadosPenaisCrc {
     private byte[] imagemCorpo;
     private byte[] imagemCorpo1;
     private byte[] imagemCorpo2;
+    private int idEntrada;
+    private int idItem;
+    private String usuarioInsert;
+    private String usuarioUp;
+    private String dataInsert;
+    private String dataUp;
+    private String horarioInsert;
+    private String horarioUp;
 
     public DadosPenaisCrc() {
     }
 
-    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada, byte[] imagemPerfil, byte[] imagemCorpo, byte[] imagemCorpo1, byte[] imagemCorpo2) {
+    public DadosPenaisCrc(int IdPenais, int IdInternoCrc, String nomeInternoCrc, String nomeUnidade, Date DataEntrada, Date DataCrime, Date DataPrisao, Date DataCondenacao, String Participacao, String Regime, String Pena, String Artigo1, String Artigo2, String Artigo3, String Paragrafo1, String Paragrafo2, String Paragrafo3, String crimeEdiondo, Date terminoPena, String FotoPerfil, String FotoCorpo, String FotoCorpo1, String FotoCorpo2, String FotoPolegarDireito, String FotoPolegarEsquerdo, String FotoIndicadorDireito, String FotoIndicadorEsquerdo, String FotoMedioDireito, String FotoMedioEsquerto, String FotoAnluarDireito, String FotoAnluaresquerdo, String FotoMeditoDireito, String FotoMeditoEsquerdo, String Identificador, String Identificador1, String Identificador2, String Identificador3, String Perfil, String RegiaoCorpo, String RegiaoCorpo1, String RegiaoCorpo2, String RegiaoCorpo3, String varaCondenatoria, Date dataNovaEntrada, byte[] imagemPerfil, byte[] imagemCorpo, byte[] imagemCorpo1, byte[] imagemCorpo2, int idEntrada, int idItem, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.IdPenais = IdPenais;
         this.IdInternoCrc = IdInternoCrc;
+        this.nomeInternoCrc = nomeInternoCrc;
         this.nomeUnidade = nomeUnidade;
         this.DataEntrada = DataEntrada;
         this.DataCrime = DataCrime;
@@ -112,6 +122,14 @@ public class DadosPenaisCrc {
         this.imagemCorpo = imagemCorpo;
         this.imagemCorpo1 = imagemCorpo1;
         this.imagemCorpo2 = imagemCorpo2;
+        this.idEntrada = idEntrada;
+        this.idItem = idItem;
+        this.usuarioInsert = usuarioInsert;
+        this.usuarioUp = usuarioUp;
+        this.dataInsert = dataInsert;
+        this.dataUp = dataUp;
+        this.horarioInsert = horarioInsert;
+        this.horarioUp = horarioUp;
     }
 
     /**
@@ -140,6 +158,20 @@ public class DadosPenaisCrc {
      */
     public void setIdInternoCrc(int IdInternoCrc) {
         this.IdInternoCrc = IdInternoCrc;
+    }
+
+    /**
+     * @return the nomeInternoCrc
+     */
+    public String getNomeInternoCrc() {
+        return nomeInternoCrc;
+    }
+
+    /**
+     * @param nomeInternoCrc the nomeInternoCrc to set
+     */
+    public void setNomeInternoCrc(String nomeInternoCrc) {
+        this.nomeInternoCrc = nomeInternoCrc;
     }
 
     /**
@@ -772,4 +804,115 @@ public class DadosPenaisCrc {
         this.imagemCorpo2 = imagemCorpo2;
     }
 
+    /**
+     * @return the idEntrada
+     */
+    public int getIdEntrada() {
+        return idEntrada;
+    }
+
+    /**
+     * @param idEntrada the idEntrada to set
+     */
+    public void setIdEntrada(int idEntrada) {
+        this.idEntrada = idEntrada;
+    }
+
+    /**
+     * @return the idItem
+     */
+    public int getIdItem() {
+        return idItem;
+    }
+
+    /**
+     * @param idItem the idItem to set
+     */
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
+
+    /**
+     * @return the usuarioInsert
+     */
+    public String getUsuarioInsert() {
+        return usuarioInsert;
+    }
+
+    /**
+     * @param usuarioInsert the usuarioInsert to set
+     */
+    public void setUsuarioInsert(String usuarioInsert) {
+        this.usuarioInsert = usuarioInsert;
+    }
+
+    /**
+     * @return the usuarioUp
+     */
+    public String getUsuarioUp() {
+        return usuarioUp;
+    }
+
+    /**
+     * @param usuarioUp the usuarioUp to set
+     */
+    public void setUsuarioUp(String usuarioUp) {
+        this.usuarioUp = usuarioUp;
+    }
+
+    /**
+     * @return the dataInsert
+     */
+    public String getDataInsert() {
+        return dataInsert;
+    }
+
+    /**
+     * @param dataInsert the dataInsert to set
+     */
+    public void setDataInsert(String dataInsert) {
+        this.dataInsert = dataInsert;
+    }
+
+    /**
+     * @return the dataUp
+     */
+    public String getDataUp() {
+        return dataUp;
+    }
+
+    /**
+     * @param dataUp the dataUp to set
+     */
+    public void setDataUp(String dataUp) {
+        this.dataUp = dataUp;
+    }
+
+    /**
+     * @return the horarioInsert
+     */
+    public String getHorarioInsert() {
+        return horarioInsert;
+    }
+
+    /**
+     * @param horarioInsert the horarioInsert to set
+     */
+    public void setHorarioInsert(String horarioInsert) {
+        this.horarioInsert = horarioInsert;
+    }
+
+    /**
+     * @return the horarioUp
+     */
+    public String getHorarioUp() {
+        return horarioUp;
+    }
+
+    /**
+     * @param horarioUp the horarioUp to set
+     */
+    public void setHorarioUp(String horarioUp) {
+        this.horarioUp = horarioUp;
+    }
 }
