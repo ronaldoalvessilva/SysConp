@@ -447,6 +447,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
         jLabel8.setText("Horário");
 
         jDataRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataRegistro.setEnabled(false);
 
         jHorarioSaidaEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jHorarioSaidaEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
