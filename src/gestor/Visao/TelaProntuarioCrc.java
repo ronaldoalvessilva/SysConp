@@ -187,6 +187,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static TelaPesquisaExternaInterno telaPesquisaExterna;
     public static PdfView pdfView;
     public static TelaDocumentosInternos docInternos;
+    public static TelaFasesPersecucao fasesPersecucao;
 
     //
     public TelaProntuarioCrc() {
@@ -226,6 +227,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void mostrarDocumentos() {
         docInternos = new TelaDocumentosInternos(this, true);
         docInternos.setVisible(true);
+    }
+
+    public void mostrarFasePersecucao() {
+        fasesPersecucao = new TelaFasesPersecucao(this, true);
+        fasesPersecucao.setVisible(true);
     }
 
     /**
@@ -501,6 +507,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtAuditoriaPronCrc1 = new javax.swing.JButton();
         jBtObservacao1 = new javax.swing.JButton();
         jBtBuscarRegPortaria1 = new javax.swing.JButton();
+        jBtFasesPersecucao = new javax.swing.JButton();
         jPanel34 = new javax.swing.JPanel();
         jPanel35 = new javax.swing.JPanel();
         jLabel74 = new javax.swing.JLabel();
@@ -3102,6 +3109,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtFasesPersecucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtFasesPersecucao.setToolTipText("Fases da Persecução");
+        jBtFasesPersecucao.setContentAreaFilled(false);
+        jBtFasesPersecucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFasesPersecucaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
@@ -3126,6 +3142,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPronCrc1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtFasesPersecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
@@ -3140,7 +3158,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvar1)
                 .addComponent(jBtExcluir1)
                 .addComponent(jBtAlterar1)
-                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtFasesPersecucao))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -6258,6 +6277,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaDocumentosMouseClicked
 
+    private void jBtFasesPersecucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFasesPersecucaoActionPerformed
+        // TODO add your handling code here:
+        if (jIdInterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário pesquisar o interno antes...");
+        } else {
+            mostrarFasePersecucao();
+        }
+    }//GEN-LAST:event_jBtFasesPersecucaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAlcunha;
@@ -6285,6 +6313,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirFotoCorpo1;
     private javax.swing.JButton jBtExcluirFotoPerfil;
     private javax.swing.JButton jBtExcluirRegistro;
+    private javax.swing.JButton jBtFasesPersecucao;
     private javax.swing.JButton jBtImportarProntuario;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtImpressao1;

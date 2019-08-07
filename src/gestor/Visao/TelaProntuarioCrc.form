@@ -4625,6 +4625,8 @@
                           <Component id="jBtBuscarRegPortaria1" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaPronCrc1" min="-2" pref="24" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jBtFasesPersecucao" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -4642,6 +4644,7 @@
                           <Component id="jBtExcluir1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtAlterar1" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtNovo1" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="jBtFasesPersecucao" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4818,6 +4821,18 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtBuscarRegPortaria1ActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtFasesPersecucao">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/061218140238_16.png"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Fases da Persecu&#xe7;&#xe3;o"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtFasesPersecucaoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
