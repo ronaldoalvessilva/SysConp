@@ -125,7 +125,7 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Visita", "Parentesco", "Data Cadastro"
@@ -261,9 +261,20 @@ public class TelaPesqVisitaAtendFamiliar extends javax.swing.JInternalFrame {
                 jIDVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
                 caminho = conecta.rs.getString("ImagemVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoVisita.setIcon(i);
-                FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoVisita.setIcon(i);
+                    FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DA VISITA NO BANCO DE DADOS
+                byte[] imgViBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgViBytes != null) {
+                    ImageIcon picVi = null;
+                    picVi = new ImageIcon(imgViBytes);
+                    Image scaled = picVi.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon iconVi = new ImageIcon(scaled);
+                    FotoVisita.setIcon(iconVi);
+                }
                 jParentesco.setText(conecta.rs.getString("ParentescoVisita"));
                 jRGVisita.setText(conecta.rs.getString("RgVisita"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadVisita"));
