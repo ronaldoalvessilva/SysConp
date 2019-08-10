@@ -168,6 +168,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaPerfilPopCarcerariaPerfilSS = "Movimentação:Pérfil Carcerário:Pérfil Carcerário";
     public static String telaAtualizacaoDocSS = "Movimentação:Atualização de Documentos Internos:Manutenção";
     public static String telaAtendimentoFamiliaSS = "Movimentação:Atendimento Familia:Manutenção";
+    public static String telaAtendimentoFamilia_EVO_SS = "Movimentação:Atendimento Familia:Evolução";
     public static String telaCancelaVisitaSS = "Movimentação:Cancelamento de Visitantes:Manutenção";
     public static String telaCancelaVisitaVistasExtSS = "Movimentação:Cancelamento de Visitantes:Visitas Externas";
     public static String telaCancelaVisitaVistasIntSS = "Movimentação:Cancelamento de Visitantes:Visitas Internas";
@@ -227,6 +228,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomePPCP = "";
     String pNomeAD = "";
     String pNomeAF = "";
+    String pNomeAFE = "";
     String pNomeCVS = "";
     String pNomeCVVE = "";
     String pNomeCVVI = "";
@@ -2691,6 +2693,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtendimentoFamilia_EVO_SS + "'");
+            conecta.rs.first();
+            pNomeAFE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaCancelaVisitaSS + "'");
             conecta.rs.first();
             pNomeCVS = conecta.rs.getString("NomeTela");
@@ -3025,6 +3034,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaAtendimentoFamiliaSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAFE.equals(telaAtendimentoFamilia_EVO_SS) || pNomeAFE == null || pNomeAFE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtendimentoFamilia_EVO_SS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeCVS.equals(telaCancelaVisitaSS) || pNomeCVS == null || pNomeCVS.equals("")) {
