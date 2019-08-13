@@ -1059,7 +1059,7 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
             jBtFinalizar.setEnabled(true);
             //
             jBtNovoInterno.setEnabled(true);
-//            jBtImpressao.setEnabled(true);
+            jBtImpressao.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -1613,23 +1613,14 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAbrirTO == 1) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioFrequenciaAulasInternos.jasper";
-                conecta.executaSQL("SELECT * FROM FREQUENCIA "
-                        + "INNER JOIN MATRICULAESCOLAR "
-                        + "ON FREQUENCIA.IdMat=MATRICULAESCOLAR.IdMat "
-                        + "INNER JOIN INSTITUICAOESCOLAR "
-                        + "ON MATRICULAESCOLAR.IdCod=INSTITUICAOESCOLAR.IdCod "
-                        + "INNER JOIN TEMPOFORMATIVO "
-                        + "ON MATRICULAESCOLAR.IdTempo=TEMPOFORMATIVO.IdTempo "
-                        + "INNER JOIN SALAS "
-                        + "ON MATRICULAESCOLAR.IdSala=SALAS.IdSala "
-                        + "INNER JOIN TURNOSAULA "
-                        + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                        + "INNER JOIN PROFESSORES "
-                        + "ON INSTITUICAOESCOLAR.IdCod=PROFESSORES.IdCod "
-                        + "WHERE IdFreq='" + jIdRegistro.getText() + "'");
+                String path = "reports/RelatorioFrequenciaCursosTO.jasper";
+                conecta.executaSQL("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        + "INNER JOIN CURSOS "
+                        + "ON CURSOS.IdCurso=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdCurso "
+                        + "WHERE IdFreqCap='" + jIdRegistro.getText() + "'");
                 HashMap parametros = new HashMap();
                 parametros.put("codFrequencia", jIdRegistro.getText());
+                parametros.put("descricaoUnidade",descricaoUnidade);
                 parametros.put("nomeUsuario", nameUser);
                 // Sub Relatório
                 try {
@@ -1953,7 +1944,7 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
     }
 
     public void SalvarInterno() {
-        //PARAMETRO PARA LIMPAR VARIVALE QUE VERIFICA SE O INTERNO ESTÁ CURSANDO OU NÃO.
+        //PARAMETRO PARA LIMPAR VARIVAL QUE VERIFICA SE O INTERNO ESTÁ CURSANDO OU NÃO.
         pSitaucaoCurso = "";
         jBtNovoInterno.setEnabled(true);
         //
@@ -1962,6 +1953,7 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
         jBtExcluir.setEnabled(true);
         jBtFinalizar.setEnabled(true);
         jBtAuditoria.setEnabled(true);
+        jBtImpressao.setEnabled(true);
     }
 
     public void CancelarInterno() {

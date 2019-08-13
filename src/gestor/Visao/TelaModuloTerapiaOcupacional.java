@@ -39,8 +39,6 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-//import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
-//import static gestor.Visao.TelaModuloServicoSocial.telaPAISS;
 import static gestor.Visao.TelaRecadosCrc.jBtAlterar;
 import static gestor.Visao.TelaRecadosCrc.jBtCancelar;
 import static gestor.Visao.TelaRecadosCrc.jBtConfirmar;
