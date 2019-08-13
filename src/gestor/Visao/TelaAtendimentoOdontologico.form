@@ -646,7 +646,8 @@
                                           </Group>
                                           <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jQueixaPrincipal" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -657,41 +658,43 @@
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jComboBoxMedicacao" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxTratamentoMedico" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxAlegria" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jAfirmacao2" linkSize="33" alignment="0" min="-2" pref="355" max="-2" attributes="0"/>
-                                              <Component id="jAfirmacao1" linkSize="33" alignment="0" min="-2" pref="297" max="-2" attributes="0"/>
-                                              <Component id="jAfirmacao3" linkSize="33" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jComboBoxMedicacao" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jComboBoxTratamentoMedico" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jComboBoxAlegria" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jAfirmacao2" linkSize="33" alignment="0" min="-2" pref="355" max="-2" attributes="0"/>
+                                                      <Component id="jAfirmacao1" linkSize="33" alignment="0" min="-2" pref="297" max="-2" attributes="0"/>
+                                                      <Component id="jAfirmacao3" linkSize="33" alignment="0" min="-2" pref="338" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jComboBoxGestante" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                                                      <Component id="jComboBoxTipoAtendimento" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel85" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jComboBoxFumante" max="32767" attributes="0"/>
+                                                      <Component id="jTempoGestacao" min="-2" pref="48" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jComboBoxGestante" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxTipoAtendimento" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel85" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jComboBoxFumante" max="32767" attributes="0"/>
-                                              <Component id="jTempoGestacao" min="-2" pref="48" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="jQueixaPrincipal" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
