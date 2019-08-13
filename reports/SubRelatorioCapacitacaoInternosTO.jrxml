@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="pIdCap" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM ITENS_CAPACITACAO_INTERNO_TO INNER JOIN PRONTUARIOSCRC ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CAPACITACAO_INTERNO_TO ON ITENS_CAPACITACAO_INTERNO_TO.IdCap=CAPACITACAO_INTERNO_TO.IdCap]]>
+		<![CDATA[SELECT * FROM ITENS_CAPACITACAO_INTERNO_TO INNER JOIN PRONTUARIOSCRC ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CAPACITACAO_INTERNO_TO ON ITENS_CAPACITACAO_INTERNO_TO.IdCap=CAPACITACAO_INTERNO_TO.IdCap WHERE ITENS_CAPACITACAO_INTERNO_TO.IdCap=$P{pIdCap}]]>
 	</queryString>
 	<field name="IdItemCap" class="java.lang.Integer"/>
 	<field name="DataInicio" class="java.sql.Timestamp"/>
@@ -51,6 +51,7 @@
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<field name="StatusRegistro" class="java.lang.String"/>

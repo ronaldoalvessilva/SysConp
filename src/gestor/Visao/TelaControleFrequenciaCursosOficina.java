@@ -1059,6 +1059,7 @@ public class TelaControleFrequenciaCursosOficina extends javax.swing.JInternalFr
             jBtFinalizar.setEnabled(true);
             //
             jBtNovoInterno.setEnabled(true);
+//            jBtImpressao.setEnabled(true);
             //
             conecta.abrirConexao();
             try {

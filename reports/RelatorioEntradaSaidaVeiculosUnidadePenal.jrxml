@@ -345,12 +345,7 @@
 					<textFieldExpression><![CDATA[$F{HorarioSaida}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0">
-					<reportElement style="Detail" x="321" y="0" width="65" height="15" uuid="04fe321b-9b7c-466b-9328-71ff2d8353b7"/>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{KmInicial}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0">
-					<reportElement style="Detail" x="259" y="0" width="59" height="15" uuid="b4c05831-ff36-4837-983b-4dce21bd706b"/>
+					<reportElement style="Detail" x="332" y="1" width="59" height="15" uuid="b4c05831-ff36-4837-983b-4dce21bd706b"/>
 					<textElement textAlignment="Center"/>
 					<textFieldExpression><![CDATA[$F{KmFinal}]]></textFieldExpression>
 				</textField>
@@ -370,6 +365,11 @@
 						<font size="12" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{KmFinal}.floatValue() - $F{KmInicial}.floatValue()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0">
+					<reportElement style="Detail" x="263" y="1" width="65" height="15" uuid="04fe321b-9b7c-466b-9328-71ff2d8353b7"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{KmInicial}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

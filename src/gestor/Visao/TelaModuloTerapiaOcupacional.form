@@ -244,7 +244,7 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenuControleFrequenciaCursos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Capacita&#xe7;&#xe3;o/Oficias/Frequ&#xea;ncias de Internos"/>
+                <Property name="text" type="java.lang.String" value="Capacita&#xe7;&#xe3;o/Oficinas/Frequ&#xea;ncias de Internos"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jCapacitacaoInterno">

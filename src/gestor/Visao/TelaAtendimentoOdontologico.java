@@ -4067,7 +4067,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setHorarioUp(horaMov);
                         objRegAtend.setQtdAtend(qtdTipo);
                         controlRegAtend.alterarRegAtend(objRegAtend);
-                        if (rows != 0 && jRBtRealizado.isSelected() == true) {
+                        if (rows != 0) {
                             incluirOdontograma();
                             // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
                             objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
@@ -4461,7 +4461,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setQtdAtend(qtdTipo);
                     controlRegAtend.alterarRegEvol(objRegAtend);
-                    if (rows != 0 && jRBtRealizado.isSelected() == true) {
+                    if (rows != 0) {
                         incluirOdontogramaEvolucao();
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));

@@ -78,7 +78,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String statusMov;
     String horaMov;
     String dataModFinal;
-    int acao, flag, idItem;
+    int flag, idItem;
+    public static int pAcao;
     String dataInicial, dataFinal, dataEntrada, dataEvolucao, dataAtiv;
     String deptoTecnico = "JURIDICO";
     String caminho;
@@ -1485,6 +1486,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         });
 
         jBtAtividadesRealizadasEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAtividadesRealizadasEvol.setEnabled(false);
         jBtAtividadesRealizadasEvol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAtividadesRealizadasEvolActionPerformed(evt);
@@ -1698,7 +1700,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoManuJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codIncluirJURI == 1) {
-            acao = 1;
+            pAcao = 1;
             Novo();
             corCampos();
             statusMov = "Incluiu";
@@ -1717,7 +1719,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 2;
+                pAcao = 2;
                 Alterar();
                 preencherComboBoxDepartamento();
                 corCampos();
@@ -1777,7 +1779,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 objAtendJuri.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
                 objAtendJuri.setHoraEnvio(jHoraEnvio.getText());
                 objAtendJuri.setResposta((String) jComboBoxResposta.getSelectedItem());
-                if (acao == 1) {
+                if (pAcao == 1) {
                     // log de usuario
                     objAtendJuri.setUsuarioInsert(nameUser);
                     objAtendJuri.setDataInsert(dataModFinal);
@@ -1830,7 +1832,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
-                if (acao == 2) {
+                if (pAcao == 2) {
                     // log de usuario
                     objAtendJuri.setUsuarioUp(nameUser);
                     objAtendJuri.setDataUp(dataModFinal);
@@ -1957,7 +1959,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jEvolucao.setText("");
             //
             jBtNovaEvolucao.setEnabled(true);
-            //
+            jBtAtividadesRealizadasEvol.setEnabled(true);
             jBtNovaAtividade.setEnabled(true);
             //
             preencherComboBoxDepartamento();
@@ -2051,17 +2053,25 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codIncluirJURI == 1) {
-            verificarInternoRegistradoAdm();
-            if (atendido == null) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("Não")) {
-                acao = 3;
-                opcaoAtividade = 1;
-                NovaEvolucao();
+            verificarSituacaoInternoCrc();
+            if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                verificarInternoRegistradoAdm();
+                if (atendido == null) {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+                } else if (atendido.equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+                } else if (atendido.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+                } else if (atendido.equals("Não")) {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    pAcao = 3;
+                    opcaoAtividade = 1;
+                    NovaEvolucao();
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade, por isso não é possível incluir nenhum registro.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -2072,19 +2082,30 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoEvolucaoJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoEvolucaoJURI) && codAlterarJURI == 1) {
-            verificarEvolucaoAdmissao();
-            if (admEvolucao == null) {
-                acao = 4;
-                opcaoAtividade = 2;
-                AlterarEvolucao();
-                preencherComboBoxDepartamento();
-            } else if (admEvolucao.equals("")) {
-                acao = 4;
-                opcaoAtividade = 2;
-                AlterarEvolucao();
-                preencherComboBoxDepartamento();
-            } else if (admEvolucao.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
+            verificarSituacaoInternoCrc();
+            if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
+                verificarEvolucaoAdmissao();
+                if (admEvolucao == null) {
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    pAcao = 4;
+                    opcaoAtividade = 2;
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                } else if (admEvolucao.equals("")) {
+                    pAcao = 4;
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    opcaoAtividade = 2;
+                    AlterarEvolucao();
+                    preencherComboBoxDepartamento();
+                } else if (admEvolucao.equals("Sim")) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade, por isso não é possível incluir nenhum registro.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -2134,7 +2155,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 objEvolu.setHoraEnvio(jHoraEnvioEvo.getText());
                 objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
                 objEvolu.setEvolucao(jEvolucao.getText());
-                if (acao == 3) {
+                if (pAcao == 3) {
                     if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
                         // log de usuario
                         objEvolu.setUsuarioInsert(nameUser);
@@ -2171,15 +2192,16 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         controlRegAtend.alterarRegEvol(objRegAtend);
                         objLog3();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        SalvarEvolucao();
                         preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
                                 + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        SalvarEvolucao();
+                        mostrarAtividadeRealizadaEvolucao();
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
                     }
                 }
-                if (acao == 4) {
+                if (pAcao == 4) {
                     if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
                         // log de usuario
                         objEvolu.setUsuarioUp(nameUser);
@@ -2263,7 +2285,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codIncluirJURI == 1) {
-            acao = 5;
+            pAcao = 5;
             NovaAtividade();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -2277,7 +2299,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoaAtividadesJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoaAtividadesJURI) && codAlterarJURI == 1) {
-            acao = 6;
+            pAcao = 6;
             AlterarAtividade();
             statusMov = "Alterou";
             horaMov = jHoraSistema.getText();
@@ -2333,7 +2355,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 } else {
                     objAtivi.setDataItem(jDataAtividade.getDate());
                     objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    if (acao == 5) {
+                    if (pAcao == 5) {
                         if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
                             // log de usuario
                             objAtivi.setUsuarioInsert(nameUser);
@@ -2360,7 +2382,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                             JOptionPane.showMessageDialog(rootPane, "Esse interno não se encontra mais na unidade.");
                         }
                     }
-                    if (acao == 6) {
+                    if (pAcao == 6) {
                         if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
                             // log de usuario
                             objAtivi.setUsuarioUp(nameUser);
@@ -2447,7 +2469,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jComboBoxRespostaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxRespostaItemStateChanged
         // TODO add your handling code here:
-        if (acao == 1 || acao == 2) {
+        if (pAcao == 1 || pAcao == 2) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamento.setCalendar(Calendar.getInstance());
                 jHoraEnvio.setText(jHoraSistema.getText());
@@ -2473,7 +2495,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
 
     private void jComboBoxRespostaEvoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxRespostaEvoItemStateChanged
         // TODO add your handling code here:   
-        if (acao == 3 || acao == 4) {
+        if (pAcao == 3 || pAcao == 4) {
             if (jComboBoxRespostaEvo.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamentoEvo.setCalendar(Calendar.getInstance());
                 jHoraEnvioEvo.setText(jHoraSistema.getText());
@@ -2567,7 +2589,10 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             } else if (jIDInternoJuridico.getText().equals("") && jNomeInternoJuridico.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno antes de cadastrar as atividades a serem realizadas.");
             } else {
+//                verificarSituacaoInternoCrc();
+//                if (situacaoInternoCrc.equals("ENTRADA NA UNIDADE") || situacaoInternoCrc.equals("RETORNO A UNIDADE")) {
                 mostrarAtividadeRealizadaEvolucao();
+//                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -2582,20 +2607,20 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel Manutencao;
     public static javax.swing.JTextField jAtividadeRealizada;
     private javax.swing.JButton jBtAdividadesRealizadasADM;
-    private javax.swing.JButton jBtAgendarBeneficio;
+    public static javax.swing.JButton jBtAgendarBeneficio;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarAtividade;
-    private javax.swing.JButton jBtAlterarEvolucao;
+    public static javax.swing.JButton jBtAlterarEvolucao;
     private javax.swing.JButton jBtAtividadesRealizadasEvol;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaAtividade;
     private javax.swing.JButton jBtAuditoriaEvolucao;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtCancelarAtividade;
-    private javax.swing.JButton jBtCancelarEvolucao;
+    public static javax.swing.JButton jBtCancelarEvolucao;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirAtividade;
-    private javax.swing.JButton jBtExcluirEvolucao;
+    public static javax.swing.JButton jBtExcluirEvolucao;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIDPesq;
     private javax.swing.JButton jBtNovaAtividade;
@@ -2608,29 +2633,29 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarAtividade;
-    private javax.swing.JButton jBtSalvarEvolucao;
+    public static javax.swing.JButton jBtSalvarEvolucao;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JComboBox jComboBoxEncaminharSetor;
-    private javax.swing.JComboBox jComboBoxEncaminharSetorEvo;
+    public static javax.swing.JComboBox jComboBoxEncaminharSetorEvo;
     private javax.swing.JComboBox jComboBoxResposta;
-    private javax.swing.JComboBox jComboBoxRespostaEvo;
+    public static javax.swing.JComboBox jComboBoxRespostaEvo;
     private javax.swing.JComboBox jComboBoxTipoAdvogado;
-    private javax.swing.JComboBox jComboBoxTipoAdvogadoEvo;
+    public static javax.swing.JComboBox jComboBoxTipoAdvogadoEvo;
     private com.toedter.calendar.JDateChooser jDataAtividade;
     public static com.toedter.calendar.JDateChooser jDataCondIntJuri;
     private com.toedter.calendar.JDateChooser jDataEncaminhamento;
-    private com.toedter.calendar.JDateChooser jDataEncaminhamentoEvo;
-    private com.toedter.calendar.JDateChooser jDataEvolucao;
+    public static com.toedter.calendar.JDateChooser jDataEncaminhamentoEvo;
+    public static com.toedter.calendar.JDateChooser jDataEvolucao;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
     private com.toedter.calendar.JDateChooser jDataLanc;
     public static com.toedter.calendar.JDateChooser jDataNascInternoJuri;
-    private javax.swing.JTextArea jEvolucao;
+    public static javax.swing.JTextArea jEvolucao;
     private javax.swing.JTextArea jEvolucaoAdmissao;
     public static javax.swing.JLabel jFotoInternoJuridico;
     private javax.swing.JFormattedTextField jHoraEnvio;
-    private javax.swing.JFormattedTextField jHoraEnvioEvo;
+    public static javax.swing.JFormattedTextField jHoraEnvioEvo;
     public static javax.swing.JTextField jIDInternoJuridico;
     public static javax.swing.JTextField jIDLanc;
     private javax.swing.JTextField jIDPesq;
@@ -2696,7 +2721,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaAtendimentoJuridico;
     private javax.swing.JTable jTabelaAtividades;
-    private javax.swing.JTable jTabelaEvolucaoJuridica;
+    public static javax.swing.JTable jTabelaEvolucaoJuridica;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -2743,7 +2768,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jFotoInternoJuridico.setIcon(null);
         jEvolucaoAdmissao.setText("");
         jComboBoxResposta.setEnabled(true);
-        if (acao == 1) {
+        if (pAcao == 1) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamento.setCalendar(Calendar.getInstance());
                 jHoraEnvio.setText(jHoraSistema.getText());
@@ -2816,7 +2841,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jEvolucaoAdmissao.setEnabled(true);
         jComboBoxTipoAdvogado.setEnabled(true);
         jComboBoxResposta.setEnabled(true);
-        if (acao == 2) {
+        if (pAcao == 2) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamento.setEnabled(true);
                 jComboBoxEncaminharSetor.setEnabled(true);
@@ -3235,7 +3260,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jComboBoxRespostaEvo.setEnabled(true);
         jBtAgendarBeneficio.setEnabled(!true);
         //
-        if (acao == 3) {
+        if (pAcao == 3) {
             if (jComboBoxRespostaEvo.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamentoEvo.setCalendar(Calendar.getInstance());
                 jHoraEnvioEvo.setText(jHoraSistema.getText());
@@ -3278,7 +3303,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jEvolucao.setEnabled(true);
         jComboBoxTipoAdvogadoEvo.setEnabled(true);
         jComboBoxRespostaEvo.setEnabled(true);
-        if (acao == 4) {
+        if (pAcao == 4) {
             if (jComboBoxRespostaEvo.getSelectedItem().equals("Sim")) {
                 jDataEncaminhamentoEvo.setCalendar(Calendar.getInstance());
                 jHoraEnvioEvo.setText(jHoraSistema.getText());
@@ -3347,11 +3372,11 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     }
 
     public void SalvarEvolucao() {
-        jIdEvolucao.setText("");
-        jNomeInternoEvolucao.setText("");
-        jAtividadeRealizada.setText("");
-        jDataEvolucao.setDate(null);
-        jEvolucao.setText("");
+//        jIdEvolucao.setText("");
+//        jNomeInternoEvolucao.setText("");
+//        jAtividadeRealizada.setText("");
+//        jDataEvolucao.setDate(null);
+//        jEvolucao.setText("");
         //
         jDataEvolucao.setEnabled(!true);
         jEvolucao.setEnabled(!true);
@@ -3372,7 +3397,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtSalvarEvolucao.setEnabled(!true);
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
-        jBtAtividadesRealizadasEvol.setEnabled(!true);
+        jBtAtividadesRealizadasEvol.setEnabled(true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -3383,12 +3408,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     }
 
     public void CancelarEvolucao() {
-        acao = 0;
-        jIdEvolucao.setText("");
-        jNomeInternoEvolucao.setText("");
-        jAtividadeRealizada.setText("");
-        jDataEvolucao.setDate(null);
-        jEvolucao.setText("");
+        pAcao = 0;
         jBtAgendarBeneficio.setEnabled(true);
         //
         jDataEvolucao.setEnabled(!true);
@@ -3406,7 +3426,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jDataEncaminhamentoEvo.setDate(null);
         jHoraEnvioEvo.setText("");
         //
-        jBtNovaEvolucao.setEnabled(!true);
+        jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
         jBtExcluirEvolucao.setEnabled(!true);
         jBtSalvarEvolucao.setEnabled(!true);

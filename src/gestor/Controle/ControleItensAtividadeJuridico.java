@@ -44,7 +44,7 @@ public class ControleItensAtividadeJuridico {
             pst.setString(8, objAtivi.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAtivi;
@@ -65,7 +65,7 @@ public class ControleItensAtividadeJuridico {
             pst.setString(8, objAtivi.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAtivi;

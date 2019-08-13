@@ -591,7 +591,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
         jMenu2.add(OcorrenciasLaborativa);
         jMenu2.add(jSeparator14);
 
-        jMenuControleFrequenciaCursos.setText("Capacitação/Oficias/Frequências de Internos");
+        jMenuControleFrequenciaCursos.setText("Capacitação/Oficinas/Frequências de Internos");
 
         jCapacitacaoInterno.setText("Capacitação/Oficinas para Internos");
         jCapacitacaoInterno.addActionListener(new java.awt.event.ActionListener() {

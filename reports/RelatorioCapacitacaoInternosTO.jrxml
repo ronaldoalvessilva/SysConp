@@ -21,7 +21,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM CAPACITACAO_INTERNO_TO INNER JOIN CURSOS
-ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso WHERE IdCap=$P{pCodigoRegistro}]]>
+ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso WHERE CAPACITACAO_INTERNO_TO.IdCap=$P{pCodigoRegistro}]]>
 	</queryString>
 	<field name="IdCap" class="java.lang.Integer"/>
 	<field name="StatusRegistro" class="java.lang.String"/>
