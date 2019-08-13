@@ -458,7 +458,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Adimissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Admissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
