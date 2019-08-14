@@ -119,6 +119,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaRegistroLivroResenhaInterno objRegistroResenha = null;
     private TelaAtualizarMatriculaPedagogia objAtualizarMat = null;
+    private TelaMovHistoricoTecPedagogia objConHistMov = null;
     //
     int flag;
     int codUsuario;
@@ -408,6 +409,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Consultas = new javax.swing.JMenu();
         ProntuariosInternos = new javax.swing.JMenuItem();
         LocalizacaoInternos = new javax.swing.JMenuItem();
+        jHistoricoMovimentacao = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
         AdmissaoEvolucaoPedagogica = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
@@ -736,6 +738,14 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             }
         });
         Consultas.add(LocalizacaoInternos);
+
+        jHistoricoMovimentacao.setText("Histórico de Movimentação de Internos");
+        jHistoricoMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jHistoricoMovimentacaoActionPerformed(evt);
+            }
+        });
+        Consultas.add(jHistoricoMovimentacao);
 
         jMenuBar1.add(Consultas);
 
@@ -2303,6 +2313,35 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jConcluirMatriculaActionPerformed
 
+    private void jHistoricoMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHistoricoMovimentacaoActionPerformed
+        // TODO add your handling code here:
+        if (objConHistMov == null || objConHistMov.isClosed()) {
+            objConHistMov = new TelaMovHistoricoTecPedagogia();
+            jPainelPedagogia.add(objConHistMov);
+            objConHistMov.setVisible(true);
+        } else {
+            if (objConHistMov.isVisible()) {
+                if (objConHistMov.isIcon()) { // Se esta minimizado
+                    try {
+                        objConHistMov.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objConHistMov.toFront(); // traz para frente
+                    objConHistMov.pack();//volta frame 
+                }
+            } else {
+                objConHistMov = new TelaMovHistoricoTecPedagogia();
+                TelaModuloPedagogia.jPainelPedagogia.add(objConHistMov);//adicona frame ao JDesktopPane  
+                objConHistMov.setVisible(true);
+            }
+        }
+        try {
+            objConHistMov.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jHistoricoMovimentacaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acervo;
@@ -2351,6 +2390,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem TurmasAulas;
     private javax.swing.JMenuItem jAgendaAtendimentoInternos;
     private javax.swing.JMenuItem jConcluirMatricula;
+    private javax.swing.JMenuItem jHistoricoMovimentacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

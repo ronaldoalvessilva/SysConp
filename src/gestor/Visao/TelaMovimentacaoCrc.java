@@ -11,6 +11,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ItensEntradaLote;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaPesquisaMovInterno.idInt;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
      */
     public TelaMovimentacaoCrc() {
         initComponents();
+        corCampos();
     }
 
     /**
@@ -96,7 +98,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeInterno.setEnabled(false);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jFotoInterno.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -200,9 +202,9 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jMatriculaPenalInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jNomeInterno)
                             .addComponent(jUnidadePenal, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -219,7 +221,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
                                 .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
                                 .addGap(4, 4, 4)
                                 .addComponent(jDataPena, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -275,7 +277,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
         jTabelaMovimentacao.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jTabelaMovimentacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"
@@ -289,7 +291,7 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
             jTabelaMovimentacao.getColumnModel().getColumn(1).setMaxWidth(80);
             jTabelaMovimentacao.getColumnModel().getColumn(2).setMinWidth(200);
             jTabelaMovimentacao.getColumnModel().getColumn(2).setMaxWidth(200);
-            jTabelaMovimentacao.getColumnModel().getColumn(3).setMinWidth(250);
+            jTabelaMovimentacao.getColumnModel().getColumn(3).setMinWidth(260);
             jTabelaMovimentacao.getColumnModel().getColumn(3).setMaxWidth(260);
         }
 
@@ -406,6 +408,16 @@ public class TelaMovimentacaoCrc extends javax.swing.JInternalFrame {
     public static javax.swing.JTable jTabelaMovimentacao;
     public static javax.swing.JTextField jUnidadePenal;
     // End of variables declaration//GEN-END:variables
+
+    public void corCampos() {
+        jIdInterno.setBackground(Color.white);
+        jNomeInterno.setBackground(Color.white);
+        jMatriculaPenalInterno.setBackground(Color.white);
+        jDataNascimento.setBackground(Color.white);
+        jUnidadePenal.setBackground(Color.white);
+        jRegime.setBackground(Color.white);
+        jDataPena.setBackground(Color.white);
+    }
 
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();

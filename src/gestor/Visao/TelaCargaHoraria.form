@@ -324,7 +324,7 @@
                                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jIdCarga" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
                                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -332,7 +332,7 @@
                                                       </Group>
                                                       <Component id="jComboBoxStatus" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -364,10 +364,10 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jComboBoxStatus" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jIdCarga" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxStatus" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jDataCadastro" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jLabel15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -472,10 +472,7 @@
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1">
-                          <Color PropertyName="highlightInner" blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
-                          <Color PropertyName="shadowInner" blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
-                        </BevelBorder>
+                        <BevelBorder bevelType="1"/>
                       </Border>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -547,7 +544,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="13">
-                        <StringItem index="0" value=""/>
+                        <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Janeiro"/>
                         <StringItem index="2" value="Fevereiro"/>
                         <StringItem index="3" value="Mar&#xe7;o"/>

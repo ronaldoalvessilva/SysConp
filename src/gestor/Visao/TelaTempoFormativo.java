@@ -156,7 +156,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Tempo Formativo :::...");
+        setTitle("...::: Tempo Formativo/Eixo e Equivalentes :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -182,8 +182,8 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
             jTabelaTempoFormativo.getColumnModel().getColumn(1).setMaxWidth(70);
             jTabelaTempoFormativo.getColumnModel().getColumn(2).setMinWidth(80);
             jTabelaTempoFormativo.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMinWidth(280);
-            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMaxWidth(280);
+            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMinWidth(300);
+            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMaxWidth(300);
         }
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -288,7 +288,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,7 +366,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jLabel10.setText("Grau de Instrução Equivalente");
 
         jComboBoxGrauInstrucaoEqui.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxGrauInstrucaoEqui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ensino Fundamental - 1º", "Ensino Fundamental - 2º", "Ensino Fundamental - 3º", "Ensino Fundamental - 4º", "Ensino Fundamental - 5º", "Ensino Fundamental - 6º", "Ensino Fundamental - 7º", "Ensino Fundamental - 8º", "Ensino Fundamental - 9º", "Ensino Médio" }));
+        jComboBoxGrauInstrucaoEqui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Ensino Fundamental do 1º ao 5º ano", "Ensino Fundamental do 6º ao 9º ano", "Ensino Médio", "Ensino Fundamental - 1º", "Ensino Fundamental - 2º", "Ensino Fundamental - 3º", "Ensino Fundamental - 4º", "Ensino Fundamental - 5º", "Ensino Fundamental - 6º", "Ensino Fundamental - 7º", "Ensino Fundamental - 8º", "Ensino Fundamental - 9º", " " }));
         jComboBoxGrauInstrucaoEqui.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxGrauInstrucaoEqui.setEnabled(false);
 
@@ -381,12 +381,12 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jLabel12.setText("Eixo");
 
         jComboBoxEIXO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEIXO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "EIXO I", "EIXO II", "EIXO III", "EIXO IV", "EIXO V", "EIXO VI", "EIXO VII" }));
+        jComboBoxEIXO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "EIXO I, II e III", "EIXO IV e V", "EIXO VI e VII", "EIXO I", "EIXO II", "EIXO III", "EIXO IV", "EIXO V", "EIXO VI", "EIXO VII" }));
         jComboBoxEIXO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEIXO.setEnabled(false);
 
         jComboBoxDescricaoTempoFormativo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDescricaoTempoFormativo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "TEMPO FORMATIVO I - (FUNDAMENTAL I)", "TEMPO FORMATIVO II - (FUNDAMENTAL II)", "TEMPO FORMATIVO III - (ENSINO MÉDIO)" }));
+        jComboBoxDescricaoTempoFormativo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "TEMPO FORMATIVO I - (FUNDAMENTAL I)", "TEMPO FORMATIVO II - (FUNDAMENTAL II)", "TEMPO FORMATIVO III - (ENSINO MÉDIO)", "TEMPO DE APRENDER I", "TEMPO DE APRENDER II", "EJA FUNDAMENTAL I" }));
         jComboBoxDescricaoTempoFormativo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDescricaoTempoFormativo.setEnabled(false);
 
@@ -411,7 +411,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jLabel17.setText("*");
 
         jLabel18.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel18.setText("* Campo obrigatório");
+        jLabel18.setText("* Campos obrigatórios");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -446,13 +446,16 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel18))
                             .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13))))
+                                .addComponent(jLabel13))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jComboBoxGrauInstrucaoEqui, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -477,7 +480,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel16)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBoxEIXO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jComboBoxEIXO, 0, 111, Short.MAX_VALUE))))
                 .addGap(16, 16, 16))
         );
 
@@ -491,10 +494,10 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel18))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel13)))
+                        .addComponent(jLabel18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel13))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -881,7 +884,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -911,7 +914,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 30, 514, 337);
+        setBounds(300, 30, 534, 337);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1756,7 +1759,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setResizable(false);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaTempoFormativo.getColumnModel().getColumn(3).setResizable(false);
         jTabelaTempoFormativo.getTableHeader().setReorderingAllowed(false);
         jTabelaTempoFormativo.setAutoResizeMode(jTabelaTempoFormativo.AUTO_RESIZE_OFF);
@@ -1776,7 +1779,7 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setResizable(false);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(80);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaTempoFormativo.getColumnModel().getColumn(3).setResizable(false);
         jTabelaTempoFormativo.getTableHeader().setReorderingAllowed(false);
         jTabelaTempoFormativo.setAutoResizeMode(jTabelaTempoFormativo.AUTO_RESIZE_OFF);

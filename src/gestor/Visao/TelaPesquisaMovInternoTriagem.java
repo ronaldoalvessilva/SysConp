@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -156,7 +158,7 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
+                "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
             }
         ));
         jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -340,7 +342,7 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
             }
-            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "' ORDER BY DataMov");  
+            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "' ORDER BY DataMov");
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -349,10 +351,9 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInterno.setVisible(true);
             this.preencherTodosInternos();
         } else {
-            jTabelaInterno.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -376,7 +377,7 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -414,13 +415,14 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
     }
 
     //Preencher tabela com todos os INTERNOS
     public void preencherTodosInternos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -468,13 +470,14 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
     }
 
     // Método de pesquisa pela Matricula
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -512,11 +515,34 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinhaCamposTabelaInterno();
         conecta.desconecta();
     }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Mov.", "Documento","Descrição da Operação", "Origem/Destino do Interno"};
+        String[] Colunas = new String[]{"Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -534,17 +560,44 @@ public class TelaPesquisaMovInternoTriagem extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMovimentacao.setModel(modelo);
-        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(95);
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaMovimentacao.getColumnModel().getColumn(2).setPreferredWidth(200);
-        jTabelaMovimentacao.getColumnModel().getColumn(2).setResizable(false);                  
-        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaMovimentacao.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(260);
         jTabelaMovimentacao.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMovimentacao.getTableHeader().setReorderingAllowed(false);
         jTabelaMovimentacao.setAutoResizeMode(jTabelaMovimentacao.AUTO_RESIZE_OFF);
         jTabelaMovimentacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaMovimentacao();
         conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaMovimentacao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
+    public void alinhaCamposTabelaInterno() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }
