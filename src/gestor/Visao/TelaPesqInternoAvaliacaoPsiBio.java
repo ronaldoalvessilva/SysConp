@@ -8,12 +8,12 @@ package gestor.Visao;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaAdmissaoPsicologica.jDataNascimento;
-import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jNomeInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jFotoInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jSituacaoUnidade;
-import static gestor.Visao.TelaAdmissaoPsicologica.codigoDepartamentoPSI;
+import static gestor.Visao.TelaAvaliacaoPsicologica.jDataNascimento;
+import static gestor.Visao.TelaAvaliacaoPsicologica.jIDInterno;
+import static gestor.Visao.TelaAvaliacaoPsicologica.jNomeInterno;
+import static gestor.Visao.TelaAvaliacaoPsicologica.jFotoInternoPsi;
+import static gestor.Visao.TelaAvaliacaoPsicologica.jSituacao;
+import static gestor.Visao.TelaAvaliacaoPsicologica.codigoDepartamentoPSI;
 import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -343,14 +343,14 @@ public class TelaPesqInternoAvaliacaoPsiBio extends javax.swing.JInternalFrame {
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                jFotoInternoPsi.setIcon(i);
+                jFotoInternoPsi.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoPsi.getWidth(), jFotoInternoPsi.getHeight(), Image.SCALE_DEFAULT)));
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
+                jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
