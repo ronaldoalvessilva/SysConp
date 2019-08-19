@@ -514,6 +514,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         RelRegressao = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jListagemUnidadePenal = new javax.swing.JMenuItem();
+        jSeparator31 = new javax.swing.JPopupMenu.Separator();
+        jMenu11 = new javax.swing.JMenu();
+        jRelatorioVisitasAdvogadosInternosGeral = new javax.swing.JMenuItem();
+        jRelatorioVisitasAdvogadosInternosPorNome = new javax.swing.JMenuItem();
         jMenuUtilitarios = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraWindows = new javax.swing.JMenuItem();
@@ -1116,7 +1120,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuRelatorios.add(jMenu8);
         jMenuRelatorios.add(jSeparator30);
 
-        jRelatorioDocumentacaoCompleta.setForeground(new java.awt.Color(0, 102, 0));
         jRelatorioDocumentacaoCompleta.setText("Relatório de Documentação Completa");
         jRelatorioDocumentacaoCompleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1184,7 +1187,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
         jMenuRelatorios.add(jMenu4);
 
-        RelatorioMovAdvogadosInternos.setForeground(new java.awt.Color(204, 0, 0));
         RelatorioMovAdvogadosInternos.setText("Relatório de Movimentação de Advogados aos Internos");
         RelatorioMovAdvogadosInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1193,7 +1195,6 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         jMenuRelatorios.add(RelatorioMovAdvogadosInternos);
 
-        RelatorioMovVisitasInternos.setForeground(new java.awt.Color(0, 0, 204));
         RelatorioMovVisitasInternos.setText("Relatório de Movimentação das Visitas Internos");
         RelatorioMovVisitasInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1294,6 +1295,27 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuRelatorios.add(jListagemUnidadePenal);
+        jMenuRelatorios.add(jSeparator31);
+
+        jMenu11.setText("Relatórios de Visitas de Advogados aos Internos - PORTARIAS");
+
+        jRelatorioVisitasAdvogadosInternosGeral.setText("Relatório de Visitas de Advogados - Geral");
+        jRelatorioVisitasAdvogadosInternosGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioVisitasAdvogadosInternosGeralActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jRelatorioVisitasAdvogadosInternosGeral);
+
+        jRelatorioVisitasAdvogadosInternosPorNome.setText("Relatório de Visitas Advogados aos Internos por Nome");
+        jRelatorioVisitasAdvogadosInternosPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed(evt);
+            }
+        });
+        jMenu11.add(jRelatorioVisitasAdvogadosInternosPorNome);
+
+        jMenuRelatorios.add(jMenu11);
 
         jMenuBar1.add(jMenuRelatorios);
 
@@ -3280,6 +3302,42 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelDocComp.show();
     }//GEN-LAST:event_jRelatorioDocumentacaoCompletaActionPerformed
 
+    private void jRelatorioVisitasAdvogadosInternosGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioInternosAdvogadosGeral.jasper";
+            conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
+                    + "INNER JOIN ITENSADVOGADOINTERNOS "
+                    + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "
+                    + "INNER JOIN ADVOGADOS "
+                    + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc,ENTRADASADVINTERNOS.DataEntrada");
+            HashMap parametros = new HashMap();
+            parametros.put("nomeUsuario", nameUser);
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Visitas de Advogados aos Internos - Geral");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
+
+    private void jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioVisitasAdvogadosInternosPorNome objRelVAINome = new TelaRelatorioVisitasAdvogadosInternosPorNome();
+        TelaModuloCRC.jPainelCRC.add(objRelVAINome);
+        objRelVAINome.show();
+    }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3354,6 +3412,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -3379,6 +3438,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jProntuariosIntrernos;
     private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
+    private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
+    private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JMenuItem jRevalidarAtestadoReclusao;
     private javax.swing.JMenuItem jSaidaInternos;
     private javax.swing.JMenuItem jSair;
@@ -3406,6 +3467,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator29;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator30;
+    private javax.swing.JPopupMenu.Separator jSeparator31;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;

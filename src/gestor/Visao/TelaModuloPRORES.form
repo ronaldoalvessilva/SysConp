@@ -230,6 +230,31 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MapaConfereActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator38">
+                </MenuItem>
+                <Menu class="javax.swing.JMenu" name="jMenu32">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Visitas de Advogados aos Internos - PORTARIAS"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="jRelatorioVisitasAdvogadosInternosGeral">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Visitas de Advogados - Geral"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioVisitasAdvogadosInternosGeralActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="jRelatorioVisitasAdvogadosInternosPorNome">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Visitas Advogados aos Internos por Nome"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator11">
