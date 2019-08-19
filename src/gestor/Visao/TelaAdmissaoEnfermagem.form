@@ -2526,9 +2526,6 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jBtFIA">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="cc" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="FIA"/>
                     <Property name="toolTipText" type="java.lang.String" value="Fun&#xe7;&#xe3;o Intestinal/Abdome"/>
                   </Properties>
@@ -2538,9 +2535,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtFVG">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="99" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="FVG"/>
                     <Property name="toolTipText" type="java.lang.String" value="Fun&#xe7;&#xe3;o Vesical/Genit&#xe1;lia"/>
                   </Properties>
@@ -2550,9 +2544,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtVA">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="66" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="VA"/>
                     <Property name="toolTipText" type="java.lang.String" value="Vacinas"/>
                   </Properties>
@@ -2562,9 +2553,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtTRC">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="TRC"/>
                     <Property name="toolTipText" type="java.lang.String" value="Testes R&#xe1;pidos/Cirurgias"/>
                   </Properties>
@@ -2574,9 +2562,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtFA">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="66" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="FA"/>
                     <Property name="toolTipText" type="java.lang.String" value="Fala"/>
                   </Properties>
@@ -2586,9 +2571,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtPE">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="0" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="PE"/>
                     <Property name="toolTipText" type="java.lang.String" value="Pele/Mucosa"/>
                   </Properties>
@@ -2598,9 +2580,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtCC">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="33" red="99" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="CC"/>
                     <Property name="toolTipText" type="java.lang.String" value="Couro Cabeludo"/>
                   </Properties>
@@ -2610,9 +2589,6 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtFT">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="99" green="0" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="FT"/>
                     <Property name="toolTipText" type="java.lang.String" value="Fun&#xe7;&#xe3;o Respirat&#xf3;ria/T&#xf3;rax"/>
                   </Properties>

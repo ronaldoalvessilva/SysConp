@@ -1940,7 +1940,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Avaliações Adicionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jBtFIA.setForeground(new java.awt.Color(204, 204, 0));
         jBtFIA.setText("FIA");
         jBtFIA.setToolTipText("Função Intestinal/Abdome");
         jBtFIA.addActionListener(new java.awt.event.ActionListener() {
@@ -1949,7 +1948,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFVG.setForeground(new java.awt.Color(0, 153, 51));
         jBtFVG.setText("FVG");
         jBtFVG.setToolTipText("Função Vesical/Genitália");
         jBtFVG.addActionListener(new java.awt.event.ActionListener() {
@@ -1958,7 +1956,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtVA.setForeground(new java.awt.Color(102, 0, 0));
         jBtVA.setText("VA");
         jBtVA.setToolTipText("Vacinas");
         jBtVA.addActionListener(new java.awt.event.ActionListener() {
@@ -1967,7 +1964,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtTRC.setForeground(new java.awt.Color(204, 0, 0));
         jBtTRC.setText("TRC");
         jBtTRC.setToolTipText("Testes Rápidos/Cirurgias");
         jBtTRC.addActionListener(new java.awt.event.ActionListener() {
@@ -1976,7 +1972,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFA.setForeground(new java.awt.Color(0, 102, 0));
         jBtFA.setText("FA");
         jBtFA.setToolTipText("Fala");
         jBtFA.addActionListener(new java.awt.event.ActionListener() {
@@ -1985,7 +1980,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtPE.setForeground(new java.awt.Color(0, 0, 204));
         jBtPE.setText("PE");
         jBtPE.setToolTipText("Pele/Mucosa");
         jBtPE.addActionListener(new java.awt.event.ActionListener() {
@@ -1994,7 +1988,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtCC.setForeground(new java.awt.Color(153, 51, 0));
         jBtCC.setText("CC");
         jBtCC.setToolTipText("Couro Cabeludo");
         jBtCC.addActionListener(new java.awt.event.ActionListener() {
@@ -2003,7 +1996,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFT.setForeground(new java.awt.Color(204, 0, 153));
         jBtFT.setText("FT");
         jBtFT.setToolTipText("Função Respiratória/Tórax");
         jBtFT.addActionListener(new java.awt.event.ActionListener() {
