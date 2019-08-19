@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInternosAdvogados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cb8a2a56-c094-4125-9451-68aad9d551e8">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="78"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -75,7 +75,6 @@
 	<field name="CelularCrc" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.lang.Object"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="IdInternoCrc">
@@ -86,7 +85,7 @@
 					<reportElement mode="Opaque" x="-21" y="7" width="597" height="24" forecolor="#B89F7D" backcolor="#F2EBDF" uuid="fe99915a-1965-49d7-b801-1f16046d6f9e"/>
 					<textField>
 						<reportElement style="SubTitle" x="22" y="0" width="75" height="24" forecolor="#000000" uuid="5e2b513b-1e13-469b-aee4-3dba91d582a8"/>
-						<textElement>
+						<textElement textAlignment="Center">
 							<font isBold="true"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{IdInternoCrc}]]></textFieldExpression>
@@ -147,12 +146,16 @@
 				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="5" y="66" width="543" height="20" uuid="5daf471e-4793-4a49-8a87-80deb20b8d3d"/>
+				<reportElement x="5" y="77" width="543" height="20" uuid="5daf471e-4793-4a49-8a87-80deb20b8d3d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório de Internos/Advogados]]></text>
+				<text><![CDATA[Relatório de Visitas de Advogados ao Internos - Por Nome de Interno]]></text>
 			</staticText>
+			<image>
+				<reportElement x="6" y="29" width="146" height="48" uuid="39d400ee-9cb8-4700-9caa-7df275251402"/>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\logo_socializa_novo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

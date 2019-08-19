@@ -359,6 +359,10 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         RelatorioDepositoInternos = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator23 = new javax.swing.JPopupMenu.Separator();
+        jMenu1 = new javax.swing.JMenu();
+        jRelatorioVisitasAdvogadosInternosGeral = new javax.swing.JMenuItem();
+        jRelatorioVisitasAdvogadosInternosPorNome = new javax.swing.JMenuItem();
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         CalculadoraWindows = new javax.swing.JMenuItem();
@@ -918,6 +922,27 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         RelatoriosSeguranca.add(jMenuItem2);
+        RelatoriosSeguranca.add(jSeparator23);
+
+        jMenu1.setText("Relatórios de Visitas de Advogados aos Internos - PORTARIAS");
+
+        jRelatorioVisitasAdvogadosInternosGeral.setText("Relatório de Visitas de Advogados - Geral");
+        jRelatorioVisitasAdvogadosInternosGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioVisitasAdvogadosInternosGeralActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRelatorioVisitasAdvogadosInternosGeral);
+
+        jRelatorioVisitasAdvogadosInternosPorNome.setText("Relatório de Visitas Advogados aos Internos por Nome");
+        jRelatorioVisitasAdvogadosInternosPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRelatorioVisitasAdvogadosInternosPorNome);
+
+        RelatoriosSeguranca.add(jMenu1);
 
         jMenuBar1.add(RelatoriosSeguranca);
 
@@ -2342,6 +2367,42 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu6ActionPerformed
 
+    private void jRelatorioVisitasAdvogadosInternosGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
+        // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioInternosAdvogadosGeral.jasper";
+            conecta.executaSQL("SELECT * FROM ENTRADASADVINTERNOS "
+                    + "INNER JOIN ITENSADVOGADOINTERNOS "
+                    + "ON ENTRADASADVINTERNOS.IdLanc=ITENSADVOGADOINTERNOS.Idlanc "
+                    + "INNER JOIN ADVOGADOS "
+                    + "ON ENTRADASADVINTERNOS.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSADVOGADOINTERNOS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc,ENTRADASADVINTERNOS.DataEntrada");
+            HashMap parametros = new HashMap();
+            parametros.put("nomeUsuario", nameUser);
+            parametros.put("descricaoUnidade", descricaoUnidade);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Visitas de Advogados aos Internos - Geral");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosGeralActionPerformed
+
+    private void jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioVisitasAdvogadosInternosPorNome objRelVAINome = new TelaRelatorioVisitasAdvogadosInternosPorNome();
+        TelaModuloSeguranca.jPainelSeguranca.add(objRelVAINome);
+        objRelVAINome.show();
+    }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2410,6 +2471,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem VisitasInternos;
     private javax.swing.JMenuItem jConfere;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
@@ -2419,6 +2481,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     public static javax.swing.JDesktopPane jPainelSeguranca;
+    private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
+    private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -2434,6 +2498,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
+    private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
