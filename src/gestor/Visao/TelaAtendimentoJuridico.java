@@ -79,7 +79,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String horaMov;
     String dataModFinal;
     int flag, idItem;
-    public static int pAcao;
+    public static int pAcao = 0;
     String dataInicial, dataFinal, dataEntrada, dataEvolucao, dataAtiv;
     String deptoTecnico = "JURIDICO";
     String caminho;

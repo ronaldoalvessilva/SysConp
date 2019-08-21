@@ -532,7 +532,7 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
         Integer row = jTabelaAtividades.getRowCount();
-        if (row == 0) {
+        if (row == 0 && pAcao == 3) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um tipo de atividade realizada para o interno.");
         } else if (jEvolucao.getText().equals("") && pAcao == 3) {
             int resposta = JOptionPane.showConfirmDialog(this, "O texto da evolução está vazio, deseja preencher com um texto padrão?", "Confirmação",
