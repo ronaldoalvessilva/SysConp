@@ -77,6 +77,43 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     String idOficialJustica;
     String nomeOficialJustica;
     int count = 0;
+    //PESQUISA GLOBAL
+    //PRONTUARIOS INTERNOS
+    int id_PESQUISA = 0;
+    String nome_PESQUISA = "";
+    String nomeMae_PESQUISA = "";
+    String rg_PESQUISA = "";
+    String cpf_PESQUISA = "";
+    //
+    int id_PESQUISA_AD = 0;
+    String nome_PESQUISA_AD = "";
+    String nomeMae_PESQUISA_AD = "";
+    String rg_PESQUISA_AD = "";
+    String cpf_PESQUISA_AD = "";
+    //VISITAS DIVERSAS
+    int id_PESQUISA_VD = 0;
+    String nome_PESQUISA_VD = "";
+    String nomeMae_PESQUISA_VD = "";
+    String rg_PESQUISA_VD = "";
+    String cpf_PESQUISA_VD = "";
+    // VISITAS INTERNOS
+    int id_PESQUISA_VI = 0;
+    String nome_PESQUISA_VI = "";
+    String nomeMae_PESQUISA_VI = "";
+    String rg_PESQUISA_VI = "";
+    String cpf_PESQUISA_VI = "";
+    // COLABORADORES
+    int id_PESQUISA_CO = 0;
+    String nome_PESQUISA_CO = "";
+    String nomeMae_PESQUISA_CO = "";
+    String rg_PESQUISA_CO = "";
+    String cpf_PESQUISA_CO = "";
+    //OFICIAL DE JUSTIÇA
+    int id_PESQUISA_OF = 0;
+    String nome_PESQUISA_OF = "";
+    String nomeMae_PESQUISA_OF = "";
+    String rg_PESQUISA_OF = "";
+    String cpf_PESQUISA_OF = "";
 
     /**
      * Creates new form TelaAdvogados
@@ -133,15 +170,13 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jCPF = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jREGOficial = new javax.swing.JFormattedTextField();
-        jPanel6 = new javax.swing.JPanel();
-        FotoOficialJustica = new javax.swing.JLabel();
-        jBtNovaFoto = new javax.swing.JButton();
-        jBtExcluirFoto = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jObsOficial = new javax.swing.JTextField();
-        jBtWebCam = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxStatusOficial = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        jNomeMaeOficial = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jObsOficial = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -157,6 +192,13 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jBtPesqNomeInternoAdv = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaPesqInternosAdv = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        FotoOficialJustica = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jBtNovaFoto = new javax.swing.JButton();
+        jBtExcluirFoto = new javax.swing.JButton();
+        jBtWebCam = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -177,7 +219,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 0, 0));
@@ -230,7 +272,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jTabelaOficialJustica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOficialJustica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Oficial de Justiça", "REG"
@@ -304,9 +346,9 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,201 +360,169 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados Cadastrais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Código:");
+        jLabel1.setText("Código");
 
         jIdOficial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdOficial.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data:");
+        jLabel2.setText("Data");
 
         jDataCadastro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataCadastro.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Nome do Oficial de Justiça");
 
         jNomeOficialJustica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeOficialJustica.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("RG:");
+        jLabel4.setText("R.G.");
 
         jRG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jRG.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("C.P.F:");
+        jLabel5.setText("C.P.F.");
 
         jCPF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCPF.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("CAD:");
+        jLabel6.setText("CAD");
 
         jREGOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jREGOficial.setEnabled(false);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-        );
-
-        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
-        jBtNovaFoto.setEnabled(false);
-        jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaFotoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirFoto.setEnabled(false);
-        jBtExcluirFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirFotoActionPerformed(evt);
-            }
-        });
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Obs:");
-
-        jObsOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObsOficial.setEnabled(false);
-
-        jBtWebCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/webcam_start.png"))); // NOI18N
-        jBtWebCam.setEnabled(false);
-        jBtWebCam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtWebCamActionPerformed(evt);
-            }
-        });
+        jLabel9.setText("Observação");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Status:");
+        jLabel8.setText("Status");
 
         jComboBoxStatusOficial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxStatusOficial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Ativo", "Inativo" }));
         jComboBoxStatusOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusOficial.setEnabled(false);
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Nome da Mãe");
+
+        jNomeMaeOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeMaeOficial.setEnabled(false);
+
+        jObsOficial.setColumns(20);
+        jObsOficial.setRows(5);
+        jObsOficial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jObsOficial.setEnabled(false);
+        jScrollPane3.setViewportView(jObsOficial);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jREGOficial)
-                            .addComponent(jCPF)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jIdOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
+                                .addComponent(jLabel6)
+                                .addGap(112, 112, 112)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jREGOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxStatusOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jNomeOficialJustica, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jObsOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                                .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel5)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jCPF)
+                                .addContainerGap())))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeMaeOficial)
+                            .addComponent(jNomeOficialJustica)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jIdOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jComboBoxStatusOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto, jBtWebCam});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jComboBoxStatusOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jIdOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jNomeOficialJustica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel2)
-                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jREGOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel4)
-                            .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtExcluirFoto)
-                    .addComponent(jBtNovaFoto)
-                    .addComponent(jObsOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jBtWebCam))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jComboBoxStatusOficial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeOficialJustica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeMaeOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jREGOficial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto, jBtWebCam});
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -612,19 +622,19 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -648,10 +658,12 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -687,28 +699,30 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInternoAdv)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqNomeInternoAdv, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPesqNomeInternoAdv, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesqNomeInternoAdv, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqNomeInternoAdv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqNomeInternoAdv)
-                    .addComponent(jLabel10))
+                    .addComponent(jPesqNomeInternoAdv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabelaPesqInternosAdv.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosAdv.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Entrada", "H. Entrada", "Data Saída", "H. Saída"
@@ -738,9 +752,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -748,28 +760,119 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Histórico", jPanel7);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FotoOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(FotoOficialJustica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFoto.setEnabled(false);
+        jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaFotoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFoto.setEnabled(false);
+        jBtExcluirFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirFotoActionPerformed(evt);
+            }
+        });
+
+        jBtWebCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/webcam_start.png"))); // NOI18N
+        jBtWebCam.setEnabled(false);
+        jBtWebCam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtWebCamActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto, jBtWebCam});
+
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtExcluirFoto)
+                    .addComponent(jBtNovaFoto)
+                    .addComponent(jBtWebCam)))
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto, jBtWebCam});
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 157, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        setBounds(250, 30, 498, 309);
+        setBounds(250, 30, 629, 428);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -829,18 +932,43 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 jREGOficial.requestFocus();
                 jREGOficial.setBackground(Color.red);
             } else if (caminhoFotoOffice == null) {
-                JOptionPane.showMessageDialog(rootPane, "Coloque a foto do oficial de justiça");
+                JOptionPane.showMessageDialog(rootPane, "Coloque a foto do oficial de justiça.");
             } else if (jComboBoxStatusOficial.getSelectedItem().equals("Selecione...")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça.");
             } else if (jComboBoxStatusOficial.getSelectedItem().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça.");
             } else if (jComboBoxStatusOficial.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça");
+                JOptionPane.showMessageDialog(rootPane, "Informe o status do Oficial de Justiça.");
+            } else if (jNomeMaeOficial.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãe do Oficial de Justiça.");
+                jNomeMaeOficial.requestFocus();
+                jNomeMaeOficial.setBackground(Color.red);
             } else {
+                pesquisaGlobalInterno();
+                if (jNomeOficialJustica.getText().trim().equals(nome_PESQUISA) && jNomeMaeOficial.getText().trim().equals(nomeMae_PESQUISA)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse oficial de justiça que está sendo cadastrado, já existe como INTERNO da unidade.");
+                }
+                pesquisaGlobalColaborador();
+                if (jNomeOficialJustica.getText().trim().equals(nome_PESQUISA_CO) && jNomeMaeOficial.getText().trim().equals(nomeMae_PESQUISA_CO)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse oficial de justiça que está sendo cadastrado, já existe como COLABORADOR da unidade.");
+                }
+                pesquisaGlobalVisitasDiversas();
+                if (jNomeOficialJustica.getText().trim().equals(nome_PESQUISA_VD) && jNomeMaeOficial.getText().trim().equals(nomeMae_PESQUISA_VD)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse oficial de justiça que está sendo cadastrado, já existe como VISITA DIVERSAS.");
+                }
+                pesquisaGlobalAdvogados();
+                if (jNomeOficialJustica.getText().trim().equals(nome_PESQUISA_AD) && jNomeMaeOficial.getText().trim().equals(nomeMae_PESQUISA_AD)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse oficial de justiça que está sendo cadastrado, já existe como ADVOGADO.");
+                }
+                pesquisaGlobalVisitasInterno();
+                if (jNomeOficialJustica.getText().trim().equals(nome_PESQUISA_VI)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse oficial de justiça que está sendo cadastrado, já existe como VISITA DE INTERNO da unidade.\nGrau de Parentesco: " + nomeMae_PESQUISA_VI + ".");
+                }
                 objOficial.setStatusOficial((String) jComboBoxStatusOficial.getSelectedItem());
                 objOficial.setDataCadastro(jDataCadastro.getDate());
                 objOficial.setFotoOficial(caminhoFotoOffice);
                 objOficial.setNomeOficial(jNomeOficialJustica.getText().trim());
+                objOficial.setNomeMae(jNomeMaeOficial.getText().trim());
                 objOficial.setRgOficial(jRG.getText());
                 objOficial.setCpfOficial(jCPF.getText());
                 objOficial.setRegOficial(jREGOficial.getText());
@@ -955,6 +1083,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 jComboBoxStatusOficial.setSelectedItem(conecta.rs.getString("StatusOficial"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeOficialJustica.setText(conecta.rs.getString("NomeOficial"));
+                jNomeMaeOficial.setText(conecta.rs.getString("NomeMae"));
                 caminhoFotoOffice = conecta.rs.getString("FotoOficial");
                 if (caminhoFotoOffice != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
@@ -1070,6 +1199,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jIdOficial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1080,9 +1210,12 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jNomeMaeOficial;
     private javax.swing.JTextField jNomeOficialJustica;
-    private javax.swing.JTextField jObsOficial;
+    private javax.swing.JTextArea jObsOficial;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
@@ -1100,6 +1233,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jRG;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaOficialJustica;
     private javax.swing.JTable jTabelaPesqInternosAdv;
@@ -1107,8 +1241,11 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampo() {
-        jNomeOficialJustica.setDocument(new LimiteDigitos(50));
+        jNomeOficialJustica.setDocument(new LimiteDigitos(200));
+        jNomeMaeOficial.setDocument(new LimiteDigitos(200));
         jREGOficial.setDocument(new LimiteDigitosAlfa(20));
+        jObsOficial.setLineWrap(true);
+        jObsOficial.setWrapStyleWord(true);
 //        try {
 //            // Formatação para CPF
 //            MaskFormatter cpf = new MaskFormatter("###.###.###-##");
@@ -1125,6 +1262,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jIdOficial.setBackground(Color.white);
         jDataCadastro.setBackground(Color.white);
         jNomeOficialJustica.setBackground(Color.white);
+        jNomeMaeOficial.setBackground(Color.white);
         jRG.setBackground(Color.white);
         jCPF.setBackground(Color.white);
         jREGOficial.setBackground(Color.white);
@@ -1139,6 +1277,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         FotoOficialJustica.setIcon(null);
         caminhoFotoOffice = null;
         jNomeOficialJustica.setText("");
+        jNomeMaeOficial.setText("");
         jRG.setText("");
         jCPF.setText("");
         jREGOficial.setText("");
@@ -1147,6 +1286,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeOficialJustica.setEnabled(true);
+        jNomeMaeOficial.setEnabled(true);
         jBtNovaFoto.setEnabled(true);
         jBtExcluirFoto.setEnabled(true);
         jRG.setEnabled(true);
@@ -1169,6 +1309,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeOficialJustica.setEnabled(true);
+        jNomeMaeOficial.setEnabled(true);
         jRG.setEnabled(true);
         jCPF.setEnabled(true);
         jREGOficial.setEnabled(true);
@@ -1193,6 +1334,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         FotoOficialJustica.setIcon(null);
         caminhoFotoOffice = null;
         jNomeOficialJustica.setText("");
+        jNomeMaeOficial.setText("");
         jObsOficial.setText("");
         jRG.setText("");
         jCPF.setText("");
@@ -1201,6 +1343,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeOficialJustica.setEnabled(!true);
+        jNomeMaeOficial.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jREGOficial.setEnabled(!true);
@@ -1222,6 +1365,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeOficialJustica.setEnabled(!true);
+        jNomeMaeOficial.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jREGOficial.setEnabled(!true);
@@ -1246,6 +1390,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jDataCadastro.setDate(null);
             FotoOficialJustica.setIcon(null);
             jNomeOficialJustica.setText("");
+            jNomeMaeOficial.setText("");
             jObsOficial.setText("");
             jRG.setText("");
             jCPF.setText("");
@@ -1254,6 +1399,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jComboBoxStatusOficial.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jNomeOficialJustica.setEnabled(!true);
+            jNomeMaeOficial.setEnabled(!true);
             jRG.setEnabled(!true);
             jCPF.setEnabled(!true);
             jREGOficial.setEnabled(!true);
@@ -1272,6 +1418,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jComboBoxStatusOficial.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jNomeOficialJustica.setEnabled(!true);
+            jNomeMaeOficial.setEnabled(!true);
             caminhoFotoOffice = null;
             jRG.setEnabled(!true);
             jCPF.setEnabled(!true);
@@ -1288,6 +1435,91 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
             jBtWebCam.setEnabled(!true);
             jBtAuditoria.setEnabled(true);
         }
+    }
+
+    public void pesquisaGlobalInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + jNomeOficialJustica.getText() + "' "
+                    + "AND MaeInternoCrc='" + jNomeMaeOficial.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA = conecta.rs.getString("NomeInternoCrc");
+            nomeMae_PESQUISA = conecta.rs.getString("MaeInternoCrc");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalAdvogados() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADVOGADOS "
+                    + "WHERE NomeAdvogado='" + jNomeOficialJustica.getText() + "' "
+                    + "AND NomeMae='" + jNomeMaeOficial.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_AD = conecta.rs.getString("NomeAdvogado");
+            nomeMae_PESQUISA_AD = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalVisitasDiversas() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita='" + jNomeOficialJustica.getText() + "' "
+                    + "AND NomeMae='" + jNomeMaeOficial.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_VD = conecta.rs.getString("NomeVisita");
+            nomeMae_PESQUISA_VD = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalVisitasInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM VISITASINTERNO "
+                    + "WHERE NomeVisita='" + jNomeOficialJustica.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_VI = conecta.rs.getString("NomeVisita");
+            nomeMae_PESQUISA_VI = conecta.rs.getString("ParentescoVisita");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalColaborador() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "INNER JOIN DOCUMENTOS "
+                    + "ON COLABORADOR.IdFunc=DOCUMENTOS.IdFunc "
+                    + "WHERE NomeFunc='" + jNomeOficialJustica.getText() + "' "
+                    + "AND NomeMae='" + jNomeMaeOficial.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_CO = conecta.rs.getString("NomeFunc");
+            nomeMae_PESQUISA_CO = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalOficialJustica() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
+                    + "WHERE NomeOficial='" + jNomeOficialJustica.getText() + "' "
+                    + "AND NomeMae='" + jNomeMaeOficial.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_OF = conecta.rs.getString("NomeOficial");
+            nomeMae_PESQUISA_OF = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
     }
 
     public void pesquisarTodosOficial() {

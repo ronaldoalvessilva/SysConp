@@ -31,11 +31,12 @@ public class OficialJustica {
     private String dataFechamento;
     private String horaFechamento;
     private byte[] imagemFrenteOF;
+    private String nomeMae;
 
     public OficialJustica() {
     }
 
-    public OficialJustica(int idOficial, String statusOficial, Date dataCadastro, String fotoOficial, String nomeOficial, String rgOficial, String cpfOficial, String regOficial, String obsOficial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteOF) {
+    public OficialJustica(int idOficial, String statusOficial, Date dataCadastro, String fotoOficial, String nomeOficial, String rgOficial, String cpfOficial, String regOficial, String obsOficial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteOF, String nomeMae) {
         this.idOficial = idOficial;
         this.statusOficial = statusOficial;
         this.dataCadastro = dataCadastro;
@@ -54,6 +55,7 @@ public class OficialJustica {
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
         this.imagemFrenteOF = imagemFrenteOF;
+        this.nomeMae = nomeMae;
     }
 
     /**
@@ -307,5 +309,19 @@ public class OficialJustica {
     public void setImagemFrenteOF(byte[] imagemFrenteOF) {
         this.imagemFrenteOF = imagemFrenteOF;
     }
-        
+
+    /**
+     * @return the nomeMae
+     */
+    public String getNomeMae() {
+        return nomeMae;
+    }
+
+    /**
+     * @param nomeMae the nomeMae to set
+     */
+    public void setNomeMae(String nomeMae) {
+        this.nomeMae = nomeMae;
+    }
+    
 }

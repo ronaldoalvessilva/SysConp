@@ -32,6 +32,9 @@ public class ControleRelInterno {
                 ProntuarioPesquisaRel pDigi = new ProntuarioPesquisaRel();
                 pDigi.setIdInterno(conecta.rs.getInt("IdInternoCrc"));
                 pDigi.setNomeInterno(conecta.rs.getString("NomeInternoCrc"));
+                pDigi.setCpfInterno(conecta.rs.getString("CpfInternoCrc"));
+                pDigi.setRgInterno(conecta.rs.getString("RgInternoCrc"));
+                pDigi.setNomeMae(conecta.rs.getString("MaeInternoCrc"));
                 listaInternos.add(pDigi);
             }
             return listaInternos;

@@ -31,11 +31,14 @@ public class Advogados {
     private String dataFechamento;
     private String horaFechamento; 
     private byte[] imagemFrenteAD;
+    private String nomeMae;
+    private String nomePai;
+    private String situacaoCadastral;
 
     public Advogados() {
     }
 
-    public Advogados(int idAdvogado, String statusAdv, Date dataCadastro, String fotoAdvogado, String nomeAdvogado, String rgAdvogado, String cpfAdvogado, String oabAdvogado, String obsAdvogado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteAD) {
+    public Advogados(int idAdvogado, String statusAdv, Date dataCadastro, String fotoAdvogado, String nomeAdvogado, String rgAdvogado, String cpfAdvogado, String oabAdvogado, String obsAdvogado, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, byte[] imagemFrenteAD, String nomeMae, String nomePai, String situacaoCadastral) {
         this.idAdvogado = idAdvogado;
         this.statusAdv = statusAdv;
         this.dataCadastro = dataCadastro;
@@ -54,6 +57,9 @@ public class Advogados {
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
         this.imagemFrenteAD = imagemFrenteAD;
+        this.nomeMae = nomeMae;
+        this.nomePai = nomePai;
+        this.situacaoCadastral = situacaoCadastral;
     }
 
     /**
@@ -307,5 +313,46 @@ public class Advogados {
     public void setImagemFrenteAD(byte[] imagemFrenteAD) {
         this.imagemFrenteAD = imagemFrenteAD;
     }
-    
+
+    /**
+     * @return the nomeMae
+     */
+    public String getNomeMae() {
+        return nomeMae;
+    }
+
+    /**
+     * @param nomeMae the nomeMae to set
+     */
+    public void setNomeMae(String nomeMae) {
+        this.nomeMae = nomeMae;
+    }
+
+    /**
+     * @return the nomePai
+     */
+    public String getNomePai() {
+        return nomePai;
+    }
+
+    /**
+     * @param nomePai the nomePai to set
+     */
+    public void setNomePai(String nomePai) {
+        this.nomePai = nomePai;
+    }
+
+    /**
+     * @return the situacaoCadastral
+     */
+    public String getSituacaoCadastral() {
+        return situacaoCadastral;
+    }
+
+    /**
+     * @param situacaoCadastral the situacaoCadastral to set
+     */
+    public void setSituacaoCadastral(String situacaoCadastral) {
+        this.situacaoCadastral = situacaoCadastral;
+    }
 }

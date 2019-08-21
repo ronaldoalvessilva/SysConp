@@ -74,6 +74,43 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
     String nomeVisita;
     int count = 0;
     String rgVisita = "";
+    //PESQUISA GLOBAL
+    //PRONTUARIOS INTERNOS
+    int id_PESQUISA = 0;
+    String nome_PESQUISA = "";
+    String nomeMae_PESQUISA = "";
+    String rg_PESQUISA = "";
+    String cpf_PESQUISA = "";
+    //
+    int id_PESQUISA_AD = 0;
+    String nome_PESQUISA_AD = "";
+    String nomeMae_PESQUISA_AD = "";
+    String rg_PESQUISA_AD = "";
+    String cpf_PESQUISA_AD = "";
+    //VISITAS DIVERSAS
+    int id_PESQUISA_VD = 0;
+    String nome_PESQUISA_VD = "";
+    String nomeMae_PESQUISA_VD = "";
+    String rg_PESQUISA_VD = "";
+    String cpf_PESQUISA_VD = "";
+    // VISITAS INTERNOS
+    int id_PESQUISA_VI = 0;
+    String nome_PESQUISA_VI = "";
+    String nomeMae_PESQUISA_VI = "";
+    String rg_PESQUISA_VI = "";
+    String cpf_PESQUISA_VI = "";
+    // COLABORADORES
+    int id_PESQUISA_CO = 0;
+    String nome_PESQUISA_CO = "";
+    String nomeMae_PESQUISA_CO = "";
+    String rg_PESQUISA_CO = "";
+    String cpf_PESQUISA_CO = "";
+    //OFICIAL DE JUSTIÇA
+    int id_PESQUISA_OF = 0;
+    String nome_PESQUISA_OF = "";
+    String nomeMae_PESQUISA_OF = "";
+    String rg_PESQUISA_OF = "";
+    String cpf_PESQUISA_OF = "";
 
     /**
      * Creates new form TelaVisitasDiversas
@@ -122,26 +159,24 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jIdVisita = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jNomeVisita = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        FotoVisitaDiversas = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jRG = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jCPF = new javax.swing.JFormattedTextField();
-        jBtNovaFoto = new javax.swing.JButton();
-        jBtExcluirFoto = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jObservacao = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jCNH = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jClasse = new javax.swing.JTextField();
-        jBtWebCam = new javax.swing.JButton();
         jComboBoxTipoVisita = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jNomeMae = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jObservacao = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -150,6 +185,14 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jBtCancelar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        FotoVisitaDiversas = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jBtNovaFoto = new javax.swing.JButton();
+        jBtExcluirFoto = new javax.swing.JButton();
+        jBtWebCam = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -210,7 +253,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jTabelaVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasDiversas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Visita", "RG", "CPF"
@@ -288,7 +331,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,7 +345,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,76 +377,36 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jNomeVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeVisita.setEnabled(false);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(FotoVisitaDiversas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(FotoVisitaDiversas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("RG");
 
         jRG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRG.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jRG.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("C.P.F");
 
         jCPF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCPF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCPF.setEnabled(false);
-
-        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
-        jBtNovaFoto.setEnabled(false);
-        jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaFotoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirFoto.setEnabled(false);
-        jBtExcluirFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirFotoActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Observação");
 
-        jObservacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObservacao.setEnabled(false);
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("CNH");
 
+        jCNH.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCNH.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCNH.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Classe");
 
+        jClasse.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jClasse.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jClasse.setEnabled(false);
-
-        jBtWebCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/webcam_start.png"))); // NOI18N
-        jBtWebCam.setEnabled(false);
-        jBtWebCam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtWebCamActionPerformed(evt);
-            }
-        });
 
         jComboBoxTipoVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoVisita.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Visita Comum", "Religiosa", "Visita de Interno", "Inativa" }));
@@ -421,6 +424,21 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jLabel13.setForeground(new java.awt.Color(204, 0, 0));
         jLabel13.setText("*");
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Nome da Mãe");
+
+        jNomeMae.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeMae.setEnabled(false);
+
+        jObservacao.setColumns(20);
+        jObservacao.setRows(5);
+        jObservacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane2.setViewportView(jObservacao);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel15.setText("*");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -428,123 +446,112 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jObservacao, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBtWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(180, 180, 180)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jLabel13))
                                     .addComponent(jLabel9)
-                                    .addGap(380, 380, 380))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(2, 2, 2)
-                                            .addComponent(jLabel13)
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                            .addGap(0, 0, Short.MAX_VALUE)
-                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel2))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                                            .addComponent(jRG)
-                                                            .addGap(10, 10, 10))
-                                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                                            .addComponent(jLabel5)
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(jLabel12)
-                                                            .addGap(117, 117, 117)))
-                                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel6)
-                                                        .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addComponent(jNomeVisita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel8))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxTipoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel15))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxTipoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel12))
+                                            .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6)))
+                                    .addComponent(jScrollPane2))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jNomeMae, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                            .addComponent(jNomeVisita))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCPF, jClasse});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCNH, jRG});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel8)))
+                        .addComponent(jLabel2)
                         .addGap(4, 4, 4)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jComboBoxTipoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel8))
+                        .addGap(4, 4, 4)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel13))
-                        .addGap(8, 8, 8)
-                        .addComponent(jNomeVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))))
+                            .addComponent(jComboBoxTipoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jNomeMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtNovaFoto)
-                    .addComponent(jBtWebCam)
-                    .addComponent(jBtExcluirFoto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto});
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -645,19 +652,19 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -680,35 +687,133 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(0, 0, 0))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(FotoVisitaDiversas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+            .addComponent(FotoVisitaDiversas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtNovaFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovaFoto.setEnabled(false);
+        jBtNovaFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaFotoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirFoto.setEnabled(false);
+        jBtExcluirFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirFotoActionPerformed(evt);
+            }
+        });
+
+        jBtWebCam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/webcam_start.png"))); // NOI18N
+        jBtWebCam.setEnabled(false);
+        jBtWebCam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtWebCamActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jBtNovaFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluirFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtWebCam, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto});
+
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtNovaFoto)
+                    .addComponent(jBtWebCam)
+                    .addComponent(jBtExcluirFoto))
+                .addGap(0, 0, 0))
+        );
+
+        jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtExcluirFoto, jBtNovaFoto});
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 20, 508, 367);
+        setBounds(300, 20, 629, 472);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
@@ -750,6 +855,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
                 jComboBoxTipoVisita.setSelectedItem(conecta.rs.getString("TipoVisita"));
                 jDataCadastro.setDate(conecta.rs.getDate("DataCadastro"));
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
+                jNomeMae.setText(conecta.rs.getString("NomeMae"));
                 caminhoFotoVisitaExt = conecta.rs.getString("FotoVisita");
                 if (caminhoFotoVisitaExt != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoVisitaExt);
@@ -839,10 +945,33 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
             } else if (jComboBoxTipoVisita.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de visita.");
+            } else if (jNomeMae.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome da mãe.");
             } else {
+                pesquisaGlobalInterno();
+                if (jNomeVisita.getText().trim().equals(nome_PESQUISA) && jNomeMae.getText().trim().equals(nomeMae_PESQUISA)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa visita que está sendo cadastrado, já existe como INTERNO da unidade.");
+                }
+                pesquisaGlobalColaborador();
+                if (jNomeVisita.getText().trim().equals(nome_PESQUISA_CO) && jNomeMae.getText().trim().equals(nomeMae_PESQUISA_CO)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa visita que está sendo cadastrado, já existe como COLABORADOR da unidade.");
+                }
+                pesquisaGlobalOficialJustica();
+                if (jNomeVisita.getText().trim().equals(nome_PESQUISA_OF) && jNomeMae.getText().trim().equals(nomeMae_PESQUISA_OF)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa visita que está sendo cadastrado, já existe como OFICIAL DE JUSTIÇA.");
+                }
+                pesquisaGlobalAdvogados();
+                if (jNomeVisita.getText().trim().equals(nome_PESQUISA_AD) && jNomeMae.getText().trim().equals(nomeMae_PESQUISA_AD)) {
+                    JOptionPane.showMessageDialog(rootPane, "Essa visita que está sendo cadastrado, já existe como ADVOGADO.");
+                }
+                pesquisaGlobalVisitasInterno();
+                if (jNomeVisita.getText().trim().equals(nome_PESQUISA_VI)) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse visitante que está sendo cadastrado, já existe como VISITA DE INTERNO da unidade.\nGrau de Parentesco: " + nomeMae_PESQUISA_VI + ".");
+                }
                 objViDi.setDataCadastro(jDataCadastro.getDate());
                 objViDi.setFotoVisita(caminhoFotoVisitaExt);
                 objViDi.setNomeVisita(jNomeVisita.getText().trim());
+                objViDi.setNomeMae(jNomeMae.getText().trim());
                 objViDi.setRgVisita(jRG.getText());
                 objViDi.setCpfVisita(jCPF.getText());
                 objViDi.setCnhVisita(jCNH.getText());
@@ -994,6 +1123,8 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1003,8 +1134,9 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jNomeMae;
     private javax.swing.JTextField jNomeVisita;
-    private javax.swing.JTextField jObservacao;
+    private javax.swing.JTextArea jObservacao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1014,9 +1146,12 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField jPesqNomeVisitas;
     private javax.swing.JFormattedTextField jRG;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaVisitasDiversas;
     private javax.swing.JLabel jtotalRegistros;
@@ -1041,6 +1176,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setBackground(Color.white);
         jDataCadastro.setBackground(Color.white);
         jNomeVisita.setBackground(Color.white);
+        jNomeMae.setBackground(Color.white);
         jRG.setBackground(Color.white);
         jCPF.setBackground(Color.white);
         jCNH.setBackground(Color.white);
@@ -1052,6 +1188,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jIdVisita.setText("");
         jDataCadastro.setDate(null);
         jNomeVisita.setText("");
+        jNomeMae.setText("");
         FotoVisitaDiversas.setIcon(null);
         jRG.setText("");
         jCPF.setText("");
@@ -1064,6 +1201,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jIdVisita.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
+        jNomeMae.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jCNH.setEnabled(!true);
@@ -1077,6 +1215,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setSelectedItem("Selecione...");
         jDataCadastro.setCalendar(Calendar.getInstance());
         jNomeVisita.setText("");
+        jNomeMae.setText("");
         FotoVisitaDiversas.setIcon(null);
         caminhoFotoVisitaExt = null;
         jRG.setText("");
@@ -1088,6 +1227,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeVisita.setEnabled(true);
+        jNomeMae.setEnabled(true);
         jRG.setEnabled(true);
         jCPF.setEnabled(true);
         jCNH.setEnabled(true);
@@ -1111,6 +1251,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeVisita.setEnabled(true);
+        jNomeMae.setEnabled(true);
         jRG.setEnabled(true);
         jCPF.setEnabled(true);
         jCNH.setEnabled(true);
@@ -1135,6 +1276,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setSelectedItem("Selecione...");
         jDataCadastro.setDate(null);
         jNomeVisita.setText("");
+        jNomeMae.setText("");
         FotoVisitaDiversas.setIcon(null);
         jRG.setText("");
         jCPF.setText("");
@@ -1145,6 +1287,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
+        jNomeMae.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jCNH.setEnabled(!true);
@@ -1168,6 +1311,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
+        jNomeMae.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jCNH.setEnabled(!true);
@@ -1191,6 +1335,7 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jComboBoxTipoVisita.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeVisita.setEnabled(!true);
+        jNomeMae.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jCNH.setEnabled(!true);
@@ -1208,6 +1353,91 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(!true);
         jBtWebCam.setEnabled(!true);
         jBtAuditoria.setEnabled(!true);
+    }
+
+    public void pesquisaGlobalInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + jNomeVisita.getText() + "' "
+                    + "AND MaeInternoCrc='" + jNomeMae.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA = conecta.rs.getString("NomeInternoCrc");
+            nomeMae_PESQUISA = conecta.rs.getString("MaeInternoCrc");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalAdvogados() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADVOGADOS "
+                    + "WHERE NomeAdvogado='" + jNomeVisita.getText() + "' "
+                    + "AND NomeMae='" + jNomeMae.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_AD = conecta.rs.getString("NomeAdvogado");
+            nomeMae_PESQUISA_AD = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalVisitasDiversas() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
+                    + "WHERE NomeVisita='" + jNomeVisita.getText() + "' "
+                    + "AND NomeMae='" + jNomeMae.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_VD = conecta.rs.getString("NomeVisita");
+            nomeMae_PESQUISA_VD = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalVisitasInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM VISITASINTERNO "
+                    + "WHERE NomeVisita='" + jNomeVisita.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_VI = conecta.rs.getString("NomeVisita");
+            nomeMae_PESQUISA_VI = conecta.rs.getString("ParentescoVisita");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalColaborador() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "INNER JOIN DOCUMENTOS "
+                    + "ON COLABORADOR.IdFunc=DOCUMENTOS.IdFunc "
+                    + "WHERE NomeFunc='" + jNomeVisita.getText() + "' "
+                    + "AND NomeMae='" + jNomeMae.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_CO = conecta.rs.getString("NomeFunc");
+            nomeMae_PESQUISA_CO = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisaGlobalOficialJustica() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM OFICIAL_JUSTICA "
+                    + "WHERE NomeOficial='" + jNomeVisita.getText() + "' "
+                    + "AND NomeMae='" + jNomeMae.getText() + "'");
+            conecta.rs.first();
+            nome_PESQUISA_OF = conecta.rs.getString("NomeOficial");
+            nomeMae_PESQUISA_OF = conecta.rs.getString("NomeMae");
+        } catch (Exception ex) {
+        }
+        conecta.desconecta();
     }
 
     public void pesquisarTodasVisitas() {

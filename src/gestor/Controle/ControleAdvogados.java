@@ -23,7 +23,7 @@ public class ControleAdvogados {
     public Advogados incluirAdvogados(Advogados objAdv) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ADVOGADOS (DataCadastro,fotoAdvogado,NomeAdvogado,RgAdvogado,CpfAdvogado,OabAdvogado,ObsAdvogado,UsuarioInsert,DataInsert,HorarioInsert,StatusAdv,ImagemFrenteAD) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ADVOGADOS (DataCadastro,fotoAdvogado,NomeAdvogado,RgAdvogado,CpfAdvogado,OabAdvogado,ObsAdvogado,UsuarioInsert,DataInsert,HorarioInsert,StatusAdv,ImagemFrenteAD,NomeMae,NomePai,SituacaoCadastral) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objAdv.getDataCadastro().getTime()));
             pst.setString(2, objAdv.getFotoAdvogado());
             pst.setString(3, objAdv.getNomeAdvogado());
@@ -33,9 +33,12 @@ public class ControleAdvogados {
             pst.setString(7, objAdv.getObsAdvogado());
             pst.setString(8, objAdv.getUsuarioInsert());
             pst.setString(9, objAdv.getDataInsert());
-            pst.setString(10,objAdv.getHoraInsert());
+            pst.setString(10, objAdv.getHoraInsert());
             pst.setString(11, objAdv.getStatusAdv());
             pst.setBytes(12, objAdv.getImagemFrenteAD());
+            pst.setString(13, objAdv.getNomeMae());
+            pst.setString(14, objAdv.getNomePai());
+            pst.setString(15, objAdv.getSituacaoCadastral());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -47,7 +50,7 @@ public class ControleAdvogados {
     public Advogados alterarAdvogados(Advogados objAdv) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADVOGADOS SET DataCadastro=?,fotoAdvogado=?,NomeAdvogado=?,RgAdvogado=?,CpfAdvogado=?,OabAdvogado=?,ObsAdvogado=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAdv=?,ImagemFrenteAD=? WHERE IdAdvogado='" + objAdv.getIdAdvogado() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADVOGADOS SET DataCadastro=?,fotoAdvogado=?,NomeAdvogado=?,RgAdvogado=?,CpfAdvogado=?,OabAdvogado=?,ObsAdvogado=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusAdv=?,ImagemFrenteAD=?,NomeMae=?,NomePai=?,SituacaoCadastral=? WHERE IdAdvogado='" + objAdv.getIdAdvogado() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objAdv.getDataCadastro().getTime()));
             pst.setString(2, objAdv.getFotoAdvogado());
             pst.setString(3, objAdv.getNomeAdvogado());
@@ -57,12 +60,15 @@ public class ControleAdvogados {
             pst.setString(7, objAdv.getObsAdvogado());
             pst.setString(8, objAdv.getUsuarioUp());
             pst.setString(9, objAdv.getDataUp());
-            pst.setString(10,objAdv.getHoraUp());
+            pst.setString(10, objAdv.getHoraUp());
             pst.setString(11, objAdv.getStatusAdv());
             pst.setBytes(12, objAdv.getImagemFrenteAD());
+            pst.setString(13, objAdv.getNomeMae());
+            pst.setString(14, objAdv.getNomePai());
+            pst.setString(15, objAdv.getSituacaoCadastral());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdv;
@@ -74,7 +80,7 @@ public class ControleAdvogados {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ADVOGADOS WHERE IdAdvogado='" + objAdv.getIdAdvogado() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdv;
