@@ -13,7 +13,9 @@ import gestor.Controle.ControleListaIndicadoresAcompanhamentoPEDA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II;
 import gestor.Controle.ControleListaIndicadoresAcompanhamentoSS;
-import gestor.Controle.ControleListaIndicadoresAcompanhamentoTO;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoTO_APROVADO;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoTO_ESTUDANDO;
+import gestor.Controle.ControleListaIndicadoresAcompanhamentoTO_REP_APR_CON;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.IndicadoresAcompanhamento;
@@ -42,7 +44,9 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     ControleListaIndicadoresAcompanhamentoPSICOLOGIA controlePSI = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA();
     ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II controlePSIc = new ControleListaIndicadoresAcompanhamentoPSICOLOGIA_II();
     ControleListaIndicadoresAcompanhamentoSS controleSS = new ControleListaIndicadoresAcompanhamentoSS();
-    ControleListaIndicadoresAcompanhamentoTO controlTO_APROVADO = new ControleListaIndicadoresAcompanhamentoTO();
+    ControleListaIndicadoresAcompanhamentoTO_APROVADO controlTO_APROVADO = new ControleListaIndicadoresAcompanhamentoTO_APROVADO();
+    ControleListaIndicadoresAcompanhamentoTO_ESTUDANDO controTO_ESTUDANDO = new ControleListaIndicadoresAcompanhamentoTO_ESTUDANDO();
+    ControleListaIndicadoresAcompanhamentoTO_REP_APR_CON control_REP_APR_CON = new ControleListaIndicadoresAcompanhamentoTO_REP_APR_CON();
     //FALTA MÉTODO DE TO
     //PSICOLOGIA
     double qtdTratamento = 0;
@@ -104,10 +108,12 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     double qtdAcompanhaSS = 0;
     public static int pFAMILIA_ATENDIDA = 0;
     //TERAPIA OCUPACIONAL
-    int qtdPrograma = 0;
-    int qtdCurso = 0;
-    int qtdProfissional = 0;
-    public static int pSTATUS_SITUACAO = 0;
+    double qtdAprovados = 0;
+    double qtdCursandos = 0;
+    double qtdProfissional = 0;
+    public static int pSTATUS_SITUACAO_APROVADO = 0;
+    public static int pSTATUS_SITUACAO_ESTUDANDO = 0;
+    public static int pSTATUS_SITUACAO_APR_REP_CON = 0;
 
     /**
      * Creates new form TelaPRORES
@@ -197,7 +203,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLabel87 = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
         jInseridoPrograma = new javax.swing.JTextField();
-        PassaramCursos = new javax.swing.JTextField();
+        jPassaramCursos = new javax.swing.JTextField();
         jFormacaoProfissional = new javax.swing.JTextField();
         jPanel36 = new javax.swing.JPanel();
         jInternosTratamento = new javax.swing.JTextField();
@@ -769,11 +775,11 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jInseridoPrograma.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jInseridoPrograma.setEnabled(false);
 
-        PassaramCursos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        PassaramCursos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        PassaramCursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        PassaramCursos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        PassaramCursos.setEnabled(false);
+        jPassaramCursos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPassaramCursos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPassaramCursos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPassaramCursos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jPassaramCursos.setEnabled(false);
 
         jFormacaoProfissional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jFormacaoProfissional.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -799,7 +805,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
                         .addComponent(jLabel87)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PassaramCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPassaramCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel34Layout.setVerticalGroup(
@@ -811,7 +817,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel87)
-                    .addComponent(PassaramCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPassaramCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel88)
@@ -1020,7 +1026,6 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField PassaramCursos;
     private javax.swing.JTextField jAdiquiriu;
     private javax.swing.JTextField jAtividadeComplementar;
     private javax.swing.JButton jBtAtualizar;
@@ -1098,6 +1103,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JTextField jPassaramCursos;
     private javax.swing.JFormattedTextField jPopulacaoAtual;
     private javax.swing.JTextField jProcessosAcompanhado;
     private javax.swing.JTextField jProgressaoRegime;
@@ -1169,7 +1175,7 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLivramentoCondicional.setBackground(Color.white);
         // TERAPIA OCUPACIONAL
         jInseridoPrograma.setBackground(Color.white);
-        PassaramCursos.setBackground(Color.white);
+        jPassaramCursos.setBackground(Color.white);
         jFormacaoProfissional.setBackground(Color.white);
         //PSICOLOGIA       
         jInternosTratamento.setBackground(Color.white);
@@ -1207,13 +1213,70 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
         jLivramentoCondicional.setText("0");
         // TERAPIA OCUPACIONAL
         jInseridoPrograma.setText("0");
-        PassaramCursos.setText("0");
+        jPassaramCursos.setText("0");
         jFormacaoProfissional.setText("0");
         //PSICOLOGIA
         jInternosTratamento.setText("0");
         jInternosTratamentoConcluido.setText("0");
         //SERVIÇO SOCIAL
         jFamiliaAcompanhada.setText("0");
+        //ZERAR VARIÁVEIS
+        qtdDiabetes = 0;
+        qtdHipertensao = 0;
+        qtdEscabiose = 0;
+        qtdHanseniase = 0;
+        qtdSifilis = 0;
+        qtdTuberculose = 0;
+        qtdHib = 0;
+        qtdHepatiteB = 0;
+        qtdHepatiteC = 0;
+        qtdDst = 0;
+        qtdVdlr = 0;
+        qtdVacina = 0;
+        pPopulacaoAtual = 0;
+        pDiab = 0;
+        pHiper = 0;
+        pAcessoUni = 0;
+        pAprovado = 0;
+        pReprovado = 0;
+        pCursando = 0;
+        pConcluido = 0;
+        pDesistente = 0;
+        pResenhaEntregue = 0;
+        pHepatiteB = 0;
+        pHepatiteC = 0;
+        pEscabiose = 0;
+        pHanseniase = 0;
+        pSifilis = 0;
+        pHiv = 0;
+        pTuberculose = 0;
+        pDst = 0;
+        pVdlr = 0;
+        pVacina = 0;
+        //PEDAGOGIA
+        pqTdResenha = 0;
+        //JURIDICO/CRC
+        qtdProcessos = 0;
+        qtdDocumentacao = 0;
+        qtdProggressao = 0;
+        qtdLivramento = 0;
+        pQTdDocumentacao = 0;
+        pQTdProgressao = 0;
+        pQtdLivramento = 0;
+        pDocumento = 0;
+        pPROGRESSAO = 0;
+        pLIVRAMENTO = 0;
+        //SERVIÇO SOCIAL
+        qtdAcompanhaSS = 0;
+        pFAMILIA_ATENDIDA = 0;
+        //TERAPIA OCUPACIONAL
+        qtdAprovados = 0;
+        qtdCursandos = 0;
+        qtdProfissional = 0;
+        pSTATUS_SITUACAO_APROVADO = 0;
+        pSTATUS_SITUACAO_ESTUDANDO = 0;
+        pSTATUS_SITUACAO_APR_REP_CON = 0;
+
     }
 
 //    public void preencherTabelaEstatistica(String sql) {
@@ -1446,6 +1509,46 @@ public class TelaPRORES extends javax.swing.JInternalFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
+        //TERAPIA OCUPACIONAL
+        // APROVADOS E CONCLUÍDOS
+        try {
+            for (IndicadoresAcompanhamento to1 : controlTO_APROVADO.read()) {
+                //
+                qtdAprovados = to1.getqTdAprova();
+                qtdAprovados = (100 * pSTATUS_SITUACAO_APROVADO / pPopulacaoAtual);
+                DecimalFormat vAprova = new DecimalFormat("#,###0.00");
+                String pAprovaPro = vAprova.format(qtdAprovados);
+                jFormacaoProfissional.setText(String.valueOf(pAprovaPro));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // CURSANDO
+        try {
+            for (IndicadoresAcompanhamento to2 : controTO_ESTUDANDO.read()) {
+                //
+                qtdCursandos = to2.getqTdCursando();
+                qtdCursandos = (100 * pSTATUS_SITUACAO_ESTUDANDO / pPopulacaoAtual);
+                DecimalFormat vCursa = new DecimalFormat("#,###0.00");
+                String pCursaApr = vCursa.format(qtdCursandos);
+                jInseridoPrograma.setText(String.valueOf(pCursaApr));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // CURSANDO E APROVADOS
+        try {
+            for (IndicadoresAcompanhamento to3 : control_REP_APR_CON.read()) {
+                //
+                qtdProfissional = to3.getqTdCursando() + to3.getqTdAprova();
+                qtdProfissional = (100 * pSTATUS_SITUACAO_APR_REP_CON / pPopulacaoAtual);
+                DecimalFormat vTotalEst = new DecimalFormat("#,###0.00");
+                String pTotalCursaApr = vTotalEst.format(qtdProfissional);
+                jPassaramCursos.setText(String.valueOf(pTotalCursaApr));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaPRORES.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
