@@ -106,6 +106,14 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String nomeColaboradorPRI = "";
+    String nomeColaboradorSEG = "";
+    String nomeColaboradorTER = "";
+    String nomeColaboradorQUA = "";
+    String nomeColaboradorQUI = "";
+    //
+    String usuario_LIBERADOR = "";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -1138,7 +1146,28 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "E necessário selecionar primeiro o interno para liberação.");
             } else {
-                mostraLiberador();
+                verificarColaboradorLiberador();
+                if (nomeColaboradorPRI.equals("")
+                        || nomeColaboradorSEG.equals("")
+                        || nomeColaboradorPRI == null
+                        || nomeColaboradorSEG == null
+                        || nomeColaboradorTER.equals("")
+                        || nomeColaboradorQUA.equals("")
+                        || nomeColaboradorQUI.equals("")
+                        || nomeColaboradorTER == null
+                        || nomeColaboradorQUA == null
+                        || nomeColaboradorQUI == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
+                } else if (nomeColaboradorPRI.equals(usuario_LIBERADOR)
+                        || nomeColaboradorSEG.equals(usuario_LIBERADOR)
+                        || nomeColaboradorTER.equals(usuario_LIBERADOR)
+                        || nomeColaboradorQUA.equals(usuario_LIBERADOR)
+                        || nomeColaboradorQUI.equals(usuario_LIBERADOR)) {
+                    pLiberacaoImpressa = "Sim";
+                    mostraLiberador();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse colaborador não tem permissão para liberar autorização impressa.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -1411,6 +1440,33 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP");
             conecta.rs.last();
             jIdRegistro.setText(conecta.rs.getString("IdRegistro"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarColaboradorLiberador() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            nomeColaboradorPRI = conecta.rs.getString("NomeColaboradorPRI");
+            nomeColaboradorSEG = conecta.rs.getString("NomeColaboradorSEG");
+            nomeColaboradorTER = conecta.rs.getString("NomeColaboradorTER");
+            nomeColaboradorQUA = conecta.rs.getString("NomeColaboradorQUA");
+            nomeColaboradorQUI = conecta.rs.getString("NomeColaboradorQUI");
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarUsuarioLiberador() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    + "WHERE NomeFunc='" + nameUser + "'");
+            conecta.rs.first();
+            usuario_LIBERADOR = conecta.rs.getString("NomeFunc");
         } catch (Exception e) {
         }
         conecta.desconecta();
