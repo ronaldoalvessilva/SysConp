@@ -521,6 +521,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuUtilitarios = new javax.swing.JMenu();
         jCalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraWindows = new javax.swing.JMenuItem();
+        jCalculadoraExecucaoPenal = new javax.swing.JMenuItem();
         jSeparator28 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
@@ -1321,6 +1322,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
         jMenuUtilitarios.setText("Utilitários");
 
+        jCalculadoraPena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_edit.png"))); // NOI18N
         jCalculadoraPena.setText("Calculadora de Pena");
         jCalculadoraPena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1329,6 +1331,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         });
         jMenuUtilitarios.add(jCalculadoraPena);
 
+        jCalculadoraWindows.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator.png"))); // NOI18N
         jCalculadoraWindows.setText("Calculadora do Windows");
         jCalculadoraWindows.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1336,6 +1339,17 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuUtilitarios.add(jCalculadoraWindows);
+
+        jCalculadoraExecucaoPenal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCalculadoraExecucaoPenal.setForeground(new java.awt.Color(0, 0, 204));
+        jCalculadoraExecucaoPenal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/mozilla-firefox-icone-7949-16.png"))); // NOI18N
+        jCalculadoraExecucaoPenal.setText("Calculadora de Execução Penal");
+        jCalculadoraExecucaoPenal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCalculadoraExecucaoPenalActionPerformed(evt);
+            }
+        });
+        jMenuUtilitarios.add(jCalculadoraExecucaoPenal);
         jMenuUtilitarios.add(jSeparator28);
 
         jMenuItem3.setText("Fechamento de Movimentação de Internos");
@@ -3338,6 +3352,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelVAINome.show();
     }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
 
+    private void jCalculadoraExecucaoPenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraExecucaoPenalActionPerformed
+        // TODO add your handling code here:
+         try {
+            Runtime.getRuntime().exec("cmd.exe /C start "
+                    + "http://www.cnj.jus.br/calculadora_execucao_penal/semlinha/calculadora_execucao_penal_cnj_3_0.html");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "" + ex.getMessage());
+        }
+    }//GEN-LAST:event_jCalculadoraExecucaoPenalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3396,6 +3420,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RetornoSaidaMedico;
     private javax.swing.JMenuItem RetornoSaidaTemporaria;
     private javax.swing.JMenuItem jAgendamentoEscolta;
+    private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena;
     private javax.swing.JMenuItem jCalculadoraWindows;
     private javax.swing.JMenuItem jCidades;
