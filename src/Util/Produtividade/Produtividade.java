@@ -136,9 +136,9 @@ public class Produtividade extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sysconp");
+        setTitle("SISCONP - Sistema de Controle Prisional");
         setBackground(new java.awt.Color(0, 153, 204));
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/gestor/Imagens/FavonIconJFrame100.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Imagens/FavonIconJFrame100.png")));
 
         jPanelCabecalho.setBackground(new java.awt.Color(255, 255, 255));
 
