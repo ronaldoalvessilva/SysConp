@@ -6,6 +6,7 @@
 package Util.Produtividade;
 
 import gestor.Controle.ControleListaTecnicosProdutividadePSP;
+import gestor.Controle.ControleUpdatePSP;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.RegistroAtendimentoInternos;
@@ -30,12 +31,16 @@ public class Produtividade extends javax.swing.JFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleListaTecnicosProdutividadePSP control = new ControleListaTecnicosProdutividadePSP();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-
+    RegistroAtendimentoInternos objProdKit = new RegistroAtendimentoInternos();
+    ControleUpdatePSP pUPDATE_ATEND_PSP = new ControleUpdatePSP();
+    //
     String dataEvolucao;
     public static int qtdTecnicosPSP = 0;
     SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // HORAIO DE 24 HORAS, PARA O DE 12 HORAS UTILIZAR hh:mm:ss
     SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
     public static String qtd;
+    //QUANTIDADE A SER ATUALIZADA CASO O CAMPOS ATENDIDO ESTEJA COM "Sim"
+    int pQUANTIDADE_ATEND = 1;
 
     //ConexaoDB con = new ConexaoDB();
     /**
@@ -53,8 +58,8 @@ public class Produtividade extends javax.swing.JFrame {
             }
         };
         threadRelogio.start();
-        
-         Thread threadTabela = new Thread() {
+
+        Thread threadTabela = new Thread() {
 
             @Override
             public void run() {
@@ -62,7 +67,6 @@ public class Produtividade extends javax.swing.JFrame {
             }
         };
         threadTabela.start();
-        
 
         Date data = new Date();
         String hora = formatter.format(data); // Data da conexão
@@ -138,7 +142,6 @@ public class Produtividade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISCONP - Sistema de Controle Prisional");
         setBackground(new java.awt.Color(0, 153, 204));
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Imagens/FavonIconJFrame100.png")));
 
         jPanelCabecalho.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -282,7 +285,15 @@ public class Produtividade extends javax.swing.JFrame {
             new String [] {
                 "", "", "", "", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaAtendimentoProdutivida.setRowHeight(35);
         jScrollPaneTabela.setViewportView(jTabelaAtendimentoProdutivida);
         if (jTabelaAtendimentoProdutivida.getColumnModel().getColumnCount() > 0) {
@@ -595,66 +606,6 @@ public class Produtividade extends javax.swing.JFrame {
     private javax.swing.JTable jTabelaAtendimentoProdutivida;
     // End of variables declaration//GEN-END:variables
 
-//    public void preencherTabelaProdutividade(String sql) {
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Colaborador", "Departamento"};
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL(sql);
-//            conecta.rs.first();
-//            do {
-//                // Formatar a data Entrada
-////                dataEvolucao = conecta.rs.getString("DataReg");
-////                String diae = dataEvolucao.substring(8, 10);
-////                String mese = dataEvolucao.substring(5, 7);
-////                String anoe = dataEvolucao.substring(0, 4);
-////                dataEvolucao = diae + "/" + mese + "/" + anoe;
-//                dados.add(new Object[]{conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getInt("Qtd")});
-//            } while (conecta.rs.next());
-//        } catch (SQLException ex) {
-//        }
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaAtendimentoProdutivida.setModel(modelo);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setPreferredWidth(220);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(220);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getTableHeader().setReorderingAllowed(false);
-//        jTabelaAtendimentoProdutivida.setAutoResizeMode(jTabelaAtendimentoProdutivida.AUTO_RESIZE_OFF);
-//        jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        alinharCamposTabelaEvolucao();
-//        conecta.desconecta();
-//    }
-//    public void alinharCamposTabelaEvolucao() {
-//        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-//        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-//        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-//        //
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-//    }
-//    public void limparTabelaEvolucao() {
-//        ArrayList dados = new ArrayList();
-//        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
-//        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-//        jTabelaAtendimentoProdutivida.setModel(modelo);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setPreferredWidth(70);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setPreferredWidth(80);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setPreferredWidth(390);
-//        jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setResizable(false);
-//        jTabelaAtendimentoProdutivida.getTableHeader().setReorderingAllowed(false);
-//        jTabelaAtendimentoProdutivida.setAutoResizeMode(jTabelaAtendimentoProdutivida.AUTO_RESIZE_OFF);
-//        jTabelaAtendimentoProdutivida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        modelo.getLinhas().clear();
-//    }
     public void limpaTabela() {
 
         ((DefaultTableModel) jTabelaAtendimentoProdutivida.getModel()).setRowCount(0);
@@ -665,23 +616,13 @@ public class Produtividade extends javax.swing.JFrame {
         RegistroAtendimentoInternos p = new RegistroAtendimentoInternos();
         try {
             for (RegistroAtendimentoInternos pp : control.read()) {
-
-//                jtotalProdutosKitCompleto.setText(Integer.toString(qtdTecnicosPSP)); // Converter inteiro em string para exibir na tela 
-                dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento(), pp.getQtdAtend(), pp.getQtdAtendSem(), pp.getQtdAtendMes()});
-                // BARRA DE ROLAGEM HORIZONTAL
-                //jTabelaAtendimentoProdutivida.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                if (pp.getQtdAtend() != 0 || pp.getQtdAtendSem() != 0 || pp.getQtdAtendMes() != 0) {
+                    dadosProduto.addRow(new Object[]{pp.getNomeFunc(), pp.getNomeDepartamento(), pp.getQtdAtend(), pp.getQtdAtendSem(), pp.getQtdAtendMes()});
+                }
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
 
-//                DefaultTableCellRenderer corCabecalho = new DefaultTableCellRenderer();
-//                corCabecalho.setBackground(new Color(0,153,204));
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(0).setHeaderRenderer(corCabecalho);
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(1).setHeaderRenderer(corCabecalho);
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setHeaderRenderer(corCabecalho); 
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setHeaderRenderer(corCabecalho);
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(4).setHeaderRenderer(corCabecalho);
-//                jTabelaAtendimentoProdutivida.getColumnModel().getColumn(5).setHeaderRenderer(corCabecalho);
                 //
                 jTabelaAtendimentoProdutivida.getColumnModel().getColumn(2).setCellRenderer(centralizado);
                 jTabelaAtendimentoProdutivida.getColumnModel().getColumn(3).setCellRenderer(centralizado);
@@ -711,13 +652,15 @@ public class Produtividade extends javax.swing.JFrame {
         } catch (InterruptedException ex) {
         }
     }
-    
+
     public void atualizaTabela() {
         try {
-            while(true) {
-                 limpaTabela();
-                 mostrarDemostrativoPSP(); 
-                 Thread.sleep(60000);
+            while (true) {
+                limpaTabela();
+                objProdKit.setQtdAtend(pQUANTIDADE_ATEND);
+                pUPDATE_ATEND_PSP.alterar_QUANTIDADE_ATENDIDO(objProdKit);
+                mostrarDemostrativoPSP();
+                Thread.sleep(60000);
             }
         } catch (Exception e) {
         }
