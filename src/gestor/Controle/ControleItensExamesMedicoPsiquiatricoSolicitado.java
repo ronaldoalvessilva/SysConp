@@ -26,7 +26,7 @@ public class ControleItensExamesMedicoPsiquiatricoSolicitado {
         buscarExame(objItensExame.getDescricaoExame());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO (IdSolExame,IdExame,PrimeiraAmostra,SegundaAmostra,TerceiraAmostra,UsuarioInsert,DataInsert,HorarioInsert) VALUES (?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO (IdSolExame,IdExame,PrimeiraAmostra,SegundaAmostra,TerceiraAmostra,UsuarioInsert,DataInsert,HorarioInsert,ExameReal,MotivoExame) VALUES (?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensExame.getIdSolExame());
             pst.setInt(2, codExame);
             pst.setString(3, objItensExame.getPrimeiraAmostra());
@@ -35,6 +35,8 @@ public class ControleItensExamesMedicoPsiquiatricoSolicitado {
             pst.setString(6, objItensExame.getUsuarioInsert());
             pst.setString(7, objItensExame.getDataInsert());
             pst.setString(8, objItensExame.getHorarioInsert());
+            pst.setString(9, objItensExame.getExameRealizado());
+            pst.setString(10, objItensExame.getMotivoRealizado());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -47,7 +49,7 @@ public class ControleItensExamesMedicoPsiquiatricoSolicitado {
         buscarExame(objItensExame.getDescricaoExame());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO SET IdSolExame=?,IdExame=?,PrimeiraAmostra=?,SegundaAmostra=?,TerceiraAmostra=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemExame='" + objItensExame.getIdItemExame() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_SOLICITACAO_EXAMES_MEDICO_PSIQUIATRICO SET IdSolExame=?,IdExame=?,PrimeiraAmostra=?,SegundaAmostra=?,TerceiraAmostra=?,UsuarioUp=?,DataUp=?,HorarioUp=?,ExameReal=?,MotivoExame=? WHERE IdItemExame='" + objItensExame.getIdItemExame() + "'");
             pst.setInt(1, objItensExame.getIdSolExame());
             pst.setInt(2, codExame);
             pst.setString(3, objItensExame.getPrimeiraAmostra());
@@ -56,6 +58,8 @@ public class ControleItensExamesMedicoPsiquiatricoSolicitado {
             pst.setString(6, objItensExame.getUsuarioUp());
             pst.setString(7, objItensExame.getDataUp());
             pst.setString(8, objItensExame.getHorarioUp());
+            pst.setString(9, objItensExame.getExameRealizado());
+            pst.setString(10, objItensExame.getMotivoRealizado());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);

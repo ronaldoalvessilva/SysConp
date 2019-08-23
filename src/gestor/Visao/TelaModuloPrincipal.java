@@ -8,9 +8,11 @@ package gestor.Visao;
 //import gestor.Modelo.clsDataHora;
 import Util.Produtividade.Produtividade;
 import com.sun.glass.events.KeyEvent;
+import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.ControleUsuarioConectado;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Dao.ConexaoBancoDados.Computer;
+import gestor.Modelo.CadastroTelasSistema;
 import gestor.Modelo.UsuarioConectado;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.idUserAcesso;
@@ -28,6 +30,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -47,6 +50,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     UsuarioConectado userConectado = new UsuarioConectado();
     ControleUsuarioConectado control = new ControleUsuarioConectado();
     JProgressBar barraProgesso = new JProgressBar();
+    //
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    //
     public static String hostName;
     public static String ipHost;
     public static String usuarioConectado = "Conectado";
@@ -90,6 +97,23 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static TelaTrocaSenha telaTrocaSenha;
     public static TelaSobre telaSobre;
     //
+    public static int codigoUserPRIN = 0;
+    public static int codUserAcessoPRIN = 0;
+    public static int codigoUserGroupPRIN = 0;
+    public static int codAbrirPRIN = 0;
+    public static int codIncluirPRIN = 0;
+    public static int codAlterarPRIN = 0;
+    public static int codExcluirPRIN = 0;
+    public static int codGravarPRIN = 0;
+    public static int codConsultarPRIN = 0;
+    public static int codigoGrupoPRIN = 0;
+    public static String nomeGrupoPRIN = "";
+    public static String nomeTelaPRIN = "";
+    //
+    public static String nomeModuloPRINCIPAL = "CONFIGURACOES";
+    public static String tela_PRODUTIVIDADE = "Tela de Produtividade";
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    String pNomePRO = "";
 
     /**
      * Creates new form TelaPrincipal
@@ -744,7 +768,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 5.9");
+        jLabel7.setText("Versão: 6.0");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
@@ -7070,12 +7094,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
-
-        Produtividade pPSP = new Produtividade();
-        // this.jPanielPrincipal.add(pPSP);
-        pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pPSP.setExtendedState(MAXIMIZED_BOTH);
-        pPSP.setVisible(true);
+//        buscarAcessoUsuario(tela_PRODUTIVIDADE);
+//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPRIN.equals("ADMINISTRADORES") || codigoUserPRIN == codUserAcessoPRIN && nomeTelaPRIN.equals(tela_PRODUTIVIDADE) && codAbrirPRIN == 1) {
+            Produtividade pPSP = new Produtividade();
+//        // this.jPanielPrincipal.add(pPSP);
+            pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            pPSP.setExtendedState(MAXIMIZED_BOTH);
+            pPSP.setVisible(true);
 
 //        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
 //        this.jPanielPrincipal.add(tpPSP);
@@ -7086,18 +7111,13 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 //            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        private TelaPeriodoProdutividade objPeriodoProdPSP = null;
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+//        }
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
 
     private void jPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPRORESActionPerformed
         // TODO add your handling code here:
-//         buscarAcessoUsuario(telaIndAcompanhaManu);
-//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaManu) && codAbrirENF == 1) {
-//        TelaPRORES objPRORES = new TelaPRORES();
-//        this.jPanielPrincipal.add(objPRORES);
-//        objPRORES.show();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-//        }
         String grupoAdm = "ADMINISTRADORES";
         String permissaoGrupoAdm = "Sim";
         String moduloAdm = "GERENCIAMENTO DAS UNIDADES";
@@ -7511,6 +7531,24 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         }
     }
 
+    public void pesquisarTelasAcessos() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + tela_PRODUTIVIDADE + "'");
+            conecta.rs.first();
+            pNomePRO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        if (!pNomePRO.equals(tela_PRODUTIVIDADE) || pNomePRO == null || pNomePRO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(tela_PRODUTIVIDADE);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        conecta.desconecta();
+    }
+
     // PARAMETRO PARA IDENTIFICAR O OS DO SERVIDOR DE BANCO DE DADOS.
     public void verificarParametrosSRV() {
         conecta.abrirConexao();
@@ -7519,6 +7557,56 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
             conecta.rs.first();
             tipoServidor = conecta.rs.getString("TipoServidor");
             tipoBancoDados = conecta.rs.getString("TipoBancoDados");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloPRINCIPAL + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPRIN = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPRIN + "'");
+            conecta.rs.first();
+            codigoUserGroupPRIN = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPRIN = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPRIN = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPRIN + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPRIN = conecta.rs.getInt("IdUsuario");
+            codAbrirPRIN = conecta.rs.getInt("Abrir");
+            codIncluirPRIN = conecta.rs.getInt("Incluir");
+            codAlterarPRIN = conecta.rs.getInt("Alterar");
+            codExcluirPRIN = conecta.rs.getInt("Excluir");
+            codGravarPRIN = conecta.rs.getInt("Gravar");
+            codConsultarPRIN = conecta.rs.getInt("Consultar");
+            nomeTelaPRIN = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

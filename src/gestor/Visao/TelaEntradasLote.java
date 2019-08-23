@@ -12,6 +12,7 @@ import gestor.Controle.ControleItensEntradasLote;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleNovaEntradaInternos;
+import gestor.Controle.ControleNovaEntradaLoteCRC;
 import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Controle.ControleRolVisitas;
 import gestor.Controle.ControleSituacao;
@@ -103,6 +104,8 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
     //
     ControleRolVisitas controlRol = new ControleRolVisitas(); // Classe do Serviço social para FINALIZAR Rol quando interno sair da unidade
     RolVisitas objRol = new RolVisitas();
+    // HISTÓRICO DOS DADOS PENAIS DOS INTERNOS.
+    ControleNovaEntradaLoteCRC controleHistDP = new ControleNovaEntradaLoteCRC();
     // Variáveis para gravar o log
     String nomeModuloTela = "CRC:Entrada de Internos:Manutenção";
     String nomeModuloTela2 = "CRC:Entrada de Internos:Internos";
@@ -1724,6 +1727,11 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                     objProCrc.setKitAnual(pagtoKit);
                     objProCrc.setKitAPago(pagtoKit);
                     controle.informarkitHigiene(objProCrc);
+                    // HISTORICO DE DADOS PENAIS DOS INTERNOS.
+                    objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objDadosPena.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                    objDadosPena.setIdItem(Integer.valueOf(idItem));
+                    controleHistDP.excluirDadosPenaisInterno(objDadosPena);
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1858,9 +1866,9 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                             //
                                             buscarIdItem();
                                             // INFORMAR OPÇÕES DO KIT DE HIGIENE INICIAL
-                                            pagtoKit = "Não";                                            
+                                            pagtoKit = "Não";
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                            objProCrc.setNomeInterno(jNomeInterno.getText());                                            
+                                            objProCrc.setNomeInterno(jNomeInterno.getText());
                                             objProCrc.setDataChegada(jDataEntrada.getDate());
                                             objProCrc.setKitPago(pagtoKit);
                                             objProCrc.setUtilizado(pagtoKit);
@@ -1897,6 +1905,29 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 controlePre.confirmcaoPreLocacaoInternosEntrada(objItensPreLocacao);
                                                 origemTriagem = ""; // LIMPA A VARIAVEL
                                             }
+                                            // HISTÓRICO DOS DADOS PENAIS DOS INTERNOS.
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            objDadosPena.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                                            objDadosPena.setIdItem(Integer.valueOf(idItem));
+                                            objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setDataCrime(jDataCrime.getDate());
+                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                            objDadosPena.setPena(jPena.getText());
+                                            objDadosPena.setArtigo1(jArtigo1.getText());
+                                            objDadosPena.setArtigo2(jArtigo2.getText());
+                                            objDadosPena.setArtigo3(jArtigo3.getText());
+                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                            objDadosPena.setTerminoPena(jDataTerminoPena.getDate());
+                                            objDadosPena.setUsuarioInsert(nameUser);
+                                            objDadosPena.setDataInsert(jDataSistema.getText());
+                                            objDadosPena.setHorarioInsert(jHoraSistema.getText());
+                                            controleHistDP.incluirDadosPenaisInterno(objDadosPena);
                                             //
                                             objLog2();
                                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1939,6 +1970,30 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                             objProCrc.setSituacao(situacao);
                                             mod.alterarSituacaoInterno(objProCrc);
+                                            // HISTÓRICO DOS DADOS PENAIS DOS INTERNOS.
+                                            objDadosPena.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                            objDadosPena.setIdEntrada(Integer.valueOf(jIDLanc.getText()));
+                                            objDadosPena.setIdItem(Integer.valueOf(idItem));
+                                            objDadosPena.setNomeInternoCrc(jNomeInterno.getText());
+                                            objDadosPena.setNomeUnidade((String) jComboBoxUnidPenal.getSelectedItem());
+                                            objProCrc.setSexo((String) jComboBoxSexo.getSelectedItem());
+                                            objDadosPena.setDataEntrada(jDataEntrada.getDate());
+                                            objDadosPena.setDataCrime(jDataCrime.getDate());
+                                            objDadosPena.setDataPrisao(jDataPrisao.getDate());
+                                            objDadosPena.setDataCondenacao(jDataCondenacao.getDate());
+                                            objDadosPena.setRegime((String) jComboBoxRegime.getSelectedItem());
+                                            objDadosPena.setPena(jPena.getText());
+                                            objDadosPena.setArtigo1(jArtigo1.getText());
+                                            objDadosPena.setArtigo2(jArtigo2.getText());
+                                            objDadosPena.setArtigo3(jArtigo3.getText());
+                                            objDadosPena.setParagrafo1(jParagrafo1.getText());
+                                            objDadosPena.setParagrafo2(jParagrafo2.getText());
+                                            objDadosPena.setParagrafo3(jParagrafo3.getText());
+                                            objDadosPena.setTerminoPena(jDataTerminoPena.getDate());
+                                            objDadosPena.setUsuarioUp(nameUser);
+                                            objDadosPena.setDataUp(jDataSistema.getText());
+                                            objDadosPena.setHorarioUp(jHoraSistema.getText());
+                                            controleHistDP.alterarDadosPenaisInterno(objDadosPena);
                                             //
                                             objLog2();
                                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                        
@@ -2183,7 +2238,9 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                         + "ON ITENSENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON UNIDADE.IdUnid=ITENSENTRADA.IdUnid "
-                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' AND IdEntrada='" + jIDLanc.getText() + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + jNomeInterno.getText() + "' "
+                        + "AND IdEntrada='" + jIDLanc.getText() + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIDInterno.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1
@@ -3352,6 +3409,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM ITENSENTRADA ");
             conecta.rs.last();
             codItemEnt = conecta.rs.getInt("IdItem");
+            idItem = conecta.rs.getString("IdItem");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do item.\nERRO: " + ex);
         }

@@ -827,7 +827,7 @@
                       <StringArray count="12">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="Admiss&#xe3;o M&#xe9;dica"/>
-                        <StringItem index="2" value="Adimiss&#xe3;o Psiquiatrica"/>
+                        <StringItem index="2" value="Admiss&#xe3;o Psiquiatrica"/>
                         <StringItem index="3" value="Admiss&#xe3;o Enfermagem"/>
                         <StringItem index="4" value="Atendim. T&#xe9;c. Enfermagem"/>
                         <StringItem index="5" value="Evolu&#xe7;&#xe3;o M&#xe9;dica"/>

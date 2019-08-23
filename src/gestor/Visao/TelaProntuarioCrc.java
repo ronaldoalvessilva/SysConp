@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleDadosFisicos;
 import gestor.Controle.ControleDadosPenais;
+import gestor.Controle.ControleDocInternosFaltando;
 import gestor.Controle.ControleInternoCrc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
@@ -57,16 +58,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -91,10 +93,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     ControleDadosPenais controlPenais = new ControleDadosPenais();
     //
     ProntuarioFisicosPenaisInternos pPront = new ProntuarioFisicosPenaisInternos();
+    // GRAVAR DOCUMENTOS DO INTERNO FALTANDO.
+    ControleDocInternosFaltando controleDoc = new ControleDocInternosFaltando();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    int acao;
+    public static int acao;
     int flag;
     String codInternoCrc; // Verificar se existe movimentação do intero para não ser excluído
     String nomePais;
@@ -160,6 +164,16 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String codIntPenal;
     //
     String confirmarTransf = "Sim";
+    //DOCUMENTAÇÃO DO INTERNO
+    public static Object[] obj;
+    public static int pTotalDocumentos = 0;
+    public static int codigoDocumento = 0;
+    String idDocumento;
+    int c_INTERNO;
+    int c_REGISTRO;
+    int idChek;
+    //
+    String codigoCheck;
     //
     /**
      * Creates new form TelaTriagem
@@ -172,6 +186,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static TelaPeculiaridadeFrente telaPeculiaridadeFrente;
     public static TelaPesquisaExternaInterno telaPesquisaExterna;
     public static PdfView pdfView;
+    public static TelaDocumentosInternos docInternos;
+    public static TelaFasesPersecucao fasesPersecucao;
 
     //
     public TelaProntuarioCrc() {
@@ -206,6 +222,16 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public void mostrarDocumentosPDF() {
         pdfView = new PdfView(this, true);
         pdfView.setVisible(true);
+    }
+
+    public void mostrarDocumentos() {
+        docInternos = new TelaDocumentosInternos(this, true);
+        docInternos.setVisible(true);
+    }
+
+    public void mostrarFasePersecucao() {
+        fasesPersecucao = new TelaFasesPersecucao(this, true);
+        fasesPersecucao.setVisible(true);
     }
 
     /**
@@ -381,11 +407,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataCondenacao = new com.toedter.calendar.JDateChooser();
         jLabel51 = new javax.swing.JLabel();
         jPena = new javax.swing.JTextField();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
+        jComboBoxUnid = new javax.swing.JTextField();
+        jLabel72 = new javax.swing.JLabel();
+        jVaraCondenacao = new javax.swing.JTextField();
+        jLabel159 = new javax.swing.JLabel();
+        jDataNovaEntrada = new com.toedter.calendar.JDateChooser();
+        jTabbedPane6 = new javax.swing.JTabbedPane();
+        jPanel48 = new javax.swing.JPanel();
+        jPanel49 = new javax.swing.JPanel();
         jArtigo1 = new javax.swing.JTextField();
         jArtigo2 = new javax.swing.JTextField();
         jArtigo3 = new javax.swing.JTextField();
@@ -393,20 +422,24 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel57 = new javax.swing.JLabel();
         jParagrafo1 = new javax.swing.JTextField();
         jParagrafo2 = new javax.swing.JTextField();
+        jLabel52 = new javax.swing.JLabel();
         jParagrafo3 = new javax.swing.JTextField();
+        jLabel53 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
         jComboBoxEdiondo = new javax.swing.JComboBox();
+        jLabel55 = new javax.swing.JLabel();
         jLabel59 = new javax.swing.JLabel();
         jDataTerPena = new com.toedter.calendar.JDateChooser();
-        jLabel192 = new javax.swing.JLabel();
         jComboBoxDocumentacaoCompleta = new javax.swing.JComboBox<>();
-        jLabel194 = new javax.swing.JLabel();
+        jLabel192 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTabelaDocumentos = new javax.swing.JTable();
+        jPanel50 = new javax.swing.JPanel();
+        jBtExcluirRegistro = new javax.swing.JButton();
+        jBtAdicionarDocumento = new javax.swing.JButton();
         jComboBoxQuaisDocumentosFaltam = new javax.swing.JComboBox<>();
-        jComboBoxUnid = new javax.swing.JTextField();
-        jLabel72 = new javax.swing.JLabel();
-        jVaraCondenacao = new javax.swing.JTextField();
-        jLabel159 = new javax.swing.JLabel();
-        jDataNovaEntrada = new com.toedter.calendar.JDateChooser();
         jPanel10 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jFotoPerfil = new javax.swing.JLabel();
@@ -474,6 +507,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtAuditoriaPronCrc1 = new javax.swing.JButton();
         jBtObservacao1 = new javax.swing.JButton();
         jBtBuscarRegPortaria1 = new javax.swing.JButton();
+        jBtFasesPersecucao = new javax.swing.JButton();
         jPanel34 = new javax.swing.JPanel();
         jPanel35 = new javax.swing.JPanel();
         jLabel74 = new javax.swing.JLabel();
@@ -2037,19 +2071,28 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPena.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPena.setEnabled(false);
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Artigos e Parágrafos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jComboBoxUnid.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxUnid.setEnabled(false);
 
-        jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel52.setText("Artigo 1:");
+        jLabel72.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel72.setText("Vara Condenação:");
 
-        jLabel53.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel53.setText("Artigo 2:");
+        jVaraCondenacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jVaraCondenacao.setEnabled(false);
 
-        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel54.setText("Artigo 3:");
+        jLabel159.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel159.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel159.setText("Nova Entrada:");
 
-        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel55.setText("Parágrafo 1:");
+        jDataNovaEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataNovaEntrada.setEnabled(false);
+
+        jTabbedPane6.setForeground(new java.awt.Color(0, 0, 204));
+        jTabbedPane6.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        jPanel48.setToolTipText("Artigos e Parágrafos");
+
+        jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jArtigo1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jArtigo1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -2077,27 +2120,35 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jParagrafo2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jParagrafo2.setEnabled(false);
 
+        jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel52.setText("Artigo 1:");
+
         jParagrafo3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jParagrafo3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jParagrafo3.setEnabled(false);
 
+        jLabel53.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel53.setText("Artigo 2:");
+
         jLabel58.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel58.setText("Crime Hediondo:");
+
+        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel54.setText("Artigo 3:");
 
         jComboBoxEdiondo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxEdiondo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Sim", "Não" }));
         jComboBoxEdiondo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEdiondo.setEnabled(false);
 
+        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel55.setText("Parágrafo 1:");
+
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel59.setText("Término Pena:");
 
         jDataTerPena.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataTerPena.setEnabled(false);
-
-        jLabel192.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel192.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel192.setText("Documentação Completa:");
 
         jComboBoxDocumentacaoCompleta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocumentacaoCompleta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Não", "Sim" }));
@@ -2109,9 +2160,170 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel194.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel194.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel194.setText("Quais?");
+        jLabel192.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel192.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel192.setText("Doc. Completa");
+        jLabel192.setToolTipText("Documentação Completa");
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jArtigo3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jArtigo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel56, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxDocumentacaoCompleta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel192, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel52)
+                    .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel55)
+                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel53)
+                    .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel56)
+                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel54)
+                    .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel57)
+                    .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel192))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel58)
+                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel59)
+                    .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDocumentacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
+        jPanel48.setLayout(jPanel48Layout);
+        jPanel48Layout.setHorizontalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel48Layout.setVerticalGroup(
+            jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane6.addTab("Artigos", jPanel48);
+
+        jTabelaDocumentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDocumentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Registro", "Descrição do Documento"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTabelaDocumentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaDocumentosMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTabelaDocumentos);
+        if (jTabelaDocumentos.getColumnModel().getColumnCount() > 0) {
+            jTabelaDocumentos.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaDocumentos.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaDocumentos.getColumnModel().getColumn(1).setMinWidth(400);
+            jTabelaDocumentos.getColumnModel().getColumn(1).setMaxWidth(400);
+        }
+
+        jPanel50.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jBtExcluirRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtExcluirRegistro.setToolTipText("Excluir Registro");
+        jBtExcluirRegistro.setContentAreaFilled(false);
+        jBtExcluirRegistro.setEnabled(false);
+        jBtExcluirRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirRegistroActionPerformed(evt);
+            }
+        });
+
+        jBtAdicionarDocumento.setForeground(new java.awt.Color(0, 102, 0));
+        jBtAdicionarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtAdicionarDocumento.setToolTipText("Add Registro");
+        jBtAdicionarDocumento.setContentAreaFilled(false);
+        jBtAdicionarDocumento.setEnabled(false);
+        jBtAdicionarDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdicionarDocumentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
+        jPanel50.setLayout(jPanel50Layout);
+        jPanel50Layout.setHorizontalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtAdicionarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExcluirRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel50Layout.setVerticalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtAdicionarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtExcluirRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
 
         jComboBoxQuaisDocumentosFaltam.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxQuaisDocumentosFaltam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
@@ -2124,115 +2336,33 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel194)
-                            .addComponent(jLabel54))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxQuaisDocumentosFaltam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel52)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel55)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel59)
-                            .addComponent(jLabel58)
-                            .addComponent(jLabel192))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxDocumentacaoCompleta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDataTerPena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel56)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel57)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                    .addComponent(jComboBoxQuaisDocumentosFaltam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel52)
-                            .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel55)
-                            .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel53)
-                            .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel56)
-                            .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel58)
-                            .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel59)
-                            .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap()
+                .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel57)
-                        .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxDocumentacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel192)))
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel54)
-                        .addComponent(jArtigo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel194)
-                    .addComponent(jComboBoxQuaisDocumentosFaltam, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jComboBoxUnid.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxUnid.setEnabled(false);
-
-        jLabel72.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel72.setText("Vara Condenação:");
-
-        jVaraCondenacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jVaraCondenacao.setEnabled(false);
-
-        jLabel159.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel159.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel159.setText("Nova Entrada:");
-
-        jDataNovaEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataNovaEntrada.setEnabled(false);
+        jTabbedPane6.addTab("Doc.", jPanel11);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2277,7 +2407,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                             .addComponent(jPena, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jDataNovaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jVaraCondenacao, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane6)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2316,7 +2450,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jBtPesqUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -2975,6 +3109,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtFasesPersecucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtFasesPersecucao.setToolTipText("Fases da Persecução");
+        jBtFasesPersecucao.setContentAreaFilled(false);
+        jBtFasesPersecucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFasesPersecucaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
@@ -2999,6 +3142,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtBuscarRegPortaria1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoriaPronCrc1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtFasesPersecucao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel33Layout.setVerticalGroup(
@@ -3013,7 +3158,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvar1)
                 .addComponent(jBtExcluir1)
                 .addComponent(jBtAlterar1)
-                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jBtNovo1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtFasesPersecucao))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -4693,6 +4839,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 objProCrc.setNomeInterno(jNomeInterno.getText());
                                 objProCrc.setConfirmaEntrada(confirmaEntrada);
                                 control.confirmarRegInternoCrc(objProCrc);
+                                //
+                                gravarDocumentos();
+                                //
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -4718,6 +4867,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         control.alterarInternoCrc(objProCrc);
                         controlFisicos.alterarDadosFisicos(objDadosFis);
                         controlPenais.alterarDadosPenais(objDadosPena);
+                        //
+                        gravarDocumentos();
+                        //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -5001,9 +5153,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jRegiaoCorpo1.setText(conecta.rs.getString("RegiaoCorpo1"));
                 jRegiaoCorpo2.setText(conecta.rs.getString("RegiaoCorpo2"));
                 lerDigitaisCadastradas();
+                limparTabela();
+                consultaDocumentos();
                 conecta.desconecta();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
+                // JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + e);
             }
             // FICHA JURIDICA                        
             conecta.abrirConexao();
@@ -5017,6 +5171,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 codigoInterno = conecta.rs.getString("IdInternoCrc");
             } catch (SQLException e) {
             }
+            //
             if (jIdInterno.getText().equals(codigoInterno)) {
                 preencherTabelaProcessos("SELECT * FROM PROCESSOS_JURIDICOS "
                         + "INNER JOIN FICHA_JURIDICA "
@@ -5629,6 +5784,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                 objProCrc.setNomeInterno(jNomeInterno.getText());
                                 objProCrc.setConfirmaEntrada(confirmaEntrada);
                                 control.confirmarRegInternoCrc(objProCrc);
+                                //
+                                gravarDocumentos();
+                                //
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                    
                                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
@@ -5654,6 +5812,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         control.alterarInternoCrc(objProCrc);
                         controlFisicos.alterarDadosFisicos(objDadosFis);
                         controlPenais.alterarDadosPenais(objDadosPena);
+                        //
+                        gravarDocumentos();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação          
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
@@ -6003,15 +6163,128 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == evt.SELECTED) {
             if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Sim")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
-                jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+                jComboBoxQuaisDocumentosFaltam.addItem("Documentação do Interno está completa.");
+                jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+                jBtAdicionarDocumento.setEnabled(!true);
+                jBtExcluirRegistro.setEnabled(!true);
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Não")) {
+                jComboBoxQuaisDocumentosFaltam.removeAllItems();
+                jComboBoxQuaisDocumentosFaltam.addItem("Documentação do Interno está Incompleta.");
+                jComboBoxQuaisDocumentosFaltam.setEnabled(true);
+                jBtAdicionarDocumento.setEnabled(true);
+//                jBtExcluirRegistro.setEnabled(true);
                 preencherCheckBoxDocumentos();
             } else if (jComboBoxDocumentacaoCompleta.getSelectedItem().equals("Selecione...")) {
                 jComboBoxQuaisDocumentosFaltam.removeAllItems();
                 jComboBoxQuaisDocumentosFaltam.addItem("Selecione...");
+                jBtAdicionarDocumento.setEnabled(!true);
+                jBtExcluirRegistro.setEnabled(!true);
             }
         }
     }//GEN-LAST:event_jComboBoxDocumentacaoCompletaItemStateChanged
+
+    private void jBtAdicionarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarDocumentoActionPerformed
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            if (jComboBoxQuaisDocumentosFaltam.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de documento que está faltando.");
+            } else {
+                objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                documentosInterno((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                Integer row = jTabelaDocumentos.getRowCount();
+                boolean encontrou = !true;
+                if (row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
+                    count = count + 1;
+                    jtotalRegistros.setText(Integer.toString(count));
+                    pTotalDocumentos = count;
+                    //Pega os models das listas, para fazer as inserções e remoções
+                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDocumentos.getModel();
+                    //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+                    obj = (new Object[]{objProCrc.getIdChek(), objProCrc.getQuaisDocumentosFaltam()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    //Adiciona no destino e remove da origem
+                    modelDestino.addRow(obj);
+                } else if (row != 0) {
+                    DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDocumentos.getModel();
+                    // VERIFICAR SE O REGISTRO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+                    for (int i = 0; i < jTabelaDocumentos.getRowCount(); i++) {
+                        idDocumento = "" + jTabelaDocumentos.getValueAt(i, 1).toString();
+                        if (idDocumento.equals(objProCrc.getQuaisDocumentosFaltam())) {
+                            encontrou = true;
+                            break;
+                        } else {
+                            encontrou = !true;
+                        }
+                    }
+                    if (encontrou == true) {
+                        JOptionPane.showMessageDialog(rootPane, "Documento já foi selecionado, escolha outro.");
+                    } else if (encontrou == !true) {
+                        count = count + 1;
+                        pTotalDocumentos = count;
+                        jtotalRegistros.setText(Integer.toString(count));
+                        //Adiciona no destino e remove da origem
+                        obj = (new Object[]{objProCrc.getIdChek(), objProCrc.getQuaisDocumentosFaltam()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        modelDestino.addRow(obj);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser modificado, pois, não está em modo de edição.");
+        }
+    }//GEN-LAST:event_jBtAdicionarDocumentoActionPerformed
+
+    private void jBtExcluirRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirRegistroActionPerformed
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            if (jTabelaDocumentos.getSelectedRow() != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o item selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    dtm.removeRow(jTabelaDocumentos.getSelectedRow());
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                    objProCrc.setIdChek(Integer.valueOf(codigoCheck));
+                    controleDoc.excluirDocumentoInternoCrc(objProCrc);
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o registro que deseja excluir.");
+            }
+        }
+    }//GEN-LAST:event_jBtExcluirRegistroActionPerformed
+
+    private void jTabelaDocumentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaDocumentosMouseClicked
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            flag = 1;
+            if (flag == 1) {
+                jBtExcluirRegistro.setEnabled(true);
+                codigoCheck = "" + jTabelaDocumentos.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            }
+        }
+    }//GEN-LAST:event_jTabelaDocumentosMouseClicked
+
+    private void jBtFasesPersecucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFasesPersecucaoActionPerformed
+        // TODO add your handling code here:
+        if (jIdInterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário pesquisar o interno antes...");
+        } else {
+            mostrarFasePersecucao();
+        }
+    }//GEN-LAST:event_jBtFasesPersecucaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -6022,6 +6295,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jArtigo2;
     public static javax.swing.JTextField jArtigo3;
     public static javax.swing.JTextField jBairro;
+    private javax.swing.JButton jBtAdicionarDocumento;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterar1;
     private javax.swing.JButton jBtAuditoriaPronCrc;
@@ -6038,6 +6312,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirFotoCorpo;
     private javax.swing.JButton jBtExcluirFotoCorpo1;
     private javax.swing.JButton jBtExcluirFotoPerfil;
+    private javax.swing.JButton jBtExcluirRegistro;
+    private javax.swing.JButton jBtFasesPersecucao;
     private javax.swing.JButton jBtImportarProntuario;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtImpressao1;
@@ -6251,7 +6527,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel190;
     private javax.swing.JLabel jLabel191;
     private javax.swing.JLabel jLabel192;
-    private javax.swing.JLabel jLabel194;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -6391,7 +6666,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
+    private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -6419,6 +6697,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     public static javax.swing.JTextField jSituacao;
     public static javax.swing.JTabbedPane jTabbedPane1;
@@ -6426,7 +6705,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
+    private javax.swing.JTabbedPane jTabbedPane6;
     public static javax.swing.JTable jTabelaAmparoLegal;
+    private javax.swing.JTable jTabelaDocumentos;
     private javax.swing.JTable jTabelaDocumentosProcesso;
     private javax.swing.JTable jTabelaInterno;
     private javax.swing.JTable jTabelaProcesso;
@@ -6546,6 +6827,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jRegiaoCorpo1.setEnabled(!true);
         jRegiaoCorpo2.setEnabled(!true);
         jVaraCondenacao.setEnabled(!true);
+        jComboBoxDocumentacaoCompleta.setEnabled(!true);
+        jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
         // Habilitar/Desabilitar  Botões        
         jBtNovaFoto.setEnabled(!true);
         jBtExcluirFoto.setEnabled(!true);
@@ -6690,22 +6973,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jRGInterno.setText("");
         jCPFInterno.setText("");
         jCartaoSus.setText("");
-        jComboBoxEscolaridade.setSelectedItem("");
-        jComboBoxEstadoCivil.setSelectedItem("");
+        jComboBoxEscolaridade.setSelectedItem("Selecione...");
+        jComboBoxEstadoCivil.setSelectedItem("Selecione...");
         jComboBoxSexo.setSelectedItem("");
         jSituacao.setText("");
-        jComboBoxCutis.setSelectedItem("");
-        jComboBoxOlhos.setSelectedItem("");
-        jComboBoxCabelos.setSelectedItem("");
-        jComboBoxBarba.setSelectedItem("");
-        jComboBoxBigode.setSelectedItem("");
-        jComboBoxNariz.setSelectedItem("");
-        jComboBoxBoca.setSelectedItem("");
-        jComboBoxRosto.setSelectedItem("");
-        jComboBoxLabios.setSelectedItem("");
-        jComboBoxParticipacao.setSelectedItem("");
-        jComboBoxRegime.setSelectedItem("");
-        jComboBoxEdiondo.setSelectedItem("");
+        jComboBoxCutis.setSelectedItem("Selecione...");
+        jComboBoxOlhos.setSelectedItem("Selecione...");
+        jComboBoxCabelos.setSelectedItem("Selecione...");
+        jComboBoxBarba.setSelectedItem("Selecione...");
+        jComboBoxBigode.setSelectedItem("Selecione...");
+        jComboBoxNariz.setSelectedItem("Selecione...");
+        jComboBoxBoca.setSelectedItem("Selecione...");
+        jComboBoxRosto.setSelectedItem("Selecione...");
+        jComboBoxLabios.setSelectedItem("Selecione...");
+        jComboBoxParticipacao.setSelectedItem("Selecione...");
+        jComboBoxRegime.setSelectedItem("Selecione...");
+        jComboBoxEdiondo.setSelectedItem("Selecione...");
         jComboBoxPais.setText("");
         jComboBoxCidade.setText("");
         jComboBoxUnid.setText("");
@@ -6882,8 +7165,6 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxEstadoCivil.setEnabled(true);
         jComboBoxSexo.setEnabled(true);
         jSituacao.setEnabled(!true);
-        //  jComboBoxPais.setEnabled(true);
-        //   jComboBoxCidade.setEnabled(true);
         jReligiao.setEnabled(true);
         jProfissao.setEnabled(true);
         jEndereco.setEnabled(true);
@@ -6991,22 +7272,22 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jCPFInterno.setText("");
         jCartaoSus.setText("");
         jLabelFotoInterno.setIcon(null);
-        jComboBoxEscolaridade.setSelectedItem("");
-        jComboBoxEstadoCivil.setSelectedItem("");
+        jComboBoxEscolaridade.setSelectedItem("Selecione...");
+        jComboBoxEstadoCivil.setSelectedItem("Selecione...");
         jComboBoxSexo.setSelectedItem("");
         jSituacao.setText("");
-        jComboBoxCutis.setSelectedItem("");
-        jComboBoxOlhos.setSelectedItem("");
-        jComboBoxCabelos.setSelectedItem("");
-        jComboBoxBarba.setSelectedItem("");
-        jComboBoxBigode.setSelectedItem("");
-        jComboBoxNariz.setSelectedItem("");
-        jComboBoxBoca.setSelectedItem("");
-        jComboBoxRosto.setSelectedItem("");
-        jComboBoxLabios.setSelectedItem("");
-        jComboBoxParticipacao.setSelectedItem("");
-        jComboBoxRegime.setSelectedItem("");
-        jComboBoxEdiondo.setSelectedItem("");
+        jComboBoxCutis.setSelectedItem("Selecione...");
+        jComboBoxOlhos.setSelectedItem("Selecione...");
+        jComboBoxCabelos.setSelectedItem("Selecione...");
+        jComboBoxBarba.setSelectedItem("Selecione...");
+        jComboBoxBigode.setSelectedItem("Selecione...");
+        jComboBoxNariz.setSelectedItem("Selecione...");
+        jComboBoxBoca.setSelectedItem("Selecione...");
+        jComboBoxRosto.setSelectedItem("Selecione...");
+        jComboBoxLabios.setSelectedItem("Selecione...");
+        jComboBoxParticipacao.setSelectedItem("Selecione...");
+        jComboBoxRegime.setSelectedItem("Selecione...");
+        jComboBoxEdiondo.setSelectedItem("Selecione...");
         jComboBoxPais.setText("");
         jComboBoxCidade.setText("");
         jComboBoxUnid.setText("");
@@ -7121,6 +7402,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jVaraCondenacao.setEnabled(!true);
         jDataNovaEntrada.setEnabled(!true);
         jComboBoxDocumentacaoCompleta.setEnabled(!true);
+        jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
         // Habilitar/Desabilitar  Botões
         jBtZoonFoto.setEnabled(!true);
         jBtNovaFoto.setEnabled(!true);
@@ -7278,6 +7560,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jBtBuscarRegPortaria1.setEnabled(!true);
         jBtAuditoriaPronCrc1.setEnabled(true);
         jBtImportarProntuario.setEnabled(!true);
+        //
+        jBtAdicionarDocumento.setEnabled(!true);
+        jBtExcluirRegistro.setEnabled(!true);
     }
 
     public void Cancelar() {
@@ -7378,6 +7663,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtObservacao.setEnabled(!true);
             jComboBoxDocumentacaoCompleta.setSelectedItem("Selecione...");
             jComboBoxQuaisDocumentosFaltam.setSelectedItem("Selecione...");
+            jComboBoxDocumentacaoCompleta.setEnabled(!true);
             jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
@@ -7493,6 +7779,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(!true);
             jBtImportarProntuario.setEnabled(!true);
+            //
+            jBtAdicionarDocumento.setEnabled(!true);
+            jBtExcluirRegistro.setEnabled(!true);
         } else {
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
@@ -7608,6 +7897,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jBtBuscarRegPortaria1.setEnabled(!true);
             jBtAuditoriaPronCrc1.setEnabled(true);
             jBtImportarProntuario.setEnabled(!true);
+            //
+            jBtAdicionarDocumento.setEnabled(!true);
+            jBtExcluirRegistro.setEnabled(!true);
         }
     }
 
@@ -8407,6 +8699,86 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             codConsultarCRC = conecta.rs.getInt("Consultar");
             nomeTelaCRC = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    //GRAVAR OS DOCUMENTOS REFERENTE AO INTERNO
+    public void gravarDocumentos() {
+
+        for (int i = 0; i < jTabelaDocumentos.getRowCount(); i++) {
+            objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+            objProCrc.setNomeInterno(jNomeInterno.getText());
+            objProCrc.setIdChek((int) jTabelaDocumentos.getValueAt(i, 0));
+            objProCrc.setDescricaoDoc((String) jTabelaDocumentos.getValueAt(i, 1));
+            verificarInternoBancoDados(objProCrc.getIdInterno(), objProCrc.getIdChek());
+            if (c_INTERNO == 0) {
+                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+            } else if (c_INTERNO == objProCrc.getIdInterno() && c_REGISTRO != objProCrc.getIdChek()) {
+                controleDoc.incluirDocumentoInternoCrc(objProCrc);
+            }
+        }
+    }
+
+    public void consultaDocumentos() {
+
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaDocumentos.getModel();
+        ProntuarioCrc d = new ProntuarioCrc();
+        try {
+            for (ProntuarioCrc dd : controleDoc.read()) {
+                dadosOrigem.addRow(new Object[]{dd.getIdChek(), dd.getDescricaoDoc()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDocumentos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDocumentos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void limparTabela() {
+        // APAGAR LINHA SELECIONADA
+        if (jTabelaDocumentos.getSelectedRow() != -1) {
+            DefaultTableModel dtm = (DefaultTableModel) jTabelaDocumentos.getModel();
+            dtm.removeRow(jTabelaDocumentos.getSelectedRow());
+        }
+        // APAGAR TODO O CONTEUDO DA TABELA
+        while (jTabelaDocumentos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaDocumentos.getModel()).removeRow(0);
+        }
+    }
+
+    //VERIFICAR SE JÁ FOI GRAVADO O INTERNO COM OS DOCUMENTOS
+    public void verificarInternoBancoDados(int codigoInterno, int codDocumento) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM LISTA_DOCUMENTOS_INTERNO_CRC "
+                    + "WHERE IdInternoCrc='" + codigoInterno + "' "
+                    + "AND IdChek='" + codDocumento + "'");
+            conecta.rs.last();
+            c_INTERNO = conecta.rs.getInt("IdInternoCrc");
+            c_REGISTRO = conecta.rs.getInt("IdChek");
+        } catch (Exception ERROR) {
+        }
+        conecta.desconecta();
+    }
+
+    public void documentosInterno(String descricaoDoc) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM CHECK_LIST_DOCUMENTOS_INTERNO_CRC "
+                    + "WHERE DescricaoDocumentos='" + descricaoDoc + "'");
+            conecta.rs.first();
+            idChek = conecta.rs.getInt("IdChek");
+            objProCrc.setIdChek(idChek);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados dos DOCUMENTOS a serem exibidos !!!");
         }
         conecta.desconecta();
     }

@@ -180,7 +180,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
         jTabelaTiposExames.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTiposExames.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Classificação", "Descrição do Exame"
@@ -311,7 +311,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
         jComboBoxStatusExame.setEnabled(false);
 
         jComboBoxCategoria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Sangue", "Fezes", "Urina", "Escarro" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Sangue", "Fezes", "Urina", "Escarro", "Teste de Gravidez - (BHCG)", "Digestivo", "Radiografia", "Ultra Som - (USG)", "Outros" }));
         jComboBoxCategoria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCategoria.setEnabled(false);
 
@@ -363,7 +363,7 @@ public class TelaTiposExames extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeExame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));

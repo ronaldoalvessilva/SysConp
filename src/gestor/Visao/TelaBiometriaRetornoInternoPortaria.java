@@ -12,7 +12,7 @@ import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import com.sun.jna.win32.StdCallLibrary;
 import gestor.Controle.ControleLogSistema;
-import static gestor.Controle.ControleItensRegSaidaInternos.qtdInternos;
+import static gestor.Controle.ControleRegistroItensRetornoInterno.qtdInternos;
 import gestor.Controle.ControleMOVSRPortaria;
 import gestor.Controle.ControleRegistroItensRetornoInterno;
 import gestor.Controle.ControleRegistroRetornoInternos;

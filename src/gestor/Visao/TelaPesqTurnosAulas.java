@@ -8,12 +8,15 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.TurnosAula;
+import static gestor.Visao.TelaInventarioProdutosAC.jTabelaItensProdutoInvent;
 import static gestor.Visao.TelaTempoFormativo.jDescricaoTurno;
 import static gestor.Visao.TelaTempoFormativo.jIdTurno;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -71,6 +74,7 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricao.setContentAreaFilled(false);
         jBtPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoActionPerformed(evt);
@@ -112,18 +116,26 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaTurnos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Data", "Status", "Descrição da Turma"
             }
         ));
         jScrollPane1.setViewportView(jTabelaTurnos);
+        if (jTabelaTurnos.getColumnModel().getColumnCount() > 0) {
+            jTabelaTurnos.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaTurnos.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaTurnos.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaTurnos.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaTurnos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaTurnos.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaTurnos.getColumnModel().getColumn(3).setMinWidth(280);
+            jTabelaTurnos.getColumnModel().getColumn(3).setMaxWidth(280);
+        }
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtConfirmar.setForeground(new java.awt.Color(0, 0, 255));
@@ -158,7 +170,7 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
                         .addComponent(jBtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 151, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -185,7 +197,7 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +206,7 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 20, 416, 285);
+        setBounds(380, 20, 518, 277);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDescricaoActionPerformed
@@ -203,8 +215,8 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
         if (jPesqDescricao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe uma descrição para pesquisa.");
         } else {
-            jTabelaTurnos.setVisible(true);
-            preencherTabelaSalas("SELECT * FROM TURNOOSAULA WHERE DescricaoTurno LIKE'" + jPesqDescricao.getText() + "%'");
+            preencherTabelaSalas("SELECT * FROM TURNOOSAULA "
+                    + "WHERE DescricaoTurno LIKE'" + jPesqDescricao.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -212,10 +224,9 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaTurnos.setVisible(true);
             this.preencherTabelaSalas("SELECT * FROM TURNOSAULA");
         } else {
-            jTabelaTurnos.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -227,10 +238,11 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
             jPesqDescricao.setText(descricaoTurno);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM TURNOSAULA WHERE DescricaoTurno LIKE'" + descricaoTurno + "%'");
-                conecta.rs.first();                
+                conecta.executaSQL("SELECT * FROM TURNOSAULA "
+                        + "WHERE DescricaoTurno LIKE'" + descricaoTurno + "%'");
+                conecta.rs.first();
                 jIdTurno.setText(String.valueOf(conecta.rs.getInt("IdTurno")));
-                jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));  
+                jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + ex);
@@ -261,7 +273,7 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
 
     public void preencherTabelaSalas(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{" Código ", " Data ", " Status ", "    Descrição"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição da Turma"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -291,6 +303,35 @@ public class TelaPesqTurnosAulas extends javax.swing.JInternalFrame {
         jTabelaTurnos.getTableHeader().setReorderingAllowed(false);
         jTabelaTurnos.setAutoResizeMode(jTabelaTurnos.AUTO_RESIZE_OFF);
         jTabelaTurnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição da Turma"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTurnos.setModel(modelo);
+        jTabelaTurnos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaTurnos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTurnos.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTurnos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTurnos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaTurnos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTurnos.getColumnModel().getColumn(3).setPreferredWidth(280);
+        jTabelaTurnos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTurnos.getTableHeader().setReorderingAllowed(false);
+        jTabelaTurnos.setAutoResizeMode(jTabelaTurnos.AUTO_RESIZE_OFF);
+        jTabelaTurnos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabela() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaTurnos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTurnos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaTurnos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

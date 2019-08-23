@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -168,8 +169,8 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoTerapia.jasper";
-                    conecta.executaSQL("SELECT * FROM EVOLUCAOTERAPIA "
+                    String path = "reports/RelatorioQuantitativoAtendimentoTerapiaII.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOTERAPIA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvo BETWEEN'" + dataInicial + "' "
@@ -178,8 +179,13 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
-                    parametros.put("pNomeUsuario", nameUser);
+                    parametros.put("pUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
+                    // Sub Relatório
+                    try {
+                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                    } catch (SQLException ex) {
+                    }
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -207,8 +213,8 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoTerapia.jasper";
-                    conecta.executaSQL("SELECT * FROM EVOLUCAOTERAPIA "
+                    String path = "reports/RelatorioQuantitativoAtendimentoTerapiaII.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOTERAPIA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvo BETWEEN'" + dataInicial + "' "
@@ -219,6 +225,11 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
                     parametros.put("dataFinal", dataFinal);
                     parametros.put("pNomeUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
+                    // Sub Relatório
+                    try {
+                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                    } catch (SQLException ex) {
+                    }
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          

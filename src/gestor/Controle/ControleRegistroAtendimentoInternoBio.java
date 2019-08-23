@@ -31,12 +31,12 @@ public class ControleRegistroAtendimentoInternoBio {
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
     public static int qtdInternosReg = 0;
-    String atendido = "Não";
+    String pAtendido = "Não";
 
     public RegistroAtendimentoInternos incluirRegAtend(RegistroAtendimentoInternos objRegAtend) {
 
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
-        buscarDepartamento(objRegAtend.getNomeDepartamento());       
+        buscarDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert,Qtd) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
@@ -44,12 +44,12 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
             pst.setString(4, objRegAtend.getTipoAtemdimento());
-            pst.setInt(5, codDpto);           
-            pst.setBytes(6, objRegAtend.getAssinaturaDigital());            
-            pst.setString(7, objRegAtend.getAtendido());            
+            pst.setInt(5, codDpto);
+            pst.setBytes(6, objRegAtend.getAssinaturaDigital());
+            pst.setString(7, objRegAtend.getAtendido());
             pst.setString(8, objRegAtend.getUsuarioInsert());
             pst.setString(9, objRegAtend.getDataInsert());
-            pst.setString(10, objRegAtend.getHorarioInsert()); 
+            pst.setString(10, objRegAtend.getHorarioInsert());
             pst.setInt(11, objRegAtend.getQtdAtend());
             pst.execute();
         } catch (SQLException ex) {
@@ -92,20 +92,24 @@ public class ControleRegistroAtendimentoInternoBio {
     }
 
     public RegistroAtendimentoInternos alterarRegAtend(RegistroAtendimentoInternos objRegAtend) {
-
+        buscarDepartamento(objRegAtend.getNomeDepartamento());
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Qtd=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND Atendido='" + atendido + "'AND IdDepartamento='" + objRegAtend.getIdDepartamento() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,IdDepartamento,Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Qtd=? "
+                    + "WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "' "
+                    + "AND Atendido='" + pAtendido + "' "
+                    + "AND IdDepartamento='" + objRegAtend.getIdDepartamento() + "'");
             pst.setString(1, objRegAtend.getTipoAtemdimento());
-            pst.setString(2, objRegAtend.getAtendido());
-            pst.setTimestamp(3, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
-            pst.setInt(4, objRegAtend.getIdAtend());
-            pst.setString(5, objRegAtend.getAtendeEvol());
-            pst.setString(6, objRegAtend.getUsuarioUp());
-            pst.setString(7, objRegAtend.getDataUp());
-            pst.setString(8, objRegAtend.getHorarioUp());
-            pst.setInt(9, objRegAtend.getQtdAtend());
+            pst.setInt(2, codDpto);
+            pst.setString(3, objRegAtend.getAtendido());
+            pst.setTimestamp(4, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
+            pst.setInt(5, objRegAtend.getIdAtend());
+            pst.setString(6, objRegAtend.getAtendeEvol());
+            pst.setString(7, objRegAtend.getUsuarioUp());
+            pst.setString(8, objRegAtend.getDataUp());
+            pst.setString(9, objRegAtend.getHorarioUp());
+            pst.setInt(10, objRegAtend.getQtdAtend());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
@@ -115,19 +119,24 @@ public class ControleRegistroAtendimentoInternoBio {
     }
 
     public RegistroAtendimentoInternos alterarRegEvol(RegistroAtendimentoInternos objRegAtend) {
-
+        buscarDepartamento(objRegAtend.getNomeDepartamento());
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET Atendido=?,DataAtendimento=?,IdAtend=?,IdEvol=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND Atendido='" + atendido + "'");
-            pst.setString(1, objRegAtend.getAtendido());
-            pst.setTimestamp(2, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
-            pst.setInt(3, objRegAtend.getIdAtend());
-            pst.setInt(4, objRegAtend.getIdEvol());
-            pst.setString(5, objRegAtend.getAtendeEvol());
-            pst.setString(6, objRegAtend.getUsuarioUp());
-            pst.setString(7, objRegAtend.getDataUp());
-            pst.setString(8, objRegAtend.getHorarioUp());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,IdDepartamento=?,Atendido=?,DataAtendimento=?,IdAtend=?,IdEvol=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Qtd=? "
+                    + "WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "' "
+                    + "AND Atendido='" + pAtendido + "'");
+            pst.setString(1, objRegAtend.getTipoAtemdimento());
+            pst.setInt(2, codDpto);
+            pst.setString(3, objRegAtend.getAtendido());
+            pst.setTimestamp(4, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
+            pst.setInt(5, objRegAtend.getIdAtend());
+            pst.setInt(6, objRegAtend.getIdEvol());
+            pst.setString(7, objRegAtend.getAtendeEvol());
+            pst.setString(8, objRegAtend.getUsuarioUp());
+            pst.setString(9, objRegAtend.getDataUp());
+            pst.setString(10, objRegAtend.getHorarioUp());
+            pst.setInt(11, objRegAtend.getQtdAtend());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);

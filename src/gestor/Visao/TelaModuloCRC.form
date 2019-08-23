@@ -640,9 +640,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jRelatorioDocumentacaoCompleta">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="66" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Documenta&#xe7;&#xe3;o Completa"/>
               </Properties>
               <Events>
@@ -719,9 +716,6 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioMovAdvogadosInternos">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="cc" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Movimenta&#xe7;&#xe3;o de Advogados aos Internos"/>
               </Properties>
               <Events>
@@ -730,9 +724,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioMovVisitasInternos">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="0" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Movimenta&#xe7;&#xe3;o das Visitas Internos"/>
               </Properties>
               <Events>
@@ -843,6 +834,31 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jListagemUnidadePenalActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator31">
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="jMenu11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Visitas de Advogados aos Internos - PORTARIAS"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioVisitasAdvogadosInternosGeral">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Visitas de Advogados - Geral"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioVisitasAdvogadosInternosGeralActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioVisitasAdvogadosInternosPorNome">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Visitas Advogados aos Internos por Nome"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuUtilitarios">
@@ -852,6 +868,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jCalculadoraPena">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/calculator_edit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Calculadora de Pena"/>
               </Properties>
               <Events>
@@ -860,10 +879,30 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jCalculadoraWindows">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/calculator.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Calculadora do Windows"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCalculadoraWindowsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jCalculadoraExecucaoPenal">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gestor/Imagens/mozilla-firefox-icone-7949-16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Calculadora de Execu&#xe7;&#xe3;o Penal"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCalculadoraExecucaoPenalActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator28">

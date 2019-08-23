@@ -26,8 +26,14 @@ public class ItensExameMedicoPsiquiatricoSolicitado {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;    
+    private String nomeSolicitante;
+    private String exameRealizado;
+    private String motivoRealizado;
 
-    public ItensExameMedicoPsiquiatricoSolicitado(int idItemExame, int IdSolExame, int idExame, String descricaoExame, int idInternoCrc, String nomeInternoExame, String primeiraAmostra, String segundaAmostra, String terceiraAmostra, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ItensExameMedicoPsiquiatricoSolicitado() {
+    }
+
+    public ItensExameMedicoPsiquiatricoSolicitado(int idItemExame, int IdSolExame, int idExame, String descricaoExame, int idInternoCrc, String nomeInternoExame, String primeiraAmostra, String segundaAmostra, String terceiraAmostra, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String nomeSolicitante, String exameRealizado, String motivoRealizado) {
         this.idItemExame = idItemExame;
         this.IdSolExame = IdSolExame;
         this.idExame = idExame;
@@ -43,9 +49,9 @@ public class ItensExameMedicoPsiquiatricoSolicitado {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensExameMedicoPsiquiatricoSolicitado() {
+        this.nomeSolicitante = nomeSolicitante;
+        this.exameRealizado = exameRealizado;
+        this.motivoRealizado = motivoRealizado;
     }
 
     /**
@@ -256,5 +262,47 @@ public class ItensExameMedicoPsiquiatricoSolicitado {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the nomeSolicitante
+     */
+    public String getNomeSolicitante() {
+        return nomeSolicitante;
+    }
+
+    /**
+     * @param nomeSolicitante the nomeSolicitante to set
+     */
+    public void setNomeSolicitante(String nomeSolicitante) {
+        this.nomeSolicitante = nomeSolicitante;
+    }
+
+    /**
+     * @return the exameRealizado
+     */
+    public String getExameRealizado() {
+        return exameRealizado;
+    }
+
+    /**
+     * @param exameRealizado the exameRealizado to set
+     */
+    public void setExameRealizado(String exameRealizado) {
+        this.exameRealizado = exameRealizado;
+    }
+
+    /**
+     * @return the motivoRealizado
+     */
+    public String getMotivoRealizado() {
+        return motivoRealizado;
+    }
+
+    /**
+     * @param motivoRealizado the motivoRealizado to set
+     */
+    public void setMotivoRealizado(String motivoRealizado) {
+        this.motivoRealizado = motivoRealizado;
     }
 }

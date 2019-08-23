@@ -41,7 +41,7 @@
 	<field name="StatusFunc" class="java.lang.String"/>
 	<field name="MatriculaFunc" class="java.lang.String"/>
 	<field name="EstadoCivil" class="java.lang.String"/>
-	<field name="DataNascimento" class="java.sql.Date"/>
+	<field name="DataNascimento" class="java.sql.Timestamp"/>
 	<field name="NomeMae" class="java.lang.String"/>
 	<field name="NomePai" class="java.lang.String"/>
 	<field name="Religiao" class="java.lang.String"/>
@@ -55,12 +55,15 @@
 	<field name="Pais" class="java.lang.String"/>
 	<field name="Naturalidade" class="java.lang.String"/>
 	<field name="EstadoNaturalidade" class="java.lang.String"/>
+	<field name="ImagemFrenteCO" class="java.lang.Object"/>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="Idlanc" class="java.lang.Integer"/>
-	<field name="DataEntrada" class="java.util.Date"/>
+	<field name="DataEntrada" class="java.sql.Timestamp"/>
 	<field name="HorarioEntrada" class="java.lang.String"/>
 	<field name="DataSaida" class="java.sql.Timestamp"/>
 	<field name="HorarioSaida" class="java.lang.String"/>
+	<field name="AssinaturaEntrada" class="java.lang.Object"/>
+	<field name="AssinaturaSaida" class="java.lang.Object"/>
 	<variable name="count" class="java.lang.Integer" resetType="Group" resetGroup="NomeAdvogado" calculation="Sum">
 		<variableExpression><![CDATA[1]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>

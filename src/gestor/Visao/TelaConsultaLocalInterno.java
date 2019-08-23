@@ -416,7 +416,7 @@ public class TelaConsultaLocalInterno extends javax.swing.JInternalFrame {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 

@@ -216,9 +216,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jPerfilCarcerario">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Perfil da Popula&#xe7;&#xe3;o Carcer&#xe1;ria"/>
               </Properties>
               <Events>
@@ -227,9 +224,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="PAI_NOVO">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="0" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="P.A.I. - Programa de Assit&#xea;ncia Individual"/>
               </Properties>
               <Events>
@@ -250,17 +244,11 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenuControleFrequenciaCursos">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="66" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Capacita&#xe7;&#xe3;o/Oficias/Frequ&#xea;ncias de Internos"/>
+                <Property name="text" type="java.lang.String" value="Capacita&#xe7;&#xe3;o/Oficinas/Frequ&#xea;ncias de Internos"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jCapacitacaoInterno">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="66" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Capacita&#xe7;&#xe3;o/Oficinas para Internos"/>
                   </Properties>
                   <Events>
@@ -269,9 +257,6 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jControleFrequenciaCursos">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="99" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Controle de Frequ&#xea;ncia de Internos - CURSOS/OFICINAS"/>
                   </Properties>
                   <Events>
@@ -399,9 +384,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RelatorioInternosCNC">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="cc" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos com CNC"/>
               </Properties>
               <Events>
@@ -412,9 +394,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jRelatorioAtendimentoInternos">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="33" green="66" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Atendimento de Internos"/>
               </Properties>
               <Events>
@@ -423,17 +402,11 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu10">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="0" red="99" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos em Capacitados/Em Capacita&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Internos Capacitados/Em Capacita&#xe7;&#xe3;o"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoConcluido">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="cc" green="0" red="0" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Internos com curso conclu&#xed;do"/>
                   </Properties>
                   <Events>
@@ -442,9 +415,6 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioInternosCursoAndamento">
                   <Properties>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Internos com curso em andamento"/>
                   </Properties>
                   <Events>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFrequenciaAulasInternos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df34bb63-2882-4ee1-a285-226bb6d875df">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
@@ -73,6 +73,7 @@
 	<field name="Mestrado" class="java.lang.String"/>
 	<field name="Doutorado" class="java.lang.String"/>
 	<field name="Observacao" class="java.lang.String"/>
+	<field name="Eixo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -94,41 +95,50 @@
 				<reportElement x="0" y="20" width="318" height="49" uuid="0d2f6e47-5caf-45da-83ce-fe33c34b0d1b"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="Column header" x="13" y="35" width="140" height="15" forecolor="#000000" uuid="d92b279c-cf2d-4b7d-b0a9-d186abdcdefe"/>
+				<reportElement style="Column header" x="13" y="27" width="140" height="15" forecolor="#000000" uuid="d92b279c-cf2d-4b7d-b0a9-d186abdcdefe"/>
 				<text><![CDATA[NOME DA INSTITUIÇÃO]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="13" y="50" width="293" height="15" uuid="2b3eb2c4-b4ce-4046-b7a6-9c226c0726f1"/>
+				<reportElement style="Detail" x="13" y="42" width="293" height="15" uuid="2b3eb2c4-b4ce-4046-b7a6-9c226c0726f1"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NomeInstituicao}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" x="334" y="35" width="177" height="15" forecolor="#000000" uuid="a9382844-990f-45dd-886d-16a7294ba401"/>
+				<reportElement style="Column header" x="334" y="27" width="177" height="15" forecolor="#000000" uuid="a9382844-990f-45dd-886d-16a7294ba401"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[TEMPO FORMATIVO]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="334" y="50" width="177" height="15" uuid="c79adcd1-1e8c-4b58-b474-20c78139cebb"/>
-				<textElement textAlignment="Center"/>
+				<reportElement style="Detail" x="322" y="42" width="219" height="15" uuid="c79adcd1-1e8c-4b58-b474-20c78139cebb"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DescricaoTempo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Column header" x="557" y="35" width="126" height="15" forecolor="#000000" uuid="e782c8ff-5fc6-4687-8a46-abc13a09e4d7"/>
+				<reportElement style="Column header" x="557" y="27" width="126" height="15" forecolor="#000000" uuid="e782c8ff-5fc6-4687-8a46-abc13a09e4d7"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[SALA DE AULA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="715" y="35" width="75" height="15" forecolor="#000000" uuid="5fdbbde0-52e7-4482-8e3e-fddf7c1944bb"/>
+				<reportElement style="Column header" x="715" y="27" width="75" height="15" forecolor="#000000" uuid="5fdbbde0-52e7-4482-8e3e-fddf7c1944bb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[TURNO]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="557" y="50" width="126" height="15" uuid="8b8b18ce-2270-4e2f-9f53-46c1f068b2b8"/>
-				<textElement textAlignment="Center"/>
+				<reportElement style="Detail" x="542" y="42" width="167" height="15" uuid="8b8b18ce-2270-4e2f-9f53-46c1f068b2b8"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Descricao}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Detail" x="715" y="51" width="75" height="15" uuid="c62a1475-fb19-4248-a942-bed680d5a879"/>
-				<textElement textAlignment="Center"/>
+				<reportElement style="Detail" x="715" y="43" width="75" height="15" uuid="c62a1475-fb19-4248-a942-bed680d5a879"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DescricaoTurno}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -158,7 +168,7 @@
 				<text><![CDATA[PROFESSOR]]></text>
 			</staticText>
 			<line>
-				<reportElement x="698" y="21" width="1" height="49" uuid="c930f3b6-0575-4e9a-9a41-9f19958bfef2"/>
+				<reportElement x="709" y="21" width="1" height="49" uuid="c930f3b6-0575-4e9a-9a41-9f19958bfef2"/>
 			</line>
 			<staticText>
 				<reportElement x="563" y="79" width="94" height="15" uuid="5c3e3be3-c72f-4b91-a78d-439bb795f69a"/>
@@ -186,7 +196,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SysConp - Sistema de Controle Prisional]]></text>
+				<text><![CDATA[SISCONP - Sistema de Controle Prisional]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -210,8 +220,8 @@
 				<text><![CDATA[MATRICULA PENAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="439" y="3" width="363" height="20" forecolor="#FF0000" uuid="45cd3419-55b8-4109-a3e2-f7ea19f1d669"/>
-				<textElement textAlignment="Center">
+				<reportElement x="439" y="8" width="363" height="15" forecolor="#FF0000" uuid="45cd3419-55b8-4109-a3e2-f7ea19f1d669"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ASSINATURA DO INTERNO]]></text>
@@ -222,7 +232,7 @@
 		<band height="22" splitType="Stretch">
 			<elementGroup/>
 			<subreport>
-				<reportElement x="13" y="2" width="200" height="16" uuid="4ea0fa0d-8422-46bf-856a-a4b25607bfc3"/>
+				<reportElement x="12" y="0" width="600" height="22" uuid="583ac27e-11a0-4094-bc8e-09a59950ceba"/>
 				<subreportParameter name="codFreq">
 					<subreportParameterExpression><![CDATA[$F{IdFreq}]]></subreportParameterExpression>
 				</subreportParameter>

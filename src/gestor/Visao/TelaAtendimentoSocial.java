@@ -34,7 +34,9 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloServicoSocial.telaAdmissaoInternosServicoSocial;
 import static gestor.Visao.TelaModuloServicoSocial.telaEvolucaoServicoSocial;
 import java.awt.Color;
@@ -476,7 +478,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jTabelaAtendimentoSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtendimentoSocial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Interno", "Data Entrada", "Situação na Unidade"
@@ -1980,7 +1982,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jTabelaEvolucaoServicoSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoServicoSocial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Seq.", "Data", "Evolução Serviço Social"
@@ -2366,14 +2368,17 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                             objAtendSocial.setNomeInterno(jNomeInterno.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
                             controle.incluirMovTec(objAtendSocial);
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                            atendido = "Sim";
                             objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                             objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                             objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                            objRegAtend.setNomeDepartamento(nomeModuloSS);
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             objRegAtend.setAtendido(atendido);
                             objRegAtend.setDataAtendimento(jDataAtendimento.getDate());
                             objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                             //
                             objRegAtend.setUsuarioUp(nameUser);
                             objRegAtend.setDataUp(dataModFinal);
@@ -2790,12 +2795,14 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                    objRegAtend.setNomeDepartamento(nomeModuloSS);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolu.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);

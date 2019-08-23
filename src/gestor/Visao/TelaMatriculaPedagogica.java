@@ -134,6 +134,8 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jDescricaoSala = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jStatusMat = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jEixo = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jBtNovoInterno = new javax.swing.JButton();
         jBtAlterarInterno = new javax.swing.JButton();
@@ -493,6 +495,13 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jStatusMat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jStatusMat.setEnabled(false);
 
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setText("Eixo");
+        jLabel19.setToolTipText("");
+
+        jEixo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEixo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -526,17 +535,28 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                         .addComponent(jNomeInstituicao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel13)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDescricaoTempoFormativo)
-                            .addComponent(jDescricaoSala))
+                            .addComponent(jDescricaoSala)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDescricaoTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jEixo))))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jBtPesqTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jBtPesqSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jBtPesqSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel13))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -557,12 +577,14 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDescricaoTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqTempoFormativo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jEixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -1563,7 +1585,8 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 jDataMat.setDate(conecta.rs.getDate("DataMat"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 jDescricaoTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
-                jCargaHoraria.setText(conecta.rs.getString("DescricaoCarga"));
+                jEixo.setText(conecta.rs.getString("Eixo"));
+                jCargaHoraria.setText(conecta.rs.getString("DescricaoCarga"));                
                 jDescricaoSala.setText(conecta.rs.getString("Descricao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1708,6 +1731,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jDescricaoSala;
     public static javax.swing.JTextField jDescricaoTempoFormativo;
     public static javax.swing.JTextField jDescricaoTurno;
+    public static javax.swing.JTextField jEixo;
     private javax.swing.JTextField jIDPesqLan;
     public static javax.swing.JTextField jIdInternoCrc;
     public static javax.swing.JTextField jIdMat;
@@ -1721,6 +1745,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
@@ -1791,6 +1816,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jDataMat.setBackground(Color.white);
         jNomeInstituicao.setBackground(Color.white);
         jDescricaoTempoFormativo.setBackground(Color.white);
+        jEixo.setBackground(Color.white);
         jDescricaoTurno.setBackground(Color.white);
         jCargaHoraria.setBackground(Color.white);
         jDescricaoSala.setBackground(Color.white);
@@ -1811,6 +1837,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jDescricaoTurno.setText("");
         jCargaHoraria.setText("");
         jDescricaoSala.setText("");
+        jEixo.setText("");
         //
         jDataMat.setEnabled(true);
         //
@@ -1876,6 +1903,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jDescricaoTurno.setText("");
         jCargaHoraria.setText("");
         jDescricaoSala.setText("");
+        jEixo.setText("");
         //
         jDataMat.setEnabled(!true);
         //
@@ -1936,6 +1964,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
             jDescricaoTurno.setText("");
             jCargaHoraria.setText("");
             jDescricaoSala.setText("");
+            jEixo.setText("");
             //
             jDataMat.setEnabled(!true);
             //

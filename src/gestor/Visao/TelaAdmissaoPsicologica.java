@@ -21,6 +21,7 @@ import gestor.Modelo.EvolucaoPsicologica;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPsicologia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -36,6 +37,7 @@ import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoAdmIntManuPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoEvolIntPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoPareIntPSI;
@@ -1664,7 +1666,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jTabelaParecerPsicologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaParecerPsicologico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Interno", "Parecer Psicológico"
@@ -1899,7 +1901,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jLabel13.setText("Código:");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Status:");
+        jLabel14.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel14.setText("T. Tratamento:");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Data Evolução:");
@@ -1913,7 +1916,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
 
         jComboBoxStatusEvolucao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxStatusEvolucao.setForeground(new java.awt.Color(0, 0, 255));
-        jComboBoxStatusEvolucao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Em Andamento", "Concluído" }));
+        jComboBoxStatusEvolucao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Sem Tratamento", "Em Andamento", "Concluído" }));
+        jComboBoxStatusEvolucao.setToolTipText("Tipo de Tratamento");
         jComboBoxStatusEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusEvolucao.setEnabled(false);
 
@@ -1922,14 +1926,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jIdEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxStatusEvolucao, 0, 193, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxStatusEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2427,14 +2431,17 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAdmPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
@@ -2824,6 +2831,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Informe a data da Evolução.");
                 jDataEvolucao.requestFocus();
                 jDataEvolucao.setBackground(Color.red);
+            } else if (jComboBoxStatusEvolucao.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de tratamento do interno.");
             } else {
                 evolu.setStatusEvo((String) jComboBoxStatusEvolucao.getSelectedItem());
                 evolu.setDataEvolucao(jDataEvolucao.getDate());
@@ -2846,12 +2855,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                    objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);

@@ -194,7 +194,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jComboBoxHIV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHIV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente" }));
+        jComboBoxHIV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente", "Não Realizado" }));
         jComboBoxHIV.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHIV.setEnabled(false);
         jComboBoxHIV.addItemListener(new java.awt.event.ItemListener() {
@@ -204,12 +204,12 @@ public class TelaTPC extends javax.swing.JDialog {
         });
 
         jComboBoxHanseniaseCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHanseniaseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHanseniaseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHanseniaseCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHanseniaseCont.setEnabled(false);
 
         jComboBoxSifilisCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSifilisCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxSifilisCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxSifilisCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSifilisCont.setEnabled(false);
 
@@ -220,7 +220,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel19.setText("Curada?");
 
         jComboBoxHipertensao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHipertensao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHipertensao.setEnabled(false);
         jComboBoxHipertensao.addItemListener(new java.awt.event.ItemListener() {
@@ -236,7 +236,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel35.setText("Hepatite B?");
 
         jComboBoxEscabioseCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscabioseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxEscabioseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxEscabioseCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscabioseCont.setEnabled(false);
 
@@ -247,12 +247,12 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel17.setText("Curada?");
 
         jComboBoxEscabiose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscabiose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxEscabiose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxEscabiose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscabiose.setEnabled(false);
 
         jComboBoxHepatiteB.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHepatiteB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente" }));
+        jComboBoxHepatiteB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente", "Não Realizado" }));
         jComboBoxHepatiteB.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHepatiteB.setEnabled(false);
         jComboBoxHepatiteB.addItemListener(new java.awt.event.ItemListener() {
@@ -262,7 +262,7 @@ public class TelaTPC extends javax.swing.JDialog {
         });
 
         jComboBoxTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente" }));
+        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente", "Não Realizado" }));
         jComboBoxTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTuberculose.setEnabled(false);
 
@@ -273,7 +273,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel34.setText("HIV?");
 
         jComboBoxHipertensaoCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensaoCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHipertensaoCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHipertensaoCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHipertensaoCont.setEnabled(false);
         jComboBoxHipertensaoCont.addItemListener(new java.awt.event.ItemListener() {
@@ -283,7 +283,7 @@ public class TelaTPC extends javax.swing.JDialog {
         });
 
         jComboBoxDiabetesCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDiabetesCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxDiabetesCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxDiabetesCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDiabetesCont.setEnabled(false);
         jComboBoxDiabetesCont.addItemListener(new java.awt.event.ItemListener() {
@@ -296,7 +296,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel13.setText("Controlada?");
 
         jComboBoxDiabetes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDiabetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxDiabetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDiabetes.setEnabled(false);
         jComboBoxDiabetes.addItemListener(new java.awt.event.ItemListener() {
@@ -309,7 +309,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel31.setText("Diabetes?");
 
         jComboBoxSifilis.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSifilis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente" }));
+        jComboBoxSifilis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente", "Não Realizado" }));
         jComboBoxSifilis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSifilis.setEnabled(false);
 
@@ -317,7 +317,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel33.setText("Sifilis:");
 
         jComboBoxHanseniase.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHanseniase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHanseniase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHanseniase.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHanseniase.setEnabled(false);
 
@@ -331,7 +331,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel37.setText("Hepatite C?");
 
         jComboBoxHepatiteC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHepatiteC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente" }));
+        jComboBoxHepatiteC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não Reagente", "Reagente", "Não Realizado" }));
         jComboBoxHepatiteC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHepatiteC.setEnabled(false);
         jComboBoxHepatiteC.addItemListener(new java.awt.event.ItemListener() {
@@ -344,7 +344,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel21.setText("Curada?");
 
         jComboBoxTuberculoseCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTuberculoseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxTuberculoseCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxTuberculoseCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTuberculoseCont.setEnabled(false);
 
@@ -352,7 +352,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel104.setText("T. DST?");
 
         jComboBoxVacina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxVacina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxVacina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxVacina.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxVacina.setEnabled(false);
 
@@ -360,7 +360,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel106.setText("Controlada?");
 
         jComboBoxhepatiteBContro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxhepatiteBContro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxhepatiteBContro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxhepatiteBContro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxhepatiteBContro.setEnabled(false);
         jComboBoxhepatiteBContro.addItemListener(new java.awt.event.ItemListener() {
@@ -373,7 +373,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel107.setText("Controlada?");
 
         jComboBoxHepatiteCcurada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHepatiteCcurada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHepatiteCcurada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHepatiteCcurada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHepatiteCcurada.setEnabled(false);
         jComboBoxHepatiteCcurada.addItemListener(new java.awt.event.ItemListener() {
@@ -394,7 +394,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel108.setText("Vacina:");
 
         jComboBoxDST.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDST.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxDST.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxDST.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDST.setEnabled(false);
         jComboBoxDST.addActionListener(new java.awt.event.ActionListener() {
@@ -413,7 +413,7 @@ public class TelaTPC extends javax.swing.JDialog {
         jLabel109.setText("Controlada?");
 
         jComboBoxHIVCont.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHIVCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHIVCont.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHIVCont.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHIVCont.setEnabled(false);
         jComboBoxHIVCont.addItemListener(new java.awt.event.ItemListener() {

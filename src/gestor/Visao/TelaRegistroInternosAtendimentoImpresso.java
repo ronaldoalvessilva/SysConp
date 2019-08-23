@@ -99,6 +99,14 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     public static String horaAssinatura = "";
     //
     int qtdAtendimento = 1;
+    //
+    String TipoAtendimento;
+    int idDepartamento;
+    //int codigoLiberador;
+    String usuarioCriador;
+    String usuarioLiberador;
+    String descricaoDepartamento;
+    
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -475,7 +483,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Adimissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Admissão Médica", "Admissão Psiquiatrica", "Admissão Enfermagem", "Atendim. Téc. Enfermagem", "Evolução Médica", "Evolução Psiquiatrica", "Evolução Enfermagem", "Evolução Téc. Enfermagem", " ", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -837,6 +845,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         buscarAcessoUsuario(telaRegistroAtenImpENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaRegistroAtenImpENF) && codGravarENF == 1) {
             verificarInternos();
+            pesquisarDepartamento();
             if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
             } else if (jDataRegistro.getDate() == null) {
@@ -848,7 +857,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno ainda tem registro de atendimento em aberto, efetue o atendimento para fazer novo registro.");
+                    JOptionPane.showMessageDialog(rootPane, "Esse interno ainda tem registro de atendimento em aberto no DEPARTAMENTO: " + descricaoDepartamento + ".\nSolicite ao USUÁRIO ATENDENTE: " + usuarioCriador + " para realizar o atendimento.");
                 } else {
                     if (pLiberacaoImpressa.equals("Sim")) {
                         atendido = "Não";
@@ -1302,7 +1311,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jPavilhaoKitImp.setText("");
         jCelaKitBio.setText("");
         jFotoInternoKitImp.setIcon(null);
-        jMotivo.setText("INTERNO NÃO CONSEGUIU ASSINAR ATRAVÉS DA SUA BIOMETRIA DEVIA A DIGITAL GASTA.");
+        jMotivo.setText("INTERNO NÃO CONSEGUIU ASSINAR ATRAVÉS DA SUA BIOMETRIA DEVIDO A DIGITAL GASTA.");
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
@@ -1361,19 +1370,37 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     }
 
     public void verificarInternos() {
+        String pAtende = "Não";
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoKitImp.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoKitImp.getText() + "' "
+                    + "AND Atendido='" + pAtende + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             DataRegistro = conecta.rs.getString("DataReg");
             atendido = conecta.rs.getString("Atendido");
+            //
+            TipoAtendimento = conecta.rs.getString("TipoAtendimento");
+            idDepartamento = conecta.rs.getInt("IdDepartamento");
+            usuarioCriador = conecta.rs.getString("UsuarioInsert");
             // NÃO FOI USADO AINDA
             String dia = DataRegistro.substring(8, 10);
             String mes = DataRegistro.substring(5, 7);
             String ano = DataRegistro.substring(0, 4);
             DataRegistro = dia + "/" + mes + "/" + ano;
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE IdDepartamento='" + idDepartamento + "'");
+            conecta.rs.first();
+            descricaoDepartamento = conecta.rs.getString("NomeDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();

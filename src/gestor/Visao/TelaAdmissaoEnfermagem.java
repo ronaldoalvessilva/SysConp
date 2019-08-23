@@ -73,6 +73,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -233,6 +234,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public static TelaFVG tFVG;
     public static TelaVA tVA;
     public static TelaTPC tPC;
+    //
+    int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -1940,7 +1943,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Avaliações Adicionais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
-        jBtFIA.setForeground(new java.awt.Color(204, 204, 0));
         jBtFIA.setText("FIA");
         jBtFIA.setToolTipText("Função Intestinal/Abdome");
         jBtFIA.addActionListener(new java.awt.event.ActionListener() {
@@ -1949,7 +1951,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFVG.setForeground(new java.awt.Color(0, 153, 51));
         jBtFVG.setText("FVG");
         jBtFVG.setToolTipText("Função Vesical/Genitália");
         jBtFVG.addActionListener(new java.awt.event.ActionListener() {
@@ -1958,7 +1959,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtVA.setForeground(new java.awt.Color(102, 0, 0));
         jBtVA.setText("VA");
         jBtVA.setToolTipText("Vacinas");
         jBtVA.addActionListener(new java.awt.event.ActionListener() {
@@ -1967,7 +1967,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtTRC.setForeground(new java.awt.Color(204, 0, 0));
         jBtTRC.setText("TRC");
         jBtTRC.setToolTipText("Testes Rápidos/Cirurgias");
         jBtTRC.addActionListener(new java.awt.event.ActionListener() {
@@ -1976,7 +1975,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFA.setForeground(new java.awt.Color(0, 102, 0));
         jBtFA.setText("FA");
         jBtFA.setToolTipText("Fala");
         jBtFA.addActionListener(new java.awt.event.ActionListener() {
@@ -1985,7 +1983,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtPE.setForeground(new java.awt.Color(0, 0, 204));
         jBtPE.setText("PE");
         jBtPE.setToolTipText("Pele/Mucosa");
         jBtPE.addActionListener(new java.awt.event.ActionListener() {
@@ -1994,7 +1991,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtCC.setForeground(new java.awt.Color(153, 51, 0));
         jBtCC.setText("CC");
         jBtCC.setToolTipText("Couro Cabeludo");
         jBtCC.addActionListener(new java.awt.event.ActionListener() {
@@ -2003,7 +1999,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtFT.setForeground(new java.awt.Color(204, 0, 153));
         jBtFT.setText("FT");
         jBtFT.setToolTipText("Função Respiratória/Tórax");
         jBtFT.addActionListener(new java.awt.event.ActionListener() {
@@ -4394,10 +4389,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -5127,12 +5124,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                         objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setAtendeEvol(atendido);
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);

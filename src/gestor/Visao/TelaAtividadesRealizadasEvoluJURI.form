@@ -237,6 +237,7 @@
                 <BevelBorder bevelType="1"/>
               </Border>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDescricaoAtividadeItemStateChanged"/>
@@ -255,7 +256,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTabelaRegistrosAtividades">
+        <Component class="javax.swing.JTable" name="jTabelaAtividades">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -293,7 +294,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaRegistrosAtividadesMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaAtividadesMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -415,6 +416,7 @@
         </Property>
         <Property name="text" type="java.lang.String" value="EXCLUIR"/>
         <Property name="toolTipText" type="java.lang.String" value="Excluir registro da tabela"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
@@ -429,6 +431,7 @@
           <Image iconType="3" name="/gestor/Imagens/40_16x16.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CONFIRMAR"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtConfirmarActionPerformed"/>

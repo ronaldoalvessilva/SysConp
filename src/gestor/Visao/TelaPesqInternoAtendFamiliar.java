@@ -12,9 +12,7 @@ import static gestor.Visao.TelaAtendimentoFamiliar.FotoInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jDataEntrada;
 import static gestor.Visao.TelaAtendimentoFamiliar.jDataNascimento;
 import static gestor.Visao.TelaAtendimentoFamiliar.jIDInterno;
-import static gestor.Visao.TelaAtendimentoFamiliar.jMaeInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jNomeInterno;
-import static gestor.Visao.TelaAtendimentoFamiliar.jPainInterno;
 import static gestor.Visao.TelaAtendimentoFamiliar.jSituacao;
 import static gestor.Visao.TelaAtendimentoFamiliar.codigoDepartamentoSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
@@ -159,7 +157,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula", "Data Entrada", "Data Cadastro"
@@ -260,7 +258,7 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-           preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -334,11 +332,20 @@ public class TelaPesqInternoAtendFamiliar extends javax.swing.JInternalFrame {
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInterno.setIcon(i);
-                FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
-                jPainInterno.setText(conecta.rs.getString("PaiInternoCrc"));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInterno.setIcon(i);
+                    FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInterno.setIcon(icon);
+                }
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));

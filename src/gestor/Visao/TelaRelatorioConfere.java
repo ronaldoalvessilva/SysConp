@@ -31,7 +31,7 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
      * Creates new form TelaRelatorioConfere
      */
     public TelaRelatorioConfere() {
-        initComponents();        
+        initComponents();
         preencherComboBoxPavilhao();
     }
 
@@ -185,7 +185,10 @@ public class TelaRelatorioConfere extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "'ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "WHERE DescricaoPav='" + jCombBoxDescricaoPavilhao.getSelectedItem() + "' "
+                        + "ORDER BY CELAS.EndCelaPav,PRONTUARIOSCRC.NomeInternoCrc");
                 HashMap parametros = new HashMap();
                 parametros.put("descricaoPav", jCombBoxDescricaoPavilhao.getSelectedItem());
                 parametros.put("nomeUsuario", nameUser);

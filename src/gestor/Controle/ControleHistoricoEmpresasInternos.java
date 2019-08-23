@@ -23,7 +23,7 @@ public class ControleHistoricoEmpresasInternos {
     int codEmp;
 
     public HistoricoInternosEmpresa incluirInterEmp(HistoricoInternosEmpresa objHistInterEmp) {
-        buscarInterno(objHistInterEmp.getNomeInterno());
+        buscarInterno(objHistInterEmp.getNomeInterno(), objHistInterEmp.getIdInternoCrc());
         buscarEmpresa(objHistInterEmp.getNomeEmpresa());
         conecta.abrirConexao();
         try {
@@ -36,14 +36,14 @@ public class ControleHistoricoEmpresasInternos {
             pst.setString(6, objHistInterEmp.getHorarioSaida());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objHistInterEmp;
     }
 
     public HistoricoInternosEmpresa alterarInterEmp(HistoricoInternosEmpresa objHistInterEmp) {
-        buscarInterno(objHistInterEmp.getNomeInterno());
+        buscarInterno(objHistInterEmp.getNomeInterno(), objHistInterEmp.getIdInternoCrc());
         buscarEmpresa(objHistInterEmp.getNomeEmpresa());
         conecta.abrirConexao();
         try {
@@ -56,7 +56,7 @@ public class ControleHistoricoEmpresasInternos {
             pst.setString(6, objHistInterEmp.getHorarioSaida());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objHistInterEmp;
@@ -69,16 +69,55 @@ public class ControleHistoricoEmpresasInternos {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM HISTORICOLABORINTERNO WHERE IdInternoCrc='" + objHistInterEmp.getIdInternoCrc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objHistInterEmp;
     }
 
-    public void buscarInterno(String desc) {
+    //-------------------------------------- HISTÓRICO PELA BIOMETRIA ----------------
+    public HistoricoInternosEmpresa saidaInterEmp(HistoricoInternosEmpresa objHistInterEmp) {
+        buscarInterno(objHistInterEmp.getNomeInterno(), objHistInterEmp.getIdInternoCrc());
+        buscarEmpresa(objHistInterEmp.getNomeEmpresa());
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc='" + desc + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO HISTORICOLABORINTERNO (IdInternoCrc,IdEmp,DataSaida,HorarioSaida) VALUES(?,?,?,?)");
+            pst.setInt(1, codInt);
+            pst.setInt(2, codEmp);
+            pst.setTimestamp(3, new java.sql.Timestamp(objHistInterEmp.getDataSaida().getTime()));
+            pst.setString(4, objHistInterEmp.getHorarioSaida());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objHistInterEmp;
+    }
+
+    public HistoricoInternosEmpresa retornoInterEmp(HistoricoInternosEmpresa objHistInterEmp) {
+        buscarInterno(objHistInterEmp.getNomeInterno(), objHistInterEmp.getIdInternoCrc());
+        buscarEmpresa(objHistInterEmp.getNomeEmpresa());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE HISTORICOLABORINTERNO SET IdInternoCrc=?,IdEmp=?,DataSaida=?,HorarioSaida=? WHERE IdInternoCrc='" + objHistInterEmp.getIdInternoCrc() + "'");
+            pst.setInt(1, codInt);
+            pst.setInt(2, codEmp);
+            pst.setTimestamp(3, new java.sql.Timestamp(objHistInterEmp.getDataEntrada().getTime()));
+            pst.setString(4, objHistInterEmp.getHorarioEntrada());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objHistInterEmp;
+    }
+
+    public void buscarInterno(String desc, int id) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc='" + desc + "' "
+                    + "AND IdInternoCrc='" + id + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException e) {

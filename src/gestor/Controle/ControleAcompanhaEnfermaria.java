@@ -72,7 +72,7 @@ public class ControleAcompanhaEnfermaria {
             pst.setString(37, objPerfilInter.getVacina());
             pst.setString(38, objPerfilInter.getVacinaCura());
             pst.setInt(39, objPerfilInter.getQtdVacina());
-            pst.setString(40, objPerfilInter.getObservacao());
+            pst.setString(40, objPerfilInter.getObservacaoEnf());
             pst.setString(41, objPerfilInter.getUsuarioInsert());
             pst.setString(42, objPerfilInter.getDataInsert());
             pst.setString(43, objPerfilInter.getHorarioInsert());
@@ -128,7 +128,7 @@ public class ControleAcompanhaEnfermaria {
             pst.setString(37, objPerfilInter.getVacina());
             pst.setString(38, objPerfilInter.getVacinaCura());
             pst.setInt(39, objPerfilInter.getQtdVacina());
-            pst.setString(40, objPerfilInter.getObservacao());
+            pst.setString(40, objPerfilInter.getObservacaoEnf());
             pst.setString(41, objPerfilInter.getUsuarioUp());
             pst.setString(42, objPerfilInter.getDataUp());
             pst.setString(43, objPerfilInter.getHorarioUp());

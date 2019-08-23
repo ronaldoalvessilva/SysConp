@@ -10,6 +10,7 @@ import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaMatriculaPedagogica.codigoMatricula;
 import static gestor.Visao.TelaMatriculaPedagogica.jDescricaoTempoFormativo;
 import static gestor.Visao.TelaMatriculaPedagogica.jDescricaoTurno;
+import static gestor.Visao.TelaMatriculaPedagogica.jEixo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -117,10 +118,10 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
         jTabelaTempoFormativo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTempoFormativo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome do Tempo Formativo", "Turnos de Aulas"
+                "Código", "Nome do Tempo Formativo", "Eixo", "Turnos de Aulas"
             }
         ));
         jTabelaTempoFormativo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,8 +135,10 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
             jTabelaTempoFormativo.getColumnModel().getColumn(0).setMaxWidth(50);
             jTabelaTempoFormativo.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaTempoFormativo.getColumnModel().getColumn(1).setMaxWidth(300);
-            jTabelaTempoFormativo.getColumnModel().getColumn(2).setMinWidth(200);
-            jTabelaTempoFormativo.getColumnModel().getColumn(2).setMaxWidth(200);
+            jTabelaTempoFormativo.getColumnModel().getColumn(2).setMinWidth(90);
+            jTabelaTempoFormativo.getColumnModel().getColumn(2).setMaxWidth(90);
+            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMinWidth(200);
+            jTabelaTempoFormativo.getColumnModel().getColumn(3).setMaxWidth(200);
         }
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -171,7 +174,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
                         .addComponent(jBtConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 219, Short.MAX_VALUE)))
+                        .addGap(0, 329, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -199,14 +202,14 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 30, 484, 283);
+        setBounds(300, 30, 594, 283);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
@@ -223,6 +226,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 codigoMatricula = conecta.rs.getInt("IdTempo");
                 jDescricaoTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
+                jEixo.setText(conecta.rs.getString("Eixo"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 conecta.desconecta();
             } catch (SQLException e) {
@@ -245,14 +249,15 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
             preencherTabelaInstituicao("SELECT * FROM TEMPOFORMATIVO "
                     + "INNER JOIN TURNOSAULA "
                     + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                    + "WHERE DescricaoTempo LIKE'" + jPesqNomeInstituicao.getText() + "%'AND StatusTempo='" + statusInst + "'");
+                    + "WHERE DescricaoTempo LIKE'" + jPesqNomeInstituicao.getText() + "%' "
+                    + "AND StatusTempo='" + statusInst + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeInstituicaoActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTabelaInstituicao("SELECT * FROM TEMPOFORMATIVO "
                     + "INNER JOIN TURNOSAULA "
                     + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
@@ -289,13 +294,13 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
 
     public void preencherTabelaInstituicao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Tempo Formativo", "Turnos de Aulas"};
+        String[] Colunas = new String[]{"Código", "Nome do Tempo Formativo", "Eixo", "Turnos de Aulas"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdTempo"), conecta.rs.getString("DescricaoTempo"), conecta.rs.getString("DescricaoTurno")});
+                dados.add(new Object[]{conecta.rs.getInt("IdTempo"), conecta.rs.getString("DescricaoTempo"), conecta.rs.getString("Eixo"), conecta.rs.getString("DescricaoTurno")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -306,8 +311,10 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
         jTabelaTempoFormativo.getColumnModel().getColumn(0).setResizable(false);
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(200);
+        jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setResizable(false);
         jTabelaTempoFormativo.getTableHeader().setReorderingAllowed(false);
         jTabelaTempoFormativo.setAutoResizeMode(jTabelaTempoFormativo.AUTO_RESIZE_OFF);
         jTabelaTempoFormativo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -317,15 +324,17 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Tempo Formativo", "Turnos de Aulas"};
+        String[] Colunas = new String[]{"Código", "Nome do Tempo Formativo", "Eixo", "Turnos de Aulas"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaTempoFormativo.setModel(modelo);
         jTabelaTempoFormativo.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaTempoFormativo.getColumnModel().getColumn(0).setResizable(false);
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaTempoFormativo.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(200);
+        jTabelaTempoFormativo.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTabelaTempoFormativo.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTabelaTempoFormativo.getColumnModel().getColumn(3).setResizable(false);
         jTabelaTempoFormativo.getTableHeader().setReorderingAllowed(false);
         jTabelaTempoFormativo.setAutoResizeMode(jTabelaTempoFormativo.AUTO_RESIZE_OFF);
         jTabelaTempoFormativo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

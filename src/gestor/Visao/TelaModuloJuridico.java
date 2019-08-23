@@ -233,6 +233,8 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    //
+    public static int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaJuridico
@@ -307,7 +309,10 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         Utilitarios = new javax.swing.JMenu();
         CalculadoraPena = new javax.swing.JMenuItem();
         jCalculadoraPena1 = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         CalculadoraWindows = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jCalculadoraExecucaoPenal = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -620,6 +625,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
         Utilitarios.setText("Utilitários");
 
+        CalculadoraPena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator.png"))); // NOI18N
         CalculadoraPena.setText("Calculadora de Pena");
         CalculadoraPena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -628,6 +634,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         });
         Utilitarios.add(CalculadoraPena);
 
+        jCalculadoraPena1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jCalculadoraPena1.setText("Calculadora de Pena 1");
         jCalculadoraPena1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -635,7 +642,9 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Utilitarios.add(jCalculadoraPena1);
+        Utilitarios.add(jSeparator11);
 
+        CalculadoraWindows.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_link.png"))); // NOI18N
         CalculadoraWindows.setText("Calculadora do Windows");
         CalculadoraWindows.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -643,6 +652,18 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         Utilitarios.add(CalculadoraWindows);
+        Utilitarios.add(jSeparator14);
+
+        jCalculadoraExecucaoPenal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jCalculadoraExecucaoPenal.setForeground(new java.awt.Color(0, 0, 255));
+        jCalculadoraExecucaoPenal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/mozilla-firefox-icone-7949-16.png"))); // NOI18N
+        jCalculadoraExecucaoPenal.setText("Calculadora de Execução Penal");
+        jCalculadoraExecucaoPenal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCalculadoraExecucaoPenalActionPerformed(evt);
+            }
+        });
+        Utilitarios.add(jCalculadoraExecucaoPenal);
 
         jMenuBar1.add(Utilitarios);
 
@@ -1376,6 +1397,16 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         objRelAP.show();
     }//GEN-LAST:event_jRelatorioAcompanhamentoProcessosActionPerformed
 
+    private void jCalculadoraExecucaoPenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraExecucaoPenalActionPerformed
+        // TODO add your handling code here:
+        try {
+            Runtime.getRuntime().exec("cmd.exe /C start "
+                    + "http://www.cnj.jus.br/calculadora_execucao_penal/semlinha/calculadora_execucao_penal_cnj_3_0.html");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "" + ex.getMessage());
+        }
+    }//GEN-LAST:event_jCalculadoraExecucaoPenalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1410,6 +1441,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RrelatorioSaidaBeneficio;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu Utilitarios;
+    private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -1423,8 +1455,10 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

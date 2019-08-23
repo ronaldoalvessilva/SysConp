@@ -5,15 +5,20 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleRefreshDataMovi;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.ItensEntradaLote;
 import gestor.Modelo.ProntuarioCrc;
+import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -23,6 +28,8 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
+    ControleRefreshDataMovi controle = new ControleRefreshDataMovi();
+    ItensEntradaLote objItens = new ItensEntradaLote();
     String caminho;
     String dataMovimento;
 
@@ -31,6 +38,7 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
      */
     public TelaMovimentacaoCrcTriagem() {
         initComponents();
+        corCampos();
     }
 
     /**
@@ -82,13 +90,14 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nome Completo do Interno");
 
+        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdInterno.setEnabled(false);
 
         jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeInterno.setEnabled(false);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -124,6 +133,7 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
 
         jBtPesquisarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisarInterno.setToolTipText("Pesquisar Interno");
+        jBtPesquisarInterno.setContentAreaFilled(false);
         jBtPesquisarInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarInternoActionPerformed(evt);
@@ -177,7 +187,7 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesquisarInterno)
+                .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(161, 161, 161))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -263,16 +273,23 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
         jTabelaMovimentacao.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         jTabelaMovimentacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"
             }
         ));
         jScrollPane1.setViewportView(jTabelaMovimentacao);
+        if (jTabelaMovimentacao.getColumnModel().getColumnCount() > 0) {
+            jTabelaMovimentacao.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaMovimentacao.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTabelaMovimentacao.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaMovimentacao.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaMovimentacao.getColumnModel().getColumn(2).setMinWidth(200);
+            jTabelaMovimentacao.getColumnModel().getColumn(2).setMaxWidth(200);
+            jTabelaMovimentacao.getColumnModel().getColumn(3).setMinWidth(260);
+            jTabelaMovimentacao.getColumnModel().getColumn(3).setMaxWidth(260);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -328,7 +345,12 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid = UNIDADE.IdUnid WHERE NomeInternoCrc LIKE  '" + jNomeInterno.getText() + "%'");
+                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "WHERE NomeInternoCrc LIKE'%" + jNomeInterno.getText() + "%'");
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -346,7 +368,11 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não foi possível exibir os dados!!! \nERRO :" + ex);
             }
-            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC WHERE IdInternoCrc='" + jIdInterno.getText() + "'ORDER BY DataMov");
+            //ZERAR HORARIOS DAS DATAS
+            controle.alterarDataMovimentacao(objItens);
+            preencherTabelaItens("SELECT * FROM MOVIMENTOCRC "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "ORDER BY DataMov");
         }
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
@@ -379,9 +405,19 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jUnidadePenal;
     // End of variables declaration//GEN-END:variables
 
+    public void corCampos() {
+        jIdInterno.setBackground(Color.white);
+        jNomeInterno.setBackground(Color.white);
+        jMatriculaPenalInterno.setBackground(Color.white);
+        jDataNascimento.setBackground(Color.white);
+        jUnidadePenal.setBackground(Color.white);
+        jRegime.setBackground(Color.white);
+        jDataPena.setBackground(Color.white);
+    }
+
     public void preencherTabelaItens(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Data Mov.", " Documento", "      Descrição da Operação", "         Origem/Destino do Interno"};
+        String[] Colunas = new String[]{"Data Mov.", "Documento", "Descrição da Operação", "Origem/Destino do Interno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -399,17 +435,30 @@ public class TelaMovimentacaoCrcTriagem extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaMovimentacao.setModel(modelo);
-        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(95);
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(0).setResizable(false);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTabelaMovimentacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaMovimentacao.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaMovimentacao.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaMovimentacao.getColumnModel().getColumn(3).setPreferredWidth(260);
         jTabelaMovimentacao.getColumnModel().getColumn(3).setResizable(false);
         jTabelaMovimentacao.getTableHeader().setReorderingAllowed(false);
         jTabelaMovimentacao.setAutoResizeMode(jTabelaMovimentacao.AUTO_RESIZE_OFF);
         jTabelaMovimentacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaMovimentacao();
         conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaMovimentacao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaMovimentacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaMovimentacao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
 }

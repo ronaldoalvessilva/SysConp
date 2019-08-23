@@ -23,7 +23,7 @@ public class ControleOficialJustica {
     public OficialJustica incluirOficialJustica(OficialJustica objOficial) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO OFICIAL_JUSTICA (DataCadastro,fotoOficial,NomeOficial,RgOficial,CpfOficial,REGOficial,ObsOficial,UsuarioInsert,DataInsert,HorarioInsert,StatusOficial,ImagemFrenteOF) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO OFICIAL_JUSTICA (DataCadastro,fotoOficial,NomeOficial,RgOficial,CpfOficial,REGOficial,ObsOficial,UsuarioInsert,DataInsert,HorarioInsert,StatusOficial,ImagemFrenteOF,NomeMae) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objOficial.getDataCadastro().getTime()));
             pst.setString(2, objOficial.getFotoOficial());
             pst.setString(3, objOficial.getNomeOficial());
@@ -36,6 +36,7 @@ public class ControleOficialJustica {
             pst.setString(10, objOficial.getHoraInsert());
             pst.setString(11, objOficial.getStatusOficial());
             pst.setBytes(12, objOficial.getImagemFrenteOF());
+            pst.setString(13, objOficial.getNomeMae());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\nERRO: " + ex);
@@ -47,7 +48,7 @@ public class ControleOficialJustica {
     public OficialJustica alterarOficialJustica(OficialJustica objOficial) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OFICIAL_JUSTICA SET DataCadastro=?,fotoOficial=?,NomeOficial=?,RgOficial=?,CpfOficial=?,REGOficial=?,ObsOficial=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusOficial=?,ImagemFrenteOF=? WHERE IdOficial='" + objOficial.getIdOficial() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OFICIAL_JUSTICA SET DataCadastro=?,fotoOficial=?,NomeOficial=?,RgOficial=?,CpfOficial=?,REGOficial=?,ObsOficial=?,UsuarioUp=?,DataUp=?,HorarioUp=?,StatusOficial=?,ImagemFrenteOF=?,NomeMae=? WHERE IdOficial='" + objOficial.getIdOficial() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objOficial.getDataCadastro().getTime()));
             pst.setString(2, objOficial.getFotoOficial());
             pst.setString(3, objOficial.getNomeOficial());
@@ -60,6 +61,7 @@ public class ControleOficialJustica {
             pst.setString(10, objOficial.getHoraUp());
             pst.setString(11, objOficial.getStatusOficial());
             pst.setBytes(12, objOficial.getImagemFrenteOF());
+            pst.setString(13, objOficial.getNomeMae());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\nERRO: " + ex);

@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -67,6 +69,7 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
         jPesqDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDescricao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqDescricao.setContentAreaFilled(false);
         jBtPesqDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqDescricaoActionPerformed(evt);
@@ -111,13 +114,10 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
         jTabelaInstituicaoEscolar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInstituicaoEscolar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome da Instituição Escolar"
             }
         ));
         jTabelaInstituicaoEscolar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,6 +126,12 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
             }
         });
         jScrollPane1.setViewportView(jTabelaInstituicaoEscolar);
+        if (jTabelaInstituicaoEscolar.getColumnModel().getColumnCount() > 0) {
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setMinWidth(370);
+            jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setMaxWidth(370);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -153,17 +159,14 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +181,8 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jTabbedPane1.addTab("Listagem", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,7 +196,7 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 410, 278);
+        setBounds(250, 20, 483, 278);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -201,7 +206,8 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
             jPesqDescricao.setText(nomeInstituicao);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM INSTITUICAOESCOLAR WHERE NomeInstituicao='" + nomeInstituicao + "'");
+                conecta.executaSQL("SELECT * FROM INSTITUICAOESCOLAR "
+                        + "WHERE NomeInstituicao='" + nomeInstituicao + "'");
                 conecta.rs.first();
                 jIdCod.setText(conecta.rs.getString("IdCod"));
                 jNomeInstituicao.setText(conecta.rs.getString("NomeInstituicao"));
@@ -225,8 +231,9 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesqDescricao.requestFocus();
         } else {
-            jTabelaInstituicaoEscolar.setVisible(true);
-            preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR WHERE NomeInstituicao LIKE'%" + jPesqDescricao.getText() + "%'AND StatusInst='" + statusUnid + "'");
+            preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR "
+                    + "WHERE NomeInstituicao LIKE'%" + jPesqDescricao.getText() + "%' "
+                    + "AND StatusInst='" + statusUnid + "'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 
@@ -234,10 +241,10 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaInstituicaoEscolar.setVisible(true);
-            this.preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR WHERE StatusInst='" + statusUnid + "'");
+            this.preencherTabelaInstituicao("SELECT * FROM INSTITUICAOESCOLAR "
+                    + "WHERE StatusInst='" + statusUnid + "'");
         } else {
-            jTabelaInstituicaoEscolar.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -267,7 +274,7 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
 // Método de pesquisa pela Descrição
     public void preencherTabelaInstituicao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", " Nome da Instituição Escolar"};
+        String[] Colunas = new String[]{"Código", "Nome da Instituição Escolar"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
@@ -280,13 +287,38 @@ public class TelaPesqInstituicaoEscolarPortaria extends javax.swing.JInternalFra
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInstituicaoEscolar.setModel(modelo);
-        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setPreferredWidth(370);
         jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setResizable(false);
         jTabelaInstituicaoEscolar.getTableHeader().setReorderingAllowed(false);
         jTabelaInstituicaoEscolar.setAutoResizeMode(jTabelaInstituicaoEscolar.AUTO_RESIZE_OFF);
         jTabelaInstituicaoEscolar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabela();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome da Instituição Escolar"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInstituicaoEscolar.setModel(modelo);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setPreferredWidth(370);
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInstituicaoEscolar.getTableHeader().setReorderingAllowed(false);
+        jTabelaInstituicaoEscolar.setAutoResizeMode(jTabelaInstituicaoEscolar.AUTO_RESIZE_OFF);
+        jTabelaInstituicaoEscolar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabela() {
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        //
+        jTabelaInstituicaoEscolar.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+
     }
 }

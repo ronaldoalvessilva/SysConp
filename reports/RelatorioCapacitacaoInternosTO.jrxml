@@ -17,11 +17,11 @@
 	<parameter name="pCodigoRegistro" class="java.lang.String"/>
 	<parameter name="pNomeUsuario" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["F:\\RELATORIOS_SISCONP\\NOVOS_RELATORIOS\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT * FROM CAPACITACAO_INTERNO_TO INNER JOIN CURSOS
-ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso WHERE IdCap=$P{pCodigoRegistro}]]>
+ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso WHERE CAPACITACAO_INTERNO_TO.IdCap=$P{pCodigoRegistro}]]>
 	</queryString>
 	<field name="IdCap" class="java.lang.Integer"/>
 	<field name="StatusRegistro" class="java.lang.String"/>

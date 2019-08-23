@@ -99,6 +99,13 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     public static String horaAssinatura = "";
     //
     int qtdAtendimento = 1;
+    //
+    String TipoAtendimento;
+    int idDepartamento;
+    //int codigoLiberador;
+    String usuarioCriador;
+    String usuarioLiberador;
+    String descricaoDepartamento;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -837,6 +844,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         buscarAcessoUsuario(telaRegistroAtenImpJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaRegistroAtenImpJURI) && codGravarJURI == 1) {
             verificarInternos();
+            pesquisarDepartamento();
             if (jIdInternoKitImp.getText().equals("") || jNomeInternoKitImp.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do interno.");
             } else if (jDataRegistro.getDate() == null) {
@@ -848,7 +856,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
-                    JOptionPane.showMessageDialog(rootPane, "Esse interno ainda tem registro de atendimento em aberto, efetue o atendimento para fazer novo registro.");
+                    JOptionPane.showMessageDialog(rootPane, "Esse interno ainda tem registro de atendimento em aberto no DEPARTAMENTO: " + descricaoDepartamento + ".\nSolicite ao USUÁRIO ATENDENTE: " + usuarioCriador + " para realizar o atendimento.");
                 } else {
                     if (pLiberacaoImpressa.equals("Sim")) {
                         atendido = "Não";
@@ -1360,19 +1368,37 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     }
 
     public void verificarInternos() {
+        String pAtende = "Não";
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoKitImp.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoKitImp.getText() + "' "
+                    + "AND Atendido='" + pAtende + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             DataRegistro = conecta.rs.getString("DataReg");
             atendido = conecta.rs.getString("Atendido");
+            //
+            TipoAtendimento = conecta.rs.getString("TipoAtendimento");
+            idDepartamento = conecta.rs.getInt("IdDepartamento");
+            usuarioCriador = conecta.rs.getString("UsuarioInsert");
             // NÃO FOI USADO AINDA
             String dia = DataRegistro.substring(8, 10);
             String mes = DataRegistro.substring(5, 7);
             String ano = DataRegistro.substring(0, 4);
             DataRegistro = dia + "/" + mes + "/" + ano;
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE IdDepartamento='" + idDepartamento + "'");
+            conecta.rs.first();
+            descricaoDepartamento = conecta.rs.getString("NomeDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();

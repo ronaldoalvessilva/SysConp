@@ -299,7 +299,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jTabelaAssistenciaEducaional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAssistenciaEducaional.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -845,7 +845,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Interno", "Matricula Penal"

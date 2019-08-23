@@ -50,6 +50,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaRegistroSaidaInternosPortaria.jTipoSaida;
+import java.awt.Color;
 
 /**
  *
@@ -98,11 +99,17 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     String codigoInterno = "";
     //
     String tipo = "Saídas";
-    String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres
-    String saidaAudiencia = "SAIDA PARA AUDIENCIA";
+    String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres    
     String saidaMedico = "SAIDA PARA MEDICO";
-    String saidaOutras = "OUTRAS SAIDAS";
+    String saidaOutras = "OUTRAS SAIDAS";    
+    String saidaAudiencia = "SAIDA PARA AUDIENCIA";
+    //SAIDAS ATRAVES DA BIOMETRIA QUE MODIFICA A SITUAÇÃO DO INTERNO
+    //SEGUNDA ALTERAÇÃO EM ITABUNA 04/08/2019
+    String saidaAlvara = "SAIDA ALVARA";
+    String saidaLivramento = "LIVRAMENTO CONDICIONAL";
+    String saidaProgressao = "PROGRESSAO DE REGIME";
     String saidaTemporaria = "SAIDA TEMPORARIA"; // MODIFICADO EM 08/07/2016 TORNOU-SE PADRÃO DA SECRETARIA
+    //
     String confirmaRegSaida; // Variavel Confirma a saida nas tabelas ITENSSAIDA E ITENSREGSAIDA
     String statusRol = "ABERTO"; // Se o Rol estiver ABERTO, irá ser FINALIZADO para não ser mostrado na lista do Rol na portaria
     String statusRolFechado = "FINALIZADO"; // Se o Rol estiver fechado e o usuário excluir, o Rol volta a ser ABERTO
@@ -126,6 +133,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(saidaEntradaPortaria);
         initComponents();
+        corCampos();
     }
 
     // CÓDIGO DA BIOMETRIA CIS FS-80H
@@ -248,7 +256,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         jLabel9.setText("Tipo Movimentação");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Saída Temporária", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "SAIDA TEMPORARIA", "SAIDA ALVARA", "LIVRAMENTO CONDICIONAL", "PROGRESSAO DE REGIME", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -288,7 +296,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,9 +393,10 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -403,10 +412,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelarLeitura)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -432,15 +438,15 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jSeparator2)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelarLeitura, jBtIniciarLeitor});
 
-        setSize(new java.awt.Dimension(646, 364));
+        setSize(new java.awt.Dimension(667, 364));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -454,12 +460,14 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Informe a data do tipo de movimento.");
         } else if (jHorarioSaidaEntrada.getText().equals("") || jHorarioSaidaEntrada.getText().equals("00:00")) {
             JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
+        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(null, "Selecione o tipo de Movimentação.");
         } else {
             objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoKitBio.getText()));
             objItemSaida.setNomeInterno(jNomeInternoKitBio.getText());
             objItemSaida.setDataSaida(jDataSaida.getDate());
             objItemSaida.setDocumento(jNrDocumento.getText());
-            objItemSaida.setNomeDestino(situacao);
+            objItemSaida.setNomeDestino((String) jComboBoxTipoMovimentacao.getSelectedItem());
             objItemSaida.setHorarioSaida(jHorarioSaidaEntrada.getText());
             objItemSaida.setIdItemRegSaida(idItemSaidaPort); // Iditem da tabela de ITENSSAIDA    
             objItemSaida.setAssinaturaDigital(pDigitalCapturada);
@@ -487,10 +495,6 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                 objItemSaida.setIdItemSaida(idItemSaidaPort); // Item referente a saída vinda do CRC para Portaria
                 objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoKitBio.getText())); // Id do interno - São 3 variaveis
                 controle.confirmaRegSaidaItensCrcPort(objItemSaida);
-                // Confirmar "Sim" na tabela de ITENSTRANSFERENCIA para para impedir exclusão ou alterarção do interno
-//                objItensTrans.setIdItemTrans(idItemCrcPort); // Item do documento de saida (ITENSSAIDA)
-//                objItensTrans.setConfirmaSaida(confirmaRegSaida);;
-//                controle.confirmaRegistroTransferencia(objItensTrans); // Tabela ITENSTRANSFERENCIA
                 // Bloquear interno no Rol (FINALIZAR)
                 objItemSaida.setIdSaida((Integer.valueOf(jIDlanc.getText())));
                 atualizarRolSaidaInterno();
@@ -503,21 +507,39 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                 objItensPreSaida.setBeneficio(situacao);
                 // Se a saida não for para AUDIENCIA, SAIDA PARA MÉDICO E OUTRAS SAIDAS, excluir da cela CONSERTADO EM 07/08/2015
                 // SAIDA TEMPORARIA TAMBÉM NÃO RETIRAR DA CELA. SÓ RETIRAR APÓS O PRAZO DE VENCIDO, NA EVASÃO - 08/07/2016 
-                verificarInternoCela(); // 
-                if (!situacao.equals(saidaTemporaria)) {
-                    // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
+                verificarInternoCela(); //              
+                // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
+                if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaTemporaria)) {
+                    situacao = "SAIDA TEMPORARIA";
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objProCrc.setSituacao(situacao);
+                    mod.alterarSituacaoInterno(objProCrc);
+                } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaAlvara)) {
+                    situacao = "SAIDA ALVARA";
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
                     objProCrc.setSituacao(situacao);
                     mod.alterarSituacaoInterno(objProCrc);
                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
-                }
-                // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
-                if (situacao.equals(saidaTemporaria)) {
+                } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaLivramento)) {
+                    // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
+                    situacao = "LIVRAMENTO CONDICIONAL";
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
                     objProCrc.setSituacao(situacao);
                     mod.alterarSituacaoInterno(objProCrc);
+                    // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
+                    objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaProgressao)) {
+                    // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
+                    situacao = "PROGRESSAO DE REGIME";
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objProCrc.setSituacao(situacao);
+                    mod.alterarSituacaoInterno(objProCrc);
+                    // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
+                    objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
                 }
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -941,7 +963,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     }
                     pVar = pVar + 1;
                 }
-                JOptionPane.showMessageDialog(null, "Digital não cadastrada, procure o CRC !!!");
+                JOptionPane.showMessageDialog(null, "Interno não encontrado. Provavelmente a digital do interno não esta cadastrada, ou interno não está locado em uma cela,\nou não se encontra na unidade prisional. Verifique com o CRC ou a Gerencia Operacional.");
                 // Finalizar o SDK 
                 int idRetorno = dll.CIS_SDK_Biometrico_Finalizar();
                 if (idRetorno != 1 && idRetorno == 0) {
@@ -1036,6 +1058,17 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         jBtIniciarLeitor.setEnabled(true);
     }
 
+    public void corCampos() {
+        jIdInternoKitBio.setBackground(Color.white);
+        jNomeInternoKitBio.setBackground(Color.white);
+        jRegimeKitBio.setBackground(Color.white);
+        jPavilhaoKitBio.setBackground(Color.white);
+        jCelaKitBio.setBackground(Color.white);
+        //
+        jDataSaida.setBackground(Color.white);
+        jHorarioSaidaEntrada.setBackground(Color.white);
+    }
+
     public void Salvar() {
         jIdInternoKitBio.setText("");
         jNomeInternoKitBio.setText("");
@@ -1059,7 +1092,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENSREGSAIDA "
-                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'AND IdSaida='" + jIDlanc.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "' "
+                    + "AND IdSaida='" + jIDlanc.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
             codigoRegSaida = conecta.rs.getString("IdSaida");
@@ -1127,7 +1161,9 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'AND StatusRol='" + statusRol + "'");
+            conecta.executaSQL("SELECT * FROM ROLVISITAS "
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "' "
+                    + "AND StatusRol='" + statusRol + "'");
             conecta.rs.first();
             idInternoRol = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {
@@ -1148,7 +1184,9 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ROLVISITAS WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'AND StatusRol='" + statusRolFechado + "'");
+            conecta.executaSQL("SELECT * FROM ROLVISITAS "
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "' "
+                    + "AND StatusRol='" + statusRolFechado + "'");
             conecta.rs.first();
             idInternoRol = conecta.rs.getInt("IdInternoCrc");
         } catch (SQLException ex) {
@@ -1167,7 +1205,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     public void verificarInternoCela() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                    + "WHERE IdInternoCrc='" + jIdInternoKitBio.getText() + "'");
             conecta.rs.first();
             codInternoCela = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {

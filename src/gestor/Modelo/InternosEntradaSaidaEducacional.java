@@ -32,8 +32,12 @@ public class InternosEntradaSaidaEducacional {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;  
+    private byte [] pAssinaturaDigital;
 
-    public InternosEntradaSaidaEducacional(int idItem, int idLanc, int idInternoCrc, String nomeInternoEduca, Date dataSaida, String horarioSaida, Date dataEntrada, String horarioEntrada, int qtdInt, String mesReferencia, String observacao, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public InternosEntradaSaidaEducacional() {
+    }
+
+    public InternosEntradaSaidaEducacional(int idItem, int idLanc, int idInternoCrc, String nomeInternoEduca, Date dataSaida, String horarioSaida, Date dataEntrada, String horarioEntrada, int qtdInt, String mesReferencia, String observacao, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, byte[] pAssinaturaDigital) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
@@ -53,9 +57,7 @@ public class InternosEntradaSaidaEducacional {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public InternosEntradaSaidaEducacional() {
+        this.pAssinaturaDigital = pAssinaturaDigital;
     }
 
     /**
@@ -322,5 +324,19 @@ public class InternosEntradaSaidaEducacional {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the pAssinaturaDigital
+     */
+    public byte[] getpAssinaturaDigital() {
+        return pAssinaturaDigital;
+    }
+
+    /**
+     * @param pAssinaturaDigital the pAssinaturaDigital to set
+     */
+    public void setpAssinaturaDigital(byte[] pAssinaturaDigital) {
+        this.pAssinaturaDigital = pAssinaturaDigital;
     }
 }

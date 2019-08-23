@@ -174,8 +174,8 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosConcluiramCurso.jasper";
-                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso,DataConclusao "
+                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
+                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "
                                     + "ON CAPACITACAO_INTERNO_TO.IdCap=ITENS_CAPACITACAO_INTERNO_TO.IdCap "
@@ -183,12 +183,9 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                                     + "ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN CURSOS "
                                     + "ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso "
-                                    + "WHERE SituacaoCurso='" + situacaoCursoApro + "' "
-                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "OR SituacaoCurso='" + situacaoCursoRepro + "' "
-                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' ");
+                                    + "WHERE "
+                                    + "DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "'");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -198,7 +195,7 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Internos Cursando.");
+                            jv.setTitle("Relatório de Indicadores de Acompanhamento de Saúde.");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                             jv.toFront(); // Traz o relatorio para frente da aplicação            
                             conecta.desconecta();
@@ -225,8 +222,8 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosConcluiramCurso.jasper";
-                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso,DataConclusao "
+                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
+                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "
                                     + "ON CAPACITACAO_INTERNO_TO.IdCap=ITENS_CAPACITACAO_INTERNO_TO.IdCap "
@@ -234,12 +231,9 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                                     + "ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN CURSOS "
                                     + "ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso "
-                                    + "WHERE SituacaoCurso='" + situacaoCursoApro + "' "
-                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' "
-                                    + "OR SituacaoCurso='" + situacaoCursoRepro + "' "
-                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' ");
+                                    + "WHERE "
+                                    + "DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "'");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -249,7 +243,7 @@ public class TelaRelatorioInternosCursoCursando extends javax.swing.JInternalFra
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Internos Cursando.");
+                            jv.setTitle("Relatório de Indicadores de Acompanhamento de Saúde.");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                             jv.toFront(); // Traz o relatorio para frente da aplicação            
                             conecta.desconecta();

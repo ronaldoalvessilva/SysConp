@@ -270,7 +270,7 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
         jTabelaProfessor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProfessor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Nome do Professor(a)"
@@ -1028,7 +1028,7 @@ public class TelaProfessores extends javax.swing.JInternalFrame {
         jTabelaDisciplina.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Descrição", "Observação"

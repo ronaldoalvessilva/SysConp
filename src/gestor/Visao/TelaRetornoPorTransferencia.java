@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleItensEntradasLote;
 import gestor.Controle.ControleItensRetornoPorTransferencia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
@@ -84,6 +85,8 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
     RetornoPortariaCrc objRetPortCrc = new RetornoPortariaCrc();
     ControleRetornoPortariaCrc controleRepostaCrc = new ControleRetornoPortariaCrc();
     //
+    ControleItensEntradasLote controleKit = new ControleItensEntradasLote();
+    //
     String statusRol = "ABERTO"; // Se o Rol estiver ABERTO, irá ser FINALIZADO para não ser mostrado na lista do Rol na portaria
     String statusRolFechado = "FINALIZADO"; // Se o Rol estiver fechado e o usuário excluir, o Rol volta a ser ABERTO
     String observacaoRol; // Varivael que irá informar no Rol do Interno se ele está na unidade
@@ -120,6 +123,7 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
     // VARIAVEIS PARA AVISO DE RETORNO DO INTERNO
     String confirmacaoCrc = "Não";
     String respostaCrc = "Sim";
+    String pagtoKit = "Não";
 
     /**
      * Creates new form TelaRetornoEspontaneo
@@ -772,7 +776,7 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
         jTabelaItensInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome do Interno", "Data Retorno", "Procedência"
@@ -1483,7 +1487,15 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
                         objRetPortCrc.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objRetPortCrc.setConfirmaCrc(confirmacaoCrc); // CONFIRMAÇÃO ESTÁ COM "Não"
                         objRetPortCrc.setRespostaCrc(respostaCrc); // RESPOSTA ESTÁ COMO "Sim"
-                        controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);
+                        controleRepostaCrc.alterarRespostaRetornoInterno(objRetPortCrc);                        
+                        // INFORMAR OPÇÕES DO KIT DE HIGIENE INICIAL
+                        pagtoKit = "Não";
+                        objProCrc.setIdInterno(Integer.valueOf(jIdInterno.getText()));
+                        objProCrc.setNomeInterno(jNomeInterno.getText());
+                        objProCrc.setDataChegada(jDataRetorno.getDate());
+                        objProCrc.setKitPago(pagtoKit);
+                        objProCrc.setUtilizado(pagtoKit);
+                        controleKit.informarkitHigiene(objProCrc);
                         //
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys);
@@ -1494,7 +1506,7 @@ public class TelaRetornoPorTransferencia extends javax.swing.JInternalFrame {
                                 + "ON ITENSRETORNOTRANSFERENCIA.IdUnid=UNIDADE.IdUnid "
                                 + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
                         SalvarItem();
-                        JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso");
+                        JOptionPane.showMessageDialog(rootPane, "Registro incluido com sucesso.");
                     }
                     if (acao == 4) {
                         // Para o log do registro

@@ -168,7 +168,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoMedico.jasper";
+                    String path = "reports/RelatorioQuantitativoAtendimentoPsiquiatrico.jasper";
                     conecta.executaSQL("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAO_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -207,7 +207,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoMedico.jasper";
+                    String path = "reports/RelatorioQuantitativoAtendimentoPsiquiatrico.jasper";
                     conecta.executaSQL("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAO_PSIQUIATRICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "

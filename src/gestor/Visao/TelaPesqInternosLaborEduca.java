@@ -125,10 +125,10 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
         jTabelaPesqInternosEmpresaLab.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosEmpresaLab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
-                "Código", "Nome do Interno"
+                "Código", "Nome do Interno", "CNC"
             }
         ));
         jTabelaPesqInternosEmpresaLab.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,6 +142,8 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
             jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setMinWidth(350);
             jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -176,16 +178,16 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 255, Short.MAX_VALUE))
+                        .addGap(0, 355, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
@@ -198,14 +200,14 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
         );
 
-        setBounds(250, 20, 464, 256);
+        setBounds(250, 20, 564, 295);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -276,7 +278,8 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
                     + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
                     + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                    + "INNER JOIN INSTITUICAOESCOLAR ON ASSISTENCIA_EDUCACAO_EXTERNA.IdCod=INSTITUICAOESCOLAR.IdCod "
+                    + "INNER JOIN INSTITUICAOESCOLAR "
+                    + "ON ASSISTENCIA_EDUCACAO_EXTERNA.IdCod=INSTITUICAOESCOLAR.IdCod "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                     + "AND NomeInstituicao='" + jNomeInstituicao.getText() + "' "
                     + "AND TipoAcesso='" + tipoAcesso + "' "
@@ -330,13 +333,13 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os COLABORADORES
     public void buscarInternoAgendados(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "CNC"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!\nERRO: " + ex);
@@ -347,6 +350,8 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosEmpresaLab.setAutoResizeMode(jTabelaPesqInternosEmpresaLab.AUTO_RESIZE_OFF);
         jTabelaPesqInternosEmpresaLab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -363,17 +368,20 @@ public class TelaPesqInternosLaborEduca extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
     public void limparTabelaInternos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "CNC"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosEmpresaLab.setModel(modelo);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setPreferredWidth(350);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternosEmpresaLab.setAutoResizeMode(jTabelaPesqInternosEmpresaLab.AUTO_RESIZE_OFF);
         jTabelaPesqInternosEmpresaLab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

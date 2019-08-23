@@ -162,7 +162,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel91.setText("Cirurgias:");
 
         jComboBoxCirurgia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxCirurgia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxCirurgia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "Não Realizado" }));
         jComboBoxCirurgia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCirurgia.setEnabled(false);
 
@@ -184,7 +184,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel106.setText("Diabetes:");
 
         jComboBoxDiabetes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxDiabetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxDiabetes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDiabetes.setEnabled(false);
 
@@ -193,7 +193,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel109.setToolTipText("Tuberculose");
 
         jComboBoxTuberculose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negativo", "Positivo" }));
+        jComboBoxTuberculose.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Negativo", "Positivo", "Não Realizado" }));
         jComboBoxTuberculose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTuberculose.setEnabled(false);
 
@@ -202,7 +202,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel84.setToolTipText("Hipertensão");
 
         jComboBoxHipertensao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHipertensao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHipertensao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHipertensao.setEnabled(false);
 
@@ -211,7 +211,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel1.setText("Escabiose:");
 
         jComboBoxEscabiose.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscabiose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxEscabiose.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxEscabiose.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscabiose.setEnabled(false);
 
@@ -238,7 +238,7 @@ public class TelaTRC extends javax.swing.JDialog {
         jLabel4.setText("HPV:");
 
         jComboBoxHPV.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxHPV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxHPV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "N/R" }));
         jComboBoxHPV.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHPV.setEnabled(false);
 

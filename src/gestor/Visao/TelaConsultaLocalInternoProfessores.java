@@ -23,6 +23,7 @@ public class TelaConsultaLocalInternoProfessores extends javax.swing.JInternalFr
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     String caminho;
     int flag;
+    int count = 0;
 
     /**
      * Creates new form TelaConsultaLocalInterno
@@ -238,6 +239,7 @@ public class TelaConsultaLocalInternoProfessores extends javax.swing.JInternalFr
         jPanel7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqNomeInterno.setContentAreaFilled(false);
         jBtPesqNomeInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeInternoActionPerformed(evt);
@@ -348,7 +350,7 @@ public class TelaConsultaLocalInternoProfessores extends javax.swing.JInternalFr
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, Short.MAX_VALUE)
         );
 
         setBounds(300, 20, 536, 522);
@@ -356,19 +358,20 @@ public class TelaConsultaLocalInternoProfessores extends javax.swing.JInternalFr
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
         // TODO add your handling code here:
+        count = 0;
         flag = 1;
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
         } else {
             jTabelaLocacao.setVisible(true);
-            preencherTabelaInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN LOCALINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
+            preencherTabelaInternos("SELECT * FROM ITENSLOCACAOINTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN CELAS "
-                    + "ON LOCALINTERNOS.IdCela=CELAS.IdCela "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
@@ -418,18 +421,18 @@ public class TelaConsultaLocalInternoProfessores extends javax.swing.JInternalFr
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-            if (evt.getStateChange() == evt.SELECTED) {
-                jTabelaLocacao.setVisible(true);
-                this.preencherTabelaInternos("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN LOCALINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
-                        + "INNER JOIN CELAS "
-                        + "ON LOCALINTERNOS.IdCela=CELAS.IdCela "
-                        + "INNER JOIN PAVILHAO "
-                        + "ON CELAS.IdPav=PAVILHAO.IdPav");
-            } else {
-                jTabelaLocacao.setVisible(!true);
-            }
+        if (evt.getStateChange() == evt.SELECTED) {
+            jTabelaLocacao.setVisible(true);
+            this.preencherTabelaInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN LOCALINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=LOCALINTERNOS.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON LOCALINTERNOS.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav");
+        } else {
+            jTabelaLocacao.setVisible(!true);
+        }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
 

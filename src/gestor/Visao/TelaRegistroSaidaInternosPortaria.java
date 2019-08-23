@@ -170,7 +170,10 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     //
     byte[] assinaturaDigital = null;
     public static int idItemCrcPort; // Item da tabela ITENSCRCPORTARIA
-
+    //VERIFICAR SE O INTERNO TEM ASSINATURA BIOMETRICA
+    String codigoSaidaBio;
+    String codigoSaidaInterno;
+    byte[] pAssinaturaInterno;
     /**
      * Creates new form TelaSaidaInterno
      */
@@ -406,7 +409,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jTabelaSaidaInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaSaidaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -885,7 +888,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Data Saída", "Destino", "Documento"
@@ -978,8 +981,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             }
         });
 
-        jBtBiometria.setForeground(new java.awt.Color(0, 102, 0));
-        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216082320_16.png"))); // NOI18N
+        jBtBiometria.setForeground(new java.awt.Color(204, 0, 0));
+        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtBiometria.setText("Biometria");
         jBtBiometria.setEnabled(false);
         jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
@@ -1452,49 +1455,53 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 if (jLabelEvadido.getText().equals("EVADIDO")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o interno está evadido.");
                 } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        objItemSaida.setConfirmaSaida(confirmaRegSaida);
-                        objItemSaida.setIdItemSaida(idSaidaTmp); // Item do documento de saida (ITENSSAIDA)
-                        controle.confirmaRegistroSaida(objItemSaida); // Modifica na tabela ITENSSAIDA (confirma a saida) do interno como não.
-                        //
-                        objItemSaida.setIdItemSaida(idItem);
-                        controle.excluirItensRegSaida(objItemSaida);
-                        // Modifica na tabela ITENSCRCPORTARIA (confirma a saida) do interno como não.
-                        objItemSaida.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSCRCPORTARIA      
-                        objItemSaida.setIdInternoSaida(Integer.valueOf(jIDInterno.getText()));
-                        objItemSaida.setIdItemSaida(idItemSaida); // Item referente a saída vinda do CRC para Portaria
-                        controle.confirmaRegSaidaItensCrcPort(objItemSaida);
-                        // TRANSFERENCIA
-                        //Atualiza tabela de ITENSCRCPORTARIA
-                        objItensTrans.setConfirmaSaida(confirmaRegSaida);
-                        objItensTrans.setIdSaidTransfTmp(idSaidTransfTmp); // Item do documento de saida (ITENSCRCPORTARIA)                    
-                        controle.confirmaRegistroSaida(objItemSaida);
-                        // Atualiza tabela de ITENSTRANSFERENCIA
-                        objItensTrans.setConfirmaSaida(confirmaRegSaida);
-                        objItensTrans.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSTRANSFERENCIA 
-                        controle.confirmaRegistroTransferencia(objItensTrans);
-                        // Atualiza o Rol para ABERTO quando usuario exclui o interno
-                        atualizarRolSaidaInternoExcluir();
-                        // Falta atualizar o MOVIMENTOCRC, ou seja não tá excluindo (04/06/2015)
-
-                        // Confirma "Sim" na tabela ITENSSAIDA para impedir a exclusão ou alteração do interno
-                        confirmaRegSaida = "Não";
-                        objItemSaida.setIdInternoSaida(Integer.valueOf(jIDInterno.getText()));
-                        objItemSaida.setIdItemSaida(idSaidaTmp); // Item do documento de saida (ITENSSAIDA) 
-                        objItemSaida.setConfirmaSaida(confirmaRegSaida);
-                        objItemSaida.setHorarioSaida(jHorarioSaida.getText());
-                        controle.confirmaRegistroSaida(objItemSaida); // Modifica na tabela ITENSSAIDA (confirma a saida) do interno e horário para CRC                                             
-                        //
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdSaida='" + jIDlanc.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                        ExcluirItem();
+                    verificarAssiaturaBiometricaInterno();
+                    if (jIDlanc.getText().equals(codigoSaidaBio) && jIDInterno.getText().equals(codigoSaidaInterno) && pAssinaturaInterno != null) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, o mesmo foi assinado através da biometria.");
+                    } else {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            objItemSaida.setConfirmaSaida(confirmaRegSaida);
+                            objItemSaida.setIdItemSaida(idSaidaTmp); // Item do documento de saida (ITENSSAIDA)
+                            controle.confirmaRegistroSaida(objItemSaida); // Modifica na tabela ITENSSAIDA (confirma a saida) do interno como não.
+                            //
+                            objItemSaida.setIdItemSaida(idItem);
+                            controle.excluirItensRegSaida(objItemSaida);
+                            // Modifica na tabela ITENSCRCPORTARIA (confirma a saida) do interno como não.
+                            objItemSaida.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSCRCPORTARIA      
+                            objItemSaida.setIdInternoSaida(Integer.valueOf(jIDInterno.getText()));
+                            objItemSaida.setIdItemSaida(idItemSaida); // Item referente a saída vinda do CRC para Portaria
+                            controle.confirmaRegSaidaItensCrcPort(objItemSaida);
+                            // TRANSFERENCIA
+                            //Atualiza tabela de ITENSCRCPORTARIA
+                            objItensTrans.setConfirmaSaida(confirmaRegSaida);
+                            objItensTrans.setIdSaidTransfTmp(idSaidTransfTmp); // Item do documento de saida (ITENSCRCPORTARIA)                    
+                            controle.confirmaRegistroSaida(objItemSaida);
+                            // Atualiza tabela de ITENSTRANSFERENCIA
+                            objItensTrans.setConfirmaSaida(confirmaRegSaida);
+                            objItensTrans.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSTRANSFERENCIA 
+                            controle.confirmaRegistroTransferencia(objItensTrans);
+                            // Atualiza o Rol para ABERTO quando usuario exclui o interno
+                            atualizarRolSaidaInternoExcluir();
+                            // Falta atualizar o MOVIMENTOCRC, ou seja não tá excluindo (04/06/2015)
+                            // Confirma "Sim" na tabela ITENSSAIDA para impedir a exclusão ou alteração do interno
+                            confirmaRegSaida = "Não";
+                            objItemSaida.setIdInternoSaida(Integer.valueOf(jIDInterno.getText()));
+                            objItemSaida.setIdItemSaida(idSaidaTmp); // Item do documento de saida (ITENSSAIDA) 
+                            objItemSaida.setConfirmaSaida(confirmaRegSaida);
+                            objItemSaida.setHorarioSaida(jHorarioSaida.getText());
+                            controle.confirmaRegistroSaida(objItemSaida); // Modifica na tabela ITENSSAIDA (confirma a saida) do interno e horário para CRC                                             
+                            //
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENSREGSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdSaida='" + jIDlanc.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                            ExcluirItem();
+                        }
                     }
                 }
             }
@@ -1764,6 +1771,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroSaidaInternoBioP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoBioP1) && codAbrirP1 == 1) {
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível utilizar essa funcionalidade, o registro já foi finalizado");
@@ -1777,7 +1785,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
 
     private void jBtExportarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExportarRegistrosActionPerformed
         // TODO add your handling code here:
-
+        buscarAcessoUsuario(telaRegistroSaidaInternoExpP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroSaidaInternoExpP1) && codAbrirP1 == 1) {
             if (jStatusSaida.getText().equals("ABERTO")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário FINALIZAR o documento para poder exportar os registros de internos.");
@@ -2276,6 +2284,21 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar LANÇAMENTO DE SAIDA \nERRO: " + ex);
         }
+    }
+
+    public void verificarAssiaturaBiometricaInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSREGSAIDA "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND IdSaida='" + jIDlanc.getText() + "'");
+            conecta.rs.first();
+            codigoSaidaBio = conecta.rs.getString("IdSaida");
+            codigoSaidaInterno = conecta.rs.getString("IdInternoCrc");
+            pAssinaturaInterno = conecta.rs.getBytes("AssinaturaSaida");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void preencherTodasEntradas() {

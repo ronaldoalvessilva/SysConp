@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -168,8 +169,8 @@ public class TelaRelatorioProducaoPsicologia extends javax.swing.JInternalFrame 
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologico.jasper";
-                    conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOPSICOLOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvolucao BETWEEN'" + dataInicial + "' "
@@ -180,6 +181,11 @@ public class TelaRelatorioProducaoPsicologia extends javax.swing.JInternalFrame 
                     parametros.put("dataFinal", dataFinal);
                     parametros.put("pNomeUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
+                    // Sub Relatório
+                    try {
+                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                    } catch (SQLException ex) {
+                    }
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -207,18 +213,23 @@ public class TelaRelatorioProducaoPsicologia extends javax.swing.JInternalFrame 
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologico.jasper";
-                    conecta.executaSQL("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                    String path = "reports/RelatorioQuantitativoAtendimentoPsicologicoII.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOPSICOLOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvolucao BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOPSICOLOGICA.UsuarioInsert,EVOLUCAOPSICOLOGICA.DataEvolucao");
+                            + "ORDER BY EVOLUCAOPSICOLOGICA.UsuarioInsert,EVOLUCAOPSICOLOGICA.DataEvolucao");                    
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
                     parametros.put("pNomeUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
+                    // Sub Relatório
+                    try {
+                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                    } catch (SQLException ex) {
+                    }
                     JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          

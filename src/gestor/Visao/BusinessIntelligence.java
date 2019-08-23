@@ -367,7 +367,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTotalLabInternoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSaidaTemporaria, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -530,7 +530,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                         .addComponent(jBtConsultaMovExterna, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtConsultaLocalInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConsultaAdvogadosInternos, jBtConsultaColaborador, jBtConsultaInternos, jBtConsultaLocalInterno, jBtConsultaMovExterna, jBtConsultaMovInterno, jBtConsultaRol, jBtConsultaVisistaInternos, jBtConsultaVisitasDiversas, jBtValoresInternos});
@@ -573,7 +573,7 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jFotoInternoDiretoria, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jFotoInternoDiretoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -890,11 +890,12 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -902,27 +903,28 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel2, jPanel4, jPanel6});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, 0)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 0, 0)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         jTabbedPane1.addTab("Consulta Gerencial", jPanel1);
@@ -935,12 +937,10 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 20, 890, 576);
+        setBounds(300, 10, 890, 541);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRefreshActionPerformed
@@ -959,71 +959,121 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
     private void jBtConsultaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaInternosPortaria objConsProntInt = new TelaConsultaInternosPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsProntInt);
-        objConsProntInt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsProntInt);
+            objConsProntInt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsProntInt);
+            objConsProntInt.show();
+        }
     }//GEN-LAST:event_jBtConsultaInternosActionPerformed
 
     private void jBtConsultaRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaRolActionPerformed
         // TODO add your handling code here:
         TelaRolVisitasPortaria objConsRol = new TelaRolVisitasPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsRol);
-        objConsRol.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsRol);
+            objConsRol.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsRol);
+            objConsRol.show();
+        }
     }//GEN-LAST:event_jBtConsultaRolActionPerformed
 
     private void jBtConsultaVisitasDiversasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisitasDiversasActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitasDiversasDir objConsVisDir = new TelaConsultaVisitasDiversasDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsVisDir);
-        objConsVisDir.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsVisDir);
+            objConsVisDir.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsVisDir);
+            objConsVisDir.show();
+        }
     }//GEN-LAST:event_jBtConsultaVisitasDiversasActionPerformed
 
     private void jBtConsultaMovExternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovExternaActionPerformed
         // TODO add your handling code here:
         TelaMovimentacaoCrcDiretoria objMovExt = new TelaMovimentacaoCrcDiretoria();
-        TelaModuloPRORES.jPainelDiretoria.add(objMovExt);
-        objMovExt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objMovExt);
+            objMovExt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objMovExt);
+            objMovExt.show();
+        }
     }//GEN-LAST:event_jBtConsultaMovExternaActionPerformed
 
     private void jBtConsultaLocalInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaLocalInternoActionPerformed
         // TODO add your handling code here:
         TelaConsultaLocalInternoPortaria objLocalInt = new TelaConsultaLocalInternoPortaria();
-        TelaModuloPRORES.jPainelDiretoria.add(objLocalInt);
-        objLocalInt.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objLocalInt);
+            objLocalInt.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objLocalInt);
+            objLocalInt.show();
+        }
     }//GEN-LAST:event_jBtConsultaLocalInternoActionPerformed
 
     private void jBtConsultaVisistaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaVisistaInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaVisitaSocial objConsVisitaSosi = new TelaConsultaVisitaSocial();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsVisitaSosi);
-        objConsVisitaSosi.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsVisitaSosi);
+            objConsVisitaSosi.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsVisitaSosi);
+            objConsVisitaSosi.show();
+        }
     }//GEN-LAST:event_jBtConsultaVisistaInternosActionPerformed
 
     private void jBtConsultaColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaColaboradorActionPerformed
         // TODO add your handling code here:
         TelaConsultaFuncionariosDir objConsFunc = new TelaConsultaFuncionariosDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsFunc);
-        objConsFunc.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsFunc);
+            objConsFunc.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsFunc);
+            objConsFunc.show();
+        }
     }//GEN-LAST:event_jBtConsultaColaboradorActionPerformed
 
     private void jBtConsultaAdvogadosInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaAdvogadosInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaAdvogadosDir objConsuAdv = new TelaConsultaAdvogadosDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsuAdv);
-        objConsuAdv.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsuAdv);
+            objConsuAdv.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsuAdv);
+            objConsuAdv.show();
+        }
     }//GEN-LAST:event_jBtConsultaAdvogadosInternosActionPerformed
 
     private void jBtConsultaMovInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConsultaMovInternoActionPerformed
         // TODO add your handling code here:
         TelaMovHistoricoTecDiretoria objMovIntTec = new TelaMovHistoricoTecDiretoria();
-        TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
-        objMovIntTec.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objMovIntTec);
+            objMovIntTec.show();
+        }
     }//GEN-LAST:event_jBtConsultaMovInternoActionPerformed
 
     private void jBtValoresInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtValoresInternosActionPerformed
         // TODO add your handling code here:
         TelaConsultaSaldoFinDir objConsuFin = new TelaConsultaSaldoFinDir();
-        TelaModuloPRORES.jPainelDiretoria.add(objConsuFin);
-        objConsuFin.show();
+        if (TelaModuloPRORES.jPainelDiretoria != null) {
+            TelaModuloPRORES.jPainelDiretoria.add(objConsuFin);
+            objConsuFin.show();
+        } else if (TelaModuloDiretoria.jPainelDiretoria != null) {
+            TelaModuloDiretoria.jPainelDiretoria.add(objConsuFin);
+            objConsuFin.show();
+        }
     }//GEN-LAST:event_jBtValoresInternosActionPerformed
 
     private void jTabelaCelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCelasMouseClicked
@@ -1079,9 +1129,20 @@ public class BusinessIntelligence extends javax.swing.JInternalFrame {
                 jDescricaoInternoDir.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoDiretoria.setIcon(i);
-                jFotoInternoDiretoria.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoDiretoria.getWidth(), jFotoInternoDiretoria.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoDiretoria.setIcon(i);
+                    jFotoInternoDiretoria.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoDiretoria.getWidth(), jFotoInternoDiretoria.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoDiretoria.getWidth(), jFotoInternoDiretoria.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoDiretoria.setIcon(icon);
+                }
                 //
             } catch (Exception e) {
             }

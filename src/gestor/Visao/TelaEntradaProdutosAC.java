@@ -2546,7 +2546,7 @@ public class TelaEntradaProdutosAC extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objHistCompra.setIdCompra(Integer.valueOf(jNrNFe.getText()));
+                    objHistCompra.setIdCompra(Integer.valueOf(jIdLanc.getText()));
                     controleHist.excluirHistoricoComprasProdutFornecedor(objHistCompra);
                     controleHist.excluirHistoricoComprasProduto(objHistCompra);
                     //

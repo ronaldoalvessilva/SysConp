@@ -30,6 +30,8 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
     String dataFinal = "";
     String pEntradaUnidade = "ENTRADA NA UNIDADE";
     String pRetornoUnidade = "RETORNO A UNIDADE";
+    String situacaoCursoApro = "Aprovado";
+    String situacaoCursoRepro = "Reprovado";
 
     /**
      * Creates new form TelaRelatorioAcompanamentoProcessual
@@ -172,8 +174,8 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
-                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
+                            String path = "reports/RelatorioInternosConcluiramCurso.jasper";
+                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso,DataConclusao "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "
                                     + "ON CAPACITACAO_INTERNO_TO.IdCap=ITENS_CAPACITACAO_INTERNO_TO.IdCap "
@@ -181,9 +183,12 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                                     + "ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN CURSOS "
                                     + "ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso "
-                                    + "WHERE "
-                                    + "DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "'");
+                                    + "WHERE SituacaoCurso='" + situacaoCursoApro + "' "
+                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "OR SituacaoCurso='" + situacaoCursoRepro + "' "
+                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' ");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -193,10 +198,9 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Indicadores de Acompanhamento de Saúde.");
+                            jv.setTitle("Relatório de Internos Cursando.");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
+                            jv.toFront(); // Traz o relatorio para frente da aplicação     
                         } catch (JRException e) {
                             JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
                         }
@@ -220,8 +224,8 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioInternosPassaramCurso.jasper";
-                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso "
+                            String path = "reports/RelatorioInternosConcluiramCurso.jasper";
+                            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,DataInicio,CURSOS.DescricaoCurso,DataConclusao "
                                     + "FROM ITENS_CAPACITACAO_INTERNO_TO "
                                     + "INNER JOIN CAPACITACAO_INTERNO_TO "
                                     + "ON CAPACITACAO_INTERNO_TO.IdCap=ITENS_CAPACITACAO_INTERNO_TO.IdCap "
@@ -229,9 +233,12 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                                     + "ON ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN CURSOS "
                                     + "ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso "
-                                    + "WHERE "
-                                    + "DataInicio BETWEEN'" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "'");
+                                    + "WHERE SituacaoCurso='" + situacaoCursoApro + "' "
+                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "OR SituacaoCurso='" + situacaoCursoRepro + "' "
+                                    + "AND DataInicio BETWEEN'" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' ");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -241,9 +248,9 @@ public class TelaRelatorioInternosCursoConcluido extends javax.swing.JInternalFr
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                             jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Internos Cursos realizado.");
+                            jv.setTitle("Relatório de Internos Cursando.");
                             jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            jv.toFront(); // Traz o relatorio para frente da aplicação                                  
                             conecta.desconecta();
                         } catch (JRException e) {
                             JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);

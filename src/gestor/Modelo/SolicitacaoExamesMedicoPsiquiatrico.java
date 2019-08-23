@@ -25,8 +25,12 @@ public class SolicitacaoExamesMedicoPsiquiatrico {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;   
+    private String nomeSolicitante;
 
-    public SolicitacaoExamesMedicoPsiquiatrico(int idSolExame, String statusSolExame, Date dataSolExame, int idInternoCrc, String nomeInternoCrc, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public SolicitacaoExamesMedicoPsiquiatrico() {
+    }
+
+    public SolicitacaoExamesMedicoPsiquiatrico(int idSolExame, String statusSolExame, Date dataSolExame, int idInternoCrc, String nomeInternoCrc, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String nomeSolicitante) {
         this.idSolExame = idSolExame;
         this.statusSolExame = statusSolExame;
         this.dataSolExame = dataSolExame;
@@ -39,9 +43,7 @@ public class SolicitacaoExamesMedicoPsiquiatrico {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public SolicitacaoExamesMedicoPsiquiatrico() {
+        this.nomeSolicitante = nomeSolicitante;
     }
 
     /**
@@ -210,5 +212,19 @@ public class SolicitacaoExamesMedicoPsiquiatrico {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the nomeSolicitante
+     */
+    public String getNomeSolicitante() {
+        return nomeSolicitante;
+    }
+
+    /**
+     * @param nomeSolicitante the nomeSolicitante to set
+     */
+    public void setNomeSolicitante(String nomeSolicitante) {
+        this.nomeSolicitante = nomeSolicitante;
     }
 }

@@ -172,12 +172,15 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/IndicadoresDeAcompanhamentoDeSaude.jasper";
+                            String path = "reports/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
                             conecta.executaSQL("SELECT "
                                     + "P.IdInternoCrc, "
                                     + "P.NomeInternoCrc, "
+                                    + "A.DataInsert, "
                                     + "A.DataUp, "
                                     + "A.HorarioUp, "
+                                    + "A.HorarioInsert, "
+                                    + "A.UsuarioInsert, "
                                     + "A.UsuarioUp, "
                                     + "A.Diabetes, "
                                     + "A.DiabControl, "
@@ -218,7 +221,7 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                                     + "INNER JOIN PRONTUARIOSCRC AS P ON "
                                     + "	P.IdInternoCrc=A.IdInternoCrc "
                                     + "WHERE "
-                                    + "A.DataUp BETWEEN '" + dataInicial + "' "
+                                    + "A.DataReg BETWEEN '" + dataInicial + "' "
                                     + "AND'" + dataFinal + "' "
                                     + "ORDER BY NomeInternoCrc DESC");
                             HashMap parametros = new HashMap();
@@ -257,13 +260,58 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         try {
                             conecta.abrirConexao();
-                            String path = "reports/RelatorioIndicadoresAcompanhamentoSaude.jasper";
-                            conecta.executaSQL("SELECT DISTINCT ATENDIMENTOFAMILIAR.IdInternoCrc,NomeInternoCrc,Cnc "
-                                    + "FROM PRONTUARIOSCRC "
-                                    + "INNER JOIN ATENDIMENTOFAMILIAR "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                                    + "WHERE DataAtendf BETWEEN '" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' ");
+                            String path = "reports/RelatorioIndicadoresDeAcompanhamentoDeSaude.jasper";
+                            conecta.executaSQL("SELECT "
+                                    + "P.IdInternoCrc, "
+                                    + "P.NomeInternoCrc, "
+                                    + "A.DataInsert, "
+                                    + "A.DataUp, "
+                                    + "A.HorarioUp, "
+                                    + "A.HorarioInsert, "
+                                    + "A.UsuarioInsert, "
+                                    + "A.UsuarioUp, "
+                                    + "A.Diabetes, "
+                                    + "A.DiabControl, "
+                                    + "A.QtdDiabetes, "
+                                    + "A.Hipertensao, "
+                                    + "A.HiperControl, "
+                                    + "A.QtdHipertensao, "
+                                    + "A.Escabiose, "
+                                    + "A.EscabioseCura, "
+                                    + "A.QtdEscabiose, "
+                                    + "A.Hanseniase, "
+                                    + "A.HanseniaseCura, "
+                                    + "A.QtdHanseniase, "
+                                    + "A.Sifilis, "
+                                    + "A.SifilisCura, "
+                                    + "A.QtdSifilis, "
+                                    + "A.Tuberculose, "
+                                    + "A.TuberculoseCura, "
+                                    + "A.QtdTuberculose, "
+                                    + "A.Hiv, "
+                                    + "A.HivControlada, "
+                                    + "A.QtdHiv, "
+                                    + "A.HepatiteB, "
+                                    + "A.HepatiteBCont, "
+                                    + "A.QtdHepatiteB, "
+                                    + "A.HepatiteC, "
+                                    + "A.HepatiteCCont, "
+                                    + "A.QtdHepatiteC, "
+                                    + "A.Dst, "
+                                    + "A.DstCurada, "
+                                    + "A.Vdlr, "
+                                    + "A.QtdVdlr, "
+                                    + "A.QtdDst, "
+                                    + "A.VdlrCurada, "
+                                    + "A.Vacina , "
+                                    + "A.QtdVacina "
+                                    + "FROM ACOMPANHAMENTO_INTERNO_ENFERMARIA AS A "
+                                    + "INNER JOIN PRONTUARIOSCRC AS P ON "
+                                    + "	P.IdInternoCrc=A.IdInternoCrc "
+                                    + "WHERE "
+                                    + "A.DataReg BETWEEN '" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' "
+                                    + "ORDER BY NomeInternoCrc DESC");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);

@@ -38,15 +38,15 @@ import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
 import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
 import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
 import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
+import static gestor.Visao.TelaModuloOdontologia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoEvolucao_ODON;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoManu_ODON;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternosPrescricao_ODON;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -56,9 +56,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -197,15 +195,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         Admissao = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jBtNovo = new javax.swing.JButton();
-        jBtAlterar = new javax.swing.JButton();
-        jBtExcluir = new javax.swing.JButton();
-        jBtSalvar = new javax.swing.JButton();
-        jBtCancelar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
-        jBtAuditoriaOdonto = new javax.swing.JButton();
-        jBtFinalizar = new javax.swing.JButton();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         DadosConsulta = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -220,29 +209,28 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jNomeInterno = new javax.swing.JTextField();
         jBtPesqInterno = new javax.swing.JButton();
-        jPanel13 = new javax.swing.JPanel();
-        jComboBoxTipoAtendimento = new javax.swing.JComboBox();
-        jLabel83 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jComboBoxGestante = new javax.swing.JComboBox();
-        jLabel85 = new javax.swing.JLabel();
-        jTempoGestacao = new javax.swing.JSpinner();
-        jComboBoxFumante = new javax.swing.JComboBox();
         jLabel18 = new javax.swing.JLabel();
-        jQueixaPrincipal = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBoxTratamentoMedico = new javax.swing.JComboBox();
-        jLabel9 = new javax.swing.JLabel();
-        jAfirmacao1 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jComboBoxMedicacao = new javax.swing.JComboBox();
-        jLabel11 = new javax.swing.JLabel();
-        jAfirmacao2 = new javax.swing.JTextField();
         jComboBoxAlegria = new javax.swing.JComboBox();
+        jQueixaPrincipal = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jAfirmacao3 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBoxTipoAtendimento = new javax.swing.JComboBox();
+        jComboBoxTratamentoMedico = new javax.swing.JComboBox();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jAfirmacao1 = new javax.swing.JTextField();
+        jComboBoxGestante = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jComboBoxMedicacao = new javax.swing.JComboBox();
+        jTempoGestacao = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBoxFumante = new javax.swing.JComboBox();
+        jAfirmacao2 = new javax.swing.JTextField();
         jPanel17 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jObservacao = new javax.swing.JTextArea();
@@ -375,9 +363,43 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel8 = new javax.swing.JPanel();
         jBtAdicionar = new javax.swing.JButton();
         jBtRemover = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+        jBtCancelar = new javax.swing.JButton();
+        jBtSalvar = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
+        jBtAlterar = new javax.swing.JButton();
+        jBtNovo = new javax.swing.JButton();
+        jBtFinalizar = new javax.swing.JButton();
+        jBtAuditoriaOdonto = new javax.swing.JButton();
         Continuacao = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTabelaProcedimentos = new javax.swing.JTable();
+        jBtNovoEvolucao = new javax.swing.JButton();
+        jBtAlterarEvolucao = new javax.swing.JButton();
+        jBtExcluirEvolucao = new javax.swing.JButton();
+        jBtSalvarEvolucao = new javax.swing.JButton();
+        jBtCancelarEvolucao = new javax.swing.JButton();
+        jBtImpressaoEvolucao = new javax.swing.JButton();
+        jBtAuditoriaEvolucao = new javax.swing.JButton();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel40 = new javax.swing.JLabel();
+        jComboBoxTipoProcedimentoEvol = new javax.swing.JComboBox();
+        jLabel123 = new javax.swing.JLabel();
+        jComboBoxFacesDenteEvol = new javax.swing.JComboBox();
+        jLabel124 = new javax.swing.JLabel();
+        jPlanoTratamentoEvol = new javax.swing.JTextField();
+        jLabel126 = new javax.swing.JLabel();
+        jRDBtRealizarEvol = new javax.swing.JRadioButton();
+        jRDBtArealizarEvol = new javax.swing.JRadioButton();
+        jLabel125 = new javax.swing.JLabel();
+        jNumeroDenteEvol = new javax.swing.JFormattedTextField();
+        jLabel122 = new javax.swing.JLabel();
+        jDataOdontogramaEvol = new com.toedter.calendar.JDateChooser();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTabelaOdontogramaEvol = new javax.swing.JTable();
+        jPanel26 = new javax.swing.JPanel();
+        jBtAdicionarEvol = new javax.swing.JButton();
+        jBtRemoverEvol = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jBt29 = new javax.swing.JToggleButton();
         jBt49 = new javax.swing.JToggleButton();
@@ -444,39 +466,12 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jLabel119 = new javax.swing.JLabel();
         jLabel120 = new javax.swing.JLabel();
         jLabel121 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jBtNovoEvolucao = new javax.swing.JButton();
-        jBtAlterarEvolucao = new javax.swing.JButton();
-        jBtExcluirEvolucao = new javax.swing.JButton();
-        jBtSalvarEvolucao = new javax.swing.JButton();
-        jBtCancelarEvolucao = new javax.swing.JButton();
-        jBtImpressaoEvolucao = new javax.swing.JButton();
-        jBtAuditoriaEvolucao = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
-        jComboBoxTipoProcedimentoEvol = new javax.swing.JComboBox();
-        jLabel123 = new javax.swing.JLabel();
-        jComboBoxFacesDenteEvol = new javax.swing.JComboBox();
-        jLabel124 = new javax.swing.JLabel();
-        jPlanoTratamentoEvol = new javax.swing.JTextField();
-        jLabel126 = new javax.swing.JLabel();
-        jRDBtRealizarEvol = new javax.swing.JRadioButton();
-        jRDBtArealizarEvol = new javax.swing.JRadioButton();
-        jLabel125 = new javax.swing.JLabel();
-        jNumeroDenteEvol = new javax.swing.JFormattedTextField();
-        jLabel122 = new javax.swing.JLabel();
-        jDataOdontogramaEvol = new com.toedter.calendar.JDateChooser();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        jTabelaOdontogramaEvol = new javax.swing.JTable();
-        jPanel26 = new javax.swing.JPanel();
-        jBtAdicionarEvol = new javax.swing.JButton();
-        jBtRemoverEvol = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jEvolucao = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTabelaProcedimentos = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         jIdEvolucao = new javax.swing.JTextField();
         jNomeInternoEvolucao = new javax.swing.JTextField();
@@ -713,7 +708,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             .addGroup(ListagemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                     .addGroup(ListagemLayout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -729,7 +724,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -739,150 +734,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         );
 
         jTabbedPane1.addTab("Listagem", Listagem);
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setText("Novo");
-        jBtNovo.setContentAreaFilled(false);
-        jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterar.setText("Alterar");
-        jBtAlterar.setContentAreaFilled(false);
-        jBtAlterar.setEnabled(false);
-        jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAlterar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtAlterar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarActionPerformed(evt);
-            }
-        });
-
-        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluir.setText("Excluir");
-        jBtExcluir.setContentAreaFilled(false);
-        jBtExcluir.setEnabled(false);
-        jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtExcluir.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirActionPerformed(evt);
-            }
-        });
-
-        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
-        jBtSalvar.setContentAreaFilled(false);
-        jBtSalvar.setEnabled(false);
-        jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSalvar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarActionPerformed(evt);
-            }
-        });
-
-        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelar.setText("Cancelar");
-        jBtCancelar.setContentAreaFilled(false);
-        jBtCancelar.setEnabled(false);
-        jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarActionPerformed(evt);
-            }
-        });
-
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.setContentAreaFilled(false);
-        jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jBtSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaOdonto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAuditoriaOdonto.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAuditoriaOdonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaOdonto.setToolTipText("Auditoria");
-        jBtAuditoriaOdonto.setContentAreaFilled(false);
-        jBtAuditoriaOdonto.setEnabled(false);
-        jBtAuditoriaOdonto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaOdontoActionPerformed(evt);
-            }
-        });
-
-        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
-        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtFinalizar.setText("Finalizar");
-        jBtFinalizar.setToolTipText("Finalizar");
-        jBtFinalizar.setEnabled(false);
-        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFinalizarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair)
-                .addGap(18, 18, 18)
-                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtNovo)
-                    .addComponent(jBtAlterar)
-                    .addComponent(jBtExcluir)
-                    .addComponent(jBtSalvar)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtSair))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtFinalizar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
 
         jTabbedPane3.setForeground(new java.awt.Color(0, 0, 204));
         jTabbedPane3.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
@@ -935,6 +786,89 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setText("Fumante:");
+
+        jComboBoxAlegria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAlegria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sei", "Sim" }));
+        jComboBoxAlegria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAlegria.setEnabled(false);
+
+        jQueixaPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jQueixaPrincipal.setEnabled(false);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Alergia:");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Qual?");
+
+        jAfirmacao3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAfirmacao3.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Motivo Atendimento:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("tratamento médico?");
+        jLabel8.setToolTipText("Está em tratamento médico");
+
+        jComboBoxTipoAtendimento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoAtendimento.setForeground(new java.awt.Color(255, 0, 0));
+        jComboBoxTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consulta", "Urgência", "Tratamento", "Manutenção" }));
+        jComboBoxTipoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoAtendimento.setEnabled(false);
+
+        jComboBoxTratamentoMedico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTratamentoMedico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxTratamentoMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTratamentoMedico.setEnabled(false);
+
+        jLabel83.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel83.setText("Gestante:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("Qual?");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Tipo Atendimento:");
+
+        jAfirmacao1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAfirmacao1.setEnabled(false);
+
+        jComboBoxGestante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxGestante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sei", "Sim" }));
+        jComboBoxGestante.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxGestante.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("Usando medicação?");
+        jLabel10.setToolTipText("Está usando medicação?");
+
+        jLabel85.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel85.setText("Tempo:");
+
+        jComboBoxMedicacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxMedicacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxMedicacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMedicacao.setEnabled(false);
+
+        jTempoGestacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTempoGestacao.setToolTipText("Tempo de Gestação em semanas");
+        jTempoGestacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTempoGestacao.setEnabled(false);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Qual?");
+
+        jComboBoxFumante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxFumante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jComboBoxFumante.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxFumante.setEnabled(false);
+
+        jAfirmacao2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAfirmacao2.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -966,11 +900,51 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataLanc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(0, 32, Short.MAX_VALUE)))
+                        .addGap(0, 37, Short.MAX_VALUE))
+                    .addComponent(jQueixaPrincipal)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel83, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxAlegria, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jAfirmacao2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jAfirmacao1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jAfirmacao3, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxGestante, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel85, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(4, 4, 4)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxFumante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTempoGestacao, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIDInterno, jIDLanc});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAfirmacao1, jAfirmacao2, jAfirmacao3});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -994,183 +968,44 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     .addComponent(jNomeInterno)
                     .addComponent(jIDInterno)
                     .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(7, 7, 7))
-        );
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jComboBoxTipoAtendimento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoAtendimento.setForeground(new java.awt.Color(255, 0, 0));
-        jComboBoxTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consulta", "Urgência", "Tratamento", "Manutenção" }));
-        jComboBoxTipoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTipoAtendimento.setEnabled(false);
-
-        jLabel83.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel83.setText("Gestante:");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Tipo Atendimento:");
-
-        jComboBoxGestante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxGestante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sei", "Sim" }));
-        jComboBoxGestante.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxGestante.setEnabled(false);
-
-        jLabel85.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel85.setText("Tempo:");
-
-        jTempoGestacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jTempoGestacao.setToolTipText("Tempo de Gestação em semanas");
-        jTempoGestacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTempoGestacao.setEnabled(false);
-
-        jComboBoxFumante.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxFumante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxFumante.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxFumante.setEnabled(false);
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel18.setText("Fumante:");
-
-        jQueixaPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jQueixaPrincipal.setEnabled(false);
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Motivo Atendimento:");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("tratamento médico?");
-        jLabel8.setToolTipText("Está em tratamento médico");
-
-        jComboBoxTratamentoMedico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTratamentoMedico.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxTratamentoMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTratamentoMedico.setEnabled(false);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Qual?");
-
-        jAfirmacao1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAfirmacao1.setEnabled(false);
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Usando medicação?");
-        jLabel10.setToolTipText("Está usando medicação?");
-
-        jComboBoxMedicacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxMedicacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxMedicacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxMedicacao.setEnabled(false);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("Qual?");
-
-        jAfirmacao2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAfirmacao2.setEnabled(false);
-
-        jComboBoxAlegria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxAlegria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Não sei", "Sim" }));
-        jComboBoxAlegria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxAlegria.setEnabled(false);
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Alergia:");
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Qual?");
-
-        jAfirmacao3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAfirmacao3.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel83)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jAfirmacao3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jAfirmacao2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jAfirmacao1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jQueixaPrincipal, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxGestante, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel85, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBoxFumante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTempoGestacao, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxAlegria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(25, 25, 25))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel6)
                     .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18)
                     .addComponent(jComboBoxFumante, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel83)
                     .addComponent(jComboBoxGestante, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel85)
                     .addComponent(jTempoGestacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jQueixaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxTratamentoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(jAfirmacao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxMedicacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAfirmacao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxAlegria, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
                     .addComponent(jAfirmacao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
-        jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAfirmacao1, jAfirmacao2, jAfirmacao3});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAfirmacao1, jAfirmacao2, jAfirmacao3});
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Texto da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
@@ -1191,7 +1026,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout DadosConsultaLayout = new javax.swing.GroupLayout(DadosConsulta);
@@ -1201,7 +1036,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             .addGroup(DadosConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1209,9 +1043,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         DadosConsultaLayout.setVerticalGroup(
             DadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DadosConsultaLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1454,7 +1286,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         .addComponent(jLabel86)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jQualOutraDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxCardiaco, jComboBoxCicatrizacao, jComboBoxDisturbios, jComboBoxFebre, jComboBoxHepatico, jComboBoxOutras, jComboBoxRenal, jComboBoxTensao, jComboBoxTuberculose});
@@ -1562,8 +1394,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel32)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(147, 147, 147))
         );
 
         jTabbedPane3.addTab("PATOLOGIAS", Patologias);
@@ -1628,26 +1460,35 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel87, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel98, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel127, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel78, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPlanoTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroDente, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel88)
+                        .addComponent(jNumeroDente, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel87)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBtRealizado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRBtArealizar))
-                    .addComponent(jComboBoxFacesDente, 0, 198, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTipoProcedimento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(jPlanoTratamento))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addComponent(jComboBoxFacesDente, 0, 198, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel88)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRBtRealizado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRBtArealizar))
+                            .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addComponent(jComboBoxTipoProcedimento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel98)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel23Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxFacesDente, jComboBoxTipoProcedimento});
@@ -1658,27 +1499,23 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel33)
-                    .addComponent(jComboBoxTipoProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTipoProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel98)
+                    .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel78)
-                    .addComponent(jComboBoxFacesDente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel127)
-                    .addComponent(jNumeroDente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel98)
-                    .addComponent(jDataOdontograma, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxFacesDente, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel88)
                     .addComponent(jRBtRealizado)
                     .addComponent(jRBtArealizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel127)
+                    .addComponent(jNumeroDente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel87)
                     .addComponent(jPlanoTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -2220,7 +2057,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2422,13 +2259,16 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         Odontograma.setLayout(OdontogramaLayout);
         OdontogramaLayout.setHorizontalGroup(
             OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OdontogramaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OdontogramaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane8)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(OdontogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(OdontogramaLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane8)
+                        .addGap(2, 2, 2))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         OdontogramaLayout.setVerticalGroup(
@@ -2441,11 +2281,91 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
 
         jTabbedPane3.addTab("PLANO DE TRATAMENTO", Odontograma);
+
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setToolTipText("Sair");
+        jBtSair.setContentAreaFilled(false);
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelar.setToolTipText("Cancelar");
+        jBtCancelar.setContentAreaFilled(false);
+        jBtCancelar.setEnabled(false);
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setToolTipText("Gravar");
+        jBtSalvar.setContentAreaFilled(false);
+        jBtSalvar.setEnabled(false);
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluir.setToolTipText("Excluir");
+        jBtExcluir.setContentAreaFilled(false);
+        jBtExcluir.setEnabled(false);
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
+
+        jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterar.setToolTipText("Alterar");
+        jBtAlterar.setContentAreaFilled(false);
+        jBtAlterar.setEnabled(false);
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
+
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovo.setToolTipText("Novo");
+        jBtNovo.setContentAreaFilled(false);
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
+
+        jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
+        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
+        jBtFinalizar.setToolTipText("Finalizar");
+        jBtFinalizar.setEnabled(false);
+        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarActionPerformed(evt);
+            }
+        });
+
+        jBtAuditoriaOdonto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAuditoriaOdonto.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAuditoriaOdonto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaOdonto.setToolTipText("Auditoria");
+        jBtAuditoriaOdonto.setContentAreaFilled(false);
+        jBtAuditoriaOdonto.setEnabled(false);
+        jBtAuditoriaOdonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaOdontoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout AdmissaoLayout = new javax.swing.GroupLayout(Admissao);
         Admissao.setLayout(AdmissaoLayout);
@@ -2454,44 +2374,333 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             .addGroup(AdmissaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane3)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdmissaoLayout.createSequentialGroup()
+                        .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(230, 230, 230)
+                        .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdmissaoLayout.createSequentialGroup()
+                        .addComponent(jTabbedPane3)
+                        .addContainerGap())))
         );
+
+        AdmissaoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
         AdmissaoLayout.setVerticalGroup(
             AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdmissaoLayout.createSequentialGroup()
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdmissaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtAuditoriaOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        AdmissaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
         jTabbedPane1.addTab("Admissão", Admissao);
 
-        jTabelaProcedimentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaProcedimentos.setModel(new javax.swing.table.DefaultTableModel(
+        jBtNovoEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovoEvolucao.setToolTipText("Novo");
+        jBtNovoEvolucao.setContentAreaFilled(false);
+        jBtNovoEvolucao.setEnabled(false);
+        jBtNovoEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
+        jBtAlterarEvolucao.setToolTipText("Alterar");
+        jBtAlterarEvolucao.setContentAreaFilled(false);
+        jBtAlterarEvolucao.setEnabled(false);
+        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtExcluirEvolucao.setToolTipText("Excluir");
+        jBtExcluirEvolucao.setContentAreaFilled(false);
+        jBtExcluirEvolucao.setEnabled(false);
+        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvarEvolucao.setToolTipText("Gravar");
+        jBtSalvarEvolucao.setContentAreaFilled(false);
+        jBtSalvarEvolucao.setEnabled(false);
+        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
+        jBtCancelarEvolucao.setToolTipText("Cancelar");
+        jBtCancelarEvolucao.setContentAreaFilled(false);
+        jBtCancelarEvolucao.setEnabled(false);
+        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jBtImpressaoEvolucao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtImpressaoEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
+        jBtImpressaoEvolucao.setToolTipText("Impressão");
+        jBtImpressaoEvolucao.setContentAreaFilled(false);
+        jBtImpressaoEvolucao.setEnabled(false);
+
+        jBtAuditoriaEvolucao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAuditoriaEvolucao.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
+        jBtAuditoriaEvolucao.setContentAreaFilled(false);
+        jBtAuditoriaEvolucao.setEnabled(false);
+        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaEvolucaoActionPerformed(evt);
+            }
+        });
+
+        jTabbedPane2.setForeground(new java.awt.Color(0, 102, 0));
+        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel40.setText("Tipo Procedimento:");
+
+        jComboBoxTipoProcedimentoEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoProcedimentoEvol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
+        jComboBoxTipoProcedimentoEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoProcedimentoEvol.setEnabled(false);
+        jComboBoxTipoProcedimentoEvol.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoProcedimentoEvolItemStateChanged(evt);
+            }
+        });
+        jComboBoxTipoProcedimentoEvol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxTipoProcedimentoEvolMouseClicked(evt);
+            }
+        });
+
+        jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel123.setText("Faces do Dente:");
+
+        jComboBoxFacesDenteEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxFacesDenteEvol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Lingual/Palatal", "Mesial", "Oclusal", "Distal", "Vestibular", "Incisal", "Retirado", "Todas" }));
+        jComboBoxFacesDenteEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxFacesDenteEvol.setEnabled(false);
+
+        jLabel124.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel124.setText("Plano Tratamento:");
+
+        jPlanoTratamentoEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPlanoTratamentoEvol.setEnabled(false);
+
+        jLabel126.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel126.setText("Status:");
+
+        grupoBotoesEvol.add(jRDBtRealizarEvol);
+        jRDBtRealizarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRDBtRealizarEvol.setForeground(new java.awt.Color(0, 102, 0));
+        jRDBtRealizarEvol.setSelected(true);
+        jRDBtRealizarEvol.setText("Realizado");
+        jRDBtRealizarEvol.setEnabled(false);
+
+        grupoBotoesEvol.add(jRDBtArealizarEvol);
+        jRDBtArealizarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRDBtArealizarEvol.setForeground(new java.awt.Color(204, 0, 0));
+        jRDBtArealizarEvol.setText("A realizar");
+        jRDBtArealizarEvol.setEnabled(false);
+
+        jLabel125.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel125.setText("Nº Dente:");
+
+        jNumeroDenteEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroDenteEvol.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroDenteEvol.setEnabled(false);
+
+        jLabel122.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel122.setText("Data:");
+
+        jDataOdontogramaEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataOdontogramaEvol.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel124, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel123, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jComboBoxFacesDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel125)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNumeroDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel122)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDataOdontogramaEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jComboBoxTipoProcedimentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel126)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRDBtRealizarEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRDBtArealizarEvol))
+                    .addComponent(jPlanoTratamentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8))
+        );
+
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxFacesDenteEvol, jComboBoxTipoProcedimentoEvol});
+
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel126)
+                    .addComponent(jRDBtRealizarEvol)
+                    .addComponent(jRDBtArealizarEvol)
+                    .addComponent(jComboBoxTipoProcedimentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel123)
+                    .addComponent(jComboBoxFacesDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel125)
+                    .addComponent(jNumeroDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel122)
+                    .addComponent(jDataOdontogramaEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel124)
+                    .addComponent(jPlanoTratamentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabelaOdontogramaEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaOdontogramaEvol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Data", "Evolução"
+                "Código", "Procedimento", "Nº Dente", "Face", "Data", "Status"
             }
-        ));
-        jTabelaProcedimentos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaProcedimentosMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTabelaProcedimentos);
-        if (jTabelaProcedimentos.getColumnModel().getColumnCount() > 0) {
-            jTabelaProcedimentos.getColumnModel().getColumn(0).setMinWidth(80);
-            jTabelaProcedimentos.getColumnModel().getColumn(0).setMaxWidth(80);
-            jTabelaProcedimentos.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaProcedimentos.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaProcedimentos.getColumnModel().getColumn(2).setMinWidth(620);
-            jTabelaProcedimentos.getColumnModel().getColumn(2).setMaxWidth(620);
+        jScrollPane10.setViewportView(jTabelaOdontogramaEvol);
+        if (jTabelaOdontogramaEvol.getColumnModel().getColumnCount() > 0) {
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(1).setMinWidth(200);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(1).setMaxWidth(200);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(3).setMinWidth(110);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(3).setMaxWidth(110);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaOdontogramaEvol.getColumnModel().getColumn(5).setMaxWidth(80);
         }
+
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jBtAdicionarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtAdicionarEvol.setForeground(new java.awt.Color(0, 0, 255));
+        jBtAdicionarEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtAdicionarEvol.setToolTipText("Adicionar");
+        jBtAdicionarEvol.setContentAreaFilled(false);
+        jBtAdicionarEvol.setEnabled(false);
+        jBtAdicionarEvol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdicionarEvolActionPerformed(evt);
+            }
+        });
+
+        jBtRemoverEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtRemoverEvol.setForeground(new java.awt.Color(255, 0, 0));
+        jBtRemoverEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
+        jBtRemoverEvol.setToolTipText("Excluir");
+        jBtRemoverEvol.setContentAreaFilled(false);
+        jBtRemoverEvol.setEnabled(false);
+        jBtRemoverEvol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRemoverEvolActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtRemoverEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAdicionarEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel26Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdicionarEvol, jBtRemoverEvol});
+
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jBtAdicionarEvol)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRemoverEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jPanel26Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdicionarEvol, jBtRemoverEvol});
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -2929,7 +3138,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3032,7 +3241,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     .addComponent(jBt55, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBt54, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(344, 344, 344))
+                .addGap(353, 353, 353))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3145,300 +3354,29 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jBtNovoEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovoEvolucao.setToolTipText("Novo");
-        jBtNovoEvolucao.setEnabled(false);
-        jBtNovoEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setToolTipText("Alterar");
-        jBtAlterarEvolucao.setEnabled(false);
-        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirEvolucao.setToolTipText("Excluir");
-        jBtExcluirEvolucao.setEnabled(false);
-        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarEvolucao.setToolTipText("Gravar");
-        jBtSalvarEvolucao.setEnabled(false);
-        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setToolTipText("Cancelar");
-        jBtCancelarEvolucao.setEnabled(false);
-        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtImpressaoEvolucao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtImpressaoEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
-        jBtImpressaoEvolucao.setToolTipText("Impressão");
-        jBtImpressaoEvolucao.setEnabled(false);
-
-        jBtAuditoriaEvolucao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAuditoriaEvolucao.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaEvolucao.setContentAreaFilled(false);
-        jBtAuditoriaEvolucao.setEnabled(false);
-        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jTabbedPane2.setForeground(new java.awt.Color(0, 102, 0));
-        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel40.setText("Tipo Procedimento:");
-
-        jComboBoxTipoProcedimentoEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoProcedimentoEvol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
-        jComboBoxTipoProcedimentoEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxTipoProcedimentoEvol.setEnabled(false);
-        jComboBoxTipoProcedimentoEvol.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxTipoProcedimentoEvolItemStateChanged(evt);
-            }
-        });
-        jComboBoxTipoProcedimentoEvol.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBoxTipoProcedimentoEvolMouseClicked(evt);
-            }
-        });
-
-        jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel123.setText("Faces do Dente:");
-
-        jComboBoxFacesDenteEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxFacesDenteEvol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Lingual/Palatal", "Mesial", "Oclusal", "Distal", "Vestibular", "Incisal", "Retirado", "Todas" }));
-        jComboBoxFacesDenteEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxFacesDenteEvol.setEnabled(false);
-
-        jLabel124.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel124.setText("Plano Tratamento:");
-
-        jPlanoTratamentoEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPlanoTratamentoEvol.setEnabled(false);
-
-        jLabel126.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel126.setText("Status:");
-
-        grupoBotoesEvol.add(jRDBtRealizarEvol);
-        jRDBtRealizarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRDBtRealizarEvol.setForeground(new java.awt.Color(0, 102, 0));
-        jRDBtRealizarEvol.setSelected(true);
-        jRDBtRealizarEvol.setText("Realizado");
-        jRDBtRealizarEvol.setEnabled(false);
-
-        grupoBotoesEvol.add(jRDBtArealizarEvol);
-        jRDBtArealizarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRDBtArealizarEvol.setForeground(new java.awt.Color(204, 0, 0));
-        jRDBtArealizarEvol.setText("A realizar");
-        jRDBtArealizarEvol.setEnabled(false);
-
-        jLabel125.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel125.setText("Nº Dente:");
-
-        jNumeroDenteEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNumeroDenteEvol.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jNumeroDenteEvol.setEnabled(false);
-
-        jLabel122.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel122.setText("Data:");
-
-        jDataOdontogramaEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataOdontogramaEvol.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel124, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel123, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPlanoTratamentoEvol)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxTipoProcedimentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxFacesDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel125, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel126, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel25Layout.createSequentialGroup()
-                                .addComponent(jNumeroDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel122))
-                            .addComponent(jRDBtRealizarEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRDBtArealizarEvol)
-                            .addComponent(jDataOdontogramaEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-
-        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBoxFacesDenteEvol, jComboBoxTipoProcedimentoEvol});
-
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel126)
-                    .addComponent(jRDBtRealizarEvol)
-                    .addComponent(jRDBtArealizarEvol)
-                    .addComponent(jComboBoxTipoProcedimentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel123)
-                    .addComponent(jComboBoxFacesDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel125)
-                    .addComponent(jNumeroDenteEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel122)
-                    .addComponent(jDataOdontogramaEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel124)
-                    .addComponent(jPlanoTratamentoEvol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jTabelaOdontogramaEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaOdontogramaEvol.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Procedimento", "Nº Dente", "Face", "Data", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, true, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane10.setViewportView(jTabelaOdontogramaEvol);
-        if (jTabelaOdontogramaEvol.getColumnModel().getColumnCount() > 0) {
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(1).setMinWidth(200);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(1).setMaxWidth(200);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(3).setMinWidth(110);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(3).setMaxWidth(110);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(4).setMaxWidth(80);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(5).setMinWidth(80);
-            jTabelaOdontogramaEvol.getColumnModel().getColumn(5).setMaxWidth(80);
-        }
-
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        jBtAdicionarEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtAdicionarEvol.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAdicionarEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtAdicionarEvol.setToolTipText("Adicionar");
-        jBtAdicionarEvol.setContentAreaFilled(false);
-        jBtAdicionarEvol.setEnabled(false);
-        jBtAdicionarEvol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAdicionarEvolActionPerformed(evt);
-            }
-        });
-
-        jBtRemoverEvol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtRemoverEvol.setForeground(new java.awt.Color(255, 0, 0));
-        jBtRemoverEvol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtRemoverEvol.setToolTipText("Excluir");
-        jBtRemoverEvol.setContentAreaFilled(false);
-        jBtRemoverEvol.setEnabled(false);
-        jBtRemoverEvol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtRemoverEvolActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtRemoverEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAdicionarEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel26Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdicionarEvol, jBtRemoverEvol});
-
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtAdicionarEvol)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtRemoverEvol, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-
-        jPanel26Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdicionarEvol, jBtRemoverEvol});
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jScrollPane10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 1, Short.MAX_VALUE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3460,33 +3398,61 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jTabelaProcedimentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaProcedimentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Data", "Evolução"
+            }
+        ));
+        jTabelaProcedimentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaProcedimentosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTabelaProcedimentos);
+        if (jTabelaProcedimentos.getColumnModel().getColumnCount() > 0) {
+            jTabelaProcedimentos.getColumnModel().getColumn(0).setMinWidth(80);
+            jTabelaProcedimentos.getColumnModel().getColumn(0).setMaxWidth(80);
+            jTabelaProcedimentos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaProcedimentos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaProcedimentos.getColumnModel().getColumn(2).setMinWidth(620);
+            jTabelaProcedimentos.getColumnModel().getColumn(2).setMaxWidth(620);
+        }
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3519,6 +3485,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(ContinuacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContinuacaoLayout.createSequentialGroup()
+                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(ContinuacaoLayout.createSequentialGroup()
                         .addComponent(jBtNovoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3528,19 +3497,12 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
                         .addComponent(jBtImpressaoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContinuacaoLayout.createSequentialGroup()
-                        .addGroup(ContinuacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTabbedPane2)
-                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(ContinuacaoLayout.createSequentialGroup()
                         .addGroup(ContinuacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIdEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
@@ -3550,11 +3512,11 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel37)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jNomeInternoEvolucao))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ContinuacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel39)
                             .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGap(24, 24, 24))))
         );
 
         ContinuacaoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressaoEvolucao, jBtNovoEvolucao, jBtSalvarEvolucao});
@@ -3571,9 +3533,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     .addComponent(jBtCancelarEvolucao)
                     .addComponent(jBtImpressaoEvolucao)
                     .addComponent(jBtAuditoriaEvolucao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
+                .addGap(3, 3, 3)
                 .addGroup(ContinuacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addComponent(jLabel37)
@@ -3584,11 +3544,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     .addComponent(jNomeInternoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2))
         );
 
         ContinuacaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtImpressaoEvolucao, jBtNovoEvolucao, jBtSalvarEvolucao});
@@ -3674,7 +3630,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3816,10 +3772,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -3857,11 +3811,11 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 164, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 201, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -3874,7 +3828,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -3882,36 +3836,28 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel2, jPanel4});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
 
-        setBounds(300, 10, 842, 603);
+        setBounds(300, 10, 847, 531);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
@@ -4106,7 +4052,24 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objAtendOdonto.setNomeInterno(jNomeInterno.getText());
                         objAtendOdonto.setDeptoOdonto(deptoTecnico);
                         controle.incluirMovTec(objAtendOdonto);
-                        if (rows != 0 && jRBtRealizado.isSelected() == true) {
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setQtdAtend(qtdTipo);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        if (rows != 0) {
                             incluirOdontograma();
                             // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
                             objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
@@ -4383,7 +4346,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 DefaultTableModel pOdontoEvol = (DefaultTableModel) jTabelaOdontogramaEvol.getModel();
                 pOdontoEvol.getDataVector().clear(); // limpa a tabela 
                 do {
-                    dataOdonto = conecta.rs.getString("DataOdontoEvol");
+                    dataOdonto = conecta.rs.getString("DataOdontograma");
                     if (dataOdonto != null) {
                         String dia = dataOdonto.substring(8, 10);
                         String mes = dataOdonto.substring(5, 7);
@@ -4486,22 +4449,39 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     controlar.incluirProcedimentoOdonto(objProcedOdonto);
                     buscarrCodProd();
-                    if (rows != 0 && jRBtRealizado.isSelected() == true) {
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                    //                                       
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setQtdAtend(qtdTipo);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
+                    if (rows != 0) {
                         incluirOdontogramaEvolucao();
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        objRegAtend.setAtendeEvol(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setQtdAtend(qtdTipo);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        controlRegAtend.alterarRegEvol(objRegAtend);
                     } else {
                         qtdTipo = 1;
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
@@ -4509,7 +4489,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setAtendeEvol(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
                         //
@@ -4517,7 +4497,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         objRegAtend.setQtdAtend(qtdTipo);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        controlRegAtend.alterarRegEvol(objRegAtend);
                         qtdTipo = 0;
                     }
                     objLog2();
@@ -5999,7 +5979,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel17;
@@ -6019,7 +5998,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -6042,7 +6020,6 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -6068,6 +6045,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jQualOutraDoenca.setDocument(new LimiteDigitosAlfa(93));
         jTextoDoenca.setLineWrap(true);
         jTextoDoenca.setWrapStyleWord(true);
+        jEvolucao.setLineWrap(true);
+        jEvolucao.setLineWrap(true);
         jPlanoTratamento.setDocument(new LimiteDigitosAlfa(84));
     }
 
@@ -6712,6 +6691,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtFinalizar.setEnabled(true);
         jBtAuditoriaOdonto.setEnabled(true);
+        //
+        jBtPesqInterno.setEnabled(!true);
         //
         jBtNovoEvolucao.setEnabled(true);
         jBtNovoPrescricao.setEnabled(true);

@@ -227,7 +227,7 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
         jTabelaFornecedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Razão Social", "Status", "CNPJ"
@@ -916,7 +916,7 @@ public final class TelaFornecedorAcervo extends javax.swing.JInternalFrame {
         jTabelaHistoricoProdutos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaHistoricoProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Data Compra", "Código", "Titulo do Acervo", "Qtde.", "Vl. Unit."

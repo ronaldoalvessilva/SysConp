@@ -55,7 +55,7 @@ public class ControleEvolucaoJuridico {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOJURIDICO SET DataEvo=?,IdInternoCrc=?,IdLanc=?,DataEnca=?,TipoAdvogado=?,Resposta=?,HoraEnvio=?,SetorEncaminhamento=?,Evolucao=?,UsuarioInsert=?,DataInsert=?,HorarioInsert=? WHERE IdEvo='" + objEvoluJuri.getIdEvo() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOJURIDICO SET DataEvo=?,IdInternoCrc=?,IdLanc=?,DataEnca=?,TipoAdvogado=?,Resposta=?,HoraEnvio=?,SetorEncaminhamento=?,Evolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEvo='" + objEvoluJuri.getIdEvo() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvoluJuri.getDataEvo().getTime()));
             pst.setInt(2, objEvoluJuri.getIdInternoCrc());
             pst.setInt(3, objEvoluJuri.getIdLanc());
