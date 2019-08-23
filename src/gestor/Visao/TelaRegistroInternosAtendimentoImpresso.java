@@ -1417,18 +1417,6 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         conecta.desconecta();
     }
 
-    public void pesquisarUsuarioLiberador() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR "
-                    + "WHERE NomeFunc='" + nameUser + "'");
-            conecta.rs.first();
-            usuario_LIBERADOR = conecta.rs.getString("NomeFunc");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
     public void preencherTabelaRegistros(String sql) {
         count = 0;
         ArrayList dados = new ArrayList();
