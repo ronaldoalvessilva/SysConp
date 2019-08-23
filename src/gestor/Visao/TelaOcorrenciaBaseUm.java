@@ -43,12 +43,16 @@ import com.lowagie.text.pdf.PdfWriter;
 import gestor.Controle.ControleOcorrenciaBaseSegurancaAuxiliar;
 import gestor.Modelo.OcorrenciaSeguranca;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloBaseUm.codAbrirB1;
 import static gestor.Visao.TelaModuloBaseUm.codAlterarB1;
+import static gestor.Visao.TelaModuloBaseUm.codConsultarB1;
 import static gestor.Visao.TelaModuloBaseUm.codExcluirB1;
 import static gestor.Visao.TelaModuloBaseUm.codGravarB1;
 import static gestor.Visao.TelaModuloBaseUm.codIncluirB1;
 import static gestor.Visao.TelaModuloBaseUm.codUserAcessoB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.codigoUserB1;
+import static gestor.Visao.TelaModuloBaseUm.codigoUserGroupB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeGrupoB1;
 import static gestor.Visao.TelaModuloBaseUm.nomeTelaB1;
 import static gestor.Visao.TelaModuloBaseUm.telaLivroOcorrenciasB1;
@@ -895,6 +899,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLivroOcorrenciasB1);
         if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLivroOcorrenciasB1) && codIncluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
             acao = 1;
             Novo();
@@ -912,6 +917,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLivroOcorrenciasB1);
         if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLivroOcorrenciasB1) && codAlterarB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
             objOcorr.setStatusLanc(jStatusOcorrencia.getText());
             if (jStatusOcorrencia.getText().equals("FINALIZADO")) {
@@ -934,6 +940,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLivroOcorrenciasB1);
         if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLivroOcorrenciasB1) && codExcluirB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
             statusMov = "Excluiu";
             horaMov = jHoraSistema.getText();
@@ -960,6 +967,7 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaLivroOcorrenciasB1);
         if (codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLivroOcorrenciasB1) && codGravarB1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES")) {
             if (jDataOcorrencia.getDate() == null) {
                 jDataOcorrencia.requestFocus();
@@ -1815,5 +1823,43 @@ public class TelaOcorrenciaBaseUm extends javax.swing.JInternalFrame {
         } else {
             return;
         }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserB1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserB1 + "'");
+            conecta.rs.first();
+            codigoUserGroupB1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoB1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoB1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserB1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoB1 = conecta.rs.getInt("IdUsuario");
+            codAbrirB1 = conecta.rs.getInt("Abrir");
+            codIncluirB1 = conecta.rs.getInt("Incluir");
+            codAlterarB1 = conecta.rs.getInt("Alterar");
+            codExcluirB1 = conecta.rs.getInt("Excluir");
+            codGravarB1 = conecta.rs.getInt("Gravar");
+            codConsultarB1 = conecta.rs.getInt("Consultar");
+            nomeTelaB1 = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }
