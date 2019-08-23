@@ -73,6 +73,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -233,6 +234,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public static TelaFVG tFVG;
     public static TelaVA tVA;
     public static TelaTPC tPC;
+    //
+    int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -4386,10 +4389,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -5119,12 +5124,14 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                         objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setAtendeEvol(atendido);
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);

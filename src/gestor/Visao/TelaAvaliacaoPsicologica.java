@@ -31,6 +31,8 @@ import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
+import static gestor.Visao.TelaModuloPsicologia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoAvalPsiIntPSI;
 import java.awt.Color;
 import java.awt.Image;
@@ -2035,14 +2037,17 @@ public class TelaAvaliacaoPsicologica extends javax.swing.JInternalFrame {
                         objAvaPsi.setNomeInterno(jNomeInterno.getText());
                         objAvaPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAvaPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);

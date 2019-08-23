@@ -69,6 +69,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -164,6 +165,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     //
     int tipoDiagnosticoMed;
     String admEvolucao = "Sim";
+    int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaAdmissaoMedica
@@ -3855,10 +3857,12 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -4348,12 +4352,14 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolPS);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolPsiquiatrica.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoPsiquiatrica.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -4602,12 +4608,14 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENF);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolME);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucaoMedica.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);

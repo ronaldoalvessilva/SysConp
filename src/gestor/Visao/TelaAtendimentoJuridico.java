@@ -30,7 +30,9 @@ import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeModuloJURIDICO;
 import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoEvolucaoJURI;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoManuJURI;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoaAtividadesJURI;
@@ -1794,12 +1796,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     controle.incluirMovTec(objAtendJuri);
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());//
                     objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                    objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -2179,12 +2183,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
                         objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setAtendeEvol(atendido);
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);

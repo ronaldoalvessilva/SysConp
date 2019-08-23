@@ -42,7 +42,9 @@ import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeModuloTO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.telaAtendimentoInternoAvaIITO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.telaAtendimentoInternoAvaITO;
 import static gestor.Visao.TelaModuloTerapiaOcupacional.telaAtendimentoInternoEvolTO;
@@ -4533,14 +4535,17 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.incluirMovTec(objAtend);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setNomeDepartamento(nomeModuloTO);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
@@ -5197,12 +5202,14 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                    objRegAtend.setNomeDepartamento(nomeModuloTO);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);

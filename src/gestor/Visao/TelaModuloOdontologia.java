@@ -154,6 +154,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     String pNomeOCR_ODON = "";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    public static int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaOdontologia

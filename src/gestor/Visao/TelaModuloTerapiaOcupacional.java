@@ -271,6 +271,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     String pNomeFCII = "";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    public static int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaTerapia

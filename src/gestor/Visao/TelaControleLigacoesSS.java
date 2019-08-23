@@ -29,7 +29,9 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloServicoSocial.telaControleLigacoesTelSS;
 import java.awt.Color;
 import java.awt.Image;
@@ -169,7 +171,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Ligações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Ligações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("ID Controle:");
@@ -289,7 +291,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
         jTabelaControle.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaControle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Interno", "Telefone"
@@ -869,14 +871,17 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
                             objConLiga.setNomeInterno(jNomeInterno.getText());
                             control.incluirLigacoes(objConLiga);
                             buscarCodLiga();
-                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO      
+                            atendido = "Sim";
                             objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                             objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                             objRegAtend.setIdDepartamento(codigoDepartamentoSSLIG);
+                            objRegAtend.setNomeDepartamento(nomeModuloSS);
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             objRegAtend.setAtendido(atendido);
                             objRegAtend.setDataAtendimento(jDataControle.getDate());
                             objRegAtend.setIdAtend(Integer.valueOf(jIDControle.getText()));
+                            objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                             //
                             objRegAtend.setUsuarioUp(nameUser);
                             objRegAtend.setDataUp(dataModFinal);

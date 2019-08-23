@@ -36,7 +36,9 @@ import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codigoUserGroupPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
+import static gestor.Visao.TelaModuloPedagogia.nomeModuloPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
+import static gestor.Visao.TelaModuloPedagogia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoFami_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoFemi_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoManu_PEDA;
@@ -2933,14 +2935,17 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objAdmPedago.setDeptoPedagogia(deptoTecnico);
                     controleMov.incluirMovTec(objAdmPedago);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -3626,12 +3631,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jCodigoEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -4282,7 +4289,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jUltimaEscola.setEnabled(true);
         jSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
-        jObservacao.setEnabled(true);        
+        jObservacao.setEnabled(true);
         //
         jBtPesquisarInterno.setEnabled(true);
         //

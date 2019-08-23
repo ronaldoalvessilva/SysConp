@@ -38,15 +38,15 @@ import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
 import static gestor.Visao.TelaModuloOdontologia.codigoUserGroupODON;
 import static gestor.Visao.TelaModuloOdontologia.codigoUserODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
+import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
 import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
+import static gestor.Visao.TelaModuloOdontologia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoEvolucao_ODON;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternoManu_ODON;
 import static gestor.Visao.TelaModuloOdontologia.telaAtendimentoInternosPrescricao_ODON;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -56,9 +56,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -4054,14 +4052,17 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objAtendOdonto.setNomeInterno(jNomeInterno.getText());
                         objAtendOdonto.setDeptoOdonto(deptoTecnico);
                         controle.incluirMovTec(objAtendOdonto);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
@@ -4448,7 +4449,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objProcedOdonto.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     controlar.incluirProcedimentoOdonto(objProcedOdonto);
                     buscarrCodProd();
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoODON);
@@ -4464,19 +4466,21 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     controlRegAtend.alterarRegEvol(objRegAtend);
                     if (rows != 0) {
                         incluirOdontogramaEvolucao();
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                         objRegAtend.setAtendeEvol(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setQtdAtend(qtdTipo);
                         controlRegAtend.alterarRegEvol(objRegAtend);
                     } else {
                         qtdTipo = 1;

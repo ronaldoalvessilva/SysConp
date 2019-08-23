@@ -342,6 +342,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //
     String pNomeATM = "";
     //
+    public static int pQUANTIDADE_ATENDIDA = 1;
 
     /**
      * Creates new form TelaPedagogia

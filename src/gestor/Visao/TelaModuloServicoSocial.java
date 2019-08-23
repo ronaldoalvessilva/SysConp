@@ -264,6 +264,9 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    //
+    public static int pQUANTIDADE_ATENDIDA = 1;
+  
 
     //  
     /**

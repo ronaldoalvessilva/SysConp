@@ -28,7 +28,9 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloServicoSocial.telaAtendimentoFamiliaSS;
 import static gestor.Visao.TelaModuloServicoSocial.telaAtendimentoFamilia_EVO_SS;
 import java.awt.Color;
@@ -82,7 +84,8 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     String atendido = "Sim";
     String opcao = "Não";
     public static int codigoDepartamentoSS = 0;
-    String tipoAtendimentoAdm = "Atendimento Fafmiliar";
+    String tipoAtendimentoAdm = "Atendimento Familiar";
+    String tipoAtendimentoEvol = "Evolução Familiar";
     String dataEvolucao;
 
     /**
@@ -1872,14 +1875,17 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
                     objAtendf.setHoraInsert(horaMov);
                     control.incluirAtendFamiliar(objAtendf);
                     buscarCodAtendf();
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                    objRegAtend.setNomeDepartamento(nomeModuloSS);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAtendf.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIDAtendf.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -2170,7 +2176,7 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:
+//        // TODO add your handling code here:
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
@@ -2197,14 +2203,24 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoFamilia_EVO_SS);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaAtendimentoFamilia_EVO_SS) && codIncluirSS == 1) {
-            acao = 3;
-            limparCamposEvolucao();
-            bloquearCampos();
-            bloquearBotoes();
-            NovoE();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+       // AINDA NÃO FOI IMPLEMENTADO, VERIFICAR COMO CONTABILIZAR A VISITA PELA BIOMETRIA.
+//            verificarInternoRegistradoAdm();
+//            if (atendido == null) {
+//                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+//            } else if (atendido.equals("")) {
+//                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+//            } else if (atendido.equals("Sim")) {
+//                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
+//            } else if (atendido.equals("Não")) {
+                acao = 3;
+                limparCamposEvolucao();
+                bloquearCampos();
+                bloquearBotoes();
+                NovoE();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+//            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -2280,7 +2296,25 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
                     control.incluirEvolucaoFamiliar(objAtendf);
                     buscarCodigoEvolucao();
                     objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                    objRegAtend.setNomeDepartamento(nomeModuloSS);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataRegistro.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jIDAtendf.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                    //
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegEvol(objRegAtend);
                     bloquearCampos();
                     bloquearBotoes();
                     limparCamposEvolucao();
@@ -2322,7 +2356,7 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
     private void jBtAuditoriaEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEActionPerformed
         // TODO add your handling code here:
         TelaAuditoriaAtendimentoFamiliarEvolucao objAudiEvo = new TelaAuditoriaAtendimentoFamiliarEvolucao();
-         TelaModuloServicoSocial.jPainelServicoSocial.add(objAudiEvo);
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudiEvo);
         objAudiEvo.show();
     }//GEN-LAST:event_jBtAuditoriaEActionPerformed
 
@@ -2849,6 +2883,24 @@ public class TelaAtendimentoFamiliar extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar ATENDIMENTO \nERRO: " + ex);
         }
+    }
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataAtendf.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoSS = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void limparCamposEvolucao() {

@@ -21,6 +21,7 @@ import gestor.Modelo.EvolucaoPsicologica;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPsicologia.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -36,6 +37,7 @@ import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoAdmIntManuPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoEvolIntPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaMovimentacaoPareIntPSI;
@@ -2429,14 +2431,17 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.incluirMovTec(objAdmPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                        atendido = "Sim";
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         objRegAtend.setAtendido(atendido);
                         objRegAtend.setDataAtendimento(jDataLanc.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
@@ -2850,12 +2855,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                    objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
