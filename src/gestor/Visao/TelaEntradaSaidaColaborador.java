@@ -26,6 +26,7 @@ import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
 import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
 import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
 import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaCOLBioP1;
 import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaCOLManuP1;
 import static gestor.Visao.TelaModuloPortarias.telaEntradaSaidaCOLcolP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -203,7 +204,7 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -315,7 +316,7 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
         jTabelaEntradaSaidaCola.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaCola.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -656,7 +657,7 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
         jTabelaColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Colaborador", "Data Entrada", "Horário", "Data Saída", "Horário"
@@ -1558,7 +1559,8 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
 
     private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
         // TODO add your handling code here:
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaCOLManuP1) && codAbrirP1 == 1) {
+        buscarAcessoUsuario(telaEntradaSaidaCOLBioP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaEntradaSaidaCOLBioP1) && codAbrirP1 == 1) {
             if (jStatusEntCola.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível acessar a biomeria com o regisro finalizado.");
             } else {
