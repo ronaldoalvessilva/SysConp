@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
@@ -62,6 +63,8 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -106,7 +109,9 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
-    
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -183,6 +188,8 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jMotivo = new javax.swing.JTextArea();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBoxAtendente = new javax.swing.JComboBox<>();
         jBtSalvar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -208,7 +215,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -414,7 +421,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                 .addContainerGap()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,56 +519,74 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jMotivo.setEnabled(false);
         jScrollPane2.setViewportView(jMotivo);
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel14.setText("Atendente");
+
+        jComboBoxAtendente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAtendente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxAtendente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAtendente.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jNomeInternoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)))
-                            .addComponent(jLabel10)
-                            .addComponent(jCelaKitBio, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jNomeInternoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel6)
+                        .addComponent(jCelaKitBio, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jIdInternoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jRegimeKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jNomeDepartamento, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel7))))
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxAtendente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jIdInternoKitImp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jComboBoxTipoMovimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel4)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))))
-                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8)))
+                                    .addComponent(jLabel14))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,9 +605,15 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -608,8 +639,8 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/filesave.png"))); // NOI18N
@@ -685,9 +716,9 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                     .addComponent(jBtSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addGap(129, 129, 129))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
@@ -804,7 +835,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                 .addComponent(jBtImprimirAutorização)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtLiberarAutorizacao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtAuditoria)
                     .addComponent(jBtLiberador))
@@ -827,17 +858,18 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
             .addGroup(layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setBounds(300, 30, 701, 526);
+        setBounds(300, 30, 701, 495);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
@@ -854,6 +886,8 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                 JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
             } else if (jComboBoxTipoMovimentacao.getSelectedItem() == null || jComboBoxTipoMovimentacao.getSelectedItem().equals("") || jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de atendimento para o interno.");
+            } else if (jComboBoxAtendente.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente para o interno.");
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
@@ -869,6 +903,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
                         objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                         objRegAtend.setDataReg(jDataRegistro.getDate());
                         objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
@@ -885,6 +920,17 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                         buscarRegistro();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                        objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setAtendido(pATENDENDO);
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
+                        objRegAtend.setDataInsert(dataModFinal);
+                        objRegAtend.setHorarioInsert(horaMov);
+                        objRegAtend.setEmAtendimento(pCONCLUIDO);
+                        control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         relatorioAutorizacao();
@@ -1060,6 +1106,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
+            jComboBoxAtendente.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1080,6 +1127,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloENFER);
+                jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));
@@ -1123,6 +1171,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             if (resposta == JOptionPane.YES_OPTION) {
                 acao = 1;
                 Novo();
+                pesquisarAtendente();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1185,6 +1234,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     public static javax.swing.JTextField jCNC;
     public static javax.swing.JTextField jCelaKitBio;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBoxAtendente;
     public static javax.swing.JComboBox jComboBoxTipoMovimentacao;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
@@ -1199,6 +1249,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
@@ -1304,6 +1355,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
         jNomeDepartamento.setText(nomeModuloENFER);
+        jComboBoxAtendente.setSelectedItem("Selecione...");
         jIdInternoKitImp.setText("");
         jCNC.setText("");
         jRegimeKitImp.setText("");
@@ -1315,6 +1367,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
 //        jBtSalvar.setEnabled(true);
@@ -1326,6 +1379,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1338,6 +1392,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         if (jIdRegistro.getText().equals("")) {
             jDataRegistro.setDate(null);
             jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
+            jComboBoxAtendente.setSelectedItem("Selecione...");
             jHorarioSaidaEntrada.setText("");
             jNomeDepartamento.setText("");
             jIdInternoKitImp.setText("");
@@ -1351,6 +1406,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1360,6 +1416,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         } else {
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1413,6 +1470,23 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
             conecta.rs.last();
             jIdRegistro.setText(conecta.rs.getString("IdRegistro"));
         } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarAtendente() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "' "
+                    + "ORDER BY NomeUsuario");
+            conecta.rs.first();
+            do {
+                jComboBoxAtendente.addItem(conecta.rs.getString("NomeUsuario"));
+            } while (conecta.rs.next());
+            jComboBoxAtendente.updateUI();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
         }
         conecta.desconecta();
     }

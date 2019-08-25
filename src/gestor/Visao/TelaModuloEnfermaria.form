@@ -107,7 +107,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="66" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Registro de Atendimento de Internos - (Biometria ou Impress&#xe3;o)"/>
+                <Property name="text" type="java.lang.String" value="Registro de Atendimento de Internos - (Biometria ou Impress&#xe3;o)/Cancelamento"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="RegistrarInternoAtendimento">
@@ -130,6 +130,16 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegistroAtendimentoImpressoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarAtendimentoInterno">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cancelar  Atendimento de Interno"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarAtendimentoInternoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

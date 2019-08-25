@@ -9,6 +9,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
@@ -48,6 +49,8 @@ import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRegistroIntAtendENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRegistroIntAtendInciarLeitorENF;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -60,6 +63,8 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
+    //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -98,6 +103,9 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -183,7 +191,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -748,6 +756,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
                     objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
+                    objRegAtend.setUsuarioAtendente(nameUser);
                     objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setDataReg(jDataRegistro.getDate());
                     objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
@@ -759,6 +768,17 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
                     buscarRegistro();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                    objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setAtendido(pATENDENDO);
+                    objRegAtend.setUsuarioAtendente(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    objRegAtend.setEmAtendimento(pCONCLUIDO);
+                    control_ATENE_TV.iniciarAtendimento(objRegAtend);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1354,6 +1374,9 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     }
 
     public void Novo() {
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        //
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");

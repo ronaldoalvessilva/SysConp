@@ -39,7 +39,7 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert,Qtd) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,AssinaturaDigital,Atendido,UsuarioInsert,DataInsert,HorarioInsert,Qtd,UsuarioAtendente) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
@@ -51,6 +51,7 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(9, objRegAtend.getDataInsert());
             pst.setString(10, objRegAtend.getHorarioInsert());
             pst.setInt(11, objRegAtend.getQtdAtend());
+            pst.setString(12, objRegAtend.getUsuarioAtendente());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -66,7 +67,7 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarColaborador(objRegAtend.getNomeFunc(), objRegAtend.getCodigoFunc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaDigital,AssinaturaLiberador,DataAssinatura,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaDigital,AssinaturaLiberador,DataAssinatura,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Impresso,UsuarioAtendente) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
             pst.setString(2, objRegAtend.getHorario());
             pst.setInt(3, codInt);
@@ -83,9 +84,10 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(14, objRegAtend.getDataInsert());
             pst.setString(15, objRegAtend.getHorarioInsert());
             pst.setString(16, objRegAtend.getImpressaoAuto());
+            pst.setString(17, objRegAtend.getUsuarioAtendente());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR - REGISTRO os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objRegAtend;
@@ -96,7 +98,7 @@ public class ControleRegistroAtendimentoInternoBio {
         buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,IdDepartamento,Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Qtd=? "
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_ATENDIMENTO_INTERNO_PSP SET TipoAtendimento=?,IdDepartamento=?,Atendido=?,DataAtendimento=?,IdAtend=?,AtendeEvol=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Qtd=? "
                     + "WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "' "
                     + "AND Atendido='" + pAtendido + "' "
                     + "AND IdDepartamento='" + objRegAtend.getIdDepartamento() + "'");

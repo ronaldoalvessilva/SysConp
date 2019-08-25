@@ -5,9 +5,11 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAdmissaoMedica.jDataNascAdm;
 import static gestor.Visao.TelaAdmissaoMedica.jFotoInternoAdm;
 import static gestor.Visao.TelaAdmissaoMedica.jIdInternoAdm;
@@ -17,6 +19,10 @@ import static gestor.Visao.TelaAdmissaoMedica.jNomeMaeInterno;
 import static gestor.Visao.TelaAdmissaoMedica.jSexo;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaAdmissaoMedica.codigoDepartamentoENF;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaAdmissaoMedica.CODIGO_ATENDIMENTO_TV_ADM;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,6 +41,10 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     DadosPenaisCrc objDadosPena = new DadosPenaisCrc();
+    //
+    ControleConfirmacaoAtendimento control = new ControleConfirmacaoAtendimento();
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    //
     int flag;
     String caminho;
     String nomeInterno;
@@ -45,12 +55,22 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     String idInt;
     String atendido = "Não";
     int codigoDepartamento = 0;
+    //
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
+    //
+    String pATENDIDO = "Sim";
+    String pCONCLUIDO = "Não";
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
     public TelaPesqInternoAdmMedico() {
         initComponents();
+        statusMov = "Incluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
         procurarDepartamento();
     }
 
@@ -80,7 +100,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos Registrados {DM} :::...");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -160,7 +180,7 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Registro"
@@ -352,13 +372,36 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
                 jNomeMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAdm.setIcon(i);
-                jFotoInternoAdm.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAdm.setIcon(i);
+                    jFotoInternoAdm.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoAdm.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO." + e);
             }
+            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
+            //ABORTADO PROVISORIAMENTE - FOI PARA A TELA DE REGISTRO DE BIOMETRIA
+//            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+//            objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+//            objRegAtend.setNomeDepartamento(nomeModuloENFER);
+//            objRegAtend.setAtendido(pATENDIDO);
+//            objRegAtend.setUsuarioInsert(nameUser);
+//            objRegAtend.setDataInsert(dataModFinal);
+//            objRegAtend.setHorarioInsert(horaMov);
+//            objRegAtend.setEmAtendimento(pCONCLUIDO);
+//            control.iniciarAtendimento(objRegAtend);
+//            buscarCodigo_REGISTRO();
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -408,6 +451,18 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaInterno;
     // End of variables declaration//GEN-END:variables
   // Método de pesquisa pela Descrição
+
+    // PEGA O ID DO REGISTRO PARA SER EXCLUIDO CASO O ATENDENTE CANCELE A ADMISSÃO DO INTERNO
+    public void buscarCodigo_REGISTRO() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_PSP_INTERNO_TV");
+            conecta.rs.last();
+            CODIGO_ATENDIMENTO_TV_ADM = conecta.rs.getInt("IdAPIT");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
