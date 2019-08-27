@@ -19,10 +19,8 @@ import static gestor.Visao.TelaAdmissaoMedica.jNomeMaeInterno;
 import static gestor.Visao.TelaAdmissaoMedica.jSexo;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaAdmissaoMedica.codigoDepartamentoENF;
-import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaAdmissaoMedica.CODIGO_ATENDIMENTO_TV_ADM;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -390,18 +388,6 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO." + e);
             }
-            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
-            //ABORTADO PROVISORIAMENTE - FOI PARA A TELA DE REGISTRO DE BIOMETRIA
-//            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-//            objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-//            objRegAtend.setNomeDepartamento(nomeModuloENFER);
-//            objRegAtend.setAtendido(pATENDIDO);
-//            objRegAtend.setUsuarioInsert(nameUser);
-//            objRegAtend.setDataInsert(dataModFinal);
-//            objRegAtend.setHorarioInsert(horaMov);
-//            objRegAtend.setEmAtendimento(pCONCLUIDO);
-//            control.iniciarAtendimento(objRegAtend);
-//            buscarCodigo_REGISTRO();
             dispose();
         }
     }//GEN-LAST:event_jBtEnviarActionPerformed
@@ -451,18 +437,6 @@ public class TelaPesqInternoAdmMedico extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaInterno;
     // End of variables declaration//GEN-END:variables
   // Método de pesquisa pela Descrição
-
-    // PEGA O ID DO REGISTRO PARA SER EXCLUIDO CASO O ATENDENTE CANCELE A ADMISSÃO DO INTERNO
-    public void buscarCodigo_REGISTRO() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_PSP_INTERNO_TV");
-            conecta.rs.last();
-            CODIGO_ATENDIMENTO_TV_ADM = conecta.rs.getInt("IdAPIT");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();

@@ -22,21 +22,23 @@ public class ControleConfirmacaoAtendimento {
     int codInterno;
     int codDepto;
     String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
 
     public RegistroAtendimentoInternos iniciarAtendimento(RegistroAtendimentoInternos objRegAtend) {
         pesquisaInternos(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
         pesquisaDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_PSP_INTERNO_TV(IdInternoCrc,IdDepartamento,IdRegistro,Atendendo,UsuarioAtendente,DataAtendimento,HorarioInicio,Concluido) VALUES(?,?,?,?,?,?,?,?)");
-            pst.setInt(1, codInterno);
-            pst.setInt(2, codDepto);
-            pst.setInt(3, objRegAtend.getIdRegistro());
-            pst.setString(4, objRegAtend.getAtendido());
-            pst.setString(5, objRegAtend.getUsuarioAtendente());
-            pst.setString(6, objRegAtend.getDataInsert());
-            pst.setString(7, objRegAtend.getHorarioInsert());
-            pst.setString(8, objRegAtend.getEmAtendimento());            
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_PSP_INTERNO_TV(StatusAtendimento,IdInternoCrc,IdDepartamento,IdRegistro,Atendendo,UsuarioAtendente,DataAtendimento,HorarioInicio,Concluido) VALUES(?,?,?,?,?,?,?,?,?)");
+            pst.setString(1, objRegAtend.getStatusAtendimento());
+            pst.setInt(2, codInterno);
+            pst.setInt(3, codDepto);
+            pst.setInt(4, objRegAtend.getIdRegistro());
+            pst.setString(5, objRegAtend.getAtendido());
+            pst.setString(6, objRegAtend.getUsuarioAtendente());
+            pst.setString(7, objRegAtend.getDataInsert());
+            pst.setString(8, objRegAtend.getHorarioInsert());
+            pst.setString(9, objRegAtend.getEmAtendimento());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR - ATENDIMENTO os Dados do INTERNO.\n\nERRO: " + ex);
@@ -46,15 +48,15 @@ public class ControleConfirmacaoAtendimento {
     }
 
     public RegistroAtendimentoInternos confirmarAtendimento(RegistroAtendimentoInternos objRegAtend) {
-        pesquisaInternos(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
-        pesquisaDepartamento(objRegAtend.getNomeDepartamento());
+      
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_PSP_INTERNO_TV SET Concluido=?,HorarioTermino=?,IdAdentimento=?,TipoAtendimento=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc()+ "'AND IdDepartamento='" + objRegAtend.getIdDepartamento() + "'AND Atendendo='" + pATENDENDO + "'");
-            pst.setString(1, objRegAtend.getConcluido());
-            pst.setString(2, objRegAtend.getHorarioUp());
-            pst.setInt(3, objRegAtend.getIdAtend());
-            pst.setString(4, objRegAtend.getTipoAtemdimento());
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_PSP_INTERNO_TV SET StatusAtendimento=?,Concluido=?,HorarioTermino=?,IdAdentimento=?,TipoAtendimento=? WHERE IdInternoCrc='" + objRegAtend.getIdInternoCrc() + "'AND IdDepartamento='" + objRegAtend.getIdDepartamento() + "'AND Atendendo='" + pATENDENDO + "'AND Concluido='" + pCONCLUIDO + "'");
+            pst.setString(1, objRegAtend.getStatusAtendimento());
+            pst.setString(2, objRegAtend.getConcluido());
+            pst.setString(3, objRegAtend.getHorarioUp());
+            pst.setInt(4, objRegAtend.getIdAtend());
+            pst.setString(5, objRegAtend.getTipoAtemdimento());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados do INTERNO.\n\nERRO: " + ex);
@@ -62,7 +64,8 @@ public class ControleConfirmacaoAtendimento {
         conecta.desconecta();
         return objRegAtend;
     }
-     public RegistroAtendimentoInternos excluirAtendimento(RegistroAtendimentoInternos objRegAtend) {
+
+    public RegistroAtendimentoInternos excluirAtendimento(RegistroAtendimentoInternos objRegAtend) {
 
         conecta.abrirConexao();
         try {

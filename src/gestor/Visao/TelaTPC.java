@@ -12,9 +12,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.IndicadoresAcompanhamento;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaAdmissaoEnfermagem.acao;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdLanc;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jStatusLanc;
 import static gestor.Visao.TelaAdmissaoEnfermagem.pGravar;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -43,6 +41,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoEnfermeiro;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoEnfermeiro;
 
 /**
  *
@@ -1028,8 +1028,8 @@ public class TelaTPC extends javax.swing.JDialog {
         buscarAcessoUsuario(telaIndAcompanhaAbaE);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAcompanhaAbaE) && codGravarENF == 1) {
             objPerfilInter.setIdIndAco(Integer.valueOf(jIdLanc.getText()));
-            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-            objPerfilInter.setNomeInternoPerfil(jNomeInternoMedico.getText());
+            objPerfilInter.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+            objPerfilInter.setNomeInternoPerfil(jNomeInternoEnfermeiro.getText());
             objPerfilInter.setHipertensao((String) jComboBoxHipertensao.getSelectedItem());
             objPerfilInter.setEscabiose((String) jComboBoxEscabiose.getSelectedItem());
             objPerfilInter.setEscabioseCura((String) jComboBoxEscabioseCont.getSelectedItem());
@@ -1194,6 +1194,7 @@ public class TelaTPC extends javax.swing.JDialog {
         // SE pGravar IGUAL A 1 - GRAVOU A INCLUSÃO
         // SE pGravar IGUAL A 2 - GRAVOU A ALTERAÇÃO
         if (pGravar == 1 || pGravar == 2) {
+            acao = 5;
             dispose();
         } else if (pAcao == 7 && pGravar == 1) {
             dispose();

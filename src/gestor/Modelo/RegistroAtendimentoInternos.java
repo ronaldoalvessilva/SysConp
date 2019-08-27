@@ -50,11 +50,12 @@ public class RegistroAtendimentoInternos {
     private int idAPIT;
     private String concluido;
     private String usuarioAtendente;
+    private String statusAtendimento;
 
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtdAtendSem, int qtdAtendMes, String emAtendimento, int idAPIT, String concluido, String usuarioAtendente) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtdAtendSem, int qtdAtendMes, String emAtendimento, int idAPIT, String concluido, String usuarioAtendente, String statusAtendimento) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -89,6 +90,7 @@ public class RegistroAtendimentoInternos {
         this.idAPIT = idAPIT;
         this.concluido = concluido;
         this.usuarioAtendente = usuarioAtendente;
+        this.statusAtendimento = statusAtendimento;
     }
 
     /**
@@ -565,5 +567,19 @@ public class RegistroAtendimentoInternos {
      */
     public void setUsuarioAtendente(String usuarioAtendente) {
         this.usuarioAtendente = usuarioAtendente;
+    }
+
+    /**
+     * @return the statusAtendimento
+     */
+    public String getStatusAtendimento() {
+        return statusAtendimento;
+    }
+
+    /**
+     * @param statusAtendimento the statusAtendimento to set
+     */
+    public void setStatusAtendimento(String statusAtendimento) {
+        this.statusAtendimento = statusAtendimento;
     }
 }

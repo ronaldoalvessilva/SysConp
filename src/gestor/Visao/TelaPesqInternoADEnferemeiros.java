@@ -11,9 +11,7 @@ import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jDataNascimento;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jEstadoCivilMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jFotoInternoMedico;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jMaeInterno;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jPaiInternoMedico;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -23,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoEnfermeiro;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoEnfermeiro;
 
 /**
  *
@@ -75,7 +75,7 @@ public class TelaPesqInternoADEnferemeiros extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisa de Internos {OD} :::...");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Pronturários de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -155,7 +155,7 @@ public class TelaPesqInternoADEnferemeiros extends javax.swing.JInternalFrame {
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -326,8 +326,8 @@ public class TelaPesqInternoADEnferemeiros extends javax.swing.JInternalFrame {
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIdInternoMedico.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInternoMedico.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoEnfermeiro.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jNomeInternoEnfermeiro.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoInternoMedico.setIcon(i);

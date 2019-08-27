@@ -5,7 +5,6 @@
  */
 package gestor.Visao;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import gestor.Controle.ControleAdmissaoMedica;
 import gestor.Controle.ControleAtestadoMedicoPsiquiatrico;
 import gestor.Controle.ControleConfirmacaoAtendimento;
@@ -73,8 +72,6 @@ import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
 
 /**
  *
@@ -174,9 +171,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     int pQUANTIDADE_ATENDIDA = 1;
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
-    public static int CODIGO_ATENDIMENTO_TV_ADM = 0;
-    public static int CODIGO_ATENDIMENTO_TV_EVO_PSICO = 0;
-    public static int CODIGO_ATENDIMENTO_TV_EVO_MEDICA = 0;
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAdmissaoMedica
@@ -194,29 +189,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         formatarCampos();
         corCampos();
         tabelaPatologias();
-        //
-//        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent e) {
-//                if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-//                    int selectedOption = JOptionPane.showConfirmDialog(null, "Deseja realmente sair da Tela?", "Sistema informa:", JOptionPane.YES_NO_OPTION);
-//                    if (selectedOption == JOptionPane.YES_OPTION) {
-//                        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV 
-//                        //CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
-//                        if (jIdAdm.getText().equals("")) {
-//                            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
-//                            control_ATENDE.excluirAtendimento(objRegAtend);
-//                        } else if (jIdEvolucaoPsiquiatrica.getText().equals("")) {
-//                            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_EVO_PSICO);
-//                            control_ATENDE.excluirAtendimento(objRegAtend);
-//                        }else if(jIdEvolucaoMedica.getText().equals("")){
-//                            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_EVO_MEDICA);
-//                            control_ATENDE.excluirAtendimento(objRegAtend);
-//                        }
-//                    }
-//                }
-//            }
-//        });
     }
 
     public void mostrarTelaPatologiaPsiqui() {
@@ -3938,7 +3910,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     }
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
@@ -4065,7 +4038,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
-         //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
+        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
 //        if (jIdAdm.getText().equals("")) {
 //            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
 //            control_ATENDE.excluirAtendimento(objRegAtend);
@@ -4418,7 +4391,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
@@ -4683,7 +4657,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
-                     //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
