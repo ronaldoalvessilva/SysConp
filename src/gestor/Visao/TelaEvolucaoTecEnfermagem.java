@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAtendimentoTecEnfermagem;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoTecEnfermagem;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovEvolucaoTecEnfermagem;
@@ -45,6 +46,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
+import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
@@ -63,6 +65,8 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
     //
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -96,6 +100,9 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvolTEC = "Evolução Técnico Enfermagem";
     //
     String phabilitaTecnico = "";
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaEvolucaoPrescricaoMedica
@@ -1032,6 +1039,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
             acao = 1;
             Novo();
             corCampos();
+            verificarInternoRegistradoAdm();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1114,6 +1122,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
@@ -1123,6 +1132,16 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();
@@ -1332,6 +1351,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
             } else if (atendido.equals("Não")) {
                 acao = 3;
                 NovaEvolucao();
+                verificarInternoRegistradoAdm();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1424,6 +1444,16 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaEvolucaoTecEnfermagem("SELECT * FROM EVOLUCAOTECENFERMAGEM "
