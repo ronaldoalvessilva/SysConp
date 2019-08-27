@@ -9,6 +9,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
@@ -48,6 +49,8 @@ import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
 import static gestor.Visao.TelaModuloOdontologia.telaRegistroBiometriaInciarLeitorODON;
 import static gestor.Visao.TelaModuloOdontologia.telaRegistroBiometriaODON;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -60,6 +63,8 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
+    //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -99,6 +104,10 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -760,6 +769,18 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                     buscarRegistro();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                    objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                    objRegAtend.setAtendido(pATENDENDO);
+                    objRegAtend.setUsuarioAtendente(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    objRegAtend.setEmAtendimento(pCONCLUIDO);
+                    objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                    control_ATENE_TV.iniciarAtendimento(objRegAtend);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1372,6 +1393,9 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
         jBtCancelar.setEnabled(true);
         jBtIniciarLeitor.setEnabled(true);
         jBtCancelarLeitura.setEnabled(!true);
+        //
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
     }
 
     public void Salvar() {

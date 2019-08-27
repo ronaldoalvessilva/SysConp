@@ -4418,9 +4418,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                    pATENDIMENTO_CONCLUIDO = "Sim";
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);
@@ -6146,9 +6149,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                    pATENDIMENTO_CONCLUIDO = "Sim";
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);

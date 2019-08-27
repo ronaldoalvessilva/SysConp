@@ -267,6 +267,8 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         jMenu1 = new javax.swing.JMenu();
         RegistroAtendimentoBiometrico = new javax.swing.JMenuItem();
         RegsitroAtendimentoImpressao = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
+        jCancelarAtendimento = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         AgendaEventos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -386,6 +388,15 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             }
         });
         jMenu1.add(RegsitroAtendimentoImpressao);
+        jMenu1.add(jSeparator15);
+
+        jCancelarAtendimento.setText("Cancelar Atendimento de Interno");
+        jCancelarAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarAtendimentoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCancelarAtendimento);
 
         Cadastros.add(jMenu1);
         Cadastros.add(jSeparator10);
@@ -1407,6 +1418,10 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCalculadoraExecucaoPenalActionPerformed
 
+    private void jCancelarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarAtendimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCancelarAtendimentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
@@ -1443,6 +1458,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena1;
+    private javax.swing.JMenuItem jCancelarAtendimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1459,6 +1475,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

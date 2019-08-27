@@ -112,6 +112,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
     //
     String pATENDENDO = "Sim";
     String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -930,6 +931,7 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
                         objRegAtend.setDataInsert(dataModFinal);
                         objRegAtend.setHorarioInsert(horaMov);
                         objRegAtend.setEmAtendimento(pCONCLUIDO);
+                        objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
                         control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
