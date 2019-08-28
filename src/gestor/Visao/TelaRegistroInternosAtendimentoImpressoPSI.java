@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
@@ -62,6 +63,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -97,8 +100,12 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     public static String nomeLiberador = "";
     public static String dataAssinatura = "";
     public static String horaAssinatura = "";
-    
+
     int qtdAtend = 1;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -175,6 +182,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jMotivo = new javax.swing.JTextArea();
+        jComboBoxAtendente = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
         jBtSalvar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -200,7 +209,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -504,6 +513,15 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         jMotivo.setEnabled(false);
         jScrollPane2.setViewportView(jMotivo);
 
+        jComboBoxAtendente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAtendente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxAtendente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAtendente.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel14.setText("Atendente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -534,7 +552,6 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)))
-                            .addComponent(jLabel10)
                             .addComponent(jCelaKitBio, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -550,8 +567,17 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))))
-                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxAtendente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addComponent(jLabel13)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -572,9 +598,15 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -876,6 +908,18 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                         buscarRegistro();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                        objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
+                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                        objRegAtend.setAtendido(pATENDENDO);
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
+                        objRegAtend.setDataInsert(dataModFinal);
+                        objRegAtend.setHorarioInsert(horaMov);
+                        objRegAtend.setEmAtendimento(pCONCLUIDO);
+                        objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                        control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         relatorioAutorizacao();
@@ -1051,6 +1095,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
+            jComboBoxAtendente.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1070,6 +1115,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
+                jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jNomeDepartamento.setText(nomeModuloPSICOLOGIA);
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
@@ -1176,6 +1222,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     public static javax.swing.JTextField jCNC;
     public static javax.swing.JTextField jCelaKitBio;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBoxAtendente;
     public static javax.swing.JComboBox jComboBoxTipoMovimentacao;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
@@ -1190,6 +1237,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
