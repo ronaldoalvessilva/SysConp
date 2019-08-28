@@ -9,6 +9,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
@@ -21,6 +22,7 @@ import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Visao.TelaAcessoBiometriaColaboradores.CIS_SDK;
 import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
 import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
@@ -60,6 +62,8 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -96,6 +100,11 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
+
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -755,6 +764,18 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
                     buscarRegistro();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                    objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloSS);
+                    objRegAtend.setAtendido(pATENDENDO);
+                    objRegAtend.setUsuarioAtendente(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    objRegAtend.setEmAtendimento(pCONCLUIDO);
+                    objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                    control_ATENE_TV.iniciarAtendimento(objRegAtend);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1367,6 +1388,9 @@ public class TelaRegistroInternosAtendimentoSS extends javax.swing.JInternalFram
         jBtCancelar.setEnabled(true);
         jBtIniciarLeitor.setEnabled(true);
         jBtCancelarLeitura.setEnabled(!true);
+        //
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
     }
 
     public void Salvar() {

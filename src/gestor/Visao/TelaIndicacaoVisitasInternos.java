@@ -209,7 +209,7 @@ public class TelaIndicacaoVisitasInternos extends javax.swing.JDialog {
         jTabelaIndicacaoVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaIndicacaoVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Visitante", "Grau de Parentesco"

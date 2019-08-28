@@ -46,11 +46,16 @@ public class RegistroAtendimentoInternos {
     private int qtdAtend;
     private int qtdAtendSem;
     private int qtdAtendMes;
+    private String emAtendimento;
+    private int idAPIT;
+    private String concluido;
+    private String usuarioAtendente;
+    private String statusAtendimento;
 
     public RegistroAtendimentoInternos() {
     }
 
-    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtdAtendSem, int qtdAtendMes) {
+    public RegistroAtendimentoInternos(int idRegistro, Date dataReg, String horario, int idInternoCrc, String nomeInternoCrc, String tipoAtemdimento, int idDepartamento, String nomeDepartamento, byte[] assinaturaDigital, byte[] assinaturaLiberador, String atendido, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Date dataAtendimento, int IdAtend, int IdEvol, String atendeEvol, String impressaoAuto, int codigoFunc, String nomeFunc, String dataAssinatura, String horaAssinatura, String motivoImpressao, int qtdAtend, int qtdAtendSem, int qtdAtendMes, String emAtendimento, int idAPIT, String concluido, String usuarioAtendente, String statusAtendimento) {
         this.idRegistro = idRegistro;
         this.dataReg = dataReg;
         this.horario = horario;
@@ -81,6 +86,11 @@ public class RegistroAtendimentoInternos {
         this.qtdAtend = qtdAtend;
         this.qtdAtendSem = qtdAtendSem;
         this.qtdAtendMes = qtdAtendMes;
+        this.emAtendimento = emAtendimento;
+        this.idAPIT = idAPIT;
+        this.concluido = concluido;
+        this.usuarioAtendente = usuarioAtendente;
+        this.statusAtendimento = statusAtendimento;
     }
 
     /**
@@ -465,7 +475,6 @@ public class RegistroAtendimentoInternos {
      * @return the qtdAtend
      */
     public int getQtdAtend() {
-
         return qtdAtend;
     }
 
@@ -476,6 +485,9 @@ public class RegistroAtendimentoInternos {
         this.qtdAtend = qtdAtend;
     }
 
+    /**
+     * @return the qtdAtendSem
+     */
     public int getQtdAtendSem() {
         return qtdAtendSem;
     }
@@ -500,6 +512,74 @@ public class RegistroAtendimentoInternos {
     public void setQtdAtendMes(int qtdAtendMes) {
         this.qtdAtendMes = qtdAtendMes;
     }
-    
-    
+
+    /**
+     * @return the emAtendimento
+     */
+    public String getEmAtendimento() {
+        return emAtendimento;
+    }
+
+    /**
+     * @param emAtendimento the emAtendimento to set
+     */
+    public void setEmAtendimento(String emAtendimento) {
+        this.emAtendimento = emAtendimento;
+    }
+
+    /**
+     * @return the idAPIT
+     */
+    public int getIdAPIT() {
+        return idAPIT;
+    }
+
+    /**
+     * @param idAPIT the idAPIT to set
+     */
+    public void setIdAPIT(int idAPIT) {
+        this.idAPIT = idAPIT;
+    }
+
+    /**
+     * @return the concluido
+     */
+    public String getConcluido() {
+        return concluido;
+    }
+
+    /**
+     * @param concluido the concluido to set
+     */
+    public void setConcluido(String concluido) {
+        this.concluido = concluido;
+    }
+
+    /**
+     * @return the usuarioAtendente
+     */
+    public String getUsuarioAtendente() {
+        return usuarioAtendente;
+    }
+
+    /**
+     * @param usuarioAtendente the usuarioAtendente to set
+     */
+    public void setUsuarioAtendente(String usuarioAtendente) {
+        this.usuarioAtendente = usuarioAtendente;
+    }
+
+    /**
+     * @return the statusAtendimento
+     */
+    public String getStatusAtendimento() {
+        return statusAtendimento;
+    }
+
+    /**
+     * @param statusAtendimento the statusAtendimento to set
+     */
+    public void setStatusAtendimento(String statusAtendimento) {
+        this.statusAtendimento = statusAtendimento;
+    }
 }

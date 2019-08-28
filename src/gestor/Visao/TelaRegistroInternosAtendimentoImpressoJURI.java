@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
@@ -62,6 +63,8 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -106,6 +109,10 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -182,6 +189,8 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jMotivo = new javax.swing.JTextArea();
+        jComboBoxAtendente = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
         jBtSalvar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -511,6 +520,15 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jMotivo.setEnabled(false);
         jScrollPane2.setViewportView(jMotivo);
 
+        jComboBoxAtendente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAtendente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxAtendente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAtendente.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel14.setText("Atendente");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -541,7 +559,6 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jHorarioSaidaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8)))
-                            .addComponent(jLabel10)
                             .addComponent(jCelaKitBio, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPavilhaoKitImp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -557,8 +574,17 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))))
-                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jRegimeKitImp, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxAtendente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addComponent(jLabel13)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -579,9 +605,15 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAtendente, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -853,6 +885,8 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                 JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
             } else if (jComboBoxTipoMovimentacao.getSelectedItem() == null || jComboBoxTipoMovimentacao.getSelectedItem().equals("") || jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de atendimento para o interno.");
+            } else if (jComboBoxAtendente.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente para o interno.");
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
@@ -868,6 +902,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
                         objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                         objRegAtend.setDataReg(jDataRegistro.getDate());
                         objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
@@ -884,6 +919,18 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                         buscarRegistro();
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                        objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
+                        objRegAtend.setNomeDepartamento(nomeModuloJURI);
+                        objRegAtend.setAtendido(pATENDENDO);
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
+                        objRegAtend.setDataInsert(dataModFinal);
+                        objRegAtend.setHorarioInsert(horaMov);
+                        objRegAtend.setEmAtendimento(pCONCLUIDO);
+                        objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                        control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                         relatorioAutorizacao();
@@ -1121,6 +1168,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
             if (resposta == JOptionPane.YES_OPTION) {
                 acao = 1;
                 Novo();
+                pesquisarAtendente();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1183,6 +1231,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     public static javax.swing.JTextField jCNC;
     public static javax.swing.JTextField jCelaKitBio;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBoxAtendente;
     public static javax.swing.JComboBox jComboBoxTipoMovimentacao;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
@@ -1197,6 +1246,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
@@ -1271,6 +1321,23 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jMotivo.setWrapStyleWord(true);
     }
 
+    public void pesquisarAtendente() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloJURI + "' "
+                    + "ORDER BY NomeUsuario");
+            conecta.rs.first();
+            do {
+                jComboBoxAtendente.addItem(conecta.rs.getString("NomeUsuario"));
+            } while (conecta.rs.next());
+            jComboBoxAtendente.updateUI();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
+
     public void corCampos() {
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
@@ -1300,6 +1367,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
+        jComboBoxAtendente.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
         jNomeDepartamento.setText(nomeModuloJURI);
         jIdInternoKitImp.setText("");
@@ -1313,6 +1381,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
 //        jBtSalvar.setEnabled(true);
@@ -1324,6 +1393,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1336,6 +1406,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         if (jIdRegistro.getText().equals("")) {
             jDataRegistro.setDate(null);
             jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");
+            jComboBoxAtendente.setSelectedItem("Selecione...");
             jHorarioSaidaEntrada.setText("");
             jNomeDepartamento.setText("");
             jIdInternoKitImp.setText("");
@@ -1349,6 +1420,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1358,6 +1430,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         } else {
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);

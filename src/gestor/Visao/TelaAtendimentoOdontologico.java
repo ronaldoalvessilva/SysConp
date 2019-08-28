@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAtendimentoOdontologia;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovOdontologia;
 import gestor.Controle.ControleOdontograma;
@@ -93,6 +94,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -147,6 +150,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     String pRealizado = "";
     int statusRelEvol = 0;
     String pRealizadoEvol = "";
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAtendimentoOdontologico
@@ -4069,6 +4075,17 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setHorarioUp(horaMov);
                         objRegAtend.setQtdAtend(qtdTipo);
                         controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
                         if (rows != 0) {
                             incluirOdontograma();
                             // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
@@ -4464,6 +4481,17 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setQtdAtend(qtdTipo);
                     controlRegAtend.alterarRegEvol(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                    objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     if (rows != 0) {
                         incluirOdontogramaEvolucao();
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    

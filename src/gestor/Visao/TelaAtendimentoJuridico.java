@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoJuridico;
 import gestor.Controle.ControleItensAtividadeJuridico;
 import gestor.Controle.ControleJuridico;
@@ -69,6 +70,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -115,6 +118,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public static int pAtividadeRela[];
     //
     public static int opcaoAtividade = 0;
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -1705,6 +1711,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             pAcao = 1;
             Novo();
             corCampos();
+            verificarInternoRegistradoAdm();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1794,7 +1801,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
                     objAtendJuri.setDeptoJuridico(deptoTecnico);
                     controle.incluirMovTec(objAtendJuri);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());//
                     objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
@@ -1828,11 +1836,23 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     controleJuri.incluirEvolucaoJuridico(objEvolu);
                     // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
                     buscarIdEvolucao();
-                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
-                            + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                    objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
+                    //
+                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                            + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
@@ -2198,7 +2218,19 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         controlRegAtend.alterarRegEvol(objRegAtend);
                         objLog3();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
                         SalvarEvolucao();
+
                         preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
                                 + "WHERE IdLanc='" + jIDLanc.getText() + "'");
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");

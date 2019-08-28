@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLigacoesSSocial;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
@@ -29,6 +30,7 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSERV;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.pQUANTIDADE_ATENDIDA;
@@ -59,6 +61,8 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -86,6 +90,12 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     String tipoAtendimentoAdm = "Ligações Telefonicas";
     //
     String pHabilitado = "Não";
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
+    // VARIVAEIS PARA SABER SE O INTERNO FOI REGISTRADO COM BIOMETRIA      
+    String dataReg = "";
+    String codigoInternoAtend = "";
 
     /**
      * Creates new form TelaControleLigacoesSS
@@ -781,6 +791,7 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
             acao = 1;
             Novo();
             corCampo();
+            verificarInternoRegistradoAdm();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -889,6 +900,17 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
                             controlRegAtend.alterarRegAtend(objRegAtend);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                            objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoSSLIG);
+                            objRegAtend.setNomeDepartamento(nomeModuloSERV);
+                            objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                            objRegAtend.setHorarioUp(horaMov);
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDControle.getText()));
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            control_ATENDE.confirmarAtendimento(objRegAtend);
                             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                             Salvar();
                         }
@@ -1162,6 +1184,24 @@ public class TelaControleLigacoesSS extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jTelefoneDestino;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarInternoRegistradoAdm() {
+
+        conecta.abrirConexao();
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataReg = formatoAmerica.format(jDataControle.getDate().getTime());
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE IdInternoCrc='" + jIDInterno.getText() + "' "
+                    + "AND Atendido='" + opcao + "'");
+            conecta.rs.first();
+            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
+            codigoDepartamentoSSLIG = conecta.rs.getInt("IdDepartamento");
+            atendido = conecta.rs.getString("Atendido");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void verificarRegistroBiometria() {
         conecta.abrirConexao();

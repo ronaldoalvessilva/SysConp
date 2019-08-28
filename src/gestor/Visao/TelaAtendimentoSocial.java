@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAtendSocial;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoServicoSocial;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovEvolucaoServicoSocial;
@@ -34,6 +35,7 @@ import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
 import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSERV;
 import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
 import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import static gestor.Visao.TelaModuloServicoSocial.pQUANTIDADE_ATENDIDA;
@@ -71,6 +73,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -104,6 +108,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvol = "Evolução Serviço Social";
     //
     String pHabilitaSSocial = "";
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form AtendimentoSocial
@@ -2215,6 +2222,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             acao = 1;
             Novo();
             corCampo();
+            verificarInternoRegistradoAdm();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -2289,6 +2297,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                         jPeriodo.requestFocus();
                         jPeriodo.setBackground(Color.red);
                     } else {
+                        verificarInternoRegistradoAdm();
                         objAtendSocial.setDataAtend(jDataAtendimento.getDate());
                         objAtendSocial.setStatusAtend(statusAtend);
                         // Aba Dados Familiares
@@ -2384,6 +2393,17 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                             objRegAtend.setDataUp(dataModFinal);
                             objRegAtend.setHorarioUp(horaMov);
                             controlRegAtend.alterarRegAtend(objRegAtend);
+                            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                            objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                            objRegAtend.setNomeDepartamento(nomeModuloSERV);
+                            objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                            objRegAtend.setHorarioUp(horaMov);
+                            objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            control_ATENDE.confirmarAtendimento(objRegAtend);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -2810,6 +2830,17 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     controlRegAtend.alterarRegEvol(objRegAtend);
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoSS);
+                    objRegAtend.setNomeDepartamento(nomeModuloSERV);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
                             + "WHERE IdAtend='" + jIDAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");

@@ -10,6 +10,7 @@ import gestor.Controle.ControleAtendimentoFemininoP1;
 import gestor.Controle.ControleAtendimentoFemininoP2;
 import gestor.Controle.ControleAtendimentoFemininoP3;
 import gestor.Controle.ControleAtendimentoFemininoP4;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoEnfermagem;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovAdmissaoEnfermeira;
@@ -107,6 +108,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     //
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -121,7 +124,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String horaMov;
     String dataModFinal;
     //
-    public static int acao;
+    public static int acao = 0;
     public static int pGravar = 0;
     int flag;
     String dataInicial, dataFinal, dataEntrada, dataEvolu;
@@ -236,6 +239,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     public static TelaTPC tPC;
     //
     int pQUANTIDADE_ATENDIDA = 1;
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -347,8 +353,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jIdInternoMedico = new javax.swing.JTextField();
-        jNomeInternoMedico = new javax.swing.JTextField();
+        jIdInternoEnfermeiro = new javax.swing.JTextField();
+        jNomeInternoEnfermeiro = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jFotoInternoMedico = new javax.swing.JLabel();
         jBtPesqInternoEnfermaria = new javax.swing.JButton();
@@ -921,12 +927,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Nome Completo do Interno");
 
-        jIdInternoMedico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInternoMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoMedico.setEnabled(false);
+        jIdInternoEnfermeiro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoEnfermeiro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoEnfermeiro.setEnabled(false);
 
-        jNomeInternoMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInternoMedico.setEnabled(false);
+        jNomeInternoEnfermeiro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoEnfermeiro.setEnabled(false);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -1005,18 +1011,18 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(jIdInternoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jIdInternoEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPaiInternoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jNomeInternoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jNomeInternoEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBtPesqInternoEnfermaria, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jMaeInterno, jNomeInternoMedico, jPaiInternoMedico});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jMaeInterno, jNomeInternoEnfermeiro, jPaiInternoMedico});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1026,8 +1032,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdInternoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeInternoMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdInternoEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeInternoEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqInternoEnfermaria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -1047,7 +1053,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jMaeInterno, jNomeInternoMedico, jPaiInternoMedico});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jMaeInterno, jNomeInternoEnfermeiro, jPaiInternoMedico});
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -4276,7 +4282,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     if (resposta == JOptionPane.YES_OPTION) {
                         objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         control.excluiAdmissaoEnfermagem(objAdmEnfermagem);
-                        objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());;
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());;
                         objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         controle.excluirMovTec(objAdmEnfermagem);
                         objLog();
@@ -4299,10 +4305,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataLanc.requestFocus();
                 jDataLanc.setBackground(Color.red);
-            } else if (jNomeInternoMedico.getText().equals("")) {
+            } else if (jNomeInternoEnfermeiro.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para atendimento.");
-                jNomeInternoMedico.requestFocus();
-                jNomeInternoMedico.setBackground(Color.red);
+                jNomeInternoEnfermeiro.requestFocus();
+                jNomeInternoEnfermeiro.setBackground(Color.red);
             } else {
                 compararRadioButtons(); // Compara qual botão foi assionado pelo usuário
                 objAdmEnfermagem.setStatusLanc(statusLanc);
@@ -4376,18 +4382,18 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setUsuarioInsert(nameUser);
                     objAdmEnfermagem.setDataInsert(dataModFinal);
                     objAdmEnfermagem.setHoraInsert(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
                     buscarID();
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.incluirMovTec(objAdmEnfermagem);
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
                     atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
@@ -4401,7 +4407,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
@@ -4411,6 +4418,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                    pATENDIMENTO_CONCLUIDO = "Sim";
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
+                    //
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     buscarEvolucao();
@@ -4425,17 +4445,17 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setUsuarioUp(nameUser);
                     objAdmEnfermagem.setDataUp(dataModFinal);
                     objAdmEnfermagem.setHoraUp(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     control.alterarAdmissaoEnfermagem(objAdmEnfermagem);
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
                     objEvolEnferma.setIdItem(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
@@ -4632,8 +4652,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
-                jIdInternoMedico.setText(conecta.rs.getString("IdInternoCrc"));
-                jNomeInternoMedico.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoEnfermeiro.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeInternoEnfermeiro.setText(conecta.rs.getString("NomeInternoCrc"));
                 jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPaiInternoMedico.setText(conecta.rs.getString("PaiInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
@@ -5104,25 +5124,26 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 if (acao == 5) {
                     if (pGravar == 0) {
                         mostrarPC();
+                        JOptionPane.showMessageDialog(rootPane, "Deverá preencher tela do PRORES.");
                     } else {
                         // log de usuario
                         objEvolEnferma.setUsuarioInsert(nameUser);
                         objEvolEnferma.setDataInsert(dataModFinal);
                         objEvolEnferma.setHoraInsert(horaMov);
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
                         //
                         buscarEvolucao();
                         objEvolEnferma.setDeptoMedico(deptoTecnico);
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
+                        objEvolEnferma.setNomeInterno(jNomeInternoEnfermeiro.getText());
                         controlMovEvolEnfa.incluirMovTecEnf(objEvolEnferma); // Histórico de Movimento Técnico
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
                         atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
                         objRegAtend.setNomeDepartamento(nomeModuloENFER);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
@@ -5137,10 +5158,23 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegEvol(objRegAtend);
-                        SalvarEvolucao();
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                        pATENDIMENTO_CONCLUIDO = "Sim";
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENF); // A CAUSA DE NÃO ESTÁ GRAVANDO. - RESOLVIDO
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //
                         preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        SalvarEvolucao();
                     }
                 }
                 if (acao == 6) {
@@ -5152,18 +5186,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objEvolEnferma.setDataUp(dataModFinal);
                         objEvolEnferma.setHoraUp(horaMov);
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdItem(idItemEvol);
                         controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
                         //
                         objEvolEnferma.setDeptoMedico(deptoTecnico);
-                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objEvolEnferma.setIdItem(idItemEvol);
-                        objEvolEnferma.setNomeInterno(jNomeInternoMedico.getText());
+                        objEvolEnferma.setNomeInterno(jNomeInternoEnfermeiro.getText());
                         controlMovEvolEnfa.alterarMovTecEnf(objEvolEnferma);
                         SalvarEvolucao();
-                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM WHERE IdLanc='" + jCodigoLanc.getText() + "'");
+                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                                + "WHERE IdLanc='" + jCodigoLanc.getText() + "'");
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
                 }
@@ -5204,7 +5239,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 jIdEvolucao.setText(conecta.rs.getString("IdItem")); //Coluna 0               
                 idItemEvol = conecta.rs.getInt("IdItem"); // Coluna 2
-                jNomeInternoEvolEnf.setText(jNomeInternoMedico.getText());
+                jNomeInternoEvolEnf.setText(jNomeInternoEnfermeiro.getText());
                 jDataEvolu.setDate(conecta.rs.getDate("DataEvol"));
                 jTextoEvolucao.setText(conecta.rs.getString("TextoEvolucao"));
                 conecta.desconecta();
@@ -5217,7 +5252,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoFichaActionPerformed
         // TODO add your handling code here:
-        if (!jIdLanc.getText().equals("") && !jIdInternoMedico.getText().equals("")) {
+        if (!jIdLanc.getText().equals("") && !jIdInternoEnfermeiro.getText().equals("")) {
             try {
                 conecta.abrirConexao();
                 String path = "reports/ProntuariosInternosENFCodigo.jasper";
@@ -5232,9 +5267,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
                 HashMap parametros = new HashMap();
-                parametros.put("MatriculaCrc", jIdInternoMedico.getText());
+                parametros.put("MatriculaCrc", jIdInternoEnfermeiro.getText());
                 parametros.put("nomeUsuario", nameUser);
                 JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
@@ -5329,7 +5364,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             objAfP1.setDoencas(jDoencasSexualmenteTransmissiveis.getText());
             objAfP1.setColpocitologia(jColpocitologiaOncotica.getText());
             if (acao == 3) {
-                if (jIdLanc.getText().equals(codigoAdm1) && jIdInternoMedico.getText().equals(codigoInternoAdm1)) {
+                if (jIdLanc.getText().equals(codigoAdm1) && jIdInternoEnfermeiro.getText().equals(codigoInternoAdm1)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAfP1.setUsuarioInsert(nameUser);
@@ -5337,8 +5372,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAfP1.setHorarioInsert(horaMov);
                     //
                     objAfP1.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAfP1.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAfP1.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objAfP1.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAfP1.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     controlAfP1.incluirAtendimentoFemininoP1(objAfP1);
                     buscarCodigoAFP1();
                     //
@@ -5354,8 +5389,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAfP1.setHorarioUp(horaMov);
                 //
                 objAfP1.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objAfP1.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                objAfP1.setNomeInternoCrc(jNomeInternoMedico.getText());
+                objAfP1.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                objAfP1.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                 objAfP1.setIdAfp1(codigoAFP1);
                 controlAfP1.alterarAtendimentoFemininoP1(objAfP1);
                 //
@@ -5497,7 +5532,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAfP2.setIntercorrenciaComplicacoesGestoes(jIntercorrenciaComplicacoesGestoes.getText());
                 objAfP2.setHistoriaAleitamentosAnteriores(jHistoriaAleitamentosAnteriores.getText());
                 if (acao == 7) {
-                    if (jIdLanc.getText().equals(codigoAdm2) && jIdInternoMedico.getText().equals(codigoInternoAdm2)) {
+                    if (jIdLanc.getText().equals(codigoAdm2) && jIdInternoEnfermeiro.getText().equals(codigoInternoAdm2)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
                         objAfP2.setUsuarioInsert(nameUser);
@@ -5505,8 +5540,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objAfP2.setHorarioInsert(horaMov);
                         //
                         objAfP2.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objAfP2.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                        objAfP2.setNomeInternoCrc(jNomeInternoMedico.getText());
+                        objAfP2.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objAfP2.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                         controlAfP2.incluirAtendimentoFemininoP2(objAfP2);
                         buscarCodigoAFP2();
                         //
@@ -5522,8 +5557,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAfP2.setHorarioUp(horaMov);
                     //
                     objAfP2.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAfP2.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAfP2.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objAfP2.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAfP2.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     objAfP2.setIdAfp2(codigoAFP2);
                     controlAfP2.alterarAtendimentoFemininoP2(objAfP2);
                     objLog4();
@@ -5668,7 +5703,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
             objAfP3.setOutros(tipoDrogaOutros);
             if (acao == 9) {
-                if (jIdLanc.getText().equals(codigoAdm3) && jIdInternoMedico.getText().equals(codigoInternoAdm3)) {
+                if (jIdLanc.getText().equals(codigoAdm3) && jIdInternoEnfermeiro.getText().equals(codigoInternoAdm3)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAfP3.setUsuarioInsert(nameUser);
@@ -5676,8 +5711,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAfP3.setHorarioInsert(horaMov);
                     //
                     objAfP3.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAfP3.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAfP3.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objAfP3.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAfP3.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     controlAfP3.incluirAtendimentoFemininoP3(objAfP3);
                     buscarCodigoAFP3();
                     //
@@ -5693,8 +5728,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAfP3.setHorarioUp(horaMov);
                 //
                 objAfP3.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objAfP3.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                objAfP3.setNomeInternoCrc(jNomeInternoMedico.getText());
+                objAfP3.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                objAfP3.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                 objAfP3.setIdAfp3(codigoAFP3);
                 controlAfP3.alterarAtendimentoFemininoP3(objAfP3);
                 objLog5();
@@ -5828,7 +5863,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAfP4.setMembroSuperior(pesquisaEdemaMMSS);
                 objAfP4.setPosicaoFetal(jPosicaoFetal.getText());
                 if (acao == 11) {
-                    if (jIdLanc.getText().equals(codigoAdm4) && jIdInternoMedico.getText().equals(codigoInternoAdm4)) {
+                    if (jIdLanc.getText().equals(codigoAdm4) && jIdInternoEnfermeiro.getText().equals(codigoInternoAdm4)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
                         objAfP4.setUsuarioInsert(nameUser);
@@ -5836,8 +5871,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objAfP4.setHorarioInsert(horaMov);
                         //
                         objAfP4.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objAfP4.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                        objAfP4.setNomeInternoCrc(jNomeInternoMedico.getText());
+                        objAfP4.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objAfP4.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                         controlAfP4.incluirAtendimentoFemininoP4(objAfP4);
                         buscarCodigoAFP4();
                         objLog6();
@@ -5852,8 +5887,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAfP4.setHorarioUp(horaMov);
                     //
                     objAfP4.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAfP4.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAfP4.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objAfP4.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAfP4.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     objAfP4.setIdAfp4(codigoAFP4);
                     controlAfP4.alterarAtendimentoFemininoP4(objAfP4);
                     objLog6();
@@ -5978,7 +6013,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     if (resposta == JOptionPane.YES_OPTION) {
                         objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         control.excluiAdmissaoEnfermagem(objAdmEnfermagem);
-                        objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());;
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());;
                         objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         controle.excluirMovTec(objAdmEnfermagem);
                         objLog();
@@ -6001,10 +6036,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataLanc.requestFocus();
                 jDataLanc.setBackground(Color.red);
-            } else if (jNomeInternoMedico.getText().equals("")) {
+            } else if (jNomeInternoEnfermeiro.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para atendimento.");
-                jNomeInternoMedico.requestFocus();
-                jNomeInternoMedico.setBackground(Color.red);
+                jNomeInternoEnfermeiro.requestFocus();
+                jNomeInternoEnfermeiro.setBackground(Color.red);
             } else {
                 compararRadioButtons(); // Compara qual botão foi assionado pelo usuário
                 objAdmEnfermagem.setStatusLanc(statusLanc);
@@ -6078,30 +6113,33 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setUsuarioInsert(nameUser);
                     objAdmEnfermagem.setDataInsert(dataModFinal);
                     objAdmEnfermagem.setHoraInsert(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
                     buscarID();
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.incluirMovTec(objAdmEnfermagem);
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
                     atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoMedico.getText());
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
@@ -6111,6 +6149,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                    pATENDIMENTO_CONCLUIDO = "Sim";
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
+                    //
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     buscarEvolucao();
@@ -6125,17 +6176,17 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objAdmEnfermagem.setUsuarioUp(nameUser);
                     objAdmEnfermagem.setDataUp(dataModFinal);
                     objAdmEnfermagem.setHoraUp(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     control.alterarAdmissaoEnfermagem(objAdmEnfermagem);
                     objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoMedico.getText());
+                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
                     objEvolEnferma.setIdItem(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoMedico.getText()));
+                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
@@ -6194,7 +6245,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoFicha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoFicha1ActionPerformed
         // TODO add your handling code here:
-        if (!jIdLanc.getText().equals("") && !jIdInternoMedico.getText().equals("")) {
+        if (!jIdLanc.getText().equals("") && !jIdInternoEnfermeiro.getText().equals("")) {
             try {
                 conecta.abrirConexao();
                 String path = "reports/ProntuariosInternosENFCodigo.jasper";
@@ -6209,9 +6260,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN UNIDADE "
                         + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                        + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
                 HashMap parametros = new HashMap();
-                parametros.put("MatriculaCrc", jIdInternoMedico.getText());
+                parametros.put("MatriculaCrc", jIdInternoEnfermeiro.getText());
                 parametros.put("nomeUsuario", nameUser);
                 JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
@@ -6419,7 +6470,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jHistoriaAleitamentosAnteriores;
     private javax.swing.JFormattedTextField jIctericia;
     public static javax.swing.JTextField jIdEvolucao;
-    public static javax.swing.JTextField jIdInternoMedico;
+    public static javax.swing.JTextField jIdInternoEnfermeiro;
     public static javax.swing.JTextField jIdLanc;
     private javax.swing.JFormattedTextField jIdadePrimeiraGestacao;
     private javax.swing.JTextArea jInspecaoPeleMucosa;
@@ -6531,8 +6582,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jMotivoMorteNeonataisPrecoce;
     private javax.swing.JTextField jMotivoMortesNeonataisTardias;
     private javax.swing.JFormattedTextField jNatimortos;
+    public static javax.swing.JTextField jNomeInternoEnfermeiro;
     private javax.swing.JTextField jNomeInternoEvolEnf;
-    public static javax.swing.JTextField jNomeInternoMedico;
     private javax.swing.JTextField jNomesInternoPesq;
     private javax.swing.JFormattedTextField jNumeroAbortos;
     private javax.swing.JFormattedTextField jNumeroFilhosVivos;
@@ -6740,8 +6791,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
         //
-        jIdInternoMedico.setBackground(Color.white);
-        jNomeInternoMedico.setBackground(Color.white);
+        jIdInternoEnfermeiro.setBackground(Color.white);
+        jNomeInternoEnfermeiro.setBackground(Color.white);
         jMaeInterno.setBackground(Color.white);
         jPaiInternoMedico.setBackground(Color.white);
         jFotoInternoMedico.setBackground(Color.white);
@@ -6955,8 +7006,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jStatusLanc.setText("ABERTO");
         jDataLanc.setCalendar(Calendar.getInstance());
         //
-        jIdInternoMedico.setText("");
-        jNomeInternoMedico.setText("");
+        jIdInternoEnfermeiro.setText("");
+        jNomeInternoEnfermeiro.setText("");
         jMaeInterno.setText("");
         jPaiInternoMedico.setText("");
         jFotoInternoMedico.setIcon(null);
@@ -7191,8 +7242,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jStatusLanc.setText("");
         jDataLanc.setDate(null);
         //
-        jIdInternoMedico.setText("");
-        jNomeInternoMedico.setText("");
+        jIdInternoEnfermeiro.setText("");
+        jNomeInternoEnfermeiro.setText("");
         jMaeInterno.setText("");
         jPaiInternoMedico.setText("");
         jFotoInternoMedico.setIcon(null);
@@ -7443,8 +7494,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jStatusLanc.setText("");
             jDataLanc.setDate(null);
             //
-            jIdInternoMedico.setText("");
-            jNomeInternoMedico.setText("");
+            jIdInternoEnfermeiro.setText("");
+            jNomeInternoEnfermeiro.setText("");
             jMaeInterno.setText("");
             jPaiInternoMedico.setText("");
             jFotoInternoMedico.setIcon(null);
@@ -8137,7 +8188,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ADME_AFP1 "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
             codigoAdm1 = conecta.rs.getString("IdLanc");
             codigoInternoAdm1 = conecta.rs.getString("IdInternoCrc");
@@ -8608,7 +8659,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ADME_AFP2 "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
             codigoAdm2 = conecta.rs.getString("IdLanc");
             codigoInternoAdm2 = conecta.rs.getString("IdInternoCrc");
@@ -9098,7 +9149,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ADME_AFP3 "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
             codigoAdm3 = conecta.rs.getString("IdLanc");
             codigoInternoAdm3 = conecta.rs.getString("IdInternoCrc");
@@ -9540,7 +9591,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ADME_AFP4 "
                     + "WHERE IdLanc='" + jIdLanc.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoMedico.getText() + "'");
+                    + "AND IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
             codigoAdm4 = conecta.rs.getString("IdLanc");
             codigoInternoAdm4 = conecta.rs.getString("IdInternoCrc");
@@ -9607,7 +9658,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     public void NovaEvolucao() {
         jIdEvolucao.setText("");
-        jNomeInternoEvolEnf.setText(jNomeInternoMedico.getText());
+        jNomeInternoEvolEnf.setText(jNomeInternoEnfermeiro.getText());
         jDataEvolu.setCalendar(Calendar.getInstance());
         jTextoEvolucao.setText("");
         //
@@ -10088,7 +10139,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         dataReg = formatoAmerica.format(jDataLanc.getDate().getTime());
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoMedico.getText() + "' "
+                    + "WHERE IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "' "
                     + "AND Atendido='" + opcao + "'");
             conecta.rs.first();
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");

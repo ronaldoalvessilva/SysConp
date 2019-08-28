@@ -10,9 +10,7 @@ import gestor.Dao.ModeloTabela;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jDataNascimento;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jEstadoCivilMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jFotoInternoMedico;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jMaeInterno;
-import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jPaiInternoMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.codigoDepartamentoENFenf;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
@@ -24,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoEnfermeiro;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jNomeInternoEnfermeiro;
 
 /**
  *
@@ -86,7 +86,7 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
         jTabelaInternosEnfermaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosEnfermaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Registro"
@@ -362,8 +362,8 @@ public class TelaPesqInternoAdmissaoEnfermeria extends javax.swing.JInternalFram
                         + "WHERE NomeInternoCrc='" + jPesqNome.getText() + "' "
                         + "AND IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIdInternoMedico.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInternoMedico.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoEnfermeiro.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jNomeInternoEnfermeiro.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoInternoMedico.setIcon(i);

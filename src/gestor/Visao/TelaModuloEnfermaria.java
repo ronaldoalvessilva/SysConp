@@ -365,6 +365,8 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         RegistrarInternoAtendimento = new javax.swing.JMenuItem();
         RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        jCancelarAtendimentoInterno = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         Sair = new javax.swing.JMenuItem();
         ControleMedicamentos = new javax.swing.JMenu();
@@ -536,7 +538,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Cadastros.add(jSeparator17);
 
         jMenu2.setForeground(new java.awt.Color(0, 102, 0));
-        jMenu2.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
+        jMenu2.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)/Cancelamento");
 
         RegistrarInternoAtendimento.setForeground(new java.awt.Color(204, 0, 0));
         RegistrarInternoAtendimento.setText("Registrar  Atendimento por Biometria");
@@ -555,6 +557,15 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(RegistroAtendimentoImpresso);
+        jMenu2.add(jSeparator20);
+
+        jCancelarAtendimentoInterno.setText("Cancelar  Atendimento de Interno");
+        jCancelarAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarAtendimentoInternoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jCancelarAtendimentoInterno);
 
         Cadastros.add(jMenu2);
         Cadastros.add(jSeparator8);
@@ -2217,6 +2228,10 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         objRelIndSaude.show();
     }//GEN-LAST:event_jRelatórioAcompanhamentoSaudeActionPerformed
 
+    private void jCancelarAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarAtendimentoInternoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCancelarAtendimentoInternoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoMedicaPsiquiatrica;
@@ -2257,6 +2272,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoMedicamentosFarmacia;
     private javax.swing.JMenuItem SolicitantesMedicamentos;
     private javax.swing.JMenuItem jCalendarioVacinas;
+    private javax.swing.JMenuItem jCancelarAtendimentoInterno;
     private javax.swing.JMenuItem jEncaminhamentosCirurgiasEspecialistas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -2287,6 +2303,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;

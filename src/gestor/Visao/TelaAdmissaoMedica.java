@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAdmissaoMedica;
 import gestor.Controle.ControleAtestadoMedicoPsiquiatrico;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleDietaMedicaPsiquiatrica;
 import gestor.Controle.ControleEvolucaoPsiquiatrica;
 import gestor.Controle.ControleEvolucaoMedica;
@@ -107,6 +108,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     //
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -166,6 +169,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     int tipoDiagnosticoMed;
     String admEvolucao = "Sim";
     int pQUANTIDADE_ATENDIDA = 1;
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAdmissaoMedica
@@ -3904,6 +3910,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "
                                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     }
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdAdm.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
                 }
@@ -3995,6 +4011,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         acao = 0;
         Cancelar();
+        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
+//        if (jIdAdm.getText().equals("")) {
+//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
+//            control_ATENDE.excluirAtendimento(objRegAtend);
+//        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -4017,6 +4038,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
+//        if (jIdAdm.getText().equals("")) {
+//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
+//            control_ATENDE.excluirAtendimento(objRegAtend);
+//        }
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -4365,6 +4391,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucaoPsiquiatrica.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolPS);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     // Log
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
@@ -4621,7 +4657,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
-                    //
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV    
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucaoMedica.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolME);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
                             + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
