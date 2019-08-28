@@ -9,6 +9,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
@@ -35,6 +36,7 @@ import static gestor.Visao.TelaModuloPedagogia.codigoGrupoPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeModuloPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaRegistroAtendimentoBio_PEDA;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
@@ -59,6 +61,8 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
+    //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -96,6 +100,10 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -180,7 +188,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -755,6 +763,18 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
                     buscarRegistro();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                    objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                    objRegAtend.setAtendido(pATENDENDO);
+                    objRegAtend.setUsuarioAtendente(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    objRegAtend.setEmAtendimento(pCONCLUIDO);
+                    objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                    control_ATENE_TV.iniciarAtendimento(objRegAtend);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1367,6 +1387,9 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
         jBtCancelar.setEnabled(true);
         jBtIniciarLeitor.setEnabled(true);
         jBtCancelarLeitura.setEnabled(!true);
+        //
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
     }
 
     public void Salvar() {

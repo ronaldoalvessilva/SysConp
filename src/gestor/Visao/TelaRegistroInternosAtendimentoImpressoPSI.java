@@ -1160,6 +1160,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
             if (resposta == JOptionPane.YES_OPTION) {
                 acao = 1;
                 Novo();
+                pesquisarAtendente();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1273,6 +1274,23 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     private javax.swing.JTable jTabelaRegistroInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void pesquisarAtendente() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "' "
+                    + "ORDER BY NomeUsuario");
+            conecta.rs.first();
+            do {
+                jComboBoxAtendente.addItem(conecta.rs.getString("NomeUsuario"));
+            } while (conecta.rs.next());
+            jComboBoxAtendente.updateUI();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+        }
+        conecta.desconecta();
+    }
 
     public void relatorioAutorizacao() {
         try {

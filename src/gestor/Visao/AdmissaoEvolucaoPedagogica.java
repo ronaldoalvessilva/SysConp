@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAdmissaoPsicologica;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEducacaoFamilia;
 import gestor.Controle.ControleEvolucaoPedagogia;
 import gestor.Controle.ControleFemininoPedagogia;
@@ -85,6 +86,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -140,6 +143,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvol = "Evolução Pedagogia";
     String pHabilitaPEDA = "";
     int pAnoIngresso = 0;
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
@@ -227,6 +233,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSair = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
         jBtFinalizar = new javax.swing.JButton();
+        jBtConfirmar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jObservacao = new javax.swing.JTextArea();
@@ -580,7 +587,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -708,7 +715,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 3, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -952,25 +959,36 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtConfirmar.setForeground(new java.awt.Color(51, 153, 0));
+        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
+        jBtConfirmar.setText("Concluir");
+        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jBtConfirmar)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -984,7 +1002,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jBtCancelar)
                 .addComponent(jBtSair)
                 .addComponent(jBtFinalizar)
-                .addComponent(jBtAuditoria))
+                .addComponent(jBtAuditoria)
+                .addComponent(jBtConfirmar))
         );
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1004,13 +1023,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             .addGroup(AdmissaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(AdmissaoLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(AdmissaoLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         AdmissaoLayout.setVerticalGroup(
@@ -1378,7 +1400,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvarFamilia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelarFamilia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1525,16 +1547,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
-                        .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EducacaoFamiliaLayout.setVerticalGroup(
             EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1728,7 +1748,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIdadeEscolar, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                        .addComponent(jIdadeEscolar, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2253,7 +2273,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                             .addComponent(jNomeInternoEvolucao)
                             .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addComponent(jLabel37)
-                                .addGap(0, 193, Short.MAX_VALUE))))
+                                .addGap(0, 198, Short.MAX_VALUE))))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel61)
@@ -2432,7 +2452,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(EvolucaoLayout.createSequentialGroup()
                         .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2489,14 +2509,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(350, 40, 565, 511);
+        setBounds(350, 40, 571, 511);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtDataLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataLancActionPerformed
@@ -2827,6 +2847,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             limparTabelaEvolucao();
             Novo();
             corCampos();
+            verificarInternoRegistradoAdm();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -2935,22 +2956,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objAdmPedago.setDeptoPedagogia(deptoTecnico);
                     controleMov.incluirMovTec(objAdmPedago);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
-                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
@@ -3646,6 +3651,20 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     controlRegAtend.alterarRegEvol(objRegAtend);
                     objLog5();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    objRegAtend.setUsuarioUp(nameUser);
+                    objRegAtend.setDataUp(dataModFinal);
+                    objRegAtend.setHorarioUp(horaMov);
+                    controlRegAtend.alterarRegAtend(objRegAtend);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoEvolucao.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     bloquearCampos();
                     bloquearBotoes();
                     SalvarEvolucao();
@@ -3757,6 +3776,37 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaEvolucaoPedagogaMouseClicked
 
+    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
+        // TODO add your handling code here:
+        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+        atendido = "Sim";
+        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+        objRegAtend.setAtendido(atendido);
+        objRegAtend.setDataAtendimento(jDataAdm.getDate());
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+        //
+        objRegAtend.setUsuarioUp(nameUser);
+        objRegAtend.setDataUp(dataModFinal);
+        objRegAtend.setHorarioUp(horaMov);
+        controlRegAtend.alterarRegAtend(objRegAtend);
+        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
+        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+        objRegAtend.setHorarioUp(horaMov);
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+        control_ATENDE.confirmarAtendimento(objRegAtend);
+        JOptionPane.showMessageDialog(rootPane, "Atendimento concluído com sucesso.");
+    }//GEN-LAST:event_jBtConfirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Admissao;
@@ -3784,6 +3834,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelarFamilia;
     private javax.swing.JButton jBtCancelarFeminino;
     private javax.swing.JButton jBtCancelarSocializacao;
+    private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtDataLanc;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirEvolucao;

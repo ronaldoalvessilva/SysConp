@@ -1171,6 +1171,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             if (resposta == JOptionPane.YES_OPTION) {
                 acao = 1;
                 Novo();
+                pesquisarAtendente();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
