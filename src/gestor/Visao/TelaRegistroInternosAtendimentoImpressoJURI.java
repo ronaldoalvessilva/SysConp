@@ -216,7 +216,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -1105,6 +1105,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
+            jComboBoxAtendente.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1125,6 +1126,7 @@ public class TelaRegistroInternosAtendimentoImpressoJURI extends javax.swing.JIn
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloJURI);
+                jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));

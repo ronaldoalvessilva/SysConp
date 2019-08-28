@@ -1106,6 +1106,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
+            jComboBoxAtendente.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1126,6 +1127,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloODONTOLOGIA);
+                jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));
