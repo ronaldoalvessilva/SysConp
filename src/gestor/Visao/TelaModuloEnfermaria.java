@@ -116,6 +116,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private TelaTiposTratamentos objTipoTrata = null;
     private TelaRegistroInternosAtendimentoImpresso objAutoImp = null;
     private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //    
     String dataLanc;
     int codUsuario;
@@ -415,7 +416,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         RelatorioInternosUnidadePenal = new javax.swing.JMenuItem();
         relatorioInternosSemCartaoSUS = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jRelatorioEntradasInternosUnidade = new javax.swing.JMenuItem();
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jRelatorioProdutividadeMedicos = new javax.swing.JMenuItem();
@@ -849,13 +850,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         Relatorios.add(relatorioInternosSemCartaoSUS);
         Relatorios.add(jSeparator15);
 
-        jMenuItem4.setText("Relatório de Entrada de Internos na Unidade");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jRelatorioEntradasInternosUnidade.setText("Relatório de Entrada de Internos na Unidade");
+        jRelatorioEntradasInternosUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jRelatorioEntradasInternosUnidadeActionPerformed(evt);
             }
         });
-        Relatorios.add(jMenuItem4);
+        Relatorios.add(jRelatorioEntradasInternosUnidade);
         Relatorios.add(jSeparator18);
 
         jMenu3.setForeground(new java.awt.Color(204, 0, 0));
@@ -2084,12 +2085,12 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jRelatorioEntradasInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioEntradasInternosUnidadeActionPerformed
         // TODO add your handling code here:
         TelaRelatorioEntradas objRelEntradaInter = new TelaRelatorioEntradas();
         TelaModuloEnfermaria.jPainelMedico.add(objRelEntradaInter);
         objRelEntradaInter.show();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jRelatorioEntradasInternosUnidadeActionPerformed
 
     private void RegistrarInternoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarInternoAtendimentoActionPerformed
         // TODO add your handling code here:
@@ -2229,7 +2230,38 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRelatórioAcompanhamentoSaudeActionPerformed
 
     private void jCancelarAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarAtendimentoInternoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:TelaCancelamentoAtendimentoPSP
+        buscarAcessoUsuario(telaPerfilCarManuENF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codAbrirENF == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelMedico.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloEnfermaria.jPainelMedico.add(objCancelaAtend);//adicona frame ao JDesktopPane  
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+//        TelaCancelamentoAtendimentoPSP objCancelaAtend
     }//GEN-LAST:event_jCancelarAtendimentoInternoActionPerformed
 
 
@@ -2282,10 +2314,10 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMotivoDevolucaoProdutos;
     private javax.swing.JMenuItem jMovimentacaoExternaInterno;
     public static javax.swing.JDesktopPane jPainelMedico;
+    private javax.swing.JMenuItem jRelatorioEntradasInternosUnidade;
     private javax.swing.JMenuItem jRelatorioProdutividadeEnfermagem;
     private javax.swing.JMenuItem jRelatorioProdutividadeMedicos;
     private javax.swing.JMenuItem jRelatorioProdutividadePsiquiatra;

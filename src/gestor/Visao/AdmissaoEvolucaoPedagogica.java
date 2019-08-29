@@ -2962,6 +2962,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     bloquearBotoes();
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
                 }
                 if (acao == 2) {
                     objAdmPedago.setUsuarioUp(nameUser);
@@ -3161,6 +3162,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         bloquearBotoes();
                         SalvarFamilia();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
                     }
                 }
                 if (acao == 4) {
@@ -3353,6 +3355,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         bloquearBotoes();
                         SalvarSocializacao();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
                     }
                 }
                 if (acao == 6) {
@@ -3491,6 +3494,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     bloquearBotoes();
                     SalvarFeminina();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
                 }
             }
             if (acao == 8) {
