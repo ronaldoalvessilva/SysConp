@@ -35,6 +35,15 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
     String pSITUACAO_RETORNO = "RETORNO A UNIDADE";
     String pREGISTRO_ASSINATURA;
     String pINTERNO_ATENDIDO = "Não";
+    String pNOME_INTERNO = "";
+    // DEPAETAMENTOS COM ACESSO A EXCLUIR REGISTRO.
+    String pDEPARTAMENTO_ENFEREMARIA = "ENFERMARIA";
+    String pDEPARTAMENTO_JURIDICO = "JURIDICO";
+    String pDEPARTAMENTO_SERVICO_SOCIAL = "SERVICO SOCIAL";
+    String pDEPARTAMENTO_PSICOLOGIA = "PSICOLOGIA";
+    String pDEPARTAMENTO_TERAPIA_OCUPACIONAL = "TERAPIA OCUPACIONAL";
+    String pDEPARTAMENTO_ODONTOLOGIA = "ODONTOLOGIA";
+    String pDEPARTAMENTO_PEDAGOGIA = "PEDAGOGIA";
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
@@ -171,8 +180,8 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
             jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(80);
             jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(250);
             jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(250);
-            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(100);
-            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(150);
+            jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(150);
             jTabelaInterno.getColumnModel().getColumn(5).setMinWidth(150);
             jTabelaInterno.getColumnModel().getColumn(5).setMaxWidth(150);
             jTabelaInterno.getColumnModel().getColumn(6).setMinWidth(200);
@@ -248,7 +257,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                 .addContainerGap())
         );
 
-        setBounds(200, 10, 523, 270);
+        setBounds(300, 10, 523, 270);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -294,6 +303,9 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         flag = 1;
         if (flag == 1) {
             pREGISTRO_ASSINATURA = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            jIdRegistro.setText(pREGISTRO_ASSINATURA);
+            pNOME_INTERNO = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 3);
+            jPesqNome.setText(pNOME_INTERNO);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -316,9 +328,9 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                         + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento  "
                         + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + pREGISTRO_ASSINATURA + "'");
                 conecta.rs.first();
-                jDepartamento.setText(String.valueOf(conecta.rs.getInt("NomeDepartamento")));
-                jUsuarioAtendente.setText(conecta.rs.getString("UsuarioUp"));
-                jIdAssinatura.setText(conecta.rs.getString("IdRegistro"));
+                jDepartamento.setText(String.valueOf(conecta.rs.getString("NomeDepartamento")));
+                jUsuarioAtendente.setText(conecta.rs.getString("UsuarioAtendente"));
+                jIdAssinatura.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataAssinatura.setDate(conecta.rs.getDate("DataReg"));
                 jHorarioAssinatura.setText(conecta.rs.getString("Horario"));
                 jTipoAtendimento.setText(conecta.rs.getString("TipoAtendimento"));
@@ -378,7 +390,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                 String mes = dataRegistro.substring(5, 7);
                 String ano = dataRegistro.substring(0, 4);
                 dataRegistro = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioUp")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioAtendente")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -393,7 +405,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
@@ -421,7 +433,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                 String mes = dataRegistro.substring(5, 7);
                 String ano = dataRegistro.substring(0, 4);
                 dataRegistro = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioUp")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioAtendente")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -436,7 +448,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
@@ -464,7 +476,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                 String mes = dataRegistro.substring(5, 7);
                 String ano = dataRegistro.substring(0, 4);
                 dataRegistro = dia + "/" + mes + "/" + ano;
-                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioUp")});
+                dados.add(new Object[]{conecta.rs.getInt("IdRegistro"), dataRegistro, conecta.rs.getString("Horario"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("TipoAtendimento"), conecta.rs.getString("NomeDepartamento"), conecta.rs.getString("UsuarioAtendente")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -479,7 +491,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
@@ -505,7 +517,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(4).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(150);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
@@ -524,8 +536,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
-        jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
     }
 }

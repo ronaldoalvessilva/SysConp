@@ -877,6 +877,8 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
                 JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
             } else if (jComboBoxTipoMovimentacao.getSelectedItem() == null || jComboBoxTipoMovimentacao.getSelectedItem().equals("") || jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de atendimento para o interno.");
+            } else if (jComboBoxAtendente.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente para o interno.");
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
@@ -1371,6 +1373,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
         jMotivo.setText("INTERNO NÃO CONSEGUIU ASSINAR ATRAVÉS DA SUA BIOMETRIA DEVIA A DIGITAL GASTA.");
         //
         jMotivo.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
@@ -1382,6 +1385,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1407,6 +1411,7 @@ public class TelaRegistroInternosAtendimentoImpressoPSI extends javax.swing.JInt
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);

@@ -923,7 +923,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                         objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
                         objRegAtend.setNomeDepartamento(nomeModuloPEDA);
                         objRegAtend.setAtendido(pATENDENDO);
-                        objRegAtend.setUsuarioAtendente(nameUser);
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         objRegAtend.setDataInsert(dataModFinal);
                         objRegAtend.setHorarioInsert(horaMov);
                         objRegAtend.setEmAtendimento(pCONCLUIDO);

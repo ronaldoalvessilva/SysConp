@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -50,6 +51,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     String dataFinal = "";
     String pCODIGO_INTERNO_EXCLUIDO = "";
     String pCODIGO_REGISTRO_ASSINATURA_INT = "";
+    String pSTATUS_ATENDIMENTO = "REGISTRO EXCLUIDO";
 
     /**
      * Creates new form TelaCancelamentoAtendimentoPSP
@@ -57,6 +59,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     public TelaCancelamentoAtendimentoPSP() {
         initComponents();
         corCampos();
+        formataCampos();
     }
 
     /**
@@ -265,7 +268,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         if (jTabelaRegistroCancelamento.getColumnModel().getColumnCount() > 0) {
             jTabelaRegistroCancelamento.getColumnModel().getColumn(0).setPreferredWidth(70);
             jTabelaRegistroCancelamento.getColumnModel().getColumn(1).setPreferredWidth(70);
-            jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(80);
+            jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(120);
             jTabelaRegistroCancelamento.getColumnModel().getColumn(3).setPreferredWidth(300);
         }
 
@@ -390,6 +393,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Nome do Interno");
 
+        jIdInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdInterno.setEnabled(false);
 
@@ -658,13 +662,13 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 30, 442, 430);
+        setBounds(400, 30, 442, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        preencherAdmissaoMedica("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
+        preencherTabelaCA_PSP("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ELIMIAR_ASSINATURA_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "INNER JOIN DEPARTAMENTOS "
@@ -675,7 +679,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        preencherAdmissaoMedica("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
+        preencherTabelaCA_PSP("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ELIMIAR_ASSINATURA_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "INNER JOIN DEPARTAMENTOS "
@@ -703,7 +707,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherAdmissaoMedica("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
+                        preencherTabelaCA_PSP("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ELIMIAR_ASSINATURA_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN DEPARTAMENTOS "
@@ -729,7 +733,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         jTabelaRegistroCancelamento.setVisible(true);
-                        preencherAdmissaoMedica("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
+                        preencherTabelaCA_PSP("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ELIMIAR_ASSINATURA_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN DEPARTAMENTOS "
@@ -746,7 +750,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherAdmissaoMedica("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
+            this.preencherTabelaCA_PSP("SELECT * FROM ELIMIAR_ASSINATURA_INTERNO_PSP "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ELIMIAR_ASSINATURA_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DEPARTAMENTOS "
@@ -806,6 +810,8 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         acao = 1;
         limparCampos();
+        bloquearBotoes();
+        bloquearCampos();
         Novo();
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
@@ -821,7 +827,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         } else if (jMotivoCancelamento.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar o motivo da exclusãoda assinatura do interno.");
         } else {
-            objCancela.setStatusCancelamento(jStatusRegistro.getText());
+            objCancela.setStatusCancelamento(pSTATUS_ATENDIMENTO);
             objCancela.setDataCancelamento(jDataRegistro.getDate());
             objCancela.setDescricaoDepartamento(jDepartamento.getText());
             objCancela.setUsuarioAtendente(jUsuarioAtendente.getText());
@@ -839,7 +845,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
                     // LOG DE QUEM FEZ O INSERT NA TABELA
                     objCancela.setUsuarioInsert(nameUser);
                     objCancela.setDataInsert(dataModFinal);
-                    objCancela.setHorario(horaMov);
+                    objCancela.setHorarioInsert(horaMov);
                     //GRAVAR O REGISTRO QUE SERÁ EXCLUIR DA TABELA ELIMIAR_ASSINATURA_INTERNO_PSP
                     control.incluirRegistroCancelamento(objCancela);
                     buscarCodigo();
@@ -864,6 +870,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
                     bloquearCampos();
                     bloquearBotoes();
                     Salvar();
+                    jStatusRegistro.setText(pSTATUS_ATENDIMENTO);
                     JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 } else {
                     //EXCLUIR O REGISTRO GRAVADO ANTERIORMENTE NA TABELA ELIMIAR_ASSINATURA_INTERNO_PSP
@@ -893,8 +900,28 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     private void jBtPesquisarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarRegistroActionPerformed
         // TODO add your handling code here:
         TelaPesqInternoExcluirAssinaturaPSP objPesquisarRegistroAssinaturaPSP = new TelaPesqInternoExcluirAssinaturaPSP();
-        TelaModuloEnfermaria.jPainelMedico.add(objPesquisarRegistroAssinaturaPSP);
-        objPesquisarRegistroAssinaturaPSP.show();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            TelaModuloEnfermaria.jPainelMedico.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaModuloJuridico.jPainelJuridico.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloPsicologia.jPainelPsicologia != null) {
+            TelaModuloPsicologia.jPainelPsicologia.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloOdontologia.jPainelOdontologia != null) {
+            TelaModuloOdontologia.jPainelOdontologia.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
+            TelaModuloPedagogia.jPainelPedagogia.add(objPesquisarRegistroAssinaturaPSP);
+            objPesquisarRegistroAssinaturaPSP.show();
+        }
     }//GEN-LAST:event_jBtPesquisarRegistroActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -965,6 +992,11 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void formataCampos() {
+        jMotivoCancelamento.setLineWrap(true);
+        jMotivoCancelamento.setWrapStyleWord(true);
+    }
+
     public void corCampos() {
         jCodigoRegistro.setBackground(Color.white);
         jStatusRegistro.setBackground(Color.white);
@@ -1019,6 +1051,10 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     }
 
     public void Novo() {
+        jStatusRegistro.setText("EXCLUINDO REGISTRO");
+        jDataRegistro.setCalendar(Calendar.getInstance());
+        jMotivoCancelamento.setEnabled(true);
+        //
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
         jBtPesquisarRegistro.setEnabled(true);
@@ -1046,7 +1082,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void preencherAdmissaoMedica(String sql) {
+    public void preencherTabelaCA_PSP(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno"};
         conecta.abrirConexao();
@@ -1056,13 +1092,13 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataLanc");
+                dataEntrada = conecta.rs.getString("DataCancelamento");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdCancel"), dataEntrada, conecta.rs.getString("StatusCancelamento"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1073,7 +1109,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         jTabelaRegistroCancelamento.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(120);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setResizable(false);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(3).setResizable(false);
@@ -1104,7 +1140,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
         jTabelaRegistroCancelamento.getColumnModel().getColumn(0).setResizable(false);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setPreferredWidth(120);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(2).setResizable(false);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaRegistroCancelamento.getColumnModel().getColumn(3).setResizable(false);

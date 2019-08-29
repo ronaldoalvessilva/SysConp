@@ -1370,6 +1370,7 @@ public class TelaRegistroInternosAtendimentoImpressoTO extends javax.swing.JInte
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
 //        jBtSalvar.setEnabled(true);
@@ -1381,6 +1382,7 @@ public class TelaRegistroInternosAtendimentoImpressoTO extends javax.swing.JInte
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1406,6 +1408,7 @@ public class TelaRegistroInternosAtendimentoImpressoTO extends javax.swing.JInte
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1415,6 +1418,7 @@ public class TelaRegistroInternosAtendimentoImpressoTO extends javax.swing.JInte
         } else {
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);

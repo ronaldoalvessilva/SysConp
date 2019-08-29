@@ -40,10 +40,10 @@ public class ControleCancelamentoAssinaturaInternoPSP {
             pst.setTimestamp(7, new java.sql.Timestamp(objCancela.getDataRegistro().getTime()));
             pst.setString(8, objCancela.getHorario());
             pst.setString(9, objCancela.getTipoAtendimento());
-            pst.setString(10, objCancela.getUsuarioInsert());
-            pst.setString(11, objCancela.getDataInsert());
-            pst.setString(12, objCancela.getHorario());
-            pst.setString(13, objCancela.getMotivo());
+            pst.setString(10, objCancela.getMotivo());
+            pst.setString(11, objCancela.getUsuarioInsert());
+            pst.setString(12, objCancela.getDataInsert());
+            pst.setString(13, objCancela.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -56,7 +56,7 @@ public class ControleCancelamentoAssinaturaInternoPSP {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + objCancela.getIdRegistro() + "'");
+                    + "WHERE IdRegistro='" + objCancela.getIdRegistro() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR registro assinatura de Interno.\nERRO: " + ex);

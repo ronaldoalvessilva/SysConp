@@ -367,7 +367,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         RegistrarInternoAtendimento = new javax.swing.JMenuItem();
         RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
-        jCancelarAtendimentoInterno = new javax.swing.JMenuItem();
+        jCancelarRegistroAtendimentoInterno = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         Sair = new javax.swing.JMenuItem();
         ControleMedicamentos = new javax.swing.JMenu();
@@ -560,13 +560,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jMenu2.add(RegistroAtendimentoImpresso);
         jMenu2.add(jSeparator20);
 
-        jCancelarAtendimentoInterno.setText("Cancelar  Atendimento de Interno");
-        jCancelarAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
+        jCancelarRegistroAtendimentoInterno.setText("Cancelar  Registro de Atendimento de Interno");
+        jCancelarRegistroAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCancelarAtendimentoInternoActionPerformed(evt);
+                jCancelarRegistroAtendimentoInternoActionPerformed(evt);
             }
         });
-        jMenu2.add(jCancelarAtendimentoInterno);
+        jMenu2.add(jCancelarRegistroAtendimentoInterno);
 
         Cadastros.add(jMenu2);
         Cadastros.add(jSeparator8);
@@ -2229,7 +2229,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         objRelIndSaude.show();
     }//GEN-LAST:event_jRelatórioAcompanhamentoSaudeActionPerformed
 
-    private void jCancelarAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarAtendimentoInternoActionPerformed
+    private void jCancelarRegistroAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistroAtendimentoInternoActionPerformed
         // TODO add your handling code here:TelaCancelamentoAtendimentoPSP
         buscarAcessoUsuario(telaPerfilCarManuENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPerfilCarManuENF) && codAbrirENF == 1) {
@@ -2262,7 +2262,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
 //        TelaCancelamentoAtendimentoPSP objCancelaAtend
-    }//GEN-LAST:event_jCancelarAtendimentoInternoActionPerformed
+    }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2304,7 +2304,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoMedicamentosFarmacia;
     private javax.swing.JMenuItem SolicitantesMedicamentos;
     private javax.swing.JMenuItem jCalendarioVacinas;
-    private javax.swing.JMenuItem jCancelarAtendimentoInterno;
+    private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JMenuItem jEncaminhamentosCirurgiasEspecialistas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

@@ -925,7 +925,7 @@ public class TelaRegistroInternosAtendimentoImpressoSS extends javax.swing.JInte
                         objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
                         objRegAtend.setNomeDepartamento(nomeModuloSS);
                         objRegAtend.setAtendido(pATENDENDO);
-                        objRegAtend.setUsuarioAtendente(nameUser);
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         objRegAtend.setDataInsert(dataModFinal);
                         objRegAtend.setHorarioInsert(horaMov);
                         objRegAtend.setEmAtendimento(pCONCLUIDO);

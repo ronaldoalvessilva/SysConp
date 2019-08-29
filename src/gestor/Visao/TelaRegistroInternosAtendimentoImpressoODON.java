@@ -1378,6 +1378,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
 //        jBtSalvar.setEnabled(true);
@@ -1389,6 +1390,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1414,6 +1416,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1423,6 +1426,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         } else {
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
