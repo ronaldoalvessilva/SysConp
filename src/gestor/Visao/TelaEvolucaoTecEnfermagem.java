@@ -1338,8 +1338,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaEvolucaoMedicoMouseClicked
 
     private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
-        // TODO add your handling code here:
-        verificarInternoRegistradoAdm();
+        // TODO add your handling code here:        
         buscarAcessoUsuario(telaAtendTecEnfIntEvolENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAtendTecEnfIntEvolENF) && codIncluirENF == 1) {
             if (atendido == null) {
@@ -1349,9 +1348,9 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
             } else if (atendido.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("Não")) {
+                verificarInternoRegistradoAdm();
                 acao = 3;
                 NovaEvolucao();
-                verificarInternoRegistradoAdm();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1444,6 +1443,8 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegEvol(objRegAtend);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV                    
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
@@ -1454,8 +1455,6 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
-                    objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaEvolucaoTecEnfermagem("SELECT * FROM EVOLUCAOTECENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
