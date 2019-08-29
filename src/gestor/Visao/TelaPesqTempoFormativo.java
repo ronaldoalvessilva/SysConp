@@ -28,6 +28,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
     int flag;
     String statusInst = "Ativo";
     String descricaoTempoFormativo;
+    String idInst;
 
     /**
      * Creates new form TelaPesqInstituicaoMat
@@ -118,7 +119,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
         jTabelaTempoFormativo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTempoFormativo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Tempo Formativo", "Eixo", "Turnos de Aulas"
@@ -222,7 +223,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM TEMPOFORMATIVO "
                         + "INNER JOIN TURNOSAULA "
                         + "ON TEMPOFORMATIVO.IdTurno=TURNOSAULA.IdTurno "
-                        + "WHERE DescricaoTempo LIKE'" + descricaoTempoFormativo + "%'");
+                         + "WHERE IdTempo='" + idInst + "'");
                 conecta.rs.first();
                 codigoMatricula = conecta.rs.getInt("IdTempo");
                 jDescricaoTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
@@ -273,7 +274,7 @@ public class TelaPesqTempoFormativo extends javax.swing.JInternalFrame {
         if (flag == 1) {
             descricaoTempoFormativo = "" + jTabelaTempoFormativo.getValueAt(jTabelaTempoFormativo.getSelectedRow(), 1);
             jPesqNomeInstituicao.setText(descricaoTempoFormativo);
-            String idInst = "" + jTabelaTempoFormativo.getValueAt(jTabelaTempoFormativo.getSelectedRow(), 0);
+            idInst = "" + jTabelaTempoFormativo.getValueAt(jTabelaTempoFormativo.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaTempoFormativoMouseClicked
 
