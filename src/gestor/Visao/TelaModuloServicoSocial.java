@@ -875,7 +875,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu3.add(jSeparator22);
 
         jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(0, 102, 51));
-        jRelatorioAtendimentoInternos.setText("Relatório de Atendimento de Internos");
+        jRelatorioAtendimentoInternos.setText("Relatório de Quantitativo de Atendimento Geral");
         jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioAtendimentoInternosActionPerformed(evt);
