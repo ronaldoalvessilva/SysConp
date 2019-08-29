@@ -108,6 +108,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpressoSS objAutoImp = null;
     private TelaSolicitacaoAuxilioReclusao objSoliPedRec = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -161,6 +162,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaAprovadoresOcrSS = "Cadastro:Aprovadores de Ocorrências Indisciplinas Visitas:Manutenção";
     public static String telaRegistroAtendimentoBioSS = "Cadastro:Registro de Atendimento Internos Biometria Serviços Social:Manutenção";
     public static String telaRegistroAtendimentoImpressaoBioSSocial = "Cadastro:Registro de Autorização Impressa Serviços Social:Liberação";
+    public static String telaCancelAtendInternoSS = "Cadastro:Cancelamento Assinatura Interno/Impressão - SSO:Manutenção";
     // MOVIMENTAÇÃO
     public static String telaAdmissaoInternosServicoSocial = "Movimentação:Admissão de Internos:Admissão";
     public static String telaEvolucaoServicoSocial = "Movimentação:Admissão de Internos:Evolução";
@@ -221,6 +223,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeAO = "";
     String pNomeRAB_SS = "";
     String pNomeRAIB_SS = "";
+    String pNomeCAII = "";
     // MOVIMENTAÇÃO
     String pNomeAEI = "";
     String pNomeAEIE = "";
@@ -266,7 +269,6 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeIAS = "";
     //
     public static int pQUANTIDADE_ATENDIDA = 1;
-  
 
     //  
     /**
@@ -305,6 +307,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu9 = new javax.swing.JMenu();
         jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
         RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jSeparator21 = new javax.swing.JPopupMenu.Separator();
+        jCancelamentoRegistroAtendimento = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -485,6 +489,15 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu9.add(RegistroAtendimentoImpresso);
+        jMenu9.add(jSeparator21);
+
+        jCancelamentoRegistroAtendimento.setText("Cancelar  Registro de Atendimento de Interno");
+        jCancelamentoRegistroAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelamentoRegistroAtendimentoActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jCancelamentoRegistroAtendimento);
 
         jMenu1.add(jMenu9);
         jMenu1.add(jSeparator14);
@@ -2171,6 +2184,40 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         objRelAF.show();
     }//GEN-LAST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
 
+    private void jCancelamentoRegistroAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelamentoRegistroAtendimentoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelAtendInternoSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaCancelAtendInternoSS) && codAbrirSS == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelServicoSocial.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objCancelaAtend);//adicona frame ao JDesktopPane  
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelamentoRegistroAtendimentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoInternos;
@@ -2214,6 +2261,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem VisitantesReligiosos;
     private javax.swing.JMenuItem Vistantes;
+    private javax.swing.JMenuItem jCancelamentoRegistroAtendimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2252,6 +2300,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator20;
+    private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -2651,6 +2700,13 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeRAIB_SS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelAtendInternoSS + "'");
+            conecta.rs.first();
+            pNomeCAII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MANUTENÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -3000,6 +3056,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroAtendimentoImpressaoBioSSocial);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCAII.equals(telaCancelAtendInternoSS) || pNomeCAII == null || pNomeCAII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelAtendInternoSS);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO

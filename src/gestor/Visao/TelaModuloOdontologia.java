@@ -92,6 +92,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private TelaTiposProcedimentos objTipoProc = null;
     private TelaRegistroInternosAtendimentoODONTO objRegiAtendBio = null;
     private TelaRegistroInternosAtendimentoImpressoODON objRegAtendImp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //
     String dataLanc;
     int codUsuario;
@@ -132,6 +133,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     // REGISTRO DE INTERNO IMPRESSO
     public static String telaRegistroAtenImpODON = "Cadastro:Registro de Atendimento de Internos Impresso - Odontologia";
     public static String telaRegistroLibAtenImpODON = "Cadastro:Registro de Atendimento de Internos Impresso - Odontologia:Liberação";
+    public static String telaCancelAtendInterno_ODON = "Cadastro:Cancelamento Assinatura Interno/Impressão - ODO:Manutenção";
     //
     public static String telaAtendimentoInternoManu_ODON = "Movimentação:Atendimento de Internos ODONTO:Manutenção";
     public static String telaAtendimentoInternoEvolucao_ODON = "Movimentação:Evolução de Internos ODONTO:Internos";
@@ -146,6 +148,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     // REGISTRO DE ATENDIMENTO BIOMETRIA DE LIBERAÇÃO DO COLABORADOR
     String pNomeRAI_ODON = "";
     String pNomeRLAI_ODON = "";
+    String pNomeCAII = "";
     //
     String pNomeAIM_ODON = "";
     String pNomeAIE_ODON = "";
@@ -184,6 +187,8 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         jMenu5 = new javax.swing.JMenu();
         RegistroAtendimentoBiometria = new javax.swing.JMenuItem();
         RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jCancelarRegistroAtendimentoInterno = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         AgenaRecados = new javax.swing.JMenuItem();
@@ -262,6 +267,15 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu5.add(RegistroAtendimentoImpresso);
+        jMenu5.add(jSeparator7);
+
+        jCancelarRegistroAtendimentoInterno.setText("Cancelar  Registro de Atendimento de Interno");
+        jCancelarRegistroAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarRegistroAtendimentoInternoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jCancelarRegistroAtendimentoInterno);
 
         jMenu1.add(jMenu5);
         jMenu1.add(jSeparator6);
@@ -810,6 +824,40 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
         objRelProdOdon.show();
     }//GEN-LAST:event_jRelatorioAtendimentoInternosActionPerformed
 
+    private void jCancelarRegistroAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelAtendInterno_ODON);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaCancelAtendInterno_ODON) && codAbrirODON == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelOdontologia.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloOdontologia.jPainelOdontologia.add(objCancelaAtend);//adicona frame ao JDesktopPane  
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }        
+    }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgenaRecados;
@@ -827,6 +875,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioGeralConfere;
     private javax.swing.JMenuItem Sair;
+    private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -842,6 +891,7 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JMenuItem jTiposProcedimentos;
     // End of variables declaration//GEN-END:variables
 
@@ -1236,6 +1286,13 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             pNomeRLAI_ODON = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+         try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelAtendInterno_ODON + "'");
+            conecta.rs.first();
+            pNomeCAII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1294,6 +1351,12 @@ public class TelaModuloOdontologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroLibAtenImpODON);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCAII.equals(telaCancelAtendInterno_ODON) || pNomeCAII == null || pNomeCAII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelAtendInterno_ODON);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //MOVIMENTAÇÃO

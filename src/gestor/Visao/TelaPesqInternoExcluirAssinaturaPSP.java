@@ -14,6 +14,7 @@ import static gestor.Visao.TelaCancelamentoAtendimentoPSP.jNomeInterno;
 import static gestor.Visao.TelaCancelamentoAtendimentoPSP.jDataAssinatura;
 import static gestor.Visao.TelaCancelamentoAtendimentoPSP.jHorarioAssinatura;
 import static gestor.Visao.TelaCancelamentoAtendimentoPSP.jUsuarioAtendente;
+import static gestor.Visao.TelaCancelamentoAtendimentoPSP.pCODIGO_DEPARTAMENTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -275,9 +276,11 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                     + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + pSITUACAO_ENTRADA + "' "
                     + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "' "
+                    + "AND DEPARTAMENTOS.IdDepartamento='" + pCODIGO_DEPARTAMENTO + "' "
                     + "OR PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + pSITUACAO_RETORNO + "' "
-                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "'");
+                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "' "
+                    + "AND DEPARTAMENTOS.IdDepartamento='" + pCODIGO_DEPARTAMENTO + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -294,7 +297,8 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdRegistro='" + jIdRegistro.getText() + "' "
-                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "'");
+                    + "AND REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "' "
+                    + "AND DEPARTAMENTOS.IdDepartamento='" + pCODIGO_DEPARTAMENTO + "'");
         }
     }//GEN-LAST:event_jBtRegistroActionPerformed
 
@@ -353,7 +357,8 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DEPARTAMENTOS "
                     + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "'");
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.Atendido='" + pINTERNO_ATENDIDO + "' "
+                    + "AND DEPARTAMENTOS.IdDepartamento='" + pCODIGO_DEPARTAMENTO + "'");
         } else {
             limparCamposTabela();
         }

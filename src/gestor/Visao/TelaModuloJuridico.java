@@ -104,6 +104,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoJURI objRegAtendJURI = null;
     private TelaRegistroInternosAtendimentoImpressoJURI objAutoImp = null;
     private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //
     public static String nomeModuloJURI = "JURIDICO";
     Calendar agenda = new GregorianCalendar();
@@ -152,6 +153,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     public static String telaNaturezaPrisaoJURI = "Cadastro:Natureza da Prisão:Manutenção";
     public static String telaRegistroBiometriaJURI = "Cadastro:Registro Interno para Atendimento - Juridico:Manutenção";
     public static String telaRegistroBiometriaInciarLeitorJURI = "Cadastro:Registro Interno para Atendimento - Juridico:Iniciar Leitor";
+    public static String telaCancelAtendInternoJURI = "Cadastro:Cancelamento Assinatura Interno/Impressão - JURI:Manutenção";
     // REGISTRO DE INTERNO IMPRESSO
     public static String telaRegistroAtenImpJURI = "Cadastro:Registro de Atendimento de Internos Impresso - Juridico";
     public static String telaRegistroLibAtenImpJURI = "Cadastro:Registro de Atendimento de Internos Impresso - Juridico:Liberação";
@@ -206,6 +208,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
     String pNomeRBIL = "";
     String pNomeRAI = "";
     String pNomeRLAI = "";
+    String pNomeCAII = "";
     // MENU CONULTA
     String pNomeCPID = "";
     // ATENDIMENTO JURIDICO
@@ -390,7 +393,7 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
         jMenu1.add(RegsitroAtendimentoImpressao);
         jMenu1.add(jSeparator15);
 
-        jCancelarAtendimento.setText("Cancelar Atendimento de Interno");
+        jCancelarAtendimento.setText("Cancelar  Registro de Atendimento de Interno");
         jCancelarAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCancelarAtendimentoActionPerformed(evt);
@@ -1420,6 +1423,36 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
 
     private void jCancelarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarAtendimentoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelAtendInternoJURI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaCancelAtendInternoJURI) && codAbrirJURI == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelJuridico.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloJuridico.jPainelJuridico.add(objCancelaAtend);//adicona frame ao JDesktopPane  
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jCancelarAtendimentoActionPerformed
 
 
@@ -2003,6 +2036,13 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             pNomeRLAI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelAtendInternoJURI + "'");
+            conecta.rs.first();
+            pNomeCAII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -2181,6 +2221,12 @@ public class TelaModuloJuridico extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroLibAtenImpJURI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCAII.equals(telaCancelAtendInternoJURI) || pNomeCAII == null || pNomeCAII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelAtendInternoJURI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MENU CONSULTA

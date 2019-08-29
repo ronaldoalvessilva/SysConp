@@ -13,9 +13,15 @@ import gestor.Modelo.CancelamentoAssinaturaInternoPSP;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
+import static gestor.Visao.TelaModuloJuridico.nomeModuloJURI;
+import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
+import static gestor.Visao.TelaModuloPedagogia.nomeModuloPEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeModuloTO;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -52,7 +58,7 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     String dataFinal = "";
     String pCODIGO_INTERNO_EXCLUIDO = "";
     String pCODIGO_REGISTRO_ASSINATURA_INT = "";
-    String pSTATUS_ATENDIMENTO = "REGISTRO EXCLUIDO";    
+    String pSTATUS_ATENDIMENTO = "REGISTRO EXCLUIDO";
     public static int pCODIGO_DEPARTAMENTO = 0;
 
     /**
@@ -907,21 +913,27 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
             TelaModuloEnfermaria.jPainelMedico.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            pesquisarDepartamento(nomeModuloJURI);
             TelaModuloJuridico.jPainelJuridico.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
+            pesquisarDepartamento(nomeModuloSS);
             TelaModuloServicoSocial.jPainelServicoSocial.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloPsicologia.jPainelPsicologia != null) {
+            pesquisarDepartamento(nomeModuloPSICOLOGIA);
             TelaModuloPsicologia.jPainelPsicologia.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloOdontologia.jPainelOdontologia != null) {
+            pesquisarDepartamento(nomeModuloODONTOLOGIA);
             TelaModuloOdontologia.jPainelOdontologia.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
+            pesquisarDepartamento(nomeModuloTO);
             TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
+            pesquisarDepartamento(nomeModuloPEDA);
             TelaModuloPedagogia.jPainelPedagogia.add(objPesquisarRegistroAssinaturaPSP);
             objPesquisarRegistroAssinaturaPSP.show();
         }
@@ -934,6 +946,36 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaExclusaoRegistroAtendimento objAudRegAtend = new TelaAuditoriaExclusaoRegistroAtendimento();
+        if (TelaModuloEnfermaria.jPainelMedico != null) {
+            pesquisarDepartamento(nomeModuloENFER);
+            TelaModuloEnfermaria.jPainelMedico.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            pesquisarDepartamento(nomeModuloJURI);
+            TelaModuloJuridico.jPainelJuridico.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
+            pesquisarDepartamento(nomeModuloSS);
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloPsicologia.jPainelPsicologia != null) {
+            pesquisarDepartamento(nomeModuloPSICOLOGIA);
+            TelaModuloPsicologia.jPainelPsicologia.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloOdontologia.jPainelOdontologia != null) {
+            pesquisarDepartamento(nomeModuloODONTOLOGIA);
+            TelaModuloOdontologia.jPainelOdontologia.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
+            pesquisarDepartamento(nomeModuloTO);
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudRegAtend);
+            objAudRegAtend.show();
+        } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
+            pesquisarDepartamento(nomeModuloPEDA);
+            TelaModuloPedagogia.jPainelPedagogia.add(objAudRegAtend);
+            objAudRegAtend.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
 
