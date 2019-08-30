@@ -276,14 +276,15 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)
-                        .addComponent(jNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -352,6 +353,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtCancelar.setText("Cancelar");
         jBtCancelar.setToolTipText("Cancelar Operação");
         jBtCancelar.setContentAreaFilled(false);
+        jBtCancelar.setEnabled(false);
         jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtCancelar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -557,14 +559,6 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCadastroDepartamento_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codGravarADM == 1) {
-            objDepto.setNomeDepartamento(jDescricao.getText());
-            objDepto.setNumeroSala(Integer.valueOf(jNumeroSala.getText()));
-            objDepto.setStatusDepartamento(objDepto.isStatusDepartamento());
-            if (jComboBoxStatus.getSelectedIndex() == 0) {
-                objDepto.setStatusDepartamento(true);
-            } else {
-                objDepto.setStatusDepartamento(false);
-            }
             // Verifica se o campo descrição está em branco
             if (jDescricao.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Descrição não podem ser em branco");
@@ -573,6 +567,14 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o número da sala.");
                 jNumeroSala.requestFocus();
             } else {
+                objDepto.setNomeDepartamento(jDescricao.getText());
+                objDepto.setNumeroSala(Integer.valueOf(jNumeroSala.getText()));
+                objDepto.setStatusDepartamento(objDepto.isStatusDepartamento());
+                if (jComboBoxStatus.getSelectedIndex() == 0) {
+                    objDepto.setStatusDepartamento(true);
+                } else {
+                    objDepto.setStatusDepartamento(false);
+                }
                 try {
                     conecta.abrirConexao();
                     conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
@@ -594,15 +596,15 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
                         Salvar();
                     }
                 }
-            }
-            // Se registro for 2 será alterado o registro
-            if (acao == 2) {
-                objDepto.setIdDepartamento(Integer.valueOf(jIdDepto.getText()));
-                control.alterarDepartamento(objDepto);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
-                SalvarAlterar();
+                // Se registro for 2 será alterado o registro
+                if (acao == 2) {
+                    objDepto.setIdDepartamento(Integer.valueOf(jIdDepto.getText()));
+                    control.alterarDepartamento(objDepto);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro Atualizado com Sucesso !!!");
+                    SalvarAlterar();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -808,8 +810,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtUltimo.setEnabled(true);
         jBtProximo.setEnabled(true);
         jBtAnterior.setEnabled(true);
-        jBtSalvar.setEnabled(false);
-        jBtCancelar.setEnabled(false);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
         //
         jComboBoxStatus.setEnabled(false);
         jNumeroSala.setEnabled(false);
@@ -819,6 +821,10 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     // Método salvar alteração
     public void SalvarAlterar() {
         jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
         jBtPrimeiro.setEnabled(true);
         jBtUltimo.setEnabled(true);
         jBtProximo.setEnabled(true);
