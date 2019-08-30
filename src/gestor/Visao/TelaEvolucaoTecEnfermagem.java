@@ -1341,14 +1341,14 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:        
         buscarAcessoUsuario(telaAtendTecEnfIntEvolENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAtendTecEnfIntEvolENF) && codIncluirENF == 1) {
+            verificarInternoRegistradoAdm();
             if (atendido == null) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("Sim")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("Não")) {
-                verificarInternoRegistradoAdm();
+            } else if (atendido.equals("Não")) {                
                 acao = 3;
                 NovaEvolucao();
                 statusMov = "Incluiu";
@@ -1432,6 +1432,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEM.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
+                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
