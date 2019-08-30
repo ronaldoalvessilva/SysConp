@@ -15,48 +15,31 @@
 		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT TOP 1 * FROM ATENDIMENTOSOCIAL
-INNER JOIN PRONTUARIOSCRC ON ATENDIMENTOSOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-WHERE DataAtend BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
+		<![CDATA[SELECT TOP 1 *  FROM ADMISSAOMEDICA
+INNER JOIN PRONTUARIOSCRC
+ ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
+WHERE DataLanc BETWEEN $P{dataInicial} AND $P{dataFinal}
+order by ADMISSAOMEDICA.UsuarioInsert, ADMISSAOMEDICA.DataLanc, PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
-	<field name="IdAtend" class="java.lang.Integer"/>
-	<field name="DataAtend" class="java.sql.Timestamp"/>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="StatusLanc" class="java.lang.String"/>
+	<field name="DataLanc" class="java.sql.Timestamp"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="StatusAtend" class="java.lang.String"/>
-	<field name="ContatoAtend" class="java.lang.String"/>
-	<field name="TelefoneAtend" class="java.lang.String"/>
-	<field name="Telefone1Atend" class="java.lang.String"/>
-	<field name="CelularAtend" class="java.lang.String"/>
-	<field name="EnderecoAtend" class="java.lang.String"/>
-	<field name="BairroAtend" class="java.lang.String"/>
-	<field name="CidadeAtend" class="java.lang.String"/>
-	<field name="EstadoAtend" class="java.lang.String"/>
-	<field name="CartTrabAtend" class="java.lang.String"/>
-	<field name="Periodo" class="java.lang.String"/>
-	<field name="DataPeriodo2Atend" class="java.sql.Timestamp"/>
-	<field name="RecebeRecluAtend" class="java.lang.String"/>
-	<field name="DireitoAuxAtend" class="java.lang.String"/>
-	<field name="RecebeBolAtend" class="java.lang.String"/>
-	<field name="QtdPessoasAtend" class="java.lang.String"/>
-	<field name="QtdTrabaAtend" class="java.lang.String"/>
-	<field name="CN1Atend" class="java.lang.String"/>
-	<field name="CN2Atend" class="java.lang.String"/>
-	<field name="RG1Atend" class="java.lang.String"/>
-	<field name="RG2atend" class="java.lang.String"/>
-	<field name="CPF1Atend" class="java.lang.String"/>
-	<field name="CPF2Atend" class="java.lang.String"/>
-	<field name="CTPS1Atend" class="java.lang.String"/>
-	<field name="CTPS2Atend" class="java.lang.String"/>
-	<field name="PossuiFilhosAtend" class="java.lang.String"/>
-	<field name="QtdFilhosAtend" class="java.lang.String"/>
-	<field name="FilhosNaoRegAtend" class="java.lang.String"/>
-	<field name="OutrosFilhosAtend" class="java.lang.String"/>
-	<field name="QtdFilhos2Atend" class="java.lang.String"/>
-	<field name="PaternidadeAtend" class="java.lang.String"/>
-	<field name="DefensorAtend" class="java.lang.String"/>
-	<field name="PartiFamiAtend" class="java.lang.String"/>
-	<field name="ConsiderAtend" class="java.sql.Clob"/>
+	<field name="AR" class="java.lang.String"/>
+	<field name="ACV" class="java.lang.String"/>
+	<field name="AGU" class="java.lang.String"/>
+	<field name="CABPESC" class="java.lang.String"/>
+	<field name="EXT" class="java.lang.String"/>
+	<field name="ABD" class="java.lang.String"/>
+	<field name="Diagnostico" class="java.sql.Clob"/>
+	<field name="CirurgiasPrevisas" class="java.lang.String"/>
+	<field name="TratamentoCurso" class="java.lang.String"/>
+	<field name="QualDrogas" class="java.lang.String"/>
+	<field name="QualEtilismo" class="java.lang.String"/>
+	<field name="QuantoTempoTabagismo" class="java.lang.String"/>
+	<field name="Drogas" class="java.lang.String"/>
+	<field name="Etilismo" class="java.lang.String"/>
+	<field name="Tabagismo" class="java.lang.String"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
@@ -65,27 +48,29 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
-	<field name="MunicipioNascimento" class="java.lang.String"/>
-	<field name="Tituloeleito1" class="java.lang.String"/>
-	<field name="Tituloeleito2" class="java.lang.String"/>
-	<field name="Reservista1" class="java.lang.String"/>
-	<field name="Reservista2" class="java.lang.String"/>
-	<field name="CartorioRegistro" class="java.lang.String"/>
-	<field name="RecebeBeneficio" class="java.lang.String"/>
-	<field name="TempoConvivencia" class="java.lang.String"/>
-	<field name="EsposoCompanheiro" class="java.lang.String"/>
-	<field name="NomeEsposoCompanheiro" class="java.lang.String"/>
-	<field name="PessoasResideCasa" class="java.lang.String"/>
-	<field name="EncaOutroSetor" class="java.lang.String"/>
-	<field name="QualSetor" class="java.lang.String"/>
-	<field name="CancelarVisita" class="java.lang.String"/>
-	<field name="MotivoCancelarVisita" class="java.lang.String"/>
-	<field name="EncaTirarDoc" class="java.lang.String"/>
-	<field name="DataEncaDoc" class="java.sql.Timestamp"/>
-	<field name="EncaRecPaternidade" class="java.lang.String"/>
-	<field name="DataRecPaternidade" class="java.sql.Timestamp"/>
-	<field name="RecebeVisita" class="java.lang.String"/>
-	<field name="CondicaoSegurado" class="java.lang.String"/>
+	<field name="Vacinas" class="java.lang.String"/>
+	<field name="AtualizaIgnora" class="java.lang.String"/>
+	<field name="CombBoxAR" class="java.lang.String"/>
+	<field name="CombBoxACV" class="java.lang.String"/>
+	<field name="CombBoxAGU" class="java.lang.String"/>
+	<field name="CombBoxCABPESC" class="java.lang.String"/>
+	<field name="CombBoxEXT" class="java.lang.String"/>
+	<field name="CombBoxABD" class="java.lang.String"/>
+	<field name="Alergia" class="java.lang.String"/>
+	<field name="QuaisAlergias" class="java.lang.String"/>
+	<field name="DrogaInjetavel" class="java.lang.String"/>
+	<field name="QualTipoDrogaInjet" class="java.lang.String"/>
+	<field name="Sexualidade" class="java.lang.String"/>
+	<field name="NumeroPareceiro" class="java.lang.String"/>
+	<field name="TipoSangue" class="java.lang.String"/>
+	<field name="FatorRh" class="java.lang.String"/>
+	<field name="UsaPreserva" class="java.lang.String"/>
+	<field name="UsaMedicamento" class="java.lang.String"/>
+	<field name="QualMedicamento" class="java.lang.String"/>
+	<field name="OutrasAlergias" class="java.lang.String"/>
+	<field name="QuaisOutrasAlergias" class="java.lang.String"/>
+	<field name="DiagnosticoInicial" class="java.sql.Clob"/>
+	<field name="TipoDiag" class="java.lang.String"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -120,14 +105,11 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 	</group>
-	<group name="Tecnicos que Atendem">
-		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
-	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="130" splitType="Stretch">
+		<band height="136" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="130" uuid="7f4983f9-2e80-4d29-a597-929f87530eee"/>
 			</rectangle>
@@ -149,7 +131,7 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Serviço Social]]></text>
+				<text><![CDATA[Enfermaria]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="462" y="10" width="93" height="20" uuid="267c58b7-0b7e-487b-94a5-7388fb51a869"/>
@@ -170,7 +152,7 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SSO019.00]]></text>
+				<text><![CDATA[ENF007.00]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="285" y="102" width="22" height="14" uuid="05820b01-bd72-41c8-9c07-6bf3b77b8c78"/>
@@ -203,14 +185,14 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 			<staticText>
 				<reportElement x="95" y="71" width="366" height="20" uuid="81176be1-017d-493a-b737-2477d626fb6b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório Quantitativo de Atendimento de Serviço Social]]></text>
+				<text><![CDATA[Relatório Quantitativo de Atendimento Psiquiátrico]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="158" y="43" width="303" height="20" uuid="d85f2d33-cd1a-4559-ab8f-3c6eeee45339"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{descricaoUnidade}]]></textFieldExpression>
 			</textField>
@@ -233,7 +215,7 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 	<detail>
 		<band height="8" splitType="Stretch">
 			<subreport>
-				<reportElement x="-20" y="-15" width="552" height="23" uuid="a7408532-8865-4594-bcc4-0b39052e48c8"/>
+				<reportElement x="-20" y="-15" width="552" height="23" uuid="82c54a64-cfa7-48d7-bc08-deb8bb60b2af"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -251,12 +233,12 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAdmissaoServicoSocial.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAdmissaoPsiquiatria.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 		<band height="10">
 			<subreport>
-				<reportElement x="-20" y="-13" width="552" height="23" uuid="bbec6fe4-40e9-4c78-9e2c-4d069472a629"/>
+				<reportElement x="-20" y="-13" width="552" height="23" uuid="4f7e3aa8-eb55-4f22-af90-6841c07a67a7"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -274,14 +256,14 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoServicoSocial.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoPsiquiatrica.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="24" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="0" width="134" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
+				<reportElement x="0" y="0" width="127" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -296,50 +278,50 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="134" y="0" width="299" height="24" uuid="0957b661-9713-4d54-ac9d-58deb1e91240"/>
+				<reportElement x="127" y="0" width="306" height="24" uuid="18c2d6d6-172f-4a9e-b115-271f71209268"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{pUsuario}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="1" width="555" height="1" forecolor="#999999" uuid="901c46d7-9d9b-46e8-9d32-25c5d075e66a"/>
+				<reportElement x="0" y="1" width="555" height="1" forecolor="#999999" uuid="36d729f7-82c4-4466-ad2c-ba3e9323aaef"/>
 			</line>
 		</band>
 	</pageFooter>
 	<summary>
 		<band height="25">
 			<rectangle>
-				<reportElement x="1" y="2" width="552" height="20" uuid="a1b44a3f-429b-45d1-a3b4-b2eace0eb4fa"/>
+				<reportElement x="0" y="0" width="555" height="20" uuid="f3127ce4-2561-447d-af71-433a8ffa33e9"/>
 			</rectangle>
 			<textField>
-				<reportElement x="478" y="2" width="76" height="20" uuid="24d9c69e-d22f-43a3-9ff4-4980c0f6f38b"/>
+				<reportElement x="477" y="0" width="78" height="20" uuid="64f97e70-b081-45e2-957a-f81b3d85f40d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{SUBREPORT_COUNT}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="233" y="4" width="22" height="14" uuid="761aaf05-8475-435b-8bdd-49a21107c1c1"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[e]]></text>
-			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="257" y="4" width="120" height="17" uuid="3fa19b72-9532-4f14-b267-957fce306862"/>
-				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{dataFinal} + " :"]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="175" y="4" width="68" height="17" uuid="94f67236-3357-4b06-9f35-e0f75b36f954"/>
+				<reportElement x="174" y="3" width="68" height="17" uuid="e83cbc11-2659-4787-b1bd-a68ff3d094e1"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataInicial}]]></textFieldExpression>
 			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="256" y="3" width="120" height="17" uuid="9aaba97b-847f-4496-871a-17e9a9e5634a"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFinal} + " :"]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="5" y="1" width="175" height="20" uuid="bb82dc7f-4fb5-4e38-84ce-901f9875374d"/>
+				<reportElement x="232" y="3" width="22" height="14" uuid="c0709e54-ec59-42fd-a066-42542214c83d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[e]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="0" width="175" height="20" uuid="18886a57-a98a-44b3-bd48-665eca2c9934"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
