@@ -56,6 +56,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     int flag = 1; // flag para pesquisa de grupo
     String codDepto; // flag para pesquisar se o departamento tem relacionamento com tabela colaborador
     String nomeDepartamento;
+    //
+    int pSTATUS_SALA = 0;
+    String STATUS_SALA = "";
 
     /**
      * Creates new form TelaDepartamento
@@ -92,6 +95,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jDescricao = new javax.swing.JTextField();
         jIdDepto = new javax.swing.JTextField();
         jComboBoxStatus = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jNumeroSala = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -112,7 +117,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jPescDepto.setToolTipText("Informe Descrição");
         jPescDepto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -166,10 +171,10 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jTabelaDepartamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDepartamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
-                "Código", "Descrição"
+                "Código", "Status", "Descrição", "Nr. Sala"
             }
         ));
         jTabelaDepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,8 +186,12 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         if (jTabelaDepartamento.getColumnModel().getColumnCount() > 0) {
             jTabelaDepartamento.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaDepartamento.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaDepartamento.getColumnModel().getColumn(1).setMinWidth(350);
-            jTabelaDepartamento.getColumnModel().getColumn(1).setMaxWidth(350);
+            jTabelaDepartamento.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaDepartamento.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaDepartamento.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaDepartamento.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaDepartamento.getColumnModel().getColumn(3).setMinWidth(60);
+            jTabelaDepartamento.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -193,7 +202,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -208,7 +217,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados para Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados para Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código:");
@@ -231,6 +240,13 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jComboBoxStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatus.setEnabled(false);
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Número da Sala:");
+
+        jNumeroSala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroSala.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroSala.setEnabled(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -243,11 +259,16 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jDescricao))
                 .addContainerGap())
         );
@@ -255,13 +276,14 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(jNumeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -269,9 +291,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7183_16x16.png"))); // NOI18N
+        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
         jBtNovo.setToolTipText("Novo Registro");
         jBtNovo.setContentAreaFilled(false);
@@ -358,15 +380,15 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -382,7 +404,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Botões de Navegação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jBtPrimeiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7856_16x16.png"))); // NOI18N
         jBtPrimeiro.setToolTipText("Primeiro Registro");
@@ -421,7 +443,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(126, 126, 126)
                 .addComponent(jBtPrimeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,10 +476,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -478,14 +499,14 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 150, 460, 278);
+        setBounds(300, 150, 494, 278);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -537,6 +558,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaCadastroDepartamento_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaCadastroDepartamento_ADM) && codGravarADM == 1) {
             objDepto.setNomeDepartamento(jDescricao.getText());
+            objDepto.setNumeroSala(Integer.valueOf(jNumeroSala.getText()));
             objDepto.setStatusDepartamento(objDepto.isStatusDepartamento());
             if (jComboBoxStatus.getSelectedIndex() == 0) {
                 objDepto.setStatusDepartamento(true);
@@ -547,6 +569,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             if (jDescricao.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Descrição não podem ser em branco");
                 jDescricao.requestFocus();
+            } else if (jNumeroSala.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número da sala.");
+                jNumeroSala.requestFocus();
             } else {
                 try {
                     conecta.abrirConexao();
@@ -610,13 +635,17 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     private void jTabelaDepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaDepartamentoMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String NomeDepartamento = "" + jTabelaDepartamento.getValueAt(jTabelaDepartamento.getSelectedRow(), 1);
+            String NrSala = "" + jTabelaDepartamento.getValueAt(jTabelaDepartamento.getSelectedRow(), 3);
+            String NomeDepartamento = "" + jTabelaDepartamento.getValueAt(jTabelaDepartamento.getSelectedRow(), 2);
             jPescDepto.setText(NomeDepartamento);
             String IdDepartamento = "" + jTabelaDepartamento.getValueAt(jTabelaDepartamento.getSelectedRow(), 0);
             jIdDepto.setText(IdDepartamento);
             jDescricao.setText(NomeDepartamento);
+            jNumeroSala.setText(NrSala);
             jComboBoxStatus.setEnabled(false);
+            jNumeroSala.setEnabled(false);
             jDescricao.setEnabled(false);
+            //
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -653,10 +682,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaDepartamento.setVisible(true);
             this.preencherTabela();
         } else {
-            jTabelaDepartamento.setVisible(!true);
+            limparCampos();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -680,6 +708,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JFormattedTextField jNumeroSala;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -695,6 +725,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     public void corCampos() {
         jIdDepto.setBackground(Color.white);
         jComboBoxStatus.setBackground(Color.white);
+        jNumeroSala.setBackground(Color.white);
         jDescricao.setBackground(Color.white);
     }
 
@@ -715,6 +746,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         // Habilitar os campos
         jComboBoxStatus.setEnabled(true);
+        jNumeroSala.setEnabled(true);
         jDescricao.setEnabled(true);
     }
 
@@ -729,7 +761,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtAnterior.setEnabled(false);
         jBtSair.setEnabled(true);
         jBtCancelar.setEnabled(true);
+        //
         jComboBoxStatus.setEnabled(true);
+        jNumeroSala.setEnabled(true);
         jDescricao.setEnabled(true);
 
     }
@@ -760,6 +794,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             jBtCancelar.setEnabled(true);
             // Habilitar os campos
             jComboBoxStatus.setEnabled(false);
+            jNumeroSala.setEnabled(false);
             jDescricao.setEnabled(false);
             conecta.desconecta();
         }
@@ -775,7 +810,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtAnterior.setEnabled(true);
         jBtSalvar.setEnabled(false);
         jBtCancelar.setEnabled(false);
+        //
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
     }
 
@@ -786,13 +823,16 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtUltimo.setEnabled(true);
         jBtProximo.setEnabled(true);
         jBtAnterior.setEnabled(true);
+        //
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
     }
 
     public void Cancelar() {
         jIdDepto.setText("");
         jDescricao.setText("");
+        jNumeroSala.setText("");
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(false);
         jBtExcluir.setEnabled(false);
@@ -805,13 +845,16 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(false);
         // Habilitar os campos
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
     }
 
     public void Primeiro() {
         Departamentos objDepto = new Departamentos();
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
+        //
         jBtNovo.setEnabled(false);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -832,6 +875,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             } else {
                 jComboBoxStatus.setSelectedIndex(0);
             }
+            jNumeroSala.setText(conecta.rs.getString("SalaNr"));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Inicio de arquivo!!\n\n ATENÇÃO" + ex);
         }
@@ -840,7 +884,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     public void Ultimo() {
         Departamentos objDepto = new Departamentos();
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
+        //
         jBtNovo.setEnabled(false);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -861,6 +907,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             } else {
                 jComboBoxStatus.setSelectedIndex(0);
             }
+            jNumeroSala.setText(conecta.rs.getString("SalaNr"));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Inicio de arquivo!!\n\n ATENÇÃO" + ex);
         }
@@ -869,7 +916,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     public void Proximo() {
         Departamentos objDepto = new Departamentos();
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
+        //
         jBtNovo.setEnabled(false);
         jBtSalvar.setEnabled(false);
         jBtAlterar.setEnabled(true);
@@ -890,6 +939,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             } else {
                 jComboBoxStatus.setSelectedIndex(0);
             }
+            jNumeroSala.setText(conecta.rs.getString("SalaNr"));
         } catch (Exception ex) {
         }
     }
@@ -897,7 +947,9 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     public void Anterior() {
         Departamentos objDepto = new Departamentos();
         jComboBoxStatus.setEnabled(false);
+        jNumeroSala.setEnabled(false);
         jDescricao.setEnabled(false);
+        //
         jBtNovo.setEnabled(false);
         jBtSalvar.setEnabled(false);
         jBtAlterar.setEnabled(true);
@@ -918,6 +970,7 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
             } else {
                 jComboBoxStatus.setSelectedIndex(0);
             }
+            jNumeroSala.setText(conecta.rs.getString("SalaNr"));
         } catch (Exception ex) {
         }
     }
@@ -936,13 +989,19 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
     // Método de pesquisa pela Descrição
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Status", "Descrição", "Nr.Sala"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdDepartamento"), conecta.rs.getString("NomeDepartamento")});
+                pSTATUS_SALA = conecta.rs.getInt("StatusDepartamento");
+                if (pSTATUS_SALA == 0) {
+                    STATUS_SALA = "Inativo";
+                } else if (pSTATUS_SALA == 1) {
+                    STATUS_SALA = "Ativo";
+                }
+                dados.add(new Object[]{conecta.rs.getInt("IdDepartamento"), STATUS_SALA, conecta.rs.getString("NomeDepartamento"), conecta.rs.getInt("SalaNr")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -951,8 +1010,12 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jTabelaDepartamento.setModel(modelo);
         jTabelaDepartamento.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setResizable(false);
         jTabelaDepartamento.getTableHeader().setReorderingAllowed(false);
         jTabelaDepartamento.setAutoResizeMode(jTabelaDepartamento.AUTO_RESIZE_OFF);
         jTabelaDepartamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -963,13 +1026,19 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Status", "Descrição", "Nr.Sala"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS");
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdDepartamento"), conecta.rs.getString("NomeDepartamento")});
+                pSTATUS_SALA = conecta.rs.getInt("StatusDepartamento");
+                if (pSTATUS_SALA == 0) {
+                    STATUS_SALA = "Inativo";
+                } else if (pSTATUS_SALA == 1) {
+                    STATUS_SALA = "Ativo";
+                }
+                dados.add(new Object[]{conecta.rs.getInt("IdDepartamento"), STATUS_SALA, conecta.rs.getString("NomeDepartamento"), conecta.rs.getInt("SalaNr")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não existem dados a serem exibidos.");
@@ -978,8 +1047,12 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         jTabelaDepartamento.setModel(modelo);
         jTabelaDepartamento.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setResizable(false);
         jTabelaDepartamento.getTableHeader().setReorderingAllowed(false);
         jTabelaDepartamento.setAutoResizeMode(jTabelaDepartamento.AUTO_RESIZE_OFF);
         jTabelaDepartamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1003,13 +1076,17 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
 
     public void limparCampos() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Status", "Descrição", "Nr.Sala"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaDepartamento.setModel(modelo);
         jTabelaDepartamento.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(350);
+        jTabelaDepartamento.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaDepartamento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaDepartamento.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setPreferredWidth(60);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setResizable(false);
         jTabelaDepartamento.getTableHeader().setReorderingAllowed(false);
         jTabelaDepartamento.setAutoResizeMode(jTabelaDepartamento.AUTO_RESIZE_OFF);
         jTabelaDepartamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1025,6 +1102,8 @@ public class TelaDepartamento extends javax.swing.JInternalFrame {
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaDepartamento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaDepartamento.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaDepartamento.getColumnModel().getColumn(3).setCellRenderer(centralizado);
     }
 
     public void objLog() {
