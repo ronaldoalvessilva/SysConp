@@ -134,12 +134,12 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jCancelarAtendimentoInterno">
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistroAtendimentoInterno">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cancelar  Atendimento de Interno"/>
+                    <Property name="text" type="java.lang.String" value="Cancelar  Registro de Atendimento de Interno"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarAtendimentoInternoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistroAtendimentoInternoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -462,12 +462,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="jRelatorioEntradasInternosUnidade">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Entrada de Internos na Unidade"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioEntradasInternosUnidadeActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator18">

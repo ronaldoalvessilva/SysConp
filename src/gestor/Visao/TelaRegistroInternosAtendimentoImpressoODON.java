@@ -1106,6 +1106,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             if (!jIdRegistro.getText().equals("")) {
                 jBtImprimirAutorização.setEnabled(true);
             }
+            jComboBoxAtendente.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1126,6 +1127,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloODONTOLOGIA);
+                jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
                 jIdInternoKitImp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegimeKitImp.setText(conecta.rs.getString("Regime"));
@@ -1169,6 +1171,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             if (resposta == JOptionPane.YES_OPTION) {
                 acao = 1;
                 Novo();
+                pesquisarAtendente();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1375,6 +1378,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         //
         jMotivo.setEnabled(true);
         jComboBoxTipoMovimentacao.setEnabled(true);
+        jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
 //        jBtSalvar.setEnabled(true);
@@ -1386,6 +1390,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     public void Salvar() {
         jMotivo.setEnabled(!true);
         jComboBoxTipoMovimentacao.setEnabled(!true);
+        jComboBoxAtendente.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -1411,6 +1416,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             //
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);
@@ -1420,6 +1426,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         } else {
             jMotivo.setEnabled(!true);
             jComboBoxTipoMovimentacao.setEnabled(!true);
+            jComboBoxAtendente.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtSalvar.setEnabled(!true);

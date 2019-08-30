@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAdminssaoPsicologia;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoPsicologica;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovPsicologia;
@@ -74,6 +75,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -118,6 +121,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     String tipoAtendimentoEvol = "Evolução Psicologica";
     //
     String pHabilitaPsicologia = "";
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
 
     /**
      * Creates new form TelaAdmissaoPsicologica
@@ -2246,6 +2252,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             Novo();
             limparTabelaEvolucao();
             limparTabelaParecer();
+            verificarInternoRegistradoAdm();
             preencherComboBoxDepartamento();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -2449,6 +2456,17 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         controlRegAtend.alterarRegAtend(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     }
@@ -2871,6 +2889,17 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                    objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     SalvarEvolucao();
                     preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "

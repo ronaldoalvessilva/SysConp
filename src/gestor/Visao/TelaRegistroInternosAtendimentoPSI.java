@@ -9,6 +9,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
@@ -61,6 +62,8 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
+    ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -97,6 +100,10 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
     String usuarioCriador;
     String usuarioLiberador;
     String descricaoDepartamento;
+    //
+    String pATENDENDO = "Sim";
+    String pCONCLUIDO = "Não";
+    String pSTATUS_ATENDIMENTO = "Em Atendimento";
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -181,7 +188,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Horário", "Nome do Interno"
@@ -756,6 +763,18 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
                     buscarRegistro();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV - 24/08/2019
+                    objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                    objRegAtend.setAtendido(pATENDENDO);
+                    objRegAtend.setUsuarioAtendente(nameUser);
+                    objRegAtend.setDataInsert(dataModFinal);
+                    objRegAtend.setHorarioInsert(horaMov);
+                    objRegAtend.setEmAtendimento(pCONCLUIDO);
+                    objRegAtend.setStatusAtendimento(pSTATUS_ATENDIMENTO);
+                    control_ATENE_TV.iniciarAtendimento(objRegAtend);
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
