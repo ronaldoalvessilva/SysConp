@@ -1261,6 +1261,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jIdOficial.setBackground(Color.white);
         jDataCadastro.setBackground(Color.white);
         jNomeOficialJustica.setBackground(Color.white);
+        jNomeMaeOficial.setBackground(Color.white);
         jRG.setBackground(Color.white);
         jCPF.setBackground(Color.white);
         jREGOficial.setBackground(Color.white);
@@ -1275,6 +1276,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         FotoOficialJusticaExt.setIcon(null);
         caminhoFotoOfficeEXT = null;
         jNomeOficialJustica.setText("");
+        jNomeMaeOficial.setText("");
         jRG.setText("");
         jCPF.setText("");
         jREGOficial.setText("");
@@ -1283,6 +1285,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeOficialJustica.setEnabled(true);
+        jNomeMaeOficial.setEnabled(true);
         jBtNovaFoto.setEnabled(true);
         jBtExcluirFoto.setEnabled(true);
         jRG.setEnabled(true);
@@ -1304,6 +1307,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(true);
         jDataCadastro.setEnabled(true);
         jNomeOficialJustica.setEnabled(true);
+        jNomeMaeOficial.setEnabled(true);
         jRG.setEnabled(true);
         jCPF.setEnabled(true);
         jREGOficial.setEnabled(true);
@@ -1327,6 +1331,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jDataCadastro.setDate(null);
         FotoOficialJusticaExt.setIcon(null);
         jNomeOficialJustica.setText("");
+        jNomeMaeOficial.setText("");
         jObsOficial.setText("");
         jRG.setText("");
         jCPF.setText("");
@@ -1335,6 +1340,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeOficialJustica.setEnabled(!true);
+        jNomeMaeOficial.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jREGOficial.setEnabled(!true);
@@ -1356,6 +1362,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
         jComboBoxStatusOficial.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
         jNomeOficialJustica.setEnabled(!true);
+        jNomeMaeOficial.setEnabled(!true);
         jRG.setEnabled(!true);
         jCPF.setEnabled(!true);
         jREGOficial.setEnabled(!true);
@@ -1379,6 +1386,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
             jDataCadastro.setDate(null);
             FotoOficialJusticaExt.setIcon(null);
             jNomeOficialJustica.setText("");
+            jNomeMaeOficial.setText("");
             jObsOficial.setText("");
             jRG.setText("");
             jCPF.setText("");
@@ -1387,6 +1395,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
             jComboBoxStatusOficial.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jNomeOficialJustica.setEnabled(!true);
+            jNomeMaeOficial.setEnabled(!true);
             jRG.setEnabled(!true);
             jCPF.setEnabled(!true);
             jREGOficial.setEnabled(!true);
@@ -1405,6 +1414,7 @@ public class TelaOficialJusticaExterna extends javax.swing.JInternalFrame {
             jComboBoxStatusOficial.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
             jNomeOficialJustica.setEnabled(!true);
+            jNomeMaeOficial.setEnabled(!true);
             jRG.setEnabled(!true);
             jCPF.setEnabled(!true);
             jREGOficial.setEnabled(!true);
