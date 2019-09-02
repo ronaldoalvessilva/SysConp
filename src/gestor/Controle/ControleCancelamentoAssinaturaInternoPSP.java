@@ -77,6 +77,18 @@ public class ControleCancelamentoAssinaturaInternoPSP {
         conecta.desconecta();
         return objCancela;
     }
+    public CancelamentoAssinaturaInternoPSP excluirRegistroAtendimentoTV(CancelamentoAssinaturaInternoPSP objCancela) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ATENDIMENTO_PSP_INTERNO_TV  WHERE IdRegistro='" + objCancela.getIdRegistro() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objCancela;
+    }
 
     public void buscarInternoCrc(String desc, int codigo) {
         conecta.abrirConexao();
