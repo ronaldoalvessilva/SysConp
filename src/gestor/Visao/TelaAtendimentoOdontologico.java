@@ -4479,7 +4479,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setQtdAtend(qtdTipo);
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     controlRegAtend.alterarRegEvol(objRegAtend);
                     //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
                     objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
