@@ -23,7 +23,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Socializa TI 02
  */
-public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternalFrame {
+public class TelaRelatorioProducaoTotalTecnicos extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     //
@@ -33,7 +33,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
     /**
      * Creates new form TelaRelatorioProducaoMedica
      */
-    public TelaRelatorioProducaoMedicaPsiquiatra() {
+    public TelaRelatorioProducaoTotalTecnicos() {
         initComponents();
     }
 
@@ -56,7 +56,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Relatório de Produtividade Psiquiatra :::...");
+        setTitle("...::: Relatório de Produtividade Médica :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -169,13 +169,14 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsiquiatricoII.jasper";
-                    conecta.executaSQL("SELECT TOP 1 * FROM ADMISSAOMEDICA "
+                    String path = "reports/RelatorioTotalAtendimentoProres.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOENFERMAGEM "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "ORDER BY ADMISSAOMEDICA.UsuarioInsert, ADMISSAOMEDICA.DataLanc, PRONTUARIOSCRC.NomeInternoCrc");
+                            + "ON EVOLUCAOENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ADMISSAOENFERMEIRA "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc = ADMISSAOENFERMEIRA.IdInternoCrc "
+                            + "WHERE DataEvol BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "' ");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
@@ -190,7 +191,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                     jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Quantidade de Atendimento Médico Psiquiatrca por Período");
+                    jv.setTitle("Relatório de Total de Atendimento Por Técnico");
                     jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                     jv.toFront(); // Traz o relatorio para frente da aplicação            
                     conecta.desconecta();
@@ -213,13 +214,14 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
             } else {
                 try {
                     conecta.abrirConexao();
-                    String path = "reports/RelatorioQuantitativoAtendimentoPsiquiatricoII.jasper";
-                    conecta.executaSQL("SELECT TOP 1 * FROM ADMISSAOMEDICA "
+                    String path = "reports/RelatorioTotalAtendimentoProres.jasper";
+                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOENFERMAGEM "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "' "
-                            + "ORDER BY ADMISSAOMEDICA.UsuarioInsert, ADMISSAOMEDICA.DataLanc, PRONTUARIOSCRC.NomeInternoCrc");
+                            + "ON EVOLUCAOENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ADMISSAOENFERMEIRA "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc = ADMISSAOENFERMEIRA.IdInternoCrc "
+                            + "WHERE DataEvol BETWEEN'" + dataInicial + "' "
+                            + "AND '" + dataFinal + "' ");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
@@ -234,7 +236,7 @@ public class TelaRelatorioProducaoMedicaPsiquiatra extends javax.swing.JInternal
                     JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                     JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                     jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                    jv.setTitle("Relatório de Quantidade de Atendimento Médico Psiquiatrca por Período");
+                    jv.setTitle("Relatório de Total de Atendimento Por Técnico");
                     jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                     jv.toFront(); // Traz o relatorio para frente da aplicação            
                     conecta.desconecta();

@@ -71,7 +71,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jCancelarAtendimento">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cancelar Atendimento de Interno"/>
+                    <Property name="text" type="java.lang.String" value="Cancelar  Registro de Atendimento de Interno"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarAtendimentoActionPerformed"/>

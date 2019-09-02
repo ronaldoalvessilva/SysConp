@@ -87,6 +87,7 @@ public class ControleConfirmacaoAtendimento {
             conecta.rs.first();
             codInterno = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não existe dados (INTERNOS) a ser exibido !!!" + e);
         }
         conecta.desconecta();
     }
@@ -99,6 +100,7 @@ public class ControleConfirmacaoAtendimento {
             conecta.rs.first();
             codDepto = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não existe dados (DEPARTAMENTOS) a ser exibido !!!" + e);
         }
         conecta.desconecta();
     }

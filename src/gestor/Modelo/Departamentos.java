@@ -11,53 +11,74 @@ package gestor.Modelo;
  */
 public class Departamentos {
 
-    private int IdDepartamento;
-    private boolean StatusDepartamento;
-    private String NomeDepartamento;
-  
+    private int idDepartamento;
+    private boolean statusDepartamento;
+    private String nomeDepartamento;
+    private int numeroSala;
+
     public Departamentos() {
     }
 
+    public Departamentos(int idDepartamento, boolean statusDepartamento, String nomeDepartamento, int numeroSala) {
+        this.idDepartamento = idDepartamento;
+        this.statusDepartamento = statusDepartamento;
+        this.nomeDepartamento = nomeDepartamento;
+        this.numeroSala = numeroSala;
+    }
+
     /**
-     * @return the IdDepartamento
+     * @return the idDepartamento
      */
     public int getIdDepartamento() {
-        return IdDepartamento;
+        return idDepartamento;
     }
 
     /**
-     * @param IdDepartamento the IdDepartamento to set
+     * @param idDepartamento the idDepartamento to set
      */
-    public void setIdDepartamento(int IdDepartamento) {
-        this.IdDepartamento = IdDepartamento;
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
     /**
-     * @return the StatusDepartamento
+     * @return the statusDepartamento
      */
     public boolean isStatusDepartamento() {
-        return StatusDepartamento;
+        return statusDepartamento;
     }
 
     /**
-     * @param StatusDepartamento the StatusDepartamento to set
+     * @param statusDepartamento the statusDepartamento to set
      */
-    public void setStatusDepartamento(boolean StatusDepartamento) {
-        this.StatusDepartamento = StatusDepartamento;
+    public void setStatusDepartamento(boolean statusDepartamento) {
+        this.statusDepartamento = statusDepartamento;
     }
 
     /**
-     * @return the NomeDepartamento
+     * @return the nomeDepartamento
      */
     public String getNomeDepartamento() {
-        return NomeDepartamento;
+        return nomeDepartamento;
     }
 
     /**
-     * @param NomeDepartamento the NomeDepartamento to set
+     * @param nomeDepartamento the nomeDepartamento to set
      */
-    public void setNomeDepartamento(String NomeDepartamento) {
-        this.NomeDepartamento = NomeDepartamento;
-    }    
+    public void setNomeDepartamento(String nomeDepartamento) {
+        this.nomeDepartamento = nomeDepartamento;
+    }
 
+    /**
+     * @return the numeroSala
+     */
+    public int getNumeroSala() {
+        return numeroSala;
+    }
+
+    /**
+     * @param numeroSala the numeroSala to set
+     */
+    public void setNumeroSala(int numeroSala) {
+        this.numeroSala = numeroSala;
+    }
 }

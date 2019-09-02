@@ -23,9 +23,10 @@ public class ControleDepartamentos {
     public Departamentos incluirDepartamento(Departamentos objDepto) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO DEPARTAMENTOS (StatusDepartamento,NomeDepartamento)VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO DEPARTAMENTOS (StatusDepartamento,NomeDepartamento,SalaNr)VALUES(?,?,?)");
             pst.setBoolean(1, objDepto.isStatusDepartamento());
             pst.setString(2, objDepto.getNomeDepartamento());
+            pst.setInt(3, objDepto.getNumeroSala());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
@@ -36,9 +37,10 @@ public class ControleDepartamentos {
      public Departamentos alterarDepartamento(Departamentos objDepto) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE DEPARTAMENTOS SET StatusDepartamento=?,NomeDepartamento=? WHERE idDepartamento='" + objDepto.getIdDepartamento() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE DEPARTAMENTOS SET StatusDepartamento=?,NomeDepartamento=?,SalaNr=? WHERE idDepartamento='" + objDepto.getIdDepartamento() + "'");
             pst.setBoolean(1, objDepto.isStatusDepartamento());
             pst.setString(2, objDepto.getNomeDepartamento());
+            pst.setInt(3, objDepto.getNumeroSala());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);

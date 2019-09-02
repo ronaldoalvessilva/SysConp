@@ -34,6 +34,7 @@ import static gestor.Visao.TelaAgendaCompromissos.jNomeUsuarioAgenda;
 import static gestor.Visao.TelaAgendaCompromissos.jTabelaAgendaEventos;
 import static gestor.Visao.TelaAgendaCompromissos.jTextoEvento;
 import static gestor.Visao.TelaAgendaCompromissos.jtotalRegistros;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -244,6 +245,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jMenuItem12 = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioTotaisProdutividade = new javax.swing.JMenuItem();
+        jRelatorioTotaisProdutividadePorTecnico = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -541,6 +545,23 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(jMenuItem7);
+        Relatorios.add(jSeparator13);
+
+        jRelatorioTotaisProdutividade.setText("Relatório de Totalizadores de Atendimentos");
+        jRelatorioTotaisProdutividade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioTotaisProdutividadeActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioTotaisProdutividade);
+
+        jRelatorioTotaisProdutividadePorTecnico.setText("Relatório de Totalizadores de Atendimentos Por Técnicos");
+        jRelatorioTotaisProdutividadePorTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioTotaisProdutividadePorTecnicoActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioTotaisProdutividadePorTecnico);
 
         jMenuBar1.add(Relatorios);
 
@@ -1144,6 +1165,45 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         objRelFuncPortInd.show();
     }//GEN-LAST:event_RelatorioIndividualColaboradorFrequenciaActionPerformed
 
+    private void jRelatorioTotaisProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioTotaisProdutividadeActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        conecta.abrirConexao();
+        String path = "reports/RelatorioTotaisProres.jasper";
+        try {
+            conecta.executaSQL("SELECT TOP 1 * FROM PRONTUARIOSCRC "
+                            + "INNER JOIN ITENSPROGRESSAOREGIME "
+                            + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ITENSPREVISAOSAIDA "
+                            + "ON ITENSPREVISAOSAIDA.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc");
+            HashMap parametros = new HashMap();                    
+                    parametros.put("pUsuario", nameUser);
+                    parametros.put("pUnidade", descricaoUnidade);
+                    // Sub Relatório
+                    try {
+                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                    } catch (SQLException ex) {
+                    }
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Indicadores Totais");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_jRelatorioTotaisProdutividadeActionPerformed
+
+    private void jRelatorioTotaisProdutividadePorTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioTotaisProdutividadePorTecnicoActionPerformed
+        // TODO add your handling code here:
+         TelaRelatorioProducaoTotalTecnicos objRelProdM = new TelaRelatorioProducaoTotalTecnicos ();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelProdM);
+        objRelProdM.show();
+    }//GEN-LAST:event_jRelatorioTotaisProdutividadePorTecnicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1186,10 +1246,13 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItemDepartamentos;
     private javax.swing.JMenuItem jMenuItemPais;
     public static javax.swing.JDesktopPane jPainelAdmPessoal;
+    private javax.swing.JMenuItem jRelatorioTotaisProdutividade;
+    private javax.swing.JMenuItem jRelatorioTotaisProdutividadePorTecnico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

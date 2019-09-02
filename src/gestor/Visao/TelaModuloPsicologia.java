@@ -96,6 +96,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoPSI objRegBioPSI = null;
     private TelaRegistroInternosAtendimentoImpressoPSI objAutoImp = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //
     String dataLanc;
     int codUsuario;
@@ -137,8 +138,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoInciarLeitorPSI = "Cadastro:Registro de Atendimento Internos Biometria:Iniciar Leitor";
     public static String telaRegistroAtendimentoImpBioPSI = "Cadastro:Registro de Autorização Impressa:Liberação";
     public static String telaRegistroAtendimentoColLiberadorPSI = "Cadastro:Registro de Autorização Impressa:Colaborador Liberador";
-    //
-
+    public static String telaCancelAtendInternoPSI = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
     // MENU CONSULTA    
     public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
     // MOVIMENTAÇÃO
@@ -182,6 +182,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeRAIB = "";
     String pNomeRAIL = "";
     String pNomeRACL = "";
+    String pNomeCAII = "";
     //pNomeRACL 
     //telaRegistroAtendimentoColLiberadorPSI
     // MENU CONSULTA
@@ -251,6 +252,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jMenu5 = new javax.swing.JMenu();
         jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
         RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jCancelarRegistroAtendimentoInterno = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         Sair = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -361,6 +363,14 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu5.add(RegistroAtendimentoImpresso);
+
+        jCancelarRegistroAtendimentoInterno.setText("Cancelar  Registro de Atendimento de Interno");
+        jCancelarRegistroAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarRegistroAtendimentoInternoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jCancelarRegistroAtendimentoInterno);
 
         jMenu1.add(jMenu5);
         jMenu1.add(jSeparator10);
@@ -1200,6 +1210,40 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 //        TelaAtividadeGrupoPsicologia
     }//GEN-LAST:event_jAtividadesPsicologicaGrupoActionPerformed
 
+    private void jCancelarRegistroAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelAtendInternoPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCancelAtendInternoPSI) && codAbrirPSI == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelPsicologia.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame 
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objCancelaAtend);//adicona frame ao JDesktopPane  
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1225,6 +1269,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu RelatoriosConfere;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem jAtividadesPsicologicaGrupo;
+    private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1589,6 +1634,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeRACL = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelAtendInternoPSI + "'");
+            conecta.rs.first();
+            pNomeCAII = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1812,6 +1864,12 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaRegistroAtendimentoColLiberadorPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCAII.equals(telaCancelAtendInternoPSI) || pNomeCAII == null || pNomeCAII.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelAtendInternoPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //CONSULTA

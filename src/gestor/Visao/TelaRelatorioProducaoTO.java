@@ -170,12 +170,12 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
                 try {
                     conecta.abrirConexao();
                     String path = "reports/RelatorioQuantitativoAtendimentoTerapiaII.jasper";
-                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOTERAPIA "
+                    conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOTERAPIA "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON EVOLUCAOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataEvo BETWEEN'" + dataInicial + "' "
+                            + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOTERAPIA.UsuarioInsert,EVOLUCAOTERAPIA.DataEvo");
+                            + "ORDER BY ATENDIMENTOTERAPIA.UsuarioInsert,ATENDIMENTOTERAPIA.DataLanc");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
@@ -214,12 +214,12 @@ public class TelaRelatorioProducaoTO extends javax.swing.JInternalFrame {
                 try {
                     conecta.abrirConexao();
                     String path = "reports/RelatorioQuantitativoAtendimentoTerapiaII.jasper";
-                    conecta.executaSQL("SELECT TOP 1 * FROM EVOLUCAOTERAPIA "
+                    conecta.executaSQL("SELECT TOP 1 * FROM ATENDIMENTOTERAPIA "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON EVOLUCAOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE DataEvo BETWEEN'" + dataInicial + "' "
+                            + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOTERAPIA.UsuarioInsert,EVOLUCAOTERAPIA.DataEvo");
+                            + "ORDER BY ATENDIMENTOTERAPIA.UsuarioInsert,ATENDIMENTOTERAPIA.DataLanc");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
