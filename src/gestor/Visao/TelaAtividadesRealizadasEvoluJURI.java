@@ -633,6 +633,8 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
         jComboBoxDescricaoAtividade.setSelectedItem("Selecione...");
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxDescricaoAtividade.setEnabled(true);
+        //
+        jBtAdicionar.setEnabled(!true);
         jBtConfirmar.setEnabled(true);
     }
 
