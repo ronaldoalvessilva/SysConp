@@ -869,6 +869,9 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
                     statusMov = "Excluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
+                    // EXCLUIR DA TABELA DE ATENDIMENTO_PSP_INTERNO_TV 
+                    objCancela.setIdRegistro(Integer.valueOf(jIdAssinatura.getText()));
+                    control.excluirRegistroAtendimentoTV(objCancela);
                     // EXCLUIR O REGISTRO DA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     objCancela.setIdRegistro(Integer.valueOf(jIdAssinatura.getText()));
                     control.excluirAssinaturaInternoPSP(objCancela);
