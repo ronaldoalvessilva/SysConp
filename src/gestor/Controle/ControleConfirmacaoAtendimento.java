@@ -29,7 +29,7 @@ public class ControleConfirmacaoAtendimento {
         pesquisaDepartamento(objRegAtend.getNomeDepartamento());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_PSP_INTERNO_TV(StatusAtendimento,IdInternoCrc,IdDepartamento,IdRegistro,Atendendo,UsuarioAtendente,DataAtendimento,HorarioInicio,Concluido) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_PSP_INTERNO_TV(StatusAtendimento,IdInternoCrc,IdDepartamento,IdRegistro,Atendendo,UsuarioAtendente,DataAtendimento,HorarioInicio,Concluido,TipoAtendimento) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objRegAtend.getStatusAtendimento());
             pst.setInt(2, codInterno);
             pst.setInt(3, codDepto);
@@ -39,6 +39,7 @@ public class ControleConfirmacaoAtendimento {
             pst.setString(7, objRegAtend.getDataInsert());
             pst.setString(8, objRegAtend.getHorarioInsert());
             pst.setString(9, objRegAtend.getEmAtendimento());
+            pst.setString(10, objRegAtend.getTipoAtemdimento());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR - ATENDIMENTO os Dados do INTERNO.\n\nERRO: " + ex);
