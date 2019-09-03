@@ -2068,24 +2068,14 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                             objItens();
                                             controle.incluirItensEntLote(objItens);
                                             //
-                                            buscarIdItem();
-                                            // INFORMAR OPÇÕES DO KIT DE HIGIENE
+                                            buscarIdItem();                                           
+                                            // INFORMAR OPÇÕES DO KIT DE HIGIENE INICIAL
                                             pagtoKit = "Não";
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
-                                            objProCrc.setKitInicial(pagtoKit);
-                                            objProCrc.setKitIPago(pagtoKit);
-                                            objProCrc.setKitDecendial(pagtoKit);
-                                            objProCrc.setKitDPago(pagtoKit);
-                                            objProCrc.setKitQuinzenal(pagtoKit);
-                                            objProCrc.setKitQPago(pagtoKit);
-                                            objProCrc.setKitMensal(pagtoKit);
-                                            objProCrc.setKitMPago(pagtoKit);
-                                            objProCrc.setKitSemestral(pagtoKit);
-                                            objProCrc.setKitSPago(pagtoKit);
-                                            objProCrc.setKitAnual(pagtoKit);
-                                            objProCrc.setKitAPago(pagtoKit);
-                                            objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                             objProCrc.setNomeInterno(jNomeInterno.getText());
+                                            objProCrc.setDataChegada(jDataEntrada.getDate());
+                                            objProCrc.setKitPago(pagtoKit);
+                                            objProCrc.setUtilizado(pagtoKit);
                                             controle.informarkitHigiene(objProCrc);
                                             // MODIFICAR A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
                                             objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
