@@ -768,6 +768,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setAtendido(pATENDENDO);
                     objRegAtend.setUsuarioAtendente(nameUser);
                     objRegAtend.setDataInsert(dataModFinal);

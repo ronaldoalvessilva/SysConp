@@ -772,6 +772,7 @@ public class TelaRegistroInternosAtendimentoTO extends javax.swing.JInternalFram
                     objRegAtend.setIdRegistro(Integer.valueOf(jIdRegistro.getText()));
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setNomeDepartamento(nomeModuloTO);
                     objRegAtend.setAtendido(pATENDENDO);
                     objRegAtend.setUsuarioAtendente(nameUser);

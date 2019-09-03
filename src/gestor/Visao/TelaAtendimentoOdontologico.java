@@ -4471,10 +4471,13 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                    objRegAtend.setAtendido(atendido);
                     objRegAtend.setAtendeEvol(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                    objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                    objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     //                                       
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -4501,31 +4504,58 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
                         objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        objRegAtend.setAtendido(atendido);
                         objRegAtend.setAtendeEvol(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegEvol(objRegAtend);
-                    } else {
-                        qtdTipo = 1;
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objRegAtend.setIdDepartamento(codigoDepartamentoODON);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                    } else {
+                        qtdTipo = 1;
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        objRegAtend.setAtendido(atendido);
                         objRegAtend.setAtendeEvol(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         //
                         objRegAtend.setUsuarioUp(nameUser);
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setQtdAtend(qtdTipo);
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                         controlRegAtend.alterarRegEvol(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoODON);
+                        objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
                         qtdTipo = 0;
                     }
                     objLog2();
