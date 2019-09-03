@@ -1123,7 +1123,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setNomeInternoCrc(jNomeInternoEM.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoENFenfTEC);
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
@@ -1454,7 +1454,7 @@ public class TelaEvolucaoTecEnfermagem extends javax.swing.JInternalFrame {
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);
                     objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolTEC);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     preencherTabelaEvolucaoTecEnfermagem("SELECT * FROM EVOLUCAOTECENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
