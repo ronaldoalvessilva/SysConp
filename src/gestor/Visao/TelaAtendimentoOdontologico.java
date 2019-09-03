@@ -4400,6 +4400,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
             } else if (atendido.equals("Não")) {
                 acao = 3;
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
                 bloquearBotoes();
                 bloquearCampos();
                 preencherComboNovoEvol();
@@ -4415,6 +4418,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAtendimentoInternoEvolucao_ODON);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaAtendimentoInternoEvolucao_ODON) && codAlterarODON == 1) {
             acao = 4;
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
             bloquearBotoes();
             bloquearCampos();
             preencherComboNovoEvol();
@@ -4431,6 +4437,9 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
                 objProcedOdonto.setIdPro(Integer.parseInt(jIdEvolucao.getText()));
                 controlar.excluirProcedimentoOdonto(objProcedOdonto);
                 objLog2();
