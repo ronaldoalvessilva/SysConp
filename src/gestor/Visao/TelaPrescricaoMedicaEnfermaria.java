@@ -31,9 +31,10 @@ import static gestor.Visao.TelaAdmissaoMedica.jDataEvolucao;
 import static gestor.Visao.TelaAdmissaoMedica.jIdAdm;
 import static gestor.Visao.TelaAdmissaoMedica.jIdInternoAdm;
 import static gestor.Visao.TelaAdmissaoMedica.jNomeInternoAdm;
+import static gestor.Visao.TelaAdmissaoMedica.jTabelaPrescricaoMedica;
 import static gestor.Visao.TelaAdmissaoMedica.jTextoEvolucaoMedica;
 import static gestor.Visao.TelaAdmissaoMedica.jTextoEvolucaoPsiquiatrica;
-import static gestor.Visao.TelaEventoDisciplinar.jStatusLanc;
+import static gestor.Visao.TelaAdmissaoMedica.jStatusLanc;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
@@ -50,10 +51,12 @@ import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -90,15 +93,15 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     String deptoTecnico = "ENFERMARIA";
     String dataPrescricao = "";
     int idItemPrescricao;
+    int count = 0;
 
     /**
      * Creates new form TelaPrescricaoMedicaEnfermaria
      */
-    
     public static TelaAdmissaoMedica telaAdmissaoMedica;
-    
+
     public TelaPrescricaoMedicaEnfermaria(TelaAdmissaoMedica parent, boolean modal) {
-         this.telaAdmissaoMedica = parent;
+        this.telaAdmissaoMedica = parent;
         this.setModal(modal);
         setLocationRelativeTo(telaAdmissaoMedica);
         initComponents();
@@ -115,10 +118,16 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoBotoesPescricoes = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTabelaPrescricaoMedica = new javax.swing.JTable();
+        jTabelaPrescricaoMedicaPsiquiatrica = new javax.swing.JTable();
+        jPanel32 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
+        jPanel31 = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jBtNovaPrescicao = new javax.swing.JButton();
@@ -127,7 +136,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtSalvarPrescicao = new javax.swing.JButton();
         jBtCancelarPrescicao = new javax.swing.JButton();
         jBtImpressaoPrescricao = new javax.swing.JButton();
-        jBtAuditoriaPrescicao = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTextoPrescricaoMedica = new javax.swing.JTextArea();
         jRBPrescricaoMedica = new javax.swing.JRadioButton();
@@ -144,8 +153,8 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jTabelaPrescricaoMedica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaPrescricaoMedica.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaPrescricaoMedicaPsiquiatrica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaPrescricaoMedicaPsiquiatrica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -153,12 +162,62 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                 "Código", "Data", "Prescrição Médica/Psquiatrica"
             }
         ));
-        jTabelaPrescricaoMedica.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaPrescricaoMedicaPsiquiatrica.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaPrescricaoMedicaMouseClicked(evt);
+                jTabelaPrescricaoMedicaPsiquiatricaMouseClicked(evt);
             }
         });
-        jScrollPane8.setViewportView(jTabelaPrescricaoMedica);
+        jScrollPane8.setViewportView(jTabelaPrescricaoMedicaPsiquiatrica);
+        if (jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumnCount() > 0) {
+            jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setPreferredWidth(70);
+            jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(2).setPreferredWidth(400);
+        }
+
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel63.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel63))
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel63)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,15 +225,27 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -183,7 +254,6 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
 
         jBtNovaPrescicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovaPrescicao.setToolTipText("Novo");
-        jBtNovaPrescicao.setEnabled(false);
         jBtNovaPrescicao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovaPrescicaoActionPerformed(evt);
@@ -234,12 +304,12 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
             }
         });
 
-        jBtAuditoriaPrescicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaPrescicao.setContentAreaFilled(false);
-        jBtAuditoriaPrescicao.setEnabled(false);
-        jBtAuditoriaPrescicao.addActionListener(new java.awt.event.ActionListener() {
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaPrescicaoActionPerformed(evt);
+                jBtSairActionPerformed(evt);
             }
         });
 
@@ -261,7 +331,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                 .addGap(45, 45, 45)
                 .addComponent(jBtImpressaoPrescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtAuditoriaPrescicao, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSair)
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -269,13 +339,12 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoriaPrescicao)
-                    .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtNovaPrescicao)
-                        .addComponent(jBtSalvarPrescicao)
-                        .addComponent(jBtAlterarPrescicao)
-                        .addComponent(jBtExcluirPrescicao)
-                        .addComponent(jBtCancelarPrescicao))
+                    .addComponent(jBtSair)
+                    .addComponent(jBtSalvarPrescicao)
+                    .addComponent(jBtAlterarPrescicao)
+                    .addComponent(jBtExcluirPrescicao)
+                    .addComponent(jBtCancelarPrescicao)
+                    .addComponent(jBtNovaPrescicao)
                     .addComponent(jBtImpressaoPrescricao))
                 .addGap(31, 31, 31))
         );
@@ -286,19 +355,21 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jTextoPrescricaoMedica.setEnabled(false);
         jScrollPane7.setViewportView(jTextoPrescricaoMedica);
 
+        grupoBotoesPescricoes.add(jRBPrescricaoMedica);
         jRBPrescricaoMedica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBPrescricaoMedica.setForeground(new java.awt.Color(255, 0, 0));
         jRBPrescricaoMedica.setSelected(true);
         jRBPrescricaoMedica.setText("Prescrição Médica");
         jRBPrescricaoMedica.setEnabled(false);
 
+        grupoBotoesPescricoes.add(jRBPrescricaoPsiquiatrica);
         jRBPrescricaoPsiquiatrica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBPrescricaoPsiquiatrica.setForeground(new java.awt.Color(0, 0, 255));
         jRBPrescricaoPsiquiatrica.setText("Prescrição Psiquiatrica");
         jRBPrescricaoPsiquiatrica.setEnabled(false);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel22.setText("Código");
+        jLabel22.setText("Nr. Prescrição");
 
         jIdPrescricaoMedica.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdPrescricaoMedica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -328,14 +399,14 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                     .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane7)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22)
-                            .addComponent(jIdPrescricaoMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jIdPrescricaoMedica))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addGap(0, 198, Short.MAX_VALUE))
+                                .addGap(0, 181, Short.MAX_VALUE))
                             .addComponent(jNomeInternoCrcPM))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,18 +464,17 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTabelaPrescricaoMedicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPrescricaoMedicaMouseClicked
+    private void jTabelaPrescricaoMedicaPsiquiatricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPrescricaoMedicaPsiquiatricaMouseClicked
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String idItemPresq = "" + jTabelaPrescricaoMedica.getValueAt(jTabelaPrescricaoMedica.getSelectedRow(), 0);
+            String idItemPresq = "" + jTabelaPrescricaoMedicaPsiquiatrica.getValueAt(jTabelaPrescricaoMedicaPsiquiatrica.getSelectedRow(), 0);
             // Habilitar os botões
             jBtNovaPrescicao.setEnabled(!true);
             jBtAlterarPrescicao.setEnabled(true);
             jBtExcluirPrescicao.setEnabled(true);
             jBtSalvarPrescicao.setEnabled(!true);
             jBtCancelarPrescicao.setEnabled(true);
-            jBtAuditoriaPrescicao.setEnabled(true);
             jBtImpressaoPrescricao.setEnabled(true);
             conecta.abrirConexao();
             try {
@@ -429,7 +499,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
             }
             conecta.desconecta();
         }
-    }//GEN-LAST:event_jTabelaPrescricaoMedicaMouseClicked
+    }//GEN-LAST:event_jTabelaPrescricaoMedicaPsiquiatricaMouseClicked
 
     private void jBtNovaPrescicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaPrescicaoActionPerformed
         // TODO add your handling code here:
@@ -507,6 +577,9 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaPrescricaoMedica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
                             + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    //
+                    preencherTabelaPrescricaoMedicaPsiquiatrica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
+                            + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     ExcluirPrescricao();
                     JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 }
@@ -558,6 +631,9 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaPrescricaoMedica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
                             + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    //
+                    preencherTabelaPrescricaoMedicaPsiquiatrica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
+                            + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     SalvarPrescricao();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -580,6 +656,9 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaPrescricaoMedica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
                             + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+                    //
+                    preencherTabelaPrescricaoMedicaPsiquiatrica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
+                            + "WHERE IdLanc='" + jIdAdm.getText() + "'");
                     SalvarPrescricao();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -595,11 +674,15 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtCancelarPrescicaoActionPerformed
 
     private void jBtImpressaoPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoPrescricaoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         if (jIdPrescricaoMedica.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível imprimir prescrição médica.");
         } else {
             try {
+                //PARA MOSTRAR O RELATÓRIO NA FRENTE DO JDIALOG.
+                JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
+                viewer.setSize(800, 600);
+                viewer.setLocationRelativeTo(null);
                 conecta.abrirConexao();
                 String path = "reports/RelatorioPrescricaoMedica.jasper";
                 conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
@@ -618,7 +701,8 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao
                 jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
                 jv.setTitle("Prescrição Médica/Psiquiatrica");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado
+                viewer.getContentPane().add(jv.getContentPane());
+                viewer.setVisible(true);
                 jv.toFront(); // Traz o relatorio para frente da aplicação
                 conecta.desconecta();
             } catch (JRException e) {
@@ -627,12 +711,10 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jBtImpressaoPrescricaoActionPerformed
 
-    private void jBtAuditoriaPrescicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPrescicaoActionPerformed
+    private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaPrescricaMedica objAudiPresMed = new TelaAuditoriaPrescricaMedica();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudiPresMed);
-        objAudiPresMed.show();
-    }//GEN-LAST:event_jBtAuditoriaPrescicaoActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBtSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -677,29 +759,35 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup grupoBotoesPescricoes;
     private javax.swing.JButton jBtAlterarPrescicao;
-    private javax.swing.JButton jBtAuditoriaPrescicao;
     private javax.swing.JButton jBtCancelarPrescicao;
     private javax.swing.JButton jBtExcluirPrescicao;
     private javax.swing.JButton jBtImpressaoPrescricao;
     private javax.swing.JButton jBtNovaPrescicao;
+    private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvarPrescicao;
     private com.toedter.calendar.JDateChooser jDataPM;
     public static javax.swing.JTextField jIdPrescricaoMedica;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JTextField jNomeInternoCrcPM;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JRadioButton jRBPrescricaoMedica;
     private javax.swing.JRadioButton jRBPrescricaoPsiquiatrica;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaPrescricaoMedica;
+    private javax.swing.JTable jTabelaPrescricaoMedicaPsiquiatrica;
     private javax.swing.JTextArea jTextoPrescricaoMedica;
+    private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void NovaPrescricao() {
@@ -718,37 +806,10 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtExcluirPrescicao.setEnabled(!true);
         jBtSalvarPrescicao.setEnabled(true);
         jBtCancelarPrescicao.setEnabled(true);
-        jBtAuditoriaPrescicao.setEnabled(!true);
         jRBPrescricaoMedica.setEnabled(true);
         jRBPrescricaoPsiquiatrica.setEnabled(true);
         //
-//        jBtNovo.setEnabled(!true);
-//        jBtAlterar.setEnabled(!true);
-//        jBtExcluir.setEnabled(!true);
-//        jBtSalvar.setEnabled(!true);
-//        jBtCancelar.setEnabled(!true);
-//        jBtFinalizar.setEnabled(!true);
-//        jBtAuditoria.setEnabled(!true);
-//        //
-//        jDataAdm.setEnabled(!true);
-//        jBtPesqInternoAdm.setEnabled(!true);
-//        jAR.setEnabled(!true);
-//        jACV.setEnabled(!true);
-//        jAGU.setEnabled(!true);
-//        jCABPESC.setEnabled(!true);
-//        jEXT.setEnabled(!true);
-//        jABD.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jCirurgiasPrevisas.setEnabled(!true);
-//        jTratamentoCurso.setEnabled(!true);
-//        jQualDrogas.setEnabled(!true);
-//        jQualEtilismo.setEnabled(!true);
-//        jQuantoTempoTabagismo.setEnabled(!true);
-//        jComboBoxDrogas.setEnabled(!true);
-//        jComboBoxEtilismo.setEnabled(!true);
-//        jComboBoxTabagismo.setEnabled(!true);
-//        jComboBoxVacinas.setEnabled(!true);
-//        jComboBoxIgnoradoAtualizado.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(true);
         // TELA DE EVOLUÇÃO MÉDICA
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -758,9 +819,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtAuditoriaEvolucao.setEnabled(!true);
         //              
         jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-//        jHipotestesDiagnosticosMedico.setEnabled(!true);
-//        jExamesSolcitadosMedicos.setEnabled(!true);
+        jTextoEvolucaoMedica.setEnabled(true);
         //        
         jDataEvolucao.setEnabled(!true);
         jTextoEvolucaoMedica.setEnabled(!true);
@@ -772,13 +831,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtCancelarEvolPsiquiatrica.setEnabled(!true);
         jBtAuditoriaEvolPsiquiatrica.setEnabled(!true);
         // Campos do diagnóstico
-//        jHipotesesDiagnosticoPsi.setText("");
-//        jExamesSolicitadosPsiq.setText("");
-        jDataEvolPsiquiatrica.setEnabled(!true);
         jComboBoxPatologiaAdquirida.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jHipotesesDiagnosticoPsi.setEnabled(!true);
-//        jExamesSolicitadosPsiq.setEnabled(!true);
     }
 
     public void AlterarPrescricao() {
@@ -793,36 +846,9 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtExcluirPrescicao.setEnabled(!true);
         jBtSalvarPrescicao.setEnabled(true);
         jBtCancelarPrescicao.setEnabled(true);
-        jBtAuditoriaPrescicao.setEnabled(!true);
         jBtImpressaoPrescricao.setEnabled(!true);
         //
-//        jBtNovo.setEnabled(!true);
-//        jBtAlterar.setEnabled(!true);
-//        jBtExcluir.setEnabled(!true);
-//        jBtSalvar.setEnabled(!true);
-//        jBtCancelar.setEnabled(!true);
-//        jBtFinalizar.setEnabled(!true);
-//        jBtAuditoria.setEnabled(!true);
-        //
-//        jDataAdm.setEnabled(!true);
-//        jBtPesqInternoAdm.setEnabled(!true);
-//        jAR.setEnabled(!true);
-//        jACV.setEnabled(!true);
-//        jAGU.setEnabled(!true);
-//        jCABPESC.setEnabled(!true);
-//        jEXT.setEnabled(!true);
-//        jABD.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jCirurgiasPrevisas.setEnabled(!true);
-//        jTratamentoCurso.setEnabled(!true);
-//        jQualDrogas.setEnabled(!true);
-//        jQualEtilismo.setEnabled(!true);
-//        jQuantoTempoTabagismo.setEnabled(!true);
-//        jComboBoxDrogas.setEnabled(!true);
-//        jComboBoxEtilismo.setEnabled(!true);
-//        jComboBoxTabagismo.setEnabled(!true);
-//        jComboBoxVacinas.setEnabled(!true);
-//        jComboBoxIgnoradoAtualizado.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(true);
         // TELA DE EVOLUÇÃO MÉDICA
         jBtNovaEvolucao.setEnabled(!true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -832,12 +858,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtAuditoriaEvolucao.setEnabled(!true);
         //              
         jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-//        jHipotestesDiagnosticosMedico.setEnabled(!true);
-//        jExamesSolcitadosMedicos.setEnabled(!true);
-        //        
-        jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
+        jTextoEvolucaoMedica.setEnabled(true);
         // BOTÕES DE EVOLUÇÃO PSIQUIATRICA
         jBtNovaEvolPsiquiatrica.setEnabled(!true);
         jBtAlterarEvolPsiquiatrica.setEnabled(!true);
@@ -848,7 +869,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         // Campos do diagnóstico
         jDataEvolPsiquiatrica.setEnabled(!true);
         jComboBoxPatologiaAdquirida.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(true);
     }
 
     public void ExcluirPrescricao() {
@@ -867,38 +888,9 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtExcluirPrescicao.setEnabled(!true);
         jBtSalvarPrescicao.setEnabled(!true);
         jBtCancelarPrescicao.setEnabled(!true);
-        jBtAuditoriaPrescicao.setEnabled(!true);
         jBtImpressaoPrescricao.setEnabled(!true);
         jRBPrescricaoMedica.setEnabled(!true);
         jRBPrescricaoPsiquiatrica.setEnabled(!true);
-        //
-//        jBtNovo.setEnabled(true);
-//        jBtAlterar.setEnabled(true);
-//        jBtExcluir.setEnabled(true);
-//        jBtSalvar.setEnabled(!true);
-//        jBtCancelar.setEnabled(!true);
-//        jBtFinalizar.setEnabled(true);
-//        jBtAuditoria.setEnabled(true);
-//        //
-//        jDataAdm.setEnabled(!true);
-//        jBtPesqInternoAdm.setEnabled(!true);
-//        jAR.setEnabled(!true);
-//        jACV.setEnabled(!true);
-//        jAGU.setEnabled(!true);
-//        jCABPESC.setEnabled(!true);
-//        jEXT.setEnabled(!true);
-//        jABD.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jCirurgiasPrevisas.setEnabled(!true);
-//        jTratamentoCurso.setEnabled(!true);
-//        jQualDrogas.setEnabled(!true);
-//        jQualEtilismo.setEnabled(!true);
-//        jQuantoTempoTabagismo.setEnabled(!true);
-//        jComboBoxDrogas.setEnabled(!true);
-//        jComboBoxEtilismo.setEnabled(!true);
-//        jComboBoxTabagismo.setEnabled(!true);
-//        jComboBoxVacinas.setEnabled(!true);
-//        jComboBoxIgnoradoAtualizado.setEnabled(!true);
         // TELA DE EVOLUÇÃO MÉDICA
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);
@@ -913,8 +905,6 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jDataEvolPsiquiatrica.setEnabled(!true);
         jComboBoxPatologiaAdquirida.setEnabled(!true);
         jTextoEvolucaoMedica.setEnabled(!true);
-//        jHipotestesDiagnosticosMedico.setEnabled(!true);
-//        jExamesSolcitadosMedicos.setEnabled(!true);
         // BOTÕES DE EVOLUÇÃO PSIQUIATRICA
         jBtNovaEvolPsiquiatrica.setEnabled(true);
         jBtAlterarEvolPsiquiatrica.setEnabled(!true);
@@ -924,9 +914,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jBtAuditoriaEvolPsiquiatrica.setEnabled(!true);
         // Campos do diagnóstico
         jDataEvolPsiquiatrica.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jHipotesesDiagnosticoPsi.setEnabled(!true);
-//        jExamesSolicitadosPsiq.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(true);
     }
 
     public void SalvarPrescricao() {
@@ -939,145 +927,62 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jTextoPrescricaoMedica.setEnabled(!true);
         //
         jBtNovaPrescicao.setEnabled(true);
-        jBtAlterarPrescicao.setEnabled(!true);
-        jBtExcluirPrescicao.setEnabled(!true);
+        jBtAlterarPrescicao.setEnabled(true);
+        jBtExcluirPrescicao.setEnabled(true);
         jBtSalvarPrescicao.setEnabled(!true);
         jBtCancelarPrescicao.setEnabled(!true);
-        jBtAuditoriaPrescicao.setEnabled(!true);
-        jBtImpressaoPrescricao.setEnabled(!true);
+        jBtImpressaoPrescricao.setEnabled(true);
         jRBPrescricaoMedica.setEnabled(!true);
         jRBPrescricaoPsiquiatrica.setEnabled(!true);
         //
-//        jBtNovo.setEnabled(true);
-//        jBtAlterar.setEnabled(true);
-//        jBtExcluir.setEnabled(true);
-//        jBtSalvar.setEnabled(!true);
-//        jBtCancelar.setEnabled(!true);
-//        jBtFinalizar.setEnabled(true);
-//        jBtAuditoria.setEnabled(true);
-//        //
-//        jDataAdm.setEnabled(!true);
-//        jBtPesqInternoAdm.setEnabled(!true);
-//        jAR.setEnabled(!true);
-//        jACV.setEnabled(!true);
-//        jAGU.setEnabled(!true);
-//        jCABPESC.setEnabled(!true);
-//        jEXT.setEnabled(!true);
-//        jABD.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jCirurgiasPrevisas.setEnabled(!true);
-//        jTratamentoCurso.setEnabled(!true);
-//        jQualDrogas.setEnabled(!true);
-//        jQualEtilismo.setEnabled(!true);
-//        jQuantoTempoTabagismo.setEnabled(!true);
-//        jComboBoxDrogas.setEnabled(!true);
-//        jComboBoxEtilismo.setEnabled(!true);
-//        jComboBoxTabagismo.setEnabled(!true);
-//        jComboBoxVacinas.setEnabled(!true);
-//        jComboBoxIgnoradoAtualizado.setEnabled(!true);
-        // TELA DE EVOLUÇÃO MÉDICA
-        jBtNovaEvolucao.setEnabled(true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(!true);
-        jBtCancelarEvolucao.setEnabled(!true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-        //              
-        jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-        //        
-        jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-//        jHipotestesDiagnosticosMedico.setEnabled(!true);
-//        jExamesSolcitadosMedicos.setEnabled(!true);
-        // BOTÕES DE EVOLUÇÃO PSIQUIATRICA
-        jBtNovaEvolPsiquiatrica.setEnabled(true);
-        jBtAlterarEvolPsiquiatrica.setEnabled(!true);
-        jBtExcluirEvolPsiquiatrica.setEnabled(!true);
-        jBtSalvarEvolPsiquiatrica.setEnabled(!true);
-        jBtCancelarEvolPsiquiatrica.setEnabled(!true);
-        jBtAuditoriaEvolPsiquiatrica.setEnabled(!true);
-        jBtImpressaoPrescricao.setEnabled(!true);
-        // Campos do diagnóstico
         jDataEvolPsiquiatrica.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jHipotesesDiagnosticoPsi.setEnabled(!true);
-//        jExamesSolicitadosPsiq.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(true);
     }
 
     public void CancelarPrescricao() {
-        jIdPrescricaoMedica.setText("");
-        jNomeInternoCrcPM.setText("");
-        jDataPM.setDate(null);
-        jTextoPrescricaoMedica.setText("");
-        // PRESCRIÇÃO MEDICA/PSICOLOGICA
-        jDataPM.setEnabled(!true);
-        jTextoPrescricaoMedica.setEnabled(!true);
-        //
-        jBtNovaPrescicao.setEnabled(true);
-        jBtAlterarPrescicao.setEnabled(!true);
-        jBtExcluirPrescicao.setEnabled(!true);
-        jBtSalvarPrescicao.setEnabled(!true);
-        jBtCancelarPrescicao.setEnabled(!true);
-        jBtAuditoriaPrescicao.setEnabled(!true);
-        jBtImpressaoPrescricao.setEnabled(!true);
-        jRBPrescricaoMedica.setEnabled(!true);
-        jRBPrescricaoPsiquiatrica.setEnabled(!true);
-        //
-//        jBtNovo.setEnabled(true);
-//        jBtAlterar.setEnabled(true);
-//        jBtExcluir.setEnabled(true);
-//        jBtSalvar.setEnabled(!true);
-//        jBtCancelar.setEnabled(!true);
-//        jBtFinalizar.setEnabled(true);
-//        jBtAuditoria.setEnabled(true);
-        //
-//        jDataAdm.setEnabled(!true);
-//        jBtPesqInternoAdm.setEnabled(!true);
-//        jAR.setEnabled(!true);
-//        jACV.setEnabled(!true);
-//        jAGU.setEnabled(!true);
-//        jCABPESC.setEnabled(!true);
-//        jEXT.setEnabled(!true);
-//        jABD.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jCirurgiasPrevisas.setEnabled(!true);
-//        jTratamentoCurso.setEnabled(!true);
-//        jQualDrogas.setEnabled(!true);
-//        jQualEtilismo.setEnabled(!true);
-//        jQuantoTempoTabagismo.setEnabled(!true);
-//        jComboBoxDrogas.setEnabled(!true);
-//        jComboBoxEtilismo.setEnabled(!true);
-//        jComboBoxTabagismo.setEnabled(!true);
-//        jComboBoxVacinas.setEnabled(!true);
-//        jComboBoxIgnoradoAtualizado.setEnabled(!true);
-        // TELA DE EVOLUÇÃO MÉDICA
-        jBtNovaEvolucao.setEnabled(true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(!true);
-        jBtCancelarEvolucao.setEnabled(!true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-        //              
-        jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-        //        
-        jDataEvolucao.setEnabled(!true);
-        jTextoEvolucaoMedica.setEnabled(!true);
-//        jHipotestesDiagnosticosMedico.setEnabled(!true);
-//        jExamesSolcitadosMedicos.setEnabled(!true);
-        // BOTÕES DE EVOLUÇÃO PSIQUIATRICA
-        jBtNovaEvolPsiquiatrica.setEnabled(true);
-        jBtAlterarEvolPsiquiatrica.setEnabled(!true);
-        jBtExcluirEvolPsiquiatrica.setEnabled(!true);
-        jBtSalvarEvolPsiquiatrica.setEnabled(!true);
-        jBtCancelarEvolPsiquiatrica.setEnabled(!true);
-        jBtAuditoriaEvolPsiquiatrica.setEnabled(!true);
-        // Campos do diagnóstico
-        jDataEvolPsiquiatrica.setEnabled(!true);
-        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
-//        jHipotesesDiagnosticoPsi.setEnabled(!true);
-//        jExamesSolicitadosPsiq.setEnabled(!true);
+        if (jIdPrescricaoMedica.getText().equals("")) {
+            jIdPrescricaoMedica.setText("");
+            jNomeInternoCrcPM.setText("");
+            jDataPM.setDate(null);
+            jTextoPrescricaoMedica.setText("");
+            //
+            jDataPM.setEnabled(!true);
+            jTextoPrescricaoMedica.setEnabled(!true);
+            //
+            jBtNovaPrescicao.setEnabled(true);
+            jBtAlterarPrescicao.setEnabled(!true);
+            jBtExcluirPrescicao.setEnabled(!true);
+            jBtSalvarPrescicao.setEnabled(!true);
+            jBtCancelarPrescicao.setEnabled(!true);
+            jBtImpressaoPrescricao.setEnabled(!true);
+            jRBPrescricaoMedica.setEnabled(!true);
+            jRBPrescricaoPsiquiatrica.setEnabled(!true);
+            //              
+            jDataEvolucao.setEnabled(!true);
+            jTextoEvolucaoMedica.setEnabled(true);
+            //
+            jDataEvolPsiquiatrica.setEnabled(!true);
+            jTextoEvolucaoPsiquiatrica.setEnabled(true);
+        } else {
+            //
+            jDataPM.setEnabled(!true);
+            jTextoPrescricaoMedica.setEnabled(!true);
+            //
+            jBtNovaPrescicao.setEnabled(true);
+            jBtAlterarPrescicao.setEnabled(!true);
+            jBtExcluirPrescicao.setEnabled(!true);
+            jBtSalvarPrescicao.setEnabled(!true);
+            jBtCancelarPrescicao.setEnabled(!true);
+            jBtImpressaoPrescricao.setEnabled(!true);
+            jRBPrescricaoMedica.setEnabled(!true);
+            jRBPrescricaoPsiquiatrica.setEnabled(!true);
+            //              
+            jDataEvolucao.setEnabled(!true);
+            jTextoEvolucaoMedica.setEnabled(true);
+            //
+            jDataEvolPsiquiatrica.setEnabled(!true);
+            jTextoEvolucaoPsiquiatrica.setEnabled(true);
+        }
     }
 
     public void buscarprescricaoMedica() {
@@ -1092,6 +997,68 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     }
 
     public void preencherTabelaPrescricaoMedica(String sql) {
+        count = 0;
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Prescrição Médica/Psquiatrica"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                count = count + 1;
+                dataPrescricao = conecta.rs.getString("DataPres");
+                String diap = dataPrescricao.substring(8, 10);
+                String mesp = dataPrescricao.substring(5, 7);
+                String anop = dataPrescricao.substring(0, 4);
+                dataPrescricao = diap + "/" + mesp + "/" + anop;
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdItem"), dataPrescricao, conecta.rs.getString("TextoPrescricao")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPrescricaoMedicaPsiquiatrica.setModel(modelo);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(2).setPreferredWidth(400);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getTableHeader().setReorderingAllowed(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.setAutoResizeMode(jTabelaPrescricaoMedicaPsiquiatrica.AUTO_RESIZE_OFF);
+        jTabelaPrescricaoMedicaPsiquiatrica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaPrescricaoMedica();
+        conecta.desconecta();
+    }
+
+    public void limparTabelaPrescricaoMedica() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Prescrição Médica/Psquiatrica"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPrescricaoMedicaPsiquiatrica.setModel(modelo);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(2).setPreferredWidth(400);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.getTableHeader().setReorderingAllowed(false);
+        jTabelaPrescricaoMedicaPsiquiatrica.setAutoResizeMode(jTabelaPrescricaoMedicaPsiquiatrica.AUTO_RESIZE_OFF);
+        jTabelaPrescricaoMedicaPsiquiatrica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharCamposTabelaPrescricaoMedica() {
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPrescricaoMedicaPsiquiatrica.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+    }
+
+    public void preencherTabelaPrescricaoMedicaPsiquiatrica(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Prescrição Médica/Psquiatrica"};
         conecta.abrirConexao();
@@ -1121,33 +1088,6 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         jTabelaPrescricaoMedica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaPrescricaoMedica();
         conecta.desconecta();
-    }
-
-    public void limparTabelaPrescricaoMedica() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Prescrição Médica/Psquiatrica"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPrescricaoMedica.setModel(modelo);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(2).setPreferredWidth(400);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPrescricaoMedica.getTableHeader().setReorderingAllowed(false);
-        jTabelaPrescricaoMedica.setAutoResizeMode(jTabelaPrescricaoMedica.AUTO_RESIZE_OFF);
-        jTabelaPrescricaoMedica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
-    }
-
-    public void alinharCamposTabelaPrescricaoMedica() {
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaPrescricaoMedica.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
 
     public void buscarAcessoUsuarioPrescricao() {

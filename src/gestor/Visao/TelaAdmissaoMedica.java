@@ -2186,7 +2186,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
         jBtPrescricaMedica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
         jBtPrescricaMedica.setText("P. Médica");
-        jBtPrescricaMedica.setToolTipText("Prescrição Médica");
+        jBtPrescricaMedica.setToolTipText("Prescrição Médica/Psiquiatrica");
         jBtPrescricaMedica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPrescricaMedicaActionPerformed(evt);
@@ -2196,10 +2196,20 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtAtestadoMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem2-18.png"))); // NOI18N
         jBtAtestadoMedico.setText("A.Médico");
         jBtAtestadoMedico.setToolTipText("Atestado Médico");
+        jBtAtestadoMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtestadoMedicoActionPerformed(evt);
+            }
+        });
 
         jBtDietaMedica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nutricao18.png"))); // NOI18N
         jBtDietaMedica.setText("D.Médica");
         jBtDietaMedica.setToolTipText("Dieta Médica");
+        jBtDietaMedica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDietaMedicaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -5743,8 +5753,26 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtPrescricaMedicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPrescricaMedicaActionPerformed
         // TODO add your handling code here:
-        mostrarTelaPrescricaoMedica();
+        nomeModuloTela4 = "Movimentação:Admissão Médica de Internos:Prescrição Médica/Psiquiatrica";
+        buscarAcessoUsuarioPrescricao();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela4) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaPrescricaoMedica();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
     }//GEN-LAST:event_jBtPrescricaMedicaActionPerformed
+
+    private void jBtAtestadoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtestadoMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAtestadoMedicoActionPerformed
+
+    private void jBtDietaMedicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDietaMedicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtDietaMedicaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -6024,7 +6052,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     public static javax.swing.JTextField jSexo;
-    private javax.swing.JTextField jStatusLanc;
+    public static javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAtestado;
@@ -8093,7 +8121,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtSalvarPrescicao.setEnabled(!true);
         jBtCancelarPrescicao.setEnabled(!true);
         jBtAuditoriaPrescicao.setEnabled(!true);
-        jBtImpressaoPrescricao.setEnabled(!true);
+        jBtImpressaoPrescricao.setEnabled(true);
         jRBPrescricaoMedica.setEnabled(!true);
         jRBPrescricaoPsiquiatrica.setEnabled(!true);
         //

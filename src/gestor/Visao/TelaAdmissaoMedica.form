@@ -859,6 +859,9 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -3512,7 +3515,7 @@
                       <Image iconType="3" name="/gestor/Imagens/061218140238_16.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="P. M&#xe9;dica"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Prescri&#xe7;&#xe3;o M&#xe9;dica"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Prescri&#xe7;&#xe3;o M&#xe9;dica/Psiquiatrica"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPrescricaMedicaActionPerformed"/>
@@ -3526,6 +3529,9 @@
                     <Property name="text" type="java.lang.String" value="A.M&#xe9;dico"/>
                     <Property name="toolTipText" type="java.lang.String" value="Atestado M&#xe9;dico"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtestadoMedicoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtDietaMedica">
                   <Properties>
@@ -3535,6 +3541,9 @@
                     <Property name="text" type="java.lang.String" value="D.M&#xe9;dica"/>
                     <Property name="toolTipText" type="java.lang.String" value="Dieta M&#xe9;dica"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDietaMedicaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
