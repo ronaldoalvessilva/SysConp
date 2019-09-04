@@ -182,6 +182,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static TelaConsultaVacinasInternos telaConsultaVacinas;
     public static TelaConsultaEncaminhamentosMedico telaEncaminhamentoMedico;
     public static TelaPrescricaoMedicaEnfermaria prescricaoMedica;
+    public static TelaAtestadoMedicoPsiquiatrico atestadoMedico;
+    public static TelaDietaMedicaPsiquiatrica dietaMedica;
 
     public TelaAdmissaoMedica() {
         super();
@@ -220,6 +222,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public void mostrarTelaPrescricaoMedica() {
         prescricaoMedica = new TelaPrescricaoMedicaEnfermaria(this, true);
         prescricaoMedica.setVisible(true);
+    }
+
+    public void mostrarTelaAtestadoMedico() {
+        atestadoMedico = new TelaAtestadoMedicoPsiquiatrico(this, true);
+        atestadoMedico.setVisible(true);
+    }
+
+    public void mostraTelaDieta() {
+        dietaMedica = new TelaDietaMedicaPsiquiatrica(this, true);
+        dietaMedica.setVisible(true);
     }
 
     /**
@@ -4048,11 +4060,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         acao = 0;
         Cancelar();
-        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
-//        if (jIdAdm.getText().equals("")) {
-//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
-//            control_ATENDE.excluirAtendimento(objRegAtend);
-//        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -4075,11 +4082,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
-        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
-//        if (jIdAdm.getText().equals("")) {
-//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
-//            control_ATENDE.excluirAtendimento(objRegAtend);
-//        }
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -5768,10 +5770,32 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtAtestadoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtestadoMedicoActionPerformed
         // TODO add your handling code here:
+        nomeModuloTela5 = "Movimentação:Admissão Médica de Internos:Atestado Médico/Psiquiatrico";
+        buscarAcessoUsuarioAtestado();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela5) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaAtestadoMedico();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
     }//GEN-LAST:event_jBtAtestadoMedicoActionPerformed
 
     private void jBtDietaMedicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDietaMedicaActionPerformed
         // TODO add your handling code here:
+        nomeModuloTela6 = "Movimentação:Admissão Médica de Internos:Dieta Médica/Psiquiatrica";
+        buscarAcessoUsuarioDieta();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela6) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostraTelaDieta();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
     }//GEN-LAST:event_jBtDietaMedicaActionPerformed
 
 
@@ -6055,13 +6079,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTabelaAtestado;
+    public static javax.swing.JTable jTabelaAtestado;
     private javax.swing.JTable jTabelaEvolPsiquiatrica;
     private javax.swing.JTable jTabelaEvolucaoMedica;
     private javax.swing.JTable jTabelaMedico;
     private javax.swing.JTable jTabelaPatologia;
     public static javax.swing.JTable jTabelaPrescricaoMedica;
-    private javax.swing.JTable jTablaDieta;
+    public static javax.swing.JTable jTablaDieta;
     private javax.swing.JTextArea jTextoAtestado;
     private javax.swing.JTextArea jTextoDieta;
     public static javax.swing.JTextArea jTextoEvolucaoMedica;

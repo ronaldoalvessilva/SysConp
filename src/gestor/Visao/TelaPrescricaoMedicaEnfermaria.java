@@ -105,6 +105,7 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(telaAdmissaoMedica);
         initComponents();
+        formatarCampos();
         preencherTabelaPrescricaoMedica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
     }
@@ -789,6 +790,16 @@ public class TelaPrescricaoMedicaEnfermaria extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextoPrescricaoMedica;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void formatarCampos() {
+        jTextoPrescricaoMedica.setLineWrap(true);
+        jTextoPrescricaoMedica.setWrapStyleWord(true);
+        //
+        jIdPrescricaoMedica.setBackground(Color.white);
+        jNomeInternoCrcPM.setBackground(Color.white);
+        jDataPM.setBackground(Color.white);
+        jTextoPrescricaoMedica.setBackground(Color.white);
+    }
 
     public void NovaPrescricao() {
         jIdPrescricaoMedica.setText("");
