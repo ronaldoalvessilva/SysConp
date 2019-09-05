@@ -768,6 +768,7 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setAtendido(pATENDENDO);
                     objRegAtend.setUsuarioAtendente(nameUser);
                     objRegAtend.setDataInsert(dataModFinal);

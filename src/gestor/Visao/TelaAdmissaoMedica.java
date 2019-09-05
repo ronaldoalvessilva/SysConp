@@ -181,6 +181,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static TelaConsultaExamesSolicitados telaConsultaExames;
     public static TelaConsultaVacinasInternos telaConsultaVacinas;
     public static TelaConsultaEncaminhamentosMedico telaEncaminhamentoMedico;
+    public static TelaPrescricaoMedicaEnfermaria prescricaoMedica;
+    public static TelaAtestadoMedicoPsiquiatrico atestadoMedico;
+    public static TelaDietaMedicaPsiquiatrica dietaMedica;
 
     public TelaAdmissaoMedica() {
         super();
@@ -214,6 +217,21 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public void mostrarTelaEncaminhamentoMedico() {
         telaEncaminhamentoMedico = new TelaConsultaEncaminhamentosMedico(this, true);
         telaEncaminhamentoMedico.setVisible(true);
+    }
+
+    public void mostrarTelaPrescricaoMedica() {
+        prescricaoMedica = new TelaPrescricaoMedicaEnfermaria(this, true);
+        prescricaoMedica.setVisible(true);
+    }
+
+    public void mostrarTelaAtestadoMedico() {
+        atestadoMedico = new TelaAtestadoMedicoPsiquiatrico(this, true);
+        atestadoMedico.setVisible(true);
+    }
+
+    public void mostraTelaDieta() {
+        dietaMedica = new TelaDietaMedicaPsiquiatrica(this, true);
+        dietaMedica.setVisible(true);
     }
 
     /**
@@ -408,6 +426,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtVacinas = new javax.swing.JButton();
         jBtEncaminhamentoPsi = new javax.swing.JButton();
         jBtImpressaoEvolucao1 = new javax.swing.JButton();
+        jBtPrescricaMedica = new javax.swing.JButton();
+        jBtAtestadoMedico = new javax.swing.JButton();
+        jBtDietaMedica = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jLabel72 = new javax.swing.JLabel();
@@ -439,6 +460,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jTotalRegistrosMed = new javax.swing.JLabel();
         jBtVacinasClinicas = new javax.swing.JButton();
         jBtImpressaoEvolucao = new javax.swing.JButton();
+        jBtPrescricaMedica1 = new javax.swing.JButton();
+        jBtAtestadoMedico1 = new javax.swing.JButton();
+        jBtDietaMedica1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTabelaEvolucaoMedica = new javax.swing.JTable();
         jLabel69 = new javax.swing.JLabel();
@@ -636,7 +660,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                                 .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox1)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1185,7 +1209,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         .addGroup(PatologiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jCid, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1670,7 +1694,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                    .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel78)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2092,7 +2116,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtPatologias.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtPatologias.setForeground(new java.awt.Color(0, 153, 0));
         jBtPatologias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtPatologias.setText("Patologias");
         jBtPatologias.setToolTipText("Cadastrar Patologias");
         jBtPatologias.setEnabled(false);
         jBtPatologias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2107,7 +2130,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtExames.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtExames.setForeground(new java.awt.Color(255, 0, 0));
         jBtExames.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_white_star.png"))); // NOI18N
-        jBtExames.setText("Exames");
         jBtExames.setToolTipText("Solicitar Exames");
         jBtExames.setEnabled(false);
         jBtExames.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2145,7 +2167,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtVacinas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtVacinas.setForeground(new java.awt.Color(0, 0, 255));
         jBtVacinas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/viruskiller-icone-5641-16.png"))); // NOI18N
-        jBtVacinas.setText("Vacinas");
         jBtVacinas.setToolTipText("Consulta de Vacinas");
         jBtVacinas.setEnabled(false);
         jBtVacinas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2159,7 +2180,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
         jBtEncaminhamentoPsi.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEncaminhamentoPsi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/high-security-icone-8352-16.png"))); // NOI18N
-        jBtEncaminhamentoPsi.setText("Encamin.");
         jBtEncaminhamentoPsi.setToolTipText("Encaminhamentos");
         jBtEncaminhamentoPsi.setEnabled(false);
         jBtEncaminhamentoPsi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2179,16 +2199,37 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPrescricaMedica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtPrescricaMedica.setText("P. Médica");
+        jBtPrescricaMedica.setToolTipText("Prescrição Médica/Psiquiatrica");
+        jBtPrescricaMedica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPrescricaMedicaActionPerformed(evt);
+            }
+        });
+
+        jBtAtestadoMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem2-18.png"))); // NOI18N
+        jBtAtestadoMedico.setText("A.Médico");
+        jBtAtestadoMedico.setToolTipText("Atestado Médico");
+        jBtAtestadoMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtestadoMedicoActionPerformed(evt);
+            }
+        });
+
+        jBtDietaMedica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nutricao18.png"))); // NOI18N
+        jBtDietaMedica.setText("D.Médica");
+        jBtDietaMedica.setToolTipText("Dieta Médica");
+        jBtDietaMedica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDietaMedicaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtVacinas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtEncaminhamentoPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
@@ -2199,33 +2240,51 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jBtPesquisaEvolucaoPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
+                                .addGap(6, 6, 6)
                                 .addComponent(jBtAuditoriaEvolPsiquiatrica, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtImpressaoEvolucao1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jBtPatologias)
-                            .addComponent(jBtExames, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtPrescricaMedica)
+                            .addComponent(jBtAtestadoMedico)
+                            .addComponent(jBtDietaMedica)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jBtPatologias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtExames, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jBtVacinas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtEncaminhamentoPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtExames, jBtPatologias});
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEncaminhamentoPsi, jBtExames, jBtPatologias, jBtVacinas});
 
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtPatologias)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtPatologias)
+                    .addComponent(jBtExames))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExames)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtVacinas)
+                    .addComponent(jBtEncaminhamentoPsi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtVacinas)
+                .addComponent(jBtPrescricaMedica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtEncaminhamentoPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jBtAtestadoMedico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtDietaMedica)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtPesquisaEvolucaoPsi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtAuditoriaEvolPsiquiatrica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2234,6 +2293,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addComponent(jTotalRegistrosPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEncaminhamentoPsi, jBtExames, jBtPatologias, jBtVacinas});
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -2246,7 +2307,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addComponent(jLabel50, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -2293,7 +2354,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             .addComponent(jLabel68)
                             .addComponent(jLabel67))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, Short.MAX_VALUE)))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         AnaPsiquiatricaLayout.setVerticalGroup(
@@ -2329,7 +2390,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             .addComponent(jBtAlterarEvolPsiquiatrica)
                             .addComponent(jBtExcluirEvolPsiquiatrica)))
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Anota./Evolu. Psiquiatrica", null, AnaPsiquiatrica, "Evolução Psiquiatrica");
@@ -2398,7 +2459,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jNomeCompletoInternoEvolucaoMedica)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addGap(0, 169, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -2486,7 +2547,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtPatologiasClinica.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtPatologiasClinica.setForeground(new java.awt.Color(255, 0, 0));
         jBtPatologiasClinica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtPatologiasClinica.setText("Patologias");
         jBtPatologiasClinica.setToolTipText("Cadastrar Patologias");
         jBtPatologiasClinica.setEnabled(false);
         jBtPatologiasClinica.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2501,7 +2561,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtExamesClinicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtExamesClinicos.setForeground(new java.awt.Color(51, 153, 0));
         jBtExamesClinicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_white_star.png"))); // NOI18N
-        jBtExamesClinicos.setText("Exames");
         jBtExamesClinicos.setToolTipText("Solicitar Exames");
         jBtExamesClinicos.setEnabled(false);
         jBtExamesClinicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2515,7 +2574,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
         jBtEncaminhamentoClinico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEncaminhamentoClinico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/high-security-icone-8352-16.png"))); // NOI18N
-        jBtEncaminhamentoClinico.setText("Encamin.");
         jBtEncaminhamentoClinico.setToolTipText("Encaminhamentos");
         jBtEncaminhamentoClinico.setEnabled(false);
         jBtEncaminhamentoClinico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2553,7 +2611,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtVacinasClinicas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtVacinasClinicas.setForeground(new java.awt.Color(0, 0, 255));
         jBtVacinasClinicas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/viruskiller-icone-5641-16.png"))); // NOI18N
-        jBtVacinasClinicas.setText("Vacinas");
         jBtVacinasClinicas.setToolTipText("Consulta de Vacinas");
         jBtVacinasClinicas.setEnabled(false);
         jBtVacinasClinicas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2573,28 +2630,53 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPrescricaMedica1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtPrescricaMedica1.setText("P. Médica");
+        jBtPrescricaMedica1.setToolTipText("Prescrição Médica/Psiquiatrica");
+        jBtPrescricaMedica1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPrescricaMedica1ActionPerformed(evt);
+            }
+        });
+
+        jBtAtestadoMedico1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Triagem2-18.png"))); // NOI18N
+        jBtAtestadoMedico1.setText("A.Médico");
+        jBtAtestadoMedico1.setToolTipText("Atestado Médico");
+        jBtAtestadoMedico1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtestadoMedico1ActionPerformed(evt);
+            }
+        });
+
+        jBtDietaMedica1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Nutricao18.png"))); // NOI18N
+        jBtDietaMedica1.setText("D.Médica");
+        jBtDietaMedica1.setToolTipText("Dieta Médica");
+        jBtDietaMedica1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDietaMedica1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPatologiasClinica)
-                    .addComponent(jBtExamesClinicos, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jTotalRegistrosMed, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtEncaminhamentoClinico, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtVacinasClinicas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel16Layout.createSequentialGroup()
+                            .addComponent(jBtPatologiasClinica, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtExamesClinicos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel16Layout.createSequentialGroup()
+                            .addComponent(jBtVacinasClinicas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jBtEncaminhamentoClinico, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jBtPesquisaEvolucaoMedica, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2602,28 +2684,38 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtImpressaoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtPrescricaMedica1)
+                    .addComponent(jBtAtestadoMedico1)
+                    .addComponent(jBtDietaMedica1))
+                .addContainerGap())
         );
-
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEncaminhamentoClinico, jBtExamesClinicos, jBtPatologiasClinica});
-
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtPatologiasClinica)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtPatologiasClinica)
+                    .addComponent(jBtExamesClinicos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExamesClinicos)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtVacinasClinicas)
+                    .addComponent(jBtEncaminhamentoClinico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtVacinasClinicas)
+                .addComponent(jBtPrescricaMedica1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtEncaminhamentoClinico, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jBtAtestadoMedico1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtDietaMedica1)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jBtPesquisaEvolucaoMedica, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jBtImpressaoEvolucao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jTotalRegistrosMed, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2681,7 +2773,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2700,17 +2792,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AnaMedicaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
-                        .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(AnaMedicaLayout.createSequentialGroup()
                         .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AnaMedicaLayout.createSequentialGroup()
                                 .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2723,15 +2804,27 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelarEvolucao))
                             .addComponent(jLabel69)
-                            .addComponent(jLabel51)
-                            .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(AnaMedicaLayout.createSequentialGroup()
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel77))
-                                .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel51))
+                        .addGap(138, 157, Short.MAX_VALUE))
+                    .addGroup(AnaMedicaLayout.createSequentialGroup()
+                        .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(122, 122, 122)
+                                .addComponent(jLabel77))
+                            .addGroup(AnaMedicaLayout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
+                                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane15, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         AnaMedicaLayout.setVerticalGroup(
             AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2742,14 +2835,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AnaMedicaLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel77)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
+                .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel77))
+                .addGap(6, 6, 6)
                 .addGroup(AnaMedicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AnaMedicaLayout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2974,7 +3064,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                .addContainerGap(177, Short.MAX_VALUE)
+                .addContainerGap(197, Short.MAX_VALUE)
                 .addComponent(jRBPrescricaoMedica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRBPrescricaoPsiquiatrica)
@@ -3281,7 +3371,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addComponent(jRadioBtModeloC)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioBtModeloAleatorio)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3379,7 +3469,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jNomeInternoDieta)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel32)
-                        .addGap(0, 239, Short.MAX_VALUE)))
+                        .addGap(0, 259, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDataDieta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3589,7 +3679,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3598,7 +3688,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        setBounds(300, 10, 623, 529);
+        setBounds(300, 10, 643, 529);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -4011,11 +4101,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         acao = 0;
         Cancelar();
-        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
-//        if (jIdAdm.getText().equals("")) {
-//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
-//            control_ATENDE.excluirAtendimento(objRegAtend);
-//        }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
@@ -4038,11 +4123,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
-        //EXCLUIR O REGISTRO DA TABELA ATENDIMENTO_PSP_INTERNO_TV CASO O ATENDENTE NÃO CONFIRMOU O ATENDIMENTO
-//        if (jIdAdm.getText().equals("")) {
-//            objRegAtend.setIdAPIT(CODIGO_ATENDIMENTO_TV_ADM);
-//            control_ATENDE.excluirAtendimento(objRegAtend);
-//        }
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -5714,6 +5794,96 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtImpressaoEvolucao1ActionPerformed
 
+    private void jBtPrescricaMedicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPrescricaMedicaActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela4 = "Movimentação:Admissão Médica de Internos:Prescrição Médica/Psiquiatrica";
+        buscarAcessoUsuarioPrescricao();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela4) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaPrescricaoMedica();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtPrescricaMedicaActionPerformed
+
+    private void jBtAtestadoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtestadoMedicoActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela5 = "Movimentação:Admissão Médica de Internos:Atestado Médico/Psiquiatrico";
+        buscarAcessoUsuarioAtestado();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela5) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaAtestadoMedico();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtAtestadoMedicoActionPerformed
+
+    private void jBtDietaMedicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDietaMedicaActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela6 = "Movimentação:Admissão Médica de Internos:Dieta Médica/Psiquiatrica";
+        buscarAcessoUsuarioDieta();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela6) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostraTelaDieta();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtDietaMedicaActionPerformed
+
+    private void jBtPrescricaMedica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPrescricaMedica1ActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela4 = "Movimentação:Admissão Médica de Internos:Prescrição Médica/Psiquiatrica";
+        buscarAcessoUsuarioPrescricao();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela4) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaPrescricaoMedica();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtPrescricaMedica1ActionPerformed
+
+    private void jBtAtestadoMedico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtestadoMedico1ActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela5 = "Movimentação:Admissão Médica de Internos:Atestado Médico/Psiquiatrico";
+        buscarAcessoUsuarioAtestado();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela5) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostrarTelaAtestadoMedico();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtAtestadoMedico1ActionPerformed
+
+    private void jBtDietaMedica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDietaMedica1ActionPerformed
+        // TODO add your handling code here:
+        nomeModuloTela6 = "Movimentação:Admissão Médica de Internos:Dieta Médica/Psiquiatrica";
+        buscarAcessoUsuarioDieta();
+        if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(nomeModuloTela6) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            if (jIdAdm.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe interno selecionado para fazer prescrição.");
+            } else {
+                mostraTelaDieta();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
+        }
+    }//GEN-LAST:event_jBtDietaMedica1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AnaMedica;
@@ -5740,6 +5910,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBtAlterarEvolPsiquiatrica;
     public static javax.swing.JButton jBtAlterarEvolucao;
     private javax.swing.JButton jBtAlterarPrescicao;
+    private javax.swing.JButton jBtAtestadoMedico;
+    private javax.swing.JButton jBtAtestadoMedico1;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaAtestado;
     private javax.swing.JButton jBtAuditoriaDieta;
@@ -5753,6 +5925,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBtCancelarEvolPsiquiatrica;
     public static javax.swing.JButton jBtCancelarEvolucao;
     private javax.swing.JButton jBtCancelarPrescicao;
+    private javax.swing.JButton jBtDietaMedica;
+    private javax.swing.JButton jBtDietaMedica1;
     private javax.swing.JButton jBtEncaminhamentoClinico;
     private javax.swing.JButton jBtEncaminhamentoPsi;
     private javax.swing.JButton jBtExames;
@@ -5784,6 +5958,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtPesqNomeInterno;
     public static javax.swing.JButton jBtPesquisaEvolucaoMedica;
     public static javax.swing.JButton jBtPesquisaEvolucaoPsi;
+    private javax.swing.JButton jBtPrescricaMedica;
+    private javax.swing.JButton jBtPrescricaMedica1;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarAtestado;
@@ -5989,16 +6165,16 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     public static javax.swing.JTextField jSexo;
-    private javax.swing.JTextField jStatusLanc;
+    public static javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTabelaAtestado;
+    public static javax.swing.JTable jTabelaAtestado;
     private javax.swing.JTable jTabelaEvolPsiquiatrica;
     private javax.swing.JTable jTabelaEvolucaoMedica;
     private javax.swing.JTable jTabelaMedico;
     private javax.swing.JTable jTabelaPatologia;
-    private javax.swing.JTable jTabelaPrescricaoMedica;
-    private javax.swing.JTable jTablaDieta;
+    public static javax.swing.JTable jTabelaPrescricaoMedica;
+    public static javax.swing.JTable jTablaDieta;
     private javax.swing.JTextArea jTextoAtestado;
     private javax.swing.JTextArea jTextoDieta;
     public static javax.swing.JTextArea jTextoEvolucaoMedica;
@@ -8058,7 +8234,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jBtSalvarPrescicao.setEnabled(!true);
         jBtCancelarPrescicao.setEnabled(!true);
         jBtAuditoriaPrescicao.setEnabled(!true);
-        jBtImpressaoPrescricao.setEnabled(!true);
+        jBtImpressaoPrescricao.setEnabled(true);
         jRBPrescricaoMedica.setEnabled(!true);
         jRBPrescricaoPsiquiatrica.setEnabled(!true);
         //

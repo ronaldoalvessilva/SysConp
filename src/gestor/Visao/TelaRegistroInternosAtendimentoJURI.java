@@ -774,6 +774,7 @@ public class TelaRegistroInternosAtendimentoJURI extends javax.swing.JInternalFr
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloJURI);
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setAtendido(pATENDENDO);
                     objRegAtend.setUsuarioAtendente(nameUser);
                     objRegAtend.setDataInsert(dataModFinal);

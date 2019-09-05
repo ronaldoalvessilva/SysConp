@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoJuridico;
 import gestor.Controle.ControleItensAtividadeJuridico;
 import gestor.Controle.ControleLogSistema;
@@ -49,7 +50,9 @@ import static gestor.Visao.TelaModuloJuridico.codigoGrupoJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserGroupJURI;
 import static gestor.Visao.TelaModuloJuridico.codigoUserJURI;
 import static gestor.Visao.TelaModuloJuridico.nomeGrupoJURI;
+import static gestor.Visao.TelaModuloJuridico.nomeModuloJURIDICO;
 import static gestor.Visao.TelaModuloJuridico.nomeTelaJURI;
+import static gestor.Visao.TelaModuloJuridico.pQUANTIDADE_ATENDIDA;
 import static gestor.Visao.TelaModuloJuridico.telaAtendimentoJuridicoaAtividadesJURI;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -86,6 +89,8 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
+    // PARA O ATENDIMENTO NA TV
+    ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -121,7 +126,9 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
     String statusEvolucao = "EVOLUINDO";
     String deptoTecnico = "JURIDICO";
     String pTextoEvolucao = "EVOLUÇÃO TEM COMO ORIGEM A(S) ATIVIDADE(S) JURIDICA(S) REALIZADA(S) PODENDO SER ALTERADA PELO ATENDENTE.";
-
+    //ATENDIMENTO MOSTRADO NA TV
+    String pATENDIMENTO_CONCLUIDO = "Sim";
+    String status_ATENDIMENTO = "Atendimento Concluido";
     /**
      * Creates new form TelaAtividadesRealizadasADM
      */
@@ -451,6 +458,7 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
             if (pAcao == 3) {
+                verificarInternoRegistradoAdm();
                 NovoRegistro();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "É necessário está no modo de inserção da evolução para inserir um atividade.");
@@ -633,6 +641,8 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
         jComboBoxDescricaoAtividade.setSelectedItem("Selecione...");
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxDescricaoAtividade.setEnabled(true);
+        //
+        jBtAdicionar.setEnabled(!true);
         jBtConfirmar.setEnabled(true);
     }
 
@@ -677,12 +687,14 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
         objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
         objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
         objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
         objRegAtend.setAtendido(atendido);
         objRegAtend.setDataAtendimento(jDataRegistro.getDate());
         objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
         objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
         objRegAtend.setAtendeEvol(atendido);
+        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
         //
         objRegAtend.setUsuarioUp(nameUser);
         objRegAtend.setDataUp(dataModFinal);
@@ -690,6 +702,17 @@ public class TelaAtividadesRealizadasEvoluJURI extends javax.swing.JDialog {
         controlRegAtend.alterarRegEvol(objRegAtend);
         objLog2();
         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+        objRegAtend.setHorarioUp(horaMov);
+        objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
+        objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
+        control_ATENDE.confirmarAtendimento(objRegAtend);
         //
         jBtNovaEvolucao.setEnabled(true);
         jBtAlterarEvolucao.setEnabled(!true);

@@ -924,6 +924,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                         objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitImp.getText()));
                         objRegAtend.setNomeInternoCrc(jNomeInternoKitImp.getText());
                         objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                        objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                         objRegAtend.setAtendido(pATENDENDO);
                         objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         objRegAtend.setDataInsert(dataModFinal);

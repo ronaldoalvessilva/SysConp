@@ -765,6 +765,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setImpressaoAuto(pImpressao);
                     objRegAtend.setQtdAtend(qtdAtend);
+                    objRegAtend.setUsuarioAtendente(nameUser);
                     control.incluirRegAtend(objRegAtend);
                     buscarRegistro();
                     objLog();
@@ -774,6 +775,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoKitBio.getText());
                     objRegAtend.setNomeDepartamento(nomeModuloODONTOLOGIA);
+                    objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                     objRegAtend.setAtendido(pATENDENDO);
                     objRegAtend.setUsuarioAtendente(nameUser);
                     objRegAtend.setDataInsert(dataModFinal);
