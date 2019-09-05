@@ -14,24 +14,39 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM ODONTOPROCEDIMENTO
-INNER JOIN PRONTUARIOSCRC ON ODONTOPROCEDIMENTO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-WHERE DataPro BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by ODONTOPROCEDIMENTO.UsuarioInsert, ODONTOPROCEDIMENTO.DataPro, PRONTUARIOSCRC.NomeInternoCrc]]>
+		<![CDATA[SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
+INNER JOIN PRONTUARIOSCRC
+ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
+WHERE TipoAtendimento LIKE 'Evolução Odontologica' AND Atendido LIKE 'Sim' AND
+CONVERT(DATE, DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
-	<field name="IdPro" class="java.lang.Integer"/>
-	<field name="DataPro" class="java.sql.Timestamp"/>
-	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="IdRegistro" class="java.lang.Integer"/>
+	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="Procedimento" class="java.sql.Clob"/>
+	<field name="TipoAtendimento" class="java.lang.String"/>
+	<field name="IdDepartamento" class="java.lang.Integer"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
+	<field name="Atendido" class="java.lang.String"/>
+	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="IdEvol" class="java.lang.Integer"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
+	<field name="AtendeEvol" class="java.lang.String"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
-	<field name="UsuarioDelete" class="java.lang.String"/>
 	<field name="DataInsert" class="java.lang.String"/>
 	<field name="DataUp" class="java.lang.String"/>
-	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Impresso" class="java.lang.String"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="DataAssinatura" class="java.lang.String"/>
+	<field name="HoraAssinatura" class="java.lang.String"/>
+	<field name="Motivo" class="java.sql.Clob"/>
+	<field name="AssinaturaLiberador" class="java.sql.Blob"/>
+	<field name="Qtd" class="java.lang.Integer"/>
+	<field name="UsuarioAtendente" class="java.lang.String"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -44,7 +59,6 @@ order by ODONTOPROCEDIMENTO.UsuarioInsert, ODONTOPROCEDIMENTO.DataPro, PRONTUARI
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -58,6 +72,9 @@ order by ODONTOPROCEDIMENTO.UsuarioInsert, ODONTOPROCEDIMENTO.DataPro, PRONTUARI
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
@@ -131,31 +148,24 @@ order by ODONTOPROCEDIMENTO.UsuarioInsert, ODONTOPROCEDIMENTO.DataPro, PRONTUARI
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
+				<reportElement x="0" y="1" width="555" height="20" backcolor="#CCCCFF" uuid="ab79d30f-116f-4ca7-8250-8c21a5411818"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<reportElement x="0" y="2" width="90" height="19" uuid="b7594eeb-53f6-46c4-8ca3-4e24890e70a2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
+				<text><![CDATA[Data/Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<reportElement x="163" y="1" width="315" height="20" uuid="8d397f20-9a14-459b-9f4e-10426254976e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="93" y="1" width="61" height="20" uuid="5cbfbf20-e58b-4d70-b3c1-dd3561f1aa7f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -166,24 +176,19 @@ order by ODONTOPROCEDIMENTO.UsuarioInsert, ODONTOPROCEDIMENTO.DataPro, PRONTUARI
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="0" width="44" height="14" uuid="80d287af-ab52-43ed-b885-3d6e583caa84"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdPro}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="0" width="96" height="15" uuid="ab7e7fc2-00f0-448c-aa32-cc5950682e08"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataPro}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="1170e4dc-f411-4a13-90fd-597e68c7147d"/>
+				<reportElement x="164" y="0" width="305" height="15" uuid="8e0e53f6-08f8-4f9b-8df9-8085834ba5a7"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="6c8c44d0-071c-45e3-aa68-3a4024b425de"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<reportElement x="94" y="0" width="61" height="15" uuid="c8d2d36e-854f-4eed-813b-c2c08d60323d"/>
+				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="85" height="15" uuid="2a7bf646-3ca0-437e-9f30-b236f4d54c45"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

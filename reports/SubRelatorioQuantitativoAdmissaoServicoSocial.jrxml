@@ -109,7 +109,7 @@ ORDER BY A.UsuarioInsert, A.DataAtend]]>
 				<text><![CDATA[Nº Doc.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
+				<reportElement x="44" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -134,7 +134,7 @@ ORDER BY A.UsuarioInsert, A.DataAtend]]>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="141" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
@@ -149,7 +149,7 @@ ORDER BY A.UsuarioInsert, A.DataAtend]]>
 				<textFieldExpression><![CDATA[$F{IdAtend}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
+				<reportElement x="43" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{DataAtend}]]></textFieldExpression>
 			</textField>

@@ -14,9 +14,11 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM ODONTOGRAMA_EVOLUCAO
-INNER JOIN PRONTUARIOSCRC ON ODONTOGRAMA_EVOLUCAO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
+		<![CDATA[SELECT * FROM ODONTOGRAMA_EVOLUCAO O
+INNER JOIN PROCEDIMENTOS_ODONTOLOGICO P ON O.IdProcOdonto=P.IdProcOdonto
+INNER JOIN PRONTUARIOSCRC I ON O.IdInternoCrc=I.IdInternoCrc
+WHERE CONVERT(DATE,DataOdontograma) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY DataOdontograma]]>
 	</queryString>
 	<field name="IdODEvol" class="java.lang.Integer"/>
 	<field name="IdLanc" class="java.lang.Integer"/>
@@ -29,6 +31,15 @@ WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
 	<field name="PlanoTratamento" class="java.lang.String"/>
 	<field name="NrFace" class="java.lang.Integer"/>
 	<field name="TipoProc" class="java.lang.Integer"/>
+	<field name="StatusProc" class="java.lang.String"/>
+	<field name="Classificacao" class="java.lang.String"/>
+	<field name="DescricaoProcedimento" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -54,14 +65,8 @@ WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
-	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
-	<field name="DataInsert" class="java.lang.String"/>
-	<field name="DataUp" class="java.lang.String"/>
 	<field name="DataDelete" class="java.lang.String"/>
-	<field name="HorarioInsert" class="java.lang.String"/>
-	<field name="HorarioUp" class="java.lang.String"/>
 	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
@@ -82,14 +87,14 @@ WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
 					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="-7" y="5" width="154" height="20" uuid="d0ac0288-8f46-4f41-bc47-dd84f2b8d909"/>
+					<reportElement x="7" y="5" width="154" height="20" uuid="d0ac0288-8f46-4f41-bc47-dd84f2b8d909"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total de Admissões de  ]]></text>
+					<text><![CDATA[Total de Procedimentos de  ]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="137" y="5" width="326" height="20" uuid="3bfa61aa-8b8e-41f3-b731-a7f7ddc84339"/>
+					<reportElement x="159" y="5" width="319" height="20" uuid="3bfa61aa-8b8e-41f3-b731-a7f7ddc84339"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -129,66 +134,77 @@ WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ADMISSÕES]]></text>
+				<text><![CDATA[PROCEDIMENTOS]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="5dfd8b17-2e35-4249-afc0-852fbc0882b0"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<reportElement x="0" y="1" width="90" height="19" uuid="9b2e5b7e-8605-4c41-bb2e-7eb4ca5d7f5e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
+				<text><![CDATA[Data/Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<reportElement x="163" y="0" width="315" height="20" uuid="fda7183c-bbd7-43c7-835e-73fbe32fe7e9"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="93" y="0" width="61" height="20" uuid="7ba8b9aa-84df-42de-a538-acfd3fa70de9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="1" width="175" height="19" uuid="a15d9621-9c5c-4d2a-a93f-458f77d057b3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Procedimento(s) Realizado(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="1" width="38" height="20" uuid="ab1e8bca-92b4-4491-82fb-f379ec3edbb3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dente]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="1170e4dc-f411-4a13-90fd-597e68c7147d"/>
+				<reportElement x="161" y="0" width="242" height="15" uuid="1170e4dc-f411-4a13-90fd-597e68c7147d"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="6c8c44d0-071c-45e3-aa68-3a4024b425de"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<reportElement x="92" y="0" width="75" height="15" uuid="6c8c44d0-071c-45e3-aa68-3a4024b425de"/>
+				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="0" width="44" height="15" uuid="b647c27c-dae2-41d1-8251-842f3044cc96"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdLanc}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="50" y="0" width="96" height="15" uuid="d7e664c2-4757-4f84-8a22-05a8a7e05b76"/>
+				<reportElement x="0" y="0" width="90" height="15" uuid="d7e664c2-4757-4f84-8a22-05a8a7e05b76"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{DataOdontograma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="0" width="111" height="15" uuid="afb58e79-3ad9-46eb-8fe5-6ee666d95ad2"/>
+				<textFieldExpression><![CDATA[$F{DescricaoProcedimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="0" width="37" height="15" uuid="8a18b105-474a-4765-9870-a2d2fc82604a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NumeroDente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -198,11 +214,11 @@ WHERE DataOdontograma BETWEEN '01/08/2019' AND '30/08/2019']]>
 				<reportElement x="1" y="2" width="552" height="20" uuid="cf7a51f3-c65b-4094-9df4-426fd6295783"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="6" y="2" width="192" height="20" uuid="21e912a8-233b-4c33-a1c2-fc5ade316c8e"/>
+				<reportElement x="6" y="2" width="205" height="20" uuid="21e912a8-233b-4c33-a1c2-fc5ade316c8e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Admissões do Setor: ]]></text>
+				<text><![CDATA[Total de Procedimentos do Setor: ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="478" y="2" width="76" height="20" uuid="96b1d790-263d-43e2-b672-8f5ce7a2c007"/>

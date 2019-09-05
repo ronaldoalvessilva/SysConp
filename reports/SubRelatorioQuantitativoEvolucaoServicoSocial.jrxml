@@ -99,54 +99,49 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<reportElement x="1" y="1" width="90" height="19" uuid="0ecee817-163c-4183-8b76-4556020bd841"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
+				<text><![CDATA[Data/Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<reportElement x="164" y="0" width="238" height="20" uuid="f5a93b5b-cfa7-4556-8ba4-d16f91de8b1f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="94" y="0" width="61" height="20" uuid="0ef71726-40f5-45cc-b654-ee2a09ea587d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="402" y="0" width="153" height="20" uuid="48c5ea38-5797-4126-93c9-882aa882a73a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
-			<textField>
-				<reportElement x="1" y="0" width="44" height="15" uuid="7f8606cf-4e2f-4975-a2c6-e6c397d1ca97"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdEvolucaoFam}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="0" width="96" height="15" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
+				<reportElement x="0" y="0" width="96" height="15" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{DataEvolVisita}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="157" y="0" width="255" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
+				<reportElement x="94" y="0" width="61" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
