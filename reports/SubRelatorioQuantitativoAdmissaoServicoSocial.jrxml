@@ -19,10 +19,6 @@ UNION ALL
 SELECT B.IdAtendf, B.DataAtendf, B.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM dbo.ATENDIMENTOFAMILIAR B
 INNER JOIN PRONTUARIOSCRC P ON B.IdInternoCrc=P.IdInternoCrc
 WHERE B.DataAtendf BETWEEN $P{dataInicial} AND $P{dataFinal}
-UNION ALL
-SELECT C.IdControl, C.DataControl, C.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM dbo.CONTROLIGA C
-INNER JOIN dbo.PRONTUARIOSCRC P ON C.IdInternoCrc=P.IdInternoCrc
-WHERE C.DataControl BETWEEN $P{dataInicial} AND $P{dataFinal}
 ORDER BY A.UsuarioInsert, A.DataAtend]]>
 	</queryString>
 	<field name="IdAtend" class="java.lang.Integer"/>
@@ -102,54 +98,42 @@ ORDER BY A.UsuarioInsert, A.DataAtend]]>
 				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="44" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<reportElement x="164" y="0" width="238" height="20" uuid="87bec8b7-9b66-4a80-a993-50e93ca66a2e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="94" y="0" width="61" height="20" uuid="638a8c24-b28b-4292-b73c-6f1ef6412fbc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="90" height="19" uuid="58b83a65-6a9f-4d68-9f6e-187ebf521130"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Hora]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="141" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="158" y="0" width="318" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<reportElement x="96" y="0" width="62" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
+				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1" y="0" width="44" height="15" uuid="a5ca2579-752f-483a-b988-b0b28f8cbe02"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdAtend}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="43" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
+				<reportElement x="0" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{DataAtend}]]></textFieldExpression>
 			</textField>

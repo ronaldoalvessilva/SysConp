@@ -2794,12 +2794,7 @@
                               <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jScrollPane3" alignment="0" pref="467" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane13" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane14" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jBtNovaEvolPsiquiatrica" min="-2" pref="83" max="-2" attributes="0"/>
                                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -2813,6 +2808,9 @@
                                   </Group>
                                   <Component id="jLabel68" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel67" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane14" pref="475" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane13" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel10" max="32767" attributes="0"/>
@@ -3294,42 +3292,39 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                          <Component id="jTotalRegistrosPsi" min="-2" pref="46" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtPesquisaEvolucaoPsi" min="-2" pref="23" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                          <Component id="jBtAuditoriaEvolPsiquiatrica" min="-2" pref="23" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtImpressaoEvolucao1" min="-2" pref="27" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="jTotalRegistrosPsi" min="-2" pref="46" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jBtPrescricaMedica" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtAtestadoMedico" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jBtDietaMedica" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jBtPatologias" linkSize="60" min="-2" pref="36" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jBtExames" linkSize="60" min="-2" pref="35" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jBtVacinas" linkSize="60" min="-2" pref="36" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jBtEncaminhamentoPsi" linkSize="60" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="jBtPrescricaMedicaPSI" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jBtAtestadoMedicoPSI" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jBtDietaMedicaPSI" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jBtPatologias" linkSize="60" min="-2" pref="36" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jBtExames" linkSize="60" min="-2" pref="35" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jBtVacinas" linkSize="60" min="-2" pref="36" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jBtEncaminhamentoPsi" linkSize="60" min="-2" pref="27" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jBtPesquisaEvolucaoPsi" min="-2" pref="23" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Component id="jBtAuditoriaEvolPsiquiatrica" min="-2" pref="23" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jBtImpressaoEvolucao1" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -3352,11 +3347,11 @@
                               <Component id="jBtEncaminhamentoPsi" linkSize="61" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtPrescricaMedica" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPrescricaMedicaPSI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtAtestadoMedico" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAtestadoMedicoPSI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtDietaMedica" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtDietaMedicaPSI" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jBtPesquisaEvolucaoPsi" max="32767" attributes="0"/>
@@ -3509,7 +3504,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoEvolucao1ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtPrescricaMedica">
+                <Component class="javax.swing.JButton" name="jBtPrescricaMedicaPSI">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/061218140238_16.png"/>
@@ -3518,10 +3513,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Prescri&#xe7;&#xe3;o M&#xe9;dica/Psiquiatrica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPrescricaMedicaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPrescricaMedicaPSIActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtAtestadoMedico">
+                <Component class="javax.swing.JButton" name="jBtAtestadoMedicoPSI">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Triagem2-18.png"/>
@@ -3530,10 +3525,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Atestado M&#xe9;dico"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtestadoMedicoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtestadoMedicoPSIActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtDietaMedica">
+                <Component class="javax.swing.JButton" name="jBtDietaMedicaPSI">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Nutricao18.png"/>
@@ -3542,7 +3537,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Dieta M&#xe9;dica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDietaMedicaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDietaMedicaPSIActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -3623,50 +3618,46 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel11" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel24" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                              <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtNovaEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtAlterarEvolucao" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtExcluirEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtSalvarEvolucao" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtCancelarEvolucao" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel69" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="138" pref="157" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" min="-2" pref="473" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel18" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanel11" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel24" max="32767" attributes="0"/>
-                                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                                      <Component id="jLabel77" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jScrollPane4" min="-2" pref="473" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel18" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane16" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane15" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane15" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jBtNovaEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jBtAlterarEvolucao" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jBtExcluirEvolucao" min="-2" pref="83" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jBtSalvarEvolucao" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jBtCancelarEvolucao" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel69" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane16" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel16" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jPanel16" min="-2" pref="119" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4040,38 +4031,41 @@
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtPatologiasClinica" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtExamesClinicos" min="-2" pref="32" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtVacinasClinicas" min="-2" pref="32" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jBtEncaminhamentoClinico" min="-2" pref="32" max="-2" attributes="0"/>
-                                  </Group>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jBtPatologiasClinica" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtExamesClinicos" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jBtPesquisaEvolucaoMedica" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jBtVacinasClinicas" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtAuditoriaEvolucao" min="-2" pref="21" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jBtImpressaoEvolucao" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <Component id="jBtEncaminhamentoClinico" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="12" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jBtPrescricaMedica1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtAtestadoMedico1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtDietaMedica1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jBtPrescricaMedicaCLIN" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtAtestadoMedicoCLIN" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtDietaMedicaCLIN" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jBtPesquisaEvolucaoMedica" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtAuditoriaEvolucao" min="-2" pref="21" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jBtImpressaoEvolucao" min="-2" pref="27" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4089,20 +4083,20 @@
                               <Component id="jBtEncaminhamentoClinico" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtPrescricaMedica1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPrescricaMedicaCLIN" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtAtestadoMedico1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtAtestadoMedicoCLIN" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtDietaMedica1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                          <Component id="jBtDietaMedicaCLIN" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="42" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                                   <Component id="jBtAuditoriaEvolucao" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jBtPesquisaEvolucaoMedica" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jBtImpressaoEvolucao" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jTotalRegistrosMed" min="-2" pref="14" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -4248,7 +4242,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtImpressaoEvolucaoActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtPrescricaMedica1">
+                <Component class="javax.swing.JButton" name="jBtPrescricaMedicaCLIN">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/061218140238_16.png"/>
@@ -4257,10 +4251,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Prescri&#xe7;&#xe3;o M&#xe9;dica/Psiquiatrica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPrescricaMedica1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPrescricaMedicaCLINActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtAtestadoMedico1">
+                <Component class="javax.swing.JButton" name="jBtAtestadoMedicoCLIN">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Triagem2-18.png"/>
@@ -4269,10 +4263,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Atestado M&#xe9;dico"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtestadoMedico1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtestadoMedicoCLINActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtDietaMedica1">
+                <Component class="javax.swing.JButton" name="jBtDietaMedicaCLIN">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Nutricao18.png"/>
@@ -4281,7 +4275,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Dieta M&#xe9;dica"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDietaMedica1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtDietaMedicaCLINActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -4418,7 +4412,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel70" alignment="0" pref="121" max="32767" attributes="0"/>
+                      <Component id="jLabel70" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

@@ -12,21 +12,18 @@
 	</parameter>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT B.IdEvolucaoFam, B.DataEvolVisita, B.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM dbo.EVOLUCAO_ATENDIMENTO_FAMILIA B
-INNER JOIN ATENDIMENTOFAMILIAR C ON B.IdAtendf=C.IdAtendf
-INNER JOIN PRONTUARIOSCRC P ON C.IdInternoCrc=P.IdInternoCrc
-WHERE B.DataEvolVisita BETWEEN $P{dataInicial} AND $P{dataFinal}
-UNION ALL
-SELECT A.IdAtend, A.DataEvol, A.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM EVOLUCAO_ATENDIMENTO_SOCIAL A
-INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
-WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}
-ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
+		<![CDATA[SELECT C.IdControl, C.DataControl, C.UsuarioInsert, P.NomeInternoCrc, P.Cnc,C.TelefoneControl,C.ObsControl FROM dbo.CONTROLIGA C
+INNER JOIN dbo.PRONTUARIOSCRC P ON C.IdInternoCrc=P.IdInternoCrc
+WHERE C.DataControl BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY C.UsuarioInsert, C.DataControl]]>
 	</queryString>
-	<field name="IdEvolucaoFam" class="java.lang.Integer"/>
-	<field name="DataEvolVisita" class="java.sql.Timestamp"/>
+	<field name="IdControl" class="java.lang.Integer"/>
+	<field name="DataControl" class="java.sql.Timestamp"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="TelefoneControl" class="java.lang.String"/>
+	<field name="ObsControl" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 		<groupFooter>
@@ -42,7 +39,7 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="134" y="5" width="326" height="20" uuid="be81ea24-05e3-4655-9749-00980fed0b88"/>
+					<reportElement x="137" y="5" width="326" height="20" uuid="be81ea24-05e3-4655-9749-00980fed0b88"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -53,7 +50,7 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total de Evoluções de  ]]></text>
+					<text><![CDATA[Total de Admissões de  ]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
@@ -89,7 +86,7 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[EVOLUÇÕES]]></text>
+				<text><![CDATA[ATENDIMENTOS (Chamadas telefônicas)]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -99,44 +96,66 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="1" width="90" height="19" uuid="0ecee817-163c-4183-8b76-4556020bd841"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data/Hora]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="164" y="0" width="238" height="20" uuid="f5a93b5b-cfa7-4556-8ba4-d16f91de8b1f"/>
+				<reportElement x="164" y="0" width="238" height="20" uuid="a0ca48eb-0fcd-4bb1-9aa7-510d550a7002"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="94" y="0" width="61" height="20" uuid="0ef71726-40f5-45cc-b654-ee2a09ea587d"/>
+				<reportElement x="94" y="0" width="61" height="20" uuid="751d0764-cab9-4f8c-b54f-376e4066f5d3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="1" y="1" width="90" height="19" uuid="fd5eb079-fc24-414c-9fdf-10a5cd375503"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data/Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="0" width="76" height="20" uuid="80c884a2-8f6c-4e79-90bf-d69bd65d5c41"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="0" width="91" height="20" uuid="8105cafa-10f1-415f-9f2d-f40fe43c22f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="0" width="96" height="15" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataEvolVisita}]]></textFieldExpression>
-			</textField>
 			<textField>
-				<reportElement x="157" y="0" width="255" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="155" y="0" width="233" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DataControl}]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="94" y="0" width="61" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
+				<reportElement x="96" y="0" width="57" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="76" height="15" uuid="63f88432-a004-4a49-a4b5-961e154d1782"/>
+				<textFieldExpression><![CDATA[$F{TelefoneControl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="81" height="15" uuid="586f8722-5e03-4d0d-ac3a-af924f118ddd"/>
+				<textFieldExpression><![CDATA[$F{ObsControl}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -146,11 +165,11 @@ ORDER BY B.UsuarioInsert, B.DataEvolVisita]]>
 				<reportElement x="1" y="2" width="552" height="20" uuid="a1b44a3f-429b-45d1-a3b4-b2eace0eb4fa"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="6" y="2" width="192" height="20" uuid="6dcc7eac-69de-4550-bc54-d0b382b2d792"/>
+				<reportElement x="3" y="2" width="192" height="20" uuid="6dcc7eac-69de-4550-bc54-d0b382b2d792"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Evoluções do Setor : ]]></text>
+				<text><![CDATA[Total de Admissões do Setor : ]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="478" y="2" width="76" height="20" uuid="404dd400-3a12-4297-bfce-3f98aa3651a9"/>
