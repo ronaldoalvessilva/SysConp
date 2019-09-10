@@ -824,14 +824,13 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
+                      <StringArray count="6">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Admiss&#xe3;o Terpaia"/>
+                        <StringItem index="1" value="Admiss&#xe3;o Terapia"/>
                         <StringItem index="2" value="Evolu&#xe7;&#xe3;o Terapia"/>
                         <StringItem index="3" value="Triagem Terapia"/>
                         <StringItem index="4" value=" "/>
                         <StringItem index="5" value=" "/>
-                        <StringItem index="6" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

@@ -44,6 +44,7 @@ import static gestor.Visao.TelaModuloOdontologia.codIncluirODON;
 import static gestor.Visao.TelaModuloOdontologia.telaRegistroAtenImpODON;
 import static gestor.Visao.TelaModuloOdontologia.telaRegistroLibAtenImpODON;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
@@ -1382,10 +1383,13 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
-//        jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
         jBtPesquisaInterno.setEnabled(true);
         jBtImprimirAutorização.setEnabled(!true);
+        //
+        statusMov = "Incluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
     }
 
     public void Salvar() {

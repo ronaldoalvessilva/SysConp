@@ -1377,6 +1377,7 @@ public class TelaRegistroInternosAtendimento extends javax.swing.JInternalFrame 
     }
 
     public void Novo() {
+        statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
         //

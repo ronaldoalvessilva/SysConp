@@ -89,7 +89,6 @@ public class ControleAdmissaoEnfermagem {
             pst.setString(55, objAdmEnfermagem.getDiabetes());
             pst.setString(56, objAdmEnfermagem.getHipertensao());
             pst.setString(57, objAdmEnfermagem.getTuberculose());
-
             pst.setString(58, objAdmEnfermagem.getEscabiose());
             pst.setString(59, objAdmEnfermagem.getDst());
             pst.setString(60, objAdmEnfermagem.getHanseniase());

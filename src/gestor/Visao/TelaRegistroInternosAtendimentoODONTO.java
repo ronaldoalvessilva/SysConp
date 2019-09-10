@@ -1396,6 +1396,7 @@ public class TelaRegistroInternosAtendimentoODONTO extends javax.swing.JInternal
         jBtIniciarLeitor.setEnabled(true);
         jBtCancelarLeitura.setEnabled(!true);
         //
+        statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
     }
