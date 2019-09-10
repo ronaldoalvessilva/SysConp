@@ -91,6 +91,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private TelaMotivoSaidaProdutosFAR objMotivo = null;
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaConsultasPrescricao objConspes = null;
+    private TelaConsultaLocalInterno objConsInt = null;
     //
     String dataLanc;
     int codUsuario;
@@ -145,6 +146,8 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
         jMenu6 = new javax.swing.JMenu();
         ConsultaEstoque = new javax.swing.JMenuItem();
         PrescricaoMedicaPsiquiatricaOdonto = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jLocalizacaoInternos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         NFeEntradaProdutos = new javax.swing.JMenuItem();
         Inventario = new javax.swing.JMenuItem();
@@ -280,6 +283,15 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
             }
         });
         jMenu6.add(PrescricaoMedicaPsiquiatricaOdonto);
+        jMenu6.add(jSeparator11);
+
+        jLocalizacaoInternos.setText("Localização de Internos nas Celas");
+        jLocalizacaoInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLocalizacaoInternosActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jLocalizacaoInternos);
 
         jMenuBar1.add(jMenu6);
 
@@ -928,8 +940,36 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
             objConspes.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-//    private TelaConsultasPrescricao objConspes = null;
     }//GEN-LAST:event_PrescricaoMedicaPsiquiatricaOdontoActionPerformed
+
+    private void jLocalizacaoInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLocalizacaoInternosActionPerformed
+        // TODO add your handling code here:
+        if (objConsInt == null || objConsInt.isClosed()) {
+            objConsInt = new TelaConsultaLocalInterno();
+            jPainelFarmacia.add(objConsInt);
+            objConsInt.setVisible(true);
+        } else {
+            if (objConsInt.isVisible()) {
+                if (objConsInt.isIcon()) { // Se esta minimizado
+                    try {
+                        objConsInt.setIcon(false); // maximiniza
+                    } catch (PropertyVetoException ex) {
+                    }
+                } else {
+                    objConsInt.toFront(); // traz para frente
+                    objConsInt.pack();//volta frame 
+                }
+            } else {
+                objConsInt = new TelaConsultaLocalInterno();
+                TelaModuloFarmacia.jPainelFarmacia.add(objConsInt);//adicona frame ao JDesktopPane  
+                objConsInt.setVisible(true);
+            }
+        }
+        try {
+            objConsInt.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }//GEN-LAST:event_jLocalizacaoInternosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -951,6 +991,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem TransferenciaProdutos;
     private javax.swing.JMenuItem jAgendaRecados;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jLocalizacaoInternos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -965,6 +1006,7 @@ public class TelaModuloFarmacia extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelFarmacia;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
