@@ -225,8 +225,8 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                                     + "AND'" + dataFinal + "' "
                                     + "ORDER BY NomeInternoCrc DESC");
                             HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("pDataInicial", dataInicial);
+                            parametros.put("pDataFinal", dataFinal);
                             parametros.put("pUsuario", nameUser);
                             parametros.put("pUnidade", descricaoUnidade);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -313,8 +313,8 @@ public class TelaRelatorioIndicadoresAcompanhamentoSaude extends javax.swing.JIn
                                     + "AND'" + dataFinal + "' "
                                     + "ORDER BY NomeInternoCrc DESC");
                             HashMap parametros = new HashMap();
-                            parametros.put("dataInicial", dataInicial);
-                            parametros.put("dataFinal", dataFinal);
+                            parametros.put("pDataInicial", dataInicial);
+                            parametros.put("pDataFinal", dataFinal);
                             parametros.put("pUsuario", nameUser);
                             parametros.put("pUnidade", descricaoUnidade);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   

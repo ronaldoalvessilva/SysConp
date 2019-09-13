@@ -12,7 +12,7 @@
 	</parameter>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\Gei Baptista\\Documents\\NetBeansProjects\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT TOP 1 * FROM ATENDIMENTOSOCIAL
@@ -275,6 +275,29 @@ order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoServicoSocial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="8">
+			<subreport>
+				<reportElement x="-20" y="-15" width="552" height="23" uuid="4c7754b6-1a09-4e88-84b7-42c1e2afd9c7"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAtendimentosChamadasServicoSocial.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

@@ -13,10 +13,10 @@
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
-INNER JOIN PRONTUARIOSCRC
-ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
-WHERE  (CONVERT(DATE,DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}) AND TipoAtendimento LIKE 'Admissão Serviço Social' AND Atendido LIKE 'Sim'
-ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, PRONTUARIOSCRC.NomeInternoCrc]]>
+INNER JOIN ATENDIMENTOSOCIAL ON ATENDIMENTOSOCIAL.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
+INNER JOIN PRONTUARIOSCRC ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOSOCIAL.IdInternoCrc
+WHERE (CONVERT(DATE,DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}) AND TipoAtendimento LIKE 'Ligações Telefonicas' AND Atendido LIKE 'Sim'
+ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdRegistro" class="java.lang.Integer"/>
 	<field name="DataReg" class="java.sql.Timestamp"/>
@@ -44,6 +44,64 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 	<field name="AtendeEvol" class="java.lang.String"/>
 	<field name="Qtd" class="java.lang.Integer"/>
 	<field name="UsuarioAtendente" class="java.lang.String"/>
+	<field name="DataAtend" class="java.sql.Timestamp"/>
+	<field name="StatusAtend" class="java.lang.String"/>
+	<field name="ContatoAtend" class="java.lang.String"/>
+	<field name="TelefoneAtend" class="java.lang.String"/>
+	<field name="Telefone1Atend" class="java.lang.String"/>
+	<field name="CelularAtend" class="java.lang.String"/>
+	<field name="EnderecoAtend" class="java.lang.String"/>
+	<field name="BairroAtend" class="java.lang.String"/>
+	<field name="CidadeAtend" class="java.lang.String"/>
+	<field name="EstadoAtend" class="java.lang.String"/>
+	<field name="CartTrabAtend" class="java.lang.String"/>
+	<field name="Periodo" class="java.lang.String"/>
+	<field name="RecebeRecluAtend" class="java.lang.String"/>
+	<field name="DireitoAuxAtend" class="java.lang.String"/>
+	<field name="RecebeBolAtend" class="java.lang.String"/>
+	<field name="QtdPessoasAtend" class="java.lang.String"/>
+	<field name="QtdTrabaAtend" class="java.lang.String"/>
+	<field name="CN1Atend" class="java.lang.String"/>
+	<field name="CN2Atend" class="java.lang.String"/>
+	<field name="RG1Atend" class="java.lang.String"/>
+	<field name="RG2atend" class="java.lang.String"/>
+	<field name="CPF1Atend" class="java.lang.String"/>
+	<field name="CPF2Atend" class="java.lang.String"/>
+	<field name="CTPS1Atend" class="java.lang.String"/>
+	<field name="CTPS2Atend" class="java.lang.String"/>
+	<field name="PossuiFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhosAtend" class="java.lang.String"/>
+	<field name="FilhosNaoRegAtend" class="java.lang.String"/>
+	<field name="OutrosFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhos2Atend" class="java.lang.String"/>
+	<field name="PaternidadeAtend" class="java.lang.String"/>
+	<field name="DefensorAtend" class="java.lang.String"/>
+	<field name="PartiFamiAtend" class="java.lang.String"/>
+	<field name="ConsiderAtend" class="java.sql.Clob"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="MunicipioNascimento" class="java.lang.String"/>
+	<field name="Tituloeleito1" class="java.lang.String"/>
+	<field name="Tituloeleito2" class="java.lang.String"/>
+	<field name="Reservista1" class="java.lang.String"/>
+	<field name="Reservista2" class="java.lang.String"/>
+	<field name="CartorioRegistro" class="java.lang.String"/>
+	<field name="RecebeBeneficio" class="java.lang.String"/>
+	<field name="TempoConvivencia" class="java.lang.String"/>
+	<field name="EsposoCompanheiro" class="java.lang.String"/>
+	<field name="NomeEsposoCompanheiro" class="java.lang.String"/>
+	<field name="PessoasResideCasa" class="java.lang.String"/>
+	<field name="EncaOutroSetor" class="java.lang.String"/>
+	<field name="QualSetor" class="java.lang.String"/>
+	<field name="CancelarVisita" class="java.lang.String"/>
+	<field name="MotivoCancelarVisita" class="java.lang.String"/>
+	<field name="EncaTirarDoc" class="java.lang.String"/>
+	<field name="DataEncaDoc" class="java.sql.Timestamp"/>
+	<field name="EncaRecPaternidade" class="java.lang.String"/>
+	<field name="DataRecPaternidade" class="java.sql.Timestamp"/>
+	<field name="RecebeVisita" class="java.lang.String"/>
+	<field name="CondicaoSegurado" class="java.lang.String"/>
+	<field name="DataPeriodo2Atend" class="java.sql.Timestamp"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -70,8 +128,6 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="UsuarioDelete" class="java.lang.String"/>
-	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
@@ -138,7 +194,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ATENDIMENTOS]]></text>
+				<text><![CDATA[ATENDIMENTOS (Chamadas telefônicas)]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -148,44 +204,66 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="164" y="0" width="238" height="20" uuid="87bec8b7-9b66-4a80-a993-50e93ca66a2e"/>
+				<reportElement x="142" y="0" width="238" height="20" uuid="a0ca48eb-0fcd-4bb1-9aa7-510d550a7002"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="94" y="0" width="61" height="20" uuid="638a8c24-b28b-4292-b73c-6f1ef6412fbc"/>
+				<reportElement x="77" y="0" width="61" height="20" uuid="751d0764-cab9-4f8c-b54f-376e4066f5d3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="1" width="90" height="19" uuid="58b83a65-6a9f-4d68-9f6e-187ebf521130"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="3" y="1" width="75" height="19" uuid="fd5eb079-fc24-414c-9fdf-10a5cd375503"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data/Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="76" height="20" uuid="80c884a2-8f6c-4e79-90bf-d69bd65d5c41"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="115" height="20" uuid="8105cafa-10f1-415f-9f2d-f40fe43c22f1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="158" y="0" width="318" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
+				<reportElement x="139" y="0" width="226" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="74" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="96" y="0" width="62" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
+				<reportElement x="77" y="0" width="57" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
+				<reportElement x="360" y="0" width="76" height="15" uuid="63f88432-a004-4a49-a4b5-961e154d1782"/>
+				<textFieldExpression><![CDATA[$F{TelefoneAtend}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="113" height="15" uuid="9ffcd25b-6c12-4af3-835b-30c9b17bacc9"/>
+				<textFieldExpression><![CDATA[$F{ContatoAtend}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

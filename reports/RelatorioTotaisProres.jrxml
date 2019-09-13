@@ -13,19 +13,46 @@
 		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT TOP 1
-*
-FROM PRONTUARIOSCRC
-INNER JOIN
-ITENSPROGRESSAOREGIME
-ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-INNER JOIN
-ITENSPREVISAOSAIDA
-ON ITENSPREVISAOSAIDA.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc]]>
+		<![CDATA[SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
+INNER JOIN PRONTUARIOSCRC
+ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
+WHERE  Atendido LIKE 'Sim'
+]]>
 	</queryString>
+	<field name="IdRegistro" class="java.lang.Integer"/>
+	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
 	<field name="IdInternoCrc" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="IdInternoCrc"/>
 	</field>
+	<field name="TipoAtendimento" class="java.lang.String"/>
+	<field name="IdDepartamento" class="java.lang.Integer"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
+	<field name="Atendido" class="java.lang.String"/>
+	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="IdEvol" class="java.lang.Integer"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="UsuarioUp"/>
+	</field>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DataUp"/>
+	</field>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="HorarioUp"/>
+	</field>
+	<field name="AtendeEvol" class="java.lang.String"/>
+	<field name="Impresso" class="java.lang.String"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="DataAssinatura" class="java.lang.String"/>
+	<field name="HoraAssinatura" class="java.lang.String"/>
+	<field name="Motivo" class="java.sql.Clob"/>
+	<field name="AssinaturaLiberador" class="java.sql.Blob"/>
+	<field name="Qtd" class="java.lang.Integer"/>
+	<field name="UsuarioAtendente" class="java.lang.String"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -53,35 +80,13 @@ ON ITENSPREVISAOSAIDA.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc]]>
 	<field name="TelefoneCrc" class="java.lang.String"/>
 	<field name="Telefone1Crc" class="java.lang.String"/>
 	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
-	<field name="UsuarioUp" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="UsuarioUp"/>
-	</field>
 	<field name="UsuarioDelete" class="java.lang.String"/>
-	<field name="DataInsert" class="java.lang.String"/>
-	<field name="DataUp" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="DataUp"/>
-	</field>
 	<field name="DataDelete" class="java.lang.String"/>
-	<field name="HorarioInsert" class="java.lang.String"/>
-	<field name="HorarioUp" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="HorarioUp"/>
-	</field>
 	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
-	<field name="IdItem" class="java.lang.Integer"/>
-	<field name="IdLanc" class="java.lang.Integer"/>
-	<field name="DataProgressao" class="java.lang.String"/>
-	<field name="NovoRegimePro" class="java.lang.String"/>
-	<field name="NovoTerminoPenaPro" class="java.lang.String"/>
-	<field name="Juizo" class="java.lang.String"/>
-	<field name="DataPrevSaida" class="java.sql.Timestamp"/>
-	<field name="Beneficio" class="java.lang.String"/>
-	<field name="ConfirmaSaida" class="java.lang.String"/>
-	<field name="UtilizadoSaida" class="java.lang.String"/>
 	<variable name="SUB_REPORT" class="java.lang.String" calculation="System"/>
 	<background>
 		<band splitType="Stretch"/>

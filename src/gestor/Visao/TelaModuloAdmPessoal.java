@@ -1171,11 +1171,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         String path = "reports/RelatorioTotaisProres.jasper";
         try {
-            conecta.executaSQL("SELECT TOP 1 * FROM PRONTUARIOSCRC "
-                            + "INNER JOIN ITENSPROGRESSAOREGIME "
-                            + "ON ITENSPROGRESSAOREGIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN ITENSPREVISAOSAIDA "
-                            + "ON ITENSPREVISAOSAIDA.IdInternoCrc=ITENSPROGRESSAOREGIME.IdInternoCrc");
+            conecta.executaSQL("SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP INNER JOIN PRONTUARIOSCRC "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc "
+                    + "WHERE  Atendido LIKE 'Sim' ");
             HashMap parametros = new HashMap();                    
                     parametros.put("pUsuario", nameUser);
                     parametros.put("pUnidade", descricaoUnidade);
