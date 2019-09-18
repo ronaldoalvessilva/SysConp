@@ -61,6 +61,16 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jLiberadorInternoPSP">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Liberador de Escolta Internos PSP"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLiberadorInternoPSPActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AgendaCompromisso">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agenda de Compromissos Pessoal"/>
@@ -155,12 +165,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HistoricoCrcActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+                <MenuItem class="javax.swing.JMenuItem" name="jHistoricoMovimentacaoInterna">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Hist&#xf3;rico Movimenta&#xe7;&#xe3;o de Internos no Corpo T&#xe9;cnico"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jHistoricoMovimentacaoInternaActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -219,6 +229,16 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jEscoltaInternoPSP">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Escolta de Interno para PSP"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jEscoltaInternoPSPActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator14">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="LivroOcorrencias">
               <Properties>
