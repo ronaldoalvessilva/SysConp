@@ -197,11 +197,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         corCampos();
         tabelaPatologias();
         //REMOVE A ABAS DA TELA
-        if (!nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
-            jTabbedPane1.remove(PrescricaoMedica);
-            jTabbedPane1.remove(Atestado);
-            jTabbedPane1.remove(DietaMedica);
-        }
+//        if (!nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+//            jTabbedPane1.remove(PrescricaoMedica);
+//            jTabbedPane1.remove(Atestado);
+//            jTabbedPane1.remove(DietaMedica);
+//        }
         //
 //         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X    
 //        addWindowListener(new java.awt.event.WindowAdapter() {
