@@ -356,4 +356,9 @@ private String foto;
         this.foto = foto;
     }
 
+    @Override
+    public String toString() {
+        return getNomeFunc(); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

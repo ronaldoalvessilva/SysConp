@@ -909,37 +909,50 @@ public class TelaCancelamentoAtendimentoPSP extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtPesquisarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarRegistroActionPerformed
-        // TODO add your handling code here:
-        TelaPesqInternoExcluirAssinaturaPSP objPesquisarRegistroAssinaturaPSP = new TelaPesqInternoExcluirAssinaturaPSP();
+        // TODO add your handling code here:            
+        pCODIGO_DEPARTAMENTO = 0;
         if (TelaModuloEnfermaria.jPainelMedico != null) {
             pesquisarDepartamento(nomeModuloENFER);
-            TelaModuloEnfermaria.jPainelMedico.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloJuridico.jPainelJuridico != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_ENFERMARIA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloEnfermaria.jPainelMedico.add(obj_PESQUISA_ENFERMARIA);
+            obj_PESQUISA_ENFERMARIA.show();
+        } 
+        if (TelaModuloJuridico.jPainelJuridico != null) {
             pesquisarDepartamento(nomeModuloJURI);
-            TelaModuloJuridico.jPainelJuridico.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_JURIDICO = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloJuridico.jPainelJuridico.add(obj_PESQUISA_JURIDICO);
+            obj_PESQUISA_JURIDICO.show();
+        } 
+        if (TelaModuloServicoSocial.jPainelServicoSocial != null) {
             pesquisarDepartamento(nomeModuloSS);
-            TelaModuloServicoSocial.jPainelServicoSocial.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloPsicologia.jPainelPsicologia != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_SOCIAL = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(obj_PESQUISA_SOCIAL);
+            obj_PESQUISA_SOCIAL.show();
+        } 
+        if (TelaModuloPsicologia.jPainelPsicologia != null) {
             pesquisarDepartamento(nomeModuloPSICOLOGIA);
-            TelaModuloPsicologia.jPainelPsicologia.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloOdontologia.jPainelOdontologia != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_PSICOLOGIA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloPsicologia.jPainelPsicologia.add(obj_PESQUISA_PSICOLOGIA);
+            obj_PESQUISA_PSICOLOGIA.show();
+        } 
+        if (TelaModuloOdontologia.jPainelOdontologia != null) {
             pesquisarDepartamento(nomeModuloODONTOLOGIA);
-            TelaModuloOdontologia.jPainelOdontologia.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_ODONTOLOGIA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloOdontologia.jPainelOdontologia.add(obj_PESQUISA_ODONTOLOGIA);
+            obj_PESQUISA_ODONTOLOGIA.show();
+        } 
+        if (TelaModuloTerapiaOcupacional.jPainelTerapia != null) {
             pesquisarDepartamento(nomeModuloTO);
-            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        } else if (TelaModuloPedagogia.jPainelPedagogia != null) {
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_TERAPIA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(obj_PESQUISA_TERAPIA);
+            obj_PESQUISA_TERAPIA.show();
+        } 
+        if (TelaModuloPedagogia.jPainelPedagogia != null) {
             pesquisarDepartamento(nomeModuloPEDA);
-            TelaModuloPedagogia.jPainelPedagogia.add(objPesquisarRegistroAssinaturaPSP);
-            objPesquisarRegistroAssinaturaPSP.show();
-        }
+            TelaPesqInternoExcluirAssinaturaPSP obj_PESQUISA_PEDAGOGIA = new TelaPesqInternoExcluirAssinaturaPSP();
+            TelaModuloPedagogia.jPainelPedagogia.add(obj_PESQUISA_PEDAGOGIA);
+            obj_PESQUISA_PEDAGOGIA.show();
+        } 
     }//GEN-LAST:event_jBtPesquisarRegistroActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed

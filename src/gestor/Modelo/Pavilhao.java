@@ -193,4 +193,10 @@ public class Pavilhao {
     public void setNivelPavilhao(String nivelPavilhao) {
         this.nivelPavilhao = nivelPavilhao;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoPav(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

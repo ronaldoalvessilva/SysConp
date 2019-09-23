@@ -102,6 +102,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private TelaPagamentoKitInternoCPK objKit = null;
     private TelaAlertaPreLocacaoTriagem objAlertaPreLocacao = null;
     private TelaAlertaBasesPavilhoes objAlertaVPI = null;
+    private TelaEscoltaInternoPSP objBonePSP = null;
+    private TelaLiberadorInternosBasePSP objLiberaPSP = null;
     //
     String pathFoto;
     String dataLanc;
@@ -141,6 +143,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public static String telaPavilhaoB1 = "Cadastro:Pavilhão:Manutenção-B1";
     public static String telaCelasB1 = "Cadastro:Celas:Manutenção-B1";
     public static String telaPopulacaoInternosAgentesB1 = "Cadastro:População Internos e Agentes-B1";
+    public static String telaLiberacaoInternosBasePSPB1 = "Cadastro de Liberadores da Base-B1:Movimentação";
+    public static String telaLiberacaoInternosBaseLibB1 = "Cadastro de Liberadores da Base-B1:Liberadores";
     // MOVIMENTAÇÃO
     public static String telaLocacaoInternosManutencaoB1 = "Movimentação:Locação Internos:Manutenção-B1";
     public static String telaLocacaoInternosB1 = "Movimentação:Locação Internos:Internos-B1";
@@ -151,12 +155,15 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public static String telaEntregaMaterialUsoInternosBioB1 = "Movimentação:Entrega de Material Uso Pessoal:Biometria-B1";
     public static String telaInicializarLeitorB1 = "Movimentação:Entrega de Material Uso Pessoal:Inicializar leitor-B1";
     //
-    public static String telaAlertaVisitantesPortariaB1 = "Consulta:Alerta Visitas Internos/Advogados/Oficial de Justiça-B1";
+    public static String telaEscoltaInternoPSP_B1 = "Movimentação:Escolta de Interno para PSP-B1:Manutenção";
     //
+    public static String telaAlertaVisitantesPortariaB1 = "Consulta:Alerta Visitas Internos/Advogados/Oficial de Justiça-B1";
     // MENU CADASTRO
     String pNomePA = "";
     String pNomeCE = "";
     String pNomePIA = "";
+    String pNomeLIB = "";
+    String pNomeLIBL = "";
     // MOVIMENTAÇÃO
     String pNomeLIM = "";
     String pNomeLI = "";
@@ -166,6 +173,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     String pNomeEMUPI = "";
     String pNomeEMUIB = "";
     String pNomeIL = "";
+    String pNomeEIP = "";
     //
     String pNomeCAVP = "";
     //
@@ -214,6 +222,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         PopulacaoInternosAgentes = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jLiberadorInternoPSP = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromisso = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
@@ -230,7 +240,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         HistoricosInternos = new javax.swing.JMenu();
         HistoricoCrc = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jHistoricoMovimentacaoInterna = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         AlertaVisitantesPortariaInterna = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
@@ -239,6 +249,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jEntregaMaterialUsoPessoal = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jEscoltaInternoPSP = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
         LivroOcorrencias = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
@@ -310,6 +322,15 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         });
         Cadastro.add(PopulacaoInternosAgentes);
         Cadastro.add(jSeparator4);
+
+        jLiberadorInternoPSP.setText("Liberador de Escolta Internos PSP");
+        jLiberadorInternoPSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLiberadorInternoPSPActionPerformed(evt);
+            }
+        });
+        Cadastro.add(jLiberadorInternoPSP);
+        Cadastro.add(jSeparator15);
 
         AgendaCompromisso.setText("Agenda de Compromissos Pessoal");
         AgendaCompromisso.addActionListener(new java.awt.event.ActionListener() {
@@ -394,13 +415,13 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         });
         HistoricosInternos.add(HistoricoCrc);
 
-        jMenuItem3.setText("Histórico Movimentação de Internos no Corpo Técnico");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jHistoricoMovimentacaoInterna.setText("Histórico Movimentação de Internos no Corpo Técnico");
+        jHistoricoMovimentacaoInterna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jHistoricoMovimentacaoInternaActionPerformed(evt);
             }
         });
-        HistoricosInternos.add(jMenuItem3);
+        HistoricosInternos.add(jHistoricoMovimentacaoInterna);
 
         Consultas.add(HistoricosInternos);
         Consultas.add(jSeparator13);
@@ -444,6 +465,15 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         });
         Movimentacao.add(jEntregaMaterialUsoPessoal);
         Movimentacao.add(jSeparator3);
+
+        jEscoltaInternoPSP.setText("Escolta de Interno para PSP");
+        jEscoltaInternoPSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEscoltaInternoPSPActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jEscoltaInternoPSP);
+        Movimentacao.add(jSeparator14);
 
         LivroOcorrencias.setText("Livro de Ocorrências");
         LivroOcorrencias.addActionListener(new java.awt.event.ActionListener() {
@@ -578,7 +608,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_PopulacaoInternosAgentesActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jHistoricoMovimentacaoInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHistoricoMovimentacaoInternaActionPerformed
         // TODO add your handling code here:
         if (objHistMovSeg == null || objHistMovSeg.isClosed()) {
             objHistMovSeg = new TelaMovHistoricoTecBaseSeguranca();
@@ -605,7 +635,7 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             objHistMovSeg.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jHistoricoMovimentacaoInternaActionPerformed
 
     private void LocalInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LocalInternosActionPerformed
         // TODO add your handling code here:
@@ -1191,6 +1221,74 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AlertaVisitantesPortariaInternaActionPerformed
 
+    private void jEscoltaInternoPSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEscoltaInternoPSPActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaEscoltaInternoPSP_B1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaEscoltaInternoPSP_B1) && codAbrirB1 == 1) {
+            if (objBonePSP == null || objBonePSP.isClosed()) {
+                objBonePSP = new TelaEscoltaInternoPSP();
+                jPainelBaseSegurancaPavilhao.add(objBonePSP);
+                objBonePSP.setVisible(true);
+            } else {
+                if (objBonePSP.isVisible()) {
+                    if (objBonePSP.isIcon()) { // Se esta minimizado
+                        try {
+                            objBonePSP.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objBonePSP.toFront(); // traz para frente
+                        objBonePSP.pack();//volta frame
+                    }
+                } else {
+                    objBonePSP = new TelaEscoltaInternoPSP();
+                    TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objBonePSP);//adicona frame ao JDesktopPane
+                    objBonePSP.setVisible(true);
+                }
+            }
+            try {
+                objBonePSP.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jEscoltaInternoPSPActionPerformed
+
+    private void jLiberadorInternoPSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLiberadorInternoPSPActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaLiberacaoInternosBasePSPB1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoB1.equals("ADMINISTRADORES") || codigoUserB1 == codUserAcessoB1 && nomeTelaB1.equals(telaLiberacaoInternosBasePSPB1) && codAbrirB1 == 1) {
+            if (objLiberaPSP == null || objLiberaPSP.isClosed()) {
+                objLiberaPSP = new TelaLiberadorInternosBasePSP();
+                jPainelBaseSegurancaPavilhao.add(objLiberaPSP);
+                objLiberaPSP.setVisible(true);
+            } else {
+                if (objLiberaPSP.isVisible()) {
+                    if (objLiberaPSP.isIcon()) { // Se esta minimizado
+                        try {
+                            objLiberaPSP.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objLiberaPSP.toFront(); // traz para frente
+                        objLiberaPSP.pack();//volta frame 
+                    }
+                } else {
+                    objLiberaPSP = new TelaLiberadorInternosBasePSP();
+                    TelaModuloBaseUm.jPainelBaseSegurancaPavilhao.add(objLiberaPSP);//adicona frame ao JDesktopPane  
+                    objLiberaPSP.setVisible(true);
+                }
+            }
+            try {
+                objLiberaPSP.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jLiberadorInternoPSPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -1222,11 +1320,13 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     public static javax.swing.JMenuItem TransferenciaPavilhaoCelas;
     private javax.swing.JMenuItem jConsultaAdvogados;
     private javax.swing.JMenuItem jEntregaMaterialUsoPessoal;
+    private javax.swing.JMenuItem jEscoltaInternoPSP;
+    private javax.swing.JMenuItem jHistoricoMovimentacaoInterna;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jLiberadorInternoPSP;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jOficialJustica;
     public static javax.swing.JDesktopPane jPainelBaseSegurancaPavilhao;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -1234,6 +1334,8 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -1742,6 +1844,20 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             pNomePIA = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLiberacaoInternosBasePSPB1 + "'");
+            conecta.rs.first();
+            pNomeLIB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaLiberacaoInternosBaseLibB1 + "'");
+            conecta.rs.first();
+            pNomeLIBL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // MOVIMENTAÇÃO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1799,6 +1915,13 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             pNomeIL = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaEscoltaInternoPSP_B1 + "'");
+            conecta.rs.first();
+            pNomeEIP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1824,6 +1947,18 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaPopulacaoInternosAgentesB1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLIB.equals(telaLiberacaoInternosBasePSPB1) || pNomeLIB == null || pNomeLIB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLiberacaoInternosBasePSPB1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeLIBL.equals(telaLiberacaoInternosBaseLibB1) || pNomeLIBL == null || pNomeLIBL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaLiberacaoInternosBaseLibB1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // MOVIMENTAÇÃO
@@ -1873,6 +2008,12 @@ public class TelaModuloBaseUm extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaInicializarLeitorB1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEIP.equals(telaEscoltaInternoPSP_B1) || pNomeEIP == null || pNomeEIP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaEscoltaInternoPSP_B1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         // CONSULTA

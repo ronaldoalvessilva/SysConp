@@ -197,8 +197,11 @@ ORDER BY A.UsuarioInsert, A.DataAtend]]>
 				<reportElement x="0" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 =======
+=======
+>>>>>>> origin/master
 				<textFieldExpression><![CDATA[$F{DataAtend}]]></textFieldExpression>
 >>>>>>> origin/master
 			</textField>
