@@ -56,7 +56,7 @@ public class TelaRelatorioProducaoMedica extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Relatório de Produtividade Médica :::...");
+        setTitle("...::: Relatório de Produtividade Médica/Psiquiátrica :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -175,7 +175,7 @@ public class TelaRelatorioProducaoMedica extends javax.swing.JInternalFrame {
                             + "ON EVOLUCAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvolu BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOMEDICA.UsuarioInsert,EVOLUCAOMEDICA.DataEvolu");
+                            + "ORDER BY EVOLUCAOMEDICA.UsuarioInsert");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
@@ -219,7 +219,7 @@ public class TelaRelatorioProducaoMedica extends javax.swing.JInternalFrame {
                             + "ON EVOLUCAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE DataEvolu BETWEEN'" + dataInicial + "' "
                             + "AND '" + dataFinal + "' "
-                            + "ORDER BY EVOLUCAOMEDICA.UsuarioInsert,EVOLUCAOMEDICA.DataEvolu");
+                            + "ORDER BY EVOLUCAOMEDICA.UsuarioInsert");
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);

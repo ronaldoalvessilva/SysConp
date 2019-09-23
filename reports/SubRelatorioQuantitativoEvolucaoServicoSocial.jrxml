@@ -16,7 +16,7 @@
 INNER JOIN PRONTUARIOSCRC
 ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
 WHERE  (CONVERT(DATE,DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}) AND TipoAtendimento LIKE 'Evolução Serviço Social' AND Atendido LIKE 'Sim'
-ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, PRONTUARIOSCRC.NomeInternoCrc]]>
+ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento,PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdRegistro" class="java.lang.Integer"/>
 	<field name="DataReg" class="java.sql.Timestamp"/>
@@ -74,6 +74,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
@@ -95,7 +96,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert} + " :"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp} + " :"]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="4" y="5" width="154" height="20" uuid="2add078d-8570-403d-ac59-a37bc714f5f6"/>
@@ -123,7 +124,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

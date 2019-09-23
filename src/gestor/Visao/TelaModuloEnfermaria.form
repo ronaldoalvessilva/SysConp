@@ -485,18 +485,10 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="66" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtividade - M&#xe9;dicos"/>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtividade - M&#xe9;dicos/Psiquiatras"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioProdutividadeMedicosActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioProdutividadePsiquiatra">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Produtividade - Psiquiatra"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioProdutividadePsiquiatraActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jRelatorioProdutividadeEnfermagem">

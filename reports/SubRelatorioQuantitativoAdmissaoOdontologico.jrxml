@@ -105,7 +105,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERN
 					<textElement textAlignment="Justified" verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert} + " :"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp} + " :"]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -126,7 +126,7 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERN
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

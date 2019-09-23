@@ -56,7 +56,7 @@ public class TelaRelatorioProducaoTotalTecnicos extends javax.swing.JInternalFra
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Relatório de Produtividade Médica :::...");
+        setTitle("...::: Relatório de Produtividade Atendimento PSP :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 

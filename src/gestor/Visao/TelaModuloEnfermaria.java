@@ -423,7 +423,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         jRelatorioProdutividadeMedicos = new javax.swing.JMenuItem();
-        jRelatorioProdutividadePsiquiatra = new javax.swing.JMenuItem();
         jRelatorioProdutividadeEnfermagem = new javax.swing.JMenuItem();
         jRelatorioProdutividadeTecnicoEnfermagem = new javax.swing.JMenuItem();
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
@@ -866,21 +865,13 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         jMenu3.setText("Relatório de Produtividade");
 
         jRelatorioProdutividadeMedicos.setForeground(new java.awt.Color(0, 102, 51));
-        jRelatorioProdutividadeMedicos.setText("Relatório de Produtividade - Médicos");
+        jRelatorioProdutividadeMedicos.setText("Relatório de Produtividade - Médicos/Psiquiatras");
         jRelatorioProdutividadeMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioProdutividadeMedicosActionPerformed(evt);
             }
         });
         jMenu3.add(jRelatorioProdutividadeMedicos);
-
-        jRelatorioProdutividadePsiquiatra.setText("Relatório de Produtividade - Psiquiatra");
-        jRelatorioProdutividadePsiquiatra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRelatorioProdutividadePsiquiatraActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jRelatorioProdutividadePsiquiatra);
 
         jRelatorioProdutividadeEnfermagem.setForeground(new java.awt.Color(204, 0, 0));
         jRelatorioProdutividadeEnfermagem.setText("Relatório de Produtividade - Enfermagem");
@@ -2204,13 +2195,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         objRelProdM.show();
     }//GEN-LAST:event_jRelatorioProdutividadeMedicosActionPerformed
 
-    private void jRelatorioProdutividadePsiquiatraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioProdutividadePsiquiatraActionPerformed
-        // TODO add your handling code here:
-        TelaRelatorioProducaoMedicaPsiquiatra objRelProdMP = new TelaRelatorioProducaoMedicaPsiquiatra();
-        TelaModuloEnfermaria.jPainelMedico.add(objRelProdMP);
-        objRelProdMP.show();
-    }//GEN-LAST:event_jRelatorioProdutividadePsiquiatraActionPerformed
-
     private void jRelatorioProdutividadeEnfermagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioProdutividadeEnfermagemActionPerformed
         // TODO add your handling code here:
         TelaRelatorioProducaoEnfermagem objRelProdE = new TelaRelatorioProducaoEnfermagem();
@@ -2323,7 +2307,6 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioEntradasInternosUnidade;
     private javax.swing.JMenuItem jRelatorioProdutividadeEnfermagem;
     private javax.swing.JMenuItem jRelatorioProdutividadeMedicos;
-    private javax.swing.JMenuItem jRelatorioProdutividadePsiquiatra;
     private javax.swing.JMenuItem jRelatorioProdutividadeTecnicoEnfermagem;
     private javax.swing.JMenuItem jRelatórioAcompanhamentoSaude;
     private javax.swing.JPopupMenu.Separator jSeparator1;

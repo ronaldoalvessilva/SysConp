@@ -14,17 +14,72 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT A.IdLanc, A.DataLanc, A.UsuarioInsert, A.UsuarioUp, P.NomeInternoCrc, p.Cnc FROM ADMISSAOPSI A
-INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
-WHERE DataLanc BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by A.UsuarioInsert, A.DataLanc]]>
+		<![CDATA[SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
+INNER JOIN PRONTUARIOSCRC
+ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
+WHERE TipoAtendimento LIKE 'Admissão Psicologica' AND Atendido LIKE 'Sim' AND
+CONVERT(DATE,DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
-	<field name="IdLanc" class="java.lang.Integer"/>
-	<field name="DataLanc" class="java.sql.Timestamp"/>
+	<field name="IdRegistro" class="java.lang.Integer"/>
+	<field name="DataReg" class="java.sql.Timestamp"/>
+	<field name="Horario" class="java.lang.String"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
+	<field name="TipoAtendimento" class="java.lang.String"/>
+	<field name="IdDepartamento" class="java.lang.Integer"/>
+	<field name="AssinaturaDigital" class="java.sql.Blob"/>
+	<field name="Atendido" class="java.lang.String"/>
+	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="IdEvol" class="java.lang.Integer"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Impresso" class="java.lang.String"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="DataAssinatura" class="java.lang.String"/>
+	<field name="HoraAssinatura" class="java.lang.String"/>
+	<field name="Motivo" class="java.sql.Clob"/>
+	<field name="AssinaturaLiberador" class="java.sql.Blob"/>
+	<field name="AtendeEvol" class="java.lang.String"/>
+	<field name="Qtd" class="java.lang.Integer"/>
+	<field name="UsuarioAtendente" class="java.lang.String"/>
+	<field name="MatriculaCrc" class="java.lang.String"/>
+	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
+	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
+	<field name="FotoInternoCrc" class="java.lang.String"/>
 	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="MaeInternoCrc" class="java.lang.String"/>
+	<field name="PaiInternoCrc" class="java.lang.String"/>
+	<field name="AlcunhaCrc" class="java.lang.String"/>
+	<field name="RgInternoCrc" class="java.lang.String"/>
+	<field name="CpfInternoCrc" class="java.lang.String"/>
+	<field name="EscolaridadeCrc" class="java.lang.String"/>
+	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
+	<field name="SexoCrc" class="java.lang.String"/>
+	<field name="SituacaoCrc" class="java.lang.String"/>
+	<field name="IdPais" class="java.lang.Integer"/>
+	<field name="IdCidade" class="java.lang.Integer"/>
+	<field name="ReligiaoCrc" class="java.lang.String"/>
+	<field name="ProfissaoCrc" class="java.lang.String"/>
+	<field name="EnderecoCrc" class="java.lang.String"/>
+	<field name="BairroCrc" class="java.lang.String"/>
+	<field name="CidadeCrc" class="java.lang.String"/>
+	<field name="EstadoCrc" class="java.lang.String"/>
+	<field name="TelefoneCrc" class="java.lang.String"/>
+	<field name="Telefone1Crc" class="java.lang.String"/>
+	<field name="CelularCrc" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
 		<groupFooter>
@@ -51,7 +106,7 @@ order by A.UsuarioInsert, A.DataLanc]]>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert} + " :"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp} + " :"]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -72,7 +127,7 @@ order by A.UsuarioInsert, A.DataLanc]]>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{UsuarioUp}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -94,31 +149,24 @@ order by A.UsuarioInsert, A.DataLanc]]>
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="ebf47fd5-769a-40fe-b9d6-32291c9a4814"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
+				<reportElement x="0" y="1" width="90" height="19" uuid="8052aceb-6635-4e31-b74d-4a14c5f806c5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
+				<text><![CDATA[Data/Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="305" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
+				<reportElement x="163" y="0" width="315" height="20" uuid="dbc6fc24-0633-4731-b27d-e64c405ac2a5"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="478" y="0" width="78" height="19" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
+				<reportElement x="93" y="0" width="61" height="20" uuid="66bdbd0c-61be-465b-a507-a7c3b5276615"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -129,24 +177,19 @@ order by A.UsuarioInsert, A.DataLanc]]>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="0" width="96" height="15" uuid="829a4049-a2b0-46e0-beae-5e694a3bd2de"/>
+				<reportElement x="0" y="0" width="96" height="15" uuid="829a4049-a2b0-46e0-beae-5e694a3bd2de"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataLanc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="1dda0af6-45c3-47af-9643-381be66e082f"/>
+				<reportElement x="156" y="0" width="398" height="15" uuid="1dda0af6-45c3-47af-9643-381be66e082f"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="2e9884ed-d62a-4cf9-9e2c-f1e31bb02ed9"/>
+				<reportElement x="96" y="0" width="58" height="15" uuid="2e9884ed-d62a-4cf9-9e2c-f1e31bb02ed9"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="1" y="0" width="44" height="15" uuid="f2f42b9b-b37a-4721-9726-cab4ee5784d6"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdLanc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

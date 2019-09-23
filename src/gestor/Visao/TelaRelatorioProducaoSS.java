@@ -179,7 +179,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
-                    parametros.put("pNomeUsuario", nameUser);
+                    parametros.put("pUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
                     // Sub Relatório
                     try {
@@ -223,7 +223,7 @@ public class TelaRelatorioProducaoSS extends javax.swing.JInternalFrame {
                     HashMap parametros = new HashMap();
                     parametros.put("dataInicial", dataInicial);
                     parametros.put("dataFinal", dataFinal);
-                    parametros.put("pNomeUsuario", nameUser);
+                    parametros.put("pUsuario", nameUser);
                     parametros.put("descricaoUnidade", descricaoUnidade);
                     // Sub Relatório
                     try {

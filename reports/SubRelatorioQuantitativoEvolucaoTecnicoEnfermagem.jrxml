@@ -150,24 +150,24 @@ REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, PRONTUARIOSCRC.NomeInternoCrc]
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="f1a32734-a3df-4232-99b0-703873030e4c"/>
+				<reportElement x="0" y="1" width="555" height="20" backcolor="#CCCCFF" uuid="bc5d637b-fa24-44da-a044-321525f02379"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="93" y="0" width="61" height="20" uuid="c60b73cc-9ee8-4aa9-9d08-81bd8803ec03"/>
+				<reportElement x="93" y="1" width="61" height="20" uuid="ad1c937b-59f9-4892-8bbf-918b5d5fd1a7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cnc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fd48aff1-573c-4423-a15b-2e0dcd55801a"/>
+				<reportElement x="163" y="1" width="315" height="20" uuid="b3386245-9a44-4486-9c61-0a33f4c4a8fb"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="1" width="90" height="19" uuid="3212f9ac-548a-4c76-89a7-95de264190ec"/>
+				<reportElement x="0" y="2" width="90" height="19" uuid="beef37a2-b045-4a2c-9c5a-b1a6e783c63d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -178,19 +178,19 @@ REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, PRONTUARIOSCRC.NomeInternoCrc]
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="152" y="0" width="401" height="15" uuid="872cb2ce-ea9d-42d1-9430-c582095ca56c"/>
+				<reportElement x="161" y="0" width="393" height="15" uuid="872cb2ce-ea9d-42d1-9430-c582095ca56c"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="2" y="0" width="88" height="15" uuid="e2c49075-e03e-484c-9b05-10fbfe5840c7"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
-			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="90" y="0" width="62" height="15" uuid="51da6a50-db99-4f84-91e8-9ed9e3ea910e"/>
+				<reportElement x="93" y="0" width="59" height="15" uuid="51da6a50-db99-4f84-91e8-9ed9e3ea910e"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="90" height="15" uuid="e2c49075-e03e-484c-9b05-10fbfe5840c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
