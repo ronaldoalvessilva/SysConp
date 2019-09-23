@@ -12,11 +12,22 @@
 	</parameter>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
+<<<<<<< HEAD
 		<![CDATA[SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
 INNER JOIN PRONTUARIOSCRC
 ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
 WHERE  (CONVERT(DATE,DataAtendimento) BETWEEN $P{dataInicial} AND $P{dataFinal}) AND TipoAtendimento LIKE 'Admissão Serviço Social' AND Atendido LIKE 'Sim'
 ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, PRONTUARIOSCRC.NomeInternoCrc]]>
+=======
+		<![CDATA[SELECT A.IdAtend, A.DataAtend, A.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM dbo.ATENDIMENTOSOCIAL A
+INNER JOIN dbo.PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
+WHERE A.DataAtend BETWEEN $P{dataInicial} AND $P{dataFinal}
+UNION ALL
+SELECT B.IdAtendf, B.DataAtendf, B.UsuarioInsert, P.NomeInternoCrc, P.Cnc FROM dbo.ATENDIMENTOFAMILIAR B
+INNER JOIN PRONTUARIOSCRC P ON B.IdInternoCrc=P.IdInternoCrc
+WHERE B.DataAtendf BETWEEN $P{dataInicial} AND $P{dataFinal}
+ORDER BY A.UsuarioInsert, A.DataAtend]]>
+>>>>>>> origin/master
 	</queryString>
 	<field name="IdRegistro" class="java.lang.Integer"/>
 	<field name="DataReg" class="java.sql.Timestamp"/>
@@ -185,7 +196,11 @@ ORDER BY REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento, REGISTRO_ATENDIMENTO_
 			<textField>
 				<reportElement x="0" y="0" width="96" height="15" uuid="a8619d01-49df-4fc1-a0d8-21bd24acc432"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+<<<<<<< HEAD
 				<textFieldExpression><![CDATA[$F{DataAtendimento}]]></textFieldExpression>
+=======
+				<textFieldExpression><![CDATA[$F{DataAtend}]]></textFieldExpression>
+>>>>>>> origin/master
 			</textField>
 		</band>
 	</detail>

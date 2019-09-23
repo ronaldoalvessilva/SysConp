@@ -19,7 +19,7 @@
 	<queryString>
 		<![CDATA[SELECT * FROM ADMISSAO_PEDAGOGIA A
 INNER JOIN PRONTUARIOSCRC P ON A.IdInternoCrc=P.IdInternoCrc
-WHERE DataAdm BETWEEN '01/07/2019' AND '30/07/2019'
+WHERE DataAdm BETWEEN $P{dataInicial} AND $P{dataFinal}
 order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdAdm" class="java.lang.Integer"/>
@@ -66,6 +66,7 @@ order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<variable name="SUBREPORT_COUNT" class="java.lang.Integer" calculation="System"/>

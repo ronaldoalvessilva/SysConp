@@ -201,9 +201,9 @@ ORDER BY EVOLUCAOTECENFERMAGEM.UsuarioInsert, EVOLUCAOTECENFERMAGEM.DataEvol]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAdmissaoTecnicoEnfermagem.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="10">
+		<band height="8">
 			<subreport>
-				<reportElement x="-20" y="-13" width="552" height="23" uuid="2af28ba1-2a2e-4f74-91f3-e0f490fda9be"/>
+				<reportElement x="-20" y="-15" width="552" height="23" uuid="4f01ea03-9459-40aa-88e1-0f4a618d8c82"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>

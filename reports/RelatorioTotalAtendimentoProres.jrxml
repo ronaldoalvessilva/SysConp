@@ -310,29 +310,7 @@ WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioTotalAtendimentoPsicologia.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="8">
-			<subreport>
-				<reportElement x="-20" y="-16" width="552" height="23" uuid="5090f8ee-0f24-499b-ab97-05d85d9c6e6b"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="dataFinal">
-					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="descricaoUnidade">
-					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="dataInicial">
-					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="pUsuario">
-					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioTotalAtendimentoPsiquiatria.jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="8"/>
 		<band height="8">
 			<subreport>
 				<reportElement x="-20" y="-15" width="552" height="23" uuid="93739218-2002-49fa-81d2-c1ac9e51ad4c"/>

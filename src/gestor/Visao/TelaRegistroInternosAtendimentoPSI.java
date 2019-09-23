@@ -22,6 +22,7 @@ import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Visao.TelaAcessoBiometriaColaboradores.CIS_SDK;
 import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
@@ -1371,6 +1372,10 @@ public class TelaRegistroInternosAtendimentoPSI extends javax.swing.JInternalFra
     }
 
     public void Novo() {
+        statusMov = "Incluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        //
         jIdRegistro.setText("");
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxTipoMovimentacao.setSelectedItem("Selecione...");

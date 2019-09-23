@@ -20,7 +20,7 @@
 		<![CDATA[SELECT TOP 1 * FROM EVOLUCAOENFERMAGEM
 INNER JOIN PRONTUARIOSCRC ON EVOLUCAOENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
 WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}
-ORDER BY EVOLUCAOENFERMAGEM.UsuarioInsert,EVOLUCAOENFERMAGEM.DataEvol]]>
+ORDER BY EVOLUCAOENFERMAGEM.DataEvol, EVOLUCAOENFERMAGEM.UsuarioInsert]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="DataEvol" class="java.sql.Timestamp"/>

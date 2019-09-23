@@ -156,9 +156,9 @@ order by EVOLUCAOMEDICA.UsuarioInsert]]>
 			<staticText>
 				<reportElement x="95" y="71" width="366" height="20" uuid="81176be1-017d-493a-b737-2477d626fb6b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="14" isBold="true"/>
+					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório Quantitativo de Atendimento Médico]]></text>
+				<text><![CDATA[Relatório Quantitativo de Atendimento Médico/Psiquiatra]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="158" y="43" width="303" height="20" uuid="d85f2d33-cd1a-4559-ab8f-3c6eeee45339"/>

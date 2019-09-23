@@ -1389,6 +1389,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
         jBtIniciarLeitor.setEnabled(true);
         jBtCancelarLeitura.setEnabled(!true);
         //
+        statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
     }

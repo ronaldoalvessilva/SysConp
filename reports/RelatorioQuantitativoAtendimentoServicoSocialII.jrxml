@@ -12,7 +12,7 @@
 	</parameter>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Gei Baptista\\Documents\\NetBeansProjects\\SysConp\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT TOP 1 * FROM ATENDIMENTOSOCIAL

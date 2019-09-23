@@ -768,7 +768,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel7.setText("Versão: 6.0.1");
+        jLabel7.setText("Versão: 6.0.2");
 
         jNomeUnidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jNomeUnidade.setForeground(new java.awt.Color(0, 153, 0));
@@ -812,10 +812,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         );
         jPanelPainelCentralLayout.setVerticalGroup(
             jPanelPainelCentralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPainelCentralLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+            .addGroup(jPanelPainelCentralLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabelPainelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         jPanielPrincipal.setLayer(jToolBar5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -837,8 +837,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelPainelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addComponent(jPanelPainelCentral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanielPrincipal, java.awt.BorderLayout.CENTER);
@@ -945,7 +945,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
         jPanelRodapeLayout.setVerticalGroup(
             jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRodapeLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
+                .addGap(0, 0, 0)
                 .addGroup(jPanelRodapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelRodapeLayout.createSequentialGroup()
@@ -965,7 +965,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel1))
                     .addComponent(jToolBar8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         getContentPane().add(jPanelRodape, java.awt.BorderLayout.SOUTH);

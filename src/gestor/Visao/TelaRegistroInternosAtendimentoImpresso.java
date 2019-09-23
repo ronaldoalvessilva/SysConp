@@ -44,6 +44,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRegistroAtenImpENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaRegistroLibAtenImpENF;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
@@ -1373,10 +1374,13 @@ public class TelaRegistroInternosAtendimentoImpresso extends javax.swing.JIntern
         jComboBoxAtendente.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
-//        jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
         jBtPesquisaInterno.setEnabled(true);
         jBtImprimirAutorização.setEnabled(!true);
+        //
+        statusMov = "Incluiu";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
     }
 
     public void Salvar() {
