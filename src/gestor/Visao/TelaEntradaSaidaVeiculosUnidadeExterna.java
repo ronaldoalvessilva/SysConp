@@ -212,7 +212,7 @@ public class TelaEntradaSaidaVeiculosUnidadeExterna extends javax.swing.JInterna
         jTabelaPesqVeiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data Entrada", "Observação"
@@ -235,7 +235,7 @@ public class TelaEntradaSaidaVeiculosUnidadeExterna extends javax.swing.JInterna
             jTabelaPesqVeiculos.getColumnModel().getColumn(3).setMaxWidth(590);
         }
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -734,7 +734,7 @@ public class TelaEntradaSaidaVeiculosUnidadeExterna extends javax.swing.JInterna
         jTabelaVeiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Nome do Colaborador", "Veiculo", "Placa", "Data Saída", "Horário", "Data Entrada", "Horário"

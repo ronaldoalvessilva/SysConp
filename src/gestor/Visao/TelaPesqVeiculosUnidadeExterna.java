@@ -66,7 +66,7 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Veiculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqModeloVeiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -146,7 +146,7 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
         jTabelaPesqVeiculos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Modelo do Veiculo", "Placa"
@@ -199,10 +199,13 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 260, Short.MAX_VALUE))
+                        .addGap(0, 248, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -236,11 +239,13 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
+            String idVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 0);
             String modeloVeiculo = "" + jTabelaPesqVeiculos.getValueAt(jTabelaPesqVeiculos.getSelectedRow(), 1);
             jPesqModeloVeiculo.setText(modeloVeiculo);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM VEICULOS WHERE ModeloVeiculo='" + modeloVeiculo + "'");
+                conecta.executaSQL("SELECT * FROM VEICULOS "
+                        + "WHERE IdVeiculo='" + idVeiculo + "'");
                 conecta.rs.first();
                 // Tabela Veiculo
                 jIdVeiculo.setText(String.valueOf(conecta.rs.getInt("IdVeiculo")));
@@ -284,7 +289,8 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
             jPesqModeloVeiculo.requestFocus();
         } else {
             jTabelaPesqVeiculos.setVisible(true);
-            buscarVeiculos("SELECT * FROM VEICULOS WHERE ModeloVeiculo LIKE'" + jPesqModeloVeiculo.getText() + "%'");
+            buscarVeiculos("SELECT * FROM VEICULOS "
+                    + "WHERE ModeloVeiculo LIKE'" + jPesqModeloVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqNomeVeiculoActionPerformed
 
@@ -292,7 +298,8 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.buscarVeiculos("SELECT * FROM VEICULOS ORDER BY ModeloVeiculo");
+            this.buscarVeiculos("SELECT * FROM VEICULOS "
+                    + "ORDER BY ModeloVeiculo");
         } else {
             limparCampos();
         }
@@ -304,7 +311,8 @@ public class TelaPesqVeiculosUnidadeExterna extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqModeloVeiculo.requestFocus();
         } else {
-            buscarVeiculos("SELECT * FROM VEICULOS WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
+            buscarVeiculos("SELECT * FROM VEICULOS "
+                    + "WHERE PlacaVeiculo LIKE'%" + jPlavaVeiculo.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPlacaVeiculoActionPerformed
 
