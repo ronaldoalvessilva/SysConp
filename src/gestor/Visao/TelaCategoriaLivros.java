@@ -485,7 +485,7 @@ public class TelaCategoriaLivros extends javax.swing.JInternalFrame {
     private void jTabelaCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaCategoriasMouseClicked
         // TODO add your handling code here:
         if (flag == 1) {
-            String nomeCat = "" + jTabelaCategorias.getValueAt(jTabelaCategorias.getSelectedRow(), 2);
+            String nomeCat = "" + jTabelaCategorias.getValueAt(jTabelaCategorias.getSelectedRow(), 3);
             jPesqDescricao.setText(nomeCat);
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
