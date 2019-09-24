@@ -7,7 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaUsuarios.IdUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -63,7 +62,7 @@ public class TelaConsultaUsuariosGrupo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Consulta de Internos Por Grupo :::...");
+        setTitle("...::: Consulta de Usuários Por Grupo :::...");
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
