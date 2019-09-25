@@ -17,7 +17,6 @@ import gestor.Controle.ControleSaldoSaque;
 import gestor.Controle.ControleSaque;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.ConsultaSaldoInternos;
 import gestor.Modelo.DepositoInterno;
@@ -1396,7 +1395,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jDocumentoSaida.setDocument(new LimiteDigitosAlfa(14));
+//        jDocumentoSaida.setDocument(new LimiteDigitosAlfa(14));
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
     }
