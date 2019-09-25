@@ -118,7 +118,7 @@ public class TelaPesquisaInternoFichaJuridico extends javax.swing.JInternalFrame
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Data Entrada"
@@ -221,7 +221,10 @@ public class TelaPesquisaInternoFichaJuridico extends javax.swing.JInternalFrame
             preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'AND SituacaoCrc='" + entrada + "'OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "'AND SituacaoCrc='" + retorno + "'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + entrada + "' "
+                    + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND SituacaoCrc='" + retorno + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -231,7 +234,7 @@ public class TelaPesquisaInternoFichaJuridico extends javax.swing.JInternalFrame
         if (flag == 1) {
             nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
             jPesqNome.setText(nomeInterno);
-            codInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(),0);
+            codInt = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
         }
     }//GEN-LAST:event_jTabelaInternoMouseClicked
 
@@ -243,7 +246,7 @@ public class TelaPesquisaInternoFichaJuridico extends javax.swing.JInternalFrame
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (jPesqNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");        
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
             conecta.abrirConexao();
             try {
@@ -271,7 +274,8 @@ public class TelaPesquisaInternoFichaJuridico extends javax.swing.JInternalFrame
             this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SituacaoCrc='" + entrada + "'OR SituacaoCrc='" + retorno + "'");
+                    + "WHERE SituacaoCrc='" + entrada + "' "
+                    + "OR SituacaoCrc='" + retorno + "'");
         } else {
             limparTabelaInternos();
         }

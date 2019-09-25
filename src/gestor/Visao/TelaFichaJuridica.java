@@ -377,7 +377,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jTabelaFichaJuridica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFichaJuridica.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Ficha", "Data", "Status", "Nome do Interno"
@@ -878,7 +878,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jTabelaProcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nr. Processo", "Nr. Inquérito", "Regime", "Anos", "Meses", "Dias", "Data Inicio", "Data Témino"
@@ -1332,7 +1332,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jTabelaAmparoLegal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAmparoLegal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Amparo legal", "Artigo", "Parágrafo", "Inciso", "Alínea"
@@ -1700,7 +1700,7 @@ public class TelaFichaJuridica extends javax.swing.JInternalFrame {
         jTabelaDocumentosProcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDocumentosProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Natureza da Prisão", "Documento", "Origem", "Data", "Horário"
