@@ -9,8 +9,19 @@
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="unidadePenal" class="java.lang.String"/>
 	<parameter name="nomeUsuario" class="java.lang.String"/>
+	<parameter name="pENTRADA" class="java.lang.String"/>
+	<parameter name="pRETORNO" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc INNER JOIN UNIDADE ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid WHERE DescricaoUnid LIKE '$P!{unidadePenal}%' ORDER BY NomeInternoCrc]]>
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC
+                    INNER JOIN DADOSPENAISINTERNOS
+                    ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc
+                    INNER JOIN UNIDADE
+                    ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid
+                    WHERE UNIDADE.DescricaoUnid=$P{unidadePenal}
+                    AND PRONTUARIOSCRC.SituacaoCrc=$P{pENTRADA}
+                    OR UNIDADE.DescricaoUnid=$P{unidadePenal}
+                    AND PRONTUARIOSCRC.SituacaoCrc=$P{pRETORNO}
+                    ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
@@ -25,6 +36,7 @@
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -46,6 +58,11 @@
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<field name="IdPenais" class="java.lang.Integer"/>
 	<field name="IdUnid" class="java.lang.Integer"/>
 	<field name="DataEntrada" class="java.sql.Timestamp"/>
@@ -55,6 +72,7 @@
 	<field name="Participacao" class="java.lang.String"/>
 	<field name="Regime" class="java.lang.String"/>
 	<field name="Pena" class="java.lang.String"/>
+	<field name="VaraCondenatoria" class="java.lang.String"/>
 	<field name="Artigo1" class="java.lang.String"/>
 	<field name="Artigo2" class="java.lang.String"/>
 	<field name="Artigo3" class="java.lang.String"/>
@@ -86,6 +104,11 @@
 	<field name="RegiaoCorpo1" class="java.lang.String"/>
 	<field name="RegiaoCorpo2" class="java.lang.String"/>
 	<field name="RegiaoCorpo3" class="java.lang.String"/>
+	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<field name="ImagemPerfil" class="java.lang.Object"/>
+	<field name="ImagemCorpo" class="java.lang.Object"/>
+	<field name="ImagemCorpo1" class="java.lang.Object"/>
+	<field name="ImagemCorpo2" class="java.lang.Object"/>
 	<field name="DescricaoUnid" class="java.lang.String"/>
 	<field name="ClassUnid" class="java.lang.String"/>
 	<field name="EnderecoUnid" class="java.lang.String"/>
@@ -121,14 +144,31 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="70" splitType="Stretch">
+		<band height="90" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="90" uuid="8bf46ecd-4ac0-478c-8195-6fabe8455aae"/>
+			</rectangle>
 			<staticText>
-				<reportElement style="Title" x="175" y="25" width="171" height="33" forecolor="#000000" uuid="4a198236-b766-46e9-8550-5fe1132d5b60"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
+				<reportElement style="Title" x="1" y="66" width="553" height="21" forecolor="#000000" uuid="4a198236-b766-46e9-8550-5fe1132d5b60"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório de Unidade Penal]]></text>
+				<text><![CDATA[Relatório de Internos por Unidade Penal/Prisional]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="6" y="6" width="262" height="20" uuid="d9cc3591-188c-4103-935e-9ed6661dff18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISCONP - sistema de Controle Prisional]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="6" width="284" height="20" uuid="90382655-4ce6-4fc9-a3d9-f555a4053432"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{unidadePenal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -143,22 +183,22 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="98" height="15" uuid="7adf5ad8-688f-4776-9a75-8b9d0eebfcc1"/>
+				<reportElement style="Column header" x="0" y="19" width="70" height="15" uuid="7adf5ad8-688f-4776-9a75-8b9d0eebfcc1"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Matricula Penal]]></text>
+				<text><![CDATA[Matricula]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="114" y="19" width="162" height="15" uuid="a10eff57-5158-4fb9-ac0f-b58aa8df9c2a"/>
+				<reportElement style="Column header" x="72" y="19" width="253" height="15" uuid="a10eff57-5158-4fb9-ac0f-b58aa8df9c2a"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Nome do Interno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="335" y="19" width="53" height="15" uuid="92e30b5a-9d5e-49f7-a60b-d7d6772d46f6"/>
+				<reportElement style="Column header" x="328" y="19" width="53" height="15" uuid="92e30b5a-9d5e-49f7-a60b-d7d6772d46f6"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Regime]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="414" y="19" width="138" height="15" uuid="90c61e71-a478-4a51-8307-c9642cb5644e"/>
+				<reportElement style="Column header" x="381" y="19" width="171" height="15" uuid="90c61e71-a478-4a51-8307-c9642cb5644e"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Unidade Penal]]></text>
 			</staticText>
@@ -173,28 +213,28 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="87" height="15" uuid="7a23a62a-786d-4e14-94e7-6e5448cd014b"/>
-				<textElement>
+				<reportElement style="Detail" x="0" y="0" width="70" height="15" uuid="7a23a62a-786d-4e14-94e7-6e5448cd014b"/>
+				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MatriculaCrc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="98" y="0" width="227" height="15" uuid="815418a0-9d85-44fa-b1c3-88d14e3af650"/>
+				<reportElement style="Detail" x="72" y="0" width="253" height="15" uuid="815418a0-9d85-44fa-b1c3-88d14e3af650"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="335" y="0" width="71" height="15" uuid="dc820a8d-9454-4b5e-be27-f50050952c73"/>
-				<textElement>
+				<reportElement style="Detail" x="328" y="0" width="53" height="15" uuid="dc820a8d-9454-4b5e-be27-f50050952c73"/>
+				<textElement textAlignment="Center">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{Regime}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="414" y="0" width="138" height="15" uuid="68e7bb67-cebb-41d2-abbc-1ab7984ffa83"/>
+				<reportElement style="Detail" x="381" y="0" width="171" height="15" uuid="68e7bb67-cebb-41d2-abbc-1ab7984ffa83"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>

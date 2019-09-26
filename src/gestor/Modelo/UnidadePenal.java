@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gestor.Modelo;
 
 /**
@@ -11,20 +10,20 @@ package gestor.Modelo;
  * @author user
  */
 public class UnidadePenal {
-        
- private int IdUnid;
-private String DescricaoUnid;
-private String ClassUnid;
-private String EnderecoUnid;
-private String BairroUnid;
-private String ComplementoUnid;
-private String CepUnid;
-private String CidadeUnid;
-private String EstadoUnid;
-private String TelefoneUnid;
-private String FoneUnid;
-private String FaxUnid;
-private String ObsUnid;
+
+    private int IdUnid;
+    private String DescricaoUnid;
+    private String ClassUnid;
+    private String EnderecoUnid;
+    private String BairroUnid;
+    private String ComplementoUnid;
+    private String CepUnid;
+    private String CidadeUnid;
+    private String EstadoUnid;
+    private String TelefoneUnid;
+    private String FoneUnid;
+    private String FaxUnid;
+    private String ObsUnid;
 
     public UnidadePenal(int IdUnid, String DescricaoUnid, String ClassUnid, String EnderecoUnid, String BairroUnid, String ComplementoUnid, String CepUnid, String CidadeUnid, String EstadoUnid, String TelefoneUnid, String FoneUnid, String FaxUnid, String ObsUnid) {
         this.IdUnid = IdUnid;
@@ -227,4 +226,8 @@ private String ObsUnid;
         this.ObsUnid = ObsUnid;
     }
 
+    @Override
+    public String toString() {
+        return getDescricaoUnid(); //To change body of generated methods, choose Tools | Templates.
+    }
 }

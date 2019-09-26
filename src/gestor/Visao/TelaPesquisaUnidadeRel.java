@@ -8,11 +8,11 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.RelatorioUnidadePenal.jPesqNomeUnidade;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+//import static gestor.Visao.RelatorioUnidadePenal.jPesqNomeUnidade;
 
 /**
  *
@@ -192,7 +192,8 @@ public class TelaPesquisaUnidadeRel extends javax.swing.JInternalFrame {
             jPesNomeUnidade.requestFocus();
         } else {
             jTabelaUnidadePenal.setVisible(true);
-            preencherTabelaNome("SELECT * FROM UNIDADE WHERE DescricaoUnid LIKE  '" + jPesNomeUnidade.getText() + "%'");
+            preencherTabelaNome("SELECT * FROM UNIDADE "
+                    + "WHERE DescricaoUnid LIKE  '%" + jPesNomeUnidade.getText() + "%'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -210,7 +211,7 @@ public class TelaPesquisaUnidadeRel extends javax.swing.JInternalFrame {
         if (jPesNomeUnidade.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome da UNIDADE e clique no botão ENVIAR");
         }
-        jPesqNomeUnidade.setText(jPesNomeUnidade.getText());
+//        jPesqNomeUnidade.setText(jPesNomeUnidade.getText());
         dispose();
     }//GEN-LAST:event_jBtEnviarActionPerformed
 

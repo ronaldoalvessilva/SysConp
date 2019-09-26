@@ -9,8 +9,10 @@
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<parameter name="nomeUsuario" class="java.lang.String"/>
 	<parameter name="artigo" class="java.lang.String"/>
+	<parameter name="pENTRADA_UNIDADE" class="java.lang.String"/>
+	<parameter name="pRETORNO_UNIDADE" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE Artigo1=$P{artigo} ORDER BY NomeInternoCrc]]>
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE Artigo1=$P{artigo} AND PRONTUARIOSCRC.SituacaoCrc=$P{pENTRADA_UNIDADE} OR  Artigo1=$P{artigo} AND PRONTUARIOSCRC.SituacaoCrc=$P{pRETORNO_UNIDADE} ORDER BY NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
@@ -25,6 +27,7 @@
 	<field name="CpfInternoCrc" class="java.lang.String"/>
 	<field name="EscolaridadeCrc" class="java.lang.String"/>
 	<field name="EstadoCivilCrc" class="java.lang.String"/>
+	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="SexoCrc" class="java.lang.String"/>
 	<field name="SituacaoCrc" class="java.lang.String"/>
 	<field name="IdPais" class="java.lang.Integer"/>
@@ -46,6 +49,11 @@
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="BiometriaInternos" class="java.lang.Integer"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<field name="IdPenais" class="java.lang.Integer"/>
 	<field name="IdUnid" class="java.lang.Integer"/>
 	<field name="DataEntrada" class="java.sql.Timestamp"/>
@@ -55,6 +63,7 @@
 	<field name="Participacao" class="java.lang.String"/>
 	<field name="Regime" class="java.lang.String"/>
 	<field name="Pena" class="java.lang.String"/>
+	<field name="VaraCondenatoria" class="java.lang.String"/>
 	<field name="Artigo1" class="java.lang.String"/>
 	<field name="Artigo2" class="java.lang.String"/>
 	<field name="Artigo3" class="java.lang.String"/>
@@ -86,6 +95,11 @@
 	<field name="RegiaoCorpo1" class="java.lang.String"/>
 	<field name="RegiaoCorpo2" class="java.lang.String"/>
 	<field name="RegiaoCorpo3" class="java.lang.String"/>
+	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<field name="ImagemPerfil" class="java.lang.Object"/>
+	<field name="ImagemCorpo" class="java.lang.Object"/>
+	<field name="ImagemCorpo1" class="java.lang.Object"/>
+	<field name="ImagemCorpo2" class="java.lang.Object"/>
 	<variable name="totalGeral" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[1]]></variableExpression>
 	</variable>

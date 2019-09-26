@@ -5,9 +5,13 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleListaUPD;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.UnidadePenal;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -22,12 +26,18 @@ import net.sf.jasperreports.view.JasperViewer;
 public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    ControleListaUPD control = new ControleListaUPD();
+    UnidadePenal objUni = new UnidadePenal();
+    //
+    String pENTRADA = "ENTRADA NA UNIDADE";
+    String pRETORNO = "RETORNO A UNIDADE";
 
     /**
      * Creates new form RelatorioUnidadePenal
      */
     public RelatorioUnidadePenal() {
         initComponents();
+        listaUnidadesPrisionais();
     }
 
     /**
@@ -43,13 +53,12 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPesqNomeUnidade = new javax.swing.JTextField();
-        jBtPesqUnidade = new javax.swing.JButton();
+        jComboBoxPesquisar = new javax.swing.JComboBox<>();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("...::: Rel. Unidade Penal :::...");
+        setTitle("...::: Relatório de Internos por Unidade Penal :::...");
         setToolTipText("");
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
@@ -61,14 +70,8 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText(" Unidade/Delegacia:");
 
-        jPesqNomeUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-
-        jBtPesqUnidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqUnidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqUnidadeActionPerformed(evt);
-            }
-        });
+        jComboBoxPesquisar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxPesquisar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,20 +81,17 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPesqUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jComboBoxPesquisar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtPesqUnidade)
-                    .addComponent(jPesqNomeUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -119,16 +119,15 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jBtConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(165, Short.MAX_VALUE)
+                .addComponent(jBtConfirmar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addGap(150, 150, 150))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -142,7 +141,7 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSair)
                     .addComponent(jBtConfirmar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -153,45 +152,46 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(400, 200, 439, 181);
+        setBounds(400, 200, 560, 150);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeUnidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome da Unidade para listar o relatório");
-        } else {
-            try {
-                conecta.abrirConexao();
-                String path = "reports/RelatorioInternosUnidadePenal.jasper";
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                        + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "INNER JOIN UNIDADE "
-                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                        + "WHERE DescricaoUnid LIKE'" + jPesqNomeUnidade.getText() + "%' "
-                        + "ORDER BY NomeInternoCrc");
-                HashMap parametros = new HashMap();
-                parametros.put("unidadePenal", jPesqNomeUnidade.getText());
-                parametros.put("nomeUsuario", nameUser);
-                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Listagem de Internos Por Unidade Penal");
-                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                jv.toFront(); // Traz o relatorio para frente da aplicação            
-                conecta.desconecta();
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-            }
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioInternosUnidadePenal.jasper";
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE UNIDADE.DescricaoUnid='" + jComboBoxPesquisar.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA + "' "
+                    + "OR UNIDADE.DescricaoUnid='" + jComboBoxPesquisar.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO + "'"
+                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+            HashMap parametros = new HashMap();
+            parametros.put("unidadePenal", jComboBoxPesquisar.getSelectedItem());
+            parametros.put("pENTRADA", pENTRADA);
+            parametros.put("pRETORNO", pRETORNO);
+            parametros.put("nomeUsuario", nameUser);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Listagem de Internos Por Unidade Penal");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório.\n\nERRO :" + e);
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -200,22 +200,29 @@ public class RelatorioUnidadePenal extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jBtPesqUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqUnidadeActionPerformed
-        // TODO add your handling code here:
-        TelaPesquisaUnidadeRel objPesqUnid = new TelaPesquisaUnidadeRel();
-        TelaModuloCRC.jPainelCRC.add(objPesqUnid);
-        objPesqUnid.show();
-    }//GEN-LAST:event_jBtPesqUnidadeActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtConfirmar;
-    private javax.swing.JButton jBtPesqUnidade;
     private javax.swing.JButton jBtSair;
+    private javax.swing.JComboBox<Object> jComboBoxPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public static javax.swing.JTextField jPesqNomeUnidade;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
+
+    //SUBSTITUÍDO A PESQUISA EM 26/09/2019 - BARREIRAS/BA
+//        TelaPesquisaUnidadeRel objPesqUnid = new TelaPesquisaUnidadeRel();
+//        TelaModuloCRC.jPainelCRC.add(objPesqUnid);
+//        objPesqUnid.show();
+    public void listaUnidadesPrisionais() {
+        try {
+            //        UnidadePenal p = new UnidadePenal();
+            for (UnidadePenal p : control.read()) {
+                jComboBoxPesquisar.addItem(p);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RelatorioUnidadePenal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
