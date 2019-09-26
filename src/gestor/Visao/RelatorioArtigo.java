@@ -22,7 +22,10 @@ import net.sf.jasperreports.view.JasperViewer;
 public class RelatorioArtigo extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    
+
+    String pENTRADA_UNIDADE = "ENTRADA NA UNIDADE";
+    String pRETORNO_UNIDADE = "RETORNO A UNIDADE";
+
     /**
      * Creates new form RelatorioTempoPena
      */
@@ -164,13 +167,22 @@ public class RelatorioArtigo extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosArtigo.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc  WHERE Artigo1='" + jArtigo.getText()  + "'ORDER BY NomeInternoCrc");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE Artigo1='" + jArtigo.getText() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
+                    + "OR Artigo1='" + jArtigo.getText() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("artigo", jArtigo.getText());
             parametros.put("nomeUsuario", nameUser);
+            parametros.put("pENTRADA_UNIDADE", pENTRADA_UNIDADE);
+            parametros.put("pRETORNO_UNIDADE", pRETORNO_UNIDADE);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
