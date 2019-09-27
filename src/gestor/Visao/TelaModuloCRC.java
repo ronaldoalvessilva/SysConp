@@ -469,6 +469,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         RelatorioRegimePenal = new javax.swing.JMenuItem();
         RelatorioRegimePenalSexo = new javax.swing.JMenuItem();
         RelatorioPorSexo = new javax.swing.JMenuItem();
+        PorVaraCondenatoria = new javax.swing.JMenuItem();
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         RelatorioPorCidade = new javax.swing.JMenuItem();
         RelatorioPorBairro = new javax.swing.JMenuItem();
@@ -1035,6 +1036,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         RelatorioInternos.add(RelatorioPorSexo);
+
+        PorVaraCondenatoria.setForeground(new java.awt.Color(0, 0, 204));
+        PorVaraCondenatoria.setText("Por Vara Condenatória");
+        PorVaraCondenatoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PorVaraCondenatoriaActionPerformed(evt);
+            }
+        });
+        RelatorioInternos.add(PorVaraCondenatoria);
         RelatorioInternos.add(jSeparator19);
 
         RelatorioPorCidade.setText("Por Cidade");
@@ -3362,6 +3372,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCalculadoraExecucaoPenalActionPerformed
 
+    private void PorVaraCondenatoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PorVaraCondenatoriaActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternoVaraCondenatoria objRelaIVC = new TelaRelatorioInternoVaraCondenatoria();
+        TelaModuloCRC.jPainelCRC.add(objRelaIVC);
+        objRelaIVC.show();
+    }//GEN-LAST:event_PorVaraCondenatoriaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3385,6 +3402,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem MudancaRegimePenalProgressao;
     private javax.swing.JMenuItem MudancaRegimePenalRegressao;
     private javax.swing.JMenuItem PorNCN;
+    private javax.swing.JMenuItem PorVaraCondenatoria;
     private javax.swing.JMenuItem PrevisaoSaida;
     private javax.swing.JMenuItem RG;
     private javax.swing.JMenuItem RelInternoEtinia;
