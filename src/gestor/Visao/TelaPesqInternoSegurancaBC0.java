@@ -33,6 +33,7 @@ import static gestor.Visao.BaralhoCrimeUnidadePrisional.jRGBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jPavilhaoBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jProcedenciaBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jRegime;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jSituacaoCrc;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jVaraCondenatoriaBC;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -398,6 +399,7 @@ public class TelaPesqInternoSegurancaBC0 extends javax.swing.JInternalFrame {
                 jRegime.setText(conecta.rs.getString("Regime"));
                 jRGBC.setText(conecta.rs.getString("RgInternoCrc"));
                 jCPFBC.setText(conecta.rs.getString("CpfInternoCrc"));
+                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
                 //
                 jPavilhaoBC.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaBC.setText(conecta.rs.getString("EndCelaPav"));

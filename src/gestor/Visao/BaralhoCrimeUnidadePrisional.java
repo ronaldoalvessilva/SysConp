@@ -6,9 +6,11 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleOrganogramaCrime;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.OrganogramaCrime;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -46,7 +48,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-
+    OrganogramaCrime objOrg = new OrganogramaCrime();
+    ControleOrganogramaCrime control = new ControleOrganogramaCrime();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -142,7 +146,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jLabelFoto = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBoxStatusBC = new javax.swing.JComboBox<>();
+        jSituacaoCrc = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabelCarta = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
@@ -467,7 +471,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,12 +502,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("STATUS");
+        jLabel15.setText("STATUS:");
 
-        jComboBoxStatusBC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatusBC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Foragido", "Na Unidade Prisional", " " }));
-        jComboBoxStatusBC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxStatusBC.setEnabled(false);
+        jSituacaoCrc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSituacaoCrc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jSituacaoCrc.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -512,17 +515,17 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBoxStatusBC, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jComboBoxStatusBC, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -617,7 +620,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jBtCarta)
@@ -1308,6 +1311,9 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel16Layout.createSequentialGroup()
                                 .addComponent(jBtInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1354,8 +1360,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                                 .addGap(20, 20, 20))))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtDel1, jBtDel2, jBtDel3, jBtDel4});
@@ -1669,11 +1674,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRecompensaBC, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addComponent(jRecompensaBC, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1695,7 +1700,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1708,7 +1713,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1716,7 +1721,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+                .addGap(0, 0, 0))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel6);
@@ -1729,10 +1734,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 30, 809, 487);
+        setBounds(300, 30, 809, 485);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqIDActionPerformed
@@ -1923,7 +1928,26 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codGravar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
+            if (jIdInternoBC.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "É necessário informar o nome do interno.");
+            } else if (jLabelCarta.getIcon() == null) {
+                JOptionPane.showMessageDialog(null, "É necessário informar uma carta do baralho.");
+            } else {
+                objOrg.setDataOrg(jDataRegistro.getDate());
+                objOrg.setIdInternoCrc(Integer.valueOf(jIdInternoBC.getText()));
+                objOrg.setNomeInterno(jNomeInternoBC.getText());
+                objOrg.setFaccao(jFaccao.getText());
+                objOrg.setDescricaoPav(jPavilhaoBC.getText());
+                objOrg.setDescricaoCela(jCelaBC.getText());
+//                objOrg.setRecompensa(Double.parseDouble(jRecompensaBC.getText()));
+                
+                if (acao == 1) {
 
+                }
+                if (acao == 2) {
+
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, entre em contato com o administrador do sistema.");
         }
@@ -2060,7 +2084,6 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCelaBC;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JComboBox jComboBoxEdiondo;
-    private javax.swing.JComboBox<String> jComboBoxStatusBC;
     public static com.toedter.calendar.JDateChooser jDataCondenacaoBC;
     public static com.toedter.calendar.JDateChooser jDataCrimeBC;
     public static com.toedter.calendar.JDateChooser jDataEntradaBC;
@@ -2163,6 +2186,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jRegime;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
+    public static javax.swing.JTextField jSituacaoCrc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaLocacao;
@@ -2179,7 +2203,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         //ABA DADOS PESSOAIS    
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
-        jComboBoxStatusBC.setBackground(Color.white);
+        jSituacaoCrc.setBackground(Color.white);
         //
         jIdInternoBC.setBackground(Color.white);
         jCNC_BC.setBackground(Color.white);
@@ -2216,7 +2240,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public void limparCampos() {
         jIdRegistro.setText("");
         jDataRegistro.setDate(null);
-        jComboBoxStatusBC.setSelectedItem("Selecione...");
+        jSituacaoCrc.setText("");
         jLabelCarta.setIcon(null);
         jLabelFoto.setIcon(null);
         //
@@ -2255,7 +2279,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public void bloquearCampos() {
         jIdRegistro.setEnabled(!true);
         jDataRegistro.setEnabled(!true);
-        jComboBoxStatusBC.setEnabled(!true);
+        jSituacaoCrc.setEnabled(!true);
         //
         jIdInternoBC.setEnabled(!true);
         jCNC_BC.setEnabled(!true);
@@ -2321,7 +2345,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     public void Novo() {
         jDataRegistro.setCalendar(Calendar.getInstance());
-        jComboBoxStatusBC.setEnabled(true);
+        jSituacaoCrc.setEnabled(true);
         jFaccao.setEnabled(true);
         jRecompensaBC.setEnabled(true);
         jObservacaoL1.setEnabled(true);
