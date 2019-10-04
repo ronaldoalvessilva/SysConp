@@ -19,13 +19,13 @@ import static gestor.Visao.BaralhoCrimeUnidadePrisional.jComboBoxEdiondo;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataCondenacaoBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataCrimeBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataEntradaBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataNascimento;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataPrisaoBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataTerPena;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jIdInternoBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jLabelFoto;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNomeInternoBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNomeMaeBC;
-import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNomePaiBC;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo1;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo2;
 import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo3;
@@ -43,6 +43,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNaturalidade;
 
 /**
  *
@@ -394,12 +395,13 @@ public class TelaPesqInternoSegurancaBC0 extends javax.swing.JInternalFrame {
                     jLabelFoto.setIcon(icon);
                 }
                 jNomeMaeBC.setText(conecta.rs.getString("MaeInternoCrc"));
-                jNomePaiBC.setText(conecta.rs.getString("PaiInternoCrc"));
+                jNaturalidade.setText(conecta.rs.getString("NomeCidade"));
                 jAlcunhaBC.setText(conecta.rs.getString("AlcunhaCrc"));
                 jRegime.setText(conecta.rs.getString("Regime"));
                 jRGBC.setText(conecta.rs.getString("RgInternoCrc"));
                 jCPFBC.setText(conecta.rs.getString("CpfInternoCrc"));
                 jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 //
                 jPavilhaoBC.setText(conecta.rs.getString("DescricaoPav"));
                 jCelaBC.setText(conecta.rs.getString("EndCelaPav"));
