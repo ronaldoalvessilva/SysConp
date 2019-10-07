@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.BaralhoCrimeUnidadePrisional.jFotoL11;
-import static gestor.Visao.BaralhoCrimeUnidadePrisional.pINTERNO_L1A;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jFotoL15;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.pINTERNO_L2D;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author Socializa TI 02
  */
-public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
+public class TelaInformacoesInternoBCB3 extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     //
@@ -31,9 +31,9 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
      * Creates new form TelaInformacoesInternoBC
      */
     public static BaralhoCrimeUnidadePrisional baraCrime;
-    public static TelaEnderecoOCPV1 END2E;
+    public static TelaEnderecoOCPVB3 END2E3;
 
-    public TelaInformacoesInternoBC0(BaralhoCrimeUnidadePrisional parent, boolean modal) {
+    public TelaInformacoesInternoBCB3(BaralhoCrimeUnidadePrisional parent, boolean modal) {
         this.baraCrime = parent;
         this.setModal(modal);
         setLocationRelativeTo(baraCrime);
@@ -42,8 +42,8 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
     }
 
     public void mostrarEndereco(){
-        END2E = new TelaEnderecoOCPV1(this, true);
-        END2E.setVisible(true);
+        END2E3 = new TelaEnderecoOCPVB3(this, true);
+        END2E3.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +70,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
         jLabel28 = new javax.swing.JLabel();
         jNomeMaeBC0 = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jIdInternoBC0 = new javax.swing.JTextField();
+        jIdInternoBCB3 = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jFaccao2 = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
@@ -175,10 +175,10 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel29.setText("Código");
 
-        jIdInternoBC0.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInternoBC0.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoBC0.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jIdInternoBC0.setEnabled(false);
+        jIdInternoBCB3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoBCB3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoBCB3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jIdInternoBCB3.setEnabled(false);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel30.setText("Facção");
@@ -245,7 +245,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
                             .addComponent(jNomeMaeBC0)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jIdInternoBC0, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jIdInternoBCB3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel29))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +303,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
                     .addComponent(jLabel31))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jIdInternoBC0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdInternoBCB3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFaccao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCNC_BC0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -725,7 +725,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
 
     private void jBtEnderecoBC0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnderecoBC0ActionPerformed
         // TODO add your handling code here:
-         if (jIdInternoBC0.getText().equals("")) {
+         if (jIdInternoBCB3.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Pesquise primeiro o interno para mostrar o endereço.");
         } else {
             mostrarEndereco();
@@ -749,21 +749,147 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInformacoesInternoBC0.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInformacoesInternoBCB3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInformacoesInternoBC0.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInformacoesInternoBCB3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInformacoesInternoBC0.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInformacoesInternoBCB3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInformacoesInternoBC0.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInformacoesInternoBCB3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaInformacoesInternoBC0 dialog = new TelaInformacoesInternoBC0(baraCrime, true);
+                TelaInformacoesInternoBCB3 dialog = new TelaInformacoesInternoBCB3(baraCrime, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -792,7 +918,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
     public static com.toedter.calendar.JDateChooser jDataPrisaoBC;
     public static com.toedter.calendar.JDateChooser jDataTerPena;
     private javax.swing.JTextField jFaccao2;
-    public static javax.swing.JTextField jIdInternoBC0;
+    public static javax.swing.JTextField jIdInternoBCB3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -864,28 +990,28 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav  "
-                    + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + pINTERNO_L1A + "' "
+                    + "WHERE PRONTUARIOSCRC.IdInternoCrc='" + pINTERNO_L2D + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
-                    + "OR PRONTUARIOSCRC.IdInternoCrc='" + pINTERNO_L1A + "' "
+                    + "OR PRONTUARIOSCRC.IdInternoCrc='" + pINTERNO_L2D + "' "
                     + "AND PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "'");
             conecta.rs.first();
-            jIdInternoBC0.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+            jIdInternoBCB3.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
             jCNC_BC0.setText(conecta.rs.getString("Cnc"));
             jNomeInternoBC0.setText(conecta.rs.getString("NomeInternoCrc"));
             caminhoBC0 = conecta.rs.getString("FotoInternoCrc");
             if (caminhoBC0 != null) {
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoBC0);
-                jFotoL11.setIcon(i);
-                jFotoL11.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoL11.getWidth(), jFotoL11.getHeight(), Image.SCALE_SMOOTH)));
+                jFotoL15.setIcon(i);
+                jFotoL15.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoL15.getWidth(), jFotoL15.getHeight(), Image.SCALE_SMOOTH)));
             }
             // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
             byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
             if (imgBytes != null) {
                 ImageIcon pic = null;
                 pic = new ImageIcon(imgBytes);
-                Image scaled = pic.getImage().getScaledInstance(jFotoL11.getWidth(), jFotoL11.getHeight(), Image.SCALE_SMOOTH);
+                Image scaled = pic.getImage().getScaledInstance(jFotoL15.getWidth(), jFotoL15.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(scaled);
-                jFotoL11.setIcon(icon);
+                jFotoL15.setIcon(icon);
             }
             jNomeMaeBC0.setText(conecta.rs.getString("MaeInternoCrc"));
             jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
@@ -914,7 +1040,7 @@ public class TelaInformacoesInternoBC0 extends javax.swing.JDialog {
             jProcedenciaBC.setText(conecta.rs.getString("DescricaoUnid"));
             jVaraCondenatoriaBC.setText(conecta.rs.getString("VaraCondenatoria"));
         } catch (SQLException ex) {
-            Logger.getLogger(TelaInformacoesInternoBC0.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaInformacoesInternoBCB3.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
     }

@@ -89,6 +89,350 @@ public class ControleOrganogramaCrime {
         return objOrg;
     }
 
+    //------------ LIGAÇÕES DO ORGANOGRAMA - INCLUSÕES, ALTERAÇÕES E EXCLUSÕES ---------------------------------------
+    // PRIMEIRA ESCALÃO
+    public OrganogramaCrime incluirL1A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,Observacao) VALUES(?,?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.setString(3, objOrg.getObservacao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL1A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.setString(2, objOrg.getObservacao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL1A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1A_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L1A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL1B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL1B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1B_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL1B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1B_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L1B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL1C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL1C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1C_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL1C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1C_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L1C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL1D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL1D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1D_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL1D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1D_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L1D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+    //---- SEGUNDO ESCALÃO--------------------------------------------
+
+    public OrganogramaCrime incluirL2A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,Observacao) VALUES(?,?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.setString(3, objOrg.getObservacao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL2A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.setString(2, objOrg.getObservacao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL2A_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L2A_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L2A) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL2B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL2B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2B_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL2B_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L2B_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L2B) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL2C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL2C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2C_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL2C_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L2C_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L2C) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime incluirL2D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            pst.setInt(1, objOrg.getIdOrg());
+            pst.setInt(2, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime alterarL2D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2D_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setInt(1, objOrg.getIdInternoCrcL1A());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    public OrganogramaCrime excluirL2D_Organograma(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L2D_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L2D) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
+    //----------------------------------- FIM DO MÉTODO -------------------------------------------------
     public void buscarInternoCrc(String nome, int cod) {
         conecta.abrirConexao();
         try {

@@ -6,26 +6,26 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.BaralhoCrimeUnidadePrisional.jIdInternoBC;
+import static gestor.Visao.TelaInformacoesInternoBC0.jIdInternoBC0;
 import java.awt.Color;
 
 /**
  *
  * @author Socializa TI 02
  */
-public class TelaEnderecoOCPV extends javax.swing.JDialog {
+public class TelaEnderecoOCPV1 extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     /**
      * Creates new form TelaEnderecoOCPV
      */
-    public static BaralhoCrimeUnidadePrisional baraCrime;
+    public static TelaInformacoesInternoBC0 ENDERbc0;
 
-    public TelaEnderecoOCPV(BaralhoCrimeUnidadePrisional parent, boolean modal) {
-        this.baraCrime = parent;
+    public TelaEnderecoOCPV1(TelaInformacoesInternoBC0 parent, boolean modal) {
+        this.ENDERbc0 = parent;
         this.setModal(modal);
-        setLocationRelativeTo(baraCrime);
+        setLocationRelativeTo(ENDERbc0);
         initComponents();
         pesquisarEndereco();
         corCampos();
@@ -210,20 +210,21 @@ public class TelaEnderecoOCPV extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaEnderecoOCPV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEnderecoOCPV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaEnderecoOCPV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEnderecoOCPV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaEnderecoOCPV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEnderecoOCPV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaEnderecoOCPV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaEnderecoOCPV1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaEnderecoOCPV dialog = new TelaEnderecoOCPV(baraCrime, true);
+                TelaEnderecoOCPV1 dialog = new TelaEnderecoOCPV1(ENDERbc0, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -257,7 +258,7 @@ public class TelaEnderecoOCPV extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE IdInternoCrc='" + jIdInternoBC.getText() + "'");
+                    + "WHERE IdInternoCrc='" + jIdInternoBC0.getText() + "'");
             conecta.rs.first();
             jEndereco.setText(conecta.rs.getString("EnderecoCrc"));
             jBairro.setText(conecta.rs.getString("BairroCrc"));

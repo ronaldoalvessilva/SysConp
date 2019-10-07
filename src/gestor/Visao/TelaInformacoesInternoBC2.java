@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +31,7 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
      * Creates new form TelaInformacoesInternoBC
      */
     public static BaralhoCrimeUnidadePrisional baraCrime;
+    public static TelaEnderecoOCPV3 ENDOCP2;
 
     public TelaInformacoesInternoBC2(BaralhoCrimeUnidadePrisional parent, boolean modal) {
         this.baraCrime = parent;
@@ -39,6 +41,11 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         pesquisarInterno();
     }
 
+    public void mostrarEndereco() {
+        ENDOCP2 = new TelaEnderecoOCPV3(this, true);
+        ENDOCP2.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,11 +64,9 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jNomeInternoBC2 = new javax.swing.JTextField();
-        jNomePaiBC2 = new javax.swing.JTextField();
         jAlcunhaBC2 = new javax.swing.JTextField();
         jRGBC2 = new javax.swing.JTextField();
         jCPFBC2 = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
         jNomeMaeBC2 = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jIdInternoBC2 = new javax.swing.JTextField();
@@ -71,6 +76,13 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         jCNC_BC2 = new javax.swing.JTextField();
         jRegime = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jDataNascimento = new com.toedter.calendar.JDateChooser();
+        jSituacaoCrc = new javax.swing.JTextField();
+        jNaturalidade = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        jBtEnderecoBC2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jPavilhaoBC = new javax.swing.JTextField();
@@ -136,10 +148,6 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         jNomeInternoBC2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jNomeInternoBC2.setEnabled(false);
 
-        jNomePaiBC2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomePaiBC2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jNomePaiBC2.setEnabled(false);
-
         jAlcunhaBC2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAlcunhaBC2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jAlcunhaBC2.setEnabled(false);
@@ -153,9 +161,6 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         jCPFBC2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCPFBC2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jCPFBC2.setEnabled(false);
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel28.setText("Nome do Pai");
 
         jNomeMaeBC2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeMaeBC2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -191,6 +196,35 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Regime");
 
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setText("Situação");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Data Nasc.");
+
+        jDataNascimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataNascimento.setEnabled(false);
+
+        jSituacaoCrc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSituacaoCrc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jSituacaoCrc.setEnabled(false);
+
+        jNaturalidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNaturalidade.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jNaturalidade.setEnabled(false);
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setText("Naturalidade");
+
+        jBtEnderecoBC2.setForeground(new java.awt.Color(0, 102, 0));
+        jBtEnderecoBC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtEnderecoBC2.setText("Endereço");
+        jBtEnderecoBC2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtEnderecoBC2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -200,13 +234,6 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jNomeInternoBC2)
                     .addComponent(jNomeMaeBC2)
-                    .addComponent(jNomePaiBC2)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel28))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIdInternoBC2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,22 +250,45 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
                                 .addGap(0, 228, Short.MAX_VALUE))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel17)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addGap(0, 165, Short.MAX_VALUE))
-                            .addComponent(jRGBC2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addComponent(jCPFBC2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jRGBC2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jCPFBC2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel36)
+                                    .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25)
-                            .addComponent(jAlcunhaBC2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel28)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jNaturalidade)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel37)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jAlcunhaBC2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtEnderecoBC2)))
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -263,28 +313,37 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeMaeBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel37))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomePaiBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSituacaoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtEnderecoBC2)
+                    .addComponent(jAlcunhaBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel26))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jAlcunhaBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel26))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRGBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCPFBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRGBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCPFBC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel36)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -332,7 +391,7 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCelaBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPavilhaoBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -663,6 +722,15 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtEnderecoBC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnderecoBC2ActionPerformed
+        // TODO add your handling code here:
+        if (jIdInternoBC2.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Pesquise primeiro o interno para mostrar o endereço.");
+        } else {
+            mostrarEndereco();
+        }
+    }//GEN-LAST:event_jBtEnderecoBC2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -711,6 +779,7 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
     public static javax.swing.JTextField jArtigo1;
     public static javax.swing.JTextField jArtigo2;
     public static javax.swing.JTextField jArtigo3;
+    private javax.swing.JButton jBtEnderecoBC2;
     public static javax.swing.JTextField jCNC_BC2;
     public static javax.swing.JTextField jCPFBC2;
     public static javax.swing.JTextField jCelaBC;
@@ -718,10 +787,12 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
     public static com.toedter.calendar.JDateChooser jDataCondenacaoBC;
     public static com.toedter.calendar.JDateChooser jDataCrimeBC;
     public static com.toedter.calendar.JDateChooser jDataEntradaBC;
+    private com.toedter.calendar.JDateChooser jDataNascimento;
     public static com.toedter.calendar.JDateChooser jDataPrisaoBC;
     public static com.toedter.calendar.JDateChooser jDataTerPena;
     private javax.swing.JTextField jFaccao2;
     public static javax.swing.JTextField jIdInternoBC2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -739,6 +810,7 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -748,9 +820,9 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel72;
+    public static javax.swing.JTextField jNaturalidade;
     public static javax.swing.JTextField jNomeInternoBC2;
     public static javax.swing.JTextField jNomeMaeBC2;
-    public static javax.swing.JTextField jNomePaiBC2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -766,6 +838,7 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
     public static javax.swing.JTextField jProcedenciaBC;
     public static javax.swing.JTextField jRGBC2;
     public static javax.swing.JTextField jRegime;
+    public static javax.swing.JTextField jSituacaoCrc;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTextField jVaraCondenatoriaBC;
     // End of variables declaration//GEN-END:variables
@@ -814,7 +887,9 @@ public class TelaInformacoesInternoBC2 extends javax.swing.JDialog {
                 jFotoL13.setIcon(icon);
             }
             jNomeMaeBC2.setText(conecta.rs.getString("MaeInternoCrc"));
-            jNomePaiBC2.setText(conecta.rs.getString("PaiInternoCrc"));
+            jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
+            jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+            jNaturalidade.setText(conecta.rs.getString("nomeCidade"));
             jAlcunhaBC2.setText(conecta.rs.getString("AlcunhaCrc"));
             jRegime.setText(conecta.rs.getString("Regime"));
             jRGBC2.setText(conecta.rs.getString("RgInternoCrc"));

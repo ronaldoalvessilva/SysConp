@@ -84,12 +84,18 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static TelaInformacoesInternoBC2 INF_BC2;
     public static TelaInformacoesInternoBC3 INF_BC3;
     public static TelaEnderecoOCPV ENDoc;
+    //
+    public static TelaInformacoesInternoBCB0 INFO_BCB0;
+    public static TelaInformacoesInternoBCB1 INFO_BCB1;
+    public static TelaInformacoesInternoBCB2 INFO_BCB2;
+    public static TelaInformacoesInternoBCB3 INFO_BCB3;
 
     public BaralhoCrimeUnidadePrisional() {
         initComponents();
         corCampos();
     }
 
+    //INFORMAÇÕES SOBRE O PRIMEIRO ESCALÃO
     public void mostrarInformacaoBC0() {
         INF_BC0 = new TelaInformacoesInternoBC0(this, true);
         INF_BC0.setVisible(true);
@@ -113,6 +119,27 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public void mostrarEndereco() {
         ENDoc = new TelaEnderecoOCPV(this, true);
         ENDoc.setVisible(true);
+    }
+
+    //INFORMAÇÕES SOBRE O SEGUNDO ESCALÃO
+    public void mostrarInformacaoBCB0() {
+        INFO_BCB0 = new TelaInformacoesInternoBCB0(this, true);
+        INFO_BCB0.setVisible(true);
+    }
+
+    public void mostrarInformacaoBCB1() {
+        INFO_BCB1 = new TelaInformacoesInternoBCB1(this, true);
+        INFO_BCB1.setVisible(true);
+    }
+
+    public void mostrarInformacaoBCB2() {
+        INFO_BCB2 = new TelaInformacoesInternoBCB2(this, true);
+        INFO_BCB2.setVisible(true);
+    }
+
+    public void mostrarInformacaoBCB3() {
+        INFO_BCB3 = new TelaInformacoesInternoBCB3(this, true);
+        INFO_BCB3.setVisible(true);
     }
 
     /**
@@ -249,8 +276,31 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel24 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jPanel23 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jFotoL15 = new javax.swing.JLabel();
+        jBtDel5 = new javax.swing.JButton();
+        jBtAdd5 = new javax.swing.JButton();
+        jBtInfo5 = new javax.swing.JButton();
+        jBtDel6 = new javax.swing.JButton();
+        jBtAdd6 = new javax.swing.JButton();
+        jBtAdd7 = new javax.swing.JButton();
+        jBtDel7 = new javax.swing.JButton();
+        jBtDel8 = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jObservacaoL2 = new javax.swing.JTextArea();
+        jPanel33 = new javax.swing.JPanel();
+        jFotoL16 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jFotoL17 = new javax.swing.JLabel();
+        jBtInfo6 = new javax.swing.JButton();
+        jPanel35 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jPanel36 = new javax.swing.JPanel();
+        jFotoL18 = new javax.swing.JLabel();
+        jBtInfo7 = new javax.swing.JButton();
+        jBtInfo8 = new javax.swing.JButton();
+        jBtAdd8 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -1212,6 +1262,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtDel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtDel1.setToolTipText("Remover");
         jBtDel1.setEnabled(false);
+        jBtDel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel1ActionPerformed(evt);
+            }
+        });
 
         jBtAdd2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jBtAdd2.setToolTipText("Adicionar");
@@ -1225,6 +1280,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtDel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtDel2.setToolTipText("Remover");
         jBtDel2.setEnabled(false);
+        jBtDel2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel2ActionPerformed(evt);
+            }
+        });
 
         jBtAdd3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jBtAdd3.setEnabled(false);
@@ -1237,6 +1297,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtDel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtDel3.setToolTipText("Remover");
         jBtDel3.setEnabled(false);
+        jBtDel3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel3ActionPerformed(evt);
+            }
+        });
 
         jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1281,7 +1346,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL14, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jFotoL14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1307,6 +1372,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtDel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtDel4.setToolTipText("Remover");
         jBtDel4.setEnabled(false);
+        jBtDel4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel4ActionPerformed(evt);
+            }
+        });
 
         jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1345,7 +1415,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -1363,9 +1433,6 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel16Layout.createSequentialGroup()
@@ -1407,18 +1474,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel16Layout.createSequentialGroup()
+                                        .addComponent(jBtInfo4, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                        .addGap(20, 20, 20))
+                                    .addGroup(jPanel16Layout.createSequentialGroup()
                                         .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jBtInfo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20))))
+                                        .addContainerGap())))))
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
 
         jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtDel1, jBtDel2, jBtDel3, jBtDel4});
 
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel19, jPanel27});
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel27});
 
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1459,46 +1529,309 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
         jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel19, jPanel27});
 
-        jTabbedPane2.addTab("1E", jPanel16);
+        jTabbedPane2.addTab("Ligações", jPanel16);
+
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL15, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jBtDel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtDel5.setToolTipText("Remover");
+        jBtDel5.setEnabled(false);
+        jBtDel5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel5ActionPerformed(evt);
+            }
+        });
+
+        jBtAdd5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAdd5.setToolTipText("Adicionar");
+        jBtAdd5.setEnabled(false);
+        jBtAdd5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdd5ActionPerformed(evt);
+            }
+        });
+
+        jBtInfo5.setText("Informações");
+        jBtInfo5.setEnabled(false);
+        jBtInfo5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo5ActionPerformed(evt);
+            }
+        });
+
+        jBtDel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtDel6.setToolTipText("Remover");
+        jBtDel6.setEnabled(false);
+        jBtDel6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel6ActionPerformed(evt);
+            }
+        });
+
+        jBtAdd6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAdd6.setEnabled(false);
+        jBtAdd6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdd6ActionPerformed(evt);
+            }
+        });
+
+        jBtAdd7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAdd7.setEnabled(false);
+        jBtAdd7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdd7ActionPerformed(evt);
+            }
+        });
+
+        jBtDel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtDel7.setToolTipText("Remover");
+        jBtDel7.setEnabled(false);
+        jBtDel7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel7ActionPerformed(evt);
+            }
+        });
+
+        jBtDel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
+        jBtDel8.setToolTipText("Remover");
+        jBtDel8.setEnabled(false);
+        jBtDel8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDel8ActionPerformed(evt);
+            }
+        });
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jObservacaoL2.setColumns(20);
+        jObservacaoL2.setRows(5);
+        jObservacaoL2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jObservacaoL2.setEnabled(false);
+        jScrollPane2.setViewportView(jObservacaoL2);
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel29Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
+        );
+
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jFotoL17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jBtInfo6.setText("Informações");
+        jBtInfo6.setEnabled(false);
+        jBtInfo6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo6ActionPerformed(evt);
+            }
+        });
+
+        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("2º ESCALÃO");
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel35Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel28)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jBtInfo7.setText("Informações");
+        jBtInfo7.setEnabled(false);
+        jBtInfo7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo7ActionPerformed(evt);
+            }
+        });
+
+        jBtInfo8.setText("Informações");
+        jBtInfo8.setEnabled(false);
+        jBtInfo8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo8ActionPerformed(evt);
+            }
+        });
+
+        jBtAdd8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAdd8.setToolTipText("Adicionar");
+        jBtAdd8.setEnabled(false);
+        jBtAdd8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdd8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addComponent(jBtInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtInfo7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jBtAdd8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtDel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jBtAdd5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jBtInfo8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addComponent(jBtInfo5, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                        .addGap(20, 20, 20))
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap())))))
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtDel5, jBtDel6, jBtDel7, jBtDel8});
+
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtAdd8)
+                    .addComponent(jBtDel5)
+                    .addComponent(jBtAdd5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtInfo6)
+                    .addComponent(jBtInfo7)
+                    .addComponent(jBtInfo8)
+                    .addComponent(jBtInfo5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
 
-        jTabbedPane2.addTab("2E", jPanel28);
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtDel5, jBtDel6, jBtDel7, jBtDel8});
 
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("3E", jPanel22);
-
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 465, Short.MAX_VALUE)
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("4E", jPanel23);
+        jTabbedPane2.addTab("Ligações", jPanel28);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1969,6 +2302,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         // TODO add your handling code here:
+        Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtBuscarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarInternoActionPerformed
@@ -2004,7 +2338,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jLabelCarta.setIcon(new ImageIcon(image.getImage().getScaledInstance(jLabelCarta.getWidth(), jLabelCarta.getHeight(), Image.SCALE_DEFAULT)));
             caminhoCarta = f.getPath();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
         }
     }//GEN-LAST:event_jBtCartaActionPerformed
 
@@ -2015,22 +2349,38 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     private void jBtInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo1ActionPerformed
         // TODO add your handling code here:
-        mostrarInformacaoBC0();
+        if (pINTERNO_L1A != 0) {
+            mostrarInformacaoBC0();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
     }//GEN-LAST:event_jBtInfo1ActionPerformed
 
     private void jBtInfo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo2ActionPerformed
         // TODO add your handling code here:
-        mostrarInformacaoBC1();
+        if (pINTERNO_L1B != 0) {
+            mostrarInformacaoBC1();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
     }//GEN-LAST:event_jBtInfo2ActionPerformed
 
     private void jBtInfo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo3ActionPerformed
         // TODO add your handling code here:
-        mostrarInformacaoBC2();
+        if (pINTERNO_L1C != 0) {
+            mostrarInformacaoBC2();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
     }//GEN-LAST:event_jBtInfo3ActionPerformed
 
     private void jBtInfo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo4ActionPerformed
         // TODO add your handling code here:
-        mostrarInformacaoBC3();
+        if (pINTERNO_L1D != 0) {
+            mostrarInformacaoBC3();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
     }//GEN-LAST:event_jBtInfo4ActionPerformed
 
     private void jBtAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdd1ActionPerformed
@@ -2070,6 +2420,182 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtEnderecoActionPerformed
 
+    private void jBtAdd5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdd5ActionPerformed
+        // TODO add your handling code here:TelaPesqInternoSegurancaBC3B
+        TelaPesqInternoSegurancaBC3B objPESQ_INTBC3B = new TelaPesqInternoSegurancaBC3B();
+        TelaModuloSeguranca.jPainelSeguranca.add(objPESQ_INTBC3B);
+        objPESQ_INTBC3B.show();
+    }//GEN-LAST:event_jBtAdd5ActionPerformed
+
+    private void jBtInfo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo5ActionPerformed
+        // TODO add your handling code here:
+        if (pINTERNO_L2D != 0) {
+            mostrarInformacaoBCB3();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
+    }//GEN-LAST:event_jBtInfo5ActionPerformed
+
+    private void jBtAdd6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdd6ActionPerformed
+        // TODO add your handling code here:
+        TelaPesqInternoSegurancaBC5B objPESQ_INTBC5B = new TelaPesqInternoSegurancaBC5B();
+        TelaModuloSeguranca.jPainelSeguranca.add(objPESQ_INTBC5B);
+        objPESQ_INTBC5B.show();
+    }//GEN-LAST:event_jBtAdd6ActionPerformed
+
+    private void jBtAdd7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdd7ActionPerformed
+        // TODO add your handling code here:
+        TelaPesqInternoSegurancaBC4B objPESQ_INTBC4B = new TelaPesqInternoSegurancaBC4B();
+        TelaModuloSeguranca.jPainelSeguranca.add(objPESQ_INTBC4B);
+        objPESQ_INTBC4B.show();
+    }//GEN-LAST:event_jBtAdd7ActionPerformed
+
+    private void jBtInfo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo6ActionPerformed
+        // TODO add your handling code here:
+        if (pINTERNO_L2A != 0) {
+            mostrarInformacaoBCB0();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
+    }//GEN-LAST:event_jBtInfo6ActionPerformed
+
+    private void jBtInfo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo7ActionPerformed
+        // TODO add your handling code here:
+        if (pINTERNO_L2B != 0) {
+            mostrarInformacaoBCB1();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
+    }//GEN-LAST:event_jBtInfo7ActionPerformed
+
+    private void jBtInfo8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtInfo8ActionPerformed
+        // TODO add your handling code here:
+        if (pINTERNO_L2C != 0) {
+            mostrarInformacaoBCB2();
+        } else {
+            JOptionPane.showMessageDialog(null, "Pesquise o interno para exibir as informações complementares.");
+        }
+    }//GEN-LAST:event_jBtInfo8ActionPerformed
+
+    private void jBtAdd8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdd8ActionPerformed
+        // TODO add your handling code here:TelaPesqInternoSegurancaBC2B
+        TelaPesqInternoSegurancaBC2B objPESQ_INTBC2B = new TelaPesqInternoSegurancaBC2B();
+        TelaModuloSeguranca.jPainelSeguranca.add(objPESQ_INTBC2B);
+        objPESQ_INTBC2B.show();
+    }//GEN-LAST:event_jBtAdd8ActionPerformed
+
+    private void jBtDel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel1ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTPRI1();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL1A_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel1ActionPerformed
+
+    private void jBtDel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel2ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTPRI2();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL1B_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel2ActionPerformed
+
+    private void jBtDel3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel3ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTPRI3();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL1C_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel3ActionPerformed
+
+    private void jBtDel4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel4ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTPRI4();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL1D_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel4ActionPerformed
+
+    private void jBtDel5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel5ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTSEG1();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL2A_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel5ActionPerformed
+
+    private void jBtDel6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel6ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTSEG2();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL2B_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel6ActionPerformed
+
+    private void jBtDel8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel8ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTSEG3();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL2C_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel8ActionPerformed
+
+    private void jBtDel7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDel7ActionPerformed
+        // TODO add your handling code here:
+        if (jIdRegistro.getText().equals("")) {
+            limparCamposTSEG4();
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL2D_Organograma(objOrg);
+            }
+        }
+    }//GEN-LAST:event_jBtDel7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAlcunhaBC;
@@ -2080,6 +2606,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAdd2;
     private javax.swing.JButton jBtAdd3;
     private javax.swing.JButton jBtAdd4;
+    private javax.swing.JButton jBtAdd5;
+    private javax.swing.JButton jBtAdd6;
+    private javax.swing.JButton jBtAdd7;
+    private javax.swing.JButton jBtAdd8;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtBuscarInterno;
@@ -2089,6 +2619,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtDel2;
     private javax.swing.JButton jBtDel3;
     private javax.swing.JButton jBtDel4;
+    private javax.swing.JButton jBtDel5;
+    private javax.swing.JButton jBtDel6;
+    private javax.swing.JButton jBtDel7;
+    private javax.swing.JButton jBtDel8;
     private javax.swing.JButton jBtEndereco;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtImpressao;
@@ -2096,6 +2630,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtInfo2;
     private javax.swing.JButton jBtInfo3;
     private javax.swing.JButton jBtInfo4;
+    private javax.swing.JButton jBtInfo5;
+    private javax.swing.JButton jBtInfo6;
+    private javax.swing.JButton jBtInfo7;
+    private javax.swing.JButton jBtInfo8;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqID;
@@ -2123,6 +2661,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel jFotoL12;
     public static javax.swing.JLabel jFotoL13;
     public static javax.swing.JLabel jFotoL14;
+    public static javax.swing.JLabel jFotoL15;
+    public static javax.swing.JLabel jFotoL16;
+    public static javax.swing.JLabel jFotoL17;
+    public static javax.swing.JLabel jFotoL18;
     private javax.swing.JTextField jIDPesqLoca;
     public static javax.swing.JTextField jIdInternoBC;
     private javax.swing.JTextField jIdRegistro;
@@ -2146,6 +2688,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2170,6 +2713,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jNomeInternoBC;
     public static javax.swing.JTextField jNomeMaeBC;
     private javax.swing.JTextArea jObservacaoL1;
+    private javax.swing.JTextArea jObservacaoL2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2184,16 +2728,20 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2210,6 +2758,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jRecompensaBC;
     public static javax.swing.JTextField jRegime;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     public static javax.swing.JTextField jSituacaoCrc;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -2300,6 +2849,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jProcedenciaBC.setText("");
         jVaraCondenatoriaBC.setText("");
         jObservacaoL1.setText("");
+        //
+
     }
 
     public void bloquearCampos() {
@@ -2367,12 +2918,25 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo2.setEnabled(!true);
         jBtInfo3.setEnabled(!true);
         jBtInfo4.setEnabled(!true);
-        //ABAL-2
+        //ABAL-2        
+        jBtAdd5.setEnabled(!true);
+        jBtAdd6.setEnabled(!true);
+        jBtAdd7.setEnabled(!true);
+        jBtAdd8.setEnabled(!true);
+        //
+        jBtDel5.setEnabled(!true);
+        jBtDel6.setEnabled(!true);
+        jBtDel7.setEnabled(!true);
+        jBtDel8.setEnabled(!true);
+        //
+        jBtInfo5.setEnabled(!true);
+        jBtInfo6.setEnabled(!true);
+        jBtInfo7.setEnabled(!true);
+        jBtInfo8.setEnabled(!true);
     }
 
     public void Novo() {
         jDataRegistro.setCalendar(Calendar.getInstance());
-        jSituacaoCrc.setEnabled(true);
         jFaccao.setEnabled(true);
         jRecompensaBC.setEnabled(true);
         jObservacaoL1.setEnabled(true);
@@ -2398,11 +2962,65 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo2.setEnabled(true);
         jBtInfo3.setEnabled(true);
         jBtInfo4.setEnabled(true);
-        //ABAL-2
+        //ABAL-2        
+        jBtAdd5.setEnabled(true);
+        jBtAdd6.setEnabled(true);
+        jBtAdd7.setEnabled(true);
+        jBtAdd8.setEnabled(true);
+        //
+        jBtDel5.setEnabled(true);
+        jBtDel6.setEnabled(true);
+        jBtDel7.setEnabled(true);
+        jBtDel8.setEnabled(true);
+        //
+        jBtInfo5.setEnabled(true);
+        jBtInfo6.setEnabled(true);
+        jBtInfo7.setEnabled(true);
+        jBtInfo8.setEnabled(true);
     }
 
     public void Alterar() {
-
+        jDataRegistro.setCalendar(Calendar.getInstance());
+        jFaccao.setEnabled(true);
+        jRecompensaBC.setEnabled(true);
+        jObservacaoL1.setEnabled(true);
+        jComboBoxStatus.setEnabled(true);
+        //
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+        jBtBuscarInterno.setEnabled(true);
+        jBtCarta.setEnabled(true);
+        jBtRemoverCarta.setEnabled(true);
+        //ABA L1
+        jBtAdd1.setEnabled(true);
+        jBtAdd2.setEnabled(true);
+        jBtAdd3.setEnabled(true);
+        jBtAdd4.setEnabled(true);
+        //
+        jBtDel1.setEnabled(true);
+        jBtDel2.setEnabled(true);
+        jBtDel3.setEnabled(true);
+        jBtDel4.setEnabled(true);
+        //
+        jBtInfo1.setEnabled(true);
+        jBtInfo2.setEnabled(true);
+        jBtInfo3.setEnabled(true);
+        jBtInfo4.setEnabled(true);
+        //ABAL-2        
+        jBtAdd5.setEnabled(true);
+        jBtAdd6.setEnabled(true);
+        jBtAdd7.setEnabled(true);
+        jBtAdd8.setEnabled(true);
+        //
+        jBtDel5.setEnabled(true);
+        jBtDel6.setEnabled(true);
+        jBtDel7.setEnabled(true);
+        jBtDel8.setEnabled(true);
+        //
+        jBtInfo5.setEnabled(true);
+        jBtInfo6.setEnabled(true);
+        jBtInfo7.setEnabled(true);
+        jBtInfo8.setEnabled(true);
     }
 
     public void Excluir() {
@@ -2413,8 +3031,50 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     }
 
-    public void Cancelear() {
+    public void Cancelar() {
 
+    }
+
+    //LIMPAR CAMPOS DA PRIMEIRA LIGAÇÃO
+    public void limparCamposTPRI1() {
+        jFotoL11.setIcon(null);
+        pINTERNO_L1A = 0;
+    }
+
+    public void limparCamposTPRI2() {
+        jFotoL12.setIcon(null);
+        pINTERNO_L1B = 0;
+    }
+
+    public void limparCamposTPRI3() {
+        jFotoL13.setIcon(null);
+        pINTERNO_L1C = 0;
+    }
+
+    public void limparCamposTPRI4() {
+        jFotoL14.setIcon(null);
+        pINTERNO_L2D = 0;
+    }
+
+    //LIMPAR CAMPOS DA SEGUNDA LIGAÇÃO
+    public void limparCamposTSEG1() {
+        jFotoL17.setIcon(null);
+        pINTERNO_L2A = 0;
+    }
+
+    public void limparCamposTSEG2() {
+        jFotoL16.setIcon(null);
+        pINTERNO_L2B = 0;
+    }
+
+    public void limparCamposTSEG3() {
+        jFotoL18.setIcon(null);
+        pINTERNO_L2C = 0;
+    }
+
+    public void limparCamposTSEG4() {
+        jFotoL15.setIcon(null);
+        pINTERNO_L2D = 0;
     }
 
     public void buscarCodigo() {
