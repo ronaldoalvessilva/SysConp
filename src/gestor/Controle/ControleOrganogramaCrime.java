@@ -6,6 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.CODIGO_CONFIRMACAO_GRAVACAO;
 import gestor.Modelo.OrganogramaCrime;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ public class ControleOrganogramaCrime {
             pst.setString(11, objOrg.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
+            CODIGO_CONFIRMACAO_GRAVACAO = 1;
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
@@ -70,6 +72,7 @@ public class ControleOrganogramaCrime {
             pst.setString(11, objOrg.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
+            CODIGO_CONFIRMACAO_GRAVACAO = 1;
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();

@@ -44,11 +44,20 @@ public class OrganogramaCrime {
     private int idL1D;
     private int idInternoCrcL1D;
     private String nomeInternoL1D;
+    private int idInternoCrcL2A;
+    private int idInternoCrcL2B;
+    private int idInternoCrcL2C;
+    private int idInternoCrcL2D;
+    private int idL2A;
+    private int idL2B;
+    private int idL2C;
+    private int idL2D;
+    private String observacao2;
 
     public OrganogramaCrime() {
     }
 
-    public OrganogramaCrime(int idOrg, String statusOrg, Date dataOrg, int idInternoCrc, String nomeInterno, byte[] cartaBaralho, String faccao, int idPav, String descricaoPav, int idCela, String descricaoCela, Double recompensa, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idL1A, int idInternoCrcL1A, String nomeInternoL1A, String observacao, int idL1B, int idInternoCrcL1B, String nomeInternoL1B, int idL1C, int IdInternoCrcL1C, String nomeInternoL1C, int idL1D, int idInternoCrcL1D, String nomeInternoL1D) {
+    public OrganogramaCrime(int idOrg, String statusOrg, Date dataOrg, int idInternoCrc, String nomeInterno, byte[] cartaBaralho, String faccao, int idPav, String descricaoPav, int idCela, String descricaoCela, Double recompensa, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idL1A, int idInternoCrcL1A, String nomeInternoL1A, String observacao, int idL1B, int idInternoCrcL1B, String nomeInternoL1B, int idL1C, int IdInternoCrcL1C, String nomeInternoL1C, int idL1D, int idInternoCrcL1D, String nomeInternoL1D, int idInternoCrcL2A, int idInternoCrcL2B, int idInternoCrcL2C, int idInternoCrcL2D, int idL2A, int idL2B, int idL2C, int idL2D, String observacao2) {
         this.idOrg = idOrg;
         this.statusOrg = statusOrg;
         this.dataOrg = dataOrg;
@@ -80,6 +89,15 @@ public class OrganogramaCrime {
         this.idL1D = idL1D;
         this.idInternoCrcL1D = idInternoCrcL1D;
         this.nomeInternoL1D = nomeInternoL1D;
+        this.idInternoCrcL2A = idInternoCrcL2A;
+        this.idInternoCrcL2B = idInternoCrcL2B;
+        this.idInternoCrcL2C = idInternoCrcL2C;
+        this.idInternoCrcL2D = idInternoCrcL2D;
+        this.idL2A = idL2A;
+        this.idL2B = idL2B;
+        this.idL2C = idL2C;
+        this.idL2D = idL2D;
+        this.observacao2 = observacao2;
     }
 
     /**
@@ -514,5 +532,131 @@ public class OrganogramaCrime {
      */
     public void setNomeInternoL1D(String nomeInternoL1D) {
         this.nomeInternoL1D = nomeInternoL1D;
+    }
+
+    /**
+     * @return the idInternoCrcL2A
+     */
+    public int getIdInternoCrcL2A() {
+        return idInternoCrcL2A;
+    }
+
+    /**
+     * @param idInternoCrcL2A the idInternoCrcL2A to set
+     */
+    public void setIdInternoCrcL2A(int idInternoCrcL2A) {
+        this.idInternoCrcL2A = idInternoCrcL2A;
+    }
+
+    /**
+     * @return the idInternoCrcL2B
+     */
+    public int getIdInternoCrcL2B() {
+        return idInternoCrcL2B;
+    }
+
+    /**
+     * @param idInternoCrcL2B the idInternoCrcL2B to set
+     */
+    public void setIdInternoCrcL2B(int idInternoCrcL2B) {
+        this.idInternoCrcL2B = idInternoCrcL2B;
+    }
+
+    /**
+     * @return the idInternoCrcL2C
+     */
+    public int getIdInternoCrcL2C() {
+        return idInternoCrcL2C;
+    }
+
+    /**
+     * @param idInternoCrcL2C the idInternoCrcL2C to set
+     */
+    public void setIdInternoCrcL2C(int idInternoCrcL2C) {
+        this.idInternoCrcL2C = idInternoCrcL2C;
+    }
+
+    /**
+     * @return the idInternoCrcL2D
+     */
+    public int getIdInternoCrcL2D() {
+        return idInternoCrcL2D;
+    }
+
+    /**
+     * @param idInternoCrcL2D the idInternoCrcL2D to set
+     */
+    public void setIdInternoCrcL2D(int idInternoCrcL2D) {
+        this.idInternoCrcL2D = idInternoCrcL2D;
+    }
+
+    /**
+     * @return the idL2A
+     */
+    public int getIdL2A() {
+        return idL2A;
+    }
+
+    /**
+     * @param idL2A the idL2A to set
+     */
+    public void setIdL2A(int idL2A) {
+        this.idL2A = idL2A;
+    }
+
+    /**
+     * @return the idL2B
+     */
+    public int getIdL2B() {
+        return idL2B;
+    }
+
+    /**
+     * @param idL2B the idL2B to set
+     */
+    public void setIdL2B(int idL2B) {
+        this.idL2B = idL2B;
+    }
+
+    /**
+     * @return the idL2C
+     */
+    public int getIdL2C() {
+        return idL2C;
+    }
+
+    /**
+     * @param idL2C the idL2C to set
+     */
+    public void setIdL2C(int idL2C) {
+        this.idL2C = idL2C;
+    }
+
+    /**
+     * @return the idL2D
+     */
+    public int getIdL2D() {
+        return idL2D;
+    }
+
+    /**
+     * @param idL2D the idL2D to set
+     */
+    public void setIdL2D(int idL2D) {
+        this.idL2D = idL2D;
+    }
+
+    /**
+     * @return the observacao2
+     */
+    public String getObservacao2() {
+        return observacao2;
+    }
+
+    /**
+     * @param observacao2 the observacao2 to set
+     */
+    public void setObservacao2(String observacao2) {
+        this.observacao2 = observacao2;
     }
 }
