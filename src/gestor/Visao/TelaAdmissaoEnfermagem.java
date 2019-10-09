@@ -5148,7 +5148,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setNomeDepartamento(nomeModuloENFER);
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvolENF);
                         objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setDataAtendimento(jDataEvolu.getDate());
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                         objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setAtendeEvol(atendido);
