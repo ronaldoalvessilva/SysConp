@@ -29,7 +29,12 @@ import static gestor.Visao.TelaModuloSeguranca.nomeGrupo;
 import static gestor.Visao.TelaModuloSeguranca.nomeTela;
 import static gestor.Visao.TelaModuloSeguranca.telaBaralhoCrimeUnidadePrisional;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -40,6 +45,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -60,7 +66,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Segurança:Organograma do Prisional:Manutenção";
+    String nomeModuloTela = "Segurança:Organograma Prisional:Manutenção";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -94,9 +100,24 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     String pTABELA_L2B = "L2B_ORGANOGRAMA_CRIME";
     String pTABELA_L2C = "L2C_ORGANOGRAMA_CRIME";
     String pTABELA_L2D = "L2D_ORGANOGRAMA_CRIME";
-    //
-    int pID_INTERNO = 0;
-    int pID_REGISTRO = 0;
+    //1º ESCALÃO
+    int pID_INTERNO_L1A = 0;
+    int pID_REGISTRO_L1A = 0;
+    int pID_INTERNO_L1B = 0;
+    int pID_REGISTRO_L1B = 0;
+    int pID_INTERNO_L1C = 0;
+    int pID_REGISTRO_L1C = 0;
+    int pID_INTERNO_L1D = 0;
+    int pID_REGISTRO_L1D = 0;
+    //2º ESCALÃO
+    int pID_INTERNO_L2A = 0;
+    int pID_REGISTRO_L2A = 0;
+    int pID_INTERNO_L2B = 0;
+    int pID_REGISTRO_L2B = 0;
+    int pID_INTERNO_L2C = 0;
+    int pID_REGISTRO_L2C = 0;
+    int pID_INTERNO_L2D = 0;
+    int pID_REGISTRO_L2D = 0;
     //
     float valorCusto = 0;
     //CAMINHO PARA AS FOTOS DOS INTERNOS
@@ -2132,7 +2153,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } else {
             preencherTodasLocacao("SELECT * FROM ORGANOGRAMA_CRIME "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=ORGANOGRAMA_CRIME.IdInternoCrc "
+                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE IdOrg='" + jIDPesqLoca.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqIDActionPerformed
@@ -2160,7 +2181,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         preencherTodasLocacao("SELECT * FROM ORGANOGRAMA_CRIME "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ORGANOGRAMA_CRIME.IdInternoCrc=ORGANOGRAMA_CRIME.IdInternoCrc "
+                                + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataOrg BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -2183,7 +2204,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         preencherTodasLocacao("SELECT * FROM ORGANOGRAMA_CRIME "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ORGANOGRAMA_CRIME.IdInternoCrc=ORGANOGRAMA_CRIME.IdInternoCrc "
+                                + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataOrg BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -2201,7 +2222,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } else {
             preencherTodasLocacao("SELECT * FROM ORGANOGRAMA_CRIME "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=ORGANOGRAMA_CRIME.IdInternoCrc "
+                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE IdOrg='" + jIDPesqLoca.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesquisaPorNomeActionPerformed
@@ -2213,7 +2234,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodasLocacao("SELECT * FROM ORGANOGRAMA_CRIME "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=ORGANOGRAMA_CRIME.IdInternoCrc");
+                    + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
             limparTabelaLocacao();
@@ -2226,7 +2247,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String IdLanc = "" + jTabelaLocacao.getValueAt(jTabelaLocacao.getSelectedRow(), 0);
             jIDPesqLoca.setText(IdLanc);
-            // jDatalancamento.setDate(jDatalancamento.getDate());
+            // 
+            bloquearBotoes();
+            bloquearCampos();
+            limparCampos();
+            //
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -2237,6 +2262,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ORGANOGRAMA_CRIME "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSFISICOSINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                         + "INNER JOIN PAISES "
@@ -2282,21 +2309,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     jLabelCarta.setIcon(icon0);
                 }
                 jIdInternoBC.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jCNC_BC.setText(String.valueOf(conecta.rs.getInt("Cnc")));
-                jFaccao.setText(String.valueOf(conecta.rs.getInt("Faccao")));
-                jNomeInternoBC.setText(String.valueOf(conecta.rs.getInt("NomeInternoCrc")));
-                jNomeMaeBC.setText(String.valueOf(conecta.rs.getInt("MaeInternoCrc")));
+                jCNC_BC.setText(conecta.rs.getString("Cnc"));
+                jFaccao.setText(conecta.rs.getString("Faccao"));
+                jNomeInternoBC.setText(conecta.rs.getString("NomeInternoCrc"));
+                jNomeMaeBC.setText(conecta.rs.getString("MaeInternoCrc"));
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                jSituacaoCrc.setText(String.valueOf(conecta.rs.getInt("SituacaoCrc")));
-                jNaturalidade.setText(String.valueOf(conecta.rs.getInt("NomeCidade")));
-                jAlcunhaBC.setText(String.valueOf(conecta.rs.getInt("AlcunhaCrc")));
-                jRGBC.setText(String.valueOf(conecta.rs.getInt("RgInternoCrc")));
-                jCPFBC.setText(String.valueOf(conecta.rs.getInt("CpfInternoCrc")));
-                jRegime.setText(String.valueOf(conecta.rs.getInt("Regime")));
-                jComboBoxStatus.setSelectedItem(conecta.rs.getString(""));
+                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                jNaturalidade.setText(conecta.rs.getString("NomeCidade"));
+                jAlcunhaBC.setText(conecta.rs.getString("AlcunhaCrc"));
+                jRGBC.setText(conecta.rs.getString("RgInternoCrc"));
+                jCPFBC.setText(conecta.rs.getString("CpfInternoCrc"));
+                jRegime.setText(conecta.rs.getString("Regime"));
+                jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusOrg"));
                 jCelaBC.setText(conecta.rs.getString("EndCelaPav"));
                 jPavilhaoBC.setText(conecta.rs.getString("DescricaoPav"));
-                jObservacaoL1.setText(conecta.rs.getString("Observacao"));
+                //  jObservacaoL1.setText(conecta.rs.getString("Observacao"));
                 //
                 valorCusto = conecta.rs.getFloat("Recompensa");
                 DecimalFormat vc = new DecimalFormat("#,##0.00");
@@ -2386,6 +2413,26 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 objOrg.setFaccao(jFaccao.getText());
                 objOrg.setDescricaoPav(jPavilhaoBC.getText());
                 objOrg.setDescricaoCela(jCelaBC.getText());
+                objOrg.setStatusOrg((String) jComboBoxStatus.getSelectedItem());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
+                if (jLabelCarta.getIcon() != null) {
+                    Image img = ((ImageIcon) jLabelCarta.getIcon()).getImage();
+                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img.getWidth(null),
+                            img.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g2 = bi.createGraphics();
+                    g2.drawImage(img, 0, 0, null);
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi, "png", buffer);
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    objOrg.setCartaBaralho(buffer.toByteArray());
+                }
                 try {
                     objOrg.setRecompensa(valorReal.parse(jRecompensaBC.getText()).doubleValue());
                 } catch (ParseException ex) {
@@ -2416,19 +2463,26 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     if (CODIGO_CONFIRMACAO_GRAVACAO == 0) {
                         if (pINTERNO_L1A != 0) {
                             control.incluirL1A_Organograma(objOrg);
-                        } else if (pINTERNO_L1B != 0) {
+                        }
+                        if (pINTERNO_L1B != 0) {
                             control.incluirL1B_Organograma(objOrg);
-                        } else if (pINTERNO_L1C != 0) {
+                        }
+                        if (pINTERNO_L1C != 0) {
                             control.incluirL1C_Organograma(objOrg);
-                        } else if (pINTERNO_L1D != 0) {
+                        }
+                        if (pINTERNO_L1D != 0) {
                             control.incluirL1D_Organograma(objOrg);
-                        } else if (pINTERNO_L2A != 0) {
+                        }
+                        if (pINTERNO_L2A != 0) {
                             control.incluirL2A_Organograma(objOrg);
-                        } else if (pINTERNO_L2B != 0) {
+                        }
+                        if (pINTERNO_L2B != 0) {
                             control.incluirL2B_Organograma(objOrg);
-                        } else if (pINTERNO_L2C != 0) {
+                        }
+                        if (pINTERNO_L2C != 0) {
                             control.incluirL2C_Organograma(objOrg);
-                        } else if (pINTERNO_L2D != 0) {
+                        }
+                        if (pINTERNO_L2D != 0) {
                             control.incluirL2D_Organograma(objOrg);
                         }
                         bloquearCampos();
@@ -2453,53 +2507,77 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
                     if (CODIGO_CONFIRMACAO_GRAVACAO == 0) {
                         //1ºESCALÃO
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL1A(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL1A();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L1A && pINTERNO_L1A != 0) {
                             control.incluirL1A_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L1A && pINTERNO_L1A != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1A) {
+                            control.alterarL1A_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1A && pINTERNO_L1A != 0) {
                             control.alterarL1A_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL1B(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL1B();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L1B && pINTERNO_L1B != 0) {
                             control.incluirL1B_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L1B && pINTERNO_L1B != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1B) {
+                            control.alterarL1B_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1B && pINTERNO_L1B != 0) {
                             control.alterarL1B_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL1C(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL1C();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L1C && pINTERNO_L1C != 0) {
                             control.incluirL1C_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L1C && pINTERNO_L1C != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1C) {
+                            control.alterarL1C_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1C && pINTERNO_L1C != 0) {
                             control.alterarL1C_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL1D(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL1D();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L1D && pINTERNO_L1D != 0) {
                             control.incluirL1D_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L1D && pINTERNO_L1D != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1D) {
+                            control.alterarL1D_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1D && pINTERNO_L1D != 0) {
                             control.alterarL1D_Organograma(objOrg);
                         }
                         //2ºESCALÃO
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL2A(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL2A();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L2A && pINTERNO_L2A != 0) {
                             control.incluirL2A_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L2A && pINTERNO_L2A != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2A) {
+                            control.alterarL2A_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2A && pINTERNO_L2A != 0) {
                             control.alterarL2A_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL2B(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL2B();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L2B && pINTERNO_L2B != 0) {
                             control.incluirL2B_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L2B && pINTERNO_L2B != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2B) {
+                            control.alterarL2B_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2B && pINTERNO_L2B != 0) {
                             control.alterarL2B_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL2C(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL2C();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L2C && pINTERNO_L2C != 0) {
                             control.incluirL2C_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L2C && pINTERNO_L2C != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2C) {
+                            control.alterarL2C_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2C && pINTERNO_L2C != 0) {
                             control.alterarL2C_Organograma(objOrg);
                         }
-                        verificarExistenciaInternoDB(objOrg.getIdOrg(), objOrg.getIdL2D(), pTABELA_L1A);
-                        if (objOrg.getIdOrg() != pID_REGISTRO) {
+                        verificarExistenciaInternoDBL2D();
+                        if (objOrg.getIdOrg() != pID_REGISTRO_L2D && pINTERNO_L2D != 0) {
                             control.incluirL2D_Organograma(objOrg);
-                        } else if (objOrg.getIdOrg() == pID_REGISTRO) {
+                        }
+                        if (objOrg.getIdOrg() == pID_REGISTRO_L2D && pINTERNO_L2D != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2D) {
+                            control.alterarL2D_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2D && pINTERNO_L2D != 0) {
                             control.alterarL2D_Organograma(objOrg);
                         }
                         bloquearCampos();
@@ -3309,6 +3387,16 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressao.setEnabled(true);
+        //ABA L1        
+        jBtInfo1.setEnabled(true);
+        jBtInfo2.setEnabled(true);
+        jBtInfo3.setEnabled(true);
+        jBtInfo4.setEnabled(true);
+        //ABAL-2                       
+        jBtInfo5.setEnabled(true);
+        jBtInfo6.setEnabled(true);
+        jBtInfo7.setEnabled(true);
+        jBtInfo8.setEnabled(true);
     }
 
     public void Cancelar() {
@@ -3326,6 +3414,16 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jBtExcluir.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtImpressao.setEnabled(true);
+            //ABA L1        
+            jBtInfo1.setEnabled(true);
+            jBtInfo2.setEnabled(true);
+            jBtInfo3.setEnabled(true);
+            jBtInfo4.setEnabled(true);
+            //ABAL-2                       
+            jBtInfo5.setEnabled(true);
+            jBtInfo6.setEnabled(true);
+            jBtInfo7.setEnabled(true);
+            jBtInfo8.setEnabled(true);
         }
     }
 
@@ -3347,7 +3445,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     public void limparCamposTPRI4() {
         jFotoL14.setIcon(null);
-        pINTERNO_L2D = 0;
+        pINTERNO_L1D = 0;
     }
 
     //LIMPAR CAMPOS DA SEGUNDA LIGAÇÃO
@@ -3376,22 +3474,122 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ORGANOGRAMA_CRIME");
             conecta.rs.last();
-            jIdRegistro.setText(conecta.rs.getString("IdRegistroBC"));
+            jIdRegistro.setText(conecta.rs.getString("IdOrg"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível buscar o código do regitro.");
         }
         conecta.desconecta();
     }
 
-    public void verificarExistenciaInternoDB(int idRegistro, int idInterno, String nomeTabela) {
+    //1º ESCALÃO
+    public void verificarExistenciaInternoDBL1A() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM '" + nomeTabela + "' "
-                    + "WHERE IdOrg='" + idRegistro + "' "
-                    + "AND IdInternoCrc='" + idInterno + "'");
+            conecta.executaSQL("SELECT * FROM L1A_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L1A + "'");
             conecta.rs.first();
-            pID_INTERNO = conecta.rs.getInt("IdInternoCrc");
-            pID_REGISTRO = conecta.rs.getInt("IdRegistro");
+            pID_INTERNO_L1A = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L1A = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL1B() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L1B_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L1B + "'");
+            conecta.rs.first();
+            pID_INTERNO_L1B = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L1B = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL1C() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L1C_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L1C + "'");
+            conecta.rs.first();
+            pID_INTERNO_L1C = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L1C = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL1D() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L1D_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L1D + "'");
+            conecta.rs.first();
+            pID_INTERNO_L1D = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L1D = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    //1º ESCALÃO
+    public void verificarExistenciaInternoDBL2A() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L2A_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L2A + "'");
+            conecta.rs.first();
+            pID_INTERNO_L2A = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L2A = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL2B() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L2B_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L2B + "'");
+            conecta.rs.first();
+            pID_INTERNO_L2B = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L2B = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL2C() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L2C_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L2C + "'");
+            conecta.rs.first();
+            pID_INTERNO_L2C = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L2C = conecta.rs.getInt("IdOrg");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarExistenciaInternoDBL2D() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM L2D_ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "' "
+                    + "AND IdInternoCrc='" + pINTERNO_L2D + "'");
+            conecta.rs.first();
+            pID_INTERNO_L2D = conecta.rs.getInt("IdInternoCrc");
+            pID_REGISTRO_L2D = conecta.rs.getInt("IdOrg");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -3401,7 +3599,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public void pesquisarPrimeiroEscalao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM L1A_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L1A_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L1A_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L1A = conecta.rs.getInt("IdInternoCrc");
             jObservacaoL1.setText(conecta.rs.getString("Observacao"));
@@ -3423,7 +3624,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L1B_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L1B_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L1B_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L1B = conecta.rs.getInt("IdInternoCrc");
             caminhoL1B = conecta.rs.getString("FotoInternoCrc");
@@ -3444,10 +3648,13 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L1C_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L1C_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L1C_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L1C = conecta.rs.getInt("IdInternoCrc");
-            caminhoL1B = conecta.rs.getString("FotoInternoCrc");
+            caminhoL1C = conecta.rs.getString("FotoInternoCrc");
             if (caminhoL1C != null) {
                 javax.swing.ImageIcon c = new javax.swing.ImageIcon(caminhoL1C);
                 jFotoL13.setIcon(c);
@@ -3465,7 +3672,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L1D_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L1D_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L1D_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L1D = conecta.rs.getInt("IdInternoCrc");
             caminhoL1D = conecta.rs.getString("FotoInternoCrc");
@@ -3492,7 +3702,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public void pesquisarSegundoEscalao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM L2A_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L2A_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L2A_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L2A = conecta.rs.getInt("IdInternoCrc");
             jObservacaoL2.setText(conecta.rs.getString("Observacao"));
@@ -3514,7 +3727,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L2B_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L2B_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L2B_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L2B = conecta.rs.getInt("IdInternoCrc");
             caminhoL2B = conecta.rs.getString("FotoInternoCrc");
@@ -3535,7 +3751,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L2C_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L2C_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L2C_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L2C = conecta.rs.getInt("IdInternoCrc");
             caminhoL2C = conecta.rs.getString("FotoInternoCrc");
@@ -3556,7 +3775,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         try {
-            conecta.executaSQL("SELECT * FROM L2D_ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM L2D_ORGANOGRAMA_CRIME "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON L2D_ORGANOGRAMA_CRIME.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             pINTERNO_L2D = conecta.rs.getInt("IdInternoCrc");
             caminhoL2D = conecta.rs.getString("FotoInternoCrc");
@@ -3589,13 +3811,13 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataLanca");
+                dataEntrada = conecta.rs.getString("DataOrg");
                 String diae = dataEntrada.substring(8, 10);
                 String mese = dataEntrada.substring(5, 7);
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela 
-                dados.add(new Object[]{conecta.rs.getInt("IdLoca"), dataEntrada, conecta.rs.getString("StatusLoca"), conecta.rs.getString("EndCelaPav"), conecta.rs.getString("Observacao")});
+                dados.add(new Object[]{conecta.rs.getInt("IdOrg"), dataEntrada, conecta.rs.getString("StatusOrg"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
