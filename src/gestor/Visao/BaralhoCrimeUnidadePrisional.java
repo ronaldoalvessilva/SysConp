@@ -150,6 +150,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public BaralhoCrimeUnidadePrisional() {
         initComponents();
         corCampos();
+        formataCampos();
     }
 
     //INFORMAÇÕES SOBRE O PRIMEIRO ESCALÃO
@@ -2252,12 +2253,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             bloquearCampos();
             limparCampos();
             //
-            jBtNovo.setEnabled(!true);
+            jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            //
+            jBtInfo1.setEnabled(true);
+            jBtInfo2.setEnabled(true);
+            jBtInfo3.setEnabled(true);
+            jBtInfo4.setEnabled(true);
+            jBtInfo5.setEnabled(true);
+            jBtInfo6.setEnabled(true);
+            jBtInfo7.setEnabled(true);
+            jBtInfo8.setEnabled(true);
             //
             conecta.abrirConexao();
             try {
@@ -2390,7 +2400,52 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-
+            statusMov = "Excluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL2D_Organograma(objOrg);
+                limparCamposTSEG4();
+                control.excluirL2C_Organograma(objOrg);
+                limparCamposTSEG3();
+                control.excluirL2B_Organograma(objOrg);
+                limparCamposTSEG2();
+                control.excluirL2A_Organograma(objOrg);
+                limparCamposTSEG1();
+                //
+                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                control.excluirL1D_Organograma(objOrg);
+                limparCamposTPRI4();
+                control.excluirL1C_Organograma(objOrg);
+                limparCamposTPRI3();
+                control.excluirL1B_Organograma(objOrg);
+                limparCamposTPRI2();
+                control.excluirL1A_Organograma(objOrg);
+                limparCamposTPRI1();
+                if (pINTERNO_L1A == 0
+                        && pINTERNO_L1B == 0
+                        && pINTERNO_L1C == 0
+                        && pINTERNO_L1D == 0
+                        && pINTERNO_L2A == 0
+                        && pINTERNO_L2B == 0
+                        && pINTERNO_L2C == 0
+                        && pINTERNO_L2D == 0) {
+                    bloquearBotoes();
+                    bloquearCampos();
+                    limparCampos();
+                    objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirOrganograma_PRINCIPAL(objOrg);
+                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso.");
+                    Excluir();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro totalmente, solicite ajuda do administrador do sistema.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Não é possível excluir o registro, solicite suporte técnico ao administrador do sistema.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, entre em contato com o administrador do sistema.");
         }
@@ -3186,6 +3241,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jProcedenciaBC.setText("");
         jVaraCondenatoriaBC.setText("");
         jObservacaoL1.setText("");
+        jObservacaoL2.setText("");
         jFotoL11.setIcon(null);
         jFotoL12.setIcon(null);
         jFotoL13.setIcon(null);
@@ -3194,6 +3250,16 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jFotoL16.setIcon(null);
         jFotoL17.setIcon(null);
         jFotoL18.setIcon(null);
+        //1º ESCALÃO
+        pINTERNO_L1A = 0;
+        pINTERNO_L1B = 0;
+        pINTERNO_L1C = 0;
+        pINTERNO_L1D = 0;
+        //2º ESCALÃO
+        pINTERNO_L2A = 0;
+        pINTERNO_L2B = 0;
+        pINTERNO_L2C = 0;
+        pINTERNO_L2D = 0;
     }
 
     public void bloquearCampos() {
@@ -3233,6 +3299,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jVaraCondenatoriaBC.setEnabled(!true);
         //
         jObservacaoL1.setEnabled(!true);
+        jObservacaoL2.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
@@ -3691,7 +3758,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 pic14 = new ImageIcon(imgBytes14);
                 Image scaled = pic14.getImage().getScaledInstance(jFotoL14.getWidth(), jFotoL14.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon14 = new ImageIcon(scaled);
-                jFotoL13.setIcon(icon14);
+                jFotoL14.setIcon(icon14);
             }
         } catch (Exception e) {
         }
