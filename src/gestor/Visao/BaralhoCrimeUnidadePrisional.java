@@ -380,7 +380,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Organograma do Crime :::...");
+        setTitle("...::: NIM - Núcleo de Informações e Monitoramento :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
@@ -2666,6 +2666,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -2675,6 +2676,9 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaBC objAudBC = new TelaAuditoriaBC();
+        TelaModuloSeguranca.jPainelSeguranca.add(objAudBC);
+        objAudBC.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtCartaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCartaActionPerformed
@@ -3059,7 +3063,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel jFotoL18;
     private javax.swing.JTextField jIDPesqLoca;
     public static javax.swing.JTextField jIdInternoBC;
-    private javax.swing.JTextField jIdRegistro;
+    public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -335,7 +335,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         BloqueioLiberacaoVisitasPortaria = new javax.swing.JMenuItem();
         jSeparator24 = new javax.swing.JPopupMenu.Separator();
-        jOrganogramaCrime = new javax.swing.JMenuItem();
+        jNIM = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         MenuProntuariosTodos = new javax.swing.JMenuItem();
@@ -735,13 +735,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         Movimentacao.add(BloqueioLiberacaoVisitasPortaria);
         Movimentacao.add(jSeparator24);
 
-        jOrganogramaCrime.setText("Organograma do Crime - Unidade Prisional");
-        jOrganogramaCrime.addActionListener(new java.awt.event.ActionListener() {
+        jNIM.setText("NIM - Núcleo de Informações e Monitoramento");
+        jNIM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jOrganogramaCrimeActionPerformed(evt);
+                jNIMActionPerformed(evt);
             }
         });
-        Movimentacao.add(jOrganogramaCrime);
+        Movimentacao.add(jNIM);
 
         jMenuBar1.add(Movimentacao);
 
@@ -2421,7 +2421,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         objRelVAINome.show();
     }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
 
-    private void jOrganogramaCrimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOrganogramaCrimeActionPerformed
+    private void jNIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNIMActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codAbrir == 1) {
@@ -2453,7 +2453,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_jOrganogramaCrimeActionPerformed
+    }//GEN-LAST:event_jNIMActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2532,7 +2532,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jOrganogramaCrime;
+    private javax.swing.JMenuItem jNIM;
     public static javax.swing.JDesktopPane jPainelSeguranca;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;

@@ -392,12 +392,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator24">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jOrganogramaCrime">
+            <MenuItem class="javax.swing.JMenuItem" name="jNIM">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Organograma do Crime - Unidade Prisional"/>
+                <Property name="text" type="java.lang.String" value="NIM - N&#xfa;cleo de Informa&#xe7;&#xf5;es e Monitoramento"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jOrganogramaCrimeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNIMActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
