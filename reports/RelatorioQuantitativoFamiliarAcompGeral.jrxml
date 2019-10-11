@@ -25,7 +25,6 @@ H.IdVisita AS Visitaram,
 INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc
 LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita
 LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita
-WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'
 ORDER BY P.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
@@ -103,7 +102,7 @@ ORDER BY P.NomeInternoCrc]]>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório de Internos na Casa Com Familiares Acompanhados]]></text>
+				<text><![CDATA[Relatório Geral de Internos Com Familiares Acompanhados]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="9" width="555" height="20" uuid="488dd556-6229-4679-bd30-13fb3c1b063d"/>

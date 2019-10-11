@@ -174,12 +174,16 @@ public class TelaRelatorioQuantidadeAconpanhamentoFamiliar extends javax.swing.J
                         try {
                             conecta.abrirConexao();
                             String path = "reports/RelatorioQuantitativoFamiliarAcomp.jasper";
-                            conecta.executaSQL("SELECT DISTINCT ATENDIMENTOFAMILIAR.IdInternoCrc,NomeInternoCrc,Cnc "
-                                    + "FROM PRONTUARIOSCRC "
-                                    + "INNER JOIN ATENDIMENTOFAMILIAR "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                                    + "WHERE DataAtendf BETWEEN '" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' ");
+                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                                    + "P.NomeInternoCrc,\n"
+                                    + "V.IdVisita AS Cadastradas,\n"
+                                    + "H.IdVisita AS Visitaram,\n"
+                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                                    + "WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'\n" 
+                                    + "ORDER BY P.NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
@@ -217,12 +221,16 @@ public class TelaRelatorioQuantidadeAconpanhamentoFamiliar extends javax.swing.J
                         try {
                             conecta.abrirConexao();
                             String path = "reports/RelatorioQuantitativoFamiliarAcomp.jasper";
-                            conecta.executaSQL("SELECT DISTINCT ATENDIMENTOFAMILIAR.IdInternoCrc,NomeInternoCrc,Cnc "
-                                    + "FROM PRONTUARIOSCRC "
-                                    + "INNER JOIN ATENDIMENTOFAMILIAR "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOFAMILIAR.IdInternoCrc "
-                                    + "WHERE DataAtendf BETWEEN '" + dataInicial + "' "
-                                    + "AND'" + dataFinal + "' ");
+                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                                    + "P.NomeInternoCrc,\n"
+                                    + "V.IdVisita AS Cadastradas,\n"
+                                    + "H.IdVisita AS Visitaram,\n"
+                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                                    + "WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'\n" 
+                                    + "ORDER BY P.NomeInternoCrc");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);

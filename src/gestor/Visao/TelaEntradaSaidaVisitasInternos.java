@@ -587,6 +587,7 @@ public class TelaEntradaSaidaVisitasInternos extends javax.swing.JInternalFrame 
             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jTabelaVisitasInternos.setAutoCreateRowSorter(true);
         jTabelaVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
