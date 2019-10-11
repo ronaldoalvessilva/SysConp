@@ -2018,7 +2018,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabbedPane1.addTab("Manutenção", jPanel2);
 
         jComboBoxVinculoPAI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxVinculoPAI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Pai", "Mãe", "Avô", "Avó", "Tio", "Tia", "Irmão", "Irmã", "Primo", "Prima" }));
+        jComboBoxVinculoPAI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Pai", "Mãe", "Avô", "Avó", "Tio", "Tia", "Irmão", "Irmã", "Primo", "Prima", "Companheiro", "Companheira", "Marido", "Esposa", "Enteado", "Enteada" }));
         jComboBoxVinculoPAI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxVinculoPAI.setEnabled(false);
 
@@ -3238,7 +3238,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel122)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBoxVinculoPAI, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxVinculoPAI, 0, 0, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
@@ -3945,7 +3945,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jLabel114.setText("Qual?");
 
         jLabel115.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel115.setText("Aptidão espor./artisitica?");
+        jLabel115.setText("Aptidão espor./artistica?");
 
         jComboBoxAptidaoArt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxAptidaoArt.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
