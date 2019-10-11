@@ -118,6 +118,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private TelaRegimentoInternoDisciplinar objRegDisciplina = null;
     private TelaConsultaInternosIsolamento objConIsola = null;
     private TelaConsultaConfere objConsultaConf = null;
+    private BaralhoCrimeUnidadePrisional objBC = null;
     //
     String pathFoto;
     String dataLanc;
@@ -191,6 +192,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     public static String telaRetirarPenalidadeInternos = "Movimentação:Retirar Penalidade:Internos";
     public static String telaLivroOcorrencias = "Movimentação:Livro Ocorrencias:Manutenção";
     public static String telaBloqueioLiberacaoVisitasPortaria = "Movimentação:Bloqueio Liberação Visitas Portaria:Manutenção";
+    //
+    public static String telaBaralhoCrimeUnidadePrisional = "Movimentação:Organograma do Crime:Manutenção";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomePA = "";
@@ -228,10 +231,14 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     String pNomeREDO = "";
     String pNomeREDH = "";
     String pNomeARPD = "";
+    String pNomeARPDA = "";
+    String pNomeARPDO = "";
     String pNomeRP = "";
     String pNomeRPI = "";
     String pNomeLO = "";
     String pNomeBLVP = "";
+    //
+    String pNomeBC = "";
     //
     public static int codigoUser = 0;
     public static int codUserAcesso = 0;
@@ -294,7 +301,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         ProntuarioInternos = new javax.swing.JMenuItem();
         LocalInternos = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jConsultaInternosIsolamento = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         AgendaEscolta = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
@@ -327,6 +334,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         LivroOcorrencias = new javax.swing.JMenuItem();
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         BloqueioLiberacaoVisitasPortaria = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        jNIM = new javax.swing.JMenuItem();
         RelatoriosSeguranca = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         MenuProntuariosTodos = new javax.swing.JMenuItem();
@@ -533,13 +542,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         });
         Consultas.add(LocalInternos);
 
-        jMenuItem4.setText("Internos no Isolamento");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jConsultaInternosIsolamento.setText("Internos no Isolamento");
+        jConsultaInternosIsolamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jConsultaInternosIsolamentoActionPerformed(evt);
             }
         });
-        Consultas.add(jMenuItem4);
+        Consultas.add(jConsultaInternosIsolamento);
         Consultas.add(jSeparator5);
 
         AgendaEscolta.setText("Agendamento de Escolta e Médico");
@@ -724,6 +733,15 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(BloqueioLiberacaoVisitasPortaria);
+        Movimentacao.add(jSeparator24);
+
+        jNIM.setText("NIM - Núcleo de Informações e Monitoramento");
+        jNIM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNIMActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jNIM);
 
         jMenuBar1.add(Movimentacao);
 
@@ -2216,7 +2234,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         objRelEntradaInter.show();
     }//GEN-LAST:event_RelatorioEntradaInternosUnidadeActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jConsultaInternosIsolamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConsultaInternosIsolamentoActionPerformed
         // TODO add your handling code here:
         if (objConIsola == null || objConIsola.isClosed()) {
             objConIsola = new TelaConsultaInternosIsolamento();
@@ -2243,7 +2261,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objConIsola.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jConsultaInternosIsolamentoActionPerformed
 
     private void jConfereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfereActionPerformed
         // TODO add your handling code here:
@@ -2403,6 +2421,40 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         objRelVAINome.show();
     }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
 
+    private void jNIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNIMActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES") || codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codAbrir == 1) {
+            if (objBC == null || objBC.isClosed()) {
+                objBC = new BaralhoCrimeUnidadePrisional();
+                jPainelSeguranca.add(objBC);
+                objBC.setVisible(true);
+            } else {
+                if (objBC.isVisible()) {
+                    if (objBC.isIcon()) { // Se esta minimizado
+                        try {
+                            objBC.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objBC.toFront(); // traz para frente
+                        objBC.pack();//volta frame 
+                    }
+                } else {
+                    objBC = new BaralhoCrimeUnidadePrisional();
+                    TelaModuloSeguranca.jPainelSeguranca.add(objBC);//adicona frame ao JDesktopPane  
+                    objBC.setVisible(true);
+                }
+            }
+            try {
+                objBC.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jNIMActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2470,6 +2522,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem VisitasInternos;
     private javax.swing.JMenuItem jConfere;
+    private javax.swing.JMenuItem jConsultaInternosIsolamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -2479,7 +2532,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jNIM;
     public static javax.swing.JDesktopPane jPainelSeguranca;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
@@ -2499,6 +2552,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3004,7 +3058,6 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             pNomeCVI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
-        //telaRegistroObjetoProcedimento
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRegistroObjetoProcedimento + "'");
@@ -3098,6 +3151,20 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAplicarRegistroPenalidadeDisciplinasAutor + "'");
+            conecta.rs.first();
+            pNomeARPDA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAplicarRegistroPenalidadeDisciplinasOCR + "'");
+            conecta.rs.first();
+            pNomeARPDO = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaRetirarPenalidade + "'");
             conecta.rs.first();
             pNomeRP = conecta.rs.getString("NomeTela");
@@ -3122,6 +3189,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
                     + "WHERE NomeTela='" + telaBloqueioLiberacaoVisitasPortaria + "'");
             conecta.rs.first();
             pNomeBLVP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaBaralhoCrimeUnidadePrisional + "'");
+            conecta.rs.first();
+            pNomeBC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
         // MENU CADASTRO
@@ -3319,6 +3393,18 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaAplicarRegistroPenalidadeDisciplinas);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        if (!pNomeARPDA.equals(telaAplicarRegistroPenalidadeDisciplinasAutor) || pNomeARPDA == null || pNomeARPDA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAplicarRegistroPenalidadeDisciplinasAutor);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeARPDO.equals(telaAplicarRegistroPenalidadeDisciplinasOCR) || pNomeARPDO == null || pNomeARPDO.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAplicarRegistroPenalidadeDisciplinasOCR);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         if (!pNomeRP.equals(telaRetirarPenalidade) || pNomeRP == null || pNomeRP.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -3341,6 +3427,12 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaBloqueioLiberacaoVisitasPortaria);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBC.equals(telaBaralhoCrimeUnidadePrisional) || pNomeBC == null || pNomeBC.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaBaralhoCrimeUnidadePrisional);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

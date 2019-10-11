@@ -300,7 +300,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         jTabelaLocacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaLocacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Cela", "Observação"
@@ -786,7 +786,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         jTabelaInternos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Pavilhão", "Cela"
@@ -1000,7 +1000,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1048,7 +1048,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                 dataModFinal = jDataSistema.getText();
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterou registro.");
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -1920,6 +1920,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o ID do lançamento");
         }
+        conecta.desconecta();
     }
 
     public void verificarItens() {
@@ -1983,7 +1984,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         jTabelaLocacao.getColumnModel().getColumn(4).setPreferredWidth(450);
         jTabelaLocacao.getColumnModel().getColumn(4).setResizable(false);
         jTabelaLocacao.getTableHeader().setReorderingAllowed(false);
-        jTabelaLocacao.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaLocacao.setAutoResizeMode(jTabelaLocacao.AUTO_RESIZE_OFF);
         jTabelaLocacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaLocacao();
         conecta.desconecta();
@@ -2036,7 +2037,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         jTabelaLocacao.getColumnModel().getColumn(4).setPreferredWidth(450);
         jTabelaLocacao.getColumnModel().getColumn(4).setResizable(false);
         jTabelaLocacao.getTableHeader().setReorderingAllowed(false);
-        jTabelaLocacao.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaLocacao.setAutoResizeMode(jTabelaLocacao.AUTO_RESIZE_OFF);
         jTabelaLocacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }

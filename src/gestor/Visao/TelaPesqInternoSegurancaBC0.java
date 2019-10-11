@@ -8,12 +8,33 @@ package gestor.Visao;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaLocacaoInterno.FotoInternoLocacao;
-import static gestor.Visao.TelaLocacaoInterno.jBtZoom;
-import static gestor.Visao.TelaLocacaoInterno.jDataEntrada;
-import static gestor.Visao.TelaLocacaoInterno.jIDInterno;
-import static gestor.Visao.TelaLocacaoInterno.jNomeInterno;
-import static gestor.Visao.TelaLocacaoInterno.jSituacao;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jAlcunhaBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jArtigo1;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jArtigo2;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jArtigo3;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jCNC_BC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jCPFBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jCelaBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jComboBoxEdiondo;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataCondenacaoBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataCrimeBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataEntradaBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataNascimento;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataPrisaoBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jDataTerPena;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jIdInternoBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jLabelFoto;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNomeInternoBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNomeMaeBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo1;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo2;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jParagrafo3;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jRGBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jPavilhaoBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jProcedenciaBC;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jRegime;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jSituacaoCrc;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jVaraCondenatoriaBC;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +43,13 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.BaralhoCrimeUnidadePrisional.jNaturalidade;
 
 /**
  *
  * @author Ronaldo
  */
-public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame {
+public class TelaPesqInternoSegurancaBC0 extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -44,7 +66,7 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqInternoLocacaoSeguranca() {
+    public TelaPesqInternoSegurancaBC0() {
         initComponents();
     }
 
@@ -247,7 +269,7 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
                 .addGap(0, 0, 0))
         );
 
-        setBounds(200, 10, 577, 313);
+        setBounds(350, 30, 577, 313);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -268,10 +290,16 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc='" + situacao + "' "
-                    + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc='" + sitRetorno + "'");
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav  "
+                    + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "OR PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -293,10 +321,16 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
-                    + "AND SituacaoCrc='" + situacao + "' "
-                    + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
-                    + "AND SituacaoCrc='" + sitRetorno + "'");
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav  "
+                    + "WHERE PRONTUARIOSCRC.MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "OR PRONTUARIOSCRC.MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -318,25 +352,74 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
         // TODO add your handling code here:
         if (jPesqNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
+            JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR.");
         } else {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN DADOSFISICOSINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                        + "INNER JOIN PAISES "
+                        + "ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                        + "INNER JOIN CIDADES "
+                        + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN UNIDADE "
+                        + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav  "
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoBC.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jCNC_BC.setText(conecta.rs.getString("Cnc"));
+                jNomeInternoBC.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoLocacao.setIcon(i);
-                FotoInternoLocacao.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoLocacao.getWidth(), FotoInternoLocacao.getHeight(), Image.SCALE_DEFAULT)));
-                jSituacao.setText(conecta.rs.getString("SituacaoCrc"));
-                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
-                jBtZoom.setEnabled(true);
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jLabelFoto.setIcon(i);
+                    jLabelFoto.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jLabelFoto.setIcon(icon);
+                }
+                jNomeMaeBC.setText(conecta.rs.getString("MaeInternoCrc"));
+                jNaturalidade.setText(conecta.rs.getString("NomeCidade"));
+                jAlcunhaBC.setText(conecta.rs.getString("AlcunhaCrc"));
+                jRegime.setText(conecta.rs.getString("Regime"));
+                jRGBC.setText(conecta.rs.getString("RgInternoCrc"));
+                jCPFBC.setText(conecta.rs.getString("CpfInternoCrc"));
+                jSituacaoCrc.setText(conecta.rs.getString("SituacaoCrc"));
+                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
+                //
+                jPavilhaoBC.setText(conecta.rs.getString("DescricaoPav"));
+                jCelaBC.setText(conecta.rs.getString("EndCelaPav"));
+                //
+                jDataEntradaBC.setDate(conecta.rs.getDate("DataEntrada"));
+                jDataCrimeBC.setDate(conecta.rs.getDate("DataCrime"));
+                jDataPrisaoBC.setDate(conecta.rs.getDate("DataPrisao"));
+                jDataCondenacaoBC.setDate(conecta.rs.getDate("DataCondenacao"));
+                jArtigo1.setText(conecta.rs.getString("Artigo1"));
+                jArtigo2.setText(conecta.rs.getString("Artigo2"));
+                jArtigo3.setText(conecta.rs.getString("Artigo3"));
+                jComboBoxEdiondo.setSelectedItem(conecta.rs.getString("CrimeEdiondo"));
+                jParagrafo1.setText(conecta.rs.getString("Paragrafo1"));
+                jParagrafo2.setText(conecta.rs.getString("Paragrafo2"));
+                jParagrafo3.setText(conecta.rs.getString("Paragrafo3"));
+                jDataTerPena.setDate(conecta.rs.getDate("TerminoPena"));
+                jProcedenciaBC.setText(conecta.rs.getString("DescricaoUnid"));
+                jVaraCondenatoriaBC.setText(conecta.rs.getString("VaraCondenatoria"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
@@ -434,7 +517,14 @@ public class TelaPesqInternoLocacaoSeguranca extends javax.swing.JInternalFrame 
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE SituacaoCrc='" + situacao + "' OR SituacaoCrc='" + sitRetorno + "'");
+                    + "INNER JOIN ITENSLOCACAOINTERNO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "'");
             conecta.rs.first();
             do {
                 // Formatar a data no formato Brasil
