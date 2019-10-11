@@ -132,6 +132,16 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     String caminhoL2B = "";
     String caminhoL2C = "";
     String caminhoL2D = "";
+    //
+    String caminhoCarta1 = "";
+    String caminhoCarta2 = "";
+    String caminhoCarta3 = "";
+    String caminhoCarta4 = "";
+    String caminhoCarta5 = "";
+    //
+    String caminhoCarta6 = "";
+    String caminhoCarta7 = "";
+    String caminhoCarta8 = "";
 
     /**
      * Creates new form TelaPrincipalBaralho
@@ -238,6 +248,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jComboBoxStatus = new javax.swing.JComboBox<>();
+        jLabel30 = new javax.swing.JLabel();
+        jSituacaoRegistro = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabelCarta = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
@@ -275,6 +287,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jDataNascimento = new com.toedter.calendar.JDateChooser();
         jLabel27 = new javax.swing.JLabel();
         jBtEndereco = new javax.swing.JButton();
+        jPanel46 = new javax.swing.JPanel();
+        jProcedenciaBC = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        jVaraCondenatoriaBC = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jDataCrimeBC = new com.toedter.calendar.JDateChooser();
@@ -303,10 +320,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jLabel59 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jProcedenciaBC = new javax.swing.JTextField();
-        jLabel72 = new javax.swing.JLabel();
-        jVaraCondenatoriaBC = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jObservacaoFrente = new javax.swing.JTextArea();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jFotoL11 = new javax.swing.JLabel();
@@ -328,11 +343,20 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo4 = new javax.swing.JButton();
         jBtAdd4 = new javax.swing.JButton();
         jBtDel4 = new javax.swing.JButton();
-        jPanel21 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jObservacaoL1 = new javax.swing.JTextArea();
         jPanel24 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jBtCarta1 = new javax.swing.JButton();
+        jBtCarta2 = new javax.swing.JButton();
+        jBtCarta3 = new javax.swing.JButton();
+        jBtCarta4 = new javax.swing.JButton();
+        jPanel23 = new javax.swing.JPanel();
+        jFotoCarta1 = new javax.swing.JLabel();
+        jPanel38 = new javax.swing.JPanel();
+        jFotoCarta2 = new javax.swing.JLabel();
+        jPanel39 = new javax.swing.JPanel();
+        jFotoCarta3 = new javax.swing.JLabel();
+        jPanel40 = new javax.swing.JPanel();
+        jFotoCarta4 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jFotoL15 = new javax.swing.JLabel();
@@ -344,9 +368,6 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtAdd7 = new javax.swing.JButton();
         jBtDel7 = new javax.swing.JButton();
         jBtDel8 = new javax.swing.JButton();
-        jPanel29 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jObservacaoL2 = new javax.swing.JTextArea();
         jPanel33 = new javax.swing.JPanel();
         jFotoL16 = new javax.swing.JLabel();
         jPanel34 = new javax.swing.JPanel();
@@ -359,6 +380,25 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo7 = new javax.swing.JButton();
         jBtInfo8 = new javax.swing.JButton();
         jBtAdd8 = new javax.swing.JButton();
+        jBtCarta5 = new javax.swing.JButton();
+        jBtCarta6 = new javax.swing.JButton();
+        jBtCarta7 = new javax.swing.JButton();
+        jBtCarta8 = new javax.swing.JButton();
+        jPanel41 = new javax.swing.JPanel();
+        jFotoCarta5 = new javax.swing.JLabel();
+        jPanel42 = new javax.swing.JPanel();
+        jFotoCarta6 = new javax.swing.JLabel();
+        jPanel43 = new javax.swing.JPanel();
+        jFotoCarta7 = new javax.swing.JLabel();
+        jPanel44 = new javax.swing.JPanel();
+        jFotoCarta8 = new javax.swing.JLabel();
+        jPanel45 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jObservacaoL2 = new javax.swing.JTextArea();
+        jPanel21 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jObservacaoL1 = new javax.swing.JTextArea();
         jPanel13 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
@@ -369,6 +409,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtBuscarInterno = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
+        jBtFinalizar = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -572,7 +613,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -587,7 +628,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -618,12 +659,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("STATUS:");
+        jLabel15.setText("STATUS");
 
         jComboBoxStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "PRIMEIRA VOZ", "SEGUNDA VOZ", "TERCEIRA VOZ", "QUARTA VOZ", "QUINTA VOZ" }));
         jComboBoxStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatus.setEnabled(false);
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setText("SITUAÇÃO REGISTRO");
+
+        jSituacaoRegistro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSituacaoRegistro.setForeground(new java.awt.Color(204, 0, 0));
+        jSituacaoRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSituacaoRegistro.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jSituacaoRegistro.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -631,18 +681,27 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel30))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSituacaoRegistro))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSituacaoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -767,8 +826,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     .addComponent(jBtCarta)
                     .addComponent(jBtRemoverCarta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -899,7 +958,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             .addComponent(jFaccao)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
-                                .addGap(0, 199, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -924,7 +983,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addComponent(jLabel29)
-                                .addGap(0, 93, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jRegime)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addComponent(jAlcunhaBC)
@@ -935,7 +994,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(jLabel20)
@@ -984,7 +1043,57 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
+        );
+
+        jPanel46.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jProcedenciaBC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jProcedenciaBC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jProcedenciaBC.setEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Procedência:");
+
+        jLabel72.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel72.setText("V. Condenação:");
+
+        jVaraCondenatoriaBC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jVaraCondenatoriaBC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jVaraCondenatoriaBC.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
+        jPanel46.setLayout(jPanel46Layout);
+        jPanel46Layout.setHorizontalGroup(
+            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel46Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel46Layout.createSequentialGroup()
+                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jVaraCondenatoriaBC, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProcedenciaBC, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel46Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jProcedenciaBC, jVaraCondenatoriaBC});
+
+        jPanel46Layout.setVerticalGroup(
+            jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel46Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jProcedenciaBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel72)
+                    .addComponent(jVaraCondenatoriaBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -993,14 +1102,18 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Dados Pessoais", jPanel8);
@@ -1175,7 +1288,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1207,21 +1320,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Observação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Procedência:");
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jProcedenciaBC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jProcedenciaBC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jProcedenciaBC.setEnabled(false);
-
-        jLabel72.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel72.setText("Vara Condenação:");
-
-        jVaraCondenatoriaBC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jVaraCondenatoriaBC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jVaraCondenatoriaBC.setEnabled(false);
+        jObservacaoFrente.setColumns(20);
+        jObservacaoFrente.setRows(5);
+        jObservacaoFrente.setEnabled(false);
+        jScrollPane3.setViewportView(jObservacaoFrente);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1229,29 +1335,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProcedenciaBC))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jLabel72)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jVaraCondenatoriaBC)))
+                .addComponent(jScrollPane3)
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jProcedenciaBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel72)
-                    .addComponent(jVaraCondenatoriaBC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1275,12 +1366,13 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Dados Jurídicos", jPanel9);
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel17.setPreferredSize(new java.awt.Dimension(100, 123));
 
         jFotoL11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -1288,7 +1380,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL11, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jFotoL11, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1296,12 +1388,13 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         );
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel18.setPreferredSize(new java.awt.Dimension(100, 123));
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL13, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jFotoL13, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1362,19 +1455,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         });
 
         jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel27.setPreferredSize(new java.awt.Dimension(100, 123));
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL12, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jFotoL12, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jFotoL12, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
         );
 
-        jBtInfo1.setText("Informações");
+        jBtInfo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo1.setToolTipText("Informações");
         jBtInfo1.setEnabled(false);
         jBtInfo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1382,7 +1477,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtInfo2.setText("Informações");
+        jBtInfo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo2.setToolTipText("Informações");
         jBtInfo2.setEnabled(false);
         jBtInfo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1390,7 +1486,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtInfo3.setText("Informações");
+        jBtInfo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo3.setToolTipText("Informações");
         jBtInfo3.setEnabled(false);
         jBtInfo3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1399,19 +1496,21 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         });
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel19.setPreferredSize(new java.awt.Dimension(100, 123));
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoL14, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jFotoL14, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
         );
 
-        jBtInfo4.setText("Informações");
+        jBtInfo4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo4.setToolTipText("Informações");
         jBtInfo4.setEnabled(false);
         jBtInfo4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1436,31 +1535,6 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        jObservacaoL1.setColumns(20);
-        jObservacaoL1.setRows(5);
-        jObservacaoL1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObservacaoL1.setEnabled(false);
-        jScrollPane1.setViewportView(jObservacaoL1);
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
-        );
-
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1473,7 +1547,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel24Layout.setVerticalGroup(
@@ -1484,69 +1558,178 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addGap(2, 2, 2))
         );
 
+        jBtCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta1.setToolTipText("Adicionar Carta");
+        jBtCarta1.setEnabled(false);
+        jBtCarta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta1ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta2.setToolTipText("Adicionar Carta");
+        jBtCarta2.setEnabled(false);
+        jBtCarta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta2ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta3.setToolTipText("Adicionar Carta");
+        jBtCarta3.setEnabled(false);
+        jBtCarta3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta3ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta4.setToolTipText("Adicionar Carta");
+        jBtCarta4.setEnabled(false);
+        jBtCarta4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta4ActionPerformed(evt);
+            }
+        });
+
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta1, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta3, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta3, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel40.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
+        jPanel40.setLayout(jPanel40Layout);
+        jPanel40Layout.setHorizontalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta4, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel40Layout.setVerticalGroup(
+            jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta4, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jBtInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtInfo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jBtAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtDel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jBtAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtDel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jBtAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtDel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtDel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jBtInfo3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addComponent(jBtInfo4, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                                        .addGap(20, 20, 20))
-                                    .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addContainerGap())))))
+                        .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel16Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtCarta1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtDel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel16Layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                        .addGap(5, 5, 5))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtCarta2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtDel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(22, 22, 22)))
+                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addGroup(jPanel16Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtDel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                                .addComponent(jBtInfo3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtCarta3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel16Layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBtAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBtDel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtCarta4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(16, 16, 16))))
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
 
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtDel1, jBtDel2, jBtDel3, jBtDel4});
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtCarta1, jBtCarta2, jBtCarta3, jBtCarta4, jBtDel1, jBtDel2, jBtDel3, jBtDel4, jBtInfo1, jBtInfo2, jBtInfo3, jBtInfo4});
 
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel27});
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel19, jPanel23, jPanel27, jPanel38, jPanel39, jPanel40});
 
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1560,42 +1743,48 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtDel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtAdd2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtDel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtAdd3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtDel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtDel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtDel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtDel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtInfo1)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtCarta1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtCarta2)
+                    .addComponent(jBtCarta3)
+                    .addComponent(jBtCarta4)
+                    .addComponent(jBtInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtInfo2)
                     .addComponent(jBtInfo3)
                     .addComponent(jBtInfo4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3))
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtDel1, jBtDel2, jBtDel3, jBtDel4});
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdd1, jBtAdd2, jBtAdd3, jBtAdd4, jBtCarta1, jBtCarta2, jBtCarta3, jBtCarta4, jBtDel1, jBtDel2, jBtDel3, jBtDel4, jBtInfo1, jBtInfo2, jBtInfo3, jBtInfo4});
 
-        jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel19, jPanel27});
+        jPanel16Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel17, jPanel18, jPanel19, jPanel23, jPanel27, jPanel38, jPanel39, jPanel40});
 
         jTabbedPane2.addTab("Ligações", jPanel16);
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel25.setPreferredSize(new java.awt.Dimension(100, 123));
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoL15, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1620,7 +1809,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtInfo5.setText("Informações");
+        jBtInfo5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo5.setToolTipText("Informações");
         jBtInfo5.setEnabled(false);
         jBtInfo5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1671,7 +1861,324 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel34.setPreferredSize(new java.awt.Dimension(100, 123));
+
+        jFotoL17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jBtInfo6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo6.setToolTipText("Informações");
+        jBtInfo6.setEnabled(false);
+        jBtInfo6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo6ActionPerformed(evt);
+            }
+        });
+
+        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel35.setPreferredSize(new java.awt.Dimension(480, 20));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("2º ESCALÃO");
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel35Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel35Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jLabel28)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel36.setPreferredSize(new java.awt.Dimension(100, 123));
+
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jBtInfo7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo7.setToolTipText("Informações");
+        jBtInfo7.setEnabled(false);
+        jBtInfo7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo7ActionPerformed(evt);
+            }
+        });
+
+        jBtInfo8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Ajuda_8446_16x16.png"))); // NOI18N
+        jBtInfo8.setToolTipText("Informações");
+        jBtInfo8.setEnabled(false);
+        jBtInfo8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtInfo8ActionPerformed(evt);
+            }
+        });
+
+        jBtAdd8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtAdd8.setToolTipText("Adicionar");
+        jBtAdd8.setEnabled(false);
+        jBtAdd8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAdd8ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta5.setToolTipText("Adicionar Carta");
+        jBtCarta5.setEnabled(false);
+        jBtCarta5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta5ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta6.setToolTipText("Adicionar Carta");
+        jBtCarta6.setEnabled(false);
+        jBtCarta6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta6ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta7.setToolTipText("Adicionar Carta");
+        jBtCarta7.setEnabled(false);
+        jBtCarta7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta7ActionPerformed(evt);
+            }
+        });
+
+        jBtCarta8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtCarta8.setToolTipText("Adicionar Carta");
+        jBtCarta8.setEnabled(false);
+        jBtCarta8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCarta8ActionPerformed(evt);
+            }
+        });
+
+        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
+        jPanel41.setLayout(jPanel41Layout);
+        jPanel41Layout.setHorizontalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta5, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel41Layout.setVerticalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta5, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
+        jPanel42.setLayout(jPanel42Layout);
+        jPanel42Layout.setHorizontalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta6, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel42Layout.setVerticalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta6, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel43.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
+        jPanel43.setLayout(jPanel43Layout);
+        jPanel43Layout.setHorizontalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta7, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel43Layout.setVerticalGroup(
+            jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta7, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        jPanel44.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
+        jPanel44.setLayout(jPanel44Layout);
+        jPanel44Layout.setHorizontalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta8, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        );
+        jPanel44Layout.setVerticalGroup(
+            jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoCarta8, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel28Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jBtInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                            .addComponent(jBtAdd8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBtCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtDel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jBtInfo7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtAdd5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtCarta6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(17, 17, 17)))
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                        .addGap(5, 5, 5))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                                .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                                .addComponent(jBtInfo8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jBtCarta7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(21, 21, 21)))
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jBtInfo5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                            .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBtCarta8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(15, 15, 15))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 12, Short.MAX_VALUE))
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtCarta5, jBtCarta6, jBtCarta7, jBtCarta8, jBtDel5, jBtDel6, jBtDel7, jBtDel8, jBtInfo5, jBtInfo6, jBtInfo7, jBtInfo8});
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel25, jPanel33, jPanel34, jPanel36, jPanel41, jPanel42, jPanel43, jPanel44});
+
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel28Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtDel5)
+                    .addComponent(jBtAdd8)
+                    .addComponent(jBtAdd5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtInfo7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtInfo8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtInfo5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtCarta5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtCarta6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtCarta7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtCarta8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
+        );
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtCarta5, jBtCarta6, jBtCarta7, jBtCarta8, jBtDel5, jBtDel6, jBtDel7, jBtDel8, jBtInfo5, jBtInfo6, jBtInfo7, jBtInfo8});
+
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel25, jPanel33, jPanel34, jPanel36, jPanel41, jPanel42, jPanel43, jPanel44});
+
+        jTabbedPane2.addTab("Ligações", jPanel28);
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Observação - 2º Escalão ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jObservacaoL2.setColumns(20);
         jObservacaoL2.setRows(5);
@@ -1690,206 +2197,55 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Observação - 1º Escalão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
-        jPanel33.setLayout(jPanel33Layout);
-        jPanel33Layout.setHorizontalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-        );
-        jPanel33Layout.setVerticalGroup(
-            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL16, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-        );
+        jObservacaoL1.setColumns(20);
+        jObservacaoL1.setRows(5);
+        jObservacaoL1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jObservacaoL1.setEnabled(false);
+        jScrollPane1.setViewportView(jObservacaoL1);
 
-        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        jFotoL17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL17, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-        );
-
-        jBtInfo6.setText("Informações");
-        jBtInfo6.setEnabled(false);
-        jBtInfo6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtInfo6ActionPerformed(evt);
-            }
-        });
-
-        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("2º ESCALÃO");
-
-        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
-        jPanel35.setLayout(jPanel35Layout);
-        jPanel35Layout.setHorizontalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel35Layout.setVerticalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jLabel28)
-                .addGap(2, 2, 2))
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
         );
 
-        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
-
-        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
-        jPanel36.setLayout(jPanel36Layout);
-        jPanel36Layout.setHorizontalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-        );
-        jPanel36Layout.setVerticalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoL18, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-        );
-
-        jBtInfo7.setText("Informações");
-        jBtInfo7.setEnabled(false);
-        jBtInfo7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtInfo7ActionPerformed(evt);
-            }
-        });
-
-        jBtInfo8.setText("Informações");
-        jBtInfo8.setEnabled(false);
-        jBtInfo8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtInfo8ActionPerformed(evt);
-            }
-        });
-
-        jBtAdd8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
-        jBtAdd8.setToolTipText("Adicionar");
-        jBtAdd8.setEnabled(false);
-        jBtAdd8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAdd8ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
-        jPanel28.setLayout(jPanel28Layout);
-        jPanel28Layout.setHorizontalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel28Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
+        jPanel45.setLayout(jPanel45Layout);
+        jPanel45Layout.setHorizontalGroup(
+            jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel45Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addComponent(jBtInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtInfo7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel28Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jBtAdd8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtDel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel28Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jBtAdd5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32))
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jBtInfo8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel28Layout.createSequentialGroup()
-                                        .addComponent(jBtInfo5, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                                        .addGap(20, 20, 20))
-                                    .addGroup(jPanel28Layout.createSequentialGroup()
-                                        .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addContainerGap())))))
-                    .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                .addGroup(jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel45Layout.setVerticalGroup(
+            jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel45Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtDel5, jBtDel6, jBtDel7, jBtDel8});
+        jPanel45Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel21, jPanel29});
 
-        jPanel28Layout.setVerticalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel28Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtAdd8)
-                    .addComponent(jBtDel5)
-                    .addComponent(jBtAdd5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtDel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtAdd7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtDel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtAdd6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtDel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtInfo6)
-                    .addComponent(jBtInfo7)
-                    .addComponent(jBtInfo8)
-                    .addComponent(jBtInfo5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3))
-        );
-
-        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdd5, jBtAdd6, jBtAdd7, jBtAdd8, jBtDel5, jBtDel6, jBtDel7, jBtDel8});
-
-        jTabbedPane2.addTab("Ligações", jPanel28);
+        jTabbedPane2.addTab("Observações", jPanel45);
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1973,6 +2329,17 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtFinalizar.setForeground(new java.awt.Color(0, 102, 0));
+        jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
+        jBtFinalizar.setText("Finalizar");
+        jBtFinalizar.setToolTipText("");
+        jBtFinalizar.setEnabled(false);
+        jBtFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFinalizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1993,6 +2360,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addGap(168, 168, 168)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtFinalizar)
+                .addGap(57, 57, 57)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2014,7 +2383,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         .addComponent(jBtCancelar)
                         .addComponent(jBtBuscarInterno)
                         .addComponent(jBtImpressao)
-                        .addComponent(jBtSair))
+                        .addComponent(jBtSair)
+                        .addComponent(jBtFinalizar))
                     .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5))
         );
@@ -2049,7 +2419,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCelaBC)
+                .addComponent(jCelaBC, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -2079,7 +2449,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRecompensaBC, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2101,32 +2471,35 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel6);
@@ -2135,14 +2508,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 30, 809, 485);
+        setBounds(300, 30, 839, 535);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqIDActionPerformed
@@ -2259,6 +2632,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jBtSalvar.setEnabled(!true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
+            jBtImpressao.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
             //
             jBtInfo1.setEnabled(true);
             jBtInfo2.setEnabled(true);
@@ -2310,13 +2685,13 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     jLabelFoto.setIcon(icon);
                 }
                 //BUSCAR CARTA DE BARALHO NO BANCO DE DADOS.
-                byte[] imgBytes0 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
-                if (imgBytes0 != null) {
-                    ImageIcon pic0 = null;
-                    pic0 = new ImageIcon(imgBytes0);
-                    Image scaled = pic0.getImage().getScaledInstance(jLabelCarta.getWidth(), jLabelCarta.getHeight(), Image.SCALE_SMOOTH);
-                    ImageIcon icon0 = new ImageIcon(scaled);
-                    jLabelCarta.setIcon(icon0);
+                byte[] imgBytes01 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+                if (imgBytes01 != null) {
+                    ImageIcon pic01 = null;
+                    pic01 = new ImageIcon(imgBytes01);
+                    Image scaled = pic01.getImage().getScaledInstance(jLabelCarta.getWidth(), jLabelCarta.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon01 = new ImageIcon(scaled);
+                    jLabelCarta.setIcon(icon01);
                 }
                 jIdInternoBC.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jCNC_BC.setText(conecta.rs.getString("Cnc"));
@@ -2339,6 +2714,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 DecimalFormat vc = new DecimalFormat("#,##0.00");
                 String vlCusto = vc.format(valorCusto);
                 jRecompensaBC.setText(vlCusto);
+                jSituacaoRegistro.setText(conecta.rs.getString("SituacaoRegistro"));
                 //
                 jDataEntradaBC.setDate(conecta.rs.getDate("DataEntrada"));
                 jDataCrimeBC.setDate(conecta.rs.getDate("DataCrime"));
@@ -2384,13 +2760,18 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codAlterar == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objOrg.setSituacaoRegistro(jSituacaoRegistro.getText());
+            if (jSituacaoRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser alterado, o lançamento encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a alterar registro.");
         }
@@ -2400,51 +2781,56 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaBaralhoCrimeUnidadePrisional);
         if (codigoUser == codUserAcesso && nomeTela.equals(telaBaralhoCrimeUnidadePrisional) && codExcluir == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupo.equals("ADMINISTRADORES")) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirL2D_Organograma(objOrg);
-                limparCamposTSEG4();
-                control.excluirL2C_Organograma(objOrg);
-                limparCamposTSEG3();
-                control.excluirL2B_Organograma(objOrg);
-                limparCamposTSEG2();
-                control.excluirL2A_Organograma(objOrg);
-                limparCamposTSEG1();
-                //
-                objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirL1D_Organograma(objOrg);
-                limparCamposTPRI4();
-                control.excluirL1C_Organograma(objOrg);
-                limparCamposTPRI3();
-                control.excluirL1B_Organograma(objOrg);
-                limparCamposTPRI2();
-                control.excluirL1A_Organograma(objOrg);
-                limparCamposTPRI1();
-                if (pINTERNO_L1A == 0
-                        && pINTERNO_L1B == 0
-                        && pINTERNO_L1C == 0
-                        && pINTERNO_L1D == 0
-                        && pINTERNO_L2A == 0
-                        && pINTERNO_L2B == 0
-                        && pINTERNO_L2C == 0
-                        && pINTERNO_L2D == 0) {
-                    bloquearBotoes();
-                    bloquearCampos();
-                    limparCampos();
-                    objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
-                    control.excluirOrganograma_PRINCIPAL(objOrg);
-                    JOptionPane.showMessageDialog(null, "Registro excluído com sucesso.");
-                    Excluir();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro totalmente, solicite ajuda do administrador do sistema.");
-                }
+            objOrg.setSituacaoRegistro(jSituacaoRegistro.getText());
+            if (jSituacaoRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse  lançamento não poderá ser excluído, o lançamento encontra-se FINALIZADO");
             } else {
-                JOptionPane.showMessageDialog(null, "Não é possível excluir o registro, solicite suporte técnico ao administrador do sistema.");
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirL2D_Organograma(objOrg);
+                    limparCamposTSEG4();
+                    control.excluirL2C_Organograma(objOrg);
+                    limparCamposTSEG3();
+                    control.excluirL2B_Organograma(objOrg);
+                    limparCamposTSEG2();
+                    control.excluirL2A_Organograma(objOrg);
+                    limparCamposTSEG1();
+                    //
+                    objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirL1D_Organograma(objOrg);
+                    limparCamposTPRI4();
+                    control.excluirL1C_Organograma(objOrg);
+                    limparCamposTPRI3();
+                    control.excluirL1B_Organograma(objOrg);
+                    limparCamposTPRI2();
+                    control.excluirL1A_Organograma(objOrg);
+                    limparCamposTPRI1();
+                    if (pINTERNO_L1A == 0
+                            && pINTERNO_L1B == 0
+                            && pINTERNO_L1C == 0
+                            && pINTERNO_L1D == 0
+                            && pINTERNO_L2A == 0
+                            && pINTERNO_L2B == 0
+                            && pINTERNO_L2C == 0
+                            && pINTERNO_L2D == 0) {
+                        bloquearBotoes();
+                        bloquearCampos();
+                        limparCampos();
+                        objOrg.setIdOrg(Integer.valueOf(jIdRegistro.getText()));
+                        control.excluirOrganograma_PRINCIPAL(objOrg);
+                        JOptionPane.showMessageDialog(null, "Registro excluído com sucesso.");
+                        Excluir();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o registro totalmente, solicite ajuda do administrador do sistema.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não é possível excluir o registro, solicite suporte técnico ao administrador do sistema.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, entre em contato com o administrador do sistema.");
@@ -2486,15 +2872,171 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     } catch (IOException ex) {
                         Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    objOrg.setCartaBaralho(buffer.toByteArray());
+                    objOrg.setCartaBaralho0(buffer.toByteArray());
                 }
                 try {
                     objOrg.setRecompensa(valorReal.parse(jRecompensaBC.getText()).doubleValue());
                 } catch (ParseException ex) {
                     Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                objOrg.setSituacaoRegistro(jSituacaoRegistro.getText());
+                //PRIMEIRO ESCALÃO
+                //PRIMEIRA CARTA DO PRIMEIRO ESCALÃO
+                if (jFotoCarta1.getIcon() != null) {
+                    Image img0 = ((ImageIcon) jFotoCarta1.getIcon()).getImage();
+                    BufferedImage bi0 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img0.getWidth(null),
+                            img0.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g20 = bi0.createGraphics();
+                    g20.drawImage(img0, 0, 0, null);
+                    ByteArrayOutputStream buffer0 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi0, "png", buffer0);
+                    } catch (FileNotFoundException ex0) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex0);
+                    } catch (IOException ex0) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex0);
+                    }
+                    objOrg.setCartaBaralho1(buffer0.toByteArray());
+                }
+                //SEGUNDA CARTA PRIMEIRO ESCALÃO
+                if (jFotoCarta2.getIcon() != null) {
+                    Image img1 = ((ImageIcon) jFotoCarta2.getIcon()).getImage();
+                    BufferedImage bi1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img1.getWidth(null),
+                            img1.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g21 = bi1.createGraphics();
+                    g21.drawImage(img1, 0, 0, null);
+                    ByteArrayOutputStream buffer1 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi1, "png", buffer1);
+                    } catch (FileNotFoundException ex1) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex1);
+                    } catch (IOException ex1) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                    objOrg.setCartaBaralho2(buffer1.toByteArray());
+                }
+                //TERCEIRA CARTA PRIMEIRO ESCALÃO
+                if (jFotoCarta3.getIcon() != null) {
+                    Image img3 = ((ImageIcon) jFotoCarta3.getIcon()).getImage();
+                    BufferedImage bi3 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img3.getWidth(null),
+                            img3.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g23 = bi3.createGraphics();
+                    g23.drawImage(img3, 0, 0, null);
+                    ByteArrayOutputStream buffer3 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi3, "png", buffer3);
+                    } catch (FileNotFoundException ex3) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex3);
+                    } catch (IOException ex3) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex3);
+                    }
+                    objOrg.setCartaBaralho3(buffer3.toByteArray());
+                }
+                //QUARTA CARTA DO PRIMEIRO ESCALÃO
+                if (jFotoCarta4.getIcon() != null) {
+                    Image img4 = ((ImageIcon) jFotoCarta4.getIcon()).getImage();
+                    BufferedImage bi4 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img4.getWidth(null),
+                            img4.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g24 = bi4.createGraphics();
+                    g24.drawImage(img4, 0, 0, null);
+                    ByteArrayOutputStream buffer4 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi4, "png", buffer4);
+                    } catch (FileNotFoundException ex4) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex4);
+                    } catch (IOException ex4) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex4);
+                    }
+                    objOrg.setCartaBaralho4(buffer4.toByteArray());
+                }
+                //SEGUNDO ESCALÃO
+                //PRIMEIRA CARTA DO SEGUNDO ESCALÃO
+                if (jFotoCarta5.getIcon() != null) {
+                    Image img5 = ((ImageIcon) jFotoCarta5.getIcon()).getImage();
+                    BufferedImage bi5 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img5.getWidth(null),
+                            img5.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g25 = bi5.createGraphics();
+                    g25.drawImage(img5, 0, 0, null);
+                    ByteArrayOutputStream buffer5 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi5, "png", buffer5);
+                    } catch (FileNotFoundException ex5) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex5);
+                    } catch (IOException ex5) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex5);
+                    }
+                    objOrg.setCartaBaralho5(buffer5.toByteArray());
+                }
+                //SEGUNDA CARTA SEGUNDO ESCALÃO
+                if (jFotoCarta6.getIcon() != null) {
+                    Image img6 = ((ImageIcon) jFotoCarta6.getIcon()).getImage();
+                    BufferedImage bi6 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img6.getWidth(null),
+                            img6.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g26 = bi6.createGraphics();
+                    g26.drawImage(img6, 0, 0, null);
+                    ByteArrayOutputStream buffer6 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi6, "png", buffer6);
+                    } catch (FileNotFoundException ex6) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex6);
+                    } catch (IOException ex6) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex6);
+                    }
+                    objOrg.setCartaBaralho6(buffer6.toByteArray());
+                }
+                //TERCEIRA CARTA SEGUNDO ESCALÃO
+                if (jFotoCarta7.getIcon() != null) {
+                    Image img7 = ((ImageIcon) jFotoCarta7.getIcon()).getImage();
+                    BufferedImage bi7 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img7.getWidth(null),
+                            img7.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g27 = bi7.createGraphics();
+                    g27.drawImage(img7, 0, 0, null);
+                    ByteArrayOutputStream buffer7 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi7, "png", buffer7);
+                    } catch (FileNotFoundException ex7) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex7);
+                    } catch (IOException ex7) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex7);
+                    }
+                    objOrg.setCartaBaralho7(buffer7.toByteArray());
+                }
+                //QUARTA CARTA DO SEGUNDO ESCALÃO
+                if (jFotoCarta8.getIcon() != null) {
+                    Image img8 = ((ImageIcon) jFotoCarta8.getIcon()).getImage();
+                    BufferedImage bi8 = new BufferedImage(//é a imagem na memória e que pode ser alterada
+                            img8.getWidth(null),
+                            img8.getHeight(null),
+                            BufferedImage.TYPE_INT_RGB);
+                    Graphics2D g28 = bi8.createGraphics();
+                    g28.drawImage(img8, 0, 0, null);
+                    ByteArrayOutputStream buffer8 = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(bi8, "png", buffer8);
+                    } catch (FileNotFoundException ex8) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex8);
+                    } catch (IOException ex8) {
+                        Logger.getLogger(BaralhoCrimeUnidadePrisional.class.getName()).log(Level.SEVERE, null, ex8);
+                    }
+                    objOrg.setCartaBaralho8(buffer8.toByteArray());
+                }
                 objOrg.setObservacao(jObservacaoL1.getText());
                 objOrg.setObservacao2(jObservacaoL2.getText());
+                objOrg.setObservacao2(jObservacaoFrente.getText());
                 //
                 objOrg.setIdInternoCrcL1A(pINTERNO_L1A);
                 objOrg.setIdInternoCrcL1B(pINTERNO_L1B);
@@ -2552,7 +3094,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                     }
                 }
                 if (acao == 2) {
-                    objOrg.setUsuarioInsert(nameUser);
+                    objOrg.setUsuarioUp(nameUser);
                     objOrg.setDataUp(dataModFinal);
                     objOrg.setHorarioUp(horaMov);
                     //
@@ -2570,6 +3112,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             control.alterarL1A_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L1A && pINTERNO_L1A != 0) {
                             control.alterarL1A_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1A && pINTERNO_L1A == 0) {
+                            control.alterarL1A_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL1B();
                         if (objOrg.getIdOrg() != pID_REGISTRO_L1B && pINTERNO_L1B != 0) {
@@ -2578,6 +3122,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         if (objOrg.getIdOrg() == pID_REGISTRO_L1B && pINTERNO_L1B != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1B) {
                             control.alterarL1B_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L1B && pINTERNO_L1B != 0) {
+                            control.alterarL1B_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1B && pINTERNO_L1B == 0) {
                             control.alterarL1B_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL1C();
@@ -2588,6 +3134,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             control.alterarL1C_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L1C && pINTERNO_L1C != 0) {
                             control.alterarL1C_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1C && pINTERNO_L1C == 0) {
+                            control.alterarL1C_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL1D();
                         if (objOrg.getIdOrg() != pID_REGISTRO_L1D && pINTERNO_L1D != 0) {
@@ -2596,6 +3144,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         if (objOrg.getIdOrg() == pID_REGISTRO_L1D && pINTERNO_L1D != 0 && objOrg.getIdInternoCrc() != pINTERNO_L1D) {
                             control.alterarL1D_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L1D && pINTERNO_L1D != 0) {
+                            control.alterarL1D_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L1D && pINTERNO_L1D == 0) {
                             control.alterarL1D_Organograma(objOrg);
                         }
                         //2ºESCALÃO
@@ -2607,6 +3157,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             control.alterarL2A_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L2A && pINTERNO_L2A != 0) {
                             control.alterarL2A_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2A && pINTERNO_L2A == 0) {
+                            control.alterarL2A_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL2B();
                         if (objOrg.getIdOrg() != pID_REGISTRO_L2B && pINTERNO_L2B != 0) {
@@ -2615,6 +3167,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         if (objOrg.getIdOrg() == pID_REGISTRO_L2B && pINTERNO_L2B != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2B) {
                             control.alterarL2B_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L2B && pINTERNO_L2B != 0) {
+                            control.alterarL2B_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2B && pINTERNO_L2B == 0) {
                             control.alterarL2B_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL2C();
@@ -2625,6 +3179,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                             control.alterarL2C_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L2C && pINTERNO_L2C != 0) {
                             control.alterarL2C_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2C && pINTERNO_L2C == 0) {
+                            control.alterarL2C_Organograma(objOrg);
                         }
                         verificarExistenciaInternoDBL2D();
                         if (objOrg.getIdOrg() != pID_REGISTRO_L2D && pINTERNO_L2D != 0) {
@@ -2633,6 +3189,8 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                         if (objOrg.getIdOrg() == pID_REGISTRO_L2D && pINTERNO_L2D != 0 && objOrg.getIdInternoCrc() != pINTERNO_L2D) {
                             control.alterarL2D_Organograma(objOrg);
                         } else if (objOrg.getIdOrg() == pID_REGISTRO_L2D && pINTERNO_L2D != 0) {
+                            control.alterarL2D_Organograma(objOrg);
+                        } else if (objOrg.getIdOrg() == pID_REGISTRO_L2D && pINTERNO_L2D == 0) {
                             control.alterarL2D_Organograma(objOrg);
                         }
                         bloquearCampos();
@@ -2666,7 +3224,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -2992,6 +3550,168 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtDel7ActionPerformed
 
+    private void jBtCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta1ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File g = seletor.getSelectedFile();
+            caminhoCarta1 = g.getPath();
+            javax.swing.ImageIcon h = new javax.swing.ImageIcon(caminhoCarta1);
+            jFotoCarta1.setIcon(h);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta1.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta1.getWidth(), jFotoCarta1.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta1 = g.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta1ActionPerformed
+
+    private void jBtCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta2ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File j = seletor.getSelectedFile();
+            caminhoCarta2 = j.getPath();
+            javax.swing.ImageIcon k = new javax.swing.ImageIcon(caminhoCarta2);
+            jFotoCarta2.setIcon(k);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta2.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta2.getWidth(), jFotoCarta2.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta2 = j.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta2ActionPerformed
+
+    private void jBtCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta3ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File l = seletor.getSelectedFile();
+            caminhoCarta3 = l.getPath();
+            javax.swing.ImageIcon m = new javax.swing.ImageIcon(caminhoCarta3);
+            jFotoCarta3.setIcon(m);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta3.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta3.getWidth(), jFotoCarta3.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta3 = l.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta3ActionPerformed
+
+    private void jBtCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta4ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File n = seletor.getSelectedFile();
+            caminhoCarta4 = n.getPath();
+            javax.swing.ImageIcon o = new javax.swing.ImageIcon(caminhoCarta4);
+            jFotoCarta4.setIcon(o);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta4.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta4.getWidth(), jFotoCarta4.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta4 = n.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta4ActionPerformed
+
+    private void jBtCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta5ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File p = seletor.getSelectedFile();
+            caminhoCarta5 = p.getPath();
+            javax.swing.ImageIcon q = new javax.swing.ImageIcon(caminhoCarta5);
+            jFotoCarta5.setIcon(q);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta5.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta5.getWidth(), jFotoCarta5.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta5 = p.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta5ActionPerformed
+
+    private void jBtCarta6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta6ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File r = seletor.getSelectedFile();
+            caminhoCarta6 = r.getPath();
+            javax.swing.ImageIcon s = new javax.swing.ImageIcon(caminhoCarta6);
+            jFotoCarta6.setIcon(s);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta6.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta6.getWidth(), jFotoCarta6.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta6 = r.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta6ActionPerformed
+
+    private void jBtCarta7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta7ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File t = seletor.getSelectedFile();
+            caminhoCarta7 = t.getPath();
+            javax.swing.ImageIcon u = new javax.swing.ImageIcon(caminhoCarta7);
+            jFotoCarta7.setIcon(u);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta7.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta7.getWidth(), jFotoCarta7.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta7 = t.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta7ActionPerformed
+
+    private void jBtCarta8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCarta8ActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+        int acao = seletor.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            java.io.File v = seletor.getSelectedFile();
+            caminhoCarta8 = v.getPath();
+            javax.swing.ImageIcon x = new javax.swing.ImageIcon(caminhoCarta8);
+            jFotoCarta8.setIcon(x);
+            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+            jFotoCarta8.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCarta8.getWidth(), jFotoCarta8.getHeight(), Image.SCALE_DEFAULT)));
+            caminhoCarta8 = v.getPath();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da carta do interno foi cancelada.");
+        }
+    }//GEN-LAST:event_jBtCarta8ActionPerformed
+
+    private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
+        // TODO add your handling code here:
+        objOrg.setSituacaoRegistro(jSituacaoRegistro.getText());
+        if (jSituacaoRegistro.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro jó foi FINALIZADO");
+        } else {
+            statusMov = "Finalizou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ORGANOGRAMA_CRIME WHERE IdOrg='" + jIdRegistro.getText() + "'");
+                conecta.rs.first();
+                jSituacaoRegistro.setText(conecta.rs.getString("SituacaoRegistro"));
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível verificar se lançamento foi finalizado.\nERRO: " + ex);
+            }
+            conecta.desconecta();
+            if (jSituacaoRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Lançamento já foi finalizado");
+            } else {
+                Finalizar();
+            }
+        }
+    }//GEN-LAST:event_jBtFinalizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField jAlcunhaBC;
@@ -3011,6 +3731,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtBuscarInterno;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtCarta;
+    private javax.swing.JButton jBtCarta1;
+    private javax.swing.JButton jBtCarta2;
+    private javax.swing.JButton jBtCarta3;
+    private javax.swing.JButton jBtCarta4;
+    private javax.swing.JButton jBtCarta5;
+    private javax.swing.JButton jBtCarta6;
+    private javax.swing.JButton jBtCarta7;
+    private javax.swing.JButton jBtCarta8;
     private javax.swing.JButton jBtDel1;
     private javax.swing.JButton jBtDel2;
     private javax.swing.JButton jBtDel3;
@@ -3021,6 +3749,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtDel8;
     private javax.swing.JButton jBtEndereco;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtInfo1;
     private javax.swing.JButton jBtInfo2;
@@ -3053,6 +3782,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataRegistro;
     public static com.toedter.calendar.JDateChooser jDataTerPena;
     private javax.swing.JTextField jFaccao;
+    public static javax.swing.JLabel jFotoCarta1;
+    public static javax.swing.JLabel jFotoCarta2;
+    public static javax.swing.JLabel jFotoCarta3;
+    public static javax.swing.JLabel jFotoCarta4;
+    public static javax.swing.JLabel jFotoCarta5;
+    public static javax.swing.JLabel jFotoCarta6;
+    public static javax.swing.JLabel jFotoCarta7;
+    public static javax.swing.JLabel jFotoCarta8;
     public static javax.swing.JLabel jFotoL11;
     public static javax.swing.JLabel jFotoL12;
     public static javax.swing.JLabel jFotoL13;
@@ -3087,6 +3824,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel52;
@@ -3108,6 +3846,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jNaturalidade;
     public static javax.swing.JTextField jNomeInternoBC;
     public static javax.swing.JTextField jNomeMaeBC;
+    private javax.swing.JTextArea jObservacaoFrente;
     private javax.swing.JTextArea jObservacaoL1;
     private javax.swing.JTextArea jObservacaoL2;
     private javax.swing.JPanel jPanel1;
@@ -3124,6 +3863,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
@@ -3138,7 +3878,17 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel40;
+    private javax.swing.JPanel jPanel41;
+    private javax.swing.JPanel jPanel42;
+    private javax.swing.JPanel jPanel43;
+    private javax.swing.JPanel jPanel44;
+    private javax.swing.JPanel jPanel45;
+    private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -3155,8 +3905,10 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jRegime;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     public static javax.swing.JTextField jSituacaoCrc;
+    private javax.swing.JTextField jSituacaoRegistro;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaLocacao;
@@ -3165,8 +3917,12 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formataCampos() {
+        jObservacaoFrente.setLineWrap(true);
+        jObservacaoFrente.setWrapStyleWord(true);
         jObservacaoL1.setLineWrap(true);
         jObservacaoL1.setWrapStyleWord(true);
+        jObservacaoL2.setLineWrap(true);
+        jObservacaoL2.setWrapStyleWord(true);
     }
 
     public void corCampos() {
@@ -3174,6 +3930,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jIdRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
         jSituacaoCrc.setBackground(Color.white);
+        jSituacaoRegistro.setBackground(Color.white);
         //
         jIdInternoBC.setBackground(Color.white);
         jCNC_BC.setBackground(Color.white);
@@ -3185,6 +3942,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jRegime.setBackground(Color.white);
         jRGBC.setBackground(Color.white);
         jCPFBC.setBackground(Color.white);
+        jObservacaoFrente.setBackground(Color.white);
         //
         jPavilhaoBC.setBackground(Color.white);
         jCelaBC.setBackground(Color.white);
@@ -3205,12 +3963,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jProcedenciaBC.setBackground(Color.white);
         jVaraCondenatoriaBC.setBackground(Color.white);
         jObservacaoL1.setBackground(Color.white);
+        jObservacaoL2.setBackground(Color.white);
     }
 
     public void limparCampos() {
         jIdRegistro.setText("");
         jDataRegistro.setDate(null);
         jSituacaoCrc.setText("");
+        jSituacaoRegistro.setText("");
         jLabelCarta.setIcon(null);
         jLabelFoto.setIcon(null);
         //
@@ -3225,6 +3985,9 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jRGBC.setText("");
         jCPFBC.setText("");
         jComboBoxStatus.setSelectedItem("Selecione...");
+        jObservacaoFrente.setText("");
+        jObservacaoL1.setText("");
+        jObservacaoL2.setText("");
         //
         jPavilhaoBC.setText("");
         jCelaBC.setText("");
@@ -3302,6 +4065,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jProcedenciaBC.setEnabled(!true);
         jVaraCondenatoriaBC.setEnabled(!true);
         //
+        jObservacaoFrente.setEnabled(!true);
         jObservacaoL1.setEnabled(!true);
         jObservacaoL2.setEnabled(!true);
     }
@@ -3317,6 +4081,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtAuditoria.setEnabled(!true);
         jBtCarta.setEnabled(!true);
         jBtRemoverCarta.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
         //ABA L1
         jBtAdd1.setEnabled(!true);
         jBtAdd2.setEnabled(!true);
@@ -3332,6 +4097,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo2.setEnabled(!true);
         jBtInfo3.setEnabled(!true);
         jBtInfo4.setEnabled(!true);
+        //
+        jBtCarta1.setEnabled(!true);
+        jBtCarta2.setEnabled(!true);
+        jBtCarta3.setEnabled(!true);
+        jBtCarta4.setEnabled(!true);
         //ABAL-2        
         jBtAdd5.setEnabled(!true);
         jBtAdd6.setEnabled(!true);
@@ -3347,6 +4117,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo6.setEnabled(!true);
         jBtInfo7.setEnabled(!true);
         jBtInfo8.setEnabled(!true);
+        //
+        jBtCarta5.setEnabled(!true);
+        jBtCarta6.setEnabled(!true);
+        jBtCarta7.setEnabled(!true);
+        jBtCarta8.setEnabled(!true);
     }
 
     public void Novo() {
@@ -3362,9 +4137,12 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         pINTERNO_L2D = 0;
         //
         jDataRegistro.setCalendar(Calendar.getInstance());
+        jSituacaoRegistro.setText("ABERTO");
         jFaccao.setEnabled(true);
         jRecompensaBC.setEnabled(true);
+        jObservacaoFrente.setEnabled(true);
         jObservacaoL1.setEnabled(true);
+        jObservacaoL2.setEnabled(true);
         jComboBoxStatus.setEnabled(true);
         //
         jBtSalvar.setEnabled(true);
@@ -3387,6 +4165,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo2.setEnabled(true);
         jBtInfo3.setEnabled(true);
         jBtInfo4.setEnabled(true);
+        //
+        jBtCarta1.setEnabled(true);
+        jBtCarta2.setEnabled(true);
+        jBtCarta3.setEnabled(true);
+        jBtCarta4.setEnabled(true);
         //ABAL-2        
         jBtAdd5.setEnabled(true);
         jBtAdd6.setEnabled(true);
@@ -3402,13 +4185,20 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo6.setEnabled(true);
         jBtInfo7.setEnabled(true);
         jBtInfo8.setEnabled(true);
+        //
+        jBtCarta5.setEnabled(true);
+        jBtCarta6.setEnabled(true);
+        jBtCarta7.setEnabled(true);
+        jBtCarta8.setEnabled(true);
     }
 
     public void Alterar() {
         jDataRegistro.setCalendar(Calendar.getInstance());
         jFaccao.setEnabled(true);
         jRecompensaBC.setEnabled(true);
+        jObservacaoFrente.setEnabled(true);
         jObservacaoL1.setEnabled(true);
+        jObservacaoL2.setEnabled(true);
         jComboBoxStatus.setEnabled(true);
         //
         jBtSalvar.setEnabled(true);
@@ -3431,6 +4221,11 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo2.setEnabled(true);
         jBtInfo3.setEnabled(true);
         jBtInfo4.setEnabled(true);
+        //
+        jBtCarta1.setEnabled(true);
+        jBtCarta2.setEnabled(true);
+        jBtCarta3.setEnabled(true);
+        jBtCarta4.setEnabled(true);
         //ABAL-2        
         jBtAdd5.setEnabled(true);
         jBtAdd6.setEnabled(true);
@@ -3446,10 +4241,15 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtInfo6.setEnabled(true);
         jBtInfo7.setEnabled(true);
         jBtInfo8.setEnabled(true);
+        //
+        jBtCarta5.setEnabled(true);
+        jBtCarta6.setEnabled(true);
+        jBtCarta7.setEnabled(true);
+        jBtCarta8.setEnabled(true);
     }
 
     public void Excluir() {
-        jBtCancelar.setEnabled(true);
+        jBtNovo.setEnabled(true);
     }
 
     public void Salvar() {
@@ -3458,6 +4258,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
         jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtImpressao.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
         //ABA L1        
         jBtInfo1.setEnabled(true);
         jBtInfo2.setEnabled(true);
@@ -3485,6 +4286,7 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jBtExcluir.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtImpressao.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
             //ABA L1        
             jBtInfo1.setEnabled(true);
             jBtInfo2.setEnabled(true);
@@ -3495,6 +4297,29 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
             jBtInfo6.setEnabled(true);
             jBtInfo7.setEnabled(true);
             jBtInfo8.setEnabled(true);
+        }
+    }
+
+    public void Finalizar() {
+
+        String statusLanc = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar assim mesmo o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objOrg.setSituacaoRegistro(statusLanc);
+            objOrg.setIdOrg(Integer.parseInt(jIdRegistro.getText()));
+            control.finalizarOrganograma_PRINCIPAL(objOrg);
+            jSituacaoRegistro.setText("FINALIZADO");
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            //
+            bloquearCampos();
+            bloquearBotoes();
+            jBtNovo.setEnabled(true);
+            jBtImpressao.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
         }
     }
 
@@ -3692,6 +4517,15 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 ImageIcon icon11 = new ImageIcon(scaled);
                 jFotoL11.setIcon(icon11);
             }
+            //PRIMEIRO ESCALÃO
+            byte[] imgBytes0 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes0 != null) {
+                ImageIcon pic0 = null;
+                pic0 = new ImageIcon(imgBytes0);
+                Image scaled = pic0.getImage().getScaledInstance(jFotoCarta1.getWidth(), jFotoCarta1.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon0 = new ImageIcon(scaled);
+                jFotoCarta1.setIcon(icon0);
+            }
         } catch (Exception e) {
         }
         try {
@@ -3715,6 +4549,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 Image scaled = pic12.getImage().getScaledInstance(jFotoL12.getWidth(), jFotoL12.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon12 = new ImageIcon(scaled);
                 jFotoL12.setIcon(icon12);
+            }
+            byte[] imgBytes1 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes1 != null) {
+                ImageIcon pic1 = null;
+                pic1 = new ImageIcon(imgBytes1);
+                Image scaled = pic1.getImage().getScaledInstance(jFotoCarta2.getWidth(), jFotoCarta2.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon1 = new ImageIcon(scaled);
+                jFotoCarta2.setIcon(icon1);
             }
         } catch (Exception e) {
         }
@@ -3740,6 +4582,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 ImageIcon icon13 = new ImageIcon(scaled);
                 jFotoL13.setIcon(icon13);
             }
+            byte[] imgBytes2 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes2 != null) {
+                ImageIcon pic2 = null;
+                pic2 = new ImageIcon(imgBytes2);
+                Image scaled = pic2.getImage().getScaledInstance(jFotoCarta3.getWidth(), jFotoCarta3.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon2 = new ImageIcon(scaled);
+                jFotoCarta3.setIcon(icon2);
+            }
         } catch (Exception e) {
         }
         try {
@@ -3763,6 +4613,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 Image scaled = pic14.getImage().getScaledInstance(jFotoL14.getWidth(), jFotoL14.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon14 = new ImageIcon(scaled);
                 jFotoL14.setIcon(icon14);
+            }
+            byte[] imgBytes3 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes3 != null) {
+                ImageIcon pic3 = null;
+                pic3 = new ImageIcon(imgBytes3);
+                Image scaled = pic3.getImage().getScaledInstance(jFotoCarta4.getWidth(), jFotoCarta4.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon3 = new ImageIcon(scaled);
+                jFotoCarta4.setIcon(icon3);
             }
         } catch (Exception e) {
         }
@@ -3795,6 +4653,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 ImageIcon icon17 = new ImageIcon(scaled);
                 jFotoL17.setIcon(icon17);
             }
+            byte[] imgBytes5 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes5 != null) {
+                ImageIcon pic5 = null;
+                pic5 = new ImageIcon(imgBytes5);
+                Image scaled = pic5.getImage().getScaledInstance(jFotoCarta5.getWidth(), jFotoCarta5.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon5 = new ImageIcon(scaled);
+                jFotoCarta5.setIcon(icon5);
+            }
         } catch (Exception e) {
         }
         try {
@@ -3818,6 +4684,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 Image scaled = pic16.getImage().getScaledInstance(jFotoL16.getWidth(), jFotoL16.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon16 = new ImageIcon(scaled);
                 jFotoL16.setIcon(icon16);
+            }
+            byte[] imgBytes6 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes6 != null) {
+                ImageIcon pic6 = null;
+                pic6 = new ImageIcon(imgBytes6);
+                Image scaled = pic6.getImage().getScaledInstance(jFotoCarta6.getWidth(), jFotoCarta6.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon6 = new ImageIcon(scaled);
+                jFotoCarta6.setIcon(icon6);
             }
         } catch (Exception e) {
         }
@@ -3843,6 +4717,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 ImageIcon icon18 = new ImageIcon(scaled);
                 jFotoL18.setIcon(icon18);
             }
+            byte[] imgBytes7 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes7 != null) {
+                ImageIcon pic7 = null;
+                pic7 = new ImageIcon(imgBytes7);
+                Image scaled = pic7.getImage().getScaledInstance(jFotoCarta7.getWidth(), jFotoCarta7.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon7 = new ImageIcon(scaled);
+                jFotoCarta7.setIcon(icon7);
+            }
         } catch (Exception e) {
         }
         try {
@@ -3866,6 +4748,14 @@ public class BaralhoCrimeUnidadePrisional extends javax.swing.JInternalFrame {
                 Image scaled = pic15.getImage().getScaledInstance(jFotoL15.getWidth(), jFotoL15.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon15 = new ImageIcon(scaled);
                 jFotoL15.setIcon(icon15);
+            }
+            byte[] imgBytes8 = ((byte[]) conecta.rs.getBytes("CartaBaralho"));
+            if (imgBytes8 != null) {
+                ImageIcon pic8 = null;
+                pic8 = new ImageIcon(imgBytes8);
+                Image scaled = pic8.getImage().getScaledInstance(jFotoCarta8.getWidth(), jFotoCarta8.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon8 = new ImageIcon(scaled);
+                jFotoCarta8.setIcon(icon8);
             }
         } catch (Exception e) {
         }

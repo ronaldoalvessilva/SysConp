@@ -17,14 +17,14 @@ public class OrganogramaCrime {
     private String statusOrg;
     private Date dataOrg;
     private int idInternoCrc;
-    private String nomeInterno;
-    private byte[] cartaBaralho;
+    private String nomeInterno;    
     private String faccao;
     private int idPav;
     private String descricaoPav;
     private int idCela;
     private String descricaoCela;
     private Double recompensa;
+    private String situacaoRegistro;
     private String usuarioInsert;
     private String dataInsert;
     private String horarioInsert;
@@ -33,8 +33,7 @@ public class OrganogramaCrime {
     private String horarioUp;
     private int idL1A;
     private int idInternoCrcL1A;
-    private String nomeInternoL1A;
-    private String observacao;
+    private String nomeInternoL1A;    
     private int idL1B;
     private int idInternoCrcL1B;
     private String nomeInternoL1B;
@@ -52,24 +51,35 @@ public class OrganogramaCrime {
     private int idL2B;
     private int idL2C;
     private int idL2D;
+    private String observacao;
     private String observacao2;
+    private String observacaoFrente;
+    private byte[] cartaBaralho0;
+    private byte[] cartaBaralho1;
+    private byte[] cartaBaralho2;
+    private byte[] cartaBaralho3;
+    private byte[] cartaBaralho4;
+    private byte[] cartaBaralho5;
+    private byte[] cartaBaralho6;
+    private byte[] cartaBaralho7;
+    private byte[] cartaBaralho8;
 
     public OrganogramaCrime() {
     }
 
-    public OrganogramaCrime(int idOrg, String statusOrg, Date dataOrg, int idInternoCrc, String nomeInterno, byte[] cartaBaralho, String faccao, int idPav, String descricaoPav, int idCela, String descricaoCela, Double recompensa, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idL1A, int idInternoCrcL1A, String nomeInternoL1A, String observacao, int idL1B, int idInternoCrcL1B, String nomeInternoL1B, int idL1C, int IdInternoCrcL1C, String nomeInternoL1C, int idL1D, int idInternoCrcL1D, String nomeInternoL1D, int idInternoCrcL2A, int idInternoCrcL2B, int idInternoCrcL2C, int idInternoCrcL2D, int idL2A, int idL2B, int idL2C, int idL2D, String observacao2) {
+    public OrganogramaCrime(int idOrg, String statusOrg, Date dataOrg, int idInternoCrc, String nomeInterno, String faccao, int idPav, String descricaoPav, int idCela, String descricaoCela, Double recompensa, String situacaoRegistro, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, int idL1A, int idInternoCrcL1A, String nomeInternoL1A, int idL1B, int idInternoCrcL1B, String nomeInternoL1B, int idL1C, int IdInternoCrcL1C, String nomeInternoL1C, int idL1D, int idInternoCrcL1D, String nomeInternoL1D, int idInternoCrcL2A, int idInternoCrcL2B, int idInternoCrcL2C, int idInternoCrcL2D, int idL2A, int idL2B, int idL2C, int idL2D, String observacao, String observacao2, String observacaoFrente, byte[] cartaBaralho0, byte[] cartaBaralho1, byte[] cartaBaralho2, byte[] cartaBaralho3, byte[] cartaBaralho4, byte[] cartaBaralho5, byte[] cartaBaralho6, byte[] cartaBaralho7, byte[] cartaBaralho8) {
         this.idOrg = idOrg;
         this.statusOrg = statusOrg;
         this.dataOrg = dataOrg;
         this.idInternoCrc = idInternoCrc;
         this.nomeInterno = nomeInterno;
-        this.cartaBaralho = cartaBaralho;
         this.faccao = faccao;
         this.idPav = idPav;
         this.descricaoPav = descricaoPav;
         this.idCela = idCela;
         this.descricaoCela = descricaoCela;
         this.recompensa = recompensa;
+        this.situacaoRegistro = situacaoRegistro;
         this.usuarioInsert = usuarioInsert;
         this.dataInsert = dataInsert;
         this.horarioInsert = horarioInsert;
@@ -79,7 +89,6 @@ public class OrganogramaCrime {
         this.idL1A = idL1A;
         this.idInternoCrcL1A = idInternoCrcL1A;
         this.nomeInternoL1A = nomeInternoL1A;
-        this.observacao = observacao;
         this.idL1B = idL1B;
         this.idInternoCrcL1B = idInternoCrcL1B;
         this.nomeInternoL1B = nomeInternoL1B;
@@ -97,7 +106,18 @@ public class OrganogramaCrime {
         this.idL2B = idL2B;
         this.idL2C = idL2C;
         this.idL2D = idL2D;
+        this.observacao = observacao;
         this.observacao2 = observacao2;
+        this.observacaoFrente = observacaoFrente;
+        this.cartaBaralho0 = cartaBaralho0;
+        this.cartaBaralho1 = cartaBaralho1;
+        this.cartaBaralho2 = cartaBaralho2;
+        this.cartaBaralho3 = cartaBaralho3;
+        this.cartaBaralho4 = cartaBaralho4;
+        this.cartaBaralho5 = cartaBaralho5;
+        this.cartaBaralho6 = cartaBaralho6;
+        this.cartaBaralho7 = cartaBaralho7;
+        this.cartaBaralho8 = cartaBaralho8;
     }
 
     /**
@@ -168,20 +188,6 @@ public class OrganogramaCrime {
      */
     public void setNomeInterno(String nomeInterno) {
         this.nomeInterno = nomeInterno;
-    }
-
-    /**
-     * @return the cartaBaralho
-     */
-    public byte[] getCartaBaralho() {
-        return cartaBaralho;
-    }
-
-    /**
-     * @param cartaBaralho the cartaBaralho to set
-     */
-    public void setCartaBaralho(byte[] cartaBaralho) {
-        this.cartaBaralho = cartaBaralho;
     }
 
     /**
@@ -266,6 +272,20 @@ public class OrganogramaCrime {
      */
     public void setRecompensa(Double recompensa) {
         this.recompensa = recompensa;
+    }
+
+    /**
+     * @return the situacaoRegistro
+     */
+    public String getSituacaoRegistro() {
+        return situacaoRegistro;
+    }
+
+    /**
+     * @param situacaoRegistro the situacaoRegistro to set
+     */
+    public void setSituacaoRegistro(String situacaoRegistro) {
+        this.situacaoRegistro = situacaoRegistro;
     }
 
     /**
@@ -392,20 +412,6 @@ public class OrganogramaCrime {
      */
     public void setNomeInternoL1A(String nomeInternoL1A) {
         this.nomeInternoL1A = nomeInternoL1A;
-    }
-
-    /**
-     * @return the observacao
-     */
-    public String getObservacao() {
-        return observacao;
-    }
-
-    /**
-     * @param observacao the observacao to set
-     */
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
     }
 
     /**
@@ -647,6 +653,20 @@ public class OrganogramaCrime {
     }
 
     /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    /**
      * @return the observacao2
      */
     public String getObservacao2() {
@@ -658,5 +678,145 @@ public class OrganogramaCrime {
      */
     public void setObservacao2(String observacao2) {
         this.observacao2 = observacao2;
+    }
+
+    /**
+     * @return the observacaoFrente
+     */
+    public String getObservacaoFrente() {
+        return observacaoFrente;
+    }
+
+    /**
+     * @param observacaoFrente the observacaoFrente to set
+     */
+    public void setObservacaoFrente(String observacaoFrente) {
+        this.observacaoFrente = observacaoFrente;
+    }
+
+    /**
+     * @return the cartaBaralho0
+     */
+    public byte[] getCartaBaralho0() {
+        return cartaBaralho0;
+    }
+
+    /**
+     * @param cartaBaralho0 the cartaBaralho0 to set
+     */
+    public void setCartaBaralho0(byte[] cartaBaralho0) {
+        this.cartaBaralho0 = cartaBaralho0;
+    }
+
+    /**
+     * @return the cartaBaralho1
+     */
+    public byte[] getCartaBaralho1() {
+        return cartaBaralho1;
+    }
+
+    /**
+     * @param cartaBaralho1 the cartaBaralho1 to set
+     */
+    public void setCartaBaralho1(byte[] cartaBaralho1) {
+        this.cartaBaralho1 = cartaBaralho1;
+    }
+
+    /**
+     * @return the cartaBaralho2
+     */
+    public byte[] getCartaBaralho2() {
+        return cartaBaralho2;
+    }
+
+    /**
+     * @param cartaBaralho2 the cartaBaralho2 to set
+     */
+    public void setCartaBaralho2(byte[] cartaBaralho2) {
+        this.cartaBaralho2 = cartaBaralho2;
+    }
+
+    /**
+     * @return the cartaBaralho3
+     */
+    public byte[] getCartaBaralho3() {
+        return cartaBaralho3;
+    }
+
+    /**
+     * @param cartaBaralho3 the cartaBaralho3 to set
+     */
+    public void setCartaBaralho3(byte[] cartaBaralho3) {
+        this.cartaBaralho3 = cartaBaralho3;
+    }
+
+    /**
+     * @return the cartaBaralho4
+     */
+    public byte[] getCartaBaralho4() {
+        return cartaBaralho4;
+    }
+
+    /**
+     * @param cartaBaralho4 the cartaBaralho4 to set
+     */
+    public void setCartaBaralho4(byte[] cartaBaralho4) {
+        this.cartaBaralho4 = cartaBaralho4;
+    }
+
+    /**
+     * @return the cartaBaralho5
+     */
+    public byte[] getCartaBaralho5() {
+        return cartaBaralho5;
+    }
+
+    /**
+     * @param cartaBaralho5 the cartaBaralho5 to set
+     */
+    public void setCartaBaralho5(byte[] cartaBaralho5) {
+        this.cartaBaralho5 = cartaBaralho5;
+    }
+
+    /**
+     * @return the cartaBaralho6
+     */
+    public byte[] getCartaBaralho6() {
+        return cartaBaralho6;
+    }
+
+    /**
+     * @param cartaBaralho6 the cartaBaralho6 to set
+     */
+    public void setCartaBaralho6(byte[] cartaBaralho6) {
+        this.cartaBaralho6 = cartaBaralho6;
+    }
+
+    /**
+     * @return the cartaBaralho7
+     */
+    public byte[] getCartaBaralho7() {
+        return cartaBaralho7;
+    }
+
+    /**
+     * @param cartaBaralho7 the cartaBaralho7 to set
+     */
+    public void setCartaBaralho7(byte[] cartaBaralho7) {
+        this.cartaBaralho7 = cartaBaralho7;
+    }
+
+    /**
+     * @return the cartaBaralho8
+     */
+    public byte[] getCartaBaralho8() {
+        return cartaBaralho8;
+    }
+
+    /**
+     * @param cartaBaralho8 the cartaBaralho8 to set
+     */
+    public void setCartaBaralho8(byte[] cartaBaralho8) {
+        this.cartaBaralho8 = cartaBaralho8;
     }
 }

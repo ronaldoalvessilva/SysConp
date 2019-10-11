@@ -117,7 +117,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
         jDataFinal = new com.toedter.calendar.JDateChooser();
         jBtPesqData = new javax.swing.JButton();
         jPesqNomeInterno = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBtNomeInterno = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -221,11 +221,11 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtNomeInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtNomeInterno.setContentAreaFilled(false);
+        jBtNomeInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtNomeInternoActionPerformed(evt);
             }
         });
 
@@ -254,7 +254,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBox1))
                     .addGroup(jPanel11Layout.createSequentialGroup()
@@ -274,7 +274,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtPesqData, jButton1});
+        jPanel11Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtNomeInterno, jBtPesqData});
 
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +292,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel12)
                     .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(jBtNomeInterno)
                     .addComponent(jCheckBox1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1445,8 +1445,9 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         preencherTodasLocacao("SELECT * FROM LOCACAOINTERNO "
                                 + "INNER JOIN CELAS "
-                                + "ON LOCACAOINTERNO.IdCela=CELAS.IdCelaDataLanc "
-                                + "BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                                + "ON LOCACAOINTERNO.IdCela=CELAS.IdCela "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
                     }
                 }
             }
@@ -1467,15 +1468,16 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
                         preencherTodasLocacao("SELECT * FROM LOCACAOINTERNO "
                                 + "INNER JOIN CELAS "
-                                + "ON LOCACAOINTERNO.IdCela=CELAS.IdCelaDataLanc "
-                                + "BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                                + "ON LOCACAOINTERNO.IdCela=CELAS.IdCela "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
                     }
                 }
             }
         }
     }//GEN-LAST:event_jBtPesqDataActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeInternoActionPerformed
         // TODO add your handling code here:
         count = 0;
         flag = 1;
@@ -1489,9 +1491,9 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
@@ -1539,6 +1541,7 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluir;
     public static javax.swing.JButton jBtExcluirInterno;
     private javax.swing.JButton jBtFinalizar;
+    private javax.swing.JButton jBtNomeInterno;
     private javax.swing.JButton jBtNovo;
     public static javax.swing.JButton jBtNovoInterno;
     private javax.swing.JButton jBtPesqCelas;
@@ -1549,7 +1552,6 @@ public class TelaLocacaoInterno extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar;
     public static javax.swing.JButton jBtSalvarInterno;
     public static javax.swing.JButton jBtZoom;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     public static com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataFinal;

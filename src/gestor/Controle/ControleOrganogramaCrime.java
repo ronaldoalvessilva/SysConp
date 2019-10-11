@@ -31,18 +31,20 @@ public class ControleOrganogramaCrime {
         buscarCela(objOrg.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ORGANOGRAMA_CRIME (StatusOrg,DataOrg,IdInternoCrc,CartaBaralho,Faccao,IdPav,IdCela,Recompensa,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ORGANOGRAMA_CRIME (StatusOrg,DataOrg,IdInternoCrc,CartaBaralho,Faccao,IdPav,IdCela,Recompensa,SituacaoRegistro,ObservacaoFrente,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objOrg.getStatusOrg());
             pst.setTimestamp(2, new java.sql.Timestamp(objOrg.getDataOrg().getTime()));
             pst.setInt(3, codigoInterno);
-            pst.setBytes(4, objOrg.getCartaBaralho());
+            pst.setBytes(4, objOrg.getCartaBaralho0());
             pst.setString(5, objOrg.getFaccao());
             pst.setInt(6, codigoPav);
             pst.setInt(7, codigoCela);
             pst.setDouble(8, objOrg.getRecompensa());
-            pst.setString(9, objOrg.getUsuarioInsert());
-            pst.setString(10, objOrg.getDataInsert());
-            pst.setString(11, objOrg.getHorarioInsert());
+            pst.setString(9, objOrg.getSituacaoRegistro());
+            pst.setString(10, objOrg.getObservacaoFrente());
+            pst.setString(11, objOrg.getUsuarioInsert());
+            pst.setString(12, objOrg.getDataInsert());
+            pst.setString(12, objOrg.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             CODIGO_CONFIRMACAO_GRAVACAO = 1;
@@ -58,18 +60,20 @@ public class ControleOrganogramaCrime {
         buscarCela(objOrg.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ORGANOGRAMA_CRIME SET StatusOrg=?,DataOrg=?,IdInternoCrc=?,CartaBaralho=?,Faccao=?,IdPav=?,IdCela=?,Recompensa=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ORGANOGRAMA_CRIME SET StatusOrg=?,DataOrg=?,IdInternoCrc=?,CartaBaralho=?,Faccao=?,IdPav=?,IdCela=?,Recompensa=?,SituacaoRegistro=?,ObservacaoFrente=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setString(1, objOrg.getStatusOrg());
             pst.setTimestamp(2, new java.sql.Timestamp(objOrg.getDataOrg().getTime()));
             pst.setInt(3, codigoInterno);
-            pst.setBytes(4, objOrg.getCartaBaralho());
+            pst.setBytes(4, objOrg.getCartaBaralho0());
             pst.setString(5, objOrg.getFaccao());
             pst.setInt(6, codigoPav);
             pst.setInt(7, codigoCela);
             pst.setDouble(8, objOrg.getRecompensa());
-            pst.setString(9, objOrg.getUsuarioUp());
-            pst.setString(10, objOrg.getDataUp());
-            pst.setString(11, objOrg.getHorarioUp());
+            pst.setString(9, objOrg.getSituacaoRegistro());
+            pst.setString(10, objOrg.getObservacaoFrente());
+            pst.setString(11, objOrg.getUsuarioUp());
+            pst.setString(12, objOrg.getDataUp());
+            pst.setString(13, objOrg.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             CODIGO_CONFIRMACAO_GRAVACAO = 1;
@@ -92,16 +96,31 @@ public class ControleOrganogramaCrime {
         return objOrg;
     }
 
+    public OrganogramaCrime finalizarOrganograma_PRINCIPAL(OrganogramaCrime objOrg) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ORGANOGRAMA_CRIME SET SituacaoRegistro=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            pst.setString(1, objOrg.getSituacaoRegistro());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objOrg;
+    }
+
     //------------ LIGAÇÕES DO ORGANOGRAMA - INCLUSÕES, ALTERAÇÕES E EXCLUSÕES ---------------------------------------
     // PRIMEIRA ESCALÃO
     public OrganogramaCrime incluirL1A_Organograma(OrganogramaCrime objOrg) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,Observacao) VALUES(?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho,Observacao) VALUES(?,?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL1A());
-            pst.setString(3, objOrg.getObservacao());
+            pst.setBytes(3, objOrg.getCartaBaralho1());
+            pst.setString(4, objOrg.getObservacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1A) os Dados.\n\nERRO: " + ex);
@@ -114,9 +133,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL1A());
-            pst.setString(2, objOrg.getObservacao());
+            pst.setBytes(2, objOrg.getCartaBaralho1());
+            pst.setString(3, objOrg.getObservacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1A) os Dados.\n\nERRO: " + ex);
@@ -142,9 +162,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL1B());
+            pst.setBytes(3, objOrg.getCartaBaralho2());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1B) os Dados.\n\nERRO: " + ex);
@@ -157,8 +178,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1B_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1B_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL1B());
+            pst.setBytes(2, objOrg.getCartaBaralho2());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1B) os Dados.\n\nERRO: " + ex);
@@ -184,9 +206,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL1C());
+            pst.setBytes(3, objOrg.getCartaBaralho3());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1C) os Dados.\n\nERRO: " + ex);
@@ -199,8 +222,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1C_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1C_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL1C());
+            pst.setBytes(2, objOrg.getCartaBaralho3());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1C) os Dados.\n\nERRO: " + ex);
@@ -226,9 +250,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L1D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL1D());
+            pst.setBytes(3, objOrg.getCartaBaralho4());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L1D) os Dados.\n\nERRO: " + ex);
@@ -241,8 +266,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1D_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L1D_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL1D());
+            pst.setBytes(2, objOrg.getCartaBaralho4());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L1D) os Dados.\n\nERRO: " + ex);
@@ -269,10 +295,11 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,Observacao) VALUES(?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2A_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho,Observacao) VALUES(?,?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL2A());
-            pst.setString(3, objOrg.getObservacao());
+            pst.setBytes(3, objOrg.getCartaBaralho5());
+            pst.setString(4, objOrg.getObservacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2A) os Dados.\n\nERRO: " + ex);
@@ -285,9 +312,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2A_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=?,Observacao=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL2A());
-            pst.setString(2, objOrg.getObservacao());
+            pst.setBytes(2, objOrg.getCartaBaralho5());
+            pst.setString(3, objOrg.getObservacao());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2A) os Dados.\n\nERRO: " + ex);
@@ -313,9 +341,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2B_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL2B());
+            pst.setBytes(3, objOrg.getCartaBaralho6());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2B) os Dados.\n\nERRO: " + ex);
@@ -328,8 +357,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2B_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2B_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL2B());
+            pst.setBytes(2, objOrg.getCartaBaralho6());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2B) os Dados.\n\nERRO: " + ex);
@@ -355,9 +385,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2C_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL2C());
+            pst.setBytes(3, objOrg.getCartaBaralho7());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2C) os Dados.\n\nERRO: " + ex);
@@ -370,8 +401,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2C_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2C_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL2C());
+            pst.setBytes(2, objOrg.getCartaBaralho7());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2C) os Dados.\n\nERRO: " + ex);
@@ -397,9 +429,10 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc) VALUES(?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO L2D_ORGANOGRAMA_CRIME (IdOrg,IdInternoCrc,CartaBaralho) VALUES(?,?,?)");
             pst.setInt(1, objOrg.getIdOrg());
             pst.setInt(2, objOrg.getIdInternoCrcL2D());
+            pst.setBytes(3, objOrg.getCartaBaralho8());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INCLUIR (L2D) os Dados.\n\nERRO: " + ex);
@@ -412,8 +445,9 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2D_ORGANOGRAMA_CRIME SET IdInternoCrc=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE L2D_ORGANOGRAMA_CRIME SET IdInternoCrc=?,CartaBaralho=? WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.setInt(1, objOrg.getIdInternoCrcL2D());
+            pst.setBytes(2, objOrg.getCartaBaralho8());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (L2D) os Dados.\n\nERRO: " + ex);

@@ -249,8 +249,8 @@ public class TelaAuditoriaBC extends javax.swing.JInternalFrame {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA "
-                    + "WHERE IdAdm='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ORGANOGRAMA_CRIME "
+                    + "WHERE IdOrg='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
