@@ -381,6 +381,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jRelatorioAtendimentoInternos = new javax.swing.JMenuItem();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jRelatorioQuantidadeAtendimentoFamiliar = new javax.swing.JMenuItem();
+        jRelatorioGeralQuantidadeAtendimentoFamiliar = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -682,6 +683,11 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Relatórios");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
 
         jRolVisitas.setText("Rol de Visitas");
         jRolVisitas.addActionListener(new java.awt.event.ActionListener() {
@@ -888,7 +894,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu3.add(jSeparator22);
 
         jRelatorioAtendimentoInternos.setForeground(new java.awt.Color(0, 102, 51));
-        jRelatorioAtendimentoInternos.setText("Relatório de Quantitativo de Atendimento Geral");
+        jRelatorioAtendimentoInternos.setText("Relatório de Quantitativo de Atendimento");
         jRelatorioAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioAtendimentoInternosActionPerformed(evt);
@@ -898,13 +904,22 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jMenu3.add(jSeparator23);
 
         jRelatorioQuantidadeAtendimentoFamiliar.setForeground(new java.awt.Color(204, 0, 0));
-        jRelatorioQuantidadeAtendimentoFamiliar.setText("Relatório de Quantidade de Atendimento Familiar");
+        jRelatorioQuantidadeAtendimentoFamiliar.setText("Relatório Quantitativo de Internos na Casa Com Familiares acompanhados");
         jRelatorioQuantidadeAtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRelatorioQuantidadeAtendimentoFamiliarActionPerformed(evt);
             }
         });
         jMenu3.add(jRelatorioQuantidadeAtendimentoFamiliar);
+
+        jRelatorioGeralQuantidadeAtendimentoFamiliar.setForeground(new java.awt.Color(0, 0, 255));
+        jRelatorioGeralQuantidadeAtendimentoFamiliar.setText("Relatório Quantitativo de Internos Com Familiares acompanhados");
+        jRelatorioGeralQuantidadeAtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jRelatorioGeralQuantidadeAtendimentoFamiliar);
 
         jMenuBar1.add(jMenu3);
 
@@ -2179,9 +2194,40 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void jRelatorioQuantidadeAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
-        TelaRelatorioQuantidadeAconpanhamentoFamiliar objRelAF = new TelaRelatorioQuantidadeAconpanhamentoFamiliar();
-        TelaModuloServicoSocial.jPainelServicoSocial.add(objRelAF);
-        objRelAF.show();
+         try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioQuantitativoFamiliarAcomp.jasper";
+                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                                    + "P.NomeInternoCrc,\n"
+                                    + "V.IdVisita AS Cadastradas,\n"
+                                    + "H.IdVisita AS Visitaram,\n"
+                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                                    + "WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'\n" 
+                                    + "ORDER BY P.NomeInternoCrc");
+                            HashMap parametros = new HashMap();
+//                            parametros.put("dataInicial", dataInicial); // Descomentar linha caso mude a chamada do relatório por data.
+//                            parametros.put("dataFinal", dataFinal); // Descomentar linha caso mude a chamada do relatório por data.
+                            parametros.put("pUsuario", nameUser);
+                            parametros.put("pUnidade", descricaoUnidade);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Acompanhamento Familiar.");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+         
+        //--> Descomentar as três linhas abaixo e comentar codigo acima caso mude a chamada do relatório por data.
+        //TelaRelatorioQuantidadeAconpanhamentoFamiliar objRelAF = new TelaRelatorioQuantidadeAconpanhamentoFamiliar();
+        //TelaModuloServicoSocial.jPainelServicoSocial.add(objRelAF);
+        //objRelAF.show();
     }//GEN-LAST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
 
     private void jCancelamentoRegistroAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelamentoRegistroAtendimentoActionPerformed
@@ -2217,6 +2263,41 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jCancelamentoRegistroAtendimentoActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed
+        // TODO add your handling code here:
+        try {
+                            conecta.abrirConexao();
+                            String path = "reports/RelatorioQuantitativoFamiliarAcompGeral.jasper";
+                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                                    + "P.NomeInternoCrc,\n"
+                                    + "V.IdVisita AS Cadastradas,\n"
+                                    + "H.IdVisita AS Visitaram,\n"
+                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                                    + "ORDER BY P.NomeInternoCrc");
+                            HashMap parametros = new HashMap();//                          
+                            parametros.put("pUsuario", nameUser);
+                            parametros.put("pUnidade", descricaoUnidade);
+                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                            jv.setTitle("Relatório de Acompanhamento Familiar.");
+                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                            jv.toFront(); // Traz o relatorio para frente da aplicação            
+                            conecta.desconecta();
+                        } catch (JRException e) {
+                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+                        }
+         
+    }//GEN-LAST:event_jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2284,6 +2365,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelServicoSocial;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JMenuItem jRelatorioAtendimentoInternos;
+    private javax.swing.JMenuItem jRelatorioGeralQuantidadeAtendimentoFamiliar;
     private javax.swing.JMenuItem jRelatorioQuantidadeAtendimentoFamiliar;
     private javax.swing.JMenuItem jRelatorioVisitasInternos;
     private javax.swing.JMenuItem jRolVisitas;

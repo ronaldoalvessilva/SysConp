@@ -248,6 +248,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         jRelatorioTotaisProdutividade = new javax.swing.JMenuItem();
         jRelatorioTotaisProdutividadePorTecnico = new javax.swing.JMenuItem();
+        jMenuPRORES = new javax.swing.JMenu();
+        jMenuItemPRORES = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -562,6 +564,18 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(jRelatorioTotaisProdutividadePorTecnico);
+
+        jMenuPRORES.setText("Relatórios PRORES");
+
+        jMenuItemPRORES.setText("Relatório Quantitativo Total Atendimento PSP");
+        jMenuItemPRORES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPRORESActionPerformed(evt);
+            }
+        });
+        jMenuPRORES.add(jMenuItemPRORES);
+
+        Relatorios.add(jMenuPRORES);
 
         jMenuBar1.add(Relatorios);
 
@@ -1174,14 +1188,14 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP INNER JOIN PRONTUARIOSCRC "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc "
                     + "WHERE  Atendido LIKE 'Sim' ");
-            HashMap parametros = new HashMap();                    
-                    parametros.put("pUsuario", nameUser);
-                    parametros.put("pUnidade", descricaoUnidade);
-                    // Sub Relatório
-                    try {
-                        parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
-                    } catch (SQLException ex) {
-                    }
+            HashMap parametros = new HashMap();
+            parametros.put("pUsuario", nameUser);
+            parametros.put("pUnidade", descricaoUnidade);
+            // Sub Relatório
+            try {
+                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+            } catch (SQLException ex) {
+            }
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
@@ -1197,10 +1211,44 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
     private void jRelatorioTotaisProdutividadePorTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioTotaisProdutividadePorTecnicoActionPerformed
         // TODO add your handling code here:
-         TelaRelatorioProducaoTotalTecnicos objRelProdM = new TelaRelatorioProducaoTotalTecnicos ();
+        TelaRelatorioProducaoTotalTecnicos objRelProdM = new TelaRelatorioProducaoTotalTecnicos();
         TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelProdM);
         objRelProdM.show();
     }//GEN-LAST:event_jRelatorioTotaisProdutividadePorTecnicoActionPerformed
+
+    private void jMenuItemPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPRORESActionPerformed
+        // TODO add your handling code here:
+        conecta.abrirConexao();
+        String path = "reports/RelatorioQuantitativoTotalAtendimentoPSP.jasper";
+        try {
+            conecta.executaSQL("SELECT DISTINCT NomeDepartamento,\n"
+                    + "                Sum(Qtd) AS Qtd\n"
+                    + "FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP\n"
+                    + "       INNER JOIN DEPARTAMENTOS\n"
+                    + "               ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento = DEPARTAMENTOS.IdDepartamento\n"
+                    + "GROUP  BY NomeDepartamento,\n"
+                    + "          Qtd\n"
+                    + "HAVING Sum(Qtd) >= 1  ");
+            HashMap parametros = new HashMap();
+            parametros.put("pUsuario", nameUser);
+            parametros.put("pUnidade", descricaoUnidade);
+            // Sub Relatório
+            try {
+                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+            } catch (SQLException ex) {
+            }
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório Quantitativo Total Atendimento PSP");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+    }//GEN-LAST:event_jMenuItemPRORESActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1242,7 +1290,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItemCargos;
     private javax.swing.JMenuItem jMenuItemCidades;
     private javax.swing.JMenuItem jMenuItemDepartamentos;
+    private javax.swing.JMenuItem jMenuItemPRORES;
     private javax.swing.JMenuItem jMenuItemPais;
+    private javax.swing.JMenu jMenuPRORES;
     public static javax.swing.JDesktopPane jPainelAdmPessoal;
     private javax.swing.JMenuItem jRelatorioTotaisProdutividade;
     private javax.swing.JMenuItem jRelatorioTotaisProdutividadePorTecnico;

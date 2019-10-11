@@ -313,6 +313,7 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        jTabelaEntradaSaidaCola.setAutoCreateRowSorter(true);
         jTabelaEntradaSaidaCola.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaCola.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -654,6 +655,7 @@ public class TelaEntradaSaidaColaborador extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jTabelaColaborador.setAutoCreateRowSorter(true);
         jTabelaColaborador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaColaborador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

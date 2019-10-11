@@ -339,6 +339,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioTotaisProdutividadePorTecnicoActionPerformed"/>
               </Events>
             </MenuItem>
+            <Menu class="javax.swing.JMenu" name="jMenuPRORES">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios PRORES"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPRORES">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio Quantitativo Total Atendimento PSP"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPRORESActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
       </SubComponents>
