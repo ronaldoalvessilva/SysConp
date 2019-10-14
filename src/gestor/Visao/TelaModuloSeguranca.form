@@ -394,7 +394,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jNIM">
               <Properties>
-                <Property name="text" type="java.lang.String" value="NIM - N&#xfa;cleo de Informa&#xe7;&#xf5;es e Monitoramento"/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;cleo de Informa&#xe7;&#xf5;es e Monitoramento - NIM"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNIMActionPerformed"/>

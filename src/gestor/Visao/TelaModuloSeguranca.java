@@ -735,7 +735,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         Movimentacao.add(BloqueioLiberacaoVisitasPortaria);
         Movimentacao.add(jSeparator24);
 
-        jNIM.setText("NIM - Núcleo de Informações e Monitoramento");
+        jNIM.setText("Núcleo de Informações e Monitoramento - NIM");
         jNIM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNIMActionPerformed(evt);
