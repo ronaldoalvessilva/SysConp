@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioOrganogrmaCrime" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d1148bc-e263-4203-8ab5-0330316cf2c8">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="21"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -403,7 +403,7 @@
 		</band>
 		<band height="2">
 			<subreport>
-				<reportElement x="1" y="0" width="462" height="2" uuid="22c2b5d3-6f36-4601-9447-4a20fa5915f5"/>
+				<reportElement x="0" y="0" width="462" height="2" uuid="22c2b5d3-6f36-4601-9447-4a20fa5915f5"/>
 				<subreportParameter name="pIdRegistro">
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -413,7 +413,7 @@
 		</band>
 		<band height="2">
 			<subreport>
-				<reportElement x="27" y="0" width="200" height="2" uuid="2673703f-2a64-4a3c-8562-fc192539b26d"/>
+				<reportElement x="0" y="0" width="462" height="2" uuid="2673703f-2a64-4a3c-8562-fc192539b26d"/>
 				<subreportParameter name="pIdRegistro">
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -423,7 +423,7 @@
 		</band>
 		<band height="2">
 			<subreport>
-				<reportElement x="31" y="0" width="200" height="2" uuid="662cc743-56dd-4a34-bfed-c13a44f25460"/>
+				<reportElement x="0" y="0" width="462" height="2" uuid="662cc743-56dd-4a34-bfed-c13a44f25460"/>
 				<subreportParameter name="pIdRegistro">
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -433,12 +433,42 @@
 		</band>
 		<band height="2">
 			<subreport>
-				<reportElement x="40" y="0" width="200" height="2" uuid="5d7909df-6bfb-4c0b-9090-db1a7c77443a"/>
+				<reportElement x="0" y="0" width="462" height="2" uuid="5d7909df-6bfb-4c0b-9090-db1a7c77443a"/>
 				<subreportParameter name="pIdRegistro">
 					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2A.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="2">
+			<subreport>
+				<reportElement x="0" y="0" width="462" height="2" uuid="3a582cf2-d83f-4bd3-b9c8-e4230078dccf"/>
+				<subreportParameter name="pIdRegistro">
+					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2B.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="2">
+			<subreport>
+				<reportElement x="0" y="0" width="462" height="2" uuid="5886d2f8-6ccc-4760-80e5-dee1bd123ce7"/>
+				<subreportParameter name="pIdRegistro">
+					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2C.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="2">
+			<subreport>
+				<reportElement x="0" y="0" width="462" height="2" uuid="4bb67e39-3ba4-4d9d-93d1-64a388e8963c"/>
+				<subreportParameter name="pIdRegistro">
+					<subreportParameterExpression><![CDATA[$F{IdOrg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reports/SubRelatorioOrganogramaCrime_L2D.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
