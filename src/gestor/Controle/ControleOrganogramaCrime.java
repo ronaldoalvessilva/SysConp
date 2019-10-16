@@ -44,7 +44,7 @@ public class ControleOrganogramaCrime {
             pst.setString(10, objOrg.getObservacaoFrente());
             pst.setString(11, objOrg.getUsuarioInsert());
             pst.setString(12, objOrg.getDataInsert());
-            pst.setString(12, objOrg.getHorarioInsert());
+            pst.setString(13, objOrg.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
             CODIGO_CONFIRMACAO_GRAVACAO = 1;
