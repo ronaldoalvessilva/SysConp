@@ -886,6 +886,8 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                 JOptionPane.showMessageDialog(null, "Informe o horário do movimento.");
             } else if (jComboBoxTipoMovimentacao.getSelectedItem() == null || jComboBoxTipoMovimentacao.getSelectedItem().equals("") || jComboBoxTipoMovimentacao.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tipo de atendimento para o interno.");
+            } else if (jComboBoxAtendente.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente.");
             } else {
                 // SE JÁ FOI REGISTRADO         
                 if (jIdInternoKitImp.getText().equals(codigoInterno) && atendido.equals("Não")) {
