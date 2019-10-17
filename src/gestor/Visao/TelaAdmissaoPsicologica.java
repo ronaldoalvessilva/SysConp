@@ -355,6 +355,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jBtAgendamentoAtendimento = new javax.swing.JButton();
         jBtAuditoriaEvolucao = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
 
         jLabel6.setText("jLabel6");
 
@@ -2115,6 +2116,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setForeground(new java.awt.Color(0, 102, 0));
+        jButton2.setText("Tratamento");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -2137,6 +2146,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtAgendamentoAtendimento)
                         .addGap(48, 48, 48)
@@ -2163,7 +2174,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     .addComponent(jBtSalvarEvolucao)
                     .addComponent(jBtExcluirEvolucao)
                     .addComponent(jBtAlterarEvolucao)
-                    .addComponent(jBtNovaEvolucao))
+                    .addComponent(jBtNovaEvolucao)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3221,6 +3233,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+//        TelaTratamentoPsicologico
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAgendamentoAtendimento;
@@ -3253,6 +3270,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvarParecer;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBoxAlcool;
     private javax.swing.JCheckBox jCheckBoxCigarro;

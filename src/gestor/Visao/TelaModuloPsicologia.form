@@ -9,6 +9,14 @@
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jTipoTratamentoPsicologico">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tipos de Tratamentos Psicologicos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTipoTratamentoPsicologicoActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AgendaAtendimentoInternos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agenda Atendimento a Internos"/>

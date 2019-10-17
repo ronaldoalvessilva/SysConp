@@ -271,7 +271,7 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
         jTabelaAgendamentoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAgendamentoAtendimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -612,17 +612,17 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(0, 0, 0)
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(jBtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -637,7 +637,7 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
                         .addComponent(jBtSalvar)
                         .addComponent(jBtCancelar)
                         .addComponent(jBtSair)))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(2, 2, 2))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Observação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -660,7 +660,7 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -773,14 +773,18 @@ public class TelaAgendamentoAtendimentoInternos extends javax.swing.JInternalFra
                 if (jComboBoxStatusRegistro.getSelectedItem().equals("Realizado")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se REALIZADO");
                 } else {
-                    objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
-                    control.excluirAgendaAtendimento(objAgendaAtend);
-                    controleItens.excluirItensAgendaInterno(objItens);
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    Excluir();
-                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        objItens.setIdReg(Integer.valueOf(jIdRegistro.getText()));
+                        control.excluirAgendaAtendimento(objAgendaAtend);
+                        controleItens.excluirItensAgendaInterno(objItens);
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        Excluir();
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");

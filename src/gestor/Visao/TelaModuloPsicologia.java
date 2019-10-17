@@ -97,6 +97,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpressoPSI objAutoImp = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaTiposTratamentoPsicologico objTipoTrata = null;
     //
     String dataLanc;
     int codUsuario;
@@ -139,6 +140,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoImpBioPSI = "Cadastro:Registro de Autorização Impressa:Liberação";
     public static String telaRegistroAtendimentoColLiberadorPSI = "Cadastro:Registro de Autorização Impressa:Colaborador Liberador";
     public static String telaCancelAtendInternoPSI = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
+    public static String telaCadastroTipoTratamentoPSI = "Cadastro:Tipos de Tratamento:Manutenção";
     // MENU CONSULTA    
     public static String telaConsultaProntuarioInternosDocPSI = "Consulta:Prontuario:Documentos";
     // MOVIMENTAÇÃO
@@ -183,8 +185,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeRAIL = "";
     String pNomeRACL = "";
     String pNomeCAII = "";
-    //pNomeRACL 
-    //telaRegistroAtendimentoColLiberadorPSI
+    String pNomeTTP = "";
     // MENU CONSULTA
     String pNomeCPID = "";
     // MOVIMENTAÇÃO
@@ -244,6 +245,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jTipoTratamentoPsicologico = new javax.swing.JMenuItem();
         AgendaAtendimentoInternos = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
@@ -316,6 +318,14 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         );
 
         jMenu1.setText("Cadastro");
+
+        jTipoTratamentoPsicologico.setText("Tipos de Tratamentos Psicologicos");
+        jTipoTratamentoPsicologico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTipoTratamentoPsicologicoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jTipoTratamentoPsicologico);
 
         AgendaAtendimentoInternos.setText("Agenda Atendimento a Internos");
         AgendaAtendimentoInternos.addActionListener(new java.awt.event.ActionListener() {
@@ -1244,6 +1254,40 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
 
+    private void jTipoTratamentoPsicologicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTipoTratamentoPsicologicoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCadastroTipoTratamentoPSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroTipoTratamentoPSI) && codAbrirPSI == 1) {
+            if (objTipoTrata == null || objTipoTrata.isClosed()) {
+                objTipoTrata = new TelaTiposTratamentoPsicologico();
+                jPainelPsicologia.add(objTipoTrata);
+                objTipoTrata.setVisible(true);
+            } else {
+                if (objTipoTrata.isVisible()) {
+                    if (objTipoTrata.isIcon()) { // Se esta minimizado
+                        try {
+                            objTipoTrata.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objTipoTrata.toFront(); // traz para frente
+                        objTipoTrata.pack();//volta frame 
+                    }
+                } else {
+                    objTipoTrata = new TelaTiposTratamentoPsicologico();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objTipoTrata);//adicona frame ao JDesktopPane  
+                    objTipoTrata.setVisible(true);
+                }
+            }
+            try {
+                objTipoTrata.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jTipoTratamentoPsicologicoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1296,6 +1340,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
+    private javax.swing.JMenuItem jTipoTratamentoPsicologico;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -1641,6 +1686,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeCAII = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCadastroTipoTratamentoPSI + "'");
+            conecta.rs.first();
+            pNomeTTP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CONSULTA
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
@@ -1870,6 +1922,12 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaCancelAtendInternoPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTTP.equals(telaCadastroTipoTratamentoPSI) || pNomeTTP == null || pNomeTTP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCadastroTipoTratamentoPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //CONSULTA
