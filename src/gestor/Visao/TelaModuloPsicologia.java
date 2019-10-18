@@ -147,6 +147,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaMovimentacaoAdmIntManuPSI = "Movimentação:Admissão de Internos:Manutenção";
     public static String telaMovimentacaoEvolIntPSI = "Movimentação:Evolução Psicológica de Internos";
     public static String telaMovimentacaoPareIntPSI = "Movimentação:Parecer Psicológico de Internos";
+    public static String telaTratamentoPsicologicoPSI = "Tratamento Psicologico";
     //
     public static String telaMovimentacaoAvalPsiIntPSI = "Movimentação:Avaliação Psicologica:Manutenção";
     //P.A.I.
@@ -192,6 +193,8 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeMAIM = "";
     String pNomeMEP = "";
     String pNomeMPI = "";
+    String pNomeTP = "";
+    //    
     String pNomeMAP = "";
     //P.A.I.
     String pNomePPM = "";
@@ -1725,6 +1728,13 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaTratamentoPsicologicoPSI + "'");
+            conecta.rs.first();
+            pNomeTP = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaMovimentacaoAvalPsiIntPSI + "'");
             conecta.rs.first();
             pNomeMAP = conecta.rs.getString("NomeTela");
@@ -1961,6 +1971,12 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaMovimentacaoPareIntPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeTP.equals(telaTratamentoPsicologicoPSI) || pNomeTP == null || pNomeTP.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaTratamentoPsicologicoPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         if (!pNomeMAP.equals(telaMovimentacaoAvalPsiIntPSI) || pNomeMAP == null || pNomeMAP.equals("")) {

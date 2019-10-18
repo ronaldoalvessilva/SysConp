@@ -195,4 +195,9 @@ public class TipoTratamentoPsicologico {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoTipo(); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

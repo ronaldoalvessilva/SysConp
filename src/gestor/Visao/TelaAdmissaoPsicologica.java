@@ -131,6 +131,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public static TelaArtigosParagrafosInternoPSI telaArtigosParagrafos;
     public static TelaConsultaVisitasInternosPSI telaVisitasInternosPSI;
     public static AgendamentoAtendimentoPsicologico agendaAtendimento;
+    public static TelaTratamentoPsicologico TP;
 
     public TelaAdmissaoPsicologica() {
         super();
@@ -153,6 +154,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public void mostrarAgendaAtendimento() {
         agendaAtendimento = new AgendamentoAtendimentoPsicologico(this, true);
         agendaAtendimento.setVisible(true);
+    }
+
+    public void mostraTelaTratamentoPSI() {
+        TP = new TelaTratamentoPsicologico(this, true);
+        TP.setVisible(true);
     }
 
     /**
@@ -3236,6 +3242,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
 //        TelaTratamentoPsicologico
+        mostraTelaTratamentoPSI();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

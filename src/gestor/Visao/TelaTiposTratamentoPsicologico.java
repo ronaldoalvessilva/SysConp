@@ -27,7 +27,6 @@ import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
 import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
 import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
-import static gestor.Visao.TelaModuloPsicologia.telaCadastroAgendaAtendimentoInternoManuPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaCadastroTipoTratamentoPSI;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -63,6 +62,7 @@ public class TelaTiposTratamentoPsicologico extends javax.swing.JInternalFrame {
     int count = 0;
     int flag;
     int acao;
+    String codigoRegistro = "";
 
     /**
      * Creates new form TelaTiposTratamentoPsicologico
@@ -684,8 +684,6 @@ public class TelaTiposTratamentoPsicologico extends javax.swing.JInternalFrame {
             jBtExcluir.setEnabled(true);
             jBtCancelar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
-            //
-//            jComboBoxStatusRegistro.removeAllItems();
             //                        
             conecta.abrirConexao();
             try {
@@ -711,7 +709,7 @@ public class TelaTiposTratamentoPsicologico extends javax.swing.JInternalFrame {
             acao = 1;
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();            
+            dataModFinal = jDataSistema.getText();
             bloquearCampos();
             bloquearBotoes();
             limparCamposTabela();
@@ -743,21 +741,26 @@ public class TelaTiposTratamentoPsicologico extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaCadastroTipoTratamentoPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaCadastroTipoTratamentoPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
             //TRATAR ANTES DE EXCLUIR, PARA VER SE O REGISTRO FOI UTILIZADO.
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                objTipo.setIdTipo(Integer.valueOf(jIdRegistro.getText()));
-                control.excluirTipoTratamento(objTipo);
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                limparCamposTabela();
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            verificarRegistro();
+            if (jIdRegistro.getText().equals(codigoRegistro)) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro está sendo utilizado em outro local.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    objTipo.setIdTipo(Integer.valueOf(jIdRegistro.getText()));
+                    control.excluirTipoTratamento(objTipo);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    limparCamposTabela();
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -968,6 +971,19 @@ public class TelaTiposTratamentoPsicologico extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM TIPOS_TRATAMENTO_PSICOLOGICO");
             conecta.rs.last();
             jIdRegistro.setText(conecta.rs.getString("IdTipo"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistro() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TRATAMENTO_PSICOLOGICO "
+                    + "WHERE IdTipo='" + jIdRegistro.getText() + "'");
+            conecta.rs.first();
+            codigoRegistro = conecta.rs.getString("IdTipo");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }

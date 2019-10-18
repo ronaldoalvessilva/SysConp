@@ -5,18 +5,73 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleLogSistema;
+import gestor.Controle.ControleTratamentoPsicologico;
+import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ModeloTabela;
+import gestor.Modelo.LogSistema;
+import gestor.Modelo.TratamentoPsicologico;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
+import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
+import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
+import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
+import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
+import static gestor.Visao.TelaModuloPsicologia.telaTratamentoPsicologicoPSI;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+
 /**
  *
  * @author Socializa TI 02
  */
 public class TelaTratamentoPsicologico extends javax.swing.JDialog {
 
+    ConexaoBancoDados conecta = new ConexaoBancoDados();
+    TratamentoPsicologico objTrata = new TratamentoPsicologico();
+    ControleTratamentoPsicologico control = new ControleTratamentoPsicologico();
+    //
+    ControleLogSistema controlLog = new ControleLogSistema();
+    LogSistema objLogSys = new LogSistema();
+    // Variáveis para gravar o log
+    String nomeModuloTela = "Psicologia:Tratamento Psicologico:Manutenção";
+    //    
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
+    String dataAgenda;
+    String dataInicial, dataFinal;
+    //
+    int count = 0;
+    int flag;
+    int acao;
+
     /**
      * Creates new form TelaTratamentoPsicologico
      */
-    public TelaTratamentoPsicologico(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public static TelaAdmissaoPsicologica admPsi;
+
+    public TelaTratamentoPsicologico(TelaAdmissaoPsicologica parent, boolean modal) {
+        this.admPsi = parent;
+        this.setModal(modal);
+        setLocationRelativeTo(admPsi);
         initComponents();
+        formataCampos();
+        corCampos();
     }
 
     /**
@@ -41,10 +96,19 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jComboBoxStatus = new javax.swing.JComboBox<>();
         jDataAtendimento = new com.toedter.calendar.JDateChooser();
         jIdAtendimento = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jIdInternoTrata = new javax.swing.JTextField();
+        jNomeInternoTrata = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTabelaAtendimento = new javax.swing.JTable();
+        jTabelaTipoAtendimento = new javax.swing.JTable();
+        jPanel38 = new javax.swing.JPanel();
+        jLabel63 = new javax.swing.JLabel();
+        jPanel41 = new javax.swing.JPanel();
+        jPanel42 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextoAtendimento = new javax.swing.JTextArea();
@@ -87,7 +151,6 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jDataTerminoAtende.setEnabled(false);
 
         jComboBoxTipoAtendimento.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoAtendimento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxTipoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoAtendimento.setEnabled(false);
 
@@ -103,6 +166,19 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jIdAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdAtendimento.setEnabled(false);
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Código");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Nome do Interno");
+
+        jIdInternoTrata.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoTrata.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoTrata.setEnabled(false);
+
+        jNomeInternoTrata.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoTrata.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,35 +187,45 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jIdInternoTrata)
+                            .addComponent(jIdAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jNomeInternoTrata)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(101, 101, 101)
-                                .addComponent(jLabel5))
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataInicioAtende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jDataInicioAtende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jDataTerminoAtende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
+                            .addComponent(jDataTerminoAtende, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdAtendimento, jIdInternoTrata});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -153,7 +239,15 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                     .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jIdInternoTrata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeInternoTrata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -166,10 +260,12 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdAtendimento, jIdInternoTrata});
+
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jTabelaAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaAtendimento.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaTipoAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaTipoAtendimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -177,16 +273,66 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 "Código", "Data", "Status", "Texto Tratamento"
             }
         ));
-        jScrollPane2.setViewportView(jTabelaAtendimento);
-        if (jTabelaAtendimento.getColumnModel().getColumnCount() > 0) {
-            jTabelaAtendimento.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaAtendimento.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaAtendimento.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaAtendimento.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaAtendimento.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaAtendimento.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaAtendimento.getColumnModel().getColumn(3).setMinWidth(250);
+        jTabelaTipoAtendimento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaTipoAtendimentoMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTabelaTipoAtendimento);
+        if (jTabelaTipoAtendimento.getColumnModel().getColumnCount() > 0) {
+            jTabelaTipoAtendimento.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaTipoAtendimento.getColumnModel().getColumn(3).setMinWidth(250);
         }
+
+        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel63.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel38Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jLabel63))
+        );
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel63)
+        );
+
+        jPanel41.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
+        jPanel41.setLayout(jPanel41Layout);
+        jPanel41Layout.setHorizontalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel41Layout.setVerticalGroup(
+            jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
+        );
+
+        jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
+        jPanel42.setLayout(jPanel42Layout);
+        jPanel42Layout.setHorizontalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel42Layout.setVerticalGroup(
+            jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -194,12 +340,27 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel41, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel2);
@@ -217,14 +378,14 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
         );
 
@@ -233,25 +394,60 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setEnabled(false);
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
 
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluir.setEnabled(false);
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setEnabled(false);
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setEnabled(false);
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         jBtConcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
         jBtConcluir.setEnabled(false);
+        jBtConcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConcluirActionPerformed(evt);
+            }
+        });
 
         jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoria.setContentAreaFilled(false);
         jBtAuditoria.setEnabled(false);
+        jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -270,7 +466,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(jBtConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -300,26 +496,193 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel4, jTabbedPane1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabelaTipoAtendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaTipoAtendimentoMouseClicked
+        // TODO add your handling code here:
+        if (flag == 1) {
+            String codigoRegistro = "" + jTabelaTipoAtendimento.getValueAt(jTabelaTipoAtendimento.getSelectedRow(), 0);
+            //
+            bloquearBotoes();
+            bloquearCampos();
+            limparCampos();
+            //
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            //                        
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM TRATAMENTO_PSICOLOGICO "
+                        + "WHERE IdTRAT='" + codigoRegistro + "'");
+                conecta.rs.first();
+                jIdAtendimento.setText(String.valueOf(conecta.rs.getInt("IdTRAT")));
+                jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusTrat"));
+                jDataAtendimento.setDate(conecta.rs.getDate("DataTrat"));
+                jIdInternoTrata.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeInternoTrata.setText(conecta.rs.getString("NomeInternoCrc"));
+                jComboBoxTipoAtendimento.setSelectedItem(conecta.rs.getString("DescricaoTipo"));
+                jDataInicioAtende.setDate(conecta.rs.getDate("DataInicio"));
+                jDataTerminoAtende.setDate(conecta.rs.getDate("DataTermino"));
+                jTextoAtendimento.setText(conecta.rs.getString("DataTermino"));
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaTipoAtendimentoMouseClicked
+
+    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            acao = 1;
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            bloquearCampos();
+            bloquearBotoes();
+            limparCampos();
+            Novo();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            conecta.abrirConexao();
+            acao = 2;
+            bloquearCampos();
+            bloquearBotoes();
+            Alterar();
+            statusMov = "Alterou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                objTrata.setIdTRAT(Integer.valueOf(jIdAtendimento.getText()));
+                control.excluirTratamentoPsicologico(objTrata);
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                limparCampos();
+                Excluir();
+                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
+        if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            if (jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o status do tratamento.");
+            } else if (jIdInternoTrata.getText().equals("") && jNomeInternoTrata.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o nome do interno para o tratamento.");
+            } else if (jComboBoxTipoAtendimento.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de tratamento.");
+            } else if (jComboBoxTipoAtendimento.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "É necessário informar o tipo de tratamento.");
+            } else if (jDataInicioAtende.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de inicio do tratamento.");
+            } else {
+                objTrata.setStatusTrat((String) jComboBoxStatus.getSelectedItem());
+                objTrata.setDataTrat(jDataAtendimento.getDate());
+                objTrata.setIdInternoCrc(Integer.valueOf(jIdInternoTrata.getText()));
+                objTrata.setNomeInternoCrc(jNomeInternoTrata.getText());
+//                 objTrata.setIdTipo(Intege);
+                objTrata.setDataInicio(jDataInicioAtende.getDate());
+                objTrata.setDataTermino(jDataTerminoAtende.getDate());
+                if (acao == 1) {
+                    objTrata.setUsuarioInsert(nameUser);
+                    objTrata.setDataInsert(dataModFinal);
+                    objTrata.setHorarioInsert(horaMov);
+                    control.incluirTratamentoPsicologico(objTrata);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objTrata.setUsuarioUp(nameUser);
+                    objTrata.setDataUp(dataModFinal);
+                    objTrata.setHorarioUp(horaMov);
+                    //
+                    objTrata.setIdTRAT(Integer.valueOf(jIdAtendimento.getText()));
+                    control.alterarTratamentoPsicologico(objTrata);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtSalvarActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        // TODO add your handling code here:
+        Cancelar();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtConcluirActionPerformed
+
+    private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,7 +715,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaTratamentoPsicologico dialog = new TelaTratamentoPsicologico(new javax.swing.JFrame(), true);
+                TelaTratamentoPsicologico dialog = new TelaTratamentoPsicologico(admPsi, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -373,25 +736,243 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JComboBox<String> jComboBoxStatus;
-    private javax.swing.JComboBox<String> jComboBoxTipoAtendimento;
+    private javax.swing.JComboBox<Object> jComboBoxTipoAtendimento;
     private com.toedter.calendar.JDateChooser jDataAtendimento;
     private com.toedter.calendar.JDateChooser jDataInicioAtende;
     private com.toedter.calendar.JDateChooser jDataTerminoAtende;
     private javax.swing.JTextField jIdAtendimento;
+    public static javax.swing.JTextField jIdInternoTrata;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    public static javax.swing.JTextField jNomeInternoTrata;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel41;
+    private javax.swing.JPanel jPanel42;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaAtendimento;
+    private javax.swing.JTable jTabelaTipoAtendimento;
     private javax.swing.JTextArea jTextoAtendimento;
+    private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void formataCampos() {
+        jTextoAtendimento.setLineWrap(true);
+        jTextoAtendimento.setWrapStyleWord(true);
+    }
+
+    public void corCampos() {
+        jIdAtendimento.setBackground(Color.white);
+        jComboBoxStatus.setBackground(Color.white);
+        jDataAtendimento.setBackground(Color.white);
+        jIdInternoTrata.setBackground(Color.white);
+        jNomeInternoTrata.setBackground(Color.white);
+        jComboBoxTipoAtendimento.setBackground(Color.white);
+        jDataInicioAtende.setBackground(Color.white);
+        jDataTerminoAtende.setBackground(Color.white);
+        jTextoAtendimento.setBackground(Color.white);
+    }
+
+    public void bloquearCampos() {
+        jIdAtendimento.setEnabled(!true);
+        jComboBoxStatus.setEnabled(!true);
+        jDataAtendimento.setEnabled(!true);
+        jIdInternoTrata.setEnabled(!true);
+        jNomeInternoTrata.setEnabled(!true);
+        jComboBoxTipoAtendimento.setEnabled(!true);
+        jDataInicioAtende.setEnabled(!true);
+        jDataTerminoAtende.setEnabled(!true);
+        jTextoAtendimento.setEnabled(!true);
+    }
+
+    public void limparCampos() {
+        jIdAtendimento.setText("");
+        jComboBoxStatus.setSelectedItem("Selecione...");
+        jDataAtendimento.setDate(null);
+        jIdInternoTrata.setText("");
+        jNomeInternoTrata.setText("");
+        jComboBoxTipoAtendimento.setSelectedItem(null);
+        jDataInicioAtende.setDate(null);
+        jDataTerminoAtende.setDate(null);
+        jTextoAtendimento.setText("");
+    }
+
+    public void bloquearBotoes() {
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
+    }
+
+    public void Novo() {
+
+    }
+
+    public void Alterar() {
+
+    }
+
+    public void Excluir() {
+
+    }
+
+    public void Salvar() {
+
+    }
+
+    public void Cancelar() {
+        if (jIdAtendimento.getText().equals("")) {
+            bloquearCampos();
+            bloquearBotoes();
+            limparCampos();
+            jBtNovo.setEnabled(true);
+        } else {
+            bloquearCampos();
+            bloquearBotoes();
+            jBtNovo.setEnabled(!true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+        }
+    }
+
+    public void buscarCodigo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TIPOS_TRATAMENTO_PSICOLOGICO");
+            conecta.rs.last();
+            jIdAtendimento.setText(conecta.rs.getString("IdTipo"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
+        }
+        conecta.desconecta();
+    }
+
+    public void preencherTabelaTratamentos(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição Tipo Tratamento"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                count = count + 1;
+                // Formatar a data Entrada
+                dataAgenda = conecta.rs.getString("DataTipo");
+                String diae = dataAgenda.substring(8, 10);
+                String mese = dataAgenda.substring(5, 7);
+                String anoe = dataAgenda.substring(0, 4);
+                dataAgenda = diae + "/" + mese + "/" + anoe;
+                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdTipo"), dataAgenda, conecta.rs.getString("StatusTipo"), conecta.rs.getString("DescricaoTipo")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTipoAtendimento.setModel(modelo);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTipoAtendimento.getTableHeader().setReorderingAllowed(false);
+        jTabelaTipoAtendimento.setAutoResizeMode(jTabelaTipoAtendimento.AUTO_RESIZE_OFF);
+        jTabelaTipoAtendimento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaAgenda();
+        conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição Tipo Tratamento"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaTipoAtendimento.setModel(modelo);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaTipoAtendimento.getTableHeader().setReorderingAllowed(false);
+        jTabelaTipoAtendimento.setAutoResizeMode(jTabelaTipoAtendimento.AUTO_RESIZE_OFF);
+        jTabelaTipoAtendimento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabelaAgenda() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaTipoAtendimento.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaTipoAtendimento.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendimento.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+            conecta.rs.first();
+            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
+            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
+            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
+            codAbrirPSI = conecta.rs.getInt("Abrir");
+            codIncluirPSI = conecta.rs.getInt("Incluir");
+            codAlterarPSI = conecta.rs.getInt("Alterar");
+            codExcluirPSI = conecta.rs.getInt("Excluir");
+            codGravarPSI = conecta.rs.getInt("Gravar");
+            codConsultarPSI = conecta.rs.getInt("Consultar");
+            nomeTelaPSI = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 }

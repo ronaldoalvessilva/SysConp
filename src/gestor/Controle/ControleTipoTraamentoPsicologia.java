@@ -9,6 +9,10 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.TipoTratamentoPsicologico;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,5 +72,25 @@ public class ControleTipoTraamentoPsicologia {
         }
         conecta.desconecta();
         return objTipo;
+    }
+
+    public List<TipoTratamentoPsicologico> read() throws Exception {
+        conecta.abrirConexao();
+        List<TipoTratamentoPsicologico> listaInternosPavilhaoSelecionados = new ArrayList<TipoTratamentoPsicologico>();
+        try {
+            conecta.executaSQL("SELECT * FROM TIPOS_TRATAMENTO_PSICOLOGICO");
+            while (conecta.rs.next()) {
+                TipoTratamentoPsicologico pTipo = new TipoTratamentoPsicologico();
+                pTipo.setIdTipo(conecta.rs.getInt("IdTipo"));
+                pTipo.setDescricaoTipo(conecta.rs.getString("DescricaoTipo"));
+                listaInternosPavilhaoSelecionados.add(pTipo);
+            }
+            return listaInternosPavilhaoSelecionados;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleTipoTraamentoPsicologia.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }
