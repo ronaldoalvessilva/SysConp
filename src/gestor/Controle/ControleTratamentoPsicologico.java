@@ -6,9 +6,14 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.TipoTratamentoPsicologico;
 import gestor.Modelo.TratamentoPsicologico;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +24,7 @@ public class ControleTratamentoPsicologico {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     TratamentoPsicologico objTrata = new TratamentoPsicologico();
+    TipoTratamentoPsicologico objTipo = new TipoTratamentoPsicologico();
     int idInterno;
 
     public TratamentoPsicologico incluirTratamentoPsicologico(TratamentoPsicologico objTrata) {
@@ -109,5 +115,27 @@ public class ControleTratamentoPsicologico {
             JOptionPane.showMessageDialog(null, "Não existe dados (INTERNOS) a ser exibido !!!" + e);
         }
         conecta.desconecta();
+    }
+
+    public List<TipoTratamentoPsicologico> read() throws Exception {
+
+        conecta.abrirConexao();
+        List<TipoTratamentoPsicologico> listaInternosNaoSelec = new ArrayList<TipoTratamentoPsicologico>();
+        try {
+            conecta.executaSQL("SELECT * FROM TIPOS_TRATAMENTO_PSICOLOGICO "
+                    + "ORDER BY TIPOS_TRATAMENTO_PSICOLOGICO.DescricaoTipo");
+            while (conecta.rs.next()) {
+                TipoTratamentoPsicologico pListaTrata = new TipoTratamentoPsicologico();
+                pListaTrata.setIdTipo(conecta.rs.getInt("IdTipo"));
+                pListaTrata.setDescricaoTipo(conecta.rs.getString("DescricaoTipo"));
+                listaInternosNaoSelec.add(pListaTrata);
+            }
+            return listaInternosNaoSelec;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleTratamentoPsicologico.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }

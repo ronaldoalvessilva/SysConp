@@ -10,7 +10,11 @@ import gestor.Controle.ControleTratamentoPsicologico;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.TipoTratamentoPsicologico;
 import gestor.Modelo.TratamentoPsicologico;
+import static gestor.Visao.TelaAdmissaoPsicologica.acao;
+import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
+import static gestor.Visao.TelaAdmissaoPsicologica.jNomeInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -30,6 +34,9 @@ import static gestor.Visao.TelaModuloPsicologia.telaTratamentoPsicologicoPSI;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -44,6 +51,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     TratamentoPsicologico objTrata = new TratamentoPsicologico();
     ControleTratamentoPsicologico control = new ControleTratamentoPsicologico();
+    TipoTratamentoPsicologico objTipo = new TipoTratamentoPsicologico();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -58,7 +66,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
     //
     int count = 0;
     int flag;
-    int acao;
+    int pAcao;
 
     /**
      * Creates new form TelaTratamentoPsicologico
@@ -174,9 +182,11 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
 
         jIdInternoTrata.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoTrata.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoTrata.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jIdInternoTrata.setEnabled(false);
 
         jNomeInternoTrata.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNomeInternoTrata.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jNomeInternoTrata.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -194,7 +204,6 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jNomeInternoTrata)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -207,12 +216,14 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jDataAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)))))
+                                    .addComponent(jLabel3)))
+                            .addComponent(jNomeInternoTrata)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 5, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jComboBoxTipoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxTipoAtendimento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
@@ -378,7 +389,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -466,7 +477,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(jBtConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -496,15 +507,12 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1))
+                .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel1, jPanel4, jTabbedPane1});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -560,14 +568,19 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codIncluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
-            acao = 1;
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            bloquearCampos();
-            bloquearBotoes();
-            limparCampos();
-            Novo();
+            if (acao == 1 || acao == 3) {
+                pAcao = 1;
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                bloquearCampos();
+                bloquearBotoes();
+                limparCampos();
+                Novo();
+                popularComboBox();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Você não está em modo de edição.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -577,14 +590,17 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codAlterarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
-            conecta.abrirConexao();
-            acao = 2;
-            bloquearCampos();
-            bloquearBotoes();
-            Alterar();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            if (acao == 2 || acao == 4) {
+                pAcao = 2;
+                bloquearCampos();
+                bloquearBotoes();
+                Alterar();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Você não está em modo de edição.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -594,22 +610,26 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaTratamentoPsicologicoPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaTratamentoPsicologicoPSI) && codExcluirPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                objTrata.setIdTRAT(Integer.valueOf(jIdAtendimento.getText()));
-                control.excluirTratamentoPsicologico(objTrata);
-                //
-                objLog();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                limparCampos();
-                Excluir();
-                JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+            if (acao == 1 || acao == 3) {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    objTrata.setIdTRAT(Integer.valueOf(jIdAtendimento.getText()));
+                    control.excluirTratamentoPsicologico(objTrata);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    limparCampos();
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Você não está em modo de edição.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -635,10 +655,9 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 objTrata.setDataTrat(jDataAtendimento.getDate());
                 objTrata.setIdInternoCrc(Integer.valueOf(jIdInternoTrata.getText()));
                 objTrata.setNomeInternoCrc(jNomeInternoTrata.getText());
-//                 objTrata.setIdTipo(Intege);
                 objTrata.setDataInicio(jDataInicioAtende.getDate());
                 objTrata.setDataTermino(jDataTerminoAtende.getDate());
-                if (acao == 1) {
+                if (pAcao == 1) {
                     objTrata.setUsuarioInsert(nameUser);
                     objTrata.setDataInsert(dataModFinal);
                     objTrata.setHorarioInsert(horaMov);
@@ -651,7 +670,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
-                if (acao == 2) {
+                if (pAcao == 2) {
                     objTrata.setUsuarioUp(nameUser);
                     objTrata.setDataUp(dataModFinal);
                     objTrata.setHorarioUp(horaMov);
@@ -665,7 +684,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                     Salvar();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
-            }
+            }            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -817,20 +836,59 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jBtAuditoria.setEnabled(!true);
     }
 
-    public void Novo() {
+    public void popularComboBox() {
 
+        try {
+            for (TipoTratamentoPsicologico p : control.read()) {
+                jComboBoxTipoAtendimento.addItem(p);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaTratamentoPsicologico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        TipoTratamentoPsicologico tipo = (TipoTratamentoPsicologico) jComboBoxTipoAtendimento.getSelectedItem();
+        tipo.getIdTipo();
+        tipo.getDescricaoTipo();
+        objTrata.setIdTipo(tipo.getIdTipo());
+    }
+
+    public void Novo() {
+        jDataAtendimento.setCalendar(Calendar.getInstance());
+        jComboBoxStatus.setSelectedItem("Em tratamento");
+        //
+        jComboBoxStatus.setEnabled(true);
+        jComboBoxTipoAtendimento.setEnabled(true);
+        jDataInicioAtende.setEnabled(true);
+        jTextoAtendimento.setEnabled(true);
+        //
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+        //
+        jIdInternoTrata.setText(jIdInterno.getText());
+        jNomeInternoTrata.setText(jNomeInterno.getText());
     }
 
     public void Alterar() {
-
+        jComboBoxStatus.setEnabled(true);
+        jComboBoxTipoAtendimento.setEnabled(true);
+        jDataInicioAtende.setEnabled(true);
+        jTextoAtendimento.setEnabled(true);
+        //
+        jBtSalvar.setEnabled(true);
+        jBtCancelar.setEnabled(true);
+        //
+        jIdInternoTrata.setText(jIdInterno.getText());
+        jNomeInternoTrata.setText(jNomeInterno.getText());
     }
 
     public void Excluir() {
-
+        jBtNovo.setEnabled(true);
     }
 
     public void Salvar() {
-
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void Cancelar() {
