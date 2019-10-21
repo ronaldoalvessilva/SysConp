@@ -44,6 +44,7 @@ import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
+import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.telaPaiManu;
 import static gestor.Visao.TelaModuloJuridico.codAlterarJURI;
 import static gestor.Visao.TelaModuloJuridico.codExcluirJURI;
@@ -7376,7 +7377,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-        } else if (codigoUserENF == codUserAcessoENF && nomeTelaJURI.equals(telaPaiManu) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+        } else if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaPaiManu) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
             acao = 1;
             limparCamposNovo();
             bloquearCampos();
