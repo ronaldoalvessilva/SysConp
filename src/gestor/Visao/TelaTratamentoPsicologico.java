@@ -14,6 +14,7 @@ import gestor.Modelo.TipoTratamentoPsicologico;
 import gestor.Modelo.TratamentoPsicologico;
 import static gestor.Visao.TelaAdmissaoPsicologica.acao;
 import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
+import static gestor.Visao.TelaAdmissaoPsicologica.jIdLanc;
 import static gestor.Visao.TelaAdmissaoPsicologica.jNomeInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -80,6 +81,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         initComponents();
         formataCampos();
         corCampos();
+        preencherTabelaTratamentos("SELECT * FROM TRATAMENTO_PSICOLOGICO WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
     }
 
     /**
@@ -130,7 +132,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jBtAuditoria = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::; Tratamento Psicologico :::...");
+        setTitle("...::: Tratamento Psicologico :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -166,6 +168,16 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Em tratamento", "Desistente", "Concluído" }));
         jComboBoxStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatus.setEnabled(false);
+        jComboBoxStatus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxStatusItemStateChanged(evt);
+            }
+        });
+        jComboBoxStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jComboBoxStatusMousePressed(evt);
+            }
+        });
 
         jDataAtendimento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataAtendimento.setEnabled(false);
@@ -351,15 +363,15 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,6 +542,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
 
     private void jTabelaTipoAtendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaTipoAtendimentoMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String codigoRegistro = "" + jTabelaTipoAtendimento.getValueAt(jTabelaTipoAtendimento.getSelectedRow(), 0);
             //
@@ -540,12 +553,18 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
-            jBtCancelar.setEnabled(true);
+            jBtCancelar.setEnabled(!true);
             jBtAuditoria.setEnabled(true);
+            jBtConcluir.setEnabled(true);
+            jComboBoxTipoAtendimento.removeAllItems();
             //                        
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM TRATAMENTO_PSICOLOGICO "
+                        + "INNER JOIN TIPOS_TRATAMENTO_PSICOLOGICO "
+                        + "ON TRATAMENTO_PSICOLOGICO.IdTipo=TIPOS_TRATAMENTO_PSICOLOGICO.IdTipo "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON TRATAMENTO_PSICOLOGICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE IdTRAT='" + codigoRegistro + "'");
                 conecta.rs.first();
                 jIdAtendimento.setText(String.valueOf(conecta.rs.getInt("IdTRAT")));
@@ -553,10 +572,10 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 jDataAtendimento.setDate(conecta.rs.getDate("DataTrat"));
                 jIdInternoTrata.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoTrata.setText(conecta.rs.getString("NomeInternoCrc"));
-                jComboBoxTipoAtendimento.setSelectedItem(conecta.rs.getString("DescricaoTipo"));
+                jComboBoxTipoAtendimento.addItem(conecta.rs.getString("DescricaoTipo"));
                 jDataInicioAtende.setDate(conecta.rs.getDate("DataInicio"));
                 jDataTerminoAtende.setDate(conecta.rs.getDate("DataTermino"));
-                jTextoAtendimento.setText(conecta.rs.getString("DataTermino"));
+                jTextoAtendimento.setText(conecta.rs.getString("TextoTratamento"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
@@ -595,6 +614,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                 bloquearCampos();
                 bloquearBotoes();
                 Alterar();
+                popularComboBox();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -651,12 +671,19 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             } else if (jDataInicioAtende.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de inicio do tratamento.");
             } else {
+                objTrata.setID_REGISTRO_ATEND_EVOL(Integer.valueOf(jIdLanc.getText()));
                 objTrata.setStatusTrat((String) jComboBoxStatus.getSelectedItem());
                 objTrata.setDataTrat(jDataAtendimento.getDate());
                 objTrata.setIdInternoCrc(Integer.valueOf(jIdInternoTrata.getText()));
                 objTrata.setNomeInternoCrc(jNomeInternoTrata.getText());
                 objTrata.setDataInicio(jDataInicioAtende.getDate());
                 objTrata.setDataTermino(jDataTerminoAtende.getDate());
+                TipoTratamentoPsicologico tipo = (TipoTratamentoPsicologico) jComboBoxTipoAtendimento.getSelectedItem();
+                tipo.getIdTipo();
+                tipo.getDescricaoTipo();
+                objTrata.setIdTipo(tipo.getIdTipo());
+                objTrata.setTextoTratamento(jTextoAtendimento.getText());
+                //objTrata.set
                 if (pAcao == 1) {
                     objTrata.setUsuarioInsert(nameUser);
                     objTrata.setDataInsert(dataModFinal);
@@ -668,6 +695,7 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                     bloquearCampos();
                     bloquearBotoes();
                     Salvar();
+                    preencherTabelaTratamentos("SELECT * FROM TRATAMENTO_PSICOLOGICO WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (pAcao == 2) {
@@ -682,9 +710,10 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
                     bloquearCampos();
                     bloquearBotoes();
                     Salvar();
+                    preencherTabelaTratamentos("SELECT * FROM TRATAMENTO_PSICOLOGICO WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
-            }            
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -697,11 +726,49 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
 
     private void jBtConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConcluirActionPerformed
         // TODO add your handling code here:
+        if (jComboBoxStatus.getSelectedItem().equals("Desistente") || jComboBoxStatus.getSelectedItem().equals("Concluído")) {
+            if (jDataTerminoAtende.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "A data de termino não pode ser em branco.");
+            } else {
+                jDataTerminoAtende.setEnabled(true);
+                objTrata.setStatusTrat((String) jComboBoxStatus.getSelectedItem());
+                objTrata.setDataTermino(jDataTerminoAtende.getDate());
+                objTrata.setIdTRAT(Integer.valueOf(jIdAtendimento.getText()));
+                control.concluirTratamentoPsicologico(objTrata);
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                bloquearCampos();
+                bloquearBotoes();
+                Salvar();
+                preencherTabelaTratamentos("SELECT * FROM TRATAMENTO_PSICOLOGICO WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+                JOptionPane.showMessageDialog(rootPane, "Registro concluído com sucesso.");
+            }
+        }
     }//GEN-LAST:event_jBtConcluirActionPerformed
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
+
+    private void jComboBoxStatusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxStatusMousePressed
+        // TODO add your handling code here:
+        if (jComboBoxStatus.getSelectedItem().equals("Desistente") || jComboBoxStatus.getSelectedItem().equals("Concluído")) {
+            jDataTerminoAtende.setEnabled(true);
+        } else if (jComboBoxStatus.getSelectedItem().equals("Em tratamento") || jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
+            jDataTerminoAtende.setEnabled(!true);
+        }
+    }//GEN-LAST:event_jComboBoxStatusMousePressed
+
+    private void jComboBoxStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            if (jComboBoxStatus.getSelectedItem().equals("Desistente") || jComboBoxStatus.getSelectedItem().equals("Concluído")) {
+                jDataTerminoAtende.setEnabled(true);
+            } else if (jComboBoxStatus.getSelectedItem().equals("Em tratamento") || jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
+                jDataTerminoAtende.setEnabled(!true);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxStatusItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -845,10 +912,10 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(TelaTratamentoPsicologico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        TipoTratamentoPsicologico tipo = (TipoTratamentoPsicologico) jComboBoxTipoAtendimento.getSelectedItem();
-        tipo.getIdTipo();
-        tipo.getDescricaoTipo();
-        objTrata.setIdTipo(tipo.getIdTipo());
+//        TipoTratamentoPsicologico tipo = (TipoTratamentoPsicologico) jComboBoxTipoAtendimento.getSelectedItem();
+//        tipo.getIdTipo();
+//        tipo.getDescricaoTipo();
+//        objTrata.setIdTipo(tipo.getIdTipo());
     }
 
     public void Novo() {
@@ -929,13 +996,13 @@ public class TelaTratamentoPsicologico extends javax.swing.JDialog {
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataAgenda = conecta.rs.getString("DataTipo");
+                dataAgenda = conecta.rs.getString("DataTrat");
                 String diae = dataAgenda.substring(8, 10);
                 String mese = dataAgenda.substring(5, 7);
                 String anoe = dataAgenda.substring(0, 4);
                 dataAgenda = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdTipo"), dataAgenda, conecta.rs.getString("StatusTipo"), conecta.rs.getString("DescricaoTipo")});
+                dados.add(new Object[]{conecta.rs.getInt("IdTRAT"), dataAgenda, conecta.rs.getString("StatusTrat"), conecta.rs.getString("TextoTratamento")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

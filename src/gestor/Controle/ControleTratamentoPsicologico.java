@@ -42,7 +42,7 @@ public class ControleTratamentoPsicologico {
             } else {
                 pst.setDate(6, null);
             }
-            if (objTrata.getDataInicio() != null) {
+            if (objTrata.getDataTermino() != null) {
                 pst.setTimestamp(7, new java.sql.Timestamp(objTrata.getDataTermino().getTime()));
             } else {
                 pst.setDate(7, null);
@@ -74,7 +74,7 @@ public class ControleTratamentoPsicologico {
             } else {
                 pst.setDate(6, null);
             }
-            if (objTrata.getDataInicio() != null) {
+            if (objTrata.getDataTermino() != null) {
                 pst.setTimestamp(7, new java.sql.Timestamp(objTrata.getDataTermino().getTime()));
             } else {
                 pst.setDate(7, null);
@@ -98,6 +98,28 @@ public class ControleTratamentoPsicologico {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objTrata;
+    }
+
+    public TratamentoPsicologico concluirTratamentoPsicologico(TratamentoPsicologico objTrata) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE TRATAMENTO_PSICOLOGICO SET StatusTrat=?,DataTermino=?,TextoTratamento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdTRAT='" + objTrata.getIdTRAT() + "'");
+            pst.setString(1, objTrata.getStatusTrat());
+            if (objTrata.getDataTermino() != null) {
+                pst.setTimestamp(2, new java.sql.Timestamp(objTrata.getDataTermino().getTime()));
+            } else {
+                pst.setDate(2, null);
+            }
+            pst.setString(3, objTrata.getUsuarioUp());
+            pst.setString(4, objTrata.getDataUp());
+            pst.setString(5, objTrata.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel CONCLUIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objTrata;

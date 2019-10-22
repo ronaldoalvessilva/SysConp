@@ -2501,6 +2501,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         control_ATENDE.confirmarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            mostraTelaTratamentoPSI();
+                        }
                     }
                     if (acao == 2) {
                         // log de usuario
@@ -2522,7 +2527,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     }
                 }
             }
-            acao = 0;
+//            acao = 0;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
