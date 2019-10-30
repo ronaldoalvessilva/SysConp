@@ -11,9 +11,13 @@ import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jFotoInternoLabor;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jNomeEmpresa;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jIdInterno;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jNomeInterno;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -33,6 +37,15 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
     String statusEmp = "ABERTO";
     String caminho;
     String statusInterno = "Ativo";
+    //
+    String pTIPO_EMPRESA = "Externa";
+    // TESTE PARA BUSCAR O DIA DA SEMANA
+    String dataDiaAtualSemana;
+    int diaAtual;
+    String dataDiaAtual;
+    //    
+    int diaAtivo = 1;
+    String nomeDiaSemana = "";
 
     /**
      * Creates new form TelaPesqColaborador
@@ -135,10 +148,8 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaPesqInternosEmpresaLab);
         if (jTabelaPesqInternosEmpresaLab.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setMinWidth(400);
-            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setMaxWidth(400);
+            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setPreferredWidth(400);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -264,40 +275,296 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:
-        // Pesquisar colaborador por nome
-        flag = 1;
-        if (jPesqNomeInterno.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
-            jPesqNomeInterno.requestFocus();
-        } else {
-            buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSAGENDALABORATIVA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
-                    + "INNER JOIN AGENDALABORATIVA "
-                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
-                    + "INNER JOIN EMPRESALAB "
-                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
-                    + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
-                    + "AND StatusInterno='" + statusInterno + "'");
+//        flag = 1;
+//        if (jPesqNomeInterno.getText().equals("")) {
+//            JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
+//            jPesqNomeInterno.requestFocus();
+//        } else {
+//            buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+//                    + "INNER JOIN ITENSAGENDALABORATIVA "
+//                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+//                    + "INNER JOIN AGENDALABORATIVA "
+//                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+//                    + "INNER JOIN EMPRESALAB "
+//                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+//                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+//                    + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+//                    + "AND StatusInterno='" + statusInterno + "' "
+//                    + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'");
+//        }
+        dataDiaAtualSemana = jDataSistema.getText();
+        String dia = dataDiaAtualSemana.substring(0, 2);
+        diaAtual = Integer.parseInt(dia.trim());
+        diaDaSemana(diaAtual);
+        if (nomeDiaSemana.equals("Domingo")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Domingo='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Segunda")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Segunda='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Terça")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Terca='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Quarta")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Quarta='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Quinta")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Quinta='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Sexta")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Sexta='" + diaAtivo + "'");
+            }
+        } else if (nomeDiaSemana.equals("Sábado")) {
+            flag = 1;
+            if (jPesqNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
+                jPesqNomeInterno.requestFocus();
+            } else {
+                buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                        + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND StatusInterno='" + statusInterno + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
+                        + "AND ITENSAGENDALABORATIVA.Sabado='" + diaAtivo + "'");
+            }
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-        flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN ITENSAGENDALABORATIVA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
-                    + "INNER JOIN AGENDALABORATIVA "
-                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
-                    + "INNER JOIN EMPRESALAB "
-                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-                    + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
-                    + "AND StatusInterno='" + statusInterno + "'");
-        } else {
-            limparTabelaInternos();
+//        flag = 1;
+//        if (evt.getStateChange() == evt.SELECTED) {
+//            this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+//                    + "INNER JOIN ITENSAGENDALABORATIVA "
+//                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
+//                    + "INNER JOIN AGENDALABORATIVA "
+//                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+//                    + "INNER JOIN EMPRESALAB "
+//                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+//                    + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+//                    + "AND StatusInterno='" + statusInterno + "' "
+//                    + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'");
+//        } else {
+//            limparTabelaInternos();
+//        }
+        dataDiaAtualSemana = jDataSistema.getText();
+        String dia = dataDiaAtualSemana.substring(0, 2);
+        diaAtual = Integer.parseInt(dia.trim());
+        diaDaSemana(diaAtual);
+        if (nomeDiaSemana.equals("Domingo")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Domingo='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Segunda")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Segunda='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Terça")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Terca='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Quarta")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Quarta='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Quinta")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Quinta='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Sexta")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Sexta='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
+        } else if (nomeDiaSemana.equals("Sábado")) {
+            flag = 1;
+            if (evt.getStateChange() == evt.SELECTED) {
+                this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
+                        + "INNER JOIN ITENSAGENDALABORATIVA "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc  "
+                        + "INNER JOIN AGENDALABORATIVA "
+                        + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
+                        + "INNER JOIN EMPRESALAB "
+                        + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
+                        + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
+                        + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
+                        + "AND ITENSAGENDALABORATIVA.Sabado='" + diaAtivo + "'");
+            } else {
+                limparTabelaInternos();
+            }
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -341,7 +608,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosEmpresaLab.setModel(modelo);
-        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setPreferredWidth(400);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setResizable(false);
@@ -368,7 +635,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosEmpresaLab.setModel(modelo);
-        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setPreferredWidth(400);
         jTabelaPesqInternosEmpresaLab.getColumnModel().getColumn(1).setResizable(false);
@@ -376,5 +643,37 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         jTabelaPesqInternosEmpresaLab.setAutoResizeMode(jTabelaPesqInternosEmpresaLab.AUTO_RESIZE_OFF);
         jTabelaPesqInternosEmpresaLab.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
+    }
+
+    public void diaDaSemana(int dia) {
+
+        Date d = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(d);
+
+        dia = c.get(c.DAY_OF_WEEK);
+        switch (dia) {
+            case Calendar.SUNDAY:
+                nomeDiaSemana = "Domingo";
+                break;
+            case Calendar.MONDAY:
+                nomeDiaSemana = "Segunda";
+                break;
+            case Calendar.TUESDAY:
+                nomeDiaSemana = "Terça";
+                break;
+            case Calendar.WEDNESDAY:
+                nomeDiaSemana = "Quarta";
+                break;
+            case Calendar.THURSDAY:
+                nomeDiaSemana = "Quinta";
+                break;
+            case Calendar.FRIDAY:
+                nomeDiaSemana = "Sexta";
+                break;
+            case Calendar.SATURDAY:
+                nomeDiaSemana = "sábado";
+                break;
+        }
     }
 }
