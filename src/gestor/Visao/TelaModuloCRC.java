@@ -61,10 +61,15 @@ import static gestor.Visao.TelaVerificacaoRetornoSaidasPortariaCrc.jtotalRegistr
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -173,6 +178,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pCnc = "";
     String dataInicial;
     String dataFinal;
+    // COMPARAÇÃO DE DATAS
+    Date data1;
+    Date data2;
     //
     public static int codigoUserCRC = 0;
     public static int codUserAcessoCRC = 0;
@@ -3364,7 +3372,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jCalculadoraExecucaoPenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraExecucaoPenalActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             Runtime.getRuntime().exec("cmd.exe /C start "
                     + "http://www.cnj.jus.br/calculadora_execucao_penal/semlinha/calculadora_execucao_penal_cnj_3_0.html");
         } catch (IOException ex) {
@@ -3704,13 +3712,39 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND DataSaida!='" + dataSisConvert + "' "
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
-                dataSaida = conecta.rs.getString("DataSaida");
-                if (dataSaida == null ? dataSisConvert != null : !dataSaida.equals(dataSisConvert)) {
+                //        
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                String diaE = dataEntrada.substring(8, 10);
+                String mesE = dataEntrada.substring(5, 7);
+                String anoE = dataEntrada.substring(0, 4);
+                dataEntrada = diaE + "/" + mesE + "/" + anoE;
+                JOptionPane.showMessageDialog(rootPane, "dataEntrada " + dataEntrada);
+                JOptionPane.showMessageDialog(rootPane, " DataSistema " + jDataSistema.getText());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
+                    data2 = sdf.parse(jDataSistema.getText()); //DATA DO SISTEMA
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Se a data1 for anterior à data2, o before retorna true (verdadeiro). 
+                //Caso contrário, ele retorna false (falso). 
+                JOptionPane.showMessageDialog(rootPane, "data1 " + data1);
+                JOptionPane.showMessageDialog(rootPane, "dataFormatada " + data2);
+                if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
                     preencherTabelaEvadido();
                 }
+                //
+//                dataSaida = conecta.rs.getString("DataSaida");
+//                if (dataSaida == null ? dataSisConvert != null : !dataSaida.equals(dataSisConvert)) {
+//                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
+//                    TelaModuloCRC.jPainelCRC.add(objEvas);
+//                    objEvas.show();
+//                    preencherTabelaEvadido();
+//                }
             } catch (SQLException ex) {
             }
             //SERVIDOR WIDOWS
@@ -3723,18 +3757,37 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
                 dataSaida = conecta.rs.getString("DataSaida");
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                String diaE = dataEntrada.substring(8, 10);
+                String mesE = dataEntrada.substring(5, 7);
+                String anoE = dataEntrada.substring(0, 4);
+                dataEntrada = diaE + "/" + mesE + "/" + anoE;
                 // Formatar a data Saida
                 dataSaida = conecta.rs.getString("DataSaida");
                 String dia = dataSaida.substring(8, 10);
                 String mes = dataSaida.substring(5, 7);
                 String ano = dataSaida.substring(0, 4);
                 dataSaida = dia + "/" + mes + "/" + ano;
-                if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
+                    data2 = sdf.parse(jDataSistema.getText()); //DATA DO SISTEMA
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
                     preencherTabelaEvadido();
                 }
+//                if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
+//                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
+//                    TelaModuloCRC.jPainelCRC.add(objEvas);
+//                    objEvas.show();
+//                    preencherTabelaEvadido();
+//                }
             } catch (SQLException ex) {
             }
             conecta.desconecta();

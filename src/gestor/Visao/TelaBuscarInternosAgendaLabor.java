@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import static gestor.Visao.TelaListaPassagemInternos.FotoInternoListaPassagem;
+import static gestor.Visao.TelaListaPassagemInternos.jComboBoxTornozeleira;
 import static gestor.Visao.TelaListaPassagemInternos.jDataEntrada;
 import static gestor.Visao.TelaListaPassagemInternos.jIdInterno;
 import static gestor.Visao.TelaListaPassagemInternos.jNomeInterno;
@@ -70,7 +71,7 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagem de Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -121,7 +122,7 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
         jTabelaPesqInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Situação"
@@ -174,21 +175,24 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 342, Short.MAX_VALUE))
+                        .addGap(0, 330, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap())
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -201,12 +205,10 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
         );
 
-        setBounds(250, 20, 551, 275);
+        setBounds(250, 20, 551, 305);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -222,18 +224,30 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 // Tabela Internos
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc")); //Coluna 0
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1             
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
+                jComboBoxTornozeleira.setSelectedItem(conecta.rs.getString("Tornozeleira"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoListaPassagem.setIcon(i);
-                FotoInternoListaPassagem.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoListaPassagem.getWidth(), FotoInternoListaPassagem.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoListaPassagem.setIcon(i);
+                    FotoInternoListaPassagem.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoListaPassagem.getWidth(), FotoInternoListaPassagem.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoListaPassagem.getWidth(), FotoInternoListaPassagem.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoListaPassagem.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -255,7 +269,7 @@ public class TelaBuscarInternosAgendaLabor extends javax.swing.JInternalFrame {
             jPesqNomeInterno.requestFocus();
         } else {
             buscarInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
                     + "AND SituacaoCrc='" + situacaoEnt + "' "
                     + "OR NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
                     + "AND SituacaoCrc='" + situacaoRet + "'");

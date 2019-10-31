@@ -1955,7 +1955,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     public static javax.swing.JCheckBox jCheckBoxTer;
     public static javax.swing.JComboBox jComboBoxStatus;
     private javax.swing.JComboBox jComboBoxTipoEmpresa;
-    private javax.swing.JComboBox<String> jComboBoxTornozeleira;
+    public static javax.swing.JComboBox<String> jComboBoxTornozeleira;
     private com.toedter.calendar.JDateChooser jDataCadastro;
     public static com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataPesqFinal;

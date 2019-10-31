@@ -7,6 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jBtZoon;
+import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jComboBoxTornozeleira;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jFotoInternoLabor;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jNomeEmpresa;
 import static gestor.Visao.TelaEntradaSaidaInternosPortaria.jIdInterno;
@@ -222,8 +223,6 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
         if (flag == 1) {
             String nomeInterno = "" + jTabelaPesqInternosEmpresaLab.getValueAt(jTabelaPesqInternosEmpresaLab.getSelectedRow(), 1);
             jPesqNomeInterno.setText(nomeInterno);
-//            String idInterno = "" + jTabelaPesqInternosEmpresaLab.getValueAt(jTabelaPesqInternosEmpresaLab.getSelectedRow(), 0);
-//            jIdInterno.setText(idInterno);//           
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
@@ -244,6 +243,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jComboBoxTornozeleira.setSelectedItem(conecta.rs.getString("Tornozeleira"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
@@ -275,23 +275,6 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
         // TODO add your handling code here:
-//        flag = 1;
-//        if (jPesqNomeInterno.getText().equals("")) {
-//            JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
-//            jPesqNomeInterno.requestFocus();
-//        } else {
-//            buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
-//                    + "INNER JOIN ITENSAGENDALABORATIVA "
-//                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
-//                    + "INNER JOIN AGENDALABORATIVA "
-//                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
-//                    + "INNER JOIN EMPRESALAB "
-//                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-//                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
-//                    + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
-//                    + "AND StatusInterno='" + statusInterno + "' "
-//                    + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'");
-//        }
         dataDiaAtualSemana = jDataSistema.getText();
         String dia = dataDiaAtualSemana.substring(0, 2);
         diaAtual = Integer.parseInt(dia.trim());
@@ -313,7 +296,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Domingo='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaDom='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Segunda")) {
             flag = 1;
@@ -332,7 +315,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Segunda='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSeg='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Terça")) {
             flag = 1;
@@ -351,7 +334,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Terca='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaTer='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Quarta")) {
             flag = 1;
@@ -370,7 +353,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Quarta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaQua='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Quinta")) {
             flag = 1;
@@ -389,7 +372,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Quinta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaQui='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Sexta")) {
             flag = 1;
@@ -408,7 +391,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Sexta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSex='" + diaAtivo + "'");
             }
         } else if (nomeDiaSemana.equals("Sábado")) {
             flag = 1;
@@ -427,28 +410,13 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "AND RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND StatusInterno='" + statusInterno + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'"
-                        + "AND ITENSAGENDALABORATIVA.Sabado='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSab='" + diaAtivo + "'");
             }
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-//        flag = 1;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            this.buscarInternoAgendados("SELECT * FROM PRONTUARIOSCRC "
-//                    + "INNER JOIN ITENSAGENDALABORATIVA "
-//                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSAGENDALABORATIVA.IdInternoCrc "
-//                    + "INNER JOIN AGENDALABORATIVA "
-//                    + "ON ITENSAGENDALABORATIVA.IdAgenda=AGENDALABORATIVA.IdAgenda "
-//                    + "INNER JOIN EMPRESALAB "
-//                    + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
-//                    + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
-//                    + "AND StatusInterno='" + statusInterno + "' "
-//                    + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "'");
-//        } else {
-//            limparTabelaInternos();
-//        }
         dataDiaAtualSemana = jDataSistema.getText();
         String dia = dataDiaAtualSemana.substring(0, 2);
         diaAtual = Integer.parseInt(dia.trim());
@@ -465,7 +433,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Domingo='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaDom='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -481,7 +449,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Segunda='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSeg='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -497,7 +465,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Terca='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaTer='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -513,7 +481,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Quarta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaQua='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -529,7 +497,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Quinta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaQui='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -545,7 +513,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Sexta='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSex='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -561,7 +529,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                         + "ON AGENDALABORATIVA.IdEmp=EMPRESALAB.IdEmp "
                         + "WHERE RazaoSocial='" + jNomeEmpresa.getText() + "' "
                         + "AND ITENSAGENDALABORATIVA.TipoEmpresa='" + pTIPO_EMPRESA + "' "
-                        + "AND ITENSAGENDALABORATIVA.Sabado='" + diaAtivo + "'");
+                        + "AND ITENSAGENDALABORATIVA.DiaSab='" + diaAtivo + "'");
             } else {
                 limparTabelaInternos();
             }
@@ -604,7 +572,7 @@ public class TelaPesqInternosLabor extends javax.swing.JInternalFrame {
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!\nERRO: " + ex);
+            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem a serem exibidos. Verifique com a terapeuta a lista de passagem dos internos com trabalho externos, bem como dias de saída dos mesmos.");
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternosEmpresaLab.setModel(modelo);
