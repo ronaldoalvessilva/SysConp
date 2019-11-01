@@ -3712,39 +3712,22 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND DataSaida!='" + dataSisConvert + "' "
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
-                //        
                 dataEntrada = conecta.rs.getString("DataEntrada");
-                String diaE = dataEntrada.substring(8, 10);
-                String mesE = dataEntrada.substring(5, 7);
-                String anoE = dataEntrada.substring(0, 4);
-                dataEntrada = diaE + "/" + mesE + "/" + anoE;
-                JOptionPane.showMessageDialog(rootPane, "dataEntrada " + dataEntrada);
-                JOptionPane.showMessageDialog(rootPane, " DataSistema " + jDataSistema.getText());
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
-                    data2 = sdf.parse(jDataSistema.getText()); //DATA DO SISTEMA
+                    data2 = sdf.parse(dataSisConvert); //DATA DO SISTEMA
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 //Se a data1 for anterior à data2, o before retorna true (verdadeiro). 
                 //Caso contrário, ele retorna false (falso). 
-                JOptionPane.showMessageDialog(rootPane, "data1 " + data1);
-                JOptionPane.showMessageDialog(rootPane, "dataFormatada " + data2);
                 if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
                     preencherTabelaEvadido();
                 }
-                //
-//                dataSaida = conecta.rs.getString("DataSaida");
-//                if (dataSaida == null ? dataSisConvert != null : !dataSaida.equals(dataSisConvert)) {
-//                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
-//                    TelaModuloCRC.jPainelCRC.add(objEvas);
-//                    objEvas.show();
-//                    preencherTabelaEvadido();
-//                }
             } catch (SQLException ex) {
             }
             //SERVIDOR WIDOWS
@@ -3756,38 +3739,20 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND DataSaida!='" + jDataSistema.getText() + "' "
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
-                dataSaida = conecta.rs.getString("DataSaida");
                 dataEntrada = conecta.rs.getString("DataEntrada");
-                String diaE = dataEntrada.substring(8, 10);
-                String mesE = dataEntrada.substring(5, 7);
-                String anoE = dataEntrada.substring(0, 4);
-                dataEntrada = diaE + "/" + mesE + "/" + anoE;
-                // Formatar a data Saida
-                dataSaida = conecta.rs.getString("DataSaida");
-                String dia = dataSaida.substring(8, 10);
-                String mes = dataSaida.substring(5, 7);
-                String ano = dataSaida.substring(0, 4);
-                dataSaida = dia + "/" + mes + "/" + ano;
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
-                    data2 = sdf.parse(jDataSistema.getText()); //DATA DO SISTEMA
+                    data2 = sdf.parse(dataSisConvert); //DATA DO SISTEMA
                 } catch (ParseException ex) {
                     Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
                     preencherTabelaEvadido();
                 }
-//                if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
-//                    TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
-//                    TelaModuloCRC.jPainelCRC.add(objEvas);
-//                    objEvas.show();
-//                    preencherTabelaEvadido();
-//                }
             } catch (SQLException ex) {
             }
             conecta.desconecta();
