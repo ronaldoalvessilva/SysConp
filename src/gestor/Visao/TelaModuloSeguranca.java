@@ -344,6 +344,8 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         RelatorioEntradaInternosUnidade = new javax.swing.JMenuItem();
         RelatorioRegimePenalPavilhao = new javax.swing.JMenuItem();
         RelatorioInternosBeneficios = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioInternosComSemTornozeleira = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         RelPavilhao = new javax.swing.JMenuItem();
         RelCelas = new javax.swing.JMenuItem();
@@ -804,6 +806,16 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
             }
         });
         RelatoriosSeguranca.add(RelatorioInternosBeneficios);
+        RelatoriosSeguranca.add(jSeparator25);
+
+        jRelatorioInternosComSemTornozeleira.setForeground(new java.awt.Color(0, 0, 204));
+        jRelatorioInternosComSemTornozeleira.setText("Relatório de Internos com e Sem Tornozeleiras");
+        jRelatorioInternosComSemTornozeleira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioInternosComSemTornozeleiraActionPerformed(evt);
+            }
+        });
+        RelatoriosSeguranca.add(jRelatorioInternosComSemTornozeleira);
         RelatoriosSeguranca.add(jSeparator7);
 
         RelPavilhao.setText("Pavilhão");
@@ -2455,6 +2467,13 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jNIMActionPerformed
 
+    private void jRelatorioInternosComSemTornozeleiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioInternosComSemTornozeleiraActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosTornozeleiras objRel = new TelaRelatorioInternosTornozeleiras();
+        TelaModuloSeguranca.jPainelSeguranca.add(objRel);
+        objRel.show();
+    }//GEN-LAST:event_jRelatorioInternosComSemTornozeleiraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -2534,6 +2553,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jNIM;
     public static javax.swing.JDesktopPane jPainelSeguranca;
+    private javax.swing.JMenuItem jRelatorioInternosComSemTornozeleira;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosPorNome;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -2553,6 +2573,7 @@ public class TelaModuloSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;

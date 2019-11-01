@@ -481,6 +481,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         RelatorioPorCidade = new javax.swing.JMenuItem();
         RelatorioPorBairro = new javax.swing.JMenuItem();
+        jSeparator32 = new javax.swing.JPopupMenu.Separator();
+        jInternosTornozeleiras = new javax.swing.JMenuItem();
         ListagemCadastroInternos = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jMenu7 = new javax.swing.JMenu();
@@ -1070,6 +1072,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         RelatorioInternos.add(RelatorioPorBairro);
+        RelatorioInternos.add(jSeparator32);
+
+        jInternosTornozeleiras.setForeground(new java.awt.Color(0, 102, 51));
+        jInternosTornozeleiras.setText("Tornozeleira");
+        jInternosTornozeleiras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInternosTornozeleirasActionPerformed(evt);
+            }
+        });
+        RelatorioInternos.add(jInternosTornozeleiras);
 
         jMenuRelatorios.add(RelatorioInternos);
 
@@ -3387,6 +3399,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelaIVC.show();
     }//GEN-LAST:event_PorVaraCondenatoriaActionPerformed
 
+    private void jInternosTornozeleirasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInternosTornozeleirasActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosTornozeleiras objRel = new TelaRelatorioInternosTornozeleiras();
+        TelaModuloCRC.jPainelCRC.add(objRel);
+        objRel.show();
+    }//GEN-LAST:event_jInternosTornozeleirasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3454,6 +3473,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jEmissaoAtestadoReclusao;
     private javax.swing.JMenuItem jEmissaoAtestadoReclusaoCRC;
     private javax.swing.JMenuItem jEntradaInternos;
+    private javax.swing.JMenuItem jInternosTornozeleiras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jLancamentoObitoInterno;
@@ -3519,6 +3539,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator30;
     private javax.swing.JPopupMenu.Separator jSeparator31;
+    private javax.swing.JPopupMenu.Separator jSeparator32;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
