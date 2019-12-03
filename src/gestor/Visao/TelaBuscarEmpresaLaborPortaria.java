@@ -26,6 +26,7 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
     String statusEmp = "ABERTO";
     int flag;
     String dataCadastro;
+    String tipoEmpresa = "Externa";
 
     /**
      * Creates new form TelaBuscarEmpresaLabor
@@ -214,7 +215,9 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
             buscarEmpresas("SELECT * FROM EMPRESALAB "
                     + "INNER JOIN AGENDALABORATIVA "
                     + "ON EMPRESALAB.IdEmp=AGENDALABORATIVA.IdEmp "
-                    + "WHERE RazaoSocial LIKE'%" + jPesqNomeEmpresa.getText() + "%' AND StatusLanc='" + statusEmp + "'");
+                    + "WHERE RazaoSocial LIKE'%" + jPesqNomeEmpresa.getText() + "%' "
+                    + "AND StatusLanc='" + statusEmp + "' "
+                    + "AND TipoEmpresa='" + tipoEmpresa + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeEmpresaActionPerformed
 
@@ -229,7 +232,8 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM EMPRESALAB "
                         + "INNER JOIN AGENDALABORATIVA "
                         + "ON EMPRESALAB.IdEmp=AGENDALABORATIVA.IdEmp "
-                        + "WHERE RazaoSocial='" + jPesqNomeEmpresa.getText() + "' AND StatusLanc='" + statusEmp + "'");
+                        + "WHERE RazaoSocial='" + jPesqNomeEmpresa.getText() + "' "
+                        + "AND StatusLanc='" + statusEmp + "'");
                 conecta.rs.first();
                 jIDEmpresa.setText(conecta.rs.getString("IdEmp"));
                 jNomeEmpresa.setText(conecta.rs.getString("RazaoSocial")); // Coluna 1                                                                                       
@@ -253,7 +257,8 @@ public class TelaBuscarEmpresaLaborPortaria extends javax.swing.JInternalFrame {
             this.buscarEmpresas("SELECT * FROM EMPRESALAB "
                     + "INNER JOIN AGENDALABORATIVA "
                     + "ON EMPRESALAB.IdEmp=AGENDALABORATIVA.IdEmp "
-                    + "WHERE StatusLanc='" + statusEmp + "'");
+                    + "WHERE StatusLanc='" + statusEmp + "' "
+                    + "AND TipoEmpresa='" + tipoEmpresa + "'");
         } else {
             limparTabela();
         }

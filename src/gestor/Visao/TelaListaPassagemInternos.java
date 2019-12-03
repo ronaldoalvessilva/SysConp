@@ -175,8 +175,8 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jNomeInterno = new javax.swing.JTextField();
-        jObservacaoInterno = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jComboBoxTornozeleira = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jCheckBoxSeg = new javax.swing.JCheckBox();
@@ -202,6 +202,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jHoraSexEnt = new javax.swing.JFormattedTextField();
         jHoraSabEnt = new javax.swing.JFormattedTextField();
         jHoraDomEnt = new javax.swing.JFormattedTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jObservacaoInterno = new javax.swing.JTextArea();
         jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
@@ -551,7 +554,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jTabelaItensInternos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Status", "Situação"
@@ -806,7 +809,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         });
 
         jComboBoxStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativo", "Inativo" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Ativo", "Inativo" }));
         jComboBoxStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatus.setEnabled(false);
 
@@ -820,7 +823,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jDataEntrada.setEnabled(false);
 
         jComboBoxTipoEmpresa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Externa", "Interna" }));
+        jComboBoxTipoEmpresa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Externa", "Interna" }));
         jComboBoxTipoEmpresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoEmpresa.setEnabled(false);
 
@@ -833,11 +836,13 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeInterno.setEnabled(false);
 
-        jObservacaoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObservacaoInterno.setEnabled(false);
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setText("Utiliza tornozeleira eletrônica?");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Observação");
+        jComboBoxTornozeleira.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTornozeleira.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Não", "Sim" }));
+        jComboBoxTornozeleira.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTornozeleira.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -846,15 +851,11 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNomeInterno)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -864,47 +865,54 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxTipoEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(0, 39, Short.MAX_VALUE))))
-                            .addComponent(jObservacaoInterno)
-                            .addComponent(jNomeInterno, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxTipoEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTornozeleira, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel11))
+                    .addComponent(jLabel8)
                     .addComponent(jLabel6))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqInterno)
                     .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTipoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtPesqInterno)
+                    .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jObservacaoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxTipoEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxTornozeleira, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(24, 24, 24)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Dados do Interno", jPanel5);
@@ -1158,11 +1166,36 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(5, 5, 5))
         );
 
         jTabbedPane2.addTab("Dias/Horários", jPanel6);
+
+        jObservacaoInterno.setColumns(20);
+        jObservacaoInterno.setRows(5);
+        jObservacaoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jObservacaoInterno.setEnabled(false);
+        jScrollPane4.setViewportView(jObservacaoInterno);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Observação", jPanel4);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1223,10 +1256,10 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1454,7 +1487,19 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
                     jComboBoxStatus.requestFocus();
                     jComboBoxStatus.setBackground(Color.red);
+                } else if (jComboBoxStatus.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o status do interno");
+                    jComboBoxStatus.requestFocus();
+                    jComboBoxStatus.setBackground(Color.red);
+                } else if (jComboBoxTornozeleira.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem ou não tornozeleira eletrônica.");
+                } else if (jComboBoxTornozeleira.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem ou não tornozeleira eletrônica.");
+                } else if (jComboBoxTornozeleira.getSelectedItem().equals("Selecione...")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem ou não tornozeleira eletrônica.");
                 } else if (jComboBoxTipoEmpresa.getSelectedItem().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o tipo da empresa, externa ou interna");
+                } else if (jComboBoxTipoEmpresa.getSelectedItem().equals("Selecione...")) {
                     JOptionPane.showMessageDialog(rootPane, "Informe o tipo da empresa, externa ou interna");
                 } else {
                     objItensAgenda.setIdAgenda(Integer.valueOf(jIDAgenda.getText()));
@@ -1466,45 +1511,45 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                     objItensAgenda.setTipoEmpresa((String) jComboBoxTipoEmpresa.getSelectedItem());
                     // DIAS DA SEMANA
                     if (jCheckBoxSeg.isSelected()) {
-                        DiaSeg = 0;
-                    } else if (!jCheckBoxSeg.isSelected()) {
                         DiaSeg = 1;
+                    } else if (!jCheckBoxSeg.isSelected()) {
+                        DiaSeg = 0;
                     }
                     objItensAgenda.setDiaSeg(DiaSeg);
                     if (jCheckBoxTer.isSelected()) {
-                        DiaTer = 0;
-                    } else if (!jCheckBoxTer.isSelected()) {
                         DiaTer = 1;
+                    } else if (!jCheckBoxTer.isSelected()) {
+                        DiaTer = 0;
                     }
                     objItensAgenda.setDiaTer(DiaTer);
                     if (jCheckBoxQua.isSelected()) {
-                        DiaQua = 0;
-                    } else if (!jCheckBoxQua.isSelected()) {
                         DiaQua = 1;
+                    } else if (!jCheckBoxQua.isSelected()) {
+                        DiaQua = 0;
                     }
                     objItensAgenda.setDiaQua(DiaQua);
                     if (jCheckBoxQui.isSelected()) {
-                        DiaQui = 0;
-                    } else if (!jCheckBoxQui.isSelected()) {
                         DiaQui = 1;
+                    } else if (!jCheckBoxQui.isSelected()) {
+                        DiaQui = 0;
                     }
                     objItensAgenda.setDiaQui(DiaQui);
                     if (jCheckBoxSex.isSelected()) {
-                        DiaSex = 0;
-                    } else if (!jCheckBoxSex.isSelected()) {
                         DiaSex = 1;
+                    } else if (!jCheckBoxSex.isSelected()) {
+                        DiaSex = 0;
                     }
                     objItensAgenda.setDiaSex(DiaSex);
                     if (jCheckBoxSab.isSelected()) {
-                        DiaSab = 0;
-                    } else if (!jCheckBoxSab.isSelected()) {
                         DiaSab = 1;
+                    } else if (!jCheckBoxSab.isSelected()) {
+                        DiaSab = 0;
                     }
                     objItensAgenda.setDiaSab(DiaSab);
                     if (jCheckBoxDom.isSelected()) {
-                        DiaDom = 0;
-                    } else if (!jCheckBoxDom.isSelected()) {
                         DiaDom = 1;
+                    } else if (!jCheckBoxDom.isSelected()) {
+                        DiaDom = 0;
                     }
                     objItensAgenda.setDiaDom(DiaDom);
                     // HORAS DE SAÍDA DO DIA DA SEMANA
@@ -1523,6 +1568,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                     objItensAgenda.setHoraSexEnt(jHoraSexEnt.getText());
                     objItensAgenda.setHoraSabEnt(jHoraSabEnt.getText());
                     objItensAgenda.setHoraDomEnt(jHoraDomEnt.getText());
+                    objItensAgenda.setPulseira((String) jComboBoxTornozeleira.getSelectedItem());
                     if (acao == 3) {
                         // log de usuario
                         objItensAgenda.setUsuarioInsert(nameUser);
@@ -1747,6 +1793,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusInterno"));
                 jComboBoxTipoEmpresa.setSelectedItem(conecta.rs.getString("TipoEmpresa"));
+                jComboBoxTornozeleira.setSelectedItem(conecta.rs.getString("Pulseira"));
                 idItem = conecta.rs.getString("IdItem"); // Coluna 2  
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
@@ -1757,45 +1804,45 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
                 jObservacaoInterno.setText(conecta.rs.getString("ObservacaoInterno"));
                 //
                 DiaSeg = conecta.rs.getInt("DiaSeg");
-                if (DiaSeg == 0) {
+                if (DiaSeg == 1) {
                     jCheckBoxSeg.setSelected(true);
-                } else if (DiaSeg == 1) {
+                } else if (DiaSeg == 0) {
                     jCheckBoxSeg.setSelected(!true);
                 }
                 DiaTer = conecta.rs.getInt("DiaTer");
-                if (DiaTer == 0) {
+                if (DiaTer == 1) {
                     jCheckBoxTer.setSelected(true);
-                } else if (DiaTer == 1) {
+                } else if (DiaTer == 0) {
                     jCheckBoxTer.setSelected(!true);
                 }
                 DiaQua = conecta.rs.getInt("DiaQua");
-                if (DiaQua == 0) {
+                if (DiaQua == 1) {
                     jCheckBoxQua.setSelected(true);
-                } else if (DiaQua == 1) {
+                } else if (DiaQua == 0) {
                     jCheckBoxQua.setSelected(!true);
                 }
                 DiaQui = conecta.rs.getInt("DiaQui");
-                if (DiaQui == 0) {
+                if (DiaQui == 1) {
                     jCheckBoxQui.setSelected(true);
-                } else if (DiaQui == 1) {
+                } else if (DiaQui == 0) {
                     jCheckBoxQui.setSelected(!true);
                 }
                 DiaSex = conecta.rs.getInt("DiaSex");
-                if (DiaSex == 0) {
+                if (DiaSex == 1) {
                     jCheckBoxSex.setSelected(true);
-                } else if (DiaSex == 1) {
+                } else if (DiaSex == 0) {
                     jCheckBoxSex.setSelected(!true);
                 }
                 DiaSab = conecta.rs.getInt("DiaSab");
-                if (DiaSab == 0) {
+                if (DiaSab == 1) {
                     jCheckBoxSab.setSelected(true);
-                } else if (DiaSab == 1) {
+                } else if (DiaSab == 0) {
                     jCheckBoxSab.setSelected(!true);
                 }
                 DiaDom = conecta.rs.getInt("DiaDom");
-                if (DiaDom == 0) {
+                if (DiaDom == 1) {
                     jCheckBoxDom.setSelected(true);
-                } else if (DiaDom == 1) {
+                } else if (DiaDom == 0) {
                     jCheckBoxDom.setSelected(!true);
                 }
                 // HORÁRIO DE SAÍDA
@@ -1908,6 +1955,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     public static javax.swing.JCheckBox jCheckBoxTer;
     public static javax.swing.JComboBox jComboBoxStatus;
     private javax.swing.JComboBox jComboBoxTipoEmpresa;
+    public static javax.swing.JComboBox<String> jComboBoxTornozeleira;
     private com.toedter.calendar.JDateChooser jDataCadastro;
     public static com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
@@ -1937,6 +1985,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1944,12 +1993,11 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jNomeInterno;
     private javax.swing.JTextArea jObservacao;
-    private javax.swing.JTextField jObservacaoInterno;
+    private javax.swing.JTextArea jObservacaoInterno;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1960,6 +2008,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1969,6 +2018,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -2042,6 +2092,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setBackground(Color.white);
         jObservacaoInterno.setBackground(Color.white);
         jComboBoxStatus.setBackground(Color.white);
+        jComboBoxTornozeleira.setBackground(Color.white);
         //   jSituacao.setBackground(Color.white);
         jDataEntrada.setBackground(Color.white);
         // HORARIO DE SAIDA
@@ -2069,6 +2120,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jComboBoxStatus.setEnabled(!true);
         jComboBoxTipoEmpresa.setEnabled(!true);
         jObservacaoInterno.setEnabled(!true);
+        jComboBoxTornozeleira.setEnabled(!true);
         //
         jCheckBoxSeg.setEnabled(!true);
         jCheckBoxTer.setEnabled(!true);
@@ -2117,8 +2169,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         FotoInternoListaPassagem.setIcon(null);
         jNomeInterno.setText("");
         jDataEntrada.setDate(null);
-        jComboBoxStatus.setSelectedItem(null);
-        jComboBoxTipoEmpresa.setSelectedItem(null);
+        jComboBoxStatus.setSelectedItem("Selecione...");
+        jComboBoxTipoEmpresa.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
         jObservacaoInterno.setText("");
         //
         jBtNovoInterno.setEnabled(!true);
@@ -2264,8 +2317,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         FotoInternoListaPassagem.setIcon(null);
         jNomeInterno.setText("");
         jObservacaoInterno.setText("");
-        jComboBoxStatus.setSelectedItem("Ativo");
-        jComboBoxTipoEmpresa.setSelectedItem("Externa");
+        jComboBoxStatus.setSelectedItem("Selecione...");
+        jComboBoxTipoEmpresa.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
         //
         jCheckBoxSeg.setSelected(!true);
         jCheckBoxTer.setSelected(!true);
@@ -2295,6 +2349,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jObservacaoInterno.setEnabled(true);
         jComboBoxStatus.setEnabled(true);
         jComboBoxTipoEmpresa.setEnabled(true);
+        jComboBoxTornozeleira.setEnabled(true);
         //        
         jCheckBoxSeg.setEnabled(true);
         jCheckBoxTer.setEnabled(true);
@@ -2342,6 +2397,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jObservacaoInterno.setEnabled(true);
         jComboBoxStatus.setEnabled(true);
         jComboBoxTipoEmpresa.setEnabled(true);
+        jComboBoxTornozeleira.setEnabled(true);
         //        
         jCheckBoxSeg.setEnabled(true);
         jCheckBoxTer.setEnabled(true);
@@ -2390,8 +2446,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         FotoInternoListaPassagem.setIcon(null);
         jNomeInterno.setText("");
         jObservacaoInterno.setText("");
-        jComboBoxStatus.setSelectedItem("Ativo");
-        jComboBoxTipoEmpresa.setSelectedItem("Externa");
+        jComboBoxStatus.setSelectedItem("Selecione");
+        jComboBoxTipoEmpresa.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
         //
         jCheckBoxSeg.setSelected(!true);
         jCheckBoxTer.setSelected(!true);
@@ -2421,6 +2478,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jObservacaoInterno.setEnabled(!true);
         jComboBoxStatus.setEnabled(!true);
         jComboBoxTipoEmpresa.setEnabled(!true);
+        jComboBoxTornozeleira.setEnabled(!true);
         //        
         jCheckBoxSeg.setEnabled(!true);
         jCheckBoxTer.setEnabled(!true);
@@ -2469,8 +2527,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         FotoInternoListaPassagem.setIcon(null);
         jNomeInterno.setText("");
         jObservacaoInterno.setText("");
-        jComboBoxStatus.setSelectedItem("Ativo");
-        jComboBoxTipoEmpresa.setSelectedItem("Externa");
+        jComboBoxStatus.setSelectedItem("Selecione...");
+        jComboBoxTipoEmpresa.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
         //
         jCheckBoxSeg.setSelected(!true);
         jCheckBoxTer.setSelected(!true);
@@ -2500,6 +2559,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jObservacaoInterno.setEnabled(!true);
         jComboBoxStatus.setEnabled(!true);
         jComboBoxTipoEmpresa.setEnabled(!true);
+        jComboBoxTornozeleira.setEnabled(!true);
         //        
         jCheckBoxSeg.setEnabled(!true);
         jCheckBoxTer.setEnabled(!true);
@@ -2548,8 +2608,9 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         FotoInternoListaPassagem.setIcon(null);
         jNomeInterno.setText("");
         jObservacaoInterno.setText("");
-        jComboBoxStatus.setSelectedItem("Ativo");
-        jComboBoxTipoEmpresa.setSelectedItem("Externa");
+        jComboBoxStatus.setSelectedItem("Selecione...");
+        jComboBoxTipoEmpresa.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
         //
         jCheckBoxSeg.setSelected(!true);
         jCheckBoxTer.setSelected(!true);
@@ -2595,6 +2656,7 @@ public class TelaListaPassagemInternos extends javax.swing.JInternalFrame {
         jObservacaoInterno.setEnabled(!true);
         jComboBoxStatus.setEnabled(!true);
         jComboBoxTipoEmpresa.setEnabled(!true);
+        jComboBoxTornozeleira.setEnabled(!true);
         //        
         jCheckBoxSeg.setEnabled(!true);
         jCheckBoxTer.setEnabled(!true);

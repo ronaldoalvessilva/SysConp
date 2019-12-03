@@ -25,7 +25,7 @@ public class ControleItensAgendaLaborativa {
          buscarInterno(objItensAgenda.getNomeInterno(), objItensAgenda.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSAGENDALABORATIVA (IdAgenda,IdInternoCrc,IdEmp,StatusInterno,ObservacaoInterno,UsuarioInsert,DataInsert,HorarioInsert,TipoEmpresa,DiaSeg,DiaTer,DiaQua,DiaQui,DiaSex,DiaSab,DiaDom,HoraSeg,HoraTer,HoraQua,HoraQui,HoraSex,HoraSab,HoraDom,HoraSegEnt,HoraTerEnt,HoraQuaEnt,HoraQuiEnt,HoraSexEnt,HoraSabEnt,HoraDomEnt) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSAGENDALABORATIVA (IdAgenda,IdInternoCrc,IdEmp,StatusInterno,ObservacaoInterno,UsuarioInsert,DataInsert,HorarioInsert,TipoEmpresa,DiaSeg,DiaTer,DiaQua,DiaQui,DiaSex,DiaSab,DiaDom,HoraSeg,HoraTer,HoraQua,HoraQui,HoraSex,HoraSab,HoraDom,HoraSegEnt,HoraTerEnt,HoraQuaEnt,HoraQuiEnt,HoraSexEnt,HoraSabEnt,HoraDomEnt,Pulseira) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensAgenda.getIdAgenda());
             pst.setInt(2, codInterno);
             pst.setInt(3, objItensAgenda.getIdEmp());
@@ -56,6 +56,7 @@ public class ControleItensAgendaLaborativa {
             pst.setString(28, objItensAgenda.getHoraSexEnt());
             pst.setString(29, objItensAgenda.getHoraSabEnt());
             pst.setString(30, objItensAgenda.getHoraDomEnt());
+            pst.setString(31, objItensAgenda.getPulseira());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
@@ -68,7 +69,7 @@ public class ControleItensAgendaLaborativa {
         buscarInterno(objItensAgenda.getNomeInterno(), objItensAgenda.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSAGENDALABORATIVA SET IdAgenda=?,IdInternoCrc=?,IdEmp=?,StatusInterno=?,ObservacaoInterno=?,UsuarioUp=?,DataUp=?,HorarioUp=?,TipoEmpresa=?,DiaSeg=?,DiaTer=?,DiaQua=?,DiaQui=?,DiaSex=?,DiaSab=?,DiaDom=?,HoraSeg=?,HoraTer=?,HoraQua=?,HoraQui=?,HoraSex=?,HoraSab=?,HoraDom=?,HoraSegEnt=?,HoraTerEnt=?,HoraQuaEnt=?,HoraQuiEnt=?,HoraSexEnt=?,HoraSabEnt=?,HoraDomEnt=? WHERE IdItem='" + objItensAgenda.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSAGENDALABORATIVA SET IdAgenda=?,IdInternoCrc=?,IdEmp=?,StatusInterno=?,ObservacaoInterno=?,UsuarioUp=?,DataUp=?,HorarioUp=?,TipoEmpresa=?,DiaSeg=?,DiaTer=?,DiaQua=?,DiaQui=?,DiaSex=?,DiaSab=?,DiaDom=?,HoraSeg=?,HoraTer=?,HoraQua=?,HoraQui=?,HoraSex=?,HoraSab=?,HoraDom=?,HoraSegEnt=?,HoraTerEnt=?,HoraQuaEnt=?,HoraQuiEnt=?,HoraSexEnt=?,HoraSabEnt=?,HoraDomEnt=?,Pulseira=? WHERE IdItem='" + objItensAgenda.getIdItem() + "'");
             pst.setInt(1, objItensAgenda.getIdAgenda());
             pst.setInt(2, codInterno);
             pst.setInt(3, objItensAgenda.getIdEmp());
@@ -99,6 +100,7 @@ public class ControleItensAgendaLaborativa {
             pst.setString(28, objItensAgenda.getHoraSexEnt());
             pst.setString(29, objItensAgenda.getHoraSabEnt());
             pst.setString(30, objItensAgenda.getHoraDomEnt());
+            pst.setString(31, objItensAgenda.getPulseira());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);

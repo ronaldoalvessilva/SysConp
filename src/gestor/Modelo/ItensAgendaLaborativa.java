@@ -47,8 +47,12 @@ public class ItensAgendaLaborativa {
     private String horaSexEnt;
     private String horaSabEnt;
     private String horaDomEnt;   
+    private String pulseira;
 
-    public ItensAgendaLaborativa(int idItem, int idAgenda, int idInternoCrc, String nomeInterno, String statusInterno, int idEmp, String nomeEmpresa, String observacaoInterno, String tipoEmpresa, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, int DiaSeg, int DiaTer, int DiaQua, int DiaQui, int DiaSex, int DiaSab, int DiaDom, String horaSeg, String horaTer, String horaQua, String horaQui, String horaSex, String horaSab, String horaDom, String horaSegEnt, String horaTerEnt, String horaQuaEnt, String horaQuiEnt, String horaSexEnt, String horaSabEnt, String horaDomEnt) {
+    public ItensAgendaLaborativa() {
+    }
+
+    public ItensAgendaLaborativa(int idItem, int idAgenda, int idInternoCrc, String nomeInterno, String statusInterno, int idEmp, String nomeEmpresa, String observacaoInterno, String tipoEmpresa, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, int DiaSeg, int DiaTer, int DiaQua, int DiaQui, int DiaSex, int DiaSab, int DiaDom, String horaSeg, String horaTer, String horaQua, String horaQui, String horaSex, String horaSab, String horaDom, String horaSegEnt, String horaTerEnt, String horaQuaEnt, String horaQuiEnt, String horaSexEnt, String horaSabEnt, String horaDomEnt, String pulseira) {
         this.idItem = idItem;
         this.idAgenda = idAgenda;
         this.idInternoCrc = idInternoCrc;
@@ -85,9 +89,7 @@ public class ItensAgendaLaborativa {
         this.horaSexEnt = horaSexEnt;
         this.horaSabEnt = horaSabEnt;
         this.horaDomEnt = horaDomEnt;
-    }
-
-    public ItensAgendaLaborativa() {
+        this.pulseira = pulseira;
     }
 
     /**
@@ -592,5 +594,19 @@ public class ItensAgendaLaborativa {
      */
     public void setHoraDomEnt(String horaDomEnt) {
         this.horaDomEnt = horaDomEnt;
+    }
+
+    /**
+     * @return the pulseira
+     */
+    public String getPulseira() {
+        return pulseira;
+    }
+
+    /**
+     * @param pulseira the pulseira to set
+     */
+    public void setPulseira(String pulseira) {
+        this.pulseira = pulseira;
     }
 }

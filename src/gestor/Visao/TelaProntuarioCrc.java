@@ -433,6 +433,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataTerPena = new com.toedter.calendar.JDateChooser();
         jComboBoxDocumentacaoCompleta = new javax.swing.JComboBox<>();
         jLabel192 = new javax.swing.JLabel();
+        jLabel193 = new javax.swing.JLabel();
+        jComboBoxTornozeleira = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTabelaDocumentos = new javax.swing.JTable();
@@ -2165,6 +2167,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel192.setText("Doc. Completa");
         jLabel192.setToolTipText("Documentação Completa");
 
+        jLabel193.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel193.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel193.setText("Tornozeleira");
+
+        jComboBoxTornozeleira.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTornozeleira.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Não", "Sim", "Não sabe" }));
+        jComboBoxTornozeleira.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTornozeleira.setEnabled(false);
+
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
         jPanel49.setLayout(jPanel49Layout);
         jPanel49Layout.setHorizontalGroup(
@@ -2172,49 +2183,62 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             .addGroup(jPanel49Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel53, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jArtigo3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jArtigo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel56, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel49Layout.createSequentialGroup()
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel58, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel54, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel52, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jArtigo3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jArtigo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel59, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel57, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jParagrafo3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel49Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel53)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel49Layout.createSequentialGroup()
+                        .addComponent(jLabel56)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel192, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(jLabel193)
                     .addComponent(jComboBoxDocumentacaoCompleta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel192, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTornozeleira, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         jPanel49Layout.setVerticalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel49Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel52)
-                    .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel193)
+                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel55)
-                    .addComponent(jParagrafo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jArtigo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel52))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel53)
-                    .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTornozeleira, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel56)
-                    .addComponent(jParagrafo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jArtigo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel53))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel54)
@@ -2224,12 +2248,12 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     .addComponent(jLabel192))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel58)
-                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel59)
+                    .addComponent(jComboBoxDocumentacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataTerPena, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxDocumentacaoCompleta, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel59)
+                    .addComponent(jComboBoxEdiondo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel58))
+                .addGap(5, 5, 5))
         );
 
         javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
@@ -2243,9 +2267,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel48Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -4618,6 +4642,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
                 jComboBoxDocumentacaoCompleta.requestFocus();
                 jComboBoxDocumentacaoCompleta.setBackground(Color.red);
+            } else if (jComboBoxTornozeleira.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
+                jComboBoxTornozeleira.requestFocus();
+                jComboBoxTornozeleira.setBackground(Color.red);
             } else if (jLabelFotoInterno.getIcon() == null || caminho == null || caminho.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a foto de frente do interno.");
             } else if (jFotoPerfil.getIcon() == null || caminhoFotoPerfil == null || caminhoFotoPerfil.equals("")) {
@@ -4658,6 +4686,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 objProCrc.setCnc(jCNC.getText());
                 objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
                 objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
                 // Classe Dados Fisicos
                 objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
                 objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
@@ -5082,6 +5111,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jDataNovaEntrada.setDate(conecta.rs.getDate("DataNovaEntrada"));
                 jComboBoxDocumentacaoCompleta.setSelectedItem(conecta.rs.getString("DocumentacaoCompleta"));
                 jComboBoxQuaisDocumentosFaltam.setSelectedItem(conecta.rs.getString("QuaisDocumentosFaltam"));
+                jComboBoxTornozeleira.setSelectedItem(conecta.rs.getString("Tornozeleira"));
                 caminhoFotoPerfil = conecta.rs.getString("FotoPerfil");
                 // Fotos Perfil e Corpo
                 if (caminhoFotoPerfil != null) {
@@ -5563,6 +5593,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem documentação completa ou não.");
                 jComboBoxDocumentacaoCompleta.requestFocus();
                 jComboBoxDocumentacaoCompleta.setBackground(Color.red);
+            } else if (jComboBoxTornozeleira.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
+                jComboBoxTornozeleira.requestFocus();
+                jComboBoxTornozeleira.setBackground(Color.red);
             } else if (jLabelFotoInterno.getIcon() == null || caminho == null || caminho.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a foto de frente do interno.");
             } else if (jFotoPerfil.getIcon() == null || caminhoFotoPerfil == null || caminhoFotoPerfil.equals("")) {
@@ -5603,6 +5637,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 objProCrc.setCnc(jCNC.getText());
                 objProCrc.setDocumentacaoCompleta((String) jComboBoxDocumentacaoCompleta.getSelectedItem());
                 objProCrc.setQuaisDocumentosFaltam((String) jComboBoxQuaisDocumentosFaltam.getSelectedItem());
+                objProCrc.setTornozeleira((String) jComboBoxTornozeleira.getSelectedItem());
                 // Classe Dados Fisicos
                 objDadosFis.setCutis((String) jComboBoxCutis.getSelectedItem());
                 objDadosFis.setOlhos((String) jComboBoxOlhos.getSelectedItem());
@@ -6383,6 +6418,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     public static javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxSituacaoPresoProcesso;
     private javax.swing.JComboBox jComboBoxTipoSentencaCondenatoria;
+    private javax.swing.JComboBox<String> jComboBoxTornozeleira;
     public static javax.swing.JTextField jComboBoxUnid;
     public static com.toedter.calendar.JDateChooser jDataCadastro;
     public static com.toedter.calendar.JDateChooser jDataCondenacao;
@@ -6527,6 +6563,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel190;
     private javax.swing.JLabel jLabel191;
     private javax.swing.JLabel jLabel192;
+    private javax.swing.JLabel jLabel193;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -7029,6 +7066,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataNovaEntrada.setDate(null);
         jComboBoxQuaisDocumentosFaltam.setSelectedItem("Selecione...");
         jComboBoxQuaisDocumentosFaltam.setEnabled(true);
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setEnabled(true);
         // Habilitar campos para INCLUSÃO
         jMatriculaPenal.setEnabled(true);
         jDataCadastro.setEnabled(true);
@@ -7196,7 +7235,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataEntrada.setEnabled(true);
         jComboBoxDocumentacaoCompleta.setEnabled(true);
         jComboBoxQuaisDocumentosFaltam.setEnabled(true);
-        //   jComboBoxUnid.setEnabled(true);
+        jComboBoxTornozeleira.setEnabled(true);
         jBtPesqUnidade.setEnabled(true);
         jDataCrime.setEnabled(true);
         jDataPrisao.setEnabled(true);
@@ -7329,6 +7368,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jComboBoxDocumentacaoCompleta.setSelectedItem("Selecione...");
         jComboBoxQuaisDocumentosFaltam.setSelectedItem("Selecione...");
         jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+        jComboBoxTornozeleira.setSelectedItem("Selecione...");
+        jComboBoxTornozeleira.setEnabled(!true);
         // Desabilitar os campos
         jMatriculaPenal.setEnabled(!true);
         jDataCadastro.setEnabled(!true);
@@ -7520,6 +7561,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jDataNovaEntrada.setEnabled(!true);
         jComboBoxDocumentacaoCompleta.setEnabled(!true);
         jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+        jComboBoxTornozeleira.setEnabled(!true);
         // Habilitar/Desabilitar  Botões
         jBtZoonFoto.setEnabled(!true);
         jBtNovaFoto.setEnabled(!true);
@@ -7665,6 +7707,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jComboBoxQuaisDocumentosFaltam.setSelectedItem("Selecione...");
             jComboBoxDocumentacaoCompleta.setEnabled(!true);
             jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+            jComboBoxTornozeleira.setSelectedItem("Selecione...");
+            jComboBoxTornozeleira.setEnabled(!true);
             // Desabilitar os campos
             jMatriculaPenal.setEnabled(!true);
             jDataCadastro.setEnabled(!true);
@@ -7857,6 +7901,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jDataNovaEntrada.setEnabled(!true);
             jComboBoxDocumentacaoCompleta.setEnabled(!true);
             jComboBoxQuaisDocumentosFaltam.setEnabled(!true);
+            jComboBoxTornozeleira.setEnabled(!true);
             // Habilitar/Desabilitar  Botões
             jBtZoonFoto.setEnabled(true);
             jBtNovaFoto.setEnabled(!true);

@@ -61,10 +61,15 @@ import static gestor.Visao.TelaVerificacaoRetornoSaidasPortariaCrc.jtotalRegistr
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -173,6 +178,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pCnc = "";
     String dataInicial;
     String dataFinal;
+    // COMPARAÇÃO DE DATAS
+    Date data1;
+    Date data2;
     //
     public static int codigoUserCRC = 0;
     public static int codUserAcessoCRC = 0;
@@ -473,6 +481,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         RelatorioPorCidade = new javax.swing.JMenuItem();
         RelatorioPorBairro = new javax.swing.JMenuItem();
+        jSeparator32 = new javax.swing.JPopupMenu.Separator();
+        jInternosTornozeleiras = new javax.swing.JMenuItem();
         ListagemCadastroInternos = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jMenu7 = new javax.swing.JMenu();
@@ -1062,6 +1072,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         RelatorioInternos.add(RelatorioPorBairro);
+        RelatorioInternos.add(jSeparator32);
+
+        jInternosTornozeleiras.setForeground(new java.awt.Color(0, 102, 51));
+        jInternosTornozeleiras.setText("Tornozeleira");
+        jInternosTornozeleiras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInternosTornozeleirasActionPerformed(evt);
+            }
+        });
+        RelatorioInternos.add(jInternosTornozeleiras);
 
         jMenuRelatorios.add(RelatorioInternos);
 
@@ -3364,7 +3384,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
 
     private void jCalculadoraExecucaoPenalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCalculadoraExecucaoPenalActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             Runtime.getRuntime().exec("cmd.exe /C start "
                     + "http://www.cnj.jus.br/calculadora_execucao_penal/semlinha/calculadora_execucao_penal_cnj_3_0.html");
         } catch (IOException ex) {
@@ -3378,6 +3398,13 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         TelaModuloCRC.jPainelCRC.add(objRelaIVC);
         objRelaIVC.show();
     }//GEN-LAST:event_PorVaraCondenatoriaActionPerformed
+
+    private void jInternosTornozeleirasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInternosTornozeleirasActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioInternosTornozeleiras objRel = new TelaRelatorioInternosTornozeleiras();
+        TelaModuloCRC.jPainelCRC.add(objRel);
+        objRel.show();
+    }//GEN-LAST:event_jInternosTornozeleirasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3446,6 +3473,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jEmissaoAtestadoReclusao;
     private javax.swing.JMenuItem jEmissaoAtestadoReclusaoCRC;
     private javax.swing.JMenuItem jEntradaInternos;
+    private javax.swing.JMenuItem jInternosTornozeleiras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jLancamentoObitoInterno;
@@ -3511,6 +3539,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator30;
     private javax.swing.JPopupMenu.Separator jSeparator31;
+    private javax.swing.JPopupMenu.Separator jSeparator32;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
@@ -3704,8 +3733,17 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND DataSaida!='" + dataSisConvert + "' "
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
-                dataSaida = conecta.rs.getString("DataSaida");
-                if (dataSaida == null ? dataSisConvert != null : !dataSaida.equals(dataSisConvert)) {
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
+                    data2 = sdf.parse(dataSisConvert); //DATA DO SISTEMA
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Se a data1 for anterior à data2, o before retorna true (verdadeiro). 
+                //Caso contrário, ele retorna false (falso). 
+                if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
@@ -3722,14 +3760,15 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
                         + "AND DataSaida!='" + jDataSistema.getText() + "' "
                         + "AND Evadido='" + evadido + "'");
                 conecta.rs.first();
-                dataSaida = conecta.rs.getString("DataSaida");
-                // Formatar a data Saida
-                dataSaida = conecta.rs.getString("DataSaida");
-                String dia = dataSaida.substring(8, 10);
-                String mes = dataSaida.substring(5, 7);
-                String ano = dataSaida.substring(0, 4);
-                dataSaida = dia + "/" + mes + "/" + ano;
-                if (dataSaida == null ? jDataSistema.getText() != null : !dataSaida.equals(jDataSistema.getText())) {
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    data1 = sdf.parse(dataEntrada); //DATA DO RETORNO
+                    data2 = sdf.parse(dataSisConvert); //DATA DO SISTEMA
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaModuloCRC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (data1.before(data2)) {
                     TelaAlertaEvadidos objEvas = new TelaAlertaEvadidos();
                     TelaModuloCRC.jPainelCRC.add(objEvas);
                     objEvas.show();
