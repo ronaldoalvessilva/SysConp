@@ -11,17 +11,53 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="pUsuario" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Gei Baptista\\Documents\\NetBeansProjects\\SysConp\\reports\\"
+]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL
-INNER JOIN PRONTUARIOSCRC ON EVOLUCAO_ATENDIMENTO_SOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
-WHERE DataEvol BETWEEN $P{dataInicial} AND $P{dataFinal}
-order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
+		<![CDATA[SELECT TOP 1 * FROM ATENDIMENTOSOCIAL
+INNER JOIN PRONTUARIOSCRC ON ATENDIMENTOSOCIAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc
+WHERE DataAtend BETWEEN $P{dataInicial} AND $P{dataFinal}
+order by ATENDIMENTOSOCIAL.UsuarioInsert]]>
 	</queryString>
-	<field name="IdItem" class="java.lang.Integer"/>
-	<field name="DataEvol" class="java.sql.Timestamp"/>
 	<field name="IdAtend" class="java.lang.Integer"/>
+	<field name="DataAtend" class="java.sql.Timestamp"/>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="TextoEvolucao" class="java.sql.Clob"/>
+	<field name="StatusAtend" class="java.lang.String"/>
+	<field name="ContatoAtend" class="java.lang.String"/>
+	<field name="TelefoneAtend" class="java.lang.String"/>
+	<field name="Telefone1Atend" class="java.lang.String"/>
+	<field name="CelularAtend" class="java.lang.String"/>
+	<field name="EnderecoAtend" class="java.lang.String"/>
+	<field name="BairroAtend" class="java.lang.String"/>
+	<field name="CidadeAtend" class="java.lang.String"/>
+	<field name="EstadoAtend" class="java.lang.String"/>
+	<field name="CartTrabAtend" class="java.lang.String"/>
+	<field name="Periodo" class="java.lang.String"/>
+	<field name="DataPeriodo2Atend" class="java.sql.Timestamp"/>
+	<field name="RecebeRecluAtend" class="java.lang.String"/>
+	<field name="DireitoAuxAtend" class="java.lang.String"/>
+	<field name="RecebeBolAtend" class="java.lang.String"/>
+	<field name="QtdPessoasAtend" class="java.lang.String"/>
+	<field name="QtdTrabaAtend" class="java.lang.String"/>
+	<field name="CN1Atend" class="java.lang.String"/>
+	<field name="CN2Atend" class="java.lang.String"/>
+	<field name="RG1Atend" class="java.lang.String"/>
+	<field name="RG2atend" class="java.lang.String"/>
+	<field name="CPF1Atend" class="java.lang.String"/>
+	<field name="CPF2Atend" class="java.lang.String"/>
+	<field name="CTPS1Atend" class="java.lang.String"/>
+	<field name="CTPS2Atend" class="java.lang.String"/>
+	<field name="PossuiFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhosAtend" class="java.lang.String"/>
+	<field name="FilhosNaoRegAtend" class="java.lang.String"/>
+	<field name="OutrosFilhosAtend" class="java.lang.String"/>
+	<field name="QtdFilhos2Atend" class="java.lang.String"/>
+	<field name="PaternidadeAtend" class="java.lang.String"/>
+	<field name="DefensorAtend" class="java.lang.String"/>
+	<field name="PartiFamiAtend" class="java.lang.String"/>
+	<field name="ConsiderAtend" class="java.sql.Clob"/>
 	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
 	<field name="UsuarioDelete" class="java.lang.String"/>
@@ -30,6 +66,27 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="MunicipioNascimento" class="java.lang.String"/>
+	<field name="Tituloeleito1" class="java.lang.String"/>
+	<field name="Tituloeleito2" class="java.lang.String"/>
+	<field name="Reservista1" class="java.lang.String"/>
+	<field name="Reservista2" class="java.lang.String"/>
+	<field name="CartorioRegistro" class="java.lang.String"/>
+	<field name="RecebeBeneficio" class="java.lang.String"/>
+	<field name="TempoConvivencia" class="java.lang.String"/>
+	<field name="EsposoCompanheiro" class="java.lang.String"/>
+	<field name="NomeEsposoCompanheiro" class="java.lang.String"/>
+	<field name="PessoasResideCasa" class="java.lang.String"/>
+	<field name="EncaOutroSetor" class="java.lang.String"/>
+	<field name="QualSetor" class="java.lang.String"/>
+	<field name="CancelarVisita" class="java.lang.String"/>
+	<field name="MotivoCancelarVisita" class="java.lang.String"/>
+	<field name="EncaTirarDoc" class="java.lang.String"/>
+	<field name="DataEncaDoc" class="java.sql.Timestamp"/>
+	<field name="EncaRecPaternidade" class="java.lang.String"/>
+	<field name="DataRecPaternidade" class="java.sql.Timestamp"/>
+	<field name="RecebeVisita" class="java.lang.String"/>
+	<field name="CondicaoSegurado" class="java.lang.String"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
 	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
 	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
@@ -57,63 +114,21 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 	<field name="CelularCrc" class="java.lang.String"/>
 	<field name="CartaoSus" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.sql.Blob"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<variable name="SUBREPORT_COUNT" class="java.lang.Integer" calculation="System"/>
 	<group name="TotalAtendimento">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
-		<groupFooter>
-			<band height="37">
-				<rectangle>
-					<reportElement x="0" y="5" width="555" height="20" uuid="43427d9c-3a41-4dd4-9cdf-4c04704c72aa"/>
-				</rectangle>
-				<staticText>
-					<reportElement x="2" y="5" width="149" height="20" uuid="87cc0636-6b67-4ed1-94c3-2a3f5a6bffa0"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total de Atendimentos de ]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="478" y="7" width="76" height="18" uuid="09bbc7d6-501c-46fd-a9c7-0bbda7349280"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial" size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{TotalAtendimento_COUNT}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="152" y="4" width="326" height="20" uuid="97e39200-96a6-490e-950c-b0675e420935"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupFooter>
 	</group>
 	<group name="Tecnicos que Atendem">
 		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
-		<groupHeader>
-			<band height="18">
-				<staticText>
-					<reportElement x="2" y="0" width="106" height="16" uuid="c12d3cfa-4390-4a97-beed-2b800f7c3ab2"/>
-					<textElement>
-						<font size="11" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Nome do Técnico :]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="115" y="0" width="439" height="16" forecolor="#000099" uuid="0e142053-1ee8-4725-9fb8-9f137a04e086"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{UsuarioInsert}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="136" splitType="Stretch">
+		<band height="130" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="130" uuid="7f4983f9-2e80-4d29-a597-929f87530eee"/>
 			</rectangle>
@@ -216,63 +231,75 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 			</textField>
 		</band>
 	</title>
-	<columnHeader>
-		<band height="20" splitType="Stretch">
-			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCFF" uuid="d9452dbf-2716-4c79-92ff-626cbb82221e"/>
-			</rectangle>
-			<staticText>
-				<reportElement x="2" y="0" width="43" height="20" uuid="397d7dc2-1843-4676-91a0-d707d39e988c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nº Doc.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="50" y="1" width="101" height="19" uuid="e424674c-e1d0-4436-a661-542cf0847c04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Data]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="315" height="20" uuid="fc2aee00-8707-4aa0-a4d8-6afca881cca4"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nome do Interno]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="478" y="0" width="78" height="20" uuid="d55edbde-e6f4-4098-900f-2ec3ac938316"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cnc]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
-			<textField>
-				<reportElement x="1" y="0" width="44" height="15" uuid="7f8606cf-4e2f-4975-a2c6-e6c397d1ca97"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{IdItem}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="0" width="96" height="15" uuid="6db1075d-d4ad-4957-93dc-e31f3941e5f8"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{DataEvol}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="163" y="0" width="305" height="15" uuid="d9c28366-299f-4288-8b69-d86be55680d9"/>
-				<textElement verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="478" y="0" width="75" height="15" uuid="db65f34f-8b0f-41ab-a430-132385ef5298"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{Cnc}]]></textFieldExpression>
-			</textField>
+		<band height="8" splitType="Stretch">
+			<subreport>
+				<reportElement x="-20" y="-15" width="552" height="23" uuid="a7408532-8865-4594-bcc4-0b39052e48c8"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAdmissaoServicoSocial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="10">
+			<subreport>
+				<reportElement x="-20" y="-13" width="552" height="23" uuid="bbec6fe4-40e9-4c78-9e2c-4d069472a629"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoEvolucaoServicoSocial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="8">
+			<subreport>
+				<reportElement x="-20" y="-15" width="552" height="23" uuid="4c7754b6-1a09-4e88-84b7-42c1e2afd9c7"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descricaoUnidade">
+					<subreportParameterExpression><![CDATA[$P{descricaoUnidade}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pUsuario">
+					<subreportParameterExpression><![CDATA[$P{pUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="REPORT_COUNT" toVariable="SUBREPORT_COUNT" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorioQuantitativoAtendimentosChamadasServicoSocial.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
@@ -307,20 +334,41 @@ order by EVOLUCAO_ATENDIMENTO_SOCIAL.UsuarioInsert]]>
 			<rectangle>
 				<reportElement x="1" y="2" width="552" height="20" uuid="a1b44a3f-429b-45d1-a3b4-b2eace0eb4fa"/>
 			</rectangle>
-			<staticText>
-				<reportElement x="6" y="2" width="192" height="20" uuid="6dcc7eac-69de-4550-bc54-d0b382b2d792"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Total de Atendimentos do Setor: ]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="478" y="2" width="76" height="20" uuid="404dd400-3a12-4297-bfce-3f98aa3651a9"/>
+				<reportElement x="478" y="2" width="76" height="20" uuid="24d9c69e-d22f-43a3-9ff4-4980c0f6f38b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{SUBREPORT_COUNT}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="233" y="4" width="22" height="14" uuid="761aaf05-8475-435b-8bdd-49a21107c1c1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[e]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="257" y="4" width="120" height="17" uuid="3fa19b72-9532-4f14-b267-957fce306862"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFinal} + " :"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="175" y="4" width="68" height="17" uuid="94f67236-3357-4b06-9f35-e0f75b36f954"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="1" width="175" height="20" uuid="bb82dc7f-4fb5-4e38-84ce-901f9875374d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produtividade do Setor entre  ]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

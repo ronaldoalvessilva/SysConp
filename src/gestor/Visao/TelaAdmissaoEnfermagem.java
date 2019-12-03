@@ -812,6 +812,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaAdmissaoEnfermeira.setAutoCreateRowSorter(true);
         jTabelaAdmissaoEnfermeira.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAdmissaoEnfermeira.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -251,7 +251,7 @@ order by ODONTOPROCEDIMENTO.UsuarioInsert]]>
 	<pageFooter>
 		<band height="24" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="0" width="127" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
+				<reportElement x="0" y="0" width="175" height="24" uuid="9c1bdc74-3b0e-4dc2-9885-41989284a4f1"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>

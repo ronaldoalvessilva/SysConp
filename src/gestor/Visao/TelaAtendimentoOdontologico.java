@@ -2182,6 +2182,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaOdontograma.setAutoCreateRowSorter(true);
         jTabelaOdontograma.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOdontograma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2621,6 +2622,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaOdontogramaEvol.setAutoCreateRowSorter(true);
         jTabelaOdontogramaEvol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaOdontogramaEvol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3745,6 +3747,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaPrescricao.setAutoCreateRowSorter(true);
         jTabelaPrescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPrescricao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

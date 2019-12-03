@@ -34,17 +34,6 @@ ORDER BY NomeInternoCrc]]>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<pageHeader>
-		<band height="25">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="20" uuid="26335fd7-b5f9-4d1d-b9bc-6d08f783a80a"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CRC]]></text>
-			</staticText>
-		</band>
-	</pageHeader>
 	<summary>
 		<band height="20" splitType="Stretch">
 			<textField>

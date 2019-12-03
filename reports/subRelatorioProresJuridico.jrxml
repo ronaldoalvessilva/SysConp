@@ -26,35 +26,17 @@ WHERE DataItem >= (GETDATE() - 90) AND DescricaoAtiv='CONSULTA PROCESSUAL']]>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<columnHeader>
-		<band height="37">
-			<staticText>
-				<reportElement x="0" y="17" width="396" height="20" uuid="66449357-52a1-495c-8888-8ee41b3af762"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Quantidade de Internos com processos acompanhados :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="20" uuid="9c9b7ab1-d7ff-4c50-9b40-c954b9175d9d"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[JURÍDICO]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
 	<summary>
-		<band height="20" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement x="496" y="0" width="59" height="20" uuid="5fa3ab5a-14e3-47de-8e1c-a881877a8859"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="496" y="0" width="59" height="16" isRemoveLineWhenBlank="true" uuid="5fa3ab5a-14e3-47de-8e1c-a881877a8859"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="496" height="20" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83">
+				<reportElement x="0" y="0" width="496" height="16" isRemoveLineWhenBlank="true" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -63,7 +45,7 @@ WHERE DataItem >= (GETDATE() - 90) AND DescricaoAtiv='CONSULTA PROCESSUAL']]>
 				<text><![CDATA[Consulta Processual]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="19" width="555" height="1" forecolor="#999999" uuid="884cdd92-7285-4857-b730-c1bf40016dc8"/>
+				<reportElement x="0" y="15" width="555" height="1" forecolor="#999999" uuid="884cdd92-7285-4857-b730-c1bf40016dc8"/>
 			</line>
 		</band>
 	</summary>

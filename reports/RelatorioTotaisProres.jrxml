@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioTotaisProres" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3956e00f-9997-4856-a364-e812a5cf5409">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="33"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Vitoria Da Conquista - Servidor "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="249"/>
@@ -16,8 +16,7 @@
 		<![CDATA[SELECT TOP 1 * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
 INNER JOIN PRONTUARIOSCRC
 ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
-WHERE  Atendido LIKE 'Sim'
-]]>
+WHERE  Atendido LIKE 'Sim']]>
 	</queryString>
 	<field name="IdRegistro" class="java.lang.Integer"/>
 	<field name="DataReg" class="java.sql.Timestamp"/>
@@ -134,15 +133,22 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 	</title>
 	<columnHeader>
-		<band height="23" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="5" splitType="Stretch">
+		<band height="20">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="437707e1-404e-4e0a-8a9f-2664979fd4a4"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CRC]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="-20" y="-15" width="554" height="20" uuid="c113b9a9-30e1-498a-8149-9a0f23049289"/>
+				<reportElement x="-20" y="5" width="554" height="15" isRemoveLineWhenBlank="true" uuid="c113b9a9-30e1-498a-8149-9a0f23049289"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -151,7 +157,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-29" width="554" height="20" uuid="8d8d13df-5a7a-47c8-bb2b-a80afd6c2ee9"/>
+				<reportElement x="-20" y="-29" width="554" height="15" uuid="8d8d13df-5a7a-47c8-bb2b-a80afd6c2ee9"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -159,17 +165,32 @@ WHERE  Atendido LIKE 'Sim'
 			</subreport>
 		</band>
 		<band height="5">
+			<printWhenExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrcIII.jasper" != 0]]></printWhenExpression>
 			<subreport>
-				<reportElement x="-20" y="-41" width="554" height="20" uuid="c0e18741-762c-4596-8ca2-4e001cef5f0f"/>
+				<reportElement x="-20" y="-41" width="554" height="20" isRemoveLineWhenBlank="true" uuid="c0e18741-762c-4596-8ca2-4e001cef5f0f"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresCrcIII.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="12">
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="-2" width="100" height="20" uuid="fc163eeb-88dc-431c-8749-2e82c530b9ef"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JURÍDICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="15" width="396" height="20" uuid="e87499b7-b829-4736-9e72-59f242442df9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade de Internos com processos acompanhados :]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="-20" y="-8" width="555" height="20" uuid="d82f3b1d-c66a-4254-9e0f-60b09859a11c"/>
+				<reportElement x="-20" y="21" width="555" height="5" uuid="d82f3b1d-c66a-4254-9e0f-60b09859a11c"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -178,7 +199,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-15" width="555" height="20" uuid="ac957bec-198d-4663-a99e-7318025f4603"/>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="ac957bec-198d-4663-a99e-7318025f4603"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -187,7 +208,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-15" width="555" height="20" uuid="db4037b7-b039-44c4-9c8d-d9305a768756"/>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="db4037b7-b039-44c4-9c8d-d9305a768756"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -196,7 +217,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-15" width="555" height="20" uuid="975ec9cf-4770-4609-8b8a-abffd797f1cb"/>
+				<reportElement x="-20" y="-15" width="555" height="20" isRemoveLineWhenBlank="true" uuid="975ec9cf-4770-4609-8b8a-abffd797f1cb"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -205,7 +226,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="33f46ceb-8f62-405d-9bce-1678236950f8"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="33f46ceb-8f62-405d-9bce-1678236950f8"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -214,7 +235,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="6811fed7-15fc-4386-94d8-5c317daacfe2"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="6811fed7-15fc-4386-94d8-5c317daacfe2"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -223,7 +244,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="97583acd-6e57-4757-a7a7-8c4af62d21ce"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="97583acd-6e57-4757-a7a7-8c4af62d21ce"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -232,7 +253,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="1350cca7-e867-460d-8f2d-8a9a323ba45a"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="1350cca7-e867-460d-8f2d-8a9a323ba45a"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -241,7 +262,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="66312b3a-e52b-412e-a133-db6c95c8709f"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="66312b3a-e52b-412e-a133-db6c95c8709f"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -250,7 +271,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="4ced848b-c600-4cf9-abf9-d0cce5ac779e"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="4ced848b-c600-4cf9-abf9-d0cce5ac779e"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -259,7 +280,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="ebbec2d6-fa97-4428-b86a-63bdc519fb29"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="ebbec2d6-fa97-4428-b86a-63bdc519fb29"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -268,7 +289,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="fdac5c9d-35f0-43c1-860c-7113f0d24e09"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="fdac5c9d-35f0-43c1-860c-7113f0d24e09"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -277,7 +298,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="0014fbce-e2f9-49be-a989-ae5c3458f6cd"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="0014fbce-e2f9-49be-a989-ae5c3458f6cd"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -286,7 +307,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="f4fa8592-d524-4ce1-9240-5c7ff133795f"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="f4fa8592-d524-4ce1-9240-5c7ff133795f"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -295,7 +316,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="8520b130-11d0-4138-bff4-50d731b84591"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="8520b130-11d0-4138-bff4-50d731b84591"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -304,7 +325,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="52c726d5-ca2e-4f1e-a249-d4b239ae7d5c"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="52c726d5-ca2e-4f1e-a249-d4b239ae7d5c"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -313,7 +334,7 @@ WHERE  Atendido LIKE 'Sim'
 		</band>
 		<band height="5">
 			<subreport>
-				<reportElement x="-20" y="-17" width="555" height="22" uuid="0dbbf518-c561-4b55-be12-7da7281e1b5c"/>
+				<reportElement x="-20" y="-17" width="555" height="22" isRemoveLineWhenBlank="true" uuid="0dbbf518-c561-4b55-be12-7da7281e1b5c"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -329,9 +350,16 @@ WHERE  Atendido LIKE 'Sim'
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresEnfermagem.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="12">
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-4" width="172" height="20" uuid="f156fc3b-0672-4079-b1cb-b818458fa1ac"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVIÇO SOCIAL]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="-20" y="-10" width="555" height="22" uuid="0af34743-b57a-4f62-ade8-6b3a5deab48c"/>
+				<reportElement x="-20" y="-3" width="555" height="22" uuid="0af34743-b57a-4f62-ade8-6b3a5deab48c"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -347,9 +375,16 @@ WHERE  Atendido LIKE 'Sim'
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresServicoSocialII.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="12">
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-3" width="100" height="20" uuid="69679bde-da5c-4777-ac35-36b970c1cb76"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PSICOLOGIA]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="-20" y="-10" width="555" height="22" uuid="d10ef83b-7ac8-459a-a7ef-a5463ee48b83"/>
+				<reportElement x="-20" y="-6" width="555" height="22" uuid="d10ef83b-7ac8-459a-a7ef-a5463ee48b83"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -365,9 +400,16 @@ WHERE  Atendido LIKE 'Sim'
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subRelatorioProresPsicologiaII.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="12">
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="-5" width="154" height="20" uuid="babcb094-c34c-4cff-b45e-8dc65adba6cc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TERAPIA OCUPACIONAL]]></text>
+			</staticText>
 			<subreport>
-				<reportElement x="-20" y="-10" width="555" height="22" uuid="c91db158-a73f-49db-a288-440cd799ee75"/>
+				<reportElement x="-20" y="-7" width="555" height="22" uuid="c91db158-a73f-49db-a288-440cd799ee75"/>
 				<subreportParameter name="pUnidade"/>
 				<subreportParameter name="pUsuario"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>

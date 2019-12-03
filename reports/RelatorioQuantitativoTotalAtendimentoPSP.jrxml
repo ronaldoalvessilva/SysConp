@@ -5,14 +5,13 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT DISTINCT NomeDepartamento,
                 Sum(Qtd) AS Qtd
 FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP
        INNER JOIN DEPARTAMENTOS
                ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdDepartamento = DEPARTAMENTOS.IdDepartamento
-GROUP  BY NomeDepartamento,
-          Qtd
+GROUP  BY NomeDepartamento
 HAVING Sum(Qtd) >= 1]]>
 	</queryString>
 	<field name="NomeDepartamento" class="java.lang.String"/>

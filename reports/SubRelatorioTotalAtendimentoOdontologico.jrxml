@@ -14,78 +14,22 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP
-INNER JOIN PRONTUARIOSCRC
-ON PRONTUARIOSCRC.IdInternoCrc=REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc
-WHERE  (CONVERT(DATE,DataAtendimento)BETWEEN $P{dataInicial} AND $P{dataFinal})
-AND Atendido LIKE 'Sim'
-AND (TipoAtendimento LIKE 'Admissão Odontologica'
-OR TipoAtendimento LIKE 'Evolução Odontologica'
-)
-ORDER BY
-REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento,PRONTUARIOSCRC.NomeInternoCrc]]>
+		<![CDATA[SELECT UsuarioUp,
+       DataAtendimento,
+       IdInternoCrc
+FROM   REGISTRO_ATENDIMENTO_INTERNO_PSP
+WHERE  ( CONVERT(DATE, DataAtendimento)BETWEEN $P{dataInicial} AND $P{dataFinal} )
+       AND Atendido LIKE 'Sim'
+       AND ( TipoAtendimento LIKE 'Admissão Odontologica'
+              OR TipoAtendimento LIKE 'Evolução Odontologica' )
+ORDER  BY REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp,
+          REGISTRO_ATENDIMENTO_INTERNO_PSP.DataAtendimento ]]>
 	</queryString>
-	<field name="IdRegistro" class="java.lang.Integer"/>
-	<field name="DataReg" class="java.sql.Timestamp"/>
-	<field name="Horario" class="java.lang.String"/>
-	<field name="IdInternoCrc" class="java.lang.Integer"/>
-	<field name="TipoAtendimento" class="java.lang.String"/>
-	<field name="IdDepartamento" class="java.lang.Integer"/>
-	<field name="AssinaturaDigital" class="java.sql.Blob"/>
-	<field name="Atendido" class="java.lang.String"/>
-	<field name="IdAtend" class="java.lang.Integer"/>
-	<field name="IdEvol" class="java.lang.Integer"/>
-	<field name="DataAtendimento" class="java.sql.Timestamp"/>
-	<field name="UsuarioInsert" class="java.lang.String"/>
 	<field name="UsuarioUp" class="java.lang.String"/>
-	<field name="DataInsert" class="java.lang.String"/>
-	<field name="DataUp" class="java.lang.String"/>
-	<field name="HorarioInsert" class="java.lang.String"/>
-	<field name="HorarioUp" class="java.lang.String"/>
-	<field name="Impresso" class="java.lang.String"/>
-	<field name="IdFunc" class="java.lang.Integer"/>
-	<field name="DataAssinatura" class="java.lang.String"/>
-	<field name="HoraAssinatura" class="java.lang.String"/>
-	<field name="Motivo" class="java.sql.Clob"/>
-	<field name="AssinaturaLiberador" class="java.sql.Blob"/>
-	<field name="AtendeEvol" class="java.lang.String"/>
-	<field name="Qtd" class="java.lang.Integer"/>
-	<field name="UsuarioAtendente" class="java.lang.String"/>
-	<field name="MatriculaCrc" class="java.lang.String"/>
-	<field name="DataCadastCrc" class="java.sql.Timestamp"/>
-	<field name="DataNasciCrc" class="java.sql.Timestamp"/>
-	<field name="FotoInternoCrc" class="java.lang.String"/>
-	<field name="NomeInternoCrc" class="java.lang.String"/>
-	<field name="MaeInternoCrc" class="java.lang.String"/>
-	<field name="PaiInternoCrc" class="java.lang.String"/>
-	<field name="AlcunhaCrc" class="java.lang.String"/>
-	<field name="RgInternoCrc" class="java.lang.String"/>
-	<field name="CpfInternoCrc" class="java.lang.String"/>
-	<field name="EscolaridadeCrc" class="java.lang.String"/>
-	<field name="EstadoCivilCrc" class="java.lang.String"/>
-	<field name="CartaoSus" class="java.lang.String"/>
-	<field name="SexoCrc" class="java.lang.String"/>
-	<field name="SituacaoCrc" class="java.lang.String"/>
-	<field name="IdPais" class="java.lang.Integer"/>
-	<field name="IdCidade" class="java.lang.Integer"/>
-	<field name="ReligiaoCrc" class="java.lang.String"/>
-	<field name="ProfissaoCrc" class="java.lang.String"/>
-	<field name="EnderecoCrc" class="java.lang.String"/>
-	<field name="BairroCrc" class="java.lang.String"/>
-	<field name="CidadeCrc" class="java.lang.String"/>
-	<field name="EstadoCrc" class="java.lang.String"/>
-	<field name="TelefoneCrc" class="java.lang.String"/>
-	<field name="Telefone1Crc" class="java.lang.String"/>
-	<field name="CelularCrc" class="java.lang.String"/>
-	<field name="UsuarioDelete" class="java.lang.String"/>
-	<field name="DataDelete" class="java.lang.String"/>
-	<field name="Cnc" class="java.lang.String"/>
-	<field name="ImagemFrente" class="java.sql.Blob"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
-	<field name="DocumentacaoCompleta" class="java.lang.String"/>
-	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="DataAtendimento" class="java.sql.Timestamp"/>
+	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<group name="Tecnicos que Atenderam">
-		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
 		<groupHeader>
 			<band height="18">
 				<textField>
@@ -99,7 +43,7 @@ REGISTRO_ATENDIMENTO_INTERNO_PSP.UsuarioUp, REGISTRO_ATENDIMENTO_INTERNO_PSP.Dat
 		</groupHeader>
 	</group>
 	<group name="TotalAtendimento">
-		<groupExpression><![CDATA[$F{UsuarioInsert}]]></groupExpression>
+		<groupExpression><![CDATA[$F{UsuarioUp}]]></groupExpression>
 		<groupFooter>
 			<band height="22">
 				<textField>

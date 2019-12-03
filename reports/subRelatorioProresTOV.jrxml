@@ -10,7 +10,7 @@
 	<parameter name="pUnidade" class="java.lang.String"/>
 	<parameter name="pUsuario" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[ SELECT distinct F.IdInternoCrc FROM ITENS_FREQUENCIA_LABORATIVA_EXTERNA F
+		<![CDATA[SELECT distinct F.IdInternoCrc FROM ITENS_FREQUENCIA_LABORATIVA_EXTERNA F
  INNER JOIN PRONTUARIOSCRC P ON F.IdFreqLab=P.IdInternoCrc
  WHERE P.SituacaoCrc='ENTRADA NA UNIDADE' OR P.SituacaoCrc='RETORNO A UNIDADE']]>
 	</queryString>
@@ -21,16 +21,16 @@
 		<band splitType="Stretch"/>
 	</background>
 	<summary>
-		<band height="20" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement x="496" y="0" width="59" height="20" uuid="5fa3ab5a-14e3-47de-8e1c-a881877a8859"/>
+				<reportElement x="496" y="0" width="59" height="16" uuid="5fa3ab5a-14e3-47de-8e1c-a881877a8859"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="496" height="20" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83">
+				<reportElement x="0" y="0" width="496" height="16" uuid="aed66cb4-86f4-4f7b-93f2-6cc48d620d83">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -39,7 +39,7 @@
 				<text><![CDATA[Quantidade de Internos Com Atividades Laborativas]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="19" width="555" height="1" forecolor="#999999" uuid="884cdd92-7285-4857-b730-c1bf40016dc8"/>
+				<reportElement x="0" y="15" width="555" height="1" forecolor="#999999" uuid="884cdd92-7285-4857-b730-c1bf40016dc8"/>
 			</line>
 		</band>
 	</summary>
