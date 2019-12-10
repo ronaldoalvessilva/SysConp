@@ -24,7 +24,7 @@ public class TelaPesqAgendaRecUsuarioRoot extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
     String statusUsuario;
-    int statusUser;
+    int statusUser = 1;
     int count = 0;
 
     /**
@@ -211,7 +211,9 @@ public class TelaPesqAgendaRecUsuarioRoot extends javax.swing.JInternalFrame {
         if (jNomeUsuario.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome de usuário para pesquisa.");
         } else {
-            preencherTabelaUsuario("SELECT * FROM USUARIOS WHERE NomeUsuario LIKE'" + jNomeUsuario.getText() + "%'");
+            preencherTabelaUsuario("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario LIKE'%" + jNomeUsuario.getText() + "%' "
+                    + "AND StatusUsuario='" + statusUser + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeUsuarioActionPerformed
 
@@ -219,7 +221,8 @@ public class TelaPesqAgendaRecUsuarioRoot extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaUsuario("SELECT * FROM USUARIOS");
+            this.preencherTabelaUsuario("SELECT * FROM USUARIOS "
+                    + "WHERE StatusUsuario='" + statusUser + "'");
         } else {
             limparTabela();
         }
@@ -280,9 +283,9 @@ public class TelaPesqAgendaRecUsuarioRoot extends javax.swing.JInternalFrame {
             conecta.rs.first();
             do {
                 conecta.rs.getString("StatusUsuario");
-                if (statusUser == 0) {
+                if (statusUser == 1) {
                     statusUsuario = "Ativo";
-                } else if (statusUser == 1) {
+                } else if (statusUser == 0) {
                     statusUsuario = "Inativo";
                 }
                 dados.add(new Object[]{conecta.rs.getInt("IdUsuario"), conecta.rs.getString("NomeUsuario"), statusUsuario});
