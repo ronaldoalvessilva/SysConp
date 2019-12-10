@@ -1035,7 +1035,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabelaPAI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPAI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
@@ -2075,7 +2075,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabelaFamiliarPAI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFamiliarPAI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Familiar", "Vinculo", "Idade", "Ocupação"
@@ -2771,7 +2771,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabelaVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome da Visita", "Vinculo", "Idade", "Ocupação"
@@ -2960,7 +2960,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabelaVisitasIntimas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasIntimas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome da Visita Intima", "Vinculo", "Idade", "Ocupação"
@@ -6340,7 +6340,7 @@ public class TelaPAI_NOVO extends javax.swing.JInternalFrame {
         jTabelaEvolucaoPAI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEvolucaoPAI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Evolução"

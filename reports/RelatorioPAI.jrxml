@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioP.A.I" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12e3d120-6242-4421-b9d4-f298c993325a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="3121"/>
 	<parameter name="descricaoUnidade" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -28,8 +28,7 @@ INNER JOIN FICHA_CADASTRO_PAI_DS AS DS ON P.IdInternoCrc=DS.IdInternoCrc
 INNER JOIN FICHA_CADASTRO_PAI_EAPI1 AS EAPI1 ON P.IdInternoCrc=EAPI1.IdInternoCrc
 INNER JOIN FICHA_CADASTRO_PAI_EAPI2 AS EAPI2 ON P.IdInternoCrc=EAPI2.IdInternoCrc
 INNER JOIN EVOLUCAO_PAI_NOVO AS PN ON P.IdInternoCrc=PN.IdInternoCrc
-WHERE PP. IdPai = $P{CodigoPAI}
-]]>
+WHERE PP. IdPai = $P{CodigoPAI}]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
@@ -234,9 +233,9 @@ WHERE PP. IdPai = $P{CodigoPAI}
 	<field name="AptidaoProfissional" class="java.lang.String"/>
 	<field name="QualAptidao" class="java.lang.String"/>
 	<field name="DemandaProfissional" class="java.lang.String"/>
-	<field name="QualDemandaProfissional" class="java.sql.Clob"/>
+	<field name="QualDemandaProfissional" class="java.lang.String"/>
 	<field name="AptidaoArt" class="java.lang.String"/>
-	<field name="QualAptidaoArt" class="java.sql.Clob"/>
+	<field name="QualAptidaoArt" class="java.lang.String"/>
 	<field name="DemandaLazer" class="java.lang.String"/>
 	<field name="QualDemandaLazer" class="java.sql.Clob"/>
 	<field name="IdDJ" class="java.lang.Integer"/>
@@ -323,20 +322,20 @@ WHERE PP. IdPai = $P{CodigoPAI}
 	<field name="PsiquiatricoN" class="java.lang.Integer"/>
 	<field name="Psicologico" class="java.lang.Integer"/>
 	<field name="PessoasQuimica" class="java.lang.String"/>
-	<field name="QuemNecessita" class="java.sql.Clob"/>
+	<field name="QuemNecessita" class="java.lang.String"/>
 	<field name="IdEAP1" class="java.lang.Integer"/>
-	<field name="PSP" class="java.sql.Clob"/>
-	<field name="CEDEGEP" class="java.sql.Clob"/>
-	<field name="CRASCREAS" class="java.sql.Clob"/>
+	<field name="PSP" class="java.lang.String"/>
+	<field name="CEDEGEP" class="java.lang.String"/>
+	<field name="CRASCREAS" class="java.lang.String"/>
 	<field name="IdEAPI2" class="java.lang.Integer"/>
-	<field name="ASSISTENCIA" class="java.sql.Clob"/>
-	<field name="DOCUMENTOCIVIL" class="java.sql.Clob"/>
-	<field name="EAPI2PAI" class="java.sql.Clob"/>
+	<field name="ASSISTENCIA" class="java.lang.String"/>
+	<field name="DOCUMENTOCIVIL" class="java.lang.String"/>
+	<field name="EAPI2PAI" class="java.lang.String"/>
 	<field name="TecnicoServicoSocial" class="java.lang.String"/>
 	<field name="TecnicoPsicologico" class="java.lang.String"/>
 	<field name="IdEvolucao" class="java.lang.Integer"/>
 	<field name="DataEvolucao" class="java.sql.Timestamp"/>
-	<field name="TextoEvolucao" class="java.sql.Clob"/>
+	<field name="TextoEvolucao" class="java.lang.String"/>
 	<variable name="pardo" class="java.lang.String">
 		<variableExpression><![CDATA[(($F{Cutis}.equalsIgnoreCase("parda")) ? "X" : " ")]]></variableExpression>
 	</variable>
