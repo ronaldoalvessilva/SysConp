@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioInternosEscolaridade" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c02ebb8-6a2d-4356-87b6-c052caf0b42b">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -18,7 +18,7 @@
 	<parameter name="situacaoRet" class="java.lang.String"/>
 	<parameter name="unidadePenal" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc=$P{situacaoEnt} OR PRONTUARIOSCRC.SituacaoCrc=$P{situacaoRet} ORDER BY NomeInternoCrc]]>
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE PRONTUARIOSCRC.SituacaoCrc=$P{situacaoEnt} AND PRONTUARIOSCRC.EscolaridadeCrc!='Selecione...' AND PRONTUARIOSCRC.EscolaridadeCrc!='' OR PRONTUARIOSCRC.SituacaoCrc=$P{situacaoRet} AND PRONTUARIOSCRC.EscolaridadeCrc!='Selecione...' AND PRONTUARIOSCRC.EscolaridadeCrc!='' ORDER BY NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>
@@ -55,6 +55,11 @@
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="HorarioInsert" class="java.lang.String"/>
 	<field name="HorarioUp" class="java.lang.String"/>
+	<field name="Cnc" class="java.lang.String"/>
+	<field name="ImagemFrente" class="java.lang.Object"/>
+	<field name="DocumentacaoCompleta" class="java.lang.String"/>
+	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
+	<field name="Tornozeleira" class="java.lang.String"/>
 	<field name="IdPenais" class="java.lang.Integer"/>
 	<field name="IdUnid" class="java.lang.Integer"/>
 	<field name="DataEntrada" class="java.sql.Timestamp"/>
@@ -97,8 +102,12 @@
 	<field name="RegiaoCorpo2" class="java.lang.String"/>
 	<field name="RegiaoCorpo3" class="java.lang.String"/>
 	<field name="DataNovaEntrada" class="java.sql.Timestamp"/>
+	<field name="ImagemPerfil" class="java.lang.Object"/>
+	<field name="ImagemCorpo" class="java.lang.Object"/>
+	<field name="ImagemCorpo1" class="java.lang.Object"/>
+	<field name="ImagemCorpo2" class="java.lang.Object"/>
 	<variable name="totalAlfabetizado" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Alfabetizado"))? new Integer(1): new Integer(0))]]></variableExpression>
+		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!= null && $F{EscolaridadeCrc}.equals("Alfabetizado"))? new Integer(1): new Integer(0))]]></variableExpression>
 		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalnaoAlfabetizado" class="java.lang.Integer" calculation="Sum">
@@ -119,7 +128,7 @@
 	</variable>
 	<variable name="totalSegGrauCompleto" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("2º Grau Completo"))? new Integer(1): new Integer(0))]]></variableExpression>
-		<initialValueExpression><![CDATA[new Integer (0)]]></initialValueExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
 	</variable>
 	<variable name="totalSupIncompleto" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Superior Incompleto"))? new Integer(1): new Integer(0))]]></variableExpression>
@@ -127,7 +136,19 @@
 	</variable>
 	<variable name="totalSupCompleto" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[new Integer (($F{EscolaridadeCrc}!=null && $F{EscolaridadeCrc}.equals("Superior Completo"))? new Integer(1): new Integer(0))]]></variableExpression>
-		<initialValueExpression><![CDATA[new Integer (0)]]></initialValueExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="populacaoAtual" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeralEstudante" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{totalAlfabetizado}+$V{priGrauCompleto}+$V{priGrauIncompleto}+$V{totalSegGrauIncompleto}+$V{totalSegGrauCompleto}+$V{totalSupIncompleto}+$V{totalSupCompleto}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<variable name="totalGeral" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$V{totalnaoAlfabetizado}+$V{totalGeralEstudante}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -276,121 +297,166 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="107" splitType="Stretch">
+		<band height="158" splitType="Stretch">
 			<rectangle>
-				<reportElement x="5" y="21" width="548" height="86" uuid="a13756f9-ad64-4f53-b797-c23a7c86a406"/>
+				<reportElement x="3" y="127" width="548" height="25" uuid="26faf226-4e80-4858-b7d8-e59f03282072"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="3" y="21" width="548" height="106" uuid="a13756f9-ad64-4f53-b797-c23a7c86a406"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="9" y="27" width="185" height="20" uuid="a56ebbeb-d603-4280-b2a5-776fac46d3e5"/>
+				<reportElement x="7" y="27" width="185" height="20" uuid="a56ebbeb-d603-4280-b2a5-776fac46d3e5"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Alfabetizado]]></text>
+				<text><![CDATA[Total Alfabetizado:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="47" width="183" height="20" uuid="2606f1bd-fe16-4578-9a44-57547e72ebf2"/>
+				<reportElement x="9" y="47" width="183" height="20" uuid="2606f1bd-fe16-4578-9a44-57547e72ebf2"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Não Alfabetizado]]></text>
+				<text><![CDATA[Total Não Alfabetizado:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="67" width="183" height="20" uuid="9e6b86f3-76ab-4f22-b852-889589b7e1d6"/>
+				<reportElement x="9" y="67" width="183" height="20" uuid="9e6b86f3-76ab-4f22-b852-889589b7e1d6"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Primeiro Grau Incompleto]]></text>
+				<text><![CDATA[Total Primeiro Grau Incompleto:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="87" width="183" height="20" uuid="16b2fe57-6e33-4b51-9b41-ebfe599dc5e8"/>
+				<reportElement x="9" y="87" width="183" height="20" uuid="16b2fe57-6e33-4b51-9b41-ebfe599dc5e8"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Primeiro Grau Completo]]></text>
+				<text><![CDATA[Total Primeiro Grau Completo:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="27" width="204" height="20" uuid="6e4a9d9d-4019-41ce-a040-ed664925e9d0"/>
+				<reportElement x="284" y="27" width="204" height="20" uuid="6e4a9d9d-4019-41ce-a040-ed664925e9d0"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Segundo Grau Incompleto]]></text>
+				<text><![CDATA[Total Segundo Grau Incompleto:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="286" y="47" width="204" height="20" uuid="5fc150e0-0068-4131-b719-eb049df890c1"/>
+				<reportElement x="284" y="47" width="204" height="20" uuid="5fc150e0-0068-4131-b719-eb049df890c1"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Segundo Grau Completo]]></text>
+				<text><![CDATA[Total Segundo Grau Completo:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="313" y="67" width="177" height="20" uuid="28b4ec5d-03ec-4c5b-906a-927b9dda183e"/>
+				<reportElement x="311" y="67" width="177" height="20" uuid="28b4ec5d-03ec-4c5b-906a-927b9dda183e"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Superior Incompleto]]></text>
+				<text><![CDATA[Total Superior Incompleto:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="313" y="87" width="177" height="20" uuid="8a13241f-5078-4a97-bbdb-526f02f22b34"/>
+				<reportElement x="311" y="87" width="177" height="20" uuid="8a13241f-5078-4a97-bbdb-526f02f22b34"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total Superioir Completo]]></text>
+				<text><![CDATA[Total Superior Completo:]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement x="194" y="27" width="39" height="20" uuid="f0375e93-ec0c-4412-b186-07c6447631b1"/>
+				<reportElement x="197" y="27" width="34" height="20" uuid="f0375e93-ec0c-4412-b186-07c6447631b1"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalAlfabetizado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="199" y="47" width="34" height="20" uuid="2ef2fd0b-7310-4e03-b0b1-da7fe0db66c2"/>
+				<reportElement x="197" y="47" width="34" height="20" uuid="2ef2fd0b-7310-4e03-b0b1-da7fe0db66c2"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalnaoAlfabetizado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="194" y="87" width="39" height="20" uuid="9c027502-9b4b-4944-b2b7-aa973267f54f"/>
+				<reportElement x="197" y="87" width="34" height="20" uuid="9c027502-9b4b-4944-b2b7-aa973267f54f"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{priGrauCompleto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="199" y="67" width="34" height="20" uuid="1428dafb-8b71-432f-98d5-98774c281273"/>
+				<reportElement x="197" y="67" width="34" height="20" uuid="1428dafb-8b71-432f-98d5-98774c281273"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{priGrauIncompleto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="27" width="36" height="20" uuid="3bb045ae-6d43-4d1d-8e30-123742c009dc"/>
+				<reportElement x="488" y="27" width="36" height="20" uuid="3bb045ae-6d43-4d1d-8e30-123742c009dc"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalSegGrauIncompleto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="47" width="36" height="20" uuid="ab7ce7a5-38f5-4837-a495-c397bcb96c82"/>
+				<reportElement x="488" y="47" width="36" height="20" uuid="ab7ce7a5-38f5-4837-a495-c397bcb96c82"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalSegGrauCompleto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="67" width="36" height="20" uuid="c7ebd472-20ec-4544-846a-dc21d8957ad6"/>
+				<reportElement x="488" y="67" width="36" height="20" uuid="c7ebd472-20ec-4544-846a-dc21d8957ad6"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalSupIncompleto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="87" width="36" height="20" uuid="3f1b2243-08c9-4f37-817b-de1898e3e594"/>
+				<reportElement x="488" y="87" width="36" height="20" uuid="3f1b2243-08c9-4f37-817b-de1898e3e594"/>
 				<textElement textAlignment="Right">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalSupCompleto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="107" width="166" height="20" forecolor="#CC0000" uuid="a1cbdaba-32ac-45cb-b5c9-cb94dba9e41c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[População Atual:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="107" width="177" height="20" forecolor="#0000CC" uuid="70d8c7a5-dab6-4fcc-99cc-7067b1c02eb1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Internos c/Escolaridade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="197" y="107" width="34" height="20" forecolor="#CC0000" uuid="26e693be-48e6-44ea-bdbe-e513b9d7b7f6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{populacaoAtual}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="488" y="107" width="36" height="20" forecolor="#0000CC" uuid="e3201a7c-fc97-40b4-915c-ad1e1b2b0776"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeralEstudante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="130" width="224" height="20" uuid="46b653da-aec0-4eeb-a4ba-4df506eab4c8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral Internos c/s Escalaridade:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="231" y="132" width="32" height="20" uuid="36f75036-c955-4260-a6e1-d718a5ca25e3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalGeral}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

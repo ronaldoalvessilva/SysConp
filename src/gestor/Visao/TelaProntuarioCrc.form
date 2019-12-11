@@ -1110,18 +1110,19 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="11">
+                      <StringArray count="12">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="N&#xe3;o Alfabetizado"/>
-                        <StringItem index="2" value="Alfabetizado"/>
-                        <StringItem index="3" value="Fundamental Completo"/>
-                        <StringItem index="4" value="Fundamental Incompleto"/>
-                        <StringItem index="5" value="1&#xba; Grau Completo"/>
-                        <StringItem index="6" value="1&#xba; Grau Incompleto"/>
-                        <StringItem index="7" value="2&#xba; Grau Completo"/>
-                        <StringItem index="8" value="2&#xba; Grau Incompleto"/>
-                        <StringItem index="9" value="Superior Completo"/>
-                        <StringItem index="10" value="Superior Incompleto"/>
+                        <StringItem index="1" value="N&#xe3;o sabe Informar"/>
+                        <StringItem index="2" value="N&#xe3;o Alfabetizado"/>
+                        <StringItem index="3" value="Alfabetizado"/>
+                        <StringItem index="4" value="Fundamental Completo"/>
+                        <StringItem index="5" value="Fundamental Incompleto"/>
+                        <StringItem index="6" value="1&#xba; Grau Completo"/>
+                        <StringItem index="7" value="1&#xba; Grau Incompleto"/>
+                        <StringItem index="8" value="2&#xba; Grau Completo"/>
+                        <StringItem index="9" value="2&#xba; Grau Incompleto"/>
+                        <StringItem index="10" value="Superior Completo"/>
+                        <StringItem index="11" value="Superior Incompleto"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -4912,10 +4913,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel35" min="-2" pref="518" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel35" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -4961,7 +4959,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel76" max="32767" attributes="0"/>
+                                  <Component id="jLabel76" pref="130" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -6759,7 +6757,7 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="1">
+                      <Table columnCount="9" rowCount="0">
                         <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="true" title="Nr. Processo" type="java.lang.Object"/>
                         <Column editable="true" title="Nr. Inqu&#xe9;rito" type="java.lang.Object"/>
@@ -7081,7 +7079,7 @@
                               </Border>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="1">
+                              <Table columnCount="6" rowCount="0">
                                 <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                                 <Column editable="true" title="Amparo legal" type="java.lang.Object"/>
                                 <Column editable="true" title="Artigo" type="java.lang.Object"/>
@@ -7185,10 +7183,7 @@
                                       </Group>
                                   </Group>
                                   <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jOrigemDocumentoPrisao" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jOrigemDocumentoPrisao" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -7230,17 +7225,10 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel189" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" min="-2" pref="92" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jOrigemDocumentoPrisao" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jOrigemDocumentoPrisao" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" pref="112" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -7379,7 +7367,7 @@
                               </Border>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="1">
+                              <Table columnCount="6" rowCount="0">
                                 <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
                                 <Column editable="true" title="Natureza da Pris&#xe3;o" type="java.lang.Object"/>
                                 <Column editable="true" title="Documento" type="java.lang.Object"/>

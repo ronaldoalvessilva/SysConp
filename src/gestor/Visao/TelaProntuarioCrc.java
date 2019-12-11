@@ -1055,7 +1055,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jLabel16.setText("Escolaridade:");
 
         jComboBoxEscolaridade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
+        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Não sabe Informar", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
         jComboBoxEscolaridade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscolaridade.setEnabled(false);
 
@@ -3594,7 +3594,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         .addComponent(jBtPeculiaridadeFrente)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel35Layout.createSequentialGroup()
-                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -3609,9 +3609,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+            .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Peculiaridade Frente", jPanel34);
@@ -4164,7 +4162,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaProcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nr. Processo", "Nr. Inquérito", "Regime", "Anos", "Meses", "Dias", "Data Inicio", "Data Témino"
@@ -4244,7 +4242,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaAmparoLegal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAmparoLegal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Amparo legal", "Artigo", "Parágrafo", "Inciso", "Alínea"
@@ -4381,7 +4379,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaDocumentosProcesso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDocumentosProcesso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Natureza da Prisão", "Documento", "Origem", "Data", "Horário"
@@ -4439,9 +4437,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                             .addComponent(jLabel191)
                             .addComponent(jHoraDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane4)
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jOrigemDocumentoPrisao)))
+                    .addComponent(jOrigemDocumentoPrisao))
                 .addContainerGap())
         );
         jPanel46Layout.setVerticalGroup(
@@ -4472,14 +4468,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                         .addComponent(jDescricaoNaturezaPrisao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel189)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jOrigemDocumentoPrisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jOrigemDocumentoPrisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab("Documentos do Processo", jPanel46);
@@ -4646,6 +4638,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
                 jComboBoxTornozeleira.requestFocus();
                 jComboBoxTornozeleira.setBackground(Color.red);
+            } else if (jComboBoxEscolaridade.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
+                jComboBoxEscolaridade.requestFocus();
+                jComboBoxEscolaridade.setBackground(Color.red);
             } else if (jLabelFotoInterno.getIcon() == null || caminho == null || caminho.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a foto de frente do interno.");
             } else if (jFotoPerfil.getIcon() == null || caminhoFotoPerfil == null || caminhoFotoPerfil.equals("")) {
@@ -5597,6 +5593,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
                 jComboBoxTornozeleira.requestFocus();
                 jComboBoxTornozeleira.setBackground(Color.red);
+            } else if (jComboBoxEscolaridade.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
+                jComboBoxEscolaridade.requestFocus();
+                jComboBoxEscolaridade.setBackground(Color.red);
             } else if (jLabelFotoInterno.getIcon() == null || caminho == null || caminho.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário colocar a foto de frente do interno.");
             } else if (jFotoPerfil.getIcon() == null || caminhoFotoPerfil == null || caminhoFotoPerfil.equals("")) {
