@@ -979,6 +979,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
             //
             bloquearCampos();
             //
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -996,7 +997,7 @@ public class TelaRegistroInternosAtendimentoPEDA extends javax.swing.JInternalFr
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloPEDA);
                 jIdInternoKitBio.setText(conecta.rs.getString("IdInternoCrc"));

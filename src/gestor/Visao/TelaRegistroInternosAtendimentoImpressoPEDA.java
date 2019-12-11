@@ -13,7 +13,6 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import static gestor.Visao.TelaBiometriaEntradaSaidaPortaria.caminhoFotoInterno;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
@@ -44,8 +43,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
-import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -114,6 +111,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
     String pATENDENDO = "Sim";
     String pCONCLUIDO = "Não";
     String pSTATUS_ATENDIMENTO = "Em Atendimento";
+    String caminhoFotoInterno;
 
     /**
      * Creates new form TelaRegistroInternosAtendimento
@@ -1108,6 +1106,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                 jBtImprimirAutorização.setEnabled(true);
             }
             jComboBoxAtendente.removeAllItems();
+            jComboBoxTipoMovimentacao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
@@ -1125,7 +1124,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdRegistro")));
                 jDataRegistro.setDate(conecta.rs.getDate("DataReg"));
-                jComboBoxTipoMovimentacao.setSelectedItem(conecta.rs.getString("TipoAtendimento"));
+                jComboBoxTipoMovimentacao.addItem(conecta.rs.getString("TipoAtendimento"));
                 jHorarioSaidaEntrada.setText(conecta.rs.getString("Horario"));
                 jNomeDepartamento.setText(nomeModuloPEDA);
                 jComboBoxAtendente.addItem(conecta.rs.getString("UsuarioAtendente"));
@@ -1201,8 +1200,8 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaAuditoriaRegistroAtendImpressoSS objAudLibera = new TelaAuditoriaRegistroAtendImpressoSS();
-            TelaModuloServicoSocial.jPainelServicoSocial.add(objAudLibera);
+            TelaAuditoriaRegistroAtendImpressoPEDA objAudLibera = new TelaAuditoriaRegistroAtendImpressoPEDA();
+            TelaModuloPedagogia.jPainelPedagogia.add(objAudLibera);
             objAudLibera.show();
         }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
@@ -1212,8 +1211,8 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
         if (jIdRegistro.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaLiberadorRegistroAtendImpressoSS objLibera = new TelaLiberadorRegistroAtendImpressoSS();
-            TelaModuloServicoSocial.jPainelServicoSocial.add(objLibera);
+            TelaLiberadorRegistroAtendImpressoPEDA objLibera = new TelaLiberadorRegistroAtendImpressoPEDA();
+            TelaModuloPedagogia.jPainelPedagogia.add(objLibera);
             objLibera.show();
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
@@ -1288,6 +1287,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
     // End of variables declaration//GEN-END:variables
 
     public void pesquisarAtendente() {
+        jComboBoxAtendente.removeAllItems();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
@@ -1596,7 +1596,7 @@ public class TelaRegistroInternosAtendimentoImpressoPEDA extends javax.swing.JIn
             codExcluirPEDA = conecta.rs.getInt("Excluir");
             codGravarPEDA = conecta.rs.getInt("Gravar");
             codConsultarPEDA = conecta.rs.getInt("Consultar");
-            nomeTelaSS = conecta.rs.getString("NomeTela");
+            nomeTelaPEDA = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();
