@@ -182,6 +182,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     Date data1;
     Date data2;
     //
+    String pSELECIONE = "Selecione...";
+    String pSELECIONE_VAZIO = "";
+    //
     public static int codigoUserCRC = 0;
     public static int codUserAcessoCRC = 0;
     public static int codigoUserGroupCRC = 0;
@@ -2045,13 +2048,19 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "' "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "'  "
+                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
+                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + statusRetorno + "' "
+                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE + "' "
+                    + "AND PRONTUARIOSCRC.EscolaridadeCrc!='" + pSELECIONE_VAZIO + "' "
                     + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             parametros.put("situacaoEnt", statusEntrada);
             parametros.put("situacaoRet", statusRetorno);
+            parametros.put("pSELECIONE", pSELECIONE);
+            parametros.put("pSELECIONE_VAZIO", pSELECIONE_VAZIO);
             parametros.put("unidadePenal", descricaoUnidade);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
