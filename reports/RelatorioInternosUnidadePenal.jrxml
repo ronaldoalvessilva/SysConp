@@ -60,7 +60,6 @@
 	<field name="HorarioUp" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.lang.Object"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<field name="IdPenais" class="java.lang.Integer"/>
