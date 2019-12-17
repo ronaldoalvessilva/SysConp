@@ -211,4 +211,9 @@ public class CursosDiversos {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoCurso(); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

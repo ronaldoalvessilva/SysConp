@@ -27,8 +27,20 @@ public class AssistenciaEducativa {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;   
+    private int idCurso;
+    private String descricaoCurso;
+    private int DiaSeg;
+    private int DiaTer;
+    private int DiaQua;
+    private int DiaQui;
+    private int DiaSex;
+    private int DiaSab;
+    private int DiaDom;
 
-    public AssistenciaEducativa(int idEduca, String statusLanc, Date dataLanc, int idCod, String descricaoInstituicao, int idTurno, String descricaoTurno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AssistenciaEducativa() {
+    }
+
+    public AssistenciaEducativa(int idEduca, String statusLanc, Date dataLanc, int idCod, String descricaoInstituicao, int idTurno, String descricaoTurno, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int idCurso, String descricaoCurso, int DiaSeg, int DiaTer, int DiaQua, int DiaQui, int DiaSex, int DiaSab, int DiaDom) {
         this.idEduca = idEduca;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -43,9 +55,15 @@ public class AssistenciaEducativa {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public AssistenciaEducativa() {
+        this.idCurso = idCurso;
+        this.descricaoCurso = descricaoCurso;
+        this.DiaSeg = DiaSeg;
+        this.DiaTer = DiaTer;
+        this.DiaQua = DiaQua;
+        this.DiaQui = DiaQui;
+        this.DiaSex = DiaSex;
+        this.DiaSab = DiaSab;
+        this.DiaDom = DiaDom;
     }
 
     /**
@@ -242,5 +260,131 @@ public class AssistenciaEducativa {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the idCurso
+     */
+    public int getIdCurso() {
+        return idCurso;
+    }
+
+    /**
+     * @param idCurso the idCurso to set
+     */
+    public void setIdCurso(int idCurso) {
+        this.idCurso = idCurso;
+    }
+
+    /**
+     * @return the descricaoCurso
+     */
+    public String getDescricaoCurso() {
+        return descricaoCurso;
+    }
+
+    /**
+     * @param descricaoCurso the descricaoCurso to set
+     */
+    public void setDescricaoCurso(String descricaoCurso) {
+        this.descricaoCurso = descricaoCurso;
+    }
+
+    /**
+     * @return the DiaSeg
+     */
+    public int getDiaSeg() {
+        return DiaSeg;
+    }
+
+    /**
+     * @param DiaSeg the DiaSeg to set
+     */
+    public void setDiaSeg(int DiaSeg) {
+        this.DiaSeg = DiaSeg;
+    }
+
+    /**
+     * @return the DiaTer
+     */
+    public int getDiaTer() {
+        return DiaTer;
+    }
+
+    /**
+     * @param DiaTer the DiaTer to set
+     */
+    public void setDiaTer(int DiaTer) {
+        this.DiaTer = DiaTer;
+    }
+
+    /**
+     * @return the DiaQua
+     */
+    public int getDiaQua() {
+        return DiaQua;
+    }
+
+    /**
+     * @param DiaQua the DiaQua to set
+     */
+    public void setDiaQua(int DiaQua) {
+        this.DiaQua = DiaQua;
+    }
+
+    /**
+     * @return the DiaQui
+     */
+    public int getDiaQui() {
+        return DiaQui;
+    }
+
+    /**
+     * @param DiaQui the DiaQui to set
+     */
+    public void setDiaQui(int DiaQui) {
+        this.DiaQui = DiaQui;
+    }
+
+    /**
+     * @return the DiaSex
+     */
+    public int getDiaSex() {
+        return DiaSex;
+    }
+
+    /**
+     * @param DiaSex the DiaSex to set
+     */
+    public void setDiaSex(int DiaSex) {
+        this.DiaSex = DiaSex;
+    }
+
+    /**
+     * @return the DiaSab
+     */
+    public int getDiaSab() {
+        return DiaSab;
+    }
+
+    /**
+     * @param DiaSab the DiaSab to set
+     */
+    public void setDiaSab(int DiaSab) {
+        this.DiaSab = DiaSab;
+    }
+
+    /**
+     * @return the DiaDom
+     */
+    public int getDiaDom() {
+        return DiaDom;
+    }
+
+    /**
+     * @param DiaDom the DiaDom to set
+     */
+    public void setDiaDom(int DiaDom) {
+        this.DiaDom = DiaDom;
     }
 }

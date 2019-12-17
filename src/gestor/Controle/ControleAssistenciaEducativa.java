@@ -7,8 +7,13 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AssistenciaEducativa;
+import gestor.Modelo.CursosDiversos;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +24,7 @@ public class ControleAssistenciaEducativa {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AssistenciaEducativa objAssis = new AssistenciaEducativa();
+    CursosDiversos objCursos = new CursosDiversos();
     int codInstituicao;
     int codTurno;
 
@@ -115,5 +121,26 @@ public class ControleAssistenciaEducativa {
             JOptionPane.showMessageDialog(null, "Não Existe dados (TURNOS) a serem exibidos !!!");
         }
         conecta.desconecta();
+    }
+
+    public List<CursosDiversos> read() throws Exception {
+        conecta.abrirConexao();
+        List<CursosDiversos> listaInternosKitComp = new ArrayList<CursosDiversos>();
+        try {
+            conecta.executaSQL("SELECT * FROM CURSOS "
+                    + "ORDER BY CURSOS.DescricaoCurso");
+            while (conecta.rs.next()) {
+                CursosDiversos pDigi = new CursosDiversos();
+                pDigi.setIdCurso(conecta.rs.getInt("IdCurso"));
+                pDigi.setDescricaoCurso(conecta.rs.getString("DescricaoCurso"));
+                listaInternosKitComp.add(pDigi);
+            }
+            return listaInternosKitComp;
+        } catch (SQLException ex) {
+            Logger.getLogger(ControleAssistenciaEducativa.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            conecta.desconecta();
+        }
+        return null;
     }
 }
