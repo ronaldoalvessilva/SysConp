@@ -1110,19 +1110,25 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="12">
+                      <StringArray count="18">
                         <StringItem index="0" value="Selecione..."/>
                         <StringItem index="1" value="N&#xe3;o sabe Informar"/>
                         <StringItem index="2" value="N&#xe3;o Alfabetizado"/>
                         <StringItem index="3" value="Alfabetizado"/>
                         <StringItem index="4" value="Fundamental Completo"/>
                         <StringItem index="5" value="Fundamental Incompleto"/>
-                        <StringItem index="6" value="1&#xba; Grau Completo"/>
-                        <StringItem index="7" value="1&#xba; Grau Incompleto"/>
-                        <StringItem index="8" value="2&#xba; Grau Completo"/>
-                        <StringItem index="9" value="2&#xba; Grau Incompleto"/>
-                        <StringItem index="10" value="Superior Completo"/>
-                        <StringItem index="11" value="Superior Incompleto"/>
+                        <StringItem index="6" value="Fundamental I Completo"/>
+                        <StringItem index="7" value="Fundamental I Incompleto"/>
+                        <StringItem index="8" value="Fundamental II Incompleto"/>
+                        <StringItem index="9" value="Fundamental II Completo"/>
+                        <StringItem index="10" value="Ensino M&#xe9;dio Completo"/>
+                        <StringItem index="11" value="Ensino M&#xe9;dio Incompleto"/>
+                        <StringItem index="12" value="1&#xba; Grau Completo"/>
+                        <StringItem index="13" value="1&#xba; Grau Incompleto"/>
+                        <StringItem index="14" value="2&#xba; Grau Completo"/>
+                        <StringItem index="15" value="2&#xba; Grau Incompleto"/>
+                        <StringItem index="16" value="Superior Completo"/>
+                        <StringItem index="17" value="Superior Incompleto"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

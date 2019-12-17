@@ -941,7 +941,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         jLabel16.setText("Escolaridade:");
 
         jComboBoxEscolaridade.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Não sabe Informar", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
+        jComboBoxEscolaridade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Não sabe Informar", "Não Alfabetizado", "Alfabetizado", "Fundamental Completo", "Fundamental Incompleto", "Fundamental I Completo", "Fundamental I Incompleto", "Fundamental II Incompleto", "Fundamental II Completo", "Ensino Médio Completo", "Ensino Médio Incompleto", "1º Grau Completo", "1º Grau Incompleto", "2º Grau Completo", "2º Grau Incompleto", "Superior Completo", "Superior Incompleto" }));
         jComboBoxEscolaridade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEscolaridade.setEnabled(false);
 
