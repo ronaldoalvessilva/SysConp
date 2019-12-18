@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAssistenciaEducativa;
 import gestor.Controle.ControleInternosEducacional;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.listarInternosEE;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AssistenciaEducativa;
@@ -57,6 +58,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     InternosSaidaEducacional objIntEduca = new InternosSaidaEducacional();
     ControleAssistenciaEducativa control = new ControleAssistenciaEducativa();
     ControleInternosEducacional controle = new ControleInternosEducacional();
+    listarInternosEE listaDAO = new listarInternosEE();
     //   
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -85,6 +87,16 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     public static int DiaSex;
     public static int DiaSab;
     public static int DiaDom;
+    //
+    public static int DiaSeg1;
+    public static int DiaTer1;
+    public static int DiaQua1;
+    public static int DiaQui1;
+    public static int DiaSex1;
+    public static int DiaSab1;
+    public static int DiaDom1;
+    //
+    public static int pCODIGO_CURSO = 0;
 
     /**
      * Creates new form TelaAssistenciaEducacionalExterna
@@ -105,6 +117,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private void initComponents() {
 
         BtTipoAcessos = new javax.swing.ButtonGroup();
+        btTipoAcessoInternos = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -539,16 +552,21 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel4)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jDescricaoTurno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesqTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jStatusLanc))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -556,10 +574,10 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jIdCod, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNomeInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNomeInstituicao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdCod, jIdLanc, jIdTurno});
@@ -574,9 +592,9 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -592,9 +610,9 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDescricaoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqTurno))
+                    .addComponent(jBtPesqTurno)
+                    .addComponent(jIdTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -705,18 +723,18 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 .addComponent(jBtSair)
                 .addGap(18, 18, 18)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtNovo)
-                .addComponent(jBtAlterar)
-                .addComponent(jBtExcluir)
-                .addComponent(jBtSalvar)
-                .addComponent(jBtCancelar)
+                .addComponent(jBtAuditoria)
                 .addComponent(jBtSair)
-                .addComponent(jBtAuditoria))
+                .addComponent(jBtCancelar)
+                .addComponent(jBtSalvar)
+                .addComponent(jBtExcluir)
+                .addComponent(jBtAlterar)
+                .addComponent(jBtNovo))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -727,6 +745,11 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jComboBoxCurso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCurso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCurso.setEnabled(false);
+        jComboBoxCurso.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxCursoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -864,17 +887,14 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 2, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1037,7 +1057,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 .addComponent(jBtSair1)
                 .addGap(18, 18, 18)
                 .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(5, 5, 5))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1047,8 +1067,8 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 .addComponent(jBtExcluirInterno)
                 .addComponent(jBtSalvarInterno)
                 .addComponent(jBtCancelarInterno)
-                .addComponent(jBtAuditoriaInterno)
-                .addComponent(jBtSair1))
+                .addComponent(jBtSair1)
+                .addComponent(jBtAuditoriaInterno))
         );
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
@@ -1422,7 +1442,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 408, Short.MAX_VALUE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1472,7 +1492,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTabbedPane2))
                 .addContainerGap())
         );
@@ -1677,20 +1697,65 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 jNomeInstituicao.setText(conecta.rs.getString("NomeInstituicao"));
                 jIdTurno.setText(conecta.rs.getString("IdTurno"));
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
+                pCODIGO_CURSO = conecta.rs.getInt("IdCurso");
                 jObservacao.setText(conecta.rs.getString("Observacao"));
                 //
                 jComboBoxCurso.removeAllItems();
                 try {
-                    for (CursosDiversos p : control.read()) {
-                        jComboBoxCurso.addItem(p);
+                    for (AssistenciaEducativa i : listaDAO.read()) {
+                        jComboBoxCurso.addItem(i);
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TelaAssistenciaEducacionalExterna.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                CursosDiversos cursosDiversos = (CursosDiversos) jComboBoxCurso.getSelectedItem();
+                AssistenciaEducativa cursosDiversos = (AssistenciaEducativa) jComboBoxCurso.getSelectedItem();
                 cursosDiversos.getIdCurso();
                 cursosDiversos.getDescricaoCurso();
                 objAssis.setIdCurso(cursosDiversos.getIdCurso());
+                //
+                DiaSeg = conecta.rs.getInt("DiaSeg");
+                if (DiaSeg == 1) {
+                    jCheckBoxSeg.setSelected(true);
+                } else if (DiaSeg == 0) {
+                    jCheckBoxSeg.setSelected(!true);
+                }
+                DiaTer = conecta.rs.getInt("DiaTer");
+                if (DiaTer == 1) {
+                    jCheckBoxTer.setSelected(true);
+                } else if (DiaTer == 0) {
+                    jCheckBoxTer.setSelected(!true);
+                }
+                DiaQua = conecta.rs.getInt("DiaQua");
+                if (DiaQua == 1) {
+                    jCheckBoxQua.setSelected(true);
+                } else if (DiaQua == 0) {
+                    jCheckBoxQua.setSelected(!true);
+                }
+                DiaQui = conecta.rs.getInt("DiaQui");
+                if (DiaQui == 1) {
+                    jCheckBoxQui.setSelected(true);
+                } else if (DiaQui == 0) {
+                    jCheckBoxQui.setSelected(!true);
+                }
+                DiaSex = conecta.rs.getInt("DiaSex");
+                if (DiaSex == 1) {
+                    jCheckBoxSex.setSelected(true);
+                } else if (DiaSex == 0) {
+                    jCheckBoxSex.setSelected(!true);
+                }
+                DiaSab = conecta.rs.getInt("DiaSab");
+                if (DiaSab == 1) {
+                    jCheckBoxSab.setSelected(true);
+                } else if (DiaSab == 0) {
+                    jCheckBoxSab.setSelected(!true);
+                }
+                DiaDom = conecta.rs.getInt("DiaDom");
+                if (DiaDom == 1) {
+                    jCheckBoxDom.setSelected(true);
+                } else if (DiaDom == 0) {
+                    jCheckBoxDom.setSelected(!true);
+                }
+                //
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + e);
@@ -1789,6 +1854,49 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 objAssis.setDescricaoInstituicao(jNomeInstituicao.getText());
                 objAssis.setDescricaoTurno(jDescricaoTurno.getText());
                 objAssis.setObservacao(jObservacao.getText());
+                // DIAS DA SEMANA
+                if (jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 1;
+                } else if (!jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 0;
+                }
+                objAssis.setDiaSeg(DiaSeg);
+                if (jCheckBoxTer.isSelected()) {
+                    DiaTer = 1;
+                } else if (!jCheckBoxTer.isSelected()) {
+                    DiaTer = 0;
+                }
+                objAssis.setDiaTer(DiaTer);
+                if (jCheckBoxQua.isSelected()) {
+                    DiaQua = 1;
+                } else if (!jCheckBoxQua.isSelected()) {
+                    DiaQua = 0;
+                }
+                objAssis.setDiaQua(DiaQua);
+                if (jCheckBoxQui.isSelected()) {
+                    DiaQui = 1;
+                } else if (!jCheckBoxQui.isSelected()) {
+                    DiaQui = 0;
+                }
+                objAssis.setDiaQui(DiaQui);
+                if (jCheckBoxSex.isSelected()) {
+                    DiaSex = 1;
+                } else if (!jCheckBoxSex.isSelected()) {
+                    DiaSex = 0;
+                }
+                objAssis.setDiaSex(DiaSex);
+                if (jCheckBoxSab.isSelected()) {
+                    DiaSab = 1;
+                } else if (!jCheckBoxSab.isSelected()) {
+                    DiaSab = 0;
+                }
+                objAssis.setDiaSab(DiaSab);
+                if (jCheckBoxDom.isSelected()) {
+                    DiaDom = 1;
+                } else if (!jCheckBoxDom.isSelected()) {
+                    DiaDom = 0;
+                }
+                objAssis.setDiaDom(DiaDom);
                 if (acao == 1) {
                     objAssis.setUsuarioInsert(nameUser);
                     objAssis.setDataInsert(dataModFinal);
@@ -1972,6 +2080,65 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 objIntEduca.setMotivo(jMotivo.getText());
                 objIntEduca.setTipoAcesso(tipoAcesso);
                 objIntEduca.setEvadidoEducacao(evadidoEducacao);
+                // DIAS DA SEMANA
+                if (jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 1;
+                } else if (!jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 0;
+                }
+                objIntEduca.setDiaSeg(DiaSeg);
+                if (jCheckBoxTer.isSelected()) {
+                    DiaTer = 1;
+                } else if (!jCheckBoxTer.isSelected()) {
+                    DiaTer = 0;
+                }
+                objIntEduca.setDiaTer(DiaTer);
+                if (jCheckBoxQua.isSelected()) {
+                    DiaQua = 1;
+                } else if (!jCheckBoxQua.isSelected()) {
+                    DiaQua = 0;
+                }
+                objIntEduca.setDiaQua(DiaQua);
+                if (jCheckBoxQui.isSelected()) {
+                    DiaQui = 1;
+                } else if (!jCheckBoxQui.isSelected()) {
+                    DiaQui = 0;
+                }
+                objIntEduca.setDiaQui(DiaQui);
+                if (jCheckBoxSex.isSelected()) {
+                    DiaSex = 1;
+                } else if (!jCheckBoxSex.isSelected()) {
+                    DiaSex = 0;
+                }
+                objIntEduca.setDiaSex(DiaSex);
+                if (jCheckBoxSab.isSelected()) {
+                    DiaSab = 1;
+                } else if (!jCheckBoxSab.isSelected()) {
+                    DiaSab = 0;
+                }
+                objIntEduca.setDiaSab(DiaSab);
+                if (jCheckBoxDom.isSelected()) {
+                    DiaDom = 1;
+                } else if (!jCheckBoxDom.isSelected()) {
+                    DiaDom = 0;
+                }
+                objIntEduca.setDiaDom(DiaDom);
+                // HORAS DE SAÍDA DO DIA DA SEMANA
+                objIntEduca.setHoraSeg(jHoraSeg.getText());
+                objIntEduca.setHoraTer(jHoraTer.getText());
+                objIntEduca.setHoraQua(jHoraQua.getText());
+                objIntEduca.setHoraQui(jHoraQui.getText());
+                objIntEduca.setHoraSex(jHoraSex.getText());
+                objIntEduca.setHoraSab(jHoraSab.getText());
+                objIntEduca.setHoraDom(jHoraDom.getText());
+                // HORÁRIO DE ENTRADA NA UNIDADE
+                objIntEduca.setHoraSegEnt(jHoraSegEnt.getText());
+                objIntEduca.setHoraTerEnt(jHoraTerEnt.getText());
+                objIntEduca.setHoraQuaEnt(jHoraQuaEnt.getText());
+                objIntEduca.setHoraQuiEnt(jHoraQuiEnt.getText());
+                objIntEduca.setHoraSexEnt(jHoraSexEnt.getText());
+                objIntEduca.setHoraSabEnt(jHoraSabEnt.getText());
+                objIntEduca.setHoraDomEnt(jHoraDomEnt.getText());
                 if (acao == 3) {
                     objIntEduca.setUsuarioInsert(nameUser);
                     objIntEduca.setDataInsert(dataModFinal);
@@ -2072,45 +2239,45 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 evadidoEducacao = conecta.rs.getString("Evadido");
                 //
                 DiaSeg = conecta.rs.getInt("DiaSeg");
-                if (DiaSeg == 1) {
-                    jCheckBoxSeg.setSelected(true);
-                } else if (DiaSeg == 0) {
-                    jCheckBoxSeg.setSelected(!true);
+                if (DiaSeg1 == 1) {
+                    jCheckBoxSeg1.setSelected(true);
+                } else if (DiaSeg1 == 0) {
+                    jCheckBoxSeg1.setSelected(!true);
                 }
                 DiaTer = conecta.rs.getInt("DiaTer");
-                if (DiaTer == 1) {
-                    jCheckBoxTer.setSelected(true);
-                } else if (DiaTer == 0) {
-                    jCheckBoxTer.setSelected(!true);
+                if (DiaTer1 == 1) {
+                    jCheckBoxTer1.setSelected(true);
+                } else if (DiaTer1 == 0) {
+                    jCheckBoxTer1.setSelected(!true);
                 }
-                DiaQua = conecta.rs.getInt("DiaQua");
-                if (DiaQua == 1) {
-                    jCheckBoxQua.setSelected(true);
-                } else if (DiaQua == 0) {
-                    jCheckBoxQua.setSelected(!true);
+                DiaQua1 = conecta.rs.getInt("DiaQua");
+                if (DiaQua1 == 1) {
+                    jCheckBoxQua1.setSelected(true);
+                } else if (DiaQua1 == 0) {
+                    jCheckBoxQua1.setSelected(!true);
                 }
-                DiaQui = conecta.rs.getInt("DiaQui");
-                if (DiaQui == 1) {
-                    jCheckBoxQui.setSelected(true);
-                } else if (DiaQui == 0) {
-                    jCheckBoxQui.setSelected(!true);
+                DiaQui1 = conecta.rs.getInt("DiaQui");
+                if (DiaQui1 == 1) {
+                    jCheckBoxQui1.setSelected(true);
+                } else if (DiaQui1 == 0) {
+                    jCheckBoxQui1.setSelected(!true);
                 }
-                DiaSex = conecta.rs.getInt("DiaSex");
-                if (DiaSex == 1) {
-                    jCheckBoxSex.setSelected(true);
-                } else if (DiaSex == 0) {
-                    jCheckBoxSex.setSelected(!true);
+                DiaSex1 = conecta.rs.getInt("DiaSex");
+                if (DiaSex1 == 1) {
+                    jCheckBoxSex1.setSelected(true);
+                } else if (DiaSex1 == 0) {
+                    jCheckBoxSex1.setSelected(!true);
                 }
-                DiaSab = conecta.rs.getInt("DiaSab");
-                if (DiaSab == 1) {
-                    jCheckBoxSab.setSelected(true);
-                } else if (DiaSab == 0) {
-                    jCheckBoxSab.setSelected(!true);
+                DiaSab1 = conecta.rs.getInt("DiaSab");
+                if (DiaSab1 == 1) {
+                    jCheckBoxSab1.setSelected(true);
+                } else if (DiaSab1 == 0) {
+                    jCheckBoxSab1.setSelected(!true);
                 }
-                DiaDom = conecta.rs.getInt("DiaDom");
+                DiaDom1 = conecta.rs.getInt("DiaDom");
                 if (DiaDom == 1) {
-                    jCheckBoxDom.setSelected(true);
-                } else if (DiaDom == 0) {
+                    jCheckBoxDom1.setSelected(true);
+                } else if (DiaDom1 == 0) {
                     jCheckBoxDom.setSelected(!true);
                 }
                 // HORÁRIO DE SAÍDA
@@ -2141,10 +2308,18 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         dispose();
     }//GEN-LAST:event_jBtSair1ActionPerformed
 
+    private void jComboBoxCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCursoItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED && acao == 1 || evt.getStateChange() == evt.SELECTED && acao == 2) {
+            listarCursos();
+        }
+    }//GEN-LAST:event_jComboBoxCursoItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup BtTipoAcessos;
     public static javax.swing.JLabel FotoInternoAssis;
+    private javax.swing.ButtonGroup btTipoAcessoInternos;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarInterno;
     private javax.swing.JButton jBtAuditoria;
@@ -2306,6 +2481,54 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jComboBoxCurso.setEnabled(true);
         jObservacao.setEnabled(true);
         //
+        jCheckBoxSeg.setEnabled(true);
+        jCheckBoxTer.setEnabled(true);
+        jCheckBoxQua.setEnabled(true);
+        jCheckBoxQui.setEnabled(true);
+        jCheckBoxSex.setEnabled(true);
+        jCheckBoxSab.setEnabled(true);
+        jCheckBoxDom.setEnabled(true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jCheckBoxSeg1.setEnabled(!true);
+        jCheckBoxTer1.setEnabled(!true);
+        jCheckBoxQua1.setEnabled(!true);
+        jCheckBoxQui1.setEnabled(!true);
+        jCheckBoxSex1.setEnabled(!true);
+        jCheckBoxSab1.setEnabled(!true);
+        jCheckBoxDom1.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
+        //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
@@ -2356,6 +2579,54 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaInterno.setEnabled(!true);
+        //
+        jCheckBoxSeg.setEnabled(true);
+        jCheckBoxTer.setEnabled(true);
+        jCheckBoxQua.setEnabled(true);
+        jCheckBoxQui.setEnabled(true);
+        jCheckBoxSex.setEnabled(true);
+        jCheckBoxSab.setEnabled(true);
+        jCheckBoxDom.setEnabled(true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jCheckBoxSeg1.setEnabled(!true);
+        jCheckBoxTer1.setEnabled(!true);
+        jCheckBoxQua1.setEnabled(!true);
+        jCheckBoxQui1.setEnabled(!true);
+        jCheckBoxSex1.setEnabled(!true);
+        jCheckBoxSab1.setEnabled(!true);
+        jCheckBoxDom1.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
     }
 
     public void Excluir() {
@@ -2389,6 +2660,54 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         FotoInternoAssis.setIcon(null);
         jMotivo.setText("");
         //
+        jCheckBoxSeg.setEnabled(!true);
+        jCheckBoxTer.setEnabled(!true);
+        jCheckBoxQua.setEnabled(!true);
+        jCheckBoxQui.setEnabled(!true);
+        jCheckBoxSex.setEnabled(!true);
+        jCheckBoxSab.setEnabled(!true);
+        jCheckBoxDom.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jCheckBoxSeg1.setEnabled(!true);
+        jCheckBoxTer1.setEnabled(!true);
+        jCheckBoxQua1.setEnabled(!true);
+        jCheckBoxQui1.setEnabled(!true);
+        jCheckBoxSex1.setEnabled(!true);
+        jCheckBoxSab1.setEnabled(!true);
+        jCheckBoxDom1.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
+        //
         jBtNovoInterno.setEnabled(true);
         jBtAlterarInterno.setEnabled(!true);
         jBtExcluirInterno.setEnabled(!true);
@@ -2404,6 +2723,14 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jBtPesqTurno.setEnabled(!true);
         jComboBoxCurso.setEnabled(!true);
         jObservacao.setEnabled(!true);
+        //
+        jCheckBoxSeg.setEnabled(!true);
+        jCheckBoxTer.setEnabled(!true);
+        jCheckBoxQua.setEnabled(!true);
+        jCheckBoxQui.setEnabled(!true);
+        jCheckBoxSex.setEnabled(!true);
+        jCheckBoxSab.setEnabled(!true);
+        jCheckBoxDom.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -2438,6 +2765,14 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
             jComboBoxCurso.removeAllItems();
             jObservacao.setText("");
             //
+            jCheckBoxSeg.setEnabled(!true);
+            jCheckBoxTer.setEnabled(!true);
+            jCheckBoxQua.setEnabled(!true);
+            jCheckBoxQui.setEnabled(!true);
+            jCheckBoxSex.setEnabled(!true);
+            jCheckBoxSab.setEnabled(!true);
+            jCheckBoxDom.setEnabled(!true);
+            //
             jDataLanc.setEnabled(!true);
             jBtPesqInstituicao.setEnabled(!true);
             jBtPesqTurno.setEnabled(!true);
@@ -2470,6 +2805,14 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
             jBtPesqTurno.setEnabled(!true);
             jComboBoxCurso.setEnabled(!true);
             jObservacao.setEnabled(!true);
+            //
+            jCheckBoxSeg.setEnabled(!true);
+            jCheckBoxTer.setEnabled(!true);
+            jCheckBoxQua.setEnabled(!true);
+            jCheckBoxQui.setEnabled(!true);
+            jCheckBoxSex.setEnabled(!true);
+            jCheckBoxSab.setEnabled(!true);
+            jCheckBoxDom.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);

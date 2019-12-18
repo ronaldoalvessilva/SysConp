@@ -387,4 +387,9 @@ public class AssistenciaEducativa {
     public void setDiaDom(int DiaDom) {
         this.DiaDom = DiaDom;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoCurso(); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

@@ -33,7 +33,7 @@ public class ControleAssistenciaEducativa {
         buscarTurnos(objAssis.getDescricaoTurno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ASSISTENCIA_EDUCACAO_EXTERNA (StatusLanc,DataLanc,IdCod,IdTurno,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ASSISTENCIA_EDUCACAO_EXTERNA (StatusLanc,DataLanc,IdCod,IdTurno,Observacao,UsuarioInsert,DataInsert,HorarioInsert,IdCurso,DiaSeg,DiaTer,DiaQua,DiaQui,DiaSex,DiaSab,DiaDom) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objAssis.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAssis.getDataLanc().getTime()));
             pst.setInt(3, codInstituicao);
@@ -42,6 +42,14 @@ public class ControleAssistenciaEducativa {
             pst.setString(6, objAssis.getUsuarioInsert());
             pst.setString(7, objAssis.getDataInsert());
             pst.setString(8, objAssis.getHorarioInsert());
+            pst.setInt(9, objAssis.getIdCurso());
+            pst.setInt(10, objAssis.getDiaSeg());
+            pst.setInt(11, objAssis.getDiaTer());
+            pst.setInt(12, objAssis.getDiaQua());
+            pst.setInt(13, objAssis.getDiaQui());
+            pst.setInt(14, objAssis.getDiaSex());
+            pst.setInt(15, objAssis.getDiaSab());
+            pst.setInt(16, objAssis.getDiaDom());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO:" + ex);
@@ -55,18 +63,26 @@ public class ControleAssistenciaEducativa {
         buscarTurnos(objAssis.getDescricaoTurno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ASSISTENCIA_EDUCACAO_EXTERNA SET StatusLanc=?,DataLanc=?,IdCod=?,IdTurno=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdEduca='" + objAssis.getIdEduca() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ASSISTENCIA_EDUCACAO_EXTERNA SET StatusLanc=?,DataLanc=?,IdCod=?,IdTurno=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=?,IdCurso=?,DiaSeg=?,DiaTer=?,DiaQua=?,DiaQui=?,DiaSex=?,DiaSab=?,DiaDom=? WHERE IdEduca='" + objAssis.getIdEduca() + "'");
             pst.setString(1, objAssis.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objAssis.getDataLanc().getTime()));
             pst.setInt(3, codInstituicao);
             pst.setInt(4, codTurno);
             pst.setString(5, objAssis.getObservacao());
-            pst.setString(6, objAssis.getUsuarioInsert());
-            pst.setString(7, objAssis.getDataInsert());
-            pst.setString(8, objAssis.getHorarioInsert());
+            pst.setString(6, objAssis.getUsuarioUp());
+            pst.setString(7, objAssis.getDataUp());
+            pst.setString(8, objAssis.getHorarioUp());
+            pst.setInt(9, objAssis.getIdCurso());
+            pst.setInt(10, objAssis.getDiaSeg());
+            pst.setInt(11, objAssis.getDiaTer());
+            pst.setInt(12, objAssis.getDiaQua());
+            pst.setInt(13, objAssis.getDiaQui());
+            pst.setInt(14, objAssis.getDiaSex());
+            pst.setInt(15, objAssis.getDiaSab());
+            pst.setInt(16, objAssis.getDiaDom());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAssis;
@@ -76,10 +92,11 @@ public class ControleAssistenciaEducativa {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ASSISTENCIA_EDUCACAO_EXTERNA WHERE IdEduca='" + objAssis.getIdEduca() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ASSISTENCIA_EDUCACAO_EXTERNA "
+                    + "WHERE IdEduca='" + objAssis.getIdEduca() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAssis;
@@ -89,11 +106,12 @@ public class ControleAssistenciaEducativa {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ASSISTENCIA_EDUCACAO_EXTERNA SET StatusLanc=? WHERE IdEduca='" + objAssis.getIdEduca() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ASSISTENCIA_EDUCACAO_EXTERNA SET StatusLanc=? "
+                    + "WHERE IdEduca='" + objAssis.getIdEduca() + "'");
             pst.setString(1, objAssis.getStatusLanc());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados\n\nERRO:" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAssis;
@@ -102,7 +120,8 @@ public class ControleAssistenciaEducativa {
     public void buscarInstituicao(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM INSTITUICAOESCOLAR WHERE NomeInstituicao='" + nome + "'");
+            conecta.executaSQL("SELECT * FROM INSTITUICAOESCOLAR "
+                    + "WHERE NomeInstituicao='" + nome + "'");
             conecta.rs.first();
             codInstituicao = conecta.rs.getInt("IdCod");
         } catch (SQLException ex) {
@@ -114,7 +133,8 @@ public class ControleAssistenciaEducativa {
     public void buscarTurnos(String nome) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TURNOSAULA WHERE DescricaoTurno='" + nome + "'");
+            conecta.executaSQL("SELECT * FROM TURNOSAULA "
+                    + "WHERE DescricaoTurno='" + nome + "'");
             conecta.rs.first();
             codTurno = conecta.rs.getInt("IdTurno");
         } catch (SQLException ex) {
