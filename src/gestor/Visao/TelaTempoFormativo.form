@@ -7,7 +7,7 @@
     <Property name="title" type="java.lang.String" value="...::: Tempo Formativo/Eixo e Equivalentes :::..."/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,81,0,0,2,22"/>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,81,0,0,2,34"/>
     <SyntheticProperty name="formPosition" type="java.awt.Point" value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,97,119,116,46,80,111,105,110,116,-74,-60,-118,114,52,126,-56,38,2,0,2,73,0,1,120,73,0,1,121,120,112,0,0,1,44,0,0,0,30"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
     <SyntheticProperty name="generatePosition" type="boolean" value="true"/>
@@ -66,7 +66,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel4" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="493" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="505" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel36" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -379,67 +379,68 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jIdTurno" linkSize="1" min="-2" pref="54" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jIdTurno" linkSize="2" min="-2" pref="58" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jDescricaoTurno" max="32767" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jBtPesqTurno" min="-2" pref="27" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jIdLanc" linkSize="2" min="-2" pref="58" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jComboBoxStatus" min="-2" pref="281" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jDataLanc" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jDescricaoTurno" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jComboBoxGrauInstrucaoEqui" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtPesqTurno" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jDuracao" min="-2" pref="53" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jIdLanc" linkSize="1" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jComboBoxStatus" min="-2" pref="269" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jDataLanc" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jComboBoxGrauInstrucaoEqui" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jDuracao" min="-2" pref="53" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jComboBoxDescricaoTempoFormativo" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -450,20 +451,23 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jComboBoxDescricaoTempoFormativo" min="-2" pref="343" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace min="100" pref="106" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="jComboBoxEIXO" pref="111" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jComboBoxEIXO" pref="0" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -474,18 +478,18 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jComboBoxStatus" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jIdLanc" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxStatus" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jDataLanc" alignment="2" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -508,8 +512,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jDescricaoTurno" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jIdTurno" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jDescricaoTurno" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jBtPesqTurno" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -673,21 +677,15 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="14">
+                      <StringArray count="8">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Ensino Fundamental do 1&#xba; ao 5&#xba; ano"/>
-                        <StringItem index="2" value="Ensino Fundamental do 6&#xba; ao 9&#xba; ano"/>
-                        <StringItem index="3" value="Ensino M&#xe9;dio"/>
-                        <StringItem index="4" value="Ensino Fundamental - 1&#xba;"/>
-                        <StringItem index="5" value="Ensino Fundamental - 2&#xba;"/>
-                        <StringItem index="6" value="Ensino Fundamental - 3&#xba;"/>
-                        <StringItem index="7" value="Ensino Fundamental - 4&#xba;"/>
-                        <StringItem index="8" value="Ensino Fundamental - 5&#xba;"/>
-                        <StringItem index="9" value="Ensino Fundamental - 6&#xba;"/>
-                        <StringItem index="10" value="Ensino Fundamental - 7&#xba;"/>
-                        <StringItem index="11" value="Ensino Fundamental - 8&#xba;"/>
-                        <StringItem index="12" value="Ensino Fundamental - 9&#xba;"/>
-                        <StringItem index="13" value=" "/>
+                        <StringItem index="1" value="Ensino Fundamental - 1&#xba; ano"/>
+                        <StringItem index="2" value="Ensino Fundamental - 2&#xba; e 3&#xba; ano"/>
+                        <StringItem index="3" value="Ensino Fundamental - 4&#xba; e 5&#xba; ano"/>
+                        <StringItem index="4" value="Ensino Fundamental - 6&#xba; e 7 &#xba; ano"/>
+                        <StringItem index="5" value="Ensino Fundamental - 8&#xba; e 9 &#xba; ano"/>
+                        <StringItem index="6" value="Ensino M&#xe9;dio"/>
+                        <StringItem index="7" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -734,18 +732,14 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="11">
+                      <StringArray count="7">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="EIXO I, II e III"/>
-                        <StringItem index="2" value="EIXO IV e V"/>
-                        <StringItem index="3" value="EIXO VI e VII"/>
-                        <StringItem index="4" value="EIXO I"/>
-                        <StringItem index="5" value="EIXO II"/>
-                        <StringItem index="6" value="EIXO III"/>
-                        <StringItem index="7" value="EIXO IV"/>
-                        <StringItem index="8" value="EIXO V"/>
-                        <StringItem index="9" value="EIXO VI"/>
-                        <StringItem index="10" value="EIXO VII"/>
+                        <StringItem index="1" value="EIXO I - 1&#xba; ano"/>
+                        <StringItem index="2" value="EIXO II - 2&#xba; e 3&#xba; ano"/>
+                        <StringItem index="3" value="EIXO III - 4&#xba; e 5&#xba; ano"/>
+                        <StringItem index="4" value="EIXO IV - 6&#xba; e 7&#xba; ano"/>
+                        <StringItem index="5" value="EIXO V - 8&#xba; e 9&#xba; ano"/>
+                        <StringItem index="6" value="EIXO VI e VII - Ensino M&#xe9;dio"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -755,6 +749,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxEIXOItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -765,14 +762,16 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
+                      <StringArray count="9">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="TEMPO FORMATIVO I - (FUNDAMENTAL I)"/>
-                        <StringItem index="2" value="TEMPO FORMATIVO II - (FUNDAMENTAL II)"/>
-                        <StringItem index="3" value="TEMPO FORMATIVO III - (ENSINO M&#xc9;DIO)"/>
-                        <StringItem index="4" value="TEMPO DE APRENDER I"/>
-                        <StringItem index="5" value="TEMPO DE APRENDER II"/>
-                        <StringItem index="6" value="EJA FUNDAMENTAL I"/>
+                        <StringItem index="1" value="TEMPO FORMATIVO I - EIXO 1 - (FUNDAMENTAL I)"/>
+                        <StringItem index="2" value="TEMPO FORMATIVO I - EIXO 2 - (FUNDAMENTAL I)"/>
+                        <StringItem index="3" value="TEMPO FORMATIVO I - EIXO 3 - (FUNDAMENTAL I)"/>
+                        <StringItem index="4" value="TEMPO FORMATIVO II - EIXO 4 -  (FUNDAMENTAL II)"/>
+                        <StringItem index="5" value="TEMPO FORMATIVO II - EIXO 5 -  (FUNDAMENTAL II)"/>
+                        <StringItem index="6" value="TEMPO FORMATIVO III - EIXO 4 e 5 (ENSINO M&#xc9;DIO)"/>
+                        <StringItem index="7" value="TEMPO DE APRENDER I"/>
+                        <StringItem index="8" value="TEMPO DE APRENDER II"/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -782,6 +781,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxDescricaoTempoFormativoItemStateChanged"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -1030,7 +1032,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel8" max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" pref="493" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="505" max="32767" attributes="0"/>
                           <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
