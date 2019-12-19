@@ -222,8 +222,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jUltimaEscola = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jSerieAno = new javax.swing.JTextField();
         jTurno = new javax.swing.JTextField();
+        jComboBoxSerieAno = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -814,11 +814,13 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Turno");
 
-        jSerieAno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jSerieAno.setEnabled(false);
-
         jTurno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTurno.setEnabled(false);
+
+        jComboBoxSerieAno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxSerieAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Fundamental I - 1º ano", "Fundamental I - 2º ano", "Fundamental I - 3º ano", "Fundamental I - 4º ano", "Fundamental I - 5º ano", "Fundamental II - 6º ano", "Fundamental II - 7º ano", "Fundamental II - 8º ano", "Fundamental II - 9º ano", "Ensino Médio", "Ensino Médio Técnico", "Superior Completo", "Superior Incompleto", " " }));
+        jComboBoxSerieAno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxSerieAno.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -833,14 +835,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSerieAno, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel12)
+                            .addComponent(jComboBoxSerieAno, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTurno)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 232, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -855,10 +857,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jLabel12)
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jSerieAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxSerieAno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -1032,7 +1034,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 4, Short.MAX_VALUE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 530, Short.MAX_VALUE))
                 .addContainerGap())
         );
         AdmissaoLayout.setVerticalGroup(
@@ -1549,11 +1551,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EducacaoFamiliaLayout.setVerticalGroup(
@@ -2659,7 +2660,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 jMaeInternoAdm.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPaiInternoAdm.setText(conecta.rs.getString("PaiInternoCrc"));
                 jUltimaEscola.setText(conecta.rs.getString("UltimaEscola"));
-                jSerieAno.setText(conecta.rs.getString("SerieAno"));
+                jComboBoxSerieAno.setSelectedItem(conecta.rs.getString("SerieAno"));
                 jTurno.setText(conecta.rs.getString("Turno"));
                 jObservacao.setText(conecta.rs.getString("Observacao"));
             } catch (SQLException e) {
@@ -2934,13 +2935,15 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
             } else if (jDataAdm.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da admissão.");
+            } else if (jComboBoxSerieAno.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
             } else {
                 objAdmPedago.setStatusAdm(jStatusAdm.getText());
                 objAdmPedago.setDataAdm(jDataAdm.getDate());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objAdmPedago.setUltimaEscola(jUltimaEscola.getText());
-                objAdmPedago.setSerieAno(jSerieAno.getText());
+                objAdmPedago.setSerieAno((String) jComboBoxSerieAno.getSelectedItem());
                 objAdmPedago.setTurno(jTurno.getText());
                 objAdmPedago.setObservacao(jObservacao.getText());
                 if (acao == 1) {
@@ -3883,6 +3886,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxRelacaoPai;
     private javax.swing.JComboBox jComboBoxRelacionamento;
     private javax.swing.JComboBox jComboBoxRepetiuAno;
+    private javax.swing.JComboBox<String> jComboBoxSerieAno;
     private javax.swing.JTextField jComoAtitudeSala;
     private javax.swing.JTextArea jComunicacao;
     private javax.swing.JCheckBox jCooperador;
@@ -4015,7 +4019,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jSerieAno;
     private javax.swing.JTextField jStatusAdm;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaAdmissaoPedagogica;
@@ -4031,7 +4034,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void formatarCampos() {
         // ADMISSÃO
         jUltimaEscola.setDocument(new LimiteDigitosAlfa(75));
-        jSerieAno.setDocument(new LimiteDigitosAlfa(37));
+//        jComboBoxSerieAno.setDocument(new LimiteDigitosAlfa(37));
         jTurno.setDocument(new LimiteDigitosAlfa(43));
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
@@ -4078,7 +4081,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jMaeInternoAdm.setBackground(Color.white);
         jPaiInternoAdm.setBackground(Color.white);
         jUltimaEscola.setBackground(Color.white);
-        jSerieAno.setBackground(Color.white);
+        jComboBoxSerieAno.setBackground(Color.white);
         jTurno.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
         // EDUCAÇÃO/FAMILIA
@@ -4137,7 +4140,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jMaeInternoAdm.setEnabled(!true);
         jPaiInternoAdm.setEnabled(!true);
         jUltimaEscola.setEnabled(!true);
-        jSerieAno.setEnabled(!true);
+        jComboBoxSerieAno.setEnabled(!true);
         jTurno.setEnabled(!true);
         jObservacao.setEnabled(!true);
         // FAMILIA
@@ -4209,7 +4212,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jMaeInternoAdm.setText("");
         jPaiInternoAdm.setText("");
         jUltimaEscola.setText("");
-        jSerieAno.setText("");
+        jComboBoxSerieAno.setSelectedItem("Selecione...");
         jTurno.setText("");
         jObservacao.setText("");
         // FAMILIA
@@ -4324,7 +4327,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         //
         jDataAdm.setEnabled(true);
         jUltimaEscola.setEnabled(true);
-        jSerieAno.setEnabled(true);
+        jComboBoxSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
         jObservacao.setEnabled(true);
         //
@@ -4342,7 +4345,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void Alterar() {
         jDataAdm.setEnabled(true);
         jUltimaEscola.setEnabled(true);
-        jSerieAno.setEnabled(true);
+        jComboBoxSerieAno.setEnabled(true);
         jTurno.setEnabled(true);
         jObservacao.setEnabled(true);
         //

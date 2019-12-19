@@ -97,6 +97,11 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     public static int DiaDom1;
     //
     public static int pCODIGO_CURSO = 0;
+    //
+    int domingo, segunda, terca, quarta, quinta, sexta, sabado;
+    int domingoVisita, segundaVisita, tercaVisita, quartaVisita, quintaVisita, sextaVisita, sabadoVisita;
+    //
+    int diaDom, diaSeg, diaTer, diaQua, diaQui, diaSex, diaSab;
 
     /**
      * Creates new form TelaAssistenciaEducacionalExterna
@@ -210,13 +215,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jTextField1 = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
-        jCheckBoxSeg1 = new javax.swing.JCheckBox();
-        jCheckBoxTer1 = new javax.swing.JCheckBox();
-        jCheckBoxQua1 = new javax.swing.JCheckBox();
-        jCheckBoxQui1 = new javax.swing.JCheckBox();
-        jCheckBoxSex1 = new javax.swing.JCheckBox();
-        jCheckBoxSab1 = new javax.swing.JCheckBox();
-        jCheckBoxDom1 = new javax.swing.JCheckBox();
+        jSegundaVisita = new javax.swing.JCheckBox();
+        jTercaVisita = new javax.swing.JCheckBox();
+        jQuartaVisita = new javax.swing.JCheckBox();
+        jQuintaVisita = new javax.swing.JCheckBox();
+        jSextaVisita = new javax.swing.JCheckBox();
+        jSabadoVisita = new javax.swing.JCheckBox();
+        jDomingoVisita = new javax.swing.JCheckBox();
         jPanel18 = new javax.swing.JPanel();
         jHoraSeg = new javax.swing.JFormattedTextField();
         jHoraTer = new javax.swing.JFormattedTextField();
@@ -1209,54 +1214,54 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dias da Semana", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jCheckBoxSeg1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxSeg1.setText("Seg");
-        jCheckBoxSeg1.setEnabled(false);
-        jCheckBoxSeg1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxSeg1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jCheckBoxSeg1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jSegundaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSegundaVisita.setText("Seg");
+        jSegundaVisita.setEnabled(false);
+        jSegundaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jSegundaVisita.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jSegundaVisita.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jCheckBoxTer1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxTer1.setText("Ter");
-        jCheckBoxTer1.setEnabled(false);
-        jCheckBoxTer1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxTer1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxTer1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jTercaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTercaVisita.setText("Ter");
+        jTercaVisita.setEnabled(false);
+        jTercaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTercaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jTercaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jCheckBoxQua1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxQua1.setText("Qua");
-        jCheckBoxQua1.setEnabled(false);
-        jCheckBoxQua1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxQua1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxQua1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jQuartaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jQuartaVisita.setText("Qua");
+        jQuartaVisita.setEnabled(false);
+        jQuartaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jQuartaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jQuartaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jCheckBoxQui1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxQui1.setText("Qui");
-        jCheckBoxQui1.setEnabled(false);
-        jCheckBoxQui1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxQui1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxQui1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jQuintaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jQuintaVisita.setText("Qui");
+        jQuintaVisita.setEnabled(false);
+        jQuintaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jQuintaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jQuintaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jCheckBoxSex1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxSex1.setText("Sex");
-        jCheckBoxSex1.setEnabled(false);
-        jCheckBoxSex1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxSex1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxSex1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jSextaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSextaVisita.setText("Sex");
+        jSextaVisita.setEnabled(false);
+        jSextaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jSextaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jSextaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jCheckBoxSab1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxSab1.setText("Sáb");
-        jCheckBoxSab1.setEnabled(false);
-        jCheckBoxSab1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxSab1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxSab1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jSabadoVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jSabadoVisita.setText("Sáb");
+        jSabadoVisita.setEnabled(false);
+        jSabadoVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jSabadoVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jSabadoVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jCheckBoxDom1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jCheckBoxDom1.setText("Dom");
-        jCheckBoxDom1.setEnabled(false);
-        jCheckBoxDom1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxDom1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jCheckBoxDom1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jDomingoVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jDomingoVisita.setText("Dom");
+        jDomingoVisita.setEnabled(false);
+        jDomingoVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jDomingoVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jDomingoVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1264,32 +1269,32 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jCheckBoxSeg1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSegundaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxTer1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTercaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxQua1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jQuartaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBoxQui1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jQuintaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxSex1)
+                .addComponent(jSextaVisita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxSab1)
+                .addComponent(jSabadoVisita)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBoxDom1)
+                .addComponent(jDomingoVisita)
                 .addGap(28, 28, 28))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBoxSeg1)
-                    .addComponent(jCheckBoxTer1)
-                    .addComponent(jCheckBoxQua1)
-                    .addComponent(jCheckBoxQui1)
-                    .addComponent(jCheckBoxSex1)
-                    .addComponent(jCheckBoxSab1)
-                    .addComponent(jCheckBoxDom1))
+                    .addComponent(jSegundaVisita)
+                    .addComponent(jTercaVisita)
+                    .addComponent(jQuartaVisita)
+                    .addComponent(jQuintaVisita)
+                    .addComponent(jSextaVisita)
+                    .addComponent(jSabadoVisita)
+                    .addComponent(jDomingoVisita))
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
@@ -1797,6 +1802,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
             } else {
                 acao = 2;
                 Alterar();
+                listarCursos();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -1906,8 +1912,8 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                     buscarCod();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 2) {
                     objAssis.setUsuarioUp(nameUser);
@@ -1918,8 +1924,8 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                     control.alterarAssistenciaEducativa(objAssis);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
         } else {
@@ -1987,6 +1993,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codIncluirPEDA == 1) {
+            verificarDiasAulasExternas();
             objAssis.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2006,6 +2013,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAssistenciaEducaManu_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAssistenciaEducaManu_PEDA) && codAlterarPEDA == 1) {
+            verificarDiasAulasExternas();
             objAssis.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2240,43 +2248,43 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 //
                 DiaSeg = conecta.rs.getInt("DiaSeg");
                 if (DiaSeg1 == 1) {
-                    jCheckBoxSeg1.setSelected(true);
+                    jSegundaVisita.setSelected(true);
                 } else if (DiaSeg1 == 0) {
-                    jCheckBoxSeg1.setSelected(!true);
+                    jSegundaVisita.setSelected(!true);
                 }
                 DiaTer = conecta.rs.getInt("DiaTer");
                 if (DiaTer1 == 1) {
-                    jCheckBoxTer1.setSelected(true);
+                    jTercaVisita.setSelected(true);
                 } else if (DiaTer1 == 0) {
-                    jCheckBoxTer1.setSelected(!true);
+                    jTercaVisita.setSelected(!true);
                 }
                 DiaQua1 = conecta.rs.getInt("DiaQua");
                 if (DiaQua1 == 1) {
-                    jCheckBoxQua1.setSelected(true);
+                    jQuartaVisita.setSelected(true);
                 } else if (DiaQua1 == 0) {
-                    jCheckBoxQua1.setSelected(!true);
+                    jQuartaVisita.setSelected(!true);
                 }
                 DiaQui1 = conecta.rs.getInt("DiaQui");
                 if (DiaQui1 == 1) {
-                    jCheckBoxQui1.setSelected(true);
+                    jQuintaVisita.setSelected(true);
                 } else if (DiaQui1 == 0) {
-                    jCheckBoxQui1.setSelected(!true);
+                    jQuintaVisita.setSelected(!true);
                 }
                 DiaSex1 = conecta.rs.getInt("DiaSex");
                 if (DiaSex1 == 1) {
-                    jCheckBoxSex1.setSelected(true);
+                    jSextaVisita.setSelected(true);
                 } else if (DiaSex1 == 0) {
-                    jCheckBoxSex1.setSelected(!true);
+                    jSextaVisita.setSelected(!true);
                 }
                 DiaSab1 = conecta.rs.getInt("DiaSab");
                 if (DiaSab1 == 1) {
-                    jCheckBoxSab1.setSelected(true);
+                    jSabadoVisita.setSelected(true);
                 } else if (DiaSab1 == 0) {
-                    jCheckBoxSab1.setSelected(!true);
+                    jSabadoVisita.setSelected(!true);
                 }
                 DiaDom1 = conecta.rs.getInt("DiaDom");
                 if (DiaDom == 1) {
-                    jCheckBoxDom1.setSelected(true);
+                    jDomingoVisita.setSelected(true);
                 } else if (DiaDom1 == 0) {
                     jCheckBoxDom.setSelected(!true);
                 }
@@ -2311,7 +2319,10 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private void jComboBoxCursoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCursoItemStateChanged
         // TODO add your handling code here:
         if (evt.getStateChange() == evt.SELECTED && acao == 1 || evt.getStateChange() == evt.SELECTED && acao == 2) {
-            listarCursos();
+            CursosDiversos cursosDiversos = (CursosDiversos) jComboBoxCurso.getSelectedItem();
+            cursosDiversos.getIdCurso();
+            cursosDiversos.getDescricaoCurso();
+            objAssis.setIdCurso(cursosDiversos.getIdCurso());
         }
     }//GEN-LAST:event_jComboBoxCursoItemStateChanged
 
@@ -2343,24 +2354,18 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private javax.swing.JButton jBtSalvarInterno;
     private javax.swing.JCheckBox jCheckBox2;
     public static javax.swing.JCheckBox jCheckBoxDom;
-    public static javax.swing.JCheckBox jCheckBoxDom1;
     public static javax.swing.JCheckBox jCheckBoxQua;
-    public static javax.swing.JCheckBox jCheckBoxQua1;
     public static javax.swing.JCheckBox jCheckBoxQui;
-    public static javax.swing.JCheckBox jCheckBoxQui1;
     public static javax.swing.JCheckBox jCheckBoxSab;
-    public static javax.swing.JCheckBox jCheckBoxSab1;
     public static javax.swing.JCheckBox jCheckBoxSeg;
-    public static javax.swing.JCheckBox jCheckBoxSeg1;
     public static javax.swing.JCheckBox jCheckBoxSex;
-    public static javax.swing.JCheckBox jCheckBoxSex1;
     public static javax.swing.JCheckBox jCheckBoxTer;
-    public static javax.swing.JCheckBox jCheckBoxTer1;
-    private javax.swing.JComboBox<Object> jComboBoxCurso;
+    public static javax.swing.JComboBox<Object> jComboBoxCurso;
     private com.toedter.calendar.JDateChooser jDataLanc;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jDescricaoTurno;
+    public static javax.swing.JCheckBox jDomingoVisita;
     public static javax.swing.JFormattedTextField jHoraDom;
     public static javax.swing.JFormattedTextField jHoraDomEnt;
     public static javax.swing.JFormattedTextField jHoraQua;
@@ -2425,19 +2430,25 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTextField jPesqNomeInterno;
+    public static javax.swing.JCheckBox jQuartaVisita;
+    public static javax.swing.JCheckBox jQuintaVisita;
     private javax.swing.JRadioButton jRadioButtonBloqueado;
     private javax.swing.JRadioButton jRadioButtonConcluido;
     private javax.swing.JRadioButton jRadioButtonEmEspera;
     private javax.swing.JRadioButton jRadioButtonLiberado;
+    public static javax.swing.JCheckBox jSabadoVisita;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    public static javax.swing.JCheckBox jSegundaVisita;
+    public static javax.swing.JCheckBox jSextaVisita;
     private javax.swing.JTextField jStatusLanc;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAssistenciaEducaional;
     private javax.swing.JTable jTabelaInterno;
+    public static javax.swing.JCheckBox jTercaVisita;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
@@ -2505,13 +2516,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jHoraSabEnt.setText("00:00");
         jHoraDomEnt.setText("00:00");
         // HORÁRIO DOS INTERNOS        
-        jCheckBoxSeg1.setEnabled(!true);
-        jCheckBoxTer1.setEnabled(!true);
-        jCheckBoxQua1.setEnabled(!true);
-        jCheckBoxQui1.setEnabled(!true);
-        jCheckBoxSex1.setEnabled(!true);
-        jCheckBoxSab1.setEnabled(!true);
-        jCheckBoxDom1.setEnabled(!true);
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
         // HORARIO DE SAIDA
         jHoraSeg.setEnabled(!true);
         jHoraTer.setEnabled(!true);
@@ -2604,13 +2615,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jHoraSabEnt.setText("00:00");
         jHoraDomEnt.setText("00:00");
         // HORÁRIO DOS INTERNOS        
-        jCheckBoxSeg1.setEnabled(!true);
-        jCheckBoxTer1.setEnabled(!true);
-        jCheckBoxQua1.setEnabled(!true);
-        jCheckBoxQui1.setEnabled(!true);
-        jCheckBoxSex1.setEnabled(!true);
-        jCheckBoxSab1.setEnabled(!true);
-        jCheckBoxDom1.setEnabled(!true);
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
         // HORARIO DE SAIDA
         jHoraSeg.setEnabled(!true);
         jHoraTer.setEnabled(!true);
@@ -2684,13 +2695,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jHoraSabEnt.setText("00:00");
         jHoraDomEnt.setText("00:00");
         // HORÁRIO DOS INTERNOS        
-        jCheckBoxSeg1.setEnabled(!true);
-        jCheckBoxTer1.setEnabled(!true);
-        jCheckBoxQua1.setEnabled(!true);
-        jCheckBoxQui1.setEnabled(!true);
-        jCheckBoxSex1.setEnabled(!true);
-        jCheckBoxSab1.setEnabled(!true);
-        jCheckBoxDom1.setEnabled(!true);
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
         // HORARIO DE SAIDA
         jHoraSeg.setEnabled(!true);
         jHoraTer.setEnabled(!true);
@@ -2902,6 +2913,110 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     }
 
     public void NovoInterno() {
+        if (diaDom == 1) {
+            jDomingoVisita.setSelected(true);
+            jDomingoVisita.setEnabled(true);
+            //
+            jHoraDom.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(true);
+        } else if (diaDom == 0) {
+            jDomingoVisita.setSelected(!true);
+            jDomingoVisita.setEnabled(!true);
+            //
+            jHoraDom.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(!true);
+        }
+        if (diaSeg == 1) {
+            jSegundaVisita.setSelected(true);
+            jSegundaVisita.setEnabled(true);
+            //
+            jHoraSeg.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(true);
+
+        } else if (diaSeg == 0) {
+            jSegundaVisita.setSelected(!true);
+            jSegundaVisita.setEnabled(!true);
+            //
+            jHoraSeg.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(!true);
+        }
+        if (diaTer == 1) {
+            jTercaVisita.setSelected(true);
+            jTercaVisita.setEnabled(true);
+            //
+            jHoraTer.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(true);
+        } else if (diaTer == 0) {
+            jTercaVisita.setSelected(!true);
+            jTercaVisita.setEnabled(!true);
+            //
+            jHoraTer.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(!true);
+        }
+        if (diaQua == 1) {
+            jQuartaVisita.setSelected(true);
+            jQuartaVisita.setEnabled(true);
+            //
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        } else if (diaQua == 0) {
+            jQuartaVisita.setSelected(!true);
+            jQuartaVisita.setEnabled(!true);
+            //
+            jHoraQua.setEnabled(!true);
+            jHoraQuaEnt.setEnabled(!true);
+        }
+        if (diaQui == 1) {
+            jQuintaVisita.setSelected(true);
+            jQuintaVisita.setEnabled(true);
+            //
+            jHoraQui.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(true);
+        } else if (diaQui == 0) {
+            jQuintaVisita.setSelected(!true);
+            jQuintaVisita.setEnabled(!true);
+            //
+            jHoraQui.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(!true);
+        }
+        if (diaSex == 1) {
+            jSextaVisita.setSelected(true);
+            jSextaVisita.setEnabled(true);
+            //
+            jHoraSex.setEnabled(true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(true);
+        } else if (diaSex == 0) {
+            jSextaVisita.setSelected(!true);
+            jSextaVisita.setEnabled(!true);
+            //
+            jHoraSex.setEnabled(!true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(!true);
+        }
+        if (diaSab == 1) {
+            jSabadoVisita.setSelected(true);
+            jSabadoVisita.setEnabled(true);
+            //
+            jHoraSab.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(true);
+        } else if (diaSab == 0) {
+            jSabadoVisita.setSelected(!true);
+            jSabadoVisita.setEnabled(!true);
+            //
+            jHoraSab.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(!true);
+        }
         //
         jDataLanc.setEnabled(!true);
         jBtPesqInstituicao.setEnabled(!true);
@@ -2921,6 +3036,46 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jNomeInternoAssis.setText("");
         FotoInternoAssis.setIcon(null);
         jMotivo.setText("");
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+//        jSegundaVisita.setEnabled(true);
+//        jTercaVisita.setEnabled(true);
+//        jQuartaVisita.setEnabled(true);
+//        jQuintaVisita.setEnabled(true);
+//        jSextaVisita.setEnabled(true);
+//        jSabadoVisita.setEnabled(true);
+//        jDomingoVisita.setEnabled(true);
+        // HORARIO DE SAIDA
+//        jHoraSeg.setEnabled(true);
+//        jHoraTer.setEnabled(true);
+//        jHoraQua.setEnabled(true);
+//        jHoraQui.setEnabled(true);
+//        jHoraSex.setEnabled(true);
+//        jHoraSab.setEnabled(true);
+//        jHoraDom.setEnabled(true);
+//        // HORARIO DE ENTRADA
+//        jHoraSegEnt.setEnabled(true);
+//        jHoraTerEnt.setEnabled(true);
+//        jHoraQuaEnt.setEnabled(true);
+//        jHoraQuiEnt.setEnabled(true);
+//        jHoraSexEnt.setEnabled(true);
+//        jHoraSabEnt.setEnabled(true);
+//        jHoraDomEnt.setEnabled(true);
         //
         jBtPesqInternoAssis.setEnabled(true);
         jRadioButtonLiberado.setEnabled(true);
@@ -2938,10 +3093,139 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     }
 
     public void AlterarInterno() {
+        if (diaDom == 1) {
+            jDomingoVisita.setSelected(true);
+            jDomingoVisita.setEnabled(true);
+            //
+            jHoraDom.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(true);
+        } else if (diaDom == 0) {
+            jDomingoVisita.setSelected(!true);
+            jDomingoVisita.setEnabled(!true);
+            //
+            jHoraDom.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(!true);
+        }
+        if (diaSeg == 1) {
+            jSegundaVisita.setSelected(true);
+            jSegundaVisita.setEnabled(true);
+            //
+            jHoraSeg.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(true);
+
+        } else if (diaSeg == 0) {
+            jSegundaVisita.setSelected(!true);
+            jSegundaVisita.setEnabled(!true);
+            //
+            jHoraSeg.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(!true);
+        }
+        if (diaTer == 1) {
+            jTercaVisita.setSelected(true);
+            jTercaVisita.setEnabled(true);
+            //
+            jHoraTer.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(true);
+        } else if (diaTer == 0) {
+            jTercaVisita.setSelected(!true);
+            jTercaVisita.setEnabled(!true);
+            //
+            jHoraTer.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(!true);
+        }
+        if (diaQua == 1) {
+            jQuartaVisita.setSelected(true);
+            jQuartaVisita.setEnabled(true);
+            //
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        } else if (diaQua == 0) {
+            jQuartaVisita.setSelected(!true);
+            jQuartaVisita.setEnabled(!true);
+            //
+            jHoraQua.setEnabled(!true);
+            jHoraQuaEnt.setEnabled(!true);
+        }
+        if (diaQui == 1) {
+            jQuintaVisita.setSelected(true);
+            jQuintaVisita.setEnabled(true);
+            //
+            jHoraQui.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(true);
+        } else if (diaQui == 0) {
+            jQuintaVisita.setSelected(!true);
+            jQuintaVisita.setEnabled(!true);
+            //
+            jHoraQui.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(!true);
+        }
+        if (diaSex == 1) {
+            jSextaVisita.setSelected(true);
+            jSextaVisita.setEnabled(true);
+            //
+            jHoraSex.setEnabled(true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(true);
+        } else if (diaSex == 0) {
+            jSextaVisita.setSelected(!true);
+            jSextaVisita.setEnabled(!true);
+            //
+            jHoraSex.setEnabled(!true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(!true);
+        }
+        if (diaSab == 1) {
+            jSabadoVisita.setSelected(true);
+            jSabadoVisita.setEnabled(true);
+            //
+            jHoraSab.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(true);
+        } else if (diaSab == 0) {
+            jSabadoVisita.setSelected(!true);
+            jSabadoVisita.setEnabled(!true);
+            //
+            jHoraSab.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(!true);
+        }
+        //
         jDataLanc.setEnabled(!true);
         jBtPesqInstituicao.setEnabled(!true);
         jBtPesqTurno.setEnabled(!true);
         jObservacao.setEnabled(!true);
+        // HORÁRIO DOS INTERNOS        
+        jSegundaVisita.setEnabled(true);
+        jTercaVisita.setEnabled(true);
+        jQuartaVisita.setEnabled(true);
+        jQuintaVisita.setEnabled(true);
+        jSextaVisita.setEnabled(true);
+        jSabadoVisita.setEnabled(true);
+        jDomingoVisita.setEnabled(true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(true);
+        jHoraTer.setEnabled(true);
+        jHoraQua.setEnabled(true);
+        jHoraQui.setEnabled(true);
+        jHoraSex.setEnabled(true);
+        jHoraSab.setEnabled(true);
+        jHoraDom.setEnabled(true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(true);
+        jHoraTerEnt.setEnabled(true);
+        jHoraQuaEnt.setEnabled(true);
+        jHoraQuiEnt.setEnabled(true);
+        jHoraSexEnt.setEnabled(true);
+        jHoraSabEnt.setEnabled(true);
+        jHoraDomEnt.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -2986,6 +3270,46 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jNomeInternoAssis.setText("");
         FotoInternoAssis.setIcon(null);
         jMotivo.setText("");
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
         //
         jBtPesqInternoAssis.setEnabled(!true);
         jRadioButtonLiberado.setEnabled(!true);
@@ -3017,6 +3341,46 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jNomeInternoAssis.setText("");
         FotoInternoAssis.setIcon(null);
         jMotivo.setText("");
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
         //
         jBtPesqInternoAssis.setEnabled(!true);
         jRadioButtonLiberado.setEnabled(!true);
@@ -3048,6 +3412,46 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jNomeInternoAssis.setText("");
         FotoInternoAssis.setIcon(null);
         jMotivo.setText("");
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        // HORÁRIO DOS INTERNOS        
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
         //
         jBtPesqInternoAssis.setEnabled(!true);
         jRadioButtonLiberado.setEnabled(!true);
@@ -3062,6 +3466,24 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jBtSalvarInterno.setEnabled(!true);
         jBtCancelarInterno.setEnabled(!true);
         jBtAuditoriaInterno.setEnabled(!true);
+    }
+
+    public void verificarDiasAulasExternas() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ASSISTENCIA_EDUCACAO_EXTERNA "
+                    + "WHERE IdEduca='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            diaDom = conecta.rs.getInt("DiaDom");
+            diaSeg = conecta.rs.getInt("DiaSeg");
+            diaTer = conecta.rs.getInt("DiaTer");
+            diaQua = conecta.rs.getInt("DiaQua");
+            diaQui = conecta.rs.getInt("DiaQui");
+            diaSex = conecta.rs.getInt("DiaSex");
+            diaSab = conecta.rs.getInt("DiaSab");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void preencherTabelaCumprimentoAlvara(String sql) {

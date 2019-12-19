@@ -1048,6 +1048,7 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -1836,19 +1837,19 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxSeg1" min="-2" pref="49" max="-2" attributes="0"/>
+                                  <Component id="jSegundaVisita" min="-2" pref="49" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxTer1" min="-2" pref="59" max="-2" attributes="0"/>
+                                  <Component id="jTercaVisita" min="-2" pref="59" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxQua1" min="-2" pref="49" max="-2" attributes="0"/>
+                                  <Component id="jQuartaVisita" min="-2" pref="49" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jCheckBoxQui1" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="jQuintaVisita" min="-2" pref="55" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxSex1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSextaVisita" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxSab1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jSabadoVisita" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jCheckBoxDom1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jDomingoVisita" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1857,13 +1858,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jCheckBoxSeg1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxTer1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxQua1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxQui1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxSex1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxSab1" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxDom1" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jSegundaVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTercaVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jQuartaVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jQuintaVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jSextaVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jSabadoVisita" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDomingoVisita" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                               </Group>
@@ -1871,7 +1872,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxSeg1">
+                        <Component class="javax.swing.JCheckBox" name="jSegundaVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1886,7 +1887,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxTer1">
+                        <Component class="javax.swing.JCheckBox" name="jTercaVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1901,7 +1902,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxQua1">
+                        <Component class="javax.swing.JCheckBox" name="jQuartaVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1916,7 +1917,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxQui1">
+                        <Component class="javax.swing.JCheckBox" name="jQuintaVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1931,7 +1932,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxSex1">
+                        <Component class="javax.swing.JCheckBox" name="jSextaVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1946,7 +1947,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxSab1">
+                        <Component class="javax.swing.JCheckBox" name="jSabadoVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
@@ -1961,7 +1962,7 @@
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBoxDom1">
+                        <Component class="javax.swing.JCheckBox" name="jDomingoVisita">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="11" style="1"/>
