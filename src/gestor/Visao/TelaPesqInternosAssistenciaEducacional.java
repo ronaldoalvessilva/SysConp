@@ -10,6 +10,7 @@ import static gestor.Visao.TelaAssistenciaEducacionalExterna.FotoInternoAssis;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jIdInternoAssis;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jMatriculaPenalAssis;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jNomeInternoAssis;
+import static gestor.Visao.TelaAssistenciaEducacionalExterna.jRegime;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -215,12 +216,14 @@ public class TelaPesqInternosAssistenciaEducacional extends javax.swing.JInterna
             try {
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc = DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%'AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInternoAssis.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jMatriculaPenalAssis.setText(conecta.rs.getString("MatriculaCrc"));
                 jNomeInternoAssis.setText(conecta.rs.getString("NomeInternoCrc"));
+                jRegime.setText(conecta.rs.getString("Regime"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
@@ -247,7 +250,12 @@ public class TelaPesqInternosAssistenciaEducacional extends javax.swing.JInterna
             jPesqNomeInterno.requestFocus();
         } else {
             buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'AND SituacaoCrc='" + situacaoEnt + "'OR NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'AND SituacaoCrc='" + situacaoRet + "'");
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc"
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND SituacaoCrc='" + situacaoRet + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -255,7 +263,11 @@ public class TelaPesqInternosAssistenciaEducacional extends javax.swing.JInterna
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "'");
+            this.buscarInternoVisitas("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "'");
         } else {
             limparTabela();
         }

@@ -121,6 +121,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private TelaAtualizarMatriculaPedagogia objAtualizarMat = null;
     private TelaMovHistoricoTecPedagogia objConHistMov = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaCCAC_TPS objCCAC_TPS = null;
     //
     int flag;
     int codUsuario;
@@ -247,6 +248,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //
     public static String telaAtualizarMaticuliaPEDA = "Movimentação:Controle de Matricula:Concluir Matricula";
     //
+    public static String telaCCAC_TPS_ManuPEDA = "Movimentação:Controle de Cursos e Atividades Complementares:Manutenção";
+    public static String telaCCAC_TPS_partPEDA = "Movimentação:Controle de Cursos e Atividades Complementares:Participantes";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -345,6 +349,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //
     String pNomeATM = "";
     //
+    String pNomeCCAC_TPS_M = "";
+    String pNomeCCAC_TPS_P = "";
+    //
     public static int pQUANTIDADE_ATENDIDA = 1;
 
     /**
@@ -375,6 +382,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         Disciplinas = new javax.swing.JMenuItem();
         Professores = new javax.swing.JMenuItem();
+        jSeparator26 = new javax.swing.JPopupMenu.Separator();
         CursosDiversos = new javax.swing.JMenuItem();
         jTarefasEducativas = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -426,6 +434,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         ControleFrequencia = new javax.swing.JMenuItem();
         BaixaAlunos = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        jControleCursosAtividades = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
         jRegistroLeituraResenhaInternos = new javax.swing.JMenuItem();
         jSeparator16 = new javax.swing.JPopupMenu.Separator();
         AtualizarEscolaridadeInterno = new javax.swing.JMenuItem();
@@ -514,8 +524,9 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             }
         });
         Cadastros.add(Professores);
+        Cadastros.add(jSeparator26);
 
-        CursosDiversos.setText("Cursos Diversos");
+        CursosDiversos.setText("Cursos Diversos - Atividades Complementares");
         CursosDiversos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CursosDiversosActionPerformed(evt);
@@ -523,7 +534,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         });
         Cadastros.add(CursosDiversos);
 
-        jTarefasEducativas.setText("Tarefas Educativa");
+        jTarefasEducativas.setText("Atividades Educativas");
         jTarefasEducativas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTarefasEducativasActionPerformed(evt);
@@ -814,7 +825,16 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         Movimentacao.add(BaixaAlunos);
         Movimentacao.add(jSeparator20);
 
-        jRegistroLeituraResenhaInternos.setText("Registro de Leitura/Resenha de Internos");
+        jControleCursosAtividades.setText("Controle de Cursos e Atividades Complementares");
+        jControleCursosAtividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jControleCursosAtividadesActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jControleCursosAtividades);
+        Movimentacao.add(jSeparator25);
+
+        jRegistroLeituraResenhaInternos.setText("Remissão pela Educação/Leitura");
         jRegistroLeituraResenhaInternos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRegistroLeituraResenhaInternosActionPerformed(evt);
@@ -2389,8 +2409,41 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-//        private TelaCancelamentoAtendimentoPSP objCancelaAtend
     }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+
+    private void jControleCursosAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jControleCursosAtividadesActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCCAC_TPS_ManuPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaCCAC_TPS_ManuPEDA) && codAbrirPEDA == 1) {
+            if (objCCAC_TPS == null || objCCAC_TPS.isClosed()) {
+                objCCAC_TPS = new TelaCCAC_TPS();
+                jPainelPedagogia.add(objCCAC_TPS);
+                objCCAC_TPS.setVisible(true);
+            } else {
+                if (objCCAC_TPS.isVisible()) {
+                    if (objCCAC_TPS.isIcon()) { // Se esta minimizado
+                        try {
+                            objCCAC_TPS.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCCAC_TPS.toFront(); // traz para frente
+                        objCCAC_TPS.pack();//volta frame 
+                    }
+                } else {
+                    objCCAC_TPS = new TelaCCAC_TPS();
+                    TelaModuloPedagogia.jPainelPedagogia.add(objCCAC_TPS);//adicona frame ao JDesktopPane  
+                    objCCAC_TPS.setVisible(true);
+                }
+            }
+            try {
+                objCCAC_TPS.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jControleCursosAtividadesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2441,6 +2494,7 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jAgendaAtendimentoInternos;
     private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JMenuItem jConcluirMatricula;
+    private javax.swing.JMenuItem jControleCursosAtividades;
     private javax.swing.JMenuItem jHistoricoMovimentacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -2473,6 +2527,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
+    private javax.swing.JPopupMenu.Separator jSeparator26;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3254,6 +3310,20 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             conecta.rs.first();
             pNomeATM = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
+        } 
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCCAC_TPS_ManuPEDA + "'");
+            conecta.rs.first();
+            pNomeCCAC_TPS_M = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCCAC_TPS_partPEDA + "'");
+            conecta.rs.first();
+            pNomeCCAC_TPS_P = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
         }
         // INICIO DA COMPARAÇÃO
         //INSTITUIÇÃO DE ENSINO   
@@ -3641,6 +3711,18 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaAtualizarMaticuliaPEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCCAC_TPS_M.equals(telaCCAC_TPS_ManuPEDA) || pNomeCCAC_TPS_M == null || pNomeCCAC_TPS_M.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCCAC_TPS_ManuPEDA);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCCAC_TPS_P.equals(telaCCAC_TPS_partPEDA) || pNomeCCAC_TPS_P == null || pNomeCCAC_TPS_P.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCCAC_TPS_partPEDA);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();

@@ -31,7 +31,7 @@ public class ControleInternosEducacional {
         buscarInternoCrc(objIntEduca.getNomeInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_SAIDA_EDUCACIONAL (IdEduca,IdInternoCrc,Motivo,TipoAcesso,Evadido,UsuarioInsert,DataInsert,HorarioInsert,DiaSeg,DiaTer,DiaQua,DiaQui,DiaSex,DiaSab,DiaDom,HoraSeg,HoraTer,HoraQua,HoraQui,HoraSex,HoraSab,HoraDom,HoraSegEnt,HoraTerEnt,HoraQuaEnt,HoraQuiEnt,HoraSexEnt,HoraSabEnt,HoraDomEnt) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO INTERNOS_SAIDA_EDUCACIONAL (IdEduca,IdInternoCrc,Motivo,TipoAcesso,Evadido,UsuarioInsert,DataInsert,HorarioInsert,DiaSeg,DiaTer,DiaQua,DiaQui,DiaSex,DiaSab,DiaDom,HoraSeg,HoraTer,HoraQua,HoraQui,HoraSex,HoraSab,HoraDom,HoraSegEnt,HoraTerEnt,HoraQuaEnt,HoraQuiEnt,HoraSexEnt,HoraSabEnt,HoraDomEnt) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objIntEduca.getIdEduca());
             pst.setInt(2, codInterno);
             pst.setString(3, objIntEduca.getMotivo());

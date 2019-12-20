@@ -44,9 +44,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProfessoresActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator26">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CursosDiversos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cursos Diversos"/>
+                <Property name="text" type="java.lang.String" value="Cursos Diversos - Atividades Complementares"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CursosDiversosActionPerformed"/>
@@ -54,7 +56,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jTarefasEducativas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tarefas Educativa"/>
+                <Property name="text" type="java.lang.String" value="Atividades Educativas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTarefasEducativasActionPerformed"/>
@@ -380,9 +382,19 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jControleCursosAtividades">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Controle de Cursos e Atividades Complementares"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jControleCursosAtividadesActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator25">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jRegistroLeituraResenhaInternos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Registro de Leitura/Resenha de Internos"/>
+                <Property name="text" type="java.lang.String" value="Remiss&#xe3;o pela Educa&#xe7;&#xe3;o/Leitura"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegistroLeituraResenhaInternosActionPerformed"/>

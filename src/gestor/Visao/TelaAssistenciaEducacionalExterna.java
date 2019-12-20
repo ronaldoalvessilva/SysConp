@@ -212,7 +212,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jRadioButtonConcluido = new javax.swing.JRadioButton();
         jRadioButtonEmEspera = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jRegime = new javax.swing.JTextField();
         jPanel15 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jSegundaVisita = new javax.swing.JCheckBox();
@@ -1134,8 +1134,8 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Regime");
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTextField1.setEnabled(false);
+        jRegime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegime.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1164,7 +1164,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1190,7 +1190,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                         .addComponent(jLabel13)))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMatriculaPenalAssis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqInternoAssis)
                     .addComponent(jIdInternoAssis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -2220,9 +2220,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 conecta.executaSQL("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
                         + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                        + "WHERE NomeInternoCrc='" + jNomeInternoAssis.getText() + "' AND INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "'AND IdItem='" + idItem + "'");
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jNomeInternoAssis.getText() + "' "
+                        + "AND INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + jIdLanc.getText() + "' "
+                        + "AND INTERNOS_SAIDA_EDUCACIONAL.IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoAssis.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoAssis.setText(conecta.rs.getString("NomeInternoCrc"));
@@ -2233,6 +2237,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 FotoInternoAssis.setIcon(v);
                 FotoInternoAssis.setIcon(new ImageIcon(v.getImage().getScaledInstance(FotoInternoAssis.getWidth(), FotoInternoAssis.getHeight(), Image.SCALE_DEFAULT)));
                 jMatriculaPenalAssis.setText(conecta.rs.getString("MatriculaCrc"));
+                jRegime.setText(conecta.rs.getString("Regime"));
                 tipoAcesso = conecta.rs.getInt("TipoAcesso");
                 if (tipoAcesso == 0) {
                     jRadioButtonLiberado.setSelected(true);
@@ -2436,6 +2441,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private javax.swing.JRadioButton jRadioButtonConcluido;
     private javax.swing.JRadioButton jRadioButtonEmEspera;
     private javax.swing.JRadioButton jRadioButtonLiberado;
+    public static javax.swing.JTextField jRegime;
     public static javax.swing.JCheckBox jSabadoVisita;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2449,7 +2455,6 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
     private javax.swing.JTable jTabelaAssistenciaEducaional;
     private javax.swing.JTable jTabelaInterno;
     public static javax.swing.JCheckBox jTercaVisita;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
@@ -2470,6 +2475,7 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         //
         jIdInternoAssis.setBackground(Color.white);
         jMatriculaPenalAssis.setBackground(Color.white);
+        jRegime.setBackground(Color.white);
         jNomeInternoAssis.setBackground(Color.white);
         FotoInternoAssis.setBackground(Color.white);
         jMotivo.setBackground(Color.white);
