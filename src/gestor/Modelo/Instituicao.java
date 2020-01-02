@@ -36,6 +36,9 @@ public class Instituicao {
     private String horarioInsert;
     private String horarioUp;   
 
+    public Instituicao() {
+    }
+
     public Instituicao(int idCod, String statusInst, Date dataCad, String nomeInstituicao, String endereco, String cidade, String estado, String telefone, String telefone1, String celular, String celular1, String email, String contato, String observacao, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
         this.idCod = idCod;
         this.statusInst = statusInst;
@@ -59,9 +62,6 @@ public class Instituicao {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public Instituicao() {
     }
 
     /**
@@ -371,4 +371,9 @@ public class Instituicao {
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
     }
+
+    @Override
+    public String toString() {
+        return getNomeInstituicao(); //To change body of generated methods, choose Tools | Templates.
+    }    
 }
