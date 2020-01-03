@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAtividadesComplementaresPEDA;
+import gestor.Controle.ControleInternosAtividadesComplementares;
 import gestor.Controle.ControleListaCursos;
 import gestor.Controle.ControleListaInstituicao;
 import gestor.Controle.ControleListaProfessorIndividual;
@@ -18,6 +19,7 @@ import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AssistenciaEducativa;
 import gestor.Modelo.AtividadesComplementarePedagogica;
 import gestor.Modelo.Instituicao;
+import gestor.Modelo.ItensAtividadesComplementaresPedagogia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Professores;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -34,6 +36,7 @@ import static gestor.Visao.TelaModuloPedagogia.codigoUserPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeGrupoPEDA;
 import static gestor.Visao.TelaModuloPedagogia.nomeTelaPEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaCCAC_TPS_ManuPEDA;
+import static gestor.Visao.TelaModuloPedagogia.telaCCAC_TPS_partPEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -67,7 +70,10 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     ControleListarInstituicaoIndividual pLISTA_INDIVIDUAL_INSTITUICAO = new ControleListarInstituicaoIndividual();
     ControleListaProfessorIndividual pLISTA_INDIVIDUAL_PROFESSOR = new ControleListaProfessorIndividual();
     ControleListalCursosIndividual pLISTA_INDIVIDUAL_CURSOS = new ControleListalCursosIndividual();
-    //   
+    // SEGUNDA ABA (INTERNOS)   
+    ItensAtividadesComplementaresPedagogia objItens = new ItensAtividadesComplementaresPedagogia();
+    ControleInternosAtividadesComplementares control_DAO_INTERNOS = new ControleInternosAtividadesComplementares();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -118,7 +124,13 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     int DIA_VISITA_SEX = 0;
     int DIA_VISITA_SAB = 0;
     //
-    int diaDom, diaSeg, diaTer, diaQua, diaQui, diaSex, diaSab;
+    int diaDom = 0;
+    int diaSeg = 0;
+    int diaTer = 0;
+    int diaQua = 0;
+    int diaQui = 0;
+    int diaSex = 0;
+    int diaSab = 0;
     //
     String pSTATUS_INSTITUICAO = "Ativo";
     String pSTATUS_PROFESSOR = "Ativo";
@@ -126,6 +138,8 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     public static String pCODIGO_INSTITUICAO;
     public static String pCODIGO_PROFESSOR;
     public static String pCODIGO_AT;
+    //
+    public static String idItem;
 
     /**
      * Creates new form TelaCCAC_TPS
@@ -212,7 +226,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jBtExcluirInterno = new javax.swing.JButton();
         jBtSalvarInterno = new javax.swing.JButton();
         jBtCancelarInterno = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        jBtFinalizarAba2 = new javax.swing.JButton();
         jBtSairGeral = new javax.swing.JButton();
         jBtAuditoriaInterno = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -227,6 +241,8 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jBtPesquisaInterno = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jObservacaoInterno = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jRegime = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jSegundaVisita = new javax.swing.JCheckBox();
@@ -253,7 +269,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jHoraSabEnt = new javax.swing.JFormattedTextField();
         jHoraDomEnt = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabelaInterno = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
@@ -923,11 +939,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
-        jButton14.setEnabled(false);
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jBtFinalizarAba2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtFinalizarAba2.setEnabled(false);
+        jBtFinalizarAba2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jBtFinalizarAba2ActionPerformed(evt);
             }
         });
 
@@ -963,7 +979,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtFinalizarAba2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jBtSairGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -971,7 +987,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSairGeral, jBtSalvarInterno, jButton14});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtFinalizarAba2, jBtNovoInterno, jBtSairGeral, jBtSalvarInterno});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -983,13 +999,13 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                     .addComponent(jBtExcluirInterno)
                     .addComponent(jBtSalvarInterno)
                     .addComponent(jBtCancelarInterno)
-                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtFinalizarAba2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtSairGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoriaInterno))
                 .addGap(3, 3, 3))
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSairGeral, jBtSalvarInterno, jButton14});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtFinalizarAba2, jBtNovoInterno, jBtSairGeral, jBtSalvarInterno});
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1005,9 +1021,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Nome do Interno");
 
+        jIdInternoAC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoAC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdInternoAC.setEnabled(false);
 
+        jCNC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCNC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCNC.setEnabled(false);
 
@@ -1029,6 +1047,12 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jObservacaoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jObservacaoInterno.setEnabled(false);
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Regime");
+
+        jRegime.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRegime.setEnabled(false);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1037,22 +1061,25 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jNomeInternoAC)
+                    .addComponent(jLabel12)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
+                            .addComponent(jLabel10)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jIdInternoAC, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtPesquisaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jIdInternoAC, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel13))
-                        .addGap(0, 131, Short.MAX_VALUE))
+                                .addComponent(jBtPesquisaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(0, 83, Short.MAX_VALUE))
+                            .addComponent(jRegime)))
+                    .addComponent(jLabel13)
                     .addComponent(jObservacaoInterno))
                 .addContainerGap())
         );
@@ -1061,19 +1088,17 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel10Layout.createSequentialGroup()
-                            .addGap(20, 20, 20)
-                            .addComponent(jIdInternoAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                            .addComponent(jLabel11)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(5, 5, 5)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(jLabel14)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jRegime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdInternoAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeInternoAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1112,6 +1137,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jSegundaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jSegundaVisita.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jSegundaVisita.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jSegundaVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jSegundaVisitaItemStateChanged(evt);
+            }
+        });
 
         jTercaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTercaVisita.setText("Ter");
@@ -1119,6 +1149,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jTercaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTercaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jTercaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jTercaVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jTercaVisitaItemStateChanged(evt);
+            }
+        });
 
         jQuartaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jQuartaVisita.setText("Qua");
@@ -1126,6 +1161,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jQuartaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jQuartaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jQuartaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jQuartaVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jQuartaVisitaItemStateChanged(evt);
+            }
+        });
 
         jQuintaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jQuintaVisita.setText("Qui");
@@ -1133,6 +1173,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jQuintaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jQuintaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jQuintaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jQuintaVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jQuintaVisitaItemStateChanged(evt);
+            }
+        });
 
         jSextaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jSextaVisita.setText("Sex");
@@ -1140,6 +1185,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jSextaVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jSextaVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jSextaVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jSextaVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jSextaVisitaItemStateChanged(evt);
+            }
+        });
 
         jSabadoVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jSabadoVisita.setText("Sáb");
@@ -1147,6 +1197,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jSabadoVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jSabadoVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jSabadoVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jSabadoVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jSabadoVisitaItemStateChanged(evt);
+            }
+        });
 
         jDomingoVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jDomingoVisita.setText("Dom");
@@ -1154,6 +1209,11 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jDomingoVisita.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jDomingoVisita.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jDomingoVisita.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jDomingoVisita.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jDomingoVisitaItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1334,30 +1394,35 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 384, Short.MAX_VALUE))
-                .addGap(7, 7, 7))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(7, 7, 7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(5, 5, 5))
         );
 
         jTabbedPane2.addTab("Dias/Horários", jPanel9);
 
-        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1365,21 +1430,21 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 "Item", "Código", "CNC", "Nome do Interno"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                jTabelaInternoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(350);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(350);
+        jScrollPane2.setViewportView(jTabelaInterno);
+        if (jTabelaInterno.getColumnModel().getColumnCount() > 0) {
+            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(90);
+            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(90);
+            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(350);
+            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(350);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1689,12 +1754,12 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + e);
             }
             count0 = 0;
-            preencherTabelaInternos("SELECT * FROM INTERNOS_SAIDA_EDUCACIONAL "
+            preencherTabelaInternos("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON INTERNOS_SAIDA_EDUCACIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN ASSISTENCIA_EDUCACAO_EXTERNA "
-                    + "ON INTERNOS_SAIDA_EDUCACIONAL.IdEduca=ASSISTENCIA_EDUCACAO_EXTERNA.IdEduca "
-                    + "WHERE INTERNOS_SAIDA_EDUCACIONAL.IdEduca='" + IdLanc + "'");
+                    + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
+                    + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAssistenciaEducaionalMouseClicked
 
@@ -1752,14 +1817,20 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             if (jStatus.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Registro já finalizado, não pode ser modificado.");
             } else {
-                statusMov = "Excluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                bloquearBotoes();
-                bloquearCamposAba2();
-                limparCamposAba2();
-                Excluir();
-
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    bloquearBotoes();
+                    bloquearCamposAba2();
+                    limparCamposAba2();
+                    objAtivi.setIdAC(Integer.valueOf(jIdLanc.getText()));
+                    control.excluirAC(objAtivi);
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -1943,30 +2014,212 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCCAC_TPS_partPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaCCAC_TPS_partPEDA) && codIncluirPEDA == 1) {
+            if (jStatus.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível inserir mais registros, documento já foi FINALIZADO.");
+            } else {
+                verificarDiasAulasExternas();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                acao = 3;
+                bloquearBotoes();
+                bloquearCampos();
+                limparCamposAba2();
+                NovoInterno();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCCAC_TPS_partPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaCCAC_TPS_partPEDA) && codAlterarPEDA == 1) {
+            if (jStatus.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível inserir mais registros, documento já foi FINALIZADO.");
+            } else {
+                verificarDiasAulasExternas();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                acao = 4;
+                bloquearBotoes();
+                bloquearCampos();
+                AlterarInterno();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCCAC_TPS_partPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaCCAC_TPS_partPEDA) && codExcluirPEDA == 1) {
+            if (jStatus.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível inserir mais registros, documento já foi FINALIZADO.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    bloquearBotoes();
+                    bloquearCampos();
+                    objItens.setIdItemAC(Integer.valueOf(idItem));
+                    control_DAO_INTERNOS.excluir_INTERNO_AC(objItens);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
+                            + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
+                    ExcluirInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaCCAC_TPS_partPEDA);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaCCAC_TPS_partPEDA) && codGravarPEDA == 1) {
+            if (jIdInternoAC.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jNomeInternoAC.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else {
+                objItens.setIdAC(Integer.valueOf(jIdLanc.getText()));
+                objItens.setIdInternoCrc(Integer.valueOf(jIdInternoAC.getText()));
+                objItens.setNomeInterno(jNomeInternoAC.getText());
+                objItens.setObservacao(jObservacaoInterno.getText());
+                // DIAS DA SEMANA
+                if (jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 1;
+                } else if (!jCheckBoxSeg.isSelected()) {
+                    DiaSeg = 0;
+                }
+                objItens.setDiaSeg(DiaSeg);
+                if (jCheckBoxTer.isSelected()) {
+                    DiaTer = 1;
+                } else if (!jCheckBoxTer.isSelected()) {
+                    DiaTer = 0;
+                }
+                objItens.setDiaTer(DiaTer);
+                if (jCheckBoxQua.isSelected()) {
+                    DiaQua = 1;
+                } else if (!jCheckBoxQua.isSelected()) {
+                    DiaQua = 0;
+                }
+                objItens.setDiaQua(DiaQua);
+                if (jCheckBoxQui.isSelected()) {
+                    DiaQui = 1;
+                } else if (!jCheckBoxQui.isSelected()) {
+                    DiaQui = 0;
+                }
+                objItens.setDiaQui(DiaQui);
+                if (jCheckBoxSex.isSelected()) {
+                    DiaSex = 1;
+                } else if (!jCheckBoxSex.isSelected()) {
+                    DiaSex = 0;
+                }
+                objItens.setDiaSex(DiaSex);
+                if (jCheckBoxSab.isSelected()) {
+                    DiaSab = 1;
+                } else if (!jCheckBoxSab.isSelected()) {
+                    DiaSab = 0;
+                }
+                objItens.setDiaSab(DiaSab);
+                if (jCheckBoxDom.isSelected()) {
+                    DiaDom = 1;
+                } else if (!jCheckBoxDom.isSelected()) {
+                    DiaDom = 0;
+                }
+                objItens.setDiaDom(DiaDom);
+                // HORAS DE SAÍDA DO DIA DA SEMANA
+                objItens.setHoraSaiSeg(jHoraSeg.getText());
+                objItens.setHoraSaiTer(jHoraTer.getText());
+                objItens.setHoraSaiQua(jHoraQua.getText());
+                objItens.setHoraSaiQui(jHoraQui.getText());
+                objItens.setHoraSaiSex(jHoraSex.getText());
+                objItens.setHoraSaiSab(jHoraSab.getText());
+                objItens.setHoraSaiDom(jHoraDom.getText());
+                // HORÁRIO DE ENTRADA NA UNIDADE
+                objItens.setHoraEntSeg(jHoraSegEnt.getText());
+                objItens.setHoraEntTer(jHoraTerEnt.getText());
+                objItens.setHoraEntQua(jHoraQuaEnt.getText());
+                objItens.setHoraEntQui(jHoraQuiEnt.getText());
+                objItens.setHoraEntSex(jHoraSexEnt.getText());
+                objItens.setHoraEntSab(jHoraSabEnt.getText());
+                objItens.setHoraEntDom(jHoraDomEnt.getText());
+                if (acao == 3) {
+                    objItens.setUsuarioInsert(nameUser);
+                    objItens.setDataInsert(dataModFinal);
+                    objItens.setHorarioInsert(horaMov);
+                    //                    
+                    control_DAO_INTERNOS.incluir_INTERNO_AC(objItens);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
+                            + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
+                    bloquearBotoes();
+                    bloquearCampos();
+                    bloquearCamposAba2();
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objItens.setUsuarioUp(nameUser);
+                    objItens.setDataUp(dataModFinal);
+                    objItens.setHorarioUp(horaMov);
+                    //
+                    objItens.setIdItemAC(Integer.valueOf(idItem));
+                    control_DAO_INTERNOS.alterar_INTERNO_AC(objItens);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaInternos("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
+                            + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
+                    bloquearBotoes();
+                    bloquearCampos();
+                    bloquearCamposAba2();
+                    SalvarInterno();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
         // TODO add your handling code here:
+        CancelarInterno();
     }//GEN-LAST:event_jBtCancelarInternoActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void jBtFinalizarAba2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarAba2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_jBtFinalizarAba2ActionPerformed
 
     private void jBtSairGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairGeralActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBtSairGeralActionPerformed
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
@@ -1975,11 +2228,189 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
         // TODO add your handling code here:
+        TelaPesquisaInternoAssistenciaEducacional objPesq = new TelaPesquisaInternoAssistenciaEducacional();
+        TelaModuloPedagogia.jPainelPedagogia.add(objPesq);
+        objPesq.show();
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTabelaInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseClicked
+        if (flag == 1) {
+            String nomeInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 2);
+            jNomeInternoAC.setText(nomeInterno);
+            String codInterno = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 1);
+            jIdInternoAC.setText(codInterno);
+            idItem = "" + jTabelaInterno.getValueAt(jTabelaInterno.getSelectedRow(), 0);
+            //
+            bloquearBotoes();
+            bloquearCampos();
+            bloquearCamposAba2();
+            // Habilitar os botões
+            jBtNovoInterno.setEnabled(true);
+            jBtAlterarInterno.setEnabled(true);
+            jBtExcluirInterno.setEnabled(true);
+            jBtCancelarInterno.setEnabled(true);
+            jBtAuditoriaInterno.setEnabled(true);
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                        + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + jNomeInternoAC.getText() + "' "
+                        + "AND ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "' "
+                        + "AND ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdItemAC='" + idItem + "'");
+                conecta.rs.first();
+                jIdInternoAC.setText(conecta.rs.getString("IdInternoCrc"));
+                jNomeInternoAC.setText(conecta.rs.getString("NomeInternoCrc"));
+                idItem = conecta.rs.getString("IdItemAC");
+                jRegime.setText(conecta.rs.getString("Regime"));
+                jObservacaoInterno.setText(conecta.rs.getString("Observacao"));
+                //
+                DiaSeg1 = conecta.rs.getInt("DiaSeg");
+                if (DiaSeg1 == 1) {
+                    jSegundaVisita.setSelected(true);
+                } else if (DiaSeg1 == 0) {
+                    jSegundaVisita.setSelected(!true);
+                }
+                DiaTer1 = conecta.rs.getInt("DiaTer");
+                if (DiaTer1 == 1) {
+                    jTercaVisita.setSelected(true);
+                } else if (DiaTer1 == 0) {
+                    jTercaVisita.setSelected(!true);
+                }
+                DiaQua1 = conecta.rs.getInt("DiaQua");
+                if (DiaQua1 == 1) {
+                    jQuartaVisita.setSelected(true);
+                } else if (DiaQua1 == 0) {
+                    jQuartaVisita.setSelected(!true);
+                }
+                DiaQui1 = conecta.rs.getInt("DiaQui");
+                if (DiaQui1 == 1) {
+                    jQuintaVisita.setSelected(true);
+                } else if (DiaQui1 == 0) {
+                    jQuintaVisita.setSelected(!true);
+                }
+                DiaSex1 = conecta.rs.getInt("DiaSex");
+                if (DiaSex1 == 1) {
+                    jSextaVisita.setSelected(true);
+                } else if (DiaSex1 == 0) {
+                    jSextaVisita.setSelected(!true);
+                }
+                DiaSab1 = conecta.rs.getInt("DiaSab");
+                if (DiaSab1 == 1) {
+                    jSabadoVisita.setSelected(true);
+                } else if (DiaSab1 == 0) {
+                    jSabadoVisita.setSelected(!true);
+                }
+                DiaDom1 = conecta.rs.getInt("DiaDom");
+                if (DiaDom == 1) {
+                    jDomingoVisita.setSelected(true);
+                } else if (DiaDom1 == 0) {
+                    jCheckBoxDom.setSelected(!true);
+                }
+                // HORÁRIO DE SAÍDA
+                jHoraSeg.setText(conecta.rs.getString("HoraSaiSeg"));
+                jHoraTer.setText(conecta.rs.getString("HoraSaiTer"));
+                jHoraQua.setText(conecta.rs.getString("HoraSaiQua"));
+                jHoraQui.setText(conecta.rs.getString("HoraSaiQui"));
+                jHoraSex.setText(conecta.rs.getString("HoraSaiSex"));
+                jHoraSab.setText(conecta.rs.getString("HoraSaiSab"));
+                jHoraDom.setText(conecta.rs.getString("HoraSaiDom"));
+                // HORÁRIO DE ENTRADA
+                jHoraSegEnt.setText(conecta.rs.getString("HoraEntSeg"));
+                jHoraTerEnt.setText(conecta.rs.getString("HoraEntTer"));
+                jHoraQuaEnt.setText(conecta.rs.getString("HoraEntQua"));
+                jHoraQuiEnt.setText(conecta.rs.getString("HoraEntQui"));
+                jHoraSexEnt.setText(conecta.rs.getString("HoraEntSex"));
+                jHoraSabEnt.setText(conecta.rs.getString("HoraEntSab"));
+                jHoraDomEnt.setText(conecta.rs.getString("HoraEntDom"));
+                conecta.desconecta();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem alterado!!!" + ex);
+            }
+        }
+    }//GEN-LAST:event_jTabelaInternoMouseClicked
+
+    private void jSegundaVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSegundaVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraSeg.setEnabled(true);
+            jHoraSegEnt.setEnabled(true);
+        } else {
+            jHoraSeg.setEnabled(!true);
+            jHoraSegEnt.setEnabled(!true);
+        }
+    }//GEN-LAST:event_jSegundaVisitaItemStateChanged
+
+    private void jTercaVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jTercaVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraTer.setEnabled(true);
+            jHoraTerEnt.setEnabled(true);
+        } else {
+            jHoraTer.setEnabled(!true);
+            jHoraTerEnt.setEnabled(!true);
+        }
+    }//GEN-LAST:event_jTercaVisitaItemStateChanged
+
+    private void jQuartaVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jQuartaVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        } else {
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        }
+    }//GEN-LAST:event_jQuartaVisitaItemStateChanged
+
+    private void jQuintaVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jQuintaVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraQui.setEnabled(true);
+            jHoraQuiEnt.setEnabled(true);
+        } else {
+            jHoraQui.setEnabled(!true);
+            jHoraQuiEnt.setEnabled(!true);
+        }
+    }//GEN-LAST:event_jQuintaVisitaItemStateChanged
+
+    private void jSextaVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSextaVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraSex.setEnabled(true);
+            jHoraSexEnt.setEnabled(true);
+        } else {
+            jHoraSex.setEnabled(true);
+            jHoraSexEnt.setEnabled(true);
+        }
+    }//GEN-LAST:event_jSextaVisitaItemStateChanged
+
+    private void jSabadoVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jSabadoVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraSab.setEnabled(true);
+            jHoraSabEnt.setEnabled(true);
+        } else {
+            jHoraSab.setEnabled(true);
+            jHoraSabEnt.setEnabled(true);
+        }
+    }//GEN-LAST:event_jSabadoVisitaItemStateChanged
+
+    private void jDomingoVisitaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jDomingoVisitaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED) {
+            jHoraDom.setEnabled(true);
+            jHoraDomEnt.setEnabled(true);
+        } else {
+            jHoraDom.setEnabled(true);
+            jHoraDomEnt.setEnabled(true);
+        }
+    }//GEN-LAST:event_jDomingoVisitaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1992,6 +2423,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirInterno;
     private javax.swing.JButton jBtFinalizar;
+    private javax.swing.JButton jBtFinalizarAba2;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoInterno;
     private javax.swing.JButton jBtPesqCodigo;
@@ -2002,8 +2434,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSairGeral;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarInterno;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JTextField jCNC;
+    public static javax.swing.JTextField jCNC;
     private javax.swing.JFormattedTextField jCargaHoraria;
     private javax.swing.JCheckBox jCheckBox2;
     public static javax.swing.JCheckBox jCheckBoxDom;
@@ -2036,13 +2467,14 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     public static javax.swing.JFormattedTextField jHoraTer;
     public static javax.swing.JFormattedTextField jHoraTerEnt;
     private javax.swing.JTextField jIDPesqLan;
-    private javax.swing.JTextField jIdInternoAC;
+    public static javax.swing.JTextField jIdInternoAC;
     public static javax.swing.JTextField jIdLanc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -2057,7 +2489,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jNomeInternoAC;
+    public static javax.swing.JTextField jNomeInternoAC;
     private javax.swing.JTextArea jObservacao;
     private javax.swing.JTextField jObservacaoInterno;
     private javax.swing.JPanel jPanel1;
@@ -2083,6 +2515,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jPesqNomeInterno;
     public static javax.swing.JCheckBox jQuartaVisita;
     public static javax.swing.JCheckBox jQuintaVisita;
+    public static javax.swing.JTextField jRegime;
     public static javax.swing.JCheckBox jSabadoVisita;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2093,7 +2526,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAssistenciaEducaional;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabelaInterno;
     public static javax.swing.JCheckBox jTercaVisita;
     private javax.swing.JLabel jtotalRegistros;
     private javax.swing.JLabel jtotalRegistrosInt;
@@ -2112,8 +2545,34 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         //
         jIdInternoAC.setBackground(Color.white);
         jCNC.setBackground(Color.white);
+        jRegime.setBackground(Color.white);
         jNomeInternoAC.setBackground(Color.white);
         jObservacaoInterno.setBackground(Color.white);
+        //
+        jSegundaVisita.setBackground(Color.white);
+        jTercaVisita.setBackground(Color.white);
+        jQuartaVisita.setBackground(Color.white);
+        jQuintaVisita.setBackground(Color.white);
+        jSextaVisita.setBackground(Color.white);
+        jSabadoVisita.setBackground(Color.white);
+        jDomingoVisita.setBackground(Color.white);
+        //
+        // HORARIO DE SAIDA
+        jHoraSeg.setBackground(Color.white);
+        jHoraTer.setBackground(Color.white);
+        jHoraQua.setBackground(Color.white);
+        jHoraQui.setBackground(Color.white);
+        jHoraSex.setBackground(Color.white);
+        jHoraSab.setBackground(Color.white);
+        jHoraDom.setBackground(Color.white);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setBackground(Color.white);
+        jHoraTerEnt.setBackground(Color.white);
+        jHoraQuaEnt.setBackground(Color.white);
+        jHoraQuiEnt.setBackground(Color.white);
+        jHoraSexEnt.setBackground(Color.white);
+        jHoraSabEnt.setBackground(Color.white);
+        jHoraDomEnt.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -2143,6 +2602,30 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jCNC.setEnabled(!true);
         jNomeInternoAC.setEnabled(!true);
         jObservacaoInterno.setEnabled(!true);
+        //
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
     }
 
     public void bloquearCamposAba2() {
@@ -2150,6 +2633,30 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jCNC.setEnabled(!true);
         jNomeInternoAC.setEnabled(!true);
         jObservacaoInterno.setEnabled(!true);
+        //
+        jSegundaVisita.setEnabled(!true);
+        jTercaVisita.setEnabled(!true);
+        jQuartaVisita.setEnabled(!true);
+        jQuintaVisita.setEnabled(!true);
+        jSextaVisita.setEnabled(!true);
+        jSabadoVisita.setEnabled(!true);
+        jDomingoVisita.setEnabled(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setEnabled(!true);
+        jHoraTer.setEnabled(!true);
+        jHoraQua.setEnabled(!true);
+        jHoraQui.setEnabled(!true);
+        jHoraSex.setEnabled(!true);
+        jHoraSab.setEnabled(!true);
+        jHoraDom.setEnabled(!true);
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setEnabled(!true);
+        jHoraTerEnt.setEnabled(!true);
+        jHoraQuaEnt.setEnabled(!true);
+        jHoraQuiEnt.setEnabled(!true);
+        jHoraSexEnt.setEnabled(!true);
+        jHoraSabEnt.setEnabled(!true);
+        jHoraDomEnt.setEnabled(!true);
     }
 
     public void bloquearBotoes() {
@@ -2190,6 +2697,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         //
         jIdInternoAC.setText("");
         jCNC.setText("");
+        jRegime.setText("");
         jNomeInternoAC.setText("");
         jObservacaoInterno.setText("");
     }
@@ -2197,6 +2705,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     public void limparCamposAba2() {
         jIdInternoAC.setText("");
         jCNC.setText("");
+        jRegime.setText("");
         jNomeInternoAC.setText("");
         jObservacaoInterno.setText("");
     }
@@ -2245,7 +2754,21 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     }
 
     public void Cancelar() {
-
+        if (jIdLanc.getText().equals("")) {
+            limparCamposTodos();
+            bloquearCampos();
+            bloquearCamposAba2();
+            bloquearBotoes();
+            jBtNovo.setEnabled(true);
+        } else {
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //
+            jBtNovoInterno.setEnabled(true);
+        }
     }
 
     public void buscarCodigoAba1() {
@@ -2305,23 +2828,283 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     }
 
     public void NovoInterno() {
+        jObservacaoInterno.setEnabled(true);
+        if (diaDom == 1) {
+            jDomingoVisita.setSelected(true);
+            jDomingoVisita.setEnabled(true);
+            //
+            jHoraDom.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(true);
+        } else if (diaDom == 0) {
+            jDomingoVisita.setSelected(!true);
+            jDomingoVisita.setEnabled(!true);
+            //
+            jHoraDom.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(!true);
+        }
+        if (diaSeg == 1) {
+            jSegundaVisita.setSelected(true);
+            jSegundaVisita.setEnabled(true);
+            //
+            jHoraSeg.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(true);
 
+        } else if (diaSeg == 0) {
+            jSegundaVisita.setSelected(!true);
+            jSegundaVisita.setEnabled(!true);
+            //
+            jHoraSeg.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(!true);
+        }
+        if (diaTer == 1) {
+            jTercaVisita.setSelected(true);
+            jTercaVisita.setEnabled(true);
+            //
+            jHoraTer.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(true);
+        } else if (diaTer == 0) {
+            jTercaVisita.setSelected(!true);
+            jTercaVisita.setEnabled(!true);
+            //
+            jHoraTer.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(!true);
+        }
+        if (diaQua == 1) {
+            jQuartaVisita.setSelected(true);
+            jQuartaVisita.setEnabled(true);
+            //
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        } else if (diaQua == 0) {
+            jQuartaVisita.setSelected(!true);
+            jQuartaVisita.setEnabled(!true);
+            //
+            jHoraQua.setEnabled(!true);
+            jHoraQuaEnt.setEnabled(!true);
+        }
+        if (diaQui == 1) {
+            jQuintaVisita.setSelected(true);
+            jQuintaVisita.setEnabled(true);
+            //
+            jHoraQui.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(true);
+        } else if (diaQui == 0) {
+            jQuintaVisita.setSelected(!true);
+            jQuintaVisita.setEnabled(!true);
+            //
+            jHoraQui.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(!true);
+        }
+        if (diaSex == 1) {
+            jSextaVisita.setSelected(true);
+            jSextaVisita.setEnabled(true);
+            //
+            jHoraSex.setEnabled(true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(true);
+        } else if (diaSex == 0) {
+            jSextaVisita.setSelected(!true);
+            jSextaVisita.setEnabled(!true);
+            //
+            jHoraSex.setEnabled(!true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(!true);
+        }
+        if (diaSab == 1) {
+            jSabadoVisita.setSelected(true);
+            jSabadoVisita.setEnabled(true);
+            //
+            jHoraSab.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(true);
+        } else if (diaSab == 0) {
+            jSabadoVisita.setSelected(!true);
+            jSabadoVisita.setEnabled(!true);
+            //
+            jHoraSab.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(!true);
+        }
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
+        jBtPesquisaInterno.setEnabled(true);
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
     }
 
     public void AlterarInterno() {
+        if(diaDom == 1) {
+            jDomingoVisita.setSelected(true);
+            jDomingoVisita.setEnabled(true);
+            //
+            jHoraDom.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(true);
+        }else if (diaDom == 0) {
+            jDomingoVisita.setSelected(!true);
+            jDomingoVisita.setEnabled(!true);
+            //
+            jHoraDom.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraDomEnt.setEnabled(!true);
+        }
+        if (diaSeg == 1) {
+            jSegundaVisita.setSelected(true);
+            jSegundaVisita.setEnabled(true);
+            //
+            jHoraSeg.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(true);
 
+        } else if (diaSeg == 0) {
+            jSegundaVisita.setSelected(!true);
+            jSegundaVisita.setEnabled(!true);
+            //
+            jHoraSeg.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSegEnt.setEnabled(!true);
+        }
+        if (diaTer == 1) {
+            jTercaVisita.setSelected(true);
+            jTercaVisita.setEnabled(true);
+            //
+            jHoraTer.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(true);
+        } else if (diaTer == 0) {
+            jTercaVisita.setSelected(!true);
+            jTercaVisita.setEnabled(!true);
+            //
+            jHoraTer.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraTerEnt.setEnabled(!true);
+        }
+        if (diaQua == 1) {
+            jQuartaVisita.setSelected(true);
+            jQuartaVisita.setEnabled(true);
+            //
+            jHoraQua.setEnabled(true);
+            jHoraQuaEnt.setEnabled(true);
+        } else if (diaQua == 0) {
+            jQuartaVisita.setSelected(!true);
+            jQuartaVisita.setEnabled(!true);
+            //
+            jHoraQua.setEnabled(!true);
+            jHoraQuaEnt.setEnabled(!true);
+        }
+        if (diaQui == 1) {
+            jQuintaVisita.setSelected(true);
+            jQuintaVisita.setEnabled(true);
+            //
+            jHoraQui.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(true);
+        } else if (diaQui == 0) {
+            jQuintaVisita.setSelected(!true);
+            jQuintaVisita.setEnabled(!true);
+            //
+            jHoraQui.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraQuiEnt.setEnabled(!true);
+        }
+        if (diaSex == 1) {
+            jSextaVisita.setSelected(true);
+            jSextaVisita.setEnabled(true);
+            //
+            jHoraSex.setEnabled(true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(true);
+        } else if (diaSex == 0) {
+            jSextaVisita.setSelected(!true);
+            jSextaVisita.setEnabled(!true);
+            //
+            jHoraSex.setEnabled(!true);
+            // HORARIO DE ENTRADA     
+            jHoraSexEnt.setEnabled(!true);
+        }
+        if (diaSab == 1) {
+            jSabadoVisita.setSelected(true);
+            jSabadoVisita.setEnabled(true);
+            //
+            jHoraSab.setEnabled(true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(true);
+        } else if (diaSab == 0) {
+            jSabadoVisita.setSelected(!true);
+            jSabadoVisita.setEnabled(!true);
+            //
+            jHoraSab.setEnabled(!true);
+            // HORARIO DE ENTRADA
+            jHoraSabEnt.setEnabled(!true);
+        }
+        jObservacaoInterno.setEnabled(true);
+        jBtPesquisaInterno.setEnabled(true);
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
     }
 
     public void ExcluirInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void SalvarInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //        
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void CancelarInterno() {
+        jBtNovoInterno.setEnabled(true);
+    }
 
+    public void verificarDiasAulasExternas() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "WHERE IdAC='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            diaDom = conecta.rs.getInt("Dia2");
+            diaSeg = conecta.rs.getInt("Dia3");
+            diaTer = conecta.rs.getInt("Dia4");
+            diaQua = conecta.rs.getInt("Dia5");
+            diaQui = conecta.rs.getInt("Dia6");
+            diaSex = conecta.rs.getInt("Dia7");
+            diaSab = conecta.rs.getInt("Dia8");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void preencherTabelaAtividadesComplementares(String sql) {
@@ -2402,24 +3185,24 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             conecta.rs.first();
             do {
                 count0 = count0 + 1;
-                jtotalRegistrosInt.setText(Integer.toString(count));
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getString("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc")});
+                jtotalRegistrosInt.setText(Integer.toString(count0));
+                dados.add(new Object[]{conecta.rs.getInt("IdItemAC"), conecta.rs.getString("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTable1.setModel(modelo);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
-        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaInternos();
         conecta.desconecta();
     }
@@ -2428,18 +3211,18 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Matricula Penal"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTable1.setModel(modelo);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(0).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
-        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaInterno.setModel(modelo);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInterno.getTableHeader().setReorderingAllowed(false);
+        jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
+        jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -2449,9 +3232,9 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTable1.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTable1.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
     }
 
     public void objLog() {

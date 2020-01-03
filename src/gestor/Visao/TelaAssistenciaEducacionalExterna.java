@@ -2251,13 +2251,13 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
                 jMotivo.setText(conecta.rs.getString("Motivo"));
                 evadidoEducacao = conecta.rs.getString("Evadido");
                 //
-                DiaSeg = conecta.rs.getInt("DiaSeg");
+                DiaSeg1 = conecta.rs.getInt("DiaSeg");
                 if (DiaSeg1 == 1) {
                     jSegundaVisita.setSelected(true);
                 } else if (DiaSeg1 == 0) {
                     jSegundaVisita.setSelected(!true);
                 }
-                DiaTer = conecta.rs.getInt("DiaTer");
+                DiaTer1 = conecta.rs.getInt("DiaTer");
                 if (DiaTer1 == 1) {
                     jTercaVisita.setSelected(true);
                 } else if (DiaTer1 == 0) {
@@ -3058,30 +3058,6 @@ public class TelaAssistenciaEducacionalExterna extends javax.swing.JInternalFram
         jHoraSexEnt.setText("00:00");
         jHoraSabEnt.setText("00:00");
         jHoraDomEnt.setText("00:00");
-        // HORÁRIO DOS INTERNOS        
-//        jSegundaVisita.setEnabled(true);
-//        jTercaVisita.setEnabled(true);
-//        jQuartaVisita.setEnabled(true);
-//        jQuintaVisita.setEnabled(true);
-//        jSextaVisita.setEnabled(true);
-//        jSabadoVisita.setEnabled(true);
-//        jDomingoVisita.setEnabled(true);
-        // HORARIO DE SAIDA
-//        jHoraSeg.setEnabled(true);
-//        jHoraTer.setEnabled(true);
-//        jHoraQua.setEnabled(true);
-//        jHoraQui.setEnabled(true);
-//        jHoraSex.setEnabled(true);
-//        jHoraSab.setEnabled(true);
-//        jHoraDom.setEnabled(true);
-//        // HORARIO DE ENTRADA
-//        jHoraSegEnt.setEnabled(true);
-//        jHoraTerEnt.setEnabled(true);
-//        jHoraQuaEnt.setEnabled(true);
-//        jHoraQuiEnt.setEnabled(true);
-//        jHoraSexEnt.setEnabled(true);
-//        jHoraSabEnt.setEnabled(true);
-//        jHoraDomEnt.setEnabled(true);
         //
         jBtPesqInternoAssis.setEnabled(true);
         jRadioButtonLiberado.setEnabled(true);

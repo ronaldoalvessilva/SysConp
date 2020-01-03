@@ -27,6 +27,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -79,6 +81,7 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
 
         jBtPesqNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNome.setToolTipText("Pesquisa por Nome");
+        jBtPesqNome.setContentAreaFilled(false);
         jBtPesqNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesqNomeActionPerformed(evt);
@@ -96,7 +99,7 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPesqNomeAdvogado, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -114,16 +117,27 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
         jTabelaPesqAdvogado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqAdvogado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Nome Advogado", "Data Entrada", "Horário", "Data Saída", "Horário"
             }
         ));
         jScrollPane1.setViewportView(jTabelaPesqAdvogado);
+        if (jTabelaPesqAdvogado.getColumnModel().getColumnCount() > 0) {
+            jTabelaPesqAdvogado.getColumnModel().getColumn(0).setMinWidth(50);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(3).setMinWidth(70);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(5).setMinWidth(70);
+            jTabelaPesqAdvogado.getColumnModel().getColumn(5).setMaxWidth(70);
+        }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
@@ -157,7 +171,7 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 206, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -166,12 +180,12 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -184,10 +198,10 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(250, 20, 415, 286);
+        setBounds(250, 20, 622, 313);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -198,7 +212,7 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
             jPesqNomeAdvogado.setText(nomeAdvogado);
             String idVisita = "" + jTabelaPesqAdvogado.getValueAt(jTabelaPesqAdvogado.getSelectedRow(), 0);
             String horarioEntrada = "" + jTabelaPesqAdvogado.getValueAt(jTabelaPesqAdvogado.getSelectedRow(), 3);
-            jHorarioEntrada.setText(horarioEntrada);     
+            jHorarioEntrada.setText(horarioEntrada);
             jIDAdvogado.setText(idVisita);
             jBtNovoAdvogado.setEnabled(true);
             jBtAlterarAdvogado.setEnabled(true);
@@ -212,7 +226,9 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
                         + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.Idadvogado "
                         + "INNER JOIN DEPARTAMENTOS "
                         + "ON ITENSADVOGADO.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-                        + "WHERE NomeAdvogado LIKE'"+ jPesqNomeAdvogado.getText() + "%' AND IdLanc='" + jIDlanc.getText() + "'AND HorarioEntrada='" + jHorarioEntrada.getText() + "'");
+                        + "WHERE NomeAdvogado='" + jPesqNomeAdvogado.getText() + "' "
+                        + "AND IdLanc='" + jIDlanc.getText() + "' "
+                        + "AND HorarioEntrada='" + jHorarioEntrada.getText() + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIDAdvogado.setText(String.valueOf(conecta.rs.getInt("IdAdvogado")));
@@ -246,7 +262,13 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jPesqNomeAdvogado.requestFocus();
         } else {
-            buscarAdvogados("SELECT * FROM ITENSADVOGADO INNER JOIN ADVOGADOS ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado INNER JOIN DEPARTAMENTOS ON ITENSADVOGADO.IdDepartamento=DEPARTAMENTOS.IdDepartamento WHERE NomeAdvogado LIKE'" + jPesqNomeAdvogado.getText() + "%' AND IdLanc='" + jIDlanc.getText() + "'");
+            buscarAdvogados("SELECT * FROM ITENSADVOGADO "
+                    + "INNER JOIN ADVOGADOS "
+                    + "ON ITENSADVOGADO.IdAdvogado=ADVOGADOS.IdAdvogado "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON ITENSADVOGADO.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
+                    + "WHERE NomeAdvogado LIKE'%" + jPesqNomeAdvogado.getText() + "%' "
+                    + "AND IdLanc='" + jIDlanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -267,23 +289,23 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os VISITANTES
     public void buscarAdvogados(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Nome Advogado", "Data Entrada", "Horário", "Data Saída", "Horário"};
+        String[] Colunas = new String[]{"Código", "Nome Advogado", "Data Entrada", "Horário", "Data Saída", "Horário"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataEntrada");
-                String dia = dataEntrada.substring(8, 10);
-                String mes = dataEntrada.substring(5, 7);
-                String ano = dataEntrada.substring(0, 4);
-                dataEntrada = dia + "/" + mes + "/" + ano;
-                // Fortmatar data de Cadastro          
-                dataSaida = conecta.rs.getString("DataSaida");
-                String day = dataSaida.substring(8, 10);
-                String mesc = dataSaida.substring(5, 7);
-                String anoc = dataSaida.substring(0, 4);
-                dataSaida = day + "/" + mesc + "/" + anoc;
+            dataEntrada = conecta.rs.getString("DataEntrada");
+            String dia = dataEntrada.substring(8, 10);
+            String mes = dataEntrada.substring(5, 7);
+            String ano = dataEntrada.substring(0, 4);
+            dataEntrada = dia + "/" + mes + "/" + ano;
+            // Fortmatar data de Cadastro          
+            dataSaida = conecta.rs.getString("DataSaida");
+            String day = dataSaida.substring(8, 10);
+            String mesc = dataSaida.substring(5, 7);
+            String anoc = dataSaida.substring(0, 4);
+            dataSaida = day + "/" + mesc + "/" + anoc;
             do {
                 dados.add(new Object[]{conecta.rs.getInt("IdAdvogado"), conecta.rs.getString("NomeAdvogado"), dataEntrada, conecta.rs.getString("HorarioEntrada"), dataSaida, conecta.rs.getString("HorarioSaida")});
             } while (conecta.rs.next());
@@ -307,6 +329,45 @@ public class TelaPesqItensAdvogados extends javax.swing.JInternalFrame {
         jTabelaPesqAdvogado.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqAdvogado.setAutoResizeMode(jTabelaPesqAdvogado.AUTO_RESIZE_OFF);
         jTabelaPesqAdvogado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaItens();
         conecta.desconecta();
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome Advogado", "Data Entrada", "Horário", "Data Saída", "Horário"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPesqAdvogado.setModel(modelo);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(3).setPreferredWidth(70);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaPesqAdvogado.getTableHeader().setReorderingAllowed(false);
+        jTabelaPesqAdvogado.setAutoResizeMode(jTabelaPesqAdvogado.AUTO_RESIZE_OFF);
+        jTabelaPesqAdvogado.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void alinharTabelaItens() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaPesqAdvogado.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaPesqAdvogado.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
 }
