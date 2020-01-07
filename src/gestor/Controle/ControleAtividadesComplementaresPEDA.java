@@ -91,4 +91,17 @@ public class ControleAtividadesComplementaresPEDA {
         conecta.desconecta();
         return objAtivi;
     }
+    
+    public AtividadesComplementarePedagogica finalizarAC(AtividadesComplementarePedagogica objAtivi) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET StatusAC=? WHERE IdAC='" + objAtivi.getIdAC() + "'");
+            pst.setString(1, objAtivi.getStatusAC());            
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAtivi;
+    }
 }

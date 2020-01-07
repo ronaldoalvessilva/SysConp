@@ -1947,6 +1947,26 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        if (jStatus.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Registro já foi FINALIZADO.");
+        } else {
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            String statusLanc = "FINALIZADO";
+            JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar assim mesmo o lançamento selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAtivi.setStatusAC(statusLanc);
+                objAtivi.setIdAC(Integer.parseInt(jIdLanc.getText()));
+                control.finalizarAC(objAtivi);
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                jStatus.setText("FINALIZADO");
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1956,6 +1976,9 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaCCAC objAudAdmPed = new TelaAuditoriaCCAC();
+        TelaModuloPedagogia.jPainelPedagogia.add(objAudAdmPed);
+        objAudAdmPed.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jComboBoxInstituicaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxInstituicaoItemStateChanged
@@ -2215,6 +2238,26 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarAba2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarAba2ActionPerformed
         // TODO add your handling code here:
+        if (jStatus.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Registro já foi FINALIZADO.");
+        } else {
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            String statusLanc = "FINALIZADO";
+            JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar assim mesmo o lançamento selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                objAtivi.setStatusAC(statusLanc);
+                objAtivi.setIdAC(Integer.parseInt(jIdLanc.getText()));
+                control.finalizarAC(objAtivi);
+                //
+                objLog();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                jStatus.setText("FINALIZADO");
+                JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            }
+        }
     }//GEN-LAST:event_jBtFinalizarAba2ActionPerformed
 
     private void jBtSairGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairGeralActionPerformed
@@ -2224,6 +2267,9 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaParticipantes objAudiEvo = new TelaAuditoriaParticipantes();
+        TelaModuloPedagogia.jPainelPedagogia.add(objAudiEvo);
+        objAudiEvo.show();
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
@@ -2955,14 +3001,14 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     }
 
     public void AlterarInterno() {
-        if(diaDom == 1) {
+        if (diaDom == 1) {
             jDomingoVisita.setSelected(true);
             jDomingoVisita.setEnabled(true);
             //
             jHoraDom.setEnabled(true);
             // HORARIO DE ENTRADA
             jHoraDomEnt.setEnabled(true);
-        }else if (diaDom == 0) {
+        } else if (diaDom == 0) {
             jDomingoVisita.setSelected(!true);
             jDomingoVisita.setEnabled(!true);
             //
