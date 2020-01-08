@@ -421,7 +421,7 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
 
         jMenu1.add(jMenu8);
 
-        CursosProfissionalizantes.setText("Cursos Profissionalizantes");
+        CursosProfissionalizantes.setText("Cursos Diversos - Atividades Complementares");
         CursosProfissionalizantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CursosProfissionalizantesActionPerformed(evt);

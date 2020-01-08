@@ -5,6 +5,8 @@
  */
 package gestor.Modelo;
 
+import java.util.Date;
+
 /**
  *
  * @author Socializa TI 02
@@ -43,11 +45,15 @@ public class ItensAtividadesComplementaresPedagogia {
     private String usuarioUp;
     private String dataUp;
     private String horarioUp;
+    private Date dataInicial;
+    private Date dataConclusao;
+    private String situacaoCurso;
+    private String avaliacao;
 
     public ItensAtividadesComplementaresPedagogia() {
     }
 
-    public ItensAtividadesComplementaresPedagogia(int idItemAC, int idAC, int idInternoCrc, String nomeInterno, String observacao, int diaSeg, int diaTer, int diaQua, int diaQui, int diaSex, int diaSab, int diaDom, String horaEntSeg, String horaEntTer, String horaEntQua, String horaEntQui, String horaEntSex, String horaEntSab, String horaEntDom, String horaSaiSeg, String horaSaiTer, String horaSaiQua, String horaSaiQui, String horaSaiSex, String horaSaiSab, String horaSaiDom, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public ItensAtividadesComplementaresPedagogia(int idItemAC, int idAC, int idInternoCrc, String nomeInterno, String observacao, int diaSeg, int diaTer, int diaQua, int diaQui, int diaSex, int diaSab, int diaDom, String horaEntSeg, String horaEntTer, String horaEntQua, String horaEntQui, String horaEntSex, String horaEntSab, String horaEntDom, String horaSaiSeg, String horaSaiTer, String horaSaiQua, String horaSaiQui, String horaSaiSex, String horaSaiSab, String horaSaiDom, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp, Date dataInicial, Date dataConclusao, String situacaoCurso, String avaliacao) {
         this.idItemAC = idItemAC;
         this.idAC = idAC;
         this.idInternoCrc = idInternoCrc;
@@ -80,6 +86,10 @@ public class ItensAtividadesComplementaresPedagogia {
         this.usuarioUp = usuarioUp;
         this.dataUp = dataUp;
         this.horarioUp = horarioUp;
+        this.dataInicial = dataInicial;
+        this.dataConclusao = dataConclusao;
+        this.situacaoCurso = situacaoCurso;
+        this.avaliacao = avaliacao;
     }
 
     /**
@@ -528,5 +538,61 @@ public class ItensAtividadesComplementaresPedagogia {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the dataInicial
+     */
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    /**
+     * @param dataInicial the dataInicial to set
+     */
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    /**
+     * @return the dataConclusao
+     */
+    public Date getDataConclusao() {
+        return dataConclusao;
+    }
+
+    /**
+     * @param dataConclusao the dataConclusao to set
+     */
+    public void setDataConclusao(Date dataConclusao) {
+        this.dataConclusao = dataConclusao;
+    }
+
+    /**
+     * @return the situacaoCurso
+     */
+    public String getSituacaoCurso() {
+        return situacaoCurso;
+    }
+
+    /**
+     * @param situacaoCurso the situacaoCurso to set
+     */
+    public void setSituacaoCurso(String situacaoCurso) {
+        this.situacaoCurso = situacaoCurso;
+    }
+
+    /**
+     * @return the avaliacao
+     */
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    /**
+     * @param avaliacao the avaliacao to set
+     */
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
     }
 }

@@ -402,7 +402,7 @@ public class TelaCursosDiversos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtAuditoria)))
-                .addGap(22, 22, 22))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -422,7 +422,7 @@ public class TelaCursosDiversos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -437,7 +437,7 @@ public class TelaCursosDiversos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -558,7 +558,8 @@ public class TelaCursosDiversos extends javax.swing.JInternalFrame {
         if (jPesqDescricaoCurso.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
         } else {
-            preencherTabelaCursos("SELECT * FROM CURSOS WHERE DescricaoCurso LIKE'" + jPesqDescricaoCurso.getText() + "%'");
+            preencherTabelaCursos("SELECT * FROM CURSOS "
+                    + "WHERE DescricaoCurso LIKE'" + jPesqDescricaoCurso.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesqDescricaoActionPerformed
 

@@ -52,7 +52,7 @@
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="CursosProfissionalizantes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cursos Profissionalizantes"/>
+                <Property name="text" type="java.lang.String" value="Cursos Diversos - Atividades Complementares"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CursosProfissionalizantesActionPerformed"/>

@@ -382,14 +382,29 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jControleCursosAtividades">
+            <Menu class="javax.swing.JMenu" name="jMenu5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Controle de Cursos e Atividades Complementares"/>
+                <Property name="text" type="java.lang.String" value="Controle e Frequ&#xea;ncia Cursos e Atividades Complementares"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jControleCursosAtividadesActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jControleCursosAtividades">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Controle de Cursos/Atividades Complementares"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jControleCursosAtividadesActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jFrequenciaCursos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Controle de Frequ&#xea;ncia dos Cursos/Atividades Complementares"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFrequenciaCursosActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator25">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jRegistroLeituraResenhaInternos">
