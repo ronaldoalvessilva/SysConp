@@ -1176,9 +1176,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
-                        + "ON CURSOS.IdCurso=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdCurso "
+                        + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
                         + "WHERE IdFreqCap='" + idAtend + "'");
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdFreqCap")));
@@ -1193,9 +1193,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         }
         preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
                 + "INNER JOIN PRONTUARIOSCRC "
-                + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "INNER JOIN FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap "
+                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
                 + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIDPesqLanc.getText() + "'");
     }//GEN-LAST:event_jTabelaAtendimentoTerapiaMouseClicked
 
@@ -1206,7 +1206,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         if (jIDPesqLanc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um ID para pesquisar.");
         } else {
-            preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+            preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "WHERE IdFreqCap='" + jIDPesqLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtCodigoPesquisaActionPerformed
@@ -1232,7 +1232,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                        preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                                 + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -1253,7 +1253,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                        preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                                 + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -1267,7 +1267,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO");
+            this.preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -1281,11 +1281,11 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisar.");
         } else {
             jTabelaAtendimentoTerapia.setVisible(true);
-            preencherAtendimentoTerapia("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                    + "INNER JOIN ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                    + "ON FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap=ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap "
+            preencherAtendimentoTerapia("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "INNER JOIN ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "ON FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jnomeInternoPesq.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesquisarNomeActionPerformed
@@ -1583,12 +1583,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 //                        control.excluirInternoFrequenciaCapacitacao(objFreqCap);
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                        preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "INNER JOIN FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                                + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap=CAPACITACAO_INTERNO_TO.IdFreqCap "
-                                + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIdRegistro.getText() + "'");
+                                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=CAPACITACAO_INTERNO_TO.IdFreqCap "
+                                + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
                         limparCamposInternos();
                         bloquearCampos();
                         bloquearBotoes();
@@ -1668,12 +1668,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     buscarCampoRegistroInterno();
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                    preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                            + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap "
-                            + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIdRegistro.getText() + "'");
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
+                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
                     limparCamposInternos();
                     bloquearCampos();
                     bloquearBotoes();
@@ -1689,12 +1689,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 //                    control.alterarInternoFrequenciaCapacitacao(objFreqCap);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                    preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "INNER JOIN FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                            + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap "
-                            + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIdRegistro.getText() + "'");
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
+                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
                     limparCamposInternos();
                     bloquearCampos();
                     bloquearBotoes();
@@ -1727,10 +1727,10 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             jBtAuditoriaInterno.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIdRegistro.getText() + "' "
+                        + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "' "
                         + "AND PRONTUARIOSCRC.NomeInternoCrc='" + jNomeInternoCrc.getText() + "' "
                         + "AND IdItemFreqCap='" + idItem + "'");
                 conecta.rs.first();
@@ -1761,9 +1761,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             try {
                 conecta.abrirConexao();
                 String path = "reports/RelatorioFrequenciaCursosTO.jasper";
-                conecta.executaSQL("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO "
+                conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
-                        + "ON CURSOS.IdCurso=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdCurso "
+                        + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
                         + "WHERE IdFreqCap='" + jIdRegistro.getText() + "'");
                 HashMap parametros = new HashMap();
                 parametros.put("codFrequencia", jIdRegistro.getText());
@@ -2039,7 +2039,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public void buscarCodigo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FREQUENCIA_CAPACITACAO_INTERNO_TO");
+            conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA");
             conecta.rs.last();
             jIdRegistro.setText(conecta.rs.getString("IdFreqCap"));
         } catch (SQLException ex) {
@@ -2051,7 +2051,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public void verificarInternoCapacitado() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "WHERE IdFreqCap='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             codigoRegistro = conecta.rs.getString("IdFreqCap");
@@ -2064,7 +2064,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "WHERE IdFreqCap='" + jIdRegistro.getText() + "' "
                     + "AND SituacaoCurso='" + pSituacaoInterno + "'");
             conecta.rs.first();
@@ -2145,7 +2145,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public void buscarCampoRegistroInterno() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO");
+            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA");
             conecta.rs.last();
             codigoItem = conecta.rs.getInt("IdItemFreqCap");
         } catch (SQLException ex) {
