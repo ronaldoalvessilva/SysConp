@@ -5,12 +5,12 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleFrequenciaCapacitacaoInternos;
+import gestor.Controle.ControleFrequenciaACC;
 import gestor.Controle.ControleListaProfessores;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import gestor.Modelo.FrequenciaCapacitacaoInternosPedagogia;
+import gestor.Modelo.FrequenciaAtividadesComplementaresPedagogia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Professores;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
@@ -71,10 +71,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Professores objProf = new Professores();
-    ControleListaProfessores controlDAO_PRF = new ControleListaProfessores(); 
-    FrequenciaCapacitacaoInternosPedagogia objFreqCap = new FrequenciaCapacitacaoInternosPedagogia();
+    ControleListaProfessores controlDAO_PRF = new ControleListaProfessores();
+//    FrequenciaCapacitacaoInternosPedagogia objFreqCap = new FrequenciaCapacitacaoInternosPedagogia();    
+//    ControleFrequenciaCapacitacaoInternos control = new ControleFrequenciaCapacitacaoInternos();
     //
-    ControleFrequenciaCapacitacaoInternos control = new ControleFrequenciaCapacitacaoInternos();
+    FrequenciaAtividadesComplementaresPedagogia objCapacitaInt = new FrequenciaAtividadesComplementaresPedagogia();
+    ControleFrequenciaACC control = new ControleFrequenciaACC();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -1179,9 +1181,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
-                        + "WHERE IdFreqCap='" + idAtend + "'");
+                        + "WHERE IdFAC='" + idAtend + "'");
                 conecta.rs.first();
-                jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdFreqCap")));
+                jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdFAC")));
                 jStatusRegistro.setText(conecta.rs.getString("StatusRegistro"));
                 jDataRegistro.setDate(conecta.rs.getDate("DataRegistro"));
                 jDescricaoCurso.setText(conecta.rs.getString("DescricaoCurso"));
@@ -1191,12 +1193,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             }
             conecta.desconecta();
         }
-        preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO "
+        preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "INNER JOIN FREQUENCIA_CAPACITACAO_INTERNO_TO "
-                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
-                + "WHERE ITENS_FREQUENCIA_CAPACITACAO_INTERNO_TO.IdFreqCap='" + jIDPesqLanc.getText() + "'");
+                + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
+                + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIDPesqLanc.getText() + "'");
     }//GEN-LAST:event_jTabelaAtendimentoTerapiaMouseClicked
 
     private void jBtCodigoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCodigoPesquisaActionPerformed
@@ -1207,7 +1209,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             JOptionPane.showMessageDialog(rootPane, "Informe um ID para pesquisar.");
         } else {
             preencherTabelaTodosRegistros("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "WHERE IdFreqCap='" + jIDPesqLanc.getText() + "'");
+                    + "WHERE IdFAC='" + jIDPesqLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtCodigoPesquisaActionPerformed
 
@@ -1283,7 +1285,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             jTabelaAtendimentoTerapia.setVisible(true);
             preencherAtendimentoTerapia("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "INNER JOIN ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "ON FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
+                    + "ON FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC=ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'%" + jnomeInternoPesq.getText() + "%'");
@@ -1296,19 +1298,19 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         if (jIdRegistro.getText().equals(codigoRegistro) && pSitaucaoCurso.equals(pSituacaoInterno)) {
             JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser FINALIZADO, existe internos com a situação do curso ainda não concluído.");
         } else {
-            objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+            objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser finalizado, o mesmo encontra-se FINALIZADO");
             } else {
-                objFreqCap.setStatusRegistro("");
+                objCapacitaInt.setStatusFAC("");
                 String statusAtend = "FINALIZADO";
                 JOptionPane.showMessageDialog(rootPane, "Se esse registro for finaliza,\nvocê não poderá mais excluir ou alterar.");
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZA o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objFreqCap.setStatusRegistro(statusAtend);
-                    objFreqCap.setIdFreqCap(Integer.parseInt(jIdRegistro.getText()));
-//                    control.finalizarFrequenciaCapacitacao(objFreqCap);
+                    objCapacitaInt.setStatusFAC(statusAtend);
+                    objCapacitaInt.setIdFAC(Integer.parseInt(jIdRegistro.getText()));
+                    control.finalizarFrequenciaACC(objCapacitaInt);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     jStatusRegistro.setText(statusAtend);
@@ -1347,6 +1349,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             limparCampos();
             limparTabelaInternos();
             Novo();
+            preencherComboProfessor();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1363,22 +1366,22 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             if (jIdRegistro.getText().equals(codigoRegistro)) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro, existe um ou mais registro de internos relacionados a ele.\nÉ necessário excluir os registros de internos abaixo primeiro.");
             } else {
-                objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+                objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
                 if (jStatusRegistro.getText().equals("FINALIZADO")) {
                     JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
                 } else {
                     statusMov = "Excluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
-                    objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+                    objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
                     if (jStatusRegistro.getText().equals("FINALIZADO")) {
                         JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluido, o mesmo encontra-se FINALIZADO");
                     } else {
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
-                            objFreqCap.setIdFreqCap(Integer.parseInt(jIdRegistro.getText()));
-//                            control.excluirFrequenciaCapacitacao(objFreqCap);
+                            objCapacitaInt.setIdFAC(Integer.parseInt(jIdRegistro.getText()));
+                            control.excluirFrequenciaACC(objCapacitaInt);
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             bloquearCampos();
@@ -1398,7 +1401,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         // TODO add your handling code here:
         buscarAcessoUsuario(telaFreqCapacitacaoInternoManuTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAlterarTO == 1) {
-            objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+            objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
@@ -1430,68 +1433,68 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             } else if (jDescricaoCurso.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o curso de capacitação.");
             } else {
-                objFreqCap.setStatusRegistro(jStatusRegistro.getText());
-                objFreqCap.setDataRegistro(jDataRegistro.getDate());
-                objFreqCap.setIdCurso(codigoCurso);
-                objFreqCap.setDescricaoCurso(jDescricaoCurso.getText());
-                objFreqCap.setLocalCurso(jLocalRealizacao.getText());
+                objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
+                objCapacitaInt.setDataFAC(jDataRegistro.getDate());
+                objCapacitaInt.setIdCurso(codigoCurso);
+                objCapacitaInt.setDescricaoCurso(jDescricaoCurso.getText());
+                objCapacitaInt.setLocalCurso(jLocalRealizacao.getText());
                 //SEGUNDA
                 if (jCheckBoxSeg.isSelected()) {
                     DIA_SEG = 1;
                 } else if (!jCheckBoxSeg.isSelected()) {
                     DIA_SEG = 0;
                 }
-                objFreqCap.setDia2(DIA_SEG);
+                objCapacitaInt.setDia2(DIA_SEG);
                 //TERÇA
                 if (jCheckBoxTer.isSelected()) {
                     DIA_TER = 1;
                 } else if (!jCheckBoxTer.isSelected()) {
                     DIA_TER = 0;
                 }
-                objFreqCap.setDia3(DIA_TER);
+                objCapacitaInt.setDia3(DIA_TER);
                 //QUARTA
                 if (jCheckBoxQua.isSelected()) {
                     DIA_QUA = 1;
                 } else if (!jCheckBoxQua.isSelected()) {
                     DIA_QUA = 0;
                 }
-                objFreqCap.setDia4(DIA_QUA);
+                objCapacitaInt.setDia4(DIA_QUA);
                 //QUINTA
                 if (jCheckBoxQui.isSelected()) {
                     DIA_QUI = 1;
                 } else if (!jCheckBoxQui.isSelected()) {
                     DIA_QUI = 0;
                 }
-                objFreqCap.setDia5(DIA_QUI);
+                objCapacitaInt.setDia5(DIA_QUI);
                 //SEXTA
                 if (jCheckBoxSex.isSelected()) {
                     DIA_SEX = 1;
                 } else if (!jCheckBoxSex.isSelected()) {
                     DIA_SEX = 0;
                 }
-                objFreqCap.setDia6(DIA_SEX);
+                objCapacitaInt.setDia6(DIA_SEX);
                 //SÁBADO
                 if (jCheckBoxSab.isSelected()) {
                     DIA_SAB = 1;
                 } else if (!jCheckBoxSab.isSelected()) {
                     DIA_SAB = 0;
                 }
-                objFreqCap.setDia7(DIA_SAB);
+                objCapacitaInt.setDia7(DIA_SAB);
                 //DOMINGO
                 if (jCheckBoxDom.isSelected()) {
                     DIA_DOM = 1;
                 } else if (!jCheckBoxDom.isSelected()) {
                     DIA_DOM = 0;
                 }
-                objFreqCap.setDia8(DIA_DOM);
-                objFreqCap.setObservacao(jObservacao.getText());
+                objCapacitaInt.setDia8(DIA_DOM);
+                objCapacitaInt.setObservacao(jObservacao.getText());
                 if (acao == 1) {
                     // log de usuario
-                    objFreqCap.setUsuarioInsert(nameUser);
-                    objFreqCap.setDataInsert(dataModFinal);
-                    objFreqCap.setHorarioInsert(horaMov);
+                    objCapacitaInt.setUsuarioInsert(nameUser);
+                    objCapacitaInt.setDataInsert(dataModFinal);
+                    objCapacitaInt.setHorarioInsert(horaMov);
                     //
-//                    control.incluirFrequenciaCapacitacao(objFreqCap);
+                    control.incluirFrequenciaACC(objCapacitaInt);
                     buscarCodigo();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1501,12 +1504,12 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     Salvar();
                 }
                 if (acao == 2) {
-                    objFreqCap.setUsuarioUp(nameUser);
-                    objFreqCap.setDataUp(dataModFinal);
-                    objFreqCap.setHorarioUp(horaMov);
+                    objCapacitaInt.setUsuarioUp(nameUser);
+                    objCapacitaInt.setDataUp(dataModFinal);
+                    objCapacitaInt.setHorarioUp(horaMov);
                     //
-                    objFreqCap.setIdFreqCap(Integer.valueOf(jIdRegistro.getText()));
-//                    control.alterarFrequenciaCapacitacao(objFreqCap);
+                    objCapacitaInt.setIdFAC(Integer.valueOf(jIdRegistro.getText()));
+                    control.alterarFrequenciaACC(objCapacitaInt);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     JOptionPane.showMessageDialog(rootPane, "Registro Gravado com sucesso.");
@@ -1543,7 +1546,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         // TODO add your handling code here:
         buscarAcessoUsuario(telaFreqCapacitacaoInternoIntTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoIntTO) && codIncluirTO == 1) {
-            objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+            objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
@@ -1565,30 +1568,30 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         // TODO add your handling code here:
         buscarAcessoUsuario(telaFreqCapacitacaoInternoIntTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoIntTO) && codExcluirTO == 1) {
-            objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+            objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
             } else {
                 statusMov = "Excluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
-                objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+                objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
                 if (jStatusRegistro.getText().equals("FINALIZADO")) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluido, o mesmo encontra-se FINALIZADO");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
-                        objFreqCap.setIdItemFreqCap(codigoItem);
-//                        control.excluirInternoFrequenciaCapacitacao(objFreqCap);
+                        objCapacitaInt.setIdItemFreqCap(codigoItem);
+                        control.excluirInternoFrequenciaCapacitacao(objCapacitaInt);
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=CAPACITACAO_INTERNO_TO.IdFreqCap "
-                                + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
+                                + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
+                                + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIdRegistro.getText() + "'");
                         limparCamposInternos();
                         bloquearCampos();
                         bloquearBotoes();
@@ -1606,7 +1609,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         // TODO add your handling code here:
         buscarAcessoUsuario(telaFreqCapacitacaoInternoIntTO);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoIntTO) && codAlterarTO == 1) {
-            objFreqCap.setStatusRegistro(jStatusRegistro.getText());
+            objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
@@ -1647,24 +1650,24 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             } else {
                 DecimalFormat valorReal = new DecimalFormat("###,##00.0");
                 valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-                objFreqCap.setIdInterno(Integer.valueOf(jIdInternoCrc.getText()));
-                objFreqCap.setNomeInterno(jNomeInternoCrc.getText());
-                objFreqCap.setDataEntrada(jDataEntrada.getDate());
-                objFreqCap.setHorariaEntrada(jHorarioEntrada.getText());
-                objFreqCap.setHorarioSaida(jHorarioSaida.getText());
-                objFreqCap.setFrequencia((String) jComboBoxConfFrequencia.getSelectedItem());
-                objFreqCap.setIdFreqCap(Integer.valueOf(jIdRegistro.getText()));
+                objCapacitaInt.setIdInterno(Integer.valueOf(jIdInternoCrc.getText()));
+                objCapacitaInt.setNomeInterno(jNomeInternoCrc.getText());
+                objCapacitaInt.setDataEntrada(jDataEntrada.getDate());
+                objCapacitaInt.setHorariaEntrada(jHorarioEntrada.getText());
+                objCapacitaInt.setHorarioSaida(jHorarioSaida.getText());
+                objCapacitaInt.setFrequencia((String) jComboBoxConfFrequencia.getSelectedItem());
+                objCapacitaInt.setIdFAC(Integer.valueOf(jIdRegistro.getText()));
                 try {
-                    objFreqCap.setNotaAvaliacao(valorReal.parse(jNotaAvaliacao.getText()).floatValue());
+                    objCapacitaInt.setNotaAvaliacao(valorReal.parse(jNotaAvaliacao.getText()).floatValue());
                 } catch (ParseException ex) {
-                    Logger.getLogger(TelaCapacitacaoInternoTO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaControleFrequenciaCursosAC_PEDAGOGIA.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (acao == 3) {
-                    objFreqCap.setUsuarioInsert(nameUser);
-                    objFreqCap.setDataInsert(dataModFinal);
-                    objFreqCap.setHorarioInsert(horaMov);
+                    objCapacitaInt.setUsuarioInsert(nameUser);
+                    objCapacitaInt.setDataInsert(dataModFinal);
+                    objCapacitaInt.setHorarioInsert(horaMov);
                     //
-//                    control.incluirInternoFrequenciaCapacitacao(objFreqCap);
+                    control.incluirInternoFrequenciaCapacitacao(objCapacitaInt);
                     buscarCampoRegistroInterno();
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1672,8 +1675,8 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
-                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
+                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIdRegistro.getText() + "'");
                     limparCamposInternos();
                     bloquearCampos();
                     bloquearBotoes();
@@ -1681,20 +1684,20 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
                 }
                 if (acao == 4) {
-                    objFreqCap.setUsuarioUp(nameUser);
-                    objFreqCap.setDataUp(dataModFinal);
-                    objFreqCap.setHorarioUp(horaMov);
+                    objCapacitaInt.setUsuarioUp(nameUser);
+                    objCapacitaInt.setDataUp(dataModFinal);
+                    objCapacitaInt.setHorarioUp(horaMov);
                     //
-                    objFreqCap.setIdItemFreqCap(codigoItem);
-//                    control.alterarInternoFrequenciaCapacitacao(objFreqCap);
+                    objCapacitaInt.setIdItemFreqCap(codigoItem);
+                    control.alterarInternoFrequenciaCapacitacao(objCapacitaInt);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherItensInternos("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap "
-                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "'");
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
+                            + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIdRegistro.getText() + "'");
                     limparCamposInternos();
                     bloquearCampos();
                     bloquearBotoes();
@@ -1730,11 +1733,11 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap='" + jIdRegistro.getText() + "' "
+                        + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIdRegistro.getText() + "' "
                         + "AND PRONTUARIOSCRC.NomeInternoCrc='" + jNomeInternoCrc.getText() + "' "
-                        + "AND IdItemFreqCap='" + idItem + "'");
+                        + "AND IdItemFAC='" + idItem + "'");
                 conecta.rs.first();
-                codigoItem = conecta.rs.getInt("IdItemFreqCap");
+                codigoItem = conecta.rs.getInt("IdItemFAC");
                 jIdInternoCrc.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoCrc.setText(conecta.rs.getString("NomeInternoCrc"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
@@ -1764,7 +1767,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
-                        + "WHERE IdFreqCap='" + jIdRegistro.getText() + "'");
+                        + "WHERE IdFAC='" + jIdRegistro.getText() + "'");
                 HashMap parametros = new HashMap();
                 parametros.put("codFrequencia", jIdRegistro.getText());
                 parametros.put("descricaoUnidade", descricaoUnidade);
@@ -1804,7 +1807,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             Professores professores = (Professores) jComboBoxProfessor.getSelectedItem();
             professores.getIdProf();
             professores.getNomeProfessor();
-//            objAtivi.setIdProf(professores.getIdProf());
+            objCapacitaInt.setIdProf(professores.getIdProf());
         }
     }//GEN-LAST:event_jComboBoxProfessorItemStateChanged
 
@@ -1903,6 +1906,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setBackground(Color.white);
         jDescricaoCurso.setBackground(Color.white);
         jLocalRealizacao.setBackground(Color.white);
+        jComboBoxProfessor.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
         //
         jIdInternoCrc.setBackground(Color.white);
@@ -1920,6 +1924,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setEnabled(!true);
         jDescricaoCurso.setEnabled(!true);
         jLocalRealizacao.setEnabled(!true);
+        jComboBoxProfessor.setEnabled(!true);
         jObservacao.setEnabled(!true);
         //
         jIdInternoCrc.setEnabled(!true);
@@ -1957,6 +1962,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setDate(null);
         jDescricaoCurso.setText("");
         jLocalRealizacao.setText("");
+        jComboBoxProfessor.setSelectedItem(null);
         jObservacao.setText("");
         //
         jIdInternoCrc.setText("");
@@ -1984,6 +1990,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setCalendar(Calendar.getInstance());
         jDataRegistro.setEnabled(true);
         jLocalRealizacao.setEnabled(true);
+        jComboBoxProfessor.setEnabled(true);
         jObservacao.setEnabled(true);
         //
         jBtPesquisarCurso.setEnabled(true);
@@ -2052,7 +2059,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "WHERE IdFreqCap='" + jIdRegistro.getText() + "'");
+                    + "WHERE IdFAC='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             codigoRegistro = conecta.rs.getString("IdFreqCap");
         } catch (Exception e) {
@@ -2065,7 +2072,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "WHERE IdFreqCap='" + jIdRegistro.getText() + "' "
+                    + "WHERE IdFAC='" + jIdRegistro.getText() + "' "
                     + "AND SituacaoCurso='" + pSituacaoInterno + "'");
             conecta.rs.first();
             codigoRegistro = conecta.rs.getString("IdFreqCap");
@@ -2147,7 +2154,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         try {
             conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA");
             conecta.rs.last();
-            codigoItem = conecta.rs.getInt("IdItemFreqCap");
+            codigoItem = conecta.rs.getInt("IdItemFAC");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -2376,6 +2383,21 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         objLogSys.setIdLancMov(Integer.valueOf(codigoItem));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
+    }
+
+    public void preencherComboProfessor() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PROFESSORES ORDER BY NomeProfessor");
+            conecta.rs.first();
+            do {
+                jComboBoxProfessor.addItem(conecta.rs.getString("NomeProfessor"));
+            } while (conecta.rs.next());
+            jComboBoxProfessor.updateUI();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
+        }
+        conecta.desconecta();
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {

@@ -7,8 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaControleFrequenciaCursosOficina.codigoCurso;
-import static gestor.Visao.TelaControleFrequenciaCursosOficina.jDescricaoCurso;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.codigoCurso;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jDescricaoCurso;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

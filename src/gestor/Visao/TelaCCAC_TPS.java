@@ -2987,6 +2987,12 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
     }
 
     public void NovoInterno() {
+        jDataInicio.setEnabled(true);
+        jDataConclusao.setEnabled(true);
+        jComboBoxSituacaoCurso.setEnabled(true);
+        jNotaAvaliacao.setEnabled(true);
+        
+        
         jObservacaoInterno.setEnabled(true);
         if (diaDom == 1) {
             jDomingoVisita.setSelected(true);
