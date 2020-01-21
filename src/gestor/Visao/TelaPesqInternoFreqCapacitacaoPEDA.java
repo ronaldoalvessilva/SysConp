@@ -8,13 +8,11 @@ package gestor.Visao;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaControleFrequenciaCursosOficina.jFotoInterno;
-import static gestor.Visao.TelaControleFrequenciaCursosOficina.jIdInternoCrc;
-import static gestor.Visao.TelaControleFrequenciaCursosOficina.jNomeInternoCrc;
-import java.awt.Image;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCodigoCCAC;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jIdInternoCrc;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jNomeInternoCrc;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -263,12 +261,14 @@ public class TelaPesqInternoFreqCapacitacaoPEDA extends javax.swing.JInternalFra
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "INNER JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                    + "INNER JOIN ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' "
                     + "OR NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%' "
-                    + "AND SituacaoCrc='" + situacaoRet + "'");
+                    + "AND SituacaoCrc='" + situacaoRet + "' "
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' ");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -290,12 +290,14 @@ public class TelaPesqInternoFreqCapacitacaoPEDA extends javax.swing.JInternalFra
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "INNER JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                    + "INNER JOIN ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc "
                     + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%' "
                     + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' "
                     + "OR MatriculaCrc LIKE'" + jPesqMatricula.getText() + "' "
-                    + "AND SituacaoCrc='" + situacaoRet + "'");
+                    + "AND SituacaoCrc='" + situacaoRet + "' "
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' ");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -324,26 +326,11 @@ public class TelaPesqInternoFreqCapacitacaoPEDA extends javax.swing.JInternalFra
                 conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%' "
+                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInternoCrc.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoCrc.setText(conecta.rs.getString("NomeInternoCrc"));
-                caminho = conecta.rs.getString("FotoInternoCrc");
-                if (caminho != null || !caminho.equals("")) {
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInterno.setIcon(i);
-                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-                }
-                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
-                if (imgBytes != null) {
-                    ImageIcon pic = null;
-                    pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT);
-                    ImageIcon icon = new ImageIcon(scaled);
-                    jFotoInterno.setIcon(icon);
-                }
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
@@ -367,10 +354,12 @@ public class TelaPesqInternoFreqCapacitacaoPEDA extends javax.swing.JInternalFra
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "INNER JOIN ITENS_CAPACITACAO_INTERNO_TO "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_CAPACITACAO_INTERNO_TO.IdInternoCrc "
+                    + "INNER JOIN ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc "
                     + "WHERE SituacaoCrc='" + situacao + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "'");
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
+                    + "AND IdAC='" + jCodigoCCAC.getText() + "' ");
         } else {
             limparTabela();
         }

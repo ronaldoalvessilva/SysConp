@@ -250,7 +250,7 @@ public class TelaAuditoriaParticipantes extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             conecta.executaSQL("SELECT * FROM ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "WHERE IdItem='" + idItem + "'");
+                    + "WHERE IdItemAC='" + idItem + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));

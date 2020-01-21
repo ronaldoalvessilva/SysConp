@@ -16,6 +16,7 @@ public class FrequenciaAtividadesComplementaresPedagogia {
     private int idFAC;
     private String statusFAC;
     private Date dataFAC;
+    private int idAC;
     private int idCurso;
     private String descricaoCurso;
     private int idProf;
@@ -51,10 +52,11 @@ public class FrequenciaAtividadesComplementaresPedagogia {
     public FrequenciaAtividadesComplementaresPedagogia() {
     }
 
-    public FrequenciaAtividadesComplementaresPedagogia(int idFAC, String statusFAC, Date dataFAC, int idCurso, String descricaoCurso, int idProf, String nomeProfessora, String localCurso, String cargaHoraria, String turnoAtividade, int idItemFreqCap, Float NotaAvalia, int idInterno, String nomeInterno, Date dataEntrada, Date dataSaida, String horariaEntrada, String horarioSaida, float notaAvaliacao, String frequencia, int dia2, int dia3, int dia4, int dia5, int dia6, int dia7, int dia8, String observacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public FrequenciaAtividadesComplementaresPedagogia(int idFAC, String statusFAC, Date dataFAC, int idAC, int idCurso, String descricaoCurso, int idProf, String nomeProfessora, String localCurso, String cargaHoraria, String turnoAtividade, int idItemFreqCap, Float NotaAvalia, int idInterno, String nomeInterno, Date dataEntrada, Date dataSaida, String horariaEntrada, String horarioSaida, float notaAvaliacao, String frequencia, int dia2, int dia3, int dia4, int dia5, int dia6, int dia7, int dia8, String observacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idFAC = idFAC;
         this.statusFAC = statusFAC;
         this.dataFAC = dataFAC;
+        this.idAC = idAC;
         this.idCurso = idCurso;
         this.descricaoCurso = descricaoCurso;
         this.idProf = idProf;
@@ -128,6 +130,20 @@ public class FrequenciaAtividadesComplementaresPedagogia {
      */
     public void setDataFAC(Date dataFAC) {
         this.dataFAC = dataFAC;
+    }
+
+    /**
+     * @return the idAC
+     */
+    public int getIdAC() {
+        return idAC;
+    }
+
+    /**
+     * @param idAC the idAC to set
+     */
+    public void setIdAC(int idAC) {
+        this.idAC = idAC;
     }
 
     /**

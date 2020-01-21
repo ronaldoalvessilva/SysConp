@@ -7,7 +7,17 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.pCODIGO_PROFESSOR_FRE;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jComboBoxProfessor;
 import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.codigoCurso;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxDom;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxQua;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxQui;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxSab;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxSeg;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxSex;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCheckBoxTer;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jCodigoCCAC;
 import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jDescricaoCurso;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +36,15 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
     int flag;
     String statusCarga = "Ativo";
     String descricaoCargaHoraria;
+    // DIAS E HORARIOS DA SEMANA PARA SAIDA DOS INTERNOS
+    int DiaSeg;
+    int DiaTer;
+    int DiaQua;
+    int DiaQui;
+    int DiaSex;
+    int DiaSab;
+    int DiaDom;
+    String dataCadastro;
 
     /**
      * Creates new form TelaPesqInstituicaoMat
@@ -119,7 +138,7 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
 
             },
             new String [] {
-                "Código", "Descrição da Curso"
+                "Código At.", "Data At.", "Código", "Descrição da Curso"
             }
         ));
         jTabelaCursosTO.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -131,8 +150,12 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         if (jTabelaCursosTO.getColumnModel().getColumnCount() > 0) {
             jTabelaCursosTO.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaCursosTO.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaCursosTO.getColumnModel().getColumn(1).setMinWidth(400);
-            jTabelaCursosTO.getColumnModel().getColumn(1).setMaxWidth(400);
+            jTabelaCursosTO.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaCursosTO.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaCursosTO.getColumnModel().getColumn(2).setMinWidth(70);
+            jTabelaCursosTO.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTabelaCursosTO.getColumnModel().getColumn(3).setMinWidth(400);
+            jTabelaCursosTO.getColumnModel().getColumn(3).setMaxWidth(400);
         }
 
         jBtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -212,14 +235,63 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
             JOptionPane.showMessageDialog(rootPane, "Selecione o nome do interno e clique no botão ENVIAR");
         } else {
             conecta.abrirConexao();
+            jComboBoxProfessor.removeAllItems();
             try {
-                conecta.executaSQL("SELECT * FROM CAPACITACAO_INTERNO_TO "
+                conecta.executaSQL("SELECT * FROM ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
-                        + "ON CAPACITACAO_INTERNO_TO.IdCurso=CURSOS.IdCurso "
+                        + "ON ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso=CURSOS.IdCurso "
+                        + "INNER JOIN PROFESSORES "
+                        + "ON ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdProf=PROFESSORES.IdProf "
                         + "WHERE DescricaoCurso='" + descricaoCargaHoraria + "'");
                 conecta.rs.first();
                 codigoCurso = conecta.rs.getInt("IdCurso");
                 jDescricaoCurso.setText(conecta.rs.getString("DescricaoCurso"));
+                pCODIGO_PROFESSOR_FRE = conecta.rs.getInt("IdProf");
+                jComboBoxProfessor.addItem(conecta.rs.getString("NomeProfessor"));
+                jCodigoCCAC.setText(conecta.rs.getString("IdAC"));
+                //
+                DiaSeg = conecta.rs.getInt("Dia2");
+                if (DiaSeg == 1) {
+                    jCheckBoxSeg.setSelected(true);
+                } else if (DiaSeg == 0) {
+                    jCheckBoxSeg.setSelected(!true);
+                }
+                DiaTer = conecta.rs.getInt("Dia3");
+                if (DiaTer == 1) {
+                    jCheckBoxTer.setSelected(true);
+                } else if (DiaTer == 0) {
+                    jCheckBoxTer.setSelected(!true);
+                }
+                DiaQua = conecta.rs.getInt("Dia4");
+                if (DiaQua == 1) {
+                    jCheckBoxQua.setSelected(true);
+                } else if (DiaQua == 0) {
+                    jCheckBoxQua.setSelected(!true);
+                }
+                DiaQui = conecta.rs.getInt("Dia5");
+                if (DiaQui == 1) {
+                    jCheckBoxQui.setSelected(true);
+                } else if (DiaQui == 0) {
+                    jCheckBoxQui.setSelected(!true);
+                }
+                DiaSex = conecta.rs.getInt("Dia6");
+                if (DiaSex == 1) {
+                    jCheckBoxSex.setSelected(true);
+                } else if (DiaSex == 0) {
+                    jCheckBoxSex.setSelected(!true);
+                }
+                DiaSab = conecta.rs.getInt("Dia7");
+                if (DiaSab == 1) {
+                    jCheckBoxSab.setSelected(true);
+                } else if (DiaSab == 0) {
+                    jCheckBoxSab.setSelected(!true);
+                }
+                DiaDom = conecta.rs.getInt("Dia8");
+                if (DiaDom == 1) {
+                    jCheckBoxDom.setSelected(true);
+                } else if (DiaDom == 0) {
+                    jCheckBoxDom.setSelected(!true);
+                }
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa CURSO." + e);
@@ -238,9 +310,9 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         if (jPesqNomeInstituicao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome para pesquisa.");
         } else {
-            preencherTabelaInstituicao("SELECT * FROM CAPACITACAO_INTERNO_TO "
+            preencherTabelaInstituicao("SELECT * FROM ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "INNER JOIN CURSOS "
-                    + "ON CAPACITACAO_INTERNO_TO.IdCurso=CURSOS.IdCurso "
+                    + "ON ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso=CURSOS.IdCurso "
                     + "WHERE DescricaoCurso LIKE'%" + jPesqNomeInstituicao.getText() + "%' "
                     + "AND StatusCurso='" + statusCarga + "'");
         }
@@ -250,9 +322,9 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInstituicao("SELECT * FROM CAPACITACAO_INTERNO_TO "
+            this.preencherTabelaInstituicao("SELECT * FROM ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "INNER JOIN CURSOS "
-                    + "ON CAPACITACAO_INTERNO_TO.IdCurso=CURSOS.IdCurso "
+                    + "ON ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso=CURSOS.IdCurso "
                     + "WHERE StatusCurso='" + statusCarga + "'");
         } else {
             limpatTabela();
@@ -263,7 +335,7 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            descricaoCargaHoraria = "" + jTabelaCursosTO.getValueAt(jTabelaCursosTO.getSelectedRow(), 1);
+            descricaoCargaHoraria = "" + jTabelaCursosTO.getValueAt(jTabelaCursosTO.getSelectedRow(), 3);
             jPesqNomeInstituicao.setText(descricaoCargaHoraria);
             String idInst = "" + jTabelaCursosTO.getValueAt(jTabelaCursosTO.getSelectedRow(), 0);
         }
@@ -286,13 +358,19 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
 
     public void preencherTabelaInstituicao(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Curso"};
+        String[] Colunas = new String[]{"Código At.", "Data At.", "Código", "Descrição do Curso"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdCurso"), conecta.rs.getString("DescricaoCurso")});
+                // Fortmatar data de Cadastro          
+                dataCadastro = conecta.rs.getString("DataAC");
+                String day = dataCadastro.substring(8, 10);
+                String mesc = dataCadastro.substring(5, 7);
+                String anoc = dataCadastro.substring(0, 4);
+                dataCadastro = day + "/" + mesc + "/" + anoc;
+                dados.add(new Object[]{conecta.rs.getInt("IdAC"), dataCadastro, conecta.rs.getInt("IdCurso"), conecta.rs.getString("DescricaoCurso")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -301,8 +379,12 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         jTabelaCursosTO.setModel(modelo);
         jTabelaCursosTO.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaCursosTO.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCursosTO.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTabelaCursosTO.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaCursosTO.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaCursosTO.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaCursosTO.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaCursosTO.getColumnModel().getColumn(3).setPreferredWidth(400);
+        jTabelaCursosTO.getColumnModel().getColumn(3).setResizable(false);
         jTabelaCursosTO.getTableHeader().setReorderingAllowed(false);
         jTabelaCursosTO.setAutoResizeMode(jTabelaCursosTO.AUTO_RESIZE_OFF);
         jTabelaCursosTO.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -312,13 +394,17 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
 
     public void limpatTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Descrição do Curso"};
+        String[] Colunas = new String[]{"Código At.", "Data At.", "Código", "Descrição do Curso"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaCursosTO.setModel(modelo);
         jTabelaCursosTO.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaCursosTO.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaCursosTO.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTabelaCursosTO.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaCursosTO.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaCursosTO.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaCursosTO.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaCursosTO.getColumnModel().getColumn(3).setPreferredWidth(400);
+        jTabelaCursosTO.getColumnModel().getColumn(3).setResizable(false);
         jTabelaCursosTO.getTableHeader().setReorderingAllowed(false);
         jTabelaCursosTO.setAutoResizeMode(jTabelaCursosTO.AUTO_RESIZE_OFF);
         jTabelaCursosTO.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -332,5 +418,7 @@ public class TelaPesqCursosFreqCapacitacao_PEDA extends javax.swing.JInternalFra
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaCursosTO.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaCursosTO.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaCursosTO.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }

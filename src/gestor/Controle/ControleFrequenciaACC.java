@@ -21,18 +21,20 @@ public class ControleFrequenciaACC {
     FrequenciaAtividadesComplementaresPedagogia objCapacitaInt = new FrequenciaAtividadesComplementaresPedagogia();
     int codigoCurso;
     int codigoInterno;
+    int pCODIGO_PROFESSOR;
 
     public FrequenciaAtividadesComplementaresPedagogia incluirFrequenciaACC(FrequenciaAtividadesComplementaresPedagogia objCapacitaInt) {
         buscarCurso(objCapacitaInt.getDescricaoCurso());
+        buscarProfessor(objCapacitaInt.getNomeProfessora(), objCapacitaInt.getIdProf());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA (DataFAC,StatusFAC,IdCurso,IdProf,CargaHoraria,TurnoAtividade,Dia2,Dia3,Dia4,Dia5,Dia6,Dia7,Dia8,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA (DataFAC,StatusFAC,IdCurso,IdProf,LocalEvento,IdCCAC,Dia2,Dia3,Dia4,Dia5,Dia6,Dia7,Dia8,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objCapacitaInt.getDataFAC().getTime()));
             pst.setString(2, objCapacitaInt.getStatusFAC());
             pst.setInt(3, codigoCurso);
-            pst.setInt(4, objCapacitaInt.getIdProf());
-            pst.setString(5, objCapacitaInt.getCargaHoraria());
-            pst.setString(6, objCapacitaInt.getTurnoAtividade());
+            pst.setInt(4, pCODIGO_PROFESSOR);
+            pst.setString(5, objCapacitaInt.getLocalCurso());
+            pst.setInt(6, objCapacitaInt.getIdAC());
             pst.setInt(7, objCapacitaInt.getDia2());
             pst.setInt(8, objCapacitaInt.getDia3());
             pst.setInt(9, objCapacitaInt.getDia4());
@@ -54,15 +56,16 @@ public class ControleFrequenciaACC {
 
     public FrequenciaAtividadesComplementaresPedagogia alterarFrequenciaACC(FrequenciaAtividadesComplementaresPedagogia objCapacitaInt) {
         buscarCurso(objCapacitaInt.getDescricaoCurso());
+        buscarProfessor(objCapacitaInt.getNomeProfessora(), objCapacitaInt.getIdProf());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET DataFAC=?,StatusFAC=?,IdCurso=?,IdProf=?,CargaHoraria=?,TurnoAtividade=?,Dia2=?,Dia3=?,Dia4=?,Dia5=?,Dia6=?,Dia7=?,Dia8=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdFAC='" + objCapacitaInt.getIdFAC() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET DataFAC=?,StatusFAC=?,IdCurso=?,IdProf=?,LocalEvento=?,IdCCAC=?,Dia2=?,Dia3=?,Dia4=?,Dia5=?,Dia6=?,Dia7=?,Dia8=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdFAC='" + objCapacitaInt.getIdFAC() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objCapacitaInt.getDataFAC().getTime()));
             pst.setString(2, objCapacitaInt.getStatusFAC());
             pst.setInt(3, codigoCurso);
-            pst.setInt(4, objCapacitaInt.getIdProf());
-            pst.setString(5, objCapacitaInt.getCargaHoraria());
-            pst.setString(6, objCapacitaInt.getTurnoAtividade());
+            pst.setInt(4, pCODIGO_PROFESSOR);
+            pst.setString(5, objCapacitaInt.getLocalCurso());
+            pst.setInt(6, objCapacitaInt.getIdAC());
             pst.setInt(7, objCapacitaInt.getDia2());
             pst.setInt(8, objCapacitaInt.getDia3());
             pst.setInt(9, objCapacitaInt.getDia4());
@@ -141,7 +144,7 @@ public class ControleFrequenciaACC {
         buscarInterno(objCapacitaInt.getNomeInterno(), objCapacitaInt.getIdInterno());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET IdInternoCrc=?,IdFreqCap=?,DataEntrada=?,HoraEntrada=?,HoraSaida=?,NotaAvalia=?,Frequencia=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemFAC='" + objCapacitaInt.getIdItemFreqCap()+ "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA SET IdInternoCrc=?,IdFAC=?,DataEntrada=?,HoraEntrada=?,HoraSaida=?,NotaAvalia=?,Frequencia=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemFAC='" + objCapacitaInt.getIdItemFreqCap() + "'");
             pst.setInt(1, codigoInterno);
             pst.setInt(2, objCapacitaInt.getIdFAC());
             if (objCapacitaInt.getDataEntrada() != null) {
@@ -202,5 +205,18 @@ public class ControleFrequenciaACC {
         }
         conecta.desconecta();
     }
-    
+
+    public void buscarProfessor(String nomeProf, int codigoProf) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PROFESSORES "
+                    + "WHERE NomeProfessor='" + nomeProf + "' "
+                    + "AND IdProf='" + codigoProf + "'");
+            conecta.rs.first();
+            pCODIGO_PROFESSOR = conecta.rs.getInt("IdProf");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não existe dados (PROFESSOR) a ser exibido !!!" + e);
+        }
+        conecta.desconecta();
+    }
 }

@@ -2222,7 +2222,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 objItens.setNomeInterno(jNomeInternoAC.getText());
                 objItens.setDataInicial(jDataInicio.getDate());
                 objItens.setDataConclusao(jDataConclusao.getDate());
-                objItens.setSituacaoCurso((String)jComboBoxSituacaoCurso.getSelectedItem());
+                objItens.setSituacaoCurso((String) jComboBoxSituacaoCurso.getSelectedItem());
                 objItens.setObservacao(jObservacaoInterno.getText());
                 objItens.setAvaliacao(jNotaAvaliacao.getText());
                 // DIAS DA SEMANA
@@ -2298,6 +2298,7 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                             + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                             + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
                             + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
+                    limparCamposAba2();
                     bloquearBotoes();
                     bloquearCampos();
                     bloquearCamposAba2();
@@ -2319,9 +2320,10 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                             + "INNER JOIN ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                             + "ON ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC=ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC "
                             + "WHERE ITENS_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdAC='" + jIdLanc.getText() + "'");
+                    limparCamposAba2();
                     bloquearBotoes();
                     bloquearCampos();
-                    bloquearCamposAba2();
+                    bloquearCamposAba2();                    
                     SalvarInterno();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -2333,6 +2335,9 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
         // TODO add your handling code here:
+        limparCamposAba2();
+        bloquearCamposAba2();
+        bloquearBotoes();        
         CancelarInterno();
     }//GEN-LAST:event_jBtCancelarInternoActionPerformed
 
@@ -2413,7 +2418,12 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
                 jIdInternoAC.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoAC.setText(conecta.rs.getString("NomeInternoCrc"));
                 idItem = conecta.rs.getString("IdItemAC");
+                jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegime.setText(conecta.rs.getString("Regime"));
+                jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
+                jDataConclusao.setDate(conecta.rs.getDate("DataConclusao"));
+                jComboBoxSituacaoCurso.setSelectedItem(conecta.rs.getString("Situacao"));
+                jNotaAvaliacao.setText(conecta.rs.getString("Avalicao"));
                 jObservacaoInterno.setText(conecta.rs.getString("Observacao"));
                 //
                 DiaSeg1 = conecta.rs.getInt("DiaSeg");
@@ -2706,6 +2716,10 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jCNC.setBackground(Color.white);
         jRegime.setBackground(Color.white);
         jNomeInternoAC.setBackground(Color.white);
+        jDataInicio.setBackground(Color.white);
+        jDataConclusao.setBackground(Color.white);
+        jComboBoxSituacaoCurso.setBackground(Color.white);
+        jNotaAvaliacao.setBackground(Color.white);
         jObservacaoInterno.setBackground(Color.white);
         //
         jSegundaVisita.setBackground(Color.white);
@@ -2791,6 +2805,10 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jIdInternoAC.setEnabled(!true);
         jCNC.setEnabled(!true);
         jNomeInternoAC.setEnabled(!true);
+        jDataInicio.setEnabled(!true);
+        jDataConclusao.setEnabled(!true);
+        jComboBoxSituacaoCurso.setEnabled(!true);
+        jNotaAvaliacao.setEnabled(!true);
         jObservacaoInterno.setEnabled(!true);
         //
         jSegundaVisita.setEnabled(!true);
@@ -2866,7 +2884,35 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jCNC.setText("");
         jRegime.setText("");
         jNomeInternoAC.setText("");
+        jDataInicio.setDate(null);
+        jDataConclusao.setDate(null);
+        jComboBoxSituacaoCurso.setSelectedItem("Selecione...");
+        jNotaAvaliacao.setText("");
         jObservacaoInterno.setText("");
+        //
+        jSegundaVisita.setSelected(!true);
+        jTercaVisita.setSelected(!true);
+        jQuartaVisita.setSelected(!true);
+        jQuintaVisita.setSelected(!true);
+        jSextaVisita.setSelected(!true);
+        jSabadoVisita.setSelected(!true);
+        jDomingoVisita.setSelected(!true);
+        // HORARIO DE SAIDA
+        jHoraSeg.setText("00:00");
+        jHoraTer.setText("00:00");
+        jHoraQua.setText("00:00");
+        jHoraQui.setText("00:00");
+        jHoraSex.setText("00:00");
+        jHoraSab.setText("00:00");
+        jHoraDom.setText("00:00");
+        // HORARIO DE ENTRADA
+        jHoraSegEnt.setText("00:00");
+        jHoraTerEnt.setText("00:00");
+        jHoraQuaEnt.setText("00:00");
+        jHoraQuiEnt.setText("00:00");
+        jHoraSexEnt.setText("00:00");
+        jHoraSabEnt.setText("00:00");
+        jHoraDomEnt.setText("00:00");
     }
 
     public void habilitarCamposAba1() {
@@ -2991,8 +3037,6 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
         jDataConclusao.setEnabled(true);
         jComboBoxSituacaoCurso.setEnabled(true);
         jNotaAvaliacao.setEnabled(true);
-        
-        
         jObservacaoInterno.setEnabled(true);
         if (diaDom == 1) {
             jDomingoVisita.setSelected(true);
@@ -3224,6 +3268,10 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             // HORARIO DE ENTRADA
             jHoraSabEnt.setEnabled(!true);
         }
+        jDataInicio.setEnabled(true);
+        jDataConclusao.setEnabled(true);
+        jComboBoxSituacaoCurso.setEnabled(true);
+        jNotaAvaliacao.setEnabled(true);
         jObservacaoInterno.setEnabled(true);
         jBtPesquisaInterno.setEnabled(true);
         jBtSalvarInterno.setEnabled(true);
@@ -3252,6 +3300,12 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
 
     public void CancelarInterno() {
         jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void verificarDiasAulasExternas() {
@@ -3260,13 +3314,14 @@ public class TelaCCAC_TPS extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                     + "WHERE IdAC='" + jIdLanc.getText() + "'");
             conecta.rs.first();
-            diaDom = conecta.rs.getInt("Dia2");
-            diaSeg = conecta.rs.getInt("Dia3");
-            diaTer = conecta.rs.getInt("Dia4");
-            diaQua = conecta.rs.getInt("Dia5");
-            diaQui = conecta.rs.getInt("Dia6");
-            diaSex = conecta.rs.getInt("Dia7");
-            diaSab = conecta.rs.getInt("Dia8");
+
+            diaSeg = conecta.rs.getInt("Dia2");
+            diaTer = conecta.rs.getInt("Dia3");
+            diaQua = conecta.rs.getInt("Dia4");
+            diaQui = conecta.rs.getInt("Dia5");
+            diaSex = conecta.rs.getInt("Dia6");
+            diaSab = conecta.rs.getInt("Dia7");
+            diaDom = conecta.rs.getInt("Dia8");
         } catch (Exception e) {
         }
         conecta.desconecta();

@@ -117,6 +117,16 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public static int DiaSex;
     public static int DiaSab;
     public static int DiaDom;
+    //
+    public static int pCODIGO_PROFESSOR_FRE = 0;
+    //
+    int DiaSeg1;
+    int DiaTer1;
+    int DiaQua1;
+    int DiaQui1;
+    int DiaSex1;
+    int DiaSab1;
+    int DiaDom1;
 
     /**
      * Creates new form TelaControleFrequenciaCursosOficina
@@ -183,6 +193,8 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jCheckBoxDom = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         jComboBoxProfessor = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jCodigoCCAC = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
@@ -425,7 +437,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 388, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -435,7 +447,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -589,13 +601,19 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jLabel7.setText("Professor/Instrutor");
 
         jComboBoxProfessor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxProfessor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxProfessor.setEnabled(false);
-        jComboBoxProfessor.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxProfessorItemStateChanged(evt);
-            }
-        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("Código CCAC");
+
+        jCodigoCCAC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jCodigoCCAC.setForeground(new java.awt.Color(204, 0, 0));
+        jCodigoCCAC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoCCAC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoCCAC.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jCodigoCCAC.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -604,15 +622,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLocalRealizacao)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jDescricaoCurso))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesquisarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -630,12 +639,27 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11))
                             .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
                             .addComponent(jLabel7)
-                            .addComponent(jComboBoxProfessor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jComboBoxProfessor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLocalRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCodigoCCAC)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jDescricaoCurso, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtPesquisarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -658,10 +682,14 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     .addComponent(jDescricaoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisarCurso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLocalRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLocalRealizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoCCAC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -670,7 +698,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
@@ -938,6 +966,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeInternoCrc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,7 +990,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                         .addComponent(jNotaAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxConfFrequencia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1140,7 +1169,8 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Participantes", jPanel4);
@@ -1153,7 +1183,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         setBounds(300, 40, 432, 451);
@@ -1164,6 +1194,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         if (flag == 1) {
             String idAtend = "" + jTabelaAtendimentoTerapia.getValueAt(jTabelaAtendimentoTerapia.getSelectedRow(), 0);
             jIDPesqLanc.setText(idAtend);
+            //
+            bloquearCampos();
+            bloquearBotoes();
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -1176,18 +1209,67 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             jBtNovoInterno.setEnabled(true);
             jBtImpressao.setEnabled(true);
             //
+            jComboBoxProfessor.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
+                        + "INNER JOIN PROFESSORES "
+                        + "ON FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdProf=PROFESSORES.IdProf "
                         + "WHERE IdFAC='" + idAtend + "'");
                 conecta.rs.first();
                 jIdRegistro.setText(String.valueOf(conecta.rs.getInt("IdFAC")));
-                jStatusRegistro.setText(conecta.rs.getString("StatusRegistro"));
-                jDataRegistro.setDate(conecta.rs.getDate("DataRegistro"));
+                jStatusRegistro.setText(conecta.rs.getString("StatusFAC"));
+                jDataRegistro.setDate(conecta.rs.getDate("DataFAC"));
                 jDescricaoCurso.setText(conecta.rs.getString("DescricaoCurso"));
-                jLocalRealizacao.setText(conecta.rs.getString("LocalCurso"));
+                jLocalRealizacao.setText(conecta.rs.getString("LocalEvento"));
+                jCodigoCCAC.setText(conecta.rs.getString("IdCCAC"));
+                jComboBoxProfessor.addItem(conecta.rs.getString("NomeProfessor"));
+                //
+                DiaSeg1 = conecta.rs.getInt("Dia2");
+                if (DiaSeg1 == 1) {
+                    jCheckBoxSeg.setSelected(true);
+                } else if (DiaSeg1 == 0) {
+                    jCheckBoxSeg.setSelected(!true);
+                }
+                DiaTer1 = conecta.rs.getInt("Dia3");
+                if (DiaTer1 == 1) {
+                    jCheckBoxTer.setSelected(true);
+                } else if (DiaTer1 == 0) {
+                    jCheckBoxTer.setSelected(!true);
+                }
+                DiaQua1 = conecta.rs.getInt("Dia4");
+                if (DiaQua1 == 1) {
+                    jCheckBoxQua.setSelected(true);
+                } else if (DiaQua1 == 0) {
+                    jCheckBoxQua.setSelected(!true);
+                }
+                DiaQui1 = conecta.rs.getInt("Dia5");
+                if (DiaQui1 == 1) {
+                    jCheckBoxQui.setSelected(true);
+                } else if (DiaQui1 == 0) {
+                    jCheckBoxQui.setSelected(!true);
+                }
+                DiaSex1 = conecta.rs.getInt("Dia6");
+                if (DiaSex1 == 1) {
+                    jCheckBoxSex.setSelected(true);
+                } else if (DiaSex1 == 0) {
+                    jCheckBoxSex.setSelected(!true);
+                }
+                DiaSab1 = conecta.rs.getInt("Dia7");
+                if (DiaSab1 == 1) {
+                    jCheckBoxSab.setSelected(true);
+                } else if (DiaSab1 == 0) {
+                    jCheckBoxSab.setSelected(!true);
+                }
+                DiaDom1 = conecta.rs.getInt("Dia8");
+                if (DiaDom == 1) {
+                    jCheckBoxDom.setSelected(true);
+                } else if (DiaDom1 == 0) {
+                    jCheckBoxDom.setSelected(!true);
+                }
+
                 jObservacao.setText(conecta.rs.getString("Observacao"));
             } catch (Exception e) {
             }
@@ -1349,7 +1431,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             limparCampos();
             limparTabelaInternos();
             Novo();
-            preencherComboProfessor();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1438,6 +1519,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 objCapacitaInt.setIdCurso(codigoCurso);
                 objCapacitaInt.setDescricaoCurso(jDescricaoCurso.getText());
                 objCapacitaInt.setLocalCurso(jLocalRealizacao.getText());
+                objCapacitaInt.setIdProf(Integer.valueOf(pCODIGO_PROFESSOR_FRE));
+                objCapacitaInt.setNomeProfessora((String) jComboBoxProfessor.getSelectedItem());
+                objCapacitaInt.setIdAC(Integer.valueOf(jCodigoCCAC.getText()));
                 //SEGUNDA
                 if (jCheckBoxSeg.isSelected()) {
                     DIA_SEG = 1;
@@ -1675,7 +1759,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFreqCap=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
+                            + "ON ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC "
                             + "WHERE ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdFAC='" + jIdRegistro.getText() + "'");
                     limparCamposInternos();
                     bloquearCampos();
@@ -1793,24 +1877,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
-    private void jComboBoxProfessorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxProfessorItemStateChanged
-        // TODO add your handling code here:
-        jComboBoxProfessor.removeAll();
-        if (evt.getStateChange() == evt.SELECTED && acao == 1 || evt.getStateChange() == evt.SELECTED && acao == 2) {
-            try {
-                for (Professores p : controlDAO_PRF.read()) {
-                    jComboBoxProfessor.addItem(p);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(TelaCCAC_TPS.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Professores professores = (Professores) jComboBoxProfessor.getSelectedItem();
-            professores.getIdProf();
-            professores.getNomeProfessor();
-            objCapacitaInt.setIdProf(professores.getIdProf());
-        }
-    }//GEN-LAST:event_jComboBoxProfessorItemStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
@@ -1842,8 +1908,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public static javax.swing.JCheckBox jCheckBoxSeg;
     public static javax.swing.JCheckBox jCheckBoxSex;
     public static javax.swing.JCheckBox jCheckBoxTer;
+    public static javax.swing.JTextField jCodigoCCAC;
     private javax.swing.JComboBox jComboBoxConfFrequencia;
-    public static javax.swing.JComboBox<Object> jComboBoxProfessor;
+    public static javax.swing.JComboBox<String> jComboBoxProfessor;
     private com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataPesqFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
@@ -1856,6 +1923,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     public static javax.swing.JTextField jIdRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1906,6 +1974,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setBackground(Color.white);
         jDescricaoCurso.setBackground(Color.white);
         jLocalRealizacao.setBackground(Color.white);
+        jCodigoCCAC.setBackground(Color.white);
         jComboBoxProfessor.setBackground(Color.white);
         jObservacao.setBackground(Color.white);
         //
@@ -1962,6 +2031,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setDate(null);
         jDescricaoCurso.setText("");
         jLocalRealizacao.setText("");
+        jCodigoCCAC.setText("");
         jComboBoxProfessor.setSelectedItem(null);
         jObservacao.setText("");
         //
@@ -1990,7 +2060,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jDataRegistro.setCalendar(Calendar.getInstance());
         jDataRegistro.setEnabled(true);
         jLocalRealizacao.setEnabled(true);
-        jComboBoxProfessor.setEnabled(true);
+//        jComboBoxProfessor.setEnabled(true);
         jObservacao.setEnabled(true);
         //
         jBtPesquisarCurso.setEnabled(true);
@@ -2048,7 +2118,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         try {
             conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA");
             conecta.rs.last();
-            jIdRegistro.setText(conecta.rs.getString("IdFreqCap"));
+            jIdRegistro.setText(conecta.rs.getString("IdFAC"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -2171,13 +2241,13 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataRegistro");
+                dataEntrada = conecta.rs.getString("DataFAC");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdFreqCap"), conecta.rs.getString("StatusRegistro"), dataEntrada, conecta.rs.getString("Observacao")});
+                dados.add(new Object[]{conecta.rs.getInt("IdFAC"), conecta.rs.getString("StatusFAC"), dataEntrada, conecta.rs.getString("Observacao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
@@ -2209,13 +2279,13 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
             do {
                 count = count + 1;
                 // Formatar a data Entrada
-                dataEntrada = conecta.rs.getString("DataRegistro");
+                dataEntrada = conecta.rs.getString("DataFAC");
                 String dia = dataEntrada.substring(8, 10);
                 String mes = dataEntrada.substring(5, 7);
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdFreqCap"), conecta.rs.getString("StatusRegistro"), dataEntrada, conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdFAC"), conecta.rs.getString("StatusFAC"), dataEntrada, conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem registros a serem exibidos.");
@@ -2293,7 +2363,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                     DecimalFormat na = new DecimalFormat("#,##0.00");
                     notaAvaliada = na.format(notaAvaliacao);
                 }
-                dados.add(new Object[]{conecta.rs.getInt("IdItemFreqCap"), conecta.rs.getInt("IdFreqCap"), conecta.rs.getString("NomeInternoCrc"), dataInicio, conecta.rs.getString("HoraEntrada"), conecta.rs.getString("HoraSaida"), notaAvaliada, conecta.rs.getString("Frequencia")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemFAC"), conecta.rs.getInt("IdFAC"), conecta.rs.getString("NomeInternoCrc"), dataInicio, conecta.rs.getString("HoraEntrada"), conecta.rs.getString("HoraSaida"), notaAvaliada, conecta.rs.getString("Frequencia")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             //JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -2383,21 +2453,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         objLogSys.setIdLancMov(Integer.valueOf(codigoItem));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
-    }
-
-    public void preencherComboProfessor() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PROFESSORES ORDER BY NomeProfessor");
-            conecta.rs.first();
-            do {
-                jComboBoxProfessor.addItem(conecta.rs.getString("NomeProfessor"));
-            } while (conecta.rs.next());
-            jComboBoxProfessor.updateUI();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
-        }
-        conecta.desconecta();
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
