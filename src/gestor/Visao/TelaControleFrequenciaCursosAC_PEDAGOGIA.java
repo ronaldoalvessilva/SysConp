@@ -72,8 +72,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Professores objProf = new Professores();
     ControleListaProfessores controlDAO_PRF = new ControleListaProfessores();
-//    FrequenciaCapacitacaoInternosPedagogia objFreqCap = new FrequenciaCapacitacaoInternosPedagogia();    
-//    ControleFrequenciaCapacitacaoInternos control = new ControleFrequenciaCapacitacaoInternos();
     //
     FrequenciaAtividadesComplementaresPedagogia objCapacitaInt = new FrequenciaAtividadesComplementaresPedagogia();
     ControleFrequenciaACC control = new ControleFrequenciaACC();
@@ -97,7 +95,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
     Float notaAvaliacao;
     String codigoRegistro = "";
     String notaAvaliada;
-    String pSitaucaoCurso = "";
+    String pSituacaoCurso = "";
     String pSituacaoInterno = "Cursando";
     public static int codigoCurso = 0;
     public static int codigoItem = 0;
@@ -373,55 +371,59 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jIDPesqLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtCodigoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(117, 117, 117)
+                                .addComponent(jCheckBox1))))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jBtPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel22)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jIDPesqLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCodigoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(117, 117, 117)
-                        .addComponent(jCheckBox1)))
+                        .addComponent(jBtPesquisarNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jIDPesqLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCodigoPesquisa)
                     .addComponent(jLabel13)
                     .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel21)
                     .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
                     .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqData))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesquisarNome)
                     .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -447,7 +449,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -839,8 +841,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -950,9 +951,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
                             .addComponent(jNomeInternoCrc))
                         .addContainerGap())))
         );
-
-        jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jHorarioEntrada, jHorarioSaida});
-
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
@@ -1183,7 +1181,9 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         setBounds(300, 40, 432, 451);
@@ -1376,8 +1376,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
-        verificarSitaucaoCurso();
-        if (jIdRegistro.getText().equals(codigoRegistro) && pSitaucaoCurso.equals(pSituacaoInterno)) {
+        if (jIdRegistro.getText().equals(codigoRegistro) && pSituacaoCurso.equals(pSituacaoInterno)) {
             JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser FINALIZADO, existe internos com a situação do curso ainda não concluído.");
         } else {
             objCapacitaInt.setStatusFAC(jStatusRegistro.getText());
@@ -1847,7 +1846,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaFreqCapacitacaoInternoManuTO) && codAbrirTO == 1) {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioFrequenciaCursosTO.jasper";
+                String path = "reports/RelatorioFrequenciaCursos_PEDA.jasper";
                 conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
                         + "INNER JOIN CURSOS "
                         + "ON CURSOS.IdCurso=FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA.IdCurso "
@@ -2137,21 +2136,6 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
         conecta.desconecta();
     }
 
-    public void verificarSitaucaoCurso() {
-
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM ITENS_FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA "
-                    + "WHERE IdFAC='" + jIdRegistro.getText() + "' "
-                    + "AND SituacaoCurso='" + pSituacaoInterno + "'");
-            conecta.rs.first();
-            codigoRegistro = conecta.rs.getString("IdFreqCap");
-            pSitaucaoCurso = conecta.rs.getString("SituacaoCurso");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
     public void NovoInterno() {
         limparCamposInternos();
         jDataEntrada.setCalendar(Calendar.getInstance());
@@ -2195,7 +2179,7 @@ public class TelaControleFrequenciaCursosAC_PEDAGOGIA extends javax.swing.JInter
 
     public void SalvarInterno() {
         //PARAMETRO PARA LIMPAR VARIVAL QUE VERIFICA SE O INTERNO ESTÁ CURSANDO OU NÃO.
-        pSitaucaoCurso = "";
+        pSituacaoCurso = "";
         jBtNovoInterno.setEnabled(true);
         //
         jBtNovo.setEnabled(true);

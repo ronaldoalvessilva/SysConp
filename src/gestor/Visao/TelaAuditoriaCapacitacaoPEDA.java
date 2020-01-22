@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaCapacitacaoInternoTO.jIdRegistro;
+import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jIdRegistro;
 import java.sql.SQLException;
  
 /**
@@ -250,7 +250,7 @@ public class TelaAuditoriaCapacitacaoPEDA extends javax.swing.JInternalFrame {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM CAPACITACAO_INTERNO_TO WHERE IdCap='" + jIdRegistro.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FREQUENCIA_ATIVIDADES_COMPLEMENTARES_PEDAGOGICA WHERE IdFAC='" + jIdRegistro.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
