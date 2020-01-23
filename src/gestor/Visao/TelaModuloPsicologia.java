@@ -98,6 +98,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaTiposTratamentoPsicologico objTipoTrata = null;
+    private TelaAtendimentoGrupoPSI objAtendGrupo = null;
     //
     String dataLanc;
     int codUsuario;
@@ -176,7 +177,10 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaTPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PS:TO";
     public static String telaIndAcompanhaAbaPSIPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PS:Psicologia";
     public static String telaIndAcompanhaAbaSPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PS:Serviço Social";
-    // 
+    //
+    public static String telaIndAtendimentoGrupoPSI_Manu = "Movimentação:Atendimento Internos em Grupo:Mamnutenção";
+    public static String telaIndAtendimentoGrupoPSI_Inte = "Movimentação:Atendimento Internos em Grupo:Internos";
+    //         
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -222,6 +226,9 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    //
+    String pNomeAGM = "";
+    String pNomeAGI = "";
     //
     public static int pQUANTIDADE_ATENDIDA = 1;
 
@@ -269,6 +276,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         AdmissaoPsicologica = new javax.swing.JMenuItem();
         AvaliacaoPsicologica = new javax.swing.JMenuItem();
+        jAtendimentoPsicologicoGrupo = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jAtividadesPsicologicaGrupo = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -452,6 +460,14 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(AvaliacaoPsicologica);
+
+        jAtendimentoPsicologicoGrupo.setText("Atendimento Psicologico em Grupo");
+        jAtendimentoPsicologicoGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAtendimentoPsicologicoGrupoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jAtendimentoPsicologicoGrupo);
         jMenu2.add(jSeparator11);
 
         jAtividadesPsicologicaGrupo.setText("Atividades Psicologicas em Grupo");
@@ -463,7 +479,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jMenu2.add(jAtividadesPsicologicaGrupo);
         jMenu2.add(jSeparator5);
 
-        jPaiNovo.setForeground(new java.awt.Color(0, 0, 255));
         jPaiNovo.setText("P.A.I. - Programa de Assistência Individualizado - NOVO");
         jPaiNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,7 +488,6 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         jMenu2.add(jPaiNovo);
         jMenu2.add(jSeparator4);
 
-        jPerfilCarcerario.setForeground(new java.awt.Color(255, 0, 0));
         jPerfilCarcerario.setText("Perfil da População Carcerária");
         jPerfilCarcerario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1291,6 +1305,40 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTipoTratamentoPsicologicoActionPerformed
 
+    private void jAtendimentoPsicologicoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoPsicologicoGrupoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codAbrirPSI == 1) {
+            if (objAtendGrupo == null || objAtendGrupo.isClosed()) {
+                objAtendGrupo = new TelaAtendimentoGrupoPSI();
+                jPainelPsicologia.add(objAtendGrupo);
+                objAtendGrupo.setVisible(true);
+            } else {
+                if (objAtendGrupo.isVisible()) {
+                    if (objAtendGrupo.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtendGrupo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtendGrupo.toFront(); // traz para frente
+                        objAtendGrupo.pack();//volta frame 
+                    }
+                } else {
+                    objAtendGrupo = new TelaAtendimentoGrupoPSI();
+                    TelaModuloPsicologia.jPainelPsicologia.add(objAtendGrupo);//adicona frame ao JDesktopPane  
+                    objAtendGrupo.setVisible(true);
+                }
+            }
+            try {
+                objAtendGrupo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jAtendimentoPsicologicoGrupoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdmissaoPsicologica;
@@ -1315,6 +1363,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem RelatorioVisitasInternos;
     private javax.swing.JMenu RelatoriosConfere;
     private javax.swing.JMenuItem Sair;
+    private javax.swing.JMenuItem jAtendimentoPsicologicoGrupo;
     private javax.swing.JMenuItem jAtividadesPsicologicaGrupo;
     private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JLabel jLabel1;
@@ -1903,6 +1952,20 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_Manu + "'");
+            conecta.rs.first();
+            pNomeAGM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_Inte + "'");
+            conecta.rs.first();
+            pNomeAGI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //  CADASTRO        
         if (!pNomeRABP.equals(telaRegistroAtendimentoBioPSI) || pNomeRABP == null || pNomeRABP.equals("")) {
             buscarCodigoModulo();
@@ -2117,6 +2180,18 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaSPSI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAGM.equals(telaIndAtendimentoGrupoPSI_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_Manu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAGI.equals(telaIndAtendimentoGrupoPSI_Inte) || pNomeAGI == null || pNomeAGI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_Inte);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

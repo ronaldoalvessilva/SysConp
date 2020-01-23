@@ -159,6 +159,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AvaliacaoPsicologicaActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jAtendimentoPsicologicoGrupo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Atendimento Psicologico em Grupo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtendimentoPsicologicoGrupoActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator11">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jAtividadesPsicologicaGrupo">
@@ -173,9 +181,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jPaiNovo">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="0" red="0" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="P.A.I. - Programa de Assist&#xea;ncia Individualizado - NOVO"/>
               </Properties>
               <Events>
@@ -186,9 +191,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jPerfilCarcerario">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Perfil da Popula&#xe7;&#xe3;o Carcer&#xe1;ria"/>
               </Properties>
               <Events>
