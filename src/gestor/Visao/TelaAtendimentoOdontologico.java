@@ -153,6 +153,8 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
+    // BOTÃO INCLUIR OS PROCEDIMENTOS NA TABELA.
+    int btIncluir = 0;
 
     /**
      * Creates new form TelaAtendimentoOdontologico
@@ -4465,6 +4467,16 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Data não pode ser em branco.");
                 jDataEvolucao.requestFocus();
                 jDataEvolucao.setBackground(Color.red);
+            } else if (jComboBoxTipoProcedimentoEvol.getSelectedItem().equals("Selecione...") && btIncluir == 0) {
+                JOptionPane.showMessageDialog(this, "Selecione o tipo de procedimento");
+            } else if (jComboBoxFacesDenteEvol.getSelectedItem().equals("Selecione...") && btIncluir == 0) {
+                JOptionPane.showMessageDialog(this, "Selecione a face do dente.");
+            } else if (jNumeroDenteEvol.getText().equals("") && btIncluir == 0) {
+                JOptionPane.showMessageDialog(this, "Informe o número do dente.");
+            } else if (jDataOdontogramaEvol.getDate() == null && btIncluir == 0) {
+                JOptionPane.showMessageDialog(this, "Informe a data do procedimento.");
+            } else if (btIncluir == 0) {
+                JOptionPane.showMessageDialog(this, "Inclua o procedimento na tabela.");
             } else {
                 objProcedOdonto.setDataProcedimento(jDataEvolucao.getDate());
                 objProcedOdonto.setProcedimento(jEvolucao.getText());
@@ -4507,7 +4519,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                     objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
-                    if (rows != 0) {
+                    if (rows != 0 && btIncluir == 1) {
                         incluirOdontogramaEvolucao();
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
                         atendido = "Sim";
@@ -4538,6 +4550,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                         objRegAtend.setIdAtend(Integer.valueOf(jIdEvolucao.getText()));
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
+                        btIncluir = 0;
                     } else {
                         qtdTipo = 1;
                         // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
@@ -5397,7 +5410,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxTipoProcedimentoEvolMouseClicked
 
     private void jBtAdicionarEvolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarEvolActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         if (jComboBoxTipoProcedimentoEvol.getSelectedItem().equals("Selecione...") || jComboBoxTipoProcedimentoEvol.getSelectedItem().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Selecione um tipo de procedimento...");
         } else {
@@ -5432,6 +5445,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             jComboBoxFacesDenteEvol.setSelectedItem("Selecione...");
             jPlanoTratamentoEvol.setText("");
             conecta.desconecta();
+            btIncluir = 1;
         }
     }//GEN-LAST:event_jBtAdicionarEvolActionPerformed
 
@@ -7896,7 +7910,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
     }
 
     public void incluirOdontogramaEvolucao() {
-
+        Integer rows0 = jTabelaOdontogramaEvol.getColumnCount();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         // Grava os dados do arrayList na tabela
         for (int i = 0; i < jTabelaOdontogramaEvol.getRowCount(); i++) {
@@ -7920,8 +7934,13 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             }
             objOdonto.getDescricaoProcedimento();
             objOdonto.setDataOdontograma(date);
-            controlOdontograma.incluirOdontoGramaEvolucao(objOdonto);
-            qtdTipo = qtdTipo + 1;
+            if (rows0 == 0) {
+                controlOdontograma.incluirOdontoGramaEvolucao(objOdonto);
+                qtdTipo = qtdTipo + 1;
+            } else if (rows0 != 0) {
+                controlOdontograma.alterarOdontoGramaEvolucao(objOdonto);
+                qtdTipo = qtdTipo + 1;
+            }
         }
     }
 

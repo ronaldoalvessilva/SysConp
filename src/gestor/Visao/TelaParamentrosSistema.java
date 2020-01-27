@@ -259,7 +259,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Evasão", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Evasão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Após quantos dias para considerar interno evadido?");
@@ -267,12 +267,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Após quantas horas para considerar interno evadido?");
 
-        jQtdHorasEvadido.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jQtdHorasEvadido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jQtdHorasEvadido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jQtdHorasEvadido.setEnabled(false);
         jQtdHorasEvadido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jQtdDiasEvadido.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jQtdDiasEvadido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jQtdDiasEvadido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jQtdDiasEvadido.setEnabled(false);
         jQtdDiasEvadido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -305,14 +305,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Parâmetros de Entradas/Retornos - CRC/Portaria", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Parâmetros de Entradas/Retornos - CRC/Portaria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Qual usuário modifica situação na unidade?");
 
         jNomeUsuarioParametros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeUsuarioParametros.setForeground(new java.awt.Color(255, 0, 0));
-        jNomeUsuarioParametros.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeUsuarioParametros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeUsuarioParametros.setEnabled(false);
 
         jBtPesqUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
@@ -348,7 +348,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Parâmetros de Entradas/Retornos - CRC/Portaria", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Parâmetros de Entradas/Retornos - CRC/Portaria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Utilizar Retornos a partir dos Registros da Portaria?");
@@ -356,7 +356,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxRegRetornoPortaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxRegRetornoPortaria.setForeground(new java.awt.Color(204, 0, 0));
         jComboBoxRegRetornoPortaria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
-        jComboBoxRegRetornoPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(1, null, java.awt.Color.white, null, null));
+        jComboBoxRegRetornoPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, java.awt.Color.white, null, null));
         jComboBoxRegRetornoPortaria.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -365,7 +365,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxRegEntadaUnidPortaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxRegEntadaUnidPortaria.setForeground(new java.awt.Color(204, 0, 0));
         jComboBoxRegEntadaUnidPortaria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sim", "Não" }));
-        jComboBoxRegEntadaUnidPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(1, null, java.awt.Color.white, null, null));
+        jComboBoxRegEntadaUnidPortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, java.awt.Color.white, null, null));
         jComboBoxRegEntadaUnidPortaria.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -395,31 +395,31 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador do Atestado de Reclusão - CRC", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador do Atestado de Reclusão - CRC", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel61.setText("Colaboradores que liberam Atestado de Reclusão:");
 
         jNomeColaboradorCRC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorCRC.setForeground(new java.awt.Color(204, 0, 0));
-        jNomeColaboradorCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorCRC.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeColaboradorCRC.setEnabled(false);
 
         jNomeColaboradorCRC_SEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorCRC_SEG.setForeground(new java.awt.Color(0, 0, 204));
-        jNomeColaboradorCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorCRC_SEG.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jNomeColaboradorCRC_SEG.setEnabled(false);
 
         jComboBoxPesquisaColaCRC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaCRC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaCRC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaCRC.setEnabled(false);
 
         jComboBoxPesquisaColaCRC_SEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaCRC_SEG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaCRC_SEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaCRC_SEG.setEnabled(false);
 
         jBtPesqColaboradorCRCSEG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
@@ -477,14 +477,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Unidade Feminina", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel39.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Unidade Feminina", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel40.setText("Unidade Prisional com Cárcere Feminino:");
 
         jComboBoxCarcereFem.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCarcereFem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxCarcereFem.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxCarcereFem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCarcereFem.setEnabled(false);
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
@@ -559,7 +559,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("CRC", jPanel1);
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Documentos", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Documentos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 255));
@@ -567,7 +567,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocAud.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocAud.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocAud.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocAud.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocAud.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -575,7 +575,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocTrans.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocTrans.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocTrans.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocTrans.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocTrans.setEnabled(false);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -586,7 +586,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocSaidaTmp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocSaidaTmp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocSaidaTmp.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocSaidaTmp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocSaidaTmp.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -594,7 +594,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocLivraPro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocLivraPro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocLivraPro.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocLivraPro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocLivraPro.setEnabled(false);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -602,7 +602,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocPro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocPro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocPro.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocPro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocPro.setEnabled(false);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -610,7 +610,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxDocAlvara.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxDocAlvara.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxDocAlvara.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxDocAlvara.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxDocAlvara.setEnabled(false);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -670,7 +670,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Valores R$", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Valores R$", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 255));
@@ -681,7 +681,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxValAud.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValAud.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValAud.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValAud.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValAud.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -689,7 +689,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxValTrans.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValTrans.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValTrans.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValTrans.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValTrans.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -697,7 +697,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxValSaidaTmp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValSaidaTmp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValSaidaTmp.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValSaidaTmp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValSaidaTmp.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -705,7 +705,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxValLivraPro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValLivraPro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValLivraPro.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValLivraPro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValLivraPro.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -716,12 +716,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxValPro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValPro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValPro.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValPro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValPro.setEnabled(false);
 
         jComboBoxValAlvara.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxValAlvara.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxValAlvara.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxValAlvara.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxValAlvara.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -780,18 +780,18 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ocorrências em PDF", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
+        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ocorrências em PDF", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel41.setText("Local dos arquivos PDF portaria Interna:");
 
-        jLocalPDF_P1.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jLocalPDF_P1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLocalPDF_P1.setEnabled(false);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Local dos arquivos PDF portaria Externa:");
 
-        jLocalPDF_PE.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jLocalPDF_PE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLocalPDF_PE.setEnabled(false);
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -866,7 +866,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Portaria", jPanel6);
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "BP - Base Pavilhão I", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "BP - Base Pavilhão I", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel20.setText("Habilitar cadastro de populção carcerária?");
@@ -879,17 +879,17 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxPopulacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPopulacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPopulacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPopulacao.setEnabled(false);
 
         jComboBoxLocacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxLocacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxLocacao.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxLocacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxLocacao.setEnabled(false);
 
         jComboBoxTransferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTransferencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxTransferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTransferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTransferencia.setEnabled(false);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -897,7 +897,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxCadastroPavilhaoCelas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCadastroPavilhaoCelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxCadastroPavilhaoCelas.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxCadastroPavilhaoCelas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCadastroPavilhaoCelas.setEnabled(false);
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -905,7 +905,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxHabilitarPreLocaB1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxHabilitarPreLocaB1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxHabilitarPreLocaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxHabilitarPreLocaB1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarPreLocaB1.setEnabled(false);
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -913,7 +913,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxHabilitarVisitantesBaseI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxHabilitarVisitantesBaseI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxHabilitarVisitantesBaseI.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxHabilitarVisitantesBaseI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarVisitantesBaseI.setEnabled(false);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -979,21 +979,21 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxLocacao, jComboBoxPopulacao, jComboBoxTransferencia});
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Base Pavilhão II", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Base Pavilhão II", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jComboBoxTransferenciaBpa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTransferenciaBpa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxTransferenciaBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTransferenciaBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTransferenciaBpa.setEnabled(false);
 
         jComboBoxLocacaoBpa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxLocacaoBpa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxLocacaoBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxLocacaoBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxLocacaoBpa.setEnabled(false);
 
         jComboBoxPopulacaoBpa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPopulacaoBpa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxPopulacaoBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPopulacaoBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPopulacaoBpa.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1007,7 +1007,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxCadastroPavilhaoCelasBpa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCadastroPavilhaoCelasBpa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxCadastroPavilhaoCelasBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxCadastroPavilhaoCelasBpa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCadastroPavilhaoCelasBpa.setEnabled(false);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1018,7 +1018,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxHabilitarPreLocaB2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxHabilitarPreLocaB2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxHabilitarPreLocaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxHabilitarPreLocaB2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarPreLocaB2.setEnabled(false);
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1026,7 +1026,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxHabilitarVisitantesBaseII.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxHabilitarVisitantesBaseII.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habilitado", "Desabilitado" }));
-        jComboBoxHabilitarVisitantesBaseII.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxHabilitarVisitantesBaseII.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxHabilitarVisitantesBaseII.setEnabled(false);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1082,18 +1082,18 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ocorrências PDF", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Ocorrências PDF", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel43.setText("Local de arquivos PDF Base I:");
 
-        jLocalPDF_B1.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jLocalPDF_B1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLocalPDF_B1.setEnabled(false);
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel44.setText("Local de arquivos PDF Base II:");
 
-        jLocalPDF_B2.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jLocalPDF_B2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLocalPDF_B2.setEnabled(false);
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
@@ -1166,13 +1166,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Pavilhões", jPanel9);
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - Serviço Social", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - Serviço Social", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel29.setText("Imagens");
 
         jCaminhoImagemServicoSocial.setToolTipText("Formato do Caminho: C:/SysConp/CIS_SDK/IMAGENS/");
-        jCaminhoImagemServicoSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jCaminhoImagemServicoSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoImagemServicoSocial.setEnabled(false);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1197,13 +1197,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - CRC/Internos", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - CRC/Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel31.setText("Imagens");
 
         jCaminhoImagemCRCInternos.setToolTipText("Formato do Caminho: C:/SysConp/CIS_SDK/IMAGENS/");
-        jCaminhoImagemCRCInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jCaminhoImagemCRCInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoImagemCRCInternos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -1228,13 +1228,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - COLABORADORES", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Locais de Armazenamento de Template e Imagens - COLABORADORES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Imagens");
 
         jCaminhoImagemColaboradores.setToolTipText("Formato do Caminho: C:/SysConp/CIS_SDK/IMAGENS/");
-        jCaminhoImagemColaboradores.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jCaminhoImagemColaboradores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoImagemColaboradores.setEnabled(false);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -1301,7 +1301,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Biometria", jPanel12);
 
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Portaria", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0)))); // NOI18N
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Portaria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0)))); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Fotos Advogados");
@@ -1312,13 +1312,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel32.setText("Fotos Oficial de Justiça");
 
-        jFotosWebCamAdvogado.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamAdvogado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamAdvogado.setEnabled(false);
 
-        jFotosWebCamVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamVisitasDiversas.setEnabled(false);
 
-        jFotosWebCamOficialJustica.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamOficialJustica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamOficialJustica.setEnabled(false);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -1356,12 +1356,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Colaboradores", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Colaboradores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel33.setText("Fotos Colaboradores");
 
-        jFotosWebCamColaboradores.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamColaboradores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamColaboradores.setEnabled(false);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -1386,12 +1386,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Visitas Internos", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Visitas Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel35.setText("Fotos  Visitas Internos");
 
-        jFotosWebCamVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamVisitasInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamVisitasInternos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
@@ -1416,12 +1416,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 5, Short.MAX_VALUE))
         );
 
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Internos", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Fotos WebCam Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel34.setText("Fotos Internos");
 
-        jFotosWebCamInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jFotosWebCamInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFotosWebCamInternos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
@@ -1494,20 +1494,20 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel45.setToolTipText("CAminho do executável de atualização do sistema");
 
         jCaminhoExecutavelAtualizacaoSis.setToolTipText("Caminho para atualização do sistema");
-        jCaminhoExecutavelAtualizacaoSis.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jCaminhoExecutavelAtualizacaoSis.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoExecutavelAtualizacaoSis.setEnabled(false);
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel46.setText("Data da Versão:");
 
-        jDataVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jDataVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataVersao.setEnabled(false);
         jDataVersao.setName("JDataVersao"); // NOI18N
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel47.setText("Número da Versão:");
 
-        jNumeroVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNumeroVersao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNumeroVersao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jNumeroVersao.setEnabled(false);
 
@@ -1516,7 +1516,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jLabel48.setToolTipText("Caminho do executável antigo do sistema");
 
         jCaminhoExecutavelAntigo.setToolTipText("Caminho para atualização do sistema");
-        jCaminhoExecutavelAntigo.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jCaminhoExecutavelAntigo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCaminhoExecutavelAntigo.setEnabled(false);
 
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1527,7 +1527,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTipoServidor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoServidor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Servidor Linux (Ubuntu)/MS-SQL Server", "Servidor Windows/MS-SQL Server" }));
         jComboBoxTipoServidor.setToolTipText("Tipo de Servidor de Banco de Dados (Linux/Windows)");
-        jComboBoxTipoServidor.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTipoServidor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoServidor.setEnabled(false);
 
         jLabel64.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1535,7 +1535,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxTipoBancoDados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTipoBancoDados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Postgree", "MySql", "MS-SQL Server Linux", "MS-SQL Server Windows" }));
-        jComboBoxTipoBancoDados.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTipoBancoDados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoBancoDados.setEnabled(false);
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
@@ -1618,7 +1618,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Configurações", jPanel19);
 
-        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria na Enfermaria", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria na Enfermaria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel37.setText("Biometria Atend. - (MÉDICOS/PSI):");
@@ -1632,19 +1632,19 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxMedicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxMedicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jComboBoxMedicos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxMedicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxMedicos.setEnabled(false);
 
         jComboBoxEnfermeiros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxEnfermeiros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
         jComboBoxEnfermeiros.setToolTipText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - (ENFERMEIROS):");
-        jComboBoxEnfermeiros.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxEnfermeiros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxEnfermeiros.setEnabled(false);
 
         jComboBoxTecnicos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTecnicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
         jComboBoxTecnicos.setToolTipText("Habilita/Desabilita Controle Biometrico nos Atendimentos da Enfermaria - TÉCNICOS ENFE:");
-        jComboBoxTecnicos.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTecnicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTecnicos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
@@ -1688,7 +1688,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador de Atendimento PSP", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Liberador de Atendimento PSP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(0, 0, 204));
@@ -1696,18 +1696,23 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jNomeColaboradorPRI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorPRI.setForeground(new java.awt.Color(204, 0, 0));
-        jNomeColaboradorPRI.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorPRI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorPRI.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeColaboradorPRI.setEnabled(false);
 
         jComboBoxPesquisaColaPRI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaPRI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaPRI.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaPRI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaPRI.setEnabled(false);
+        jComboBoxPesquisaColaPRI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPesquisaColaPRIActionPerformed(evt);
+            }
+        });
 
         jComboBoxPesquisaColaSEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaSEG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaSEG.setEnabled(false);
 
         jBtPesqColaboradorSEG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
@@ -1730,18 +1735,18 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jNomeColaboradorQUA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorQUA.setForeground(new java.awt.Color(0, 0, 204));
-        jNomeColaboradorQUA.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorQUA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorQUA.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jNomeColaboradorQUA.setEnabled(false);
 
         jComboBoxPesquisaColaTER.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaTER.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaTER.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaTER.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaTER.setEnabled(false);
 
         jComboBoxPesquisaColaQUA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaQUA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaQUA.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaQUA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaQUA.setEnabled(false);
 
         jBtPesqColaboradorQUA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
@@ -1764,13 +1769,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jNomeColaboradorQUI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorQUI.setForeground(new java.awt.Color(0, 0, 204));
-        jNomeColaboradorQUI.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorQUI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorQUI.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jNomeColaboradorQUI.setEnabled(false);
 
         jComboBoxPesquisaColaQUI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPesquisaColaQUI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
-        jComboBoxPesquisaColaQUI.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPesquisaColaQUI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPesquisaColaQUI.setEnabled(false);
 
         jBtPesqColaboradorQUI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
@@ -1784,13 +1789,13 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jNomeColaboradorTER.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorTER.setForeground(new java.awt.Color(0, 0, 204));
-        jNomeColaboradorTER.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorTER.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorTER.setDisabledTextColor(new java.awt.Color(0, 0, 204));
         jNomeColaboradorTER.setEnabled(false);
 
         jNomeColaboradorSEG.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNomeColaboradorSEG.setForeground(new java.awt.Color(204, 0, 0));
-        jNomeColaboradorSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jNomeColaboradorSEG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeColaboradorSEG.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jNomeColaboradorSEG.setEnabled(false);
 
@@ -1872,7 +1877,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria no Serviço Social", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria no Serviço Social", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel54.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel54.setText("Biometria Atend. Serviço Social:");
@@ -1882,12 +1887,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxAtendSocial.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxAtendSocial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxAtendSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxAtendSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxAtendSocial.setEnabled(false);
 
         jComboBoxControleTel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxControleTel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxControleTel.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxControleTel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxControleTel.setEnabled(false);
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
@@ -1919,14 +1924,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria Pedagogia", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria Pedagogia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel62.setText("Biometria na Admissão:");
 
         jComboBoxPEDA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPEDA.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxPEDA.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxPEDA.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPEDA.setEnabled(false);
 
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
@@ -1949,7 +1954,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Atendimento Psicologia", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
+        jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Atendimento Psicologia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(153, 0, 102))); // NOI18N
 
         jLabel56.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel56.setText("Biometria Admissão:");
@@ -1959,12 +1964,12 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jComboBoxSSAdm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxSSAdm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxSSAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxSSAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSSAdm.setEnabled(false);
 
         jComboBoxSSAva.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxSSAva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxSSAva.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxSSAva.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSSAva.setEnabled(false);
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
@@ -1998,14 +2003,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria no Jurídico", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
+        jPanel36.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria no Jurídico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel58.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel58.setText("Biometria Atendimento Jurídico:");
 
         jComboBoxJuridico.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxJuridico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxJuridico.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxJuridico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxJuridico.setEnabled(false);
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
@@ -2028,11 +2033,11 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Terapia Ocupacional", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Terapia Ocupacional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
         jComboBoxTO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxTO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxTO.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxTO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTO.setEnabled(false);
 
         jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -2058,14 +2063,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria na Odontolgia", 0, 0, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel38.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Controle Biometria na Odontolgia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel59.setText("Biometria na Admissão:");
 
         jComboBoxODON.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxODON.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxODON.setBorder(javax.swing.BorderFactory.createBevelBorder(1));
+        jComboBoxODON.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxODON.setEnabled(false);
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
@@ -2270,7 +2275,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -2472,6 +2477,10 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jComboBoxPesquisaColaQUI.getSelectedItem().equals("Selecione...");
         }
     }//GEN-LAST:event_jBtPesqColaboradorQUIActionPerformed
+
+    private void jComboBoxPesquisaColaPRIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPesquisaColaPRIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxPesquisaColaPRIActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3115,7 +3124,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorPRI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaPRI.addItem(conecta.rs.getString("NomeFunc"));
@@ -3129,7 +3138,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorSEG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaSEG.addItem(conecta.rs.getString("NomeFunc"));
@@ -3142,7 +3151,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorCRC() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaCRC.addItem(conecta.rs.getString("NomeFunc"));
@@ -3156,7 +3165,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorCRCSEG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaCRC_SEG.addItem(conecta.rs.getString("NomeFunc"));
@@ -3170,7 +3179,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorTER() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaTER.addItem(conecta.rs.getString("NomeFunc"));
@@ -3183,7 +3192,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorQUA() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaQUA.addItem(conecta.rs.getString("NomeFunc"));
@@ -3196,7 +3205,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     public void pesquisarColaboradorQUI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM COLABORADOR ");
+            conecta.executaSQL("SELECT * FROM COLABORADOR ORDER BY NomeFunc");
             conecta.rs.first();
             do {
                 jComboBoxPesquisaColaQUI.addItem(conecta.rs.getString("NomeFunc"));
