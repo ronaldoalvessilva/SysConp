@@ -179,7 +179,10 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaSPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/PS:Serviço Social";
     //
     public static String telaIndAtendimentoGrupoPSI_Manu = "Movimentação:Atendimento Internos em Grupo:Mamnutenção";
+    public static String telaIndAtendimentoGrupoPSI_Plan = "Movimentação:Atendimento Internos em Grupo:Planejamento";
     public static String telaIndAtendimentoGrupoPSI_Inte = "Movimentação:Atendimento Internos em Grupo:Internos";
+    public static String telaIndAtendimentoGrupoPSI_AVG = "Movimentação:Atendimento Internos em Grupo:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoPSI_AVI = "Movimentação:Atendimento Internos em Grupo:Avaliação Individual";
     //         
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -226,9 +229,12 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
-    //
+    // ATIVIDADES EM GRUPO
     String pNomeAGM = "";
+    String pNomePLA = "";
     String pNomeAGI = "";
+    String pNomeAVG = "";
+    String pNomeAVI = "";
     //
     public static int pQUANTIDADE_ATENDIDA = 1;
 
@@ -1947,6 +1953,27 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeAGI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_Plan + "'");
+            conecta.rs.first();
+            pNomePLA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_AVG + "'");
+            conecta.rs.first();
+            pNomeAVG = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_AVI + "'");
+            conecta.rs.first();
+            pNomeAVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //  CADASTRO        
         if (!pNomeRABP.equals(telaRegistroAtendimentoBioPSI) || pNomeRABP == null || pNomeRABP.equals("")) {
             buscarCodigoModulo();
@@ -2173,6 +2200,24 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_Inte);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePLA.equals(telaIndAtendimentoGrupoPSI_Plan) || pNomePLA == null || pNomePLA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_Plan);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVG.equals(telaIndAtendimentoGrupoPSI_AVG) || pNomeAVG == null || pNomeAVG.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_AVG);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVI.equals(telaIndAtendimentoGrupoPSI_AVI) || pNomeAVI == null || pNomeAVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoPSI_AVI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
