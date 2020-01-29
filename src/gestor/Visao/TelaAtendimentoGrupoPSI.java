@@ -28,6 +28,7 @@ import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_AVG;
+import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_AVI;
 import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Inte;
 import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Manu;
 import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Plan;
@@ -81,6 +82,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     int pCODIGO_AVALIACAO_GRUPO = 0;
     int pCODIGO_AVALIACAO_INDIVIDUAL = 0;
     int pCODIGO_AVALIACAO_GRUPO_AVG = 0; // CÓDIGO DA AVALIAÇÃO EXISTENTE, PARA NÃO SER GRAVADA DUAS PARA A MESMA ATIVIDADE
+    int pCODIGO_AVALIACAO_GRUPO_AVGI = 0;
+    String pCODIGO_AVI;
 
     /**
      * Creates new form TelaAtendimentoGrupoPSI
@@ -1596,6 +1599,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtNovoAvGrupo.setText("Novo");
         jBtNovoAvGrupo.setToolTipText("Novo");
         jBtNovoAvGrupo.setContentAreaFilled(false);
+        jBtNovoAvGrupo.setEnabled(false);
         jBtNovoAvGrupo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovoAvGrupo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBtNovoAvGrupo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -1792,6 +1796,11 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtPesqInternoAVI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqInternoAVI.setContentAreaFilled(false);
         jBtPesqInternoAVI.setEnabled(false);
+        jBtPesqInternoAVI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqInternoAVIActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -2015,19 +2024,26 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "CNC", "Nome do Interno", "Regime"
+                "Item", "Código", "CNC", "Nome do Interno", "Regime"
             }
         ));
+        jTabelaInternosAvIndividual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaInternosAvIndividualMouseClicked(evt);
+            }
+        });
         jScrollPane16.setViewportView(jTabelaInternosAvIndividual);
         if (jTabelaInternosAvIndividual.getColumnModel().getColumnCount() > 0) {
             jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setMinWidth(350);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setMaxWidth(350);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setMinWidth(100);
-            jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setMaxWidth(100);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setMinWidth(350);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setMaxWidth(350);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setMinWidth(100);
+            jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
         jPanel47.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -2134,14 +2150,29 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtEncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
         jBtEncerrar.setText("Encerrar");
         jBtEncerrar.setToolTipText("Concluir Atendimento");
+        jBtEncerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtEncerrarActionPerformed(evt);
+            }
+        });
 
         jBtLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtLiberar.setText("Liberar");
         jBtLiberar.setToolTipText("LiberarAtendimento");
+        jBtLiberar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLiberarActionPerformed(evt);
+            }
+        });
 
         jBtImpressao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
         jBtImpressao.setText("Impressão");
         jBtImpressao.setToolTipText("Impressão");
+        jBtImpressao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtImpressaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -2356,6 +2387,14 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             //ABA AVALIAÇÃO EM GRUIPO
             buscarAvaliacaoGrupo();
             //ABA AVALIAÇÃO INDIVIDUAL
+            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAdmissaoPsicologicaMouseClicked
 
@@ -3054,12 +3093,13 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 //
                 objAvalia.setIdItemAvag(pCODIGO_AVALIACAO_GRUPO);
                 control.alterarAtendimentoGrupoAVGPsi(objAvalia);
+                objLog4();
+                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearTodosCampos();
                 bloquearTodosBotoes();
                 SalvarAVG();
                 JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
-            objLog4();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -3081,27 +3121,247 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvIndActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codIncluirPSI == 1) {
+            objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+            if (jStatusAtend.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 9;
+                bloquearTodosCampos();
+                bloquearTodosBotoes();
+                limparCamposAVI();
+                NovoAVGI();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoAvIndActionPerformed
 
     private void jBtAlterarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAvIndActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codAlterarPSI == 1) {
+            objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+            if (jStatusAtend.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 10;
+                bloquearTodosCampos();
+                bloquearTodosBotoes();
+                AlterarAVGI();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarAvIndActionPerformed
 
     private void jBtExcluirAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAvIndActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codExcluirPSI == 1) {
+            objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+            if (jStatusAtend.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarUsuarioCriador();
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    statusMov = "Excluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+                    if (jStatusAtend.getText().equals("FINALIZADO")) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+                    } else {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            objAvalia.setIdItemAvai(pCODIGO_AVALIACAO_GRUPO_AVGI);
+                            control.excluirAtendimentoGrupoAVGIPsi(objAvalia);
+                            objLog5();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            bloquearTodosCampos();
+                            bloquearTodosBotoes();
+                            limparCamposAVI();
+                            ExcluirAVGI();
+                            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "INNER JOIN DADOSPENAISINTERNOS "
+                                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            JOptionPane.showMessageDialog(rootPane, "Registro exluído com sucesso.");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirAvIndActionPerformed
 
     private void jBtSalvarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAvIndActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codGravarPSI == 1) {
+            if (jIdInternoGrp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
+            } else if (jNomeInternoGrp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
+            } else {
+                objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
+                objAvalia.setIdInternoCrc(Integer.valueOf(jIdInternoAI.getText()));
+                objAvalia.setNomeInternoCrc(jNomeInternoAVI.getText());
+                objAvalia.setTextoAvalaiacaoInd(jTextoAvalaicaoIndividual.getText());
+                if (acao == 9) {
+                    // log de usuario
+                    objAvalia.setUsuarioInsert(nameUser);
+                    objAvalia.setDataInsert(dataModFinal);
+                    objAvalia.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAtendimentoGrupoAVGIPsi(objAvalia);
+                    buscarCodigoAVI();
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosCampos();
+                    bloquearTodosBotoes();
+                    SalvarAVG();
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 10) {
+                    // log de usuario
+                    objAvalia.setUsuarioUp(nameUser);
+                    objAvalia.setDataUp(dataModFinal);
+                    objAvalia.setHorarioUp(horaMov);
+                    //
+                    objAvalia.setIdItemAvai(pCODIGO_AVALIACAO_GRUPO_AVGI);
+                    control.alterarAtendimentoGrupoAVGIPsi(objAvalia);
+                    buscarCodigoAVI();
+                    objLog5();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosCampos();
+                    bloquearTodosBotoes();
+                    SalvarAVG();
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                            + "INNER JOIN PRONTUARIOSCRC "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "INNER JOIN DADOSPENAISINTERNOS "
+                            + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvarAvIndActionPerformed
 
     private void jBtCancelarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarAvIndActionPerformed
         // TODO add your handling code here:
+        CancelarAVGI();
     }//GEN-LAST:event_jBtCancelarAvIndActionPerformed
 
     private void jBtAuditoriaAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvIndActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtAuditoriaAvIndActionPerformed
+
+    private void jBtPesqInternoAVIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoAVIActionPerformed
+        // TODO add your handling code here:
+        TelaPesqInternoAtendimentoGrupoAVI_PSI objPesqIntAVI = new TelaPesqInternoAtendimentoGrupoAVI_PSI();
+        TelaModuloPsicologia.jPainelPsicologia.add(objPesqIntAVI);
+        objPesqIntAVI.show();
+    }//GEN-LAST:event_jBtPesqInternoAVIActionPerformed
+
+    private void jTabelaInternosAvIndividualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosAvIndividualMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            pCODIGO_AVI = "" + jTabelaInternosAvIndividual.getValueAt(jTabelaInternosAvIndividual.getSelectedRow(), 0);
+            //
+            bloquearTodosBotoes();
+            bloquearTodosCampos();
+            jBtNovoAvInd.setEnabled(true);
+            jBtAlterarAvInd.setEnabled(true);
+            jBtExcluirAvInd.setEnabled(true);
+            jBtCancelarAvInd.setEnabled(true);
+            jBtAuditoriaAvInd.setEnabled(true);
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdItemAvai='" + pCODIGO_AVI + "'");
+                conecta.rs.first();
+                pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+                jIdInternoAI.setText(conecta.rs.getString("IdInternoCrc"));
+                jCNCAI.setText(conecta.rs.getString("Cnc"));
+                jRegimeAVI.setText(conecta.rs.getString("Regime"));
+                jNomeInternoAVI.setText(conecta.rs.getString("NomeInternoCrc"));
+                jNomeMaeInternoAVI.setText(conecta.rs.getString("MaeInternoCrc"));
+                // Capturando foto
+                caminho = conecta.rs.getString("FotoInternoCrc");
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoGrupo.setIcon(i);
+                    jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoGrupo.setIcon(icon);
+                }
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jTabelaInternosAvIndividualMouseClicked
+
+    private void jBtEncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEncerrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtEncerrarActionPerformed
+
+    private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtLiberarActionPerformed
+
+    private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtImpressaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3467,6 +3727,18 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jFotoInternoGrupo.setIcon(null);
     }
 
+    public void limparCamposAVG() {
+        jTextoAvaliacaoGrupo.setText("");
+    }
+
+    public void limparCamposAVI() {
+        jIdInternoAI.setText("");
+        jCNCAI.setText("");
+        jRegimeAVI.setText("");
+        jNomeInternoAVI.setText("");
+        jNomeMaeInternoAVI.setText("");
+    }
+
     public void Novo() {
         jStatusAtend.setText("ABERTO");
         jDataAtend.setCalendar(Calendar.getInstance());
@@ -3802,23 +4074,72 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     }
 
     public void NovoAVGI() {
-
+        jTextoAvalaicaoIndividual.setEnabled(true);
+        //
+        jBtPesqInternoAVI.setEnabled(true);
+        jBtSalvarAvInd.setEnabled(true);
+        jBtCancelarAvInd.setEnabled(true);
     }
 
     public void AlterarAVGI() {
-
+        jTextoAvalaicaoIndividual.setEnabled(true);
+        //
+        jBtPesqInternoAVI.setEnabled(true);
+        jBtSalvarAvInd.setEnabled(true);
+        jBtCancelarAvInd.setEnabled(true);
     }
 
     public void ExcluirAVGI() {
-
+        jBtNovoAvInd.setEnabled(true);
+        //
+        jBtNovoAvGrupo.setEnabled(true);
+        jBtNovoParticipantes.setEnabled(true);
+        jBtNovoPlan.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void SalvarAVGI() {
-
+        jBtNovoAvInd.setEnabled(true);
+        //
+        jBtNovoAvGrupo.setEnabled(true);
+        jBtNovoParticipantes.setEnabled(true);
+        jBtNovoPlan.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     public void CancelarAVGI() {
+        bloquearTodosBotoes();
+        bloquearTodosCampos();
+        limparCamposAVI();
+        jBtNovoAvInd.setEnabled(true);
+        //
+        jBtNovoAvGrupo.setEnabled(true);
+        jBtNovoParticipantes.setEnabled(true);
+        jBtNovoPlan.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+    }
 
+    public void buscarCodigoAVI() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA ");
+            conecta.rs.last();
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     //ABA MANUTENÇÃO
@@ -4018,7 +4339,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "CNC", "Nome do Interno", "Regime"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPlanejamento.setModel(modelo);
+        jTabelaInternos.setModel(modelo);
         jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
@@ -4029,9 +4350,78 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(100);
         jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaPlanejamento.getTableHeader().setReorderingAllowed(false);
-        jTabelaPlanejamento.setAutoResizeMode(jTabelaPlanejamento.AUTO_RESIZE_OFF);
-        jTabelaPlanejamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    //ABA AVALIAÇÃO INDIVIDUAL
+    public void preencherTabelaAvaliacaoIndividual(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Código", "CNC", "Nome do Interno", "Regime"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            count2 = 0;
+            do {
+                count2 = count2 + 1;
+                jtotalRegistrosInternosAVI.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
+                dados.add(new Object[]{conecta.rs.getInt("IdItemAvai"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternosAvIndividual.setModel(modelo);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setPreferredWidth(350);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternosAvIndividual.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternosAvIndividual.setAutoResizeMode(jTabelaInternosAvIndividual.AUTO_RESIZE_OFF);
+        jTabelaInternosAvIndividual.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharCamposTabelaAvaliacaoIndividual();
+        conecta.desconecta();
+    }
+
+    public void alinharCamposTabelaAvaliacaoIndividual() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setCellRenderer(direita);
+    }
+
+    public void limparTabelaAvaliacaoIndividual() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Item", "Código", "CNC", "Nome do Interno", "Regime"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternosAvIndividual.setModel(modelo);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setPreferredWidth(350);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInternosAvIndividual.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternosAvIndividual.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternosAvIndividual.setAutoResizeMode(jTabelaInternosAvIndividual.AUTO_RESIZE_OFF);
+        jTabelaInternosAvIndividual.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -4052,7 +4442,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     public void verificarUsuarioCriador() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
             nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
         } catch (SQLException ex) {
@@ -4101,7 +4492,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela3);
-//        objLogSys.setIdLancMov(Integer.valueOf(pCODIGO_ITEM_PARTICIPANTE));
+        objLogSys.setIdLancMov(Integer.valueOf(pCODIGO_AVALIACAO_GRUPO_AVGI));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
