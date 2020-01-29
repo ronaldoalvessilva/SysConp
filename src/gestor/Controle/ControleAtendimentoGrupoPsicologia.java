@@ -25,7 +25,7 @@ public class ControleAtendimentoGrupoPsicologia {
     int codigoCela;
     int codInterno;
 
-    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAba01Psi(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoManutencaoPsi(AtividadesGrupoPsicologia objAvalia) {
         buscarPavilhao(objAvalia.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
@@ -52,7 +52,7 @@ public class ControleAtendimentoGrupoPsicologia {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAba01Psi(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoManutencaoPsi(AtividadesGrupoPsicologia objAvalia) {
         buscarPavilhao(objAvalia.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
@@ -79,7 +79,7 @@ public class ControleAtendimentoGrupoPsicologia {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAba01Psi(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoManutencaoPsi(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
@@ -152,7 +152,101 @@ public class ControleAtendimentoGrupoPsicologia {
     }
 
     // ---------------------------- PARTICIPANTES -----------------------------------------//
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoParticipantesPsi(AtividadesGrupoPsicologia objAvalia) {
+        buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA (IdAtGrupoPsi,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            pst.setInt(1, objAvalia.getIdAtGrupoPsi());
+            pst.setInt(2, codInterno);
+            pst.setString(3, objAvalia.getUsuarioInsert());
+            pst.setString(4, objAvalia.getDataInsert());
+            pst.setString(5, objAvalia.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoParticipantesPsi(AtividadesGrupoPsicologia objAvalia) {
+        buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA SET IdAtGrupoPsi=?,IdInternoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPart='" + objAvalia.getIdItemPart() + "'");
+            pst.setInt(1, objAvalia.getIdAtGrupoPsi());
+            pst.setInt(2, codInterno);
+            pst.setString(3, objAvalia.getUsuarioUp());
+            pst.setString(4, objAvalia.getDataUp());
+            pst.setString(5, objAvalia.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoParticipantesPsi(AtividadesGrupoPsicologia objAvalia) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA WHERE IdItemPart='" + objAvalia.getIdItemPart() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
     // ---------------------------- AVALIAÇÃO EM GRUPO ------------------------------------ //
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAVGPsi(AtividadesGrupoPsicologia objAvalia) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA (IdAtGrupoPsi,TextoAvalaiacaoGrupo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            pst.setInt(1, objAvalia.getIdAtGrupoPsi());
+            pst.setString(2, objAvalia.getTextoAvalaiacaoGrupo());
+            pst.setString(3, objAvalia.getUsuarioInsert());
+            pst.setString(4, objAvalia.getDataInsert());
+            pst.setString(5, objAvalia.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAVGPsi(AtividadesGrupoPsicologia objAvalia) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA SET IdAtGrupoPsi=?,TextoAvalaiacaoGrupo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemAvag='" + objAvalia.getIdItemAvag() + "'");
+            pst.setInt(1, objAvalia.getIdAtGrupoPsi());
+            pst.setString(2, objAvalia.getTextoAvalaiacaoGrupo());
+            pst.setString(3, objAvalia.getUsuarioUp());
+            pst.setString(4, objAvalia.getDataUp());
+            pst.setString(5, objAvalia.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAVGPsi(AtividadesGrupoPsicologia objAvalia) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA WHERE IdItemAvag='" + objAvalia.getIdItemAvag() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
     // ----------------------------- AVALIAÇÃO INDIVIDUAL ---------------------------------//
     // ----------------------------- FIM DOS MÉTODOS DE PERSISTENCIA ---------------------//
     public void buscarPavilhao(String nome) {
