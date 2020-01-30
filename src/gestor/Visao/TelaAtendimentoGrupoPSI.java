@@ -11,6 +11,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -38,6 +39,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -45,6 +47,11 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -88,10 +95,17 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaAtendimentoGrupoPSI
      */
+    public static TelaLiberacaoAtendimentoGruposPSI pATENDE_GRUPO;
+
     public TelaAtendimentoGrupoPSI() {
         initComponents();
         corCampos();
         formatarCampos();
+    }
+
+    public void mostrarTelaAG() {
+        pATENDE_GRUPO = new TelaLiberacaoAtendimentoGruposPSI(this, true);
+        pATENDE_GRUPO.setVisible(true);
     }
 
     /**
@@ -1200,7 +1214,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Plan.", jPlanejamento);
+        jTabbedPane1.addTab("Planeja.", jPlanejamento);
 
         jParticipantes.setToolTipText("Participantes");
 
@@ -1755,7 +1769,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Av.Grupo", jAGlobal);
+        jTabbedPane1.addTab("A.Grupo", jAGlobal);
 
         jAIndividual.setToolTipText("Avaliação Individual");
 
@@ -1778,6 +1792,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Nome da Mãe");
 
+        jIdInternoAI.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoAI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jIdInternoAI.setEnabled(false);
 
@@ -1832,9 +1847,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jNomeMaeInternoAVI)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jNomeInternoAVI, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jNomeInternoAVI))
                         .addContainerGap())))
         );
         jPanel12Layout.setVerticalGroup(
@@ -2128,7 +2141,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Av.Individual", jAIndividual);
+        jTabbedPane1.addTab("A.Individual", jAIndividual);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
 
@@ -2181,11 +2194,14 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtEncerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtLiberar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addComponent(jBtEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEncerrar, jBtImpressao, jBtLiberar});
+
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -2406,6 +2422,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             bloquearTodosCampos();
             bloquearTodosBotoes();
             limparTodosCampos();
+            limparTabelaPlanejamento();
+            limparTabelaParticipantes();
+            limparTabelaAvaliacaoIndividual();
             Novo();
             preencherComboBoxPavilhao();
             statusMov = "Incluiu";
@@ -3215,9 +3234,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codGravarPSI == 1) {
-            if (jIdInternoGrp.getText().equals("")) {
+            if (jIdInternoAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
-            } else if (jNomeInternoGrp.getText().equals("")) {
+            } else if (jNomeInternoAVI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
             } else {
                 objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
@@ -3236,6 +3255,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosCampos();
                     bloquearTodosBotoes();
+                    limparCamposAVI();
                     SalvarAVG();
                     preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
                             + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
@@ -3260,6 +3280,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosCampos();
                     bloquearTodosBotoes();
+                    limparCamposAVI();
                     SalvarAVG();
                     preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
                             + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
@@ -3357,10 +3378,51 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
+        mostrarTelaAG();
     }//GEN-LAST:event_jBtLiberarActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        Integer row0 = jTabelaInternos.getRowCount();
+        if (row0 == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Não existe participantes cadastrados.");
+        } else if (row0 == 1) {
+            JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
+        } else {
+            try {
+                conecta.abrirConexao();
+                String path = "reports/RelatorioAtendimentoGrupoInternosPSI.jasper";
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN DADOSPENAISINTERNOS "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "INNER JOIN ITENSLOCACAOINTERNO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
+                        + "INNER JOIN CELAS "
+                        + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                        + "INNER JOIN PAVILHAO "
+                        + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'"
+                        + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
+                HashMap parametros = new HashMap();
+                parametros.put("pCODIGO_ATIVIDADE", jCodigoAtend.getText());
+                parametros.put("nomeUsuario", nameUser);
+                parametros.put("pUNIDADE_PRISIONAL", descricaoUnidade);
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório Tempo Laborativo de Interno");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            }
+        }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
 
@@ -3662,6 +3724,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jRegimeAVI.setEnabled(!true);
         jNomeInternoAVI.setEnabled(!true);
         jNomeMaeInternoAVI.setEnabled(!true);
+        jTextoAvalaicaoIndividual.setEnabled(!true);
     }
 
     public void limparTodosCampos() {
@@ -3737,6 +3800,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jRegimeAVI.setText("");
         jNomeInternoAVI.setText("");
         jNomeMaeInternoAVI.setText("");
+        jTextoAvalaicaoIndividual.setText("");
     }
 
     public void Novo() {
@@ -4122,6 +4186,10 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtNovoAvInd.setEnabled(true);
         //
         jBtNovoAvGrupo.setEnabled(true);
+        jBtAlterarAvGrupo.setEnabled(true);
+        jBtExcluirAvGrupo.setEnabled(true);
+        jBtAuditoriaAvGrupo.setEnabled(true);
+        //
         jBtNovoParticipantes.setEnabled(true);
         jBtNovoPlan.setEnabled(true);
         //
@@ -4534,5 +4602,4 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-
 }

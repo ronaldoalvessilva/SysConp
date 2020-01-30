@@ -1120,8 +1120,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Plan.">
-                <Property name="tabTitle" type="java.lang.String" value="Plan."/>
+              <JTabbedPaneConstraints tabName="Planeja.">
+                <Property name="tabTitle" type="java.lang.String" value="Planeja."/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -2380,8 +2380,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Av.Grupo">
-                <Property name="tabTitle" type="java.lang.String" value="Av.Grupo"/>
+              <JTabbedPaneConstraints tabName="A.Grupo">
+                <Property name="tabTitle" type="java.lang.String" value="A.Grupo"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -2674,8 +2674,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Av.Individual">
-                <Property name="tabTitle" type="java.lang.String" value="Av.Individual"/>
+              <JTabbedPaneConstraints tabName="A.Individual">
+                <Property name="tabTitle" type="java.lang.String" value="A.Individual"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -2815,10 +2815,7 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jNomeMaeInternoAVI" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jNomeInternoAVI" min="-2" pref="386" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
+                                              <Component id="jNomeInternoAVI" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
@@ -2898,6 +2895,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="jIdInternoAI">
                           <Properties>
+                            <Property name="horizontalAlignment" type="int" value="4"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                                 <BevelBorder bevelType="1"/>
@@ -3423,9 +3421,9 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jBtEncerrar" max="32767" attributes="0"/>
-                      <Component id="jBtLiberar" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jBtImpressao" alignment="0" pref="125" max="32767" attributes="0"/>
+                      <Component id="jBtEncerrar" linkSize="15" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="jBtLiberar" linkSize="15" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="jBtImpressao" linkSize="15" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

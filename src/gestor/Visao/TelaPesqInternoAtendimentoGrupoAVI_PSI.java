@@ -347,8 +347,8 @@ public class TelaPesqInternoAtendimentoGrupoAVI_PSI extends javax.swing.JInterna
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "INNER JOIN DADOSFISICOSINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc ");
         } else {
