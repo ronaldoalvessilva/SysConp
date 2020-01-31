@@ -5,11 +5,16 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Modelo.LogSistema;
+import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jDataAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
@@ -26,6 +31,7 @@ import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
 import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Manu;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,14 +48,33 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
+    RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
+    //
+    ControleLogSistema controlLog = new ControleLogSistema();
+    LogSistema objLogSys = new LogSistema();
+    String nomeModuloTela = "PSICOLOGIA:Registro de Atendimento de Internos em Grupo";
     //
     int count = 0;
     int codigoDepto = 0;
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
+    String atendido = "";
+    //
+    public static byte[] pDigitalCapturadaColaborador = null;
+    String pImpressao = "Sim";
+    public static String pLiberacaoImpressa = "Não";
+    public static int codigoLiberador = 0;
+    public static String nomeLiberador = "";
+    public static String dataAssinatura = "";
+    public static String horaAssinatura = "";
+    int qtdAtend = 1;
 
     /**
      * Creates new form TelaLiberacaoAtendimentoGruposPSI
      */
     public static TelaAtendimentoGrupoPSI atendGPSI;
+    public static TelaAssinaBiometriaColaboradoresPSP_AG_PSI assinaBio;
 
     public TelaLiberacaoAtendimentoGruposPSI(TelaAtendimentoGrupoPSI parent, boolean modal) {
         this.atendGPSI = parent;
@@ -66,6 +91,11 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 + "INNER JOIN DADOSPENAISINTERNOS "
                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                 + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+    }
+
+    public void mostrarLiberador() {
+        assinaBio = new TelaAssinaBiometriaColaboradoresPSP_AG_PSI(this, true);
+        assinaBio.setVisible(true);
     }
 
     /**
@@ -105,6 +135,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jBtSair = new javax.swing.JButton();
         jBtNovo = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
+        jBtBiometria = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Liberação de Atendimento em Grupo :::...");
@@ -251,8 +283,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         ));
         jScrollPane15.setViewportView(jTabelaInternos);
         if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(60);
             jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(70);
             jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(70);
             jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(80);
@@ -310,8 +342,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtConfirmar.setToolTipText("Confirmar");
+        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtConfirmar.setToolTipText("Gravar");
         jBtConfirmar.setContentAreaFilled(false);
         jBtConfirmar.setEnabled(false);
         jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -348,6 +380,16 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             }
         });
 
+        jBtBiometria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16.png"))); // NOI18N
+        jBtBiometria.setToolTipText("Assinatura Biometrica");
+        jBtBiometria.setContentAreaFilled(false);
+        jBtBiometria.setEnabled(false);
+        jBtBiometria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtBiometriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -359,6 +401,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(jBtBiometria, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -371,9 +415,12 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                     .addComponent(jBtNovo)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtCancelar)
-                    .addComponent(jBtSair))
+                    .addComponent(jBtSair)
+                    .addComponent(jBtBiometria))
                 .addGap(3, 3, 3))
         );
+
+        jProgressBar1.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -392,7 +439,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,8 +450,10 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,7 +479,20 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-
+        if (jIdRegistro.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário informar o número do registro.");
+        } else if (jDataRegistro.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data do registro.");
+        } else if (jNomeDepartamento.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do departamento.");
+        } else if (jComboBoxAtendente.getSelectedItem().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o nome do atendente.");
+        } else {
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            gravarDadosBanco();
+        }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -441,6 +504,11 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
+
+    private void jBtBiometriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBiometriaActionPerformed
+        // TODO add your handling code here:
+        mostrarLiberador();
+    }//GEN-LAST:event_jBtBiometriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,8 +553,9 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtBiometria;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtConfirmar;
+    public static javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtSair;
     private javax.swing.JComboBox<String> jComboBoxAtendente;
@@ -509,6 +578,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabelaInternos;
@@ -539,7 +609,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jMotivo.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
-        jBtConfirmar.setEnabled(true);
+        jBtBiometria.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
 
@@ -557,6 +627,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jMotivo.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
+        jBtBiometria.setEnabled(!true);
         jBtConfirmar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
     }
@@ -590,6 +661,92 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         conecta.desconecta();
     }
 
+    public void gravarDadosBanco() {
+        atendido = "Sim";
+        qtdAtend = 1;
+        try {
+            Thread t0 = new Thread() {
+                public void run() {
+                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                        // Para o log do registro
+                        objRegAtend.setUsuarioInsert(nameUser);
+                        objRegAtend.setDataInsert(dataModFinal);
+                        objRegAtend.setHorarioInsert(horaMov);
+                        //
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdRegistro.getText()));
+                        objRegAtend.setDataAtendimento(jDataAtend.getDate());
+                        objRegAtend.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 1));
+                        objRegAtend.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 3));
+                        objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
+                        objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
+                        objRegAtend.setDataReg(jDataRegistro.getDate());
+                        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());                        
+                        objRegAtend.setDataAssinatura(dataAssinatura);
+                        objRegAtend.setHoraAssinatura(horaAssinatura);                        
+                        objRegAtend.setCodigoFunc(codigoLiberador);
+                        objRegAtend.setNomeFunc(nomeLiberador);
+                        objRegAtend.setAssinaturaLiberador(pDigitalCapturadaColaborador);
+                        objRegAtend.setDataAssinatura(dataAssinatura);
+                        objRegAtend.setHoraAssinatura(horaAssinatura);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setMotivoImpressao(jMotivo.getText());
+                        objRegAtend.setImpressaoAuto(pImpressao);
+                        objRegAtend.setQtdAtend(qtdAtend);
+                        objRegAtend.setUsuarioAtendente((String)jComboBoxAtendente.getSelectedItem());
+                        control.incluirRegAtendGrupo(objRegAtend);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                }
+            };
+            t0.start();
+        } catch (Exception e) {
+        }
+        // THREAD DA BARRA DE EXECUÇÃO
+        try {
+            Thread t = new Thread() {
+                public void run() {
+                    jProgressBar1.setMaximum(jTabelaInternos.getRowCount());
+                    Rectangle rect;
+                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                        rect = jTabelaInternos.getCellRect(i, 0, true);
+                        try {
+                            jTabelaInternos.scrollRectToVisible(rect);
+                        } catch (java.lang.ClassCastException e) {
+                        }
+//                        jTabelaInternosKitCompleto.setRowSelectionInterval(i, 1);
+//                        jProgressBar1.setValue((i + 1));
+                        //RETIRADO POR QUE QUANDO A TABELA SÓ TEM UMA LINHA ESTAVA
+                        //DANDO ERRO. TESTAR COM MAIS DE UMA LINHA.
+                        if (i == 0) {
+                            jTabelaInternos.setRowSelectionInterval(i, 0);
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jTabelaInternos.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+                    }
+                    jProgressBar1.setValue(0);
+                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                    dispose();
+                    try {
+                    } catch (Exception e) {
+                    }
+                }
+            };
+            t.start();
+        } catch (Exception e) {
+        }
+    }
+
     //ABA PARTICIPANTES
     public void preencherTabelaParticipantes(String sql) {
         ArrayList dados = new ArrayList();
@@ -608,7 +765,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setModel(modelo);
-        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
@@ -643,7 +800,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         String[] Colunas = new String[]{"Item", "Código", "CNC", "Nome do Interno", "Regime"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInternos.setModel(modelo);
-        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
@@ -657,6 +814,15 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
         jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
+    }
+
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {

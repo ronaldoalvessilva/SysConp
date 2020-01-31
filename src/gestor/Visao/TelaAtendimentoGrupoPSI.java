@@ -3401,6 +3401,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             } else if (row1 == 1) {
                 JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
             } else {
+                verificarLiberacao();
                 mostrarTelaAG();
             }
         } else {
@@ -3506,7 +3507,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jComboBoxAmbiente;
     public static javax.swing.JComboBox<String> jComboBoxPavilhaoGaleria;
     private javax.swing.JComboBox<String> jComboBoxTurno;
-    private com.toedter.calendar.JDateChooser jDataAtend;
+    public static com.toedter.calendar.JDateChooser jDataAtend;
     private com.toedter.calendar.JDateChooser jDataFinal;
     private com.toedter.calendar.JDateChooser jDataInicial;
     public static com.toedter.calendar.JDateChooser jDataNascimento;
@@ -4231,6 +4232,17 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA ");
             conecta.rs.last();
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+    
+    public void verificarLiberacao(){
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP ");
+            conecta.rs.first();
             pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
         } catch (Exception e) {
         }

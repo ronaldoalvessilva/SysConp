@@ -147,6 +147,41 @@ public class ControleRegistroAtendimentoInternoBio {
         return objRegAtend;
     }
 
+    //------------------------ ATENDIMENTO EM GRUPO -------------------------------------------//
+    public RegistroAtendimentoInternos incluirRegAtendGrupo(RegistroAtendimentoInternos objRegAtend) {
+
+        buscarInternoCrc(objRegAtend.getNomeInternoCrc(), objRegAtend.getIdInternoCrc());
+        buscarDepartamento(objRegAtend.getNomeDepartamento());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_ATENDIMENTO_INTERNO_PSP (IdAtend,DataAtendimento,DataReg,Horario,IdInternoCrc,TipoAtendimento,IdDepartamento,IdFunc,AssinaturaLiberador,DataAssinatura,HoraAssinatura,Atendido,Motivo,UsuarioInsert,DataInsert,HorarioInsert,Qtd,UsuarioAtendente,Impresso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setInt(1, objRegAtend.getIdAtend());
+            pst.setTimestamp(2, new java.sql.Timestamp(objRegAtend.getDataAtendimento().getTime()));
+            pst.setTimestamp(3, new java.sql.Timestamp(objRegAtend.getDataReg().getTime()));
+            pst.setString(4, objRegAtend.getHorario());
+            pst.setInt(5, codInt);
+            pst.setString(6, objRegAtend.getTipoAtemdimento());
+            pst.setInt(7, codDpto);
+            pst.setInt(8, objRegAtend.getCodigoFunc());
+            pst.setBytes(9, objRegAtend.getAssinaturaLiberador());
+            pst.setString(10, objRegAtend.getDataAssinatura());
+            pst.setString(11, objRegAtend.getHoraAssinatura());            
+            pst.setString(12, objRegAtend.getAtendido());
+            pst.setString(13, objRegAtend.getMotivoImpressao());
+            pst.setString(14, objRegAtend.getUsuarioInsert());
+            pst.setString(15, objRegAtend.getDataInsert());
+            pst.setString(16, objRegAtend.getHorarioInsert());
+            pst.setInt(17, objRegAtend.getQtdAtend());
+            pst.setString(18, objRegAtend.getUsuarioAtendente());
+            pst.setString(19, objRegAtend.getImpressaoAuto());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objRegAtend;
+    }
+
     public void buscarInternoCrc(String desc, int codigo) {
         conecta.abrirConexao();
         try {

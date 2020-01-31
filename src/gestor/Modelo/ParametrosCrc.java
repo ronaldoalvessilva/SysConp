@@ -86,11 +86,15 @@ public class ParametrosCrc {
     private String nomeColaboradorQUI;      
     private String tipoServidor;
     private String tipoBanco;
+    private String nomeLiberadorAG0;
+    private String nomeLiberadorAG1;
+    private String nomeEncerradorAG0;
+    private String nomeEncerradorAG1;    
 
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -164,6 +168,10 @@ public class ParametrosCrc {
         this.nomeColaboradorQUI = nomeColaboradorQUI;
         this.tipoServidor = tipoServidor;
         this.tipoBanco = tipoBanco;
+        this.nomeLiberadorAG0 = nomeLiberadorAG0;
+        this.nomeLiberadorAG1 = nomeLiberadorAG1;
+        this.nomeEncerradorAG0 = nomeEncerradorAG0;
+        this.nomeEncerradorAG1 = nomeEncerradorAG1;
     }
 
     /**
@@ -1186,5 +1194,61 @@ public class ParametrosCrc {
      */
     public void setTipoBanco(String tipoBanco) {
         this.tipoBanco = tipoBanco;
+    }
+
+    /**
+     * @return the nomeLiberadorAG0
+     */
+    public String getNomeLiberadorAG0() {
+        return nomeLiberadorAG0;
+    }
+
+    /**
+     * @param nomeLiberadorAG0 the nomeLiberadorAG0 to set
+     */
+    public void setNomeLiberadorAG0(String nomeLiberadorAG0) {
+        this.nomeLiberadorAG0 = nomeLiberadorAG0;
+    }
+
+    /**
+     * @return the nomeLiberadorAG1
+     */
+    public String getNomeLiberadorAG1() {
+        return nomeLiberadorAG1;
+    }
+
+    /**
+     * @param nomeLiberadorAG1 the nomeLiberadorAG1 to set
+     */
+    public void setNomeLiberadorAG1(String nomeLiberadorAG1) {
+        this.nomeLiberadorAG1 = nomeLiberadorAG1;
+    }
+
+    /**
+     * @return the nomeEncerradorAG0
+     */
+    public String getNomeEncerradorAG0() {
+        return nomeEncerradorAG0;
+    }
+
+    /**
+     * @param nomeEncerradorAG0 the nomeEncerradorAG0 to set
+     */
+    public void setNomeEncerradorAG0(String nomeEncerradorAG0) {
+        this.nomeEncerradorAG0 = nomeEncerradorAG0;
+    }
+
+    /**
+     * @return the nomeEncerradorAG1
+     */
+    public String getNomeEncerradorAG1() {
+        return nomeEncerradorAG1;
+    }
+
+    /**
+     * @param nomeEncerradorAG1 the nomeEncerradorAG1 to set
+     */
+    public void setNomeEncerradorAG1(String nomeEncerradorAG1) {
+        this.nomeEncerradorAG1 = nomeEncerradorAG1;
     }
 }
