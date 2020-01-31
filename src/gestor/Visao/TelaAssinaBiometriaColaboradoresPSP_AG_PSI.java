@@ -420,7 +420,7 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_PSI extends javax.swing.JDia
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
         }else if(nomeColaboradorLIBER02.equals("") || nomeColaboradorENCERRA02.equals("") || nomeColaboradorLIBER02 == null || nomeColaboradorENCERRA02 == null) {
             JOptionPane.showMessageDialog(rootPane, "Não existe colaborador definido no parametro para realizar a liberação, solicite ao Administrador do Sistema para cadastrar.");
-        } else if (nomeColaboradorLIBER01.equals(jNomeColaborador.getText()) || nomeColaboradorENCERRA01.equals(jNomeColaborador.getText())) {
+        } else if (nomeColaboradorLIBER01.equals(jNomeColaborador.getText()) || nomeColaboradorLIBER02.equals(jNomeColaborador.getText()) || nomeColaboradorENCERRA01.equals(jNomeColaborador.getText()) || nomeColaboradorENCERRA02.equals(jNomeColaborador.getText())) {
             pLiberacaoImpressa = "Sim";
             objItensFunc.setIdFunc(Integer.valueOf(jIdColaborador.getText()));
             objItensFunc.setNomeColaborador(jNomeColaborador.getText());

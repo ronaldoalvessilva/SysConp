@@ -147,6 +147,20 @@ public class ControleRegistroAtendimentoInternoBio {
         return objRegAtend;
     }
 
+    public RegistroAtendimentoInternos finalizarAtendimentoGrupoPSI(RegistroAtendimentoInternos objRegAtend) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_PSICOLOGIA SET StatusAtend=? WHERE IdAtend='" + objRegAtend.getIdAtend() + "'");
+            pst.setString(1, objRegAtend.getStatusAtendimento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objRegAtend;
+    }
+
     //------------------------ ATENDIMENTO EM GRUPO -------------------------------------------//
     public RegistroAtendimentoInternos incluirRegAtendGrupo(RegistroAtendimentoInternos objRegAtend) {
 
@@ -165,7 +179,7 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setInt(8, objRegAtend.getCodigoFunc());
             pst.setBytes(9, objRegAtend.getAssinaturaLiberador());
             pst.setString(10, objRegAtend.getDataAssinatura());
-            pst.setString(11, objRegAtend.getHoraAssinatura());            
+            pst.setString(11, objRegAtend.getHoraAssinatura());
             pst.setString(12, objRegAtend.getAtendido());
             pst.setString(13, objRegAtend.getMotivoImpressao());
             pst.setString(14, objRegAtend.getUsuarioInsert());

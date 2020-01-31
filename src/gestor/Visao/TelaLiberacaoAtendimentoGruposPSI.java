@@ -11,8 +11,11 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtAuditoria;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtNovo;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jDataAtend;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jStatusAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -133,7 +136,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
-        jBtNovo = new javax.swing.JButton();
+        jBtNovaLiberacao = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtBiometria = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -361,12 +364,12 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             }
         });
 
-        jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setToolTipText("Novo");
-        jBtNovo.setContentAreaFilled(false);
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+        jBtNovaLiberacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
+        jBtNovaLiberacao.setToolTipText("Novo");
+        jBtNovaLiberacao.setContentAreaFilled(false);
+        jBtNovaLiberacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
+                jBtNovaLiberacaoActionPerformed(evt);
             }
         });
 
@@ -396,7 +399,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovaLiberacao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -412,7 +415,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtNovo)
+                    .addComponent(jBtNovaLiberacao)
                     .addComponent(jBtConfirmar)
                     .addComponent(jBtCancelar)
                     .addComponent(jBtSair)
@@ -466,7 +469,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
+    private void jBtNovaLiberacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaLiberacaoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codIncluirPSI == 1) {
@@ -475,7 +478,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-    }//GEN-LAST:event_jBtNovoActionPerformed
+    }//GEN-LAST:event_jBtNovaLiberacaoActionPerformed
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
@@ -491,7 +494,15 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
-            gravarDadosBanco();
+            JOptionPane.showMessageDialog(rootPane, "Esse procedimento irá confirmar e contabilizar os atendimentos a produção do atendente.\nUma vez confirmado, não será mais possível reverter a liberação do registro.");
+            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente liberar o registro selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                // GRAVAR REGISTRO NA TABELA DE REGISTRO_ATENDIMENTO_PSP
+                gravarDadosBanco();
+                // FINALIZAR O ATENDIMENTO PARA NÃO SER MODIFICADO.
+                finalizarAtendimentoGrupo();
+            }
         }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
@@ -556,7 +567,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     private javax.swing.JButton jBtBiometria;
     private javax.swing.JButton jBtCancelar;
     public static javax.swing.JButton jBtConfirmar;
-    private javax.swing.JButton jBtNovo;
+    private javax.swing.JButton jBtNovaLiberacao;
     private javax.swing.JButton jBtSair;
     private javax.swing.JComboBox<String> jComboBoxAtendente;
     public static javax.swing.JComboBox jComboBoxTipoMovimentacao;
@@ -608,7 +619,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jComboBoxAtendente.setEnabled(true);
         jMotivo.setEnabled(true);
         //
-        jBtNovo.setEnabled(!true);
+        jBtNovaLiberacao.setEnabled(!true);
         jBtBiometria.setEnabled(true);
         jBtCancelar.setEnabled(true);
     }
@@ -626,7 +637,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jComboBoxAtendente.setEnabled(!true);
         jMotivo.setEnabled(!true);
         //
-        jBtNovo.setEnabled(true);
+        jBtNovaLiberacao.setEnabled(true);
         jBtBiometria.setEnabled(!true);
         jBtConfirmar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
@@ -680,9 +691,9 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                         objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
                         objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                         objRegAtend.setDataReg(jDataRegistro.getDate());
-                        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());                        
+                        objRegAtend.setHorario(jHorarioSaidaEntrada.getText());
                         objRegAtend.setDataAssinatura(dataAssinatura);
-                        objRegAtend.setHoraAssinatura(horaAssinatura);                        
+                        objRegAtend.setHoraAssinatura(horaAssinatura);
                         objRegAtend.setCodigoFunc(codigoLiberador);
                         objRegAtend.setNomeFunc(nomeLiberador);
                         objRegAtend.setAssinaturaLiberador(pDigitalCapturadaColaborador);
@@ -692,7 +703,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                         objRegAtend.setMotivoImpressao(jMotivo.getText());
                         objRegAtend.setImpressaoAuto(pImpressao);
                         objRegAtend.setQtdAtend(qtdAtend);
-                        objRegAtend.setUsuarioAtendente((String)jComboBoxAtendente.getSelectedItem());
+                        objRegAtend.setUsuarioAtendente((String) jComboBoxAtendente.getSelectedItem());
                         control.incluirRegAtendGrupo(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -744,6 +755,28 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
             };
             t.start();
         } catch (Exception e) {
+        }
+    }
+
+    public void finalizarAtendimentoGrupo() {
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusLanc = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar assim mesmo o lançamento selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objRegAtend.setStatusAtendimento(statusLanc);
+            objRegAtend.setIdAtend(Integer.parseInt(jCodigoAtend.getText()));
+            control.finalizarAtendimentoGrupoPSI(objRegAtend);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            jStatusAtend.setText("FINALIZADO");
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            //                 
+            jBtNovo.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
         }
     }
 

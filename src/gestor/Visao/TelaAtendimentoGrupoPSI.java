@@ -3463,7 +3463,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterarAvInd;
     private javax.swing.JButton jBtAlterarParticipantes;
     private javax.swing.JButton jBtAlterarPlan;
-    private javax.swing.JButton jBtAuditoria;
+    public static javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaAvGrupo;
     private javax.swing.JButton jBtAuditoriaAvInd;
     private javax.swing.JButton jBtAuditoriaParticipantes;
@@ -3482,7 +3482,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtIDPesq;
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtLiberar;
-    private javax.swing.JButton jBtNovo;
+    public static javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoAvGrupo;
     private javax.swing.JButton jBtNovoAvInd;
     private javax.swing.JButton jBtNovoParticipantes;
@@ -3611,7 +3611,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jStatusAtend;
+    public static javax.swing.JTextField jStatusAtend;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAdmissaoPsicologica;
