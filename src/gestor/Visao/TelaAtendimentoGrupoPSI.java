@@ -16,6 +16,8 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import static gestor.Visao.TelaModuloPsicologia.botaoEncerrar_PSI;
+import static gestor.Visao.TelaModuloPsicologia.botaoLiberar_PSI;
 import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
 import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
@@ -3374,11 +3376,36 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtEncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEncerrarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(botaoEncerrar_PSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(botaoEncerrar_PSI) && codAbrirPSI == 1) {
+            Integer row2 = jTabelaInternos.getRowCount();
+            if (row2 == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe participantes cadastrados.");
+            } else if (row2 == 1) {
+                JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
+            } else {
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtEncerrarActionPerformed
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
-        mostrarTelaAG();
+        buscarAcessoUsuario(botaoLiberar_PSI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(botaoLiberar_PSI) && codAbrirPSI == 1) {
+            Integer row1 = jTabelaInternos.getRowCount();
+            if (row1 == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe participantes cadastrados.");
+            } else if (row1 == 1) {
+                JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
+            } else {
+                mostrarTelaAG();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtLiberarActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
