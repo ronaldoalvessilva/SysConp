@@ -256,7 +256,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
         jTabelaCalendarioVacinas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCalendarioVacinas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Completo do Interno"
@@ -1129,7 +1129,7 @@ public class TelaCalendarioVacinasInternos extends javax.swing.JInternalFrame {
         jTabelaCartaoVacina.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCartaoVacina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Registro", "Descrição da Vacina", "1ª Dose", "2ª Dose", "3ª Dose", "Reforço"

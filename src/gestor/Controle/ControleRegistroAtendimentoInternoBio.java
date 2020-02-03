@@ -151,7 +151,7 @@ public class ControleRegistroAtendimentoInternoBio {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_PSICOLOGIA SET StatusAtend=? WHERE IdAtend='" + objRegAtend.getIdAtend() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_PSICOLOGIA SET StatusAtendGrupo=? WHERE IdAtGrupoPsi='" + objRegAtend.getIdAtend() + "'");
             pst.setString(1, objRegAtend.getStatusAtendimento());
             pst.executeUpdate();
         } catch (SQLException ex) {

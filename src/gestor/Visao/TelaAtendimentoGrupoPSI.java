@@ -67,9 +67,11 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Psicologia:Admissão de Internos:Manutenção";
-    String nomeModuloTela2 = "Psicologia:Evolução Psicológica de Internos";
-    String nomeModuloTela3 = "Psicologia:Evolução Psicológica de Internos";
+    String nomeModuloTela = "Psicologia:Atendimento em Grupo:Manutenção";
+    String nomeModuloTela2 = "Psicologia:Atendimento em Grupo:Planejamento";
+    String nomeModuloTela3 = "Psicologia:Atendimento em Grupo:Participantes";
+    String nomeModuloTela4 = "Psicologia:Atendimento em Grupo:Avaliação em Grupo";
+    String nomeModuloTela5 = "Psicologia:Atendimento em Grupo:Avaliação Individual";
     //
     String statusMov;
     String horaMov;
@@ -85,13 +87,13 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     String dataInicial, dataFinal, dataEntrada, dataEvolucao;
     String nomeUserRegistro;
     String pCODIGO_PLAN;
-    int pCODIGO_ITEM_PARTICIPANTE = 0;
+    public static int pCODIGO_ITEM_PARTICIPANTE = 0;
     String pCODIGO_PART;
     String caminho;
-    int pCODIGO_AVALIACAO_GRUPO = 0;
+    public static int pCODIGO_AVALIACAO_GRUPO = 0;
     int pCODIGO_AVALIACAO_INDIVIDUAL = 0;
-    int pCODIGO_AVALIACAO_GRUPO_AVG = 0; // CÓDIGO DA AVALIAÇÃO EXISTENTE, PARA NÃO SER GRAVADA DUAS PARA A MESMA ATIVIDADE
-    int pCODIGO_AVALIACAO_GRUPO_AVGI = 0;
+    public static int pCODIGO_AVALIACAO_GRUPO_AVG = 0; // CÓDIGO DA AVALIAÇÃO EXISTENTE, PARA NÃO SER GRAVADA DUAS PARA A MESMA ATIVIDADE
+    public static int pCODIGO_AVALIACAO_GRUPO_AVGI = 0;
     String pCODIGO_AVI;
 
     /**
@@ -289,6 +291,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtEncerrar = new javax.swing.JButton();
         jBtLiberar = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
+        jBtLiberador = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -2189,16 +2192,25 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtLiberador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png"))); // NOI18N
+        jBtLiberador.setText("Liberado");
+        jBtLiberador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLiberadorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtEncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtEncerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(jBtLiberar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(jBtImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(jBtLiberador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -2213,7 +2225,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 .addComponent(jBtLiberar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImpressao)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtLiberador)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2563,6 +2577,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRegistroAtendGrupo_MANU objAudMa = new TelaAuditoriaRegistroAtendGrupo_MANU();
+        TelaModuloPsicologia.jPainelPsicologia.add(objAudMa);
+        objAudMa.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovoPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPlanActionPerformed
@@ -2727,6 +2744,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPlanActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRegistroAtendGrupo_PLAN objAudiPlan = new TelaAuditoriaRegistroAtendGrupo_PLAN();
+        TelaModuloPsicologia.jPainelPsicologia.add(objAudiPlan);
+        objAudiPlan.show();
     }//GEN-LAST:event_jBtAuditoriaPlanActionPerformed
 
     private void jTabelaPlanejamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPlanejamentoMouseClicked
@@ -2927,6 +2947,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaParticipantesActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRegistroAtendGrupo_PART objAudi_PART = new TelaAuditoriaRegistroAtendGrupo_PART();
+        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_PART);
+        objAudi_PART.show();
     }//GEN-LAST:event_jBtAuditoriaParticipantesActionPerformed
 
     private void jBtPesquisarPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarPartActionPerformed
@@ -3138,6 +3161,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvGrupoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRegistroAtendGrupo_AGRU objAudi_AG = new TelaAuditoriaRegistroAtendGrupo_AGRU();
+        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_AG);
+        objAudi_AG.show();
     }//GEN-LAST:event_jBtAuditoriaAvGrupoActionPerformed
 
     private void jBtNovoAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvIndActionPerformed
@@ -3307,6 +3333,9 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvIndActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaRegistroAtendGrupo_AIGRU objAudi_AIG = new TelaAuditoriaRegistroAtendGrupo_AIGRU();
+        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_AIG);
+        objAudi_AIG.show();
     }//GEN-LAST:event_jBtAuditoriaAvIndActionPerformed
 
     private void jBtPesqInternoAVIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoAVIActionPerformed
@@ -3352,6 +3381,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 jRegimeAVI.setText(conecta.rs.getString("Regime"));
                 jNomeInternoAVI.setText(conecta.rs.getString("NomeInternoCrc"));
                 jNomeMaeInternoAVI.setText(conecta.rs.getString("MaeInternoCrc"));
+                jTextoAvalaicaoIndividual.setText(conecta.rs.getString("TextoAvalaiacaoInd"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 if (caminho != null) {
@@ -3401,8 +3431,13 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             } else if (row1 == 1) {
                 JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
             } else {
-                verificarLiberacao();
-                mostrarTelaAG();
+                objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+                if (jStatusAtend.getText().equals("FINALIZADO")) {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+                } else {
+                    verificarLiberacao();
+                    mostrarTelaAG();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -3453,6 +3488,17 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
+    private void jBtLiberadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberadorActionPerformed
+        // TODO add your handling code here:
+        if (jCodigoAtend.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
+        } else {
+            TelaLiberadorRegistroAtendGrupo objLibera = new TelaLiberadorRegistroAtendGrupo();
+            TelaModuloPsicologia.jPainelPsicologia.add(objLibera);
+            objLibera.show();
+        }
+    }//GEN-LAST:event_jBtLiberadorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAGlobal;
@@ -3481,6 +3527,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtExcluirPlan;
     private javax.swing.JButton jBtIDPesq;
     private javax.swing.JButton jBtImpressao;
+    private javax.swing.JButton jBtLiberador;
     private javax.swing.JButton jBtLiberar;
     public static javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoAvGrupo;
@@ -4237,8 +4284,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
-    public void verificarLiberacao(){
+
+    public void verificarLiberacao() {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP ");

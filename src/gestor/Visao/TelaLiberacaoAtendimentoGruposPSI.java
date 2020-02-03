@@ -127,7 +127,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jMotivo = new javax.swing.JTextArea();
         jScrollPane15 = new javax.swing.JScrollPane();
-        jTabelaInternos = new javax.swing.JTable();
+        jTabelaInternosLiberados = new javax.swing.JTable();
         jPanel45 = new javax.swing.JPanel();
         jtotalRegistrosInternos = new javax.swing.JLabel();
         jPanel46 = new javax.swing.JPanel();
@@ -275,8 +275,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaInternosLiberados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaInternosLiberados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -284,18 +284,18 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 "Item", "Código", "CNC", "Nome do Interno", "Regime"
             }
         ));
-        jScrollPane15.setViewportView(jTabelaInternos);
-        if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(60);
-            jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(350);
-            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(350);
-            jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(100);
-            jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(100);
+        jScrollPane15.setViewportView(jTabelaInternosLiberados);
+        if (jTabelaInternosLiberados.getColumnModel().getColumnCount() > 0) {
+            jTabelaInternosLiberados.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaInternosLiberados.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaInternosLiberados.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaInternosLiberados.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaInternosLiberados.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaInternosLiberados.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaInternosLiberados.getColumnModel().getColumn(3).setMinWidth(350);
+            jTabelaInternosLiberados.getColumnModel().getColumn(3).setMaxWidth(350);
+            jTabelaInternosLiberados.getColumnModel().getColumn(4).setMinWidth(100);
+            jTabelaInternosLiberados.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
         jPanel45.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -592,7 +592,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTabelaInternos;
+    private javax.swing.JTable jTabelaInternosLiberados;
     private javax.swing.JLabel jtotalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
 
@@ -678,7 +678,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         try {
             Thread t0 = new Thread() {
                 public void run() {
-                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                    for (int i = 0; i < jTabelaInternosLiberados.getRowCount(); i++) {
                         // Para o log do registro
                         objRegAtend.setUsuarioInsert(nameUser);
                         objRegAtend.setDataInsert(dataModFinal);
@@ -686,8 +686,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                         //
                         objRegAtend.setIdAtend(Integer.valueOf(jIdRegistro.getText()));
                         objRegAtend.setDataAtendimento(jDataAtend.getDate());
-                        objRegAtend.setIdInternoCrc((int) jTabelaInternos.getValueAt(i, 1));
-                        objRegAtend.setNomeInternoCrc((String) jTabelaInternos.getValueAt(i, 3));
+                        objRegAtend.setIdInternoCrc((int) jTabelaInternosLiberados.getValueAt(i, 1));
+                        objRegAtend.setNomeInternoCrc((String) jTabelaInternosLiberados.getValueAt(i, 3));
                         objRegAtend.setNomeDepartamento(jNomeDepartamento.getText());
                         objRegAtend.setTipoAtemdimento((String) jComboBoxTipoMovimentacao.getSelectedItem());
                         objRegAtend.setDataReg(jDataRegistro.getDate());
@@ -721,23 +721,19 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         try {
             Thread t = new Thread() {
                 public void run() {
-                    jProgressBar1.setMaximum(jTabelaInternos.getRowCount());
+                    jProgressBar1.setMaximum(jTabelaInternosLiberados.getRowCount());
                     Rectangle rect;
-                    for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
-                        rect = jTabelaInternos.getCellRect(i, 0, true);
+                    for (int i = 0; i < jTabelaInternosLiberados.getRowCount(); i++) {
+                        rect = jTabelaInternosLiberados.getCellRect(i, 0, true);
                         try {
-                            jTabelaInternos.scrollRectToVisible(rect);
+                            jTabelaInternosLiberados.scrollRectToVisible(rect);
                         } catch (java.lang.ClassCastException e) {
                         }
-//                        jTabelaInternosKitCompleto.setRowSelectionInterval(i, 1);
-//                        jProgressBar1.setValue((i + 1));
-                        //RETIRADO POR QUE QUANDO A TABELA SÓ TEM UMA LINHA ESTAVA
-                        //DANDO ERRO. TESTAR COM MAIS DE UMA LINHA.
                         if (i == 0) {
-                            jTabelaInternos.setRowSelectionInterval(i, 0);
+                            jTabelaInternosLiberados.setRowSelectionInterval(i, 0);
                             jProgressBar1.setValue((i + 1));
                         } else if (i > 0) {
-                            jTabelaInternos.setRowSelectionInterval(i, 1);
+                            jTabelaInternosLiberados.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
                         }
                         try {
@@ -763,21 +759,15 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
         String statusLanc = "FINALIZADO";
-        JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar assim mesmo o lançamento selecionado?", "Confirmação",
-                JOptionPane.YES_NO_OPTION);
-        if (resposta == JOptionPane.YES_OPTION) {
-            objRegAtend.setStatusAtendimento(statusLanc);
-            objRegAtend.setIdAtend(Integer.parseInt(jCodigoAtend.getText()));
-            control.finalizarAtendimentoGrupoPSI(objRegAtend);
-            objLog();
-            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-            jStatusAtend.setText("FINALIZADO");
-            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
-            //                 
-            jBtNovo.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-        }
+        objRegAtend.setStatusAtendimento(statusLanc);
+        objRegAtend.setIdAtend(Integer.parseInt(jCodigoAtend.getText()));
+        control.finalizarAtendimentoGrupoPSI(objRegAtend);
+        objLog();
+        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+        jStatusAtend.setText("FINALIZADO");
+        //                 
+        jBtNovo.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
     }
 
     //ABA PARTICIPANTES
@@ -797,20 +787,20 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaInternos.setModel(modelo);
-        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(350);
-        jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(100);
-        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
-        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaInternosLiberados.setModel(modelo);
+        jTabelaInternosLiberados.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternosLiberados.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternosLiberados.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternosLiberados.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(3).setPreferredWidth(350);
+        jTabelaInternosLiberados.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInternosLiberados.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternosLiberados.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternosLiberados.setAutoResizeMode(jTabelaInternosLiberados.AUTO_RESIZE_OFF);
+        jTabelaInternosLiberados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaParticipantes();
         conecta.desconecta();
     }
@@ -823,29 +813,29 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaInternos.getColumnModel().getColumn(2).setCellRenderer(direita);
+        jTabelaInternosLiberados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternosLiberados.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaInternosLiberados.getColumnModel().getColumn(2).setCellRenderer(direita);
     }
 
     public void limparTabelaParticipantes() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Item", "Código", "CNC", "Nome do Interno", "Regime"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaInternos.setModel(modelo);
-        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
-        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
-        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(350);
-        jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(100);
-        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
-        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaInternosLiberados.setModel(modelo);
+        jTabelaInternosLiberados.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTabelaInternosLiberados.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaInternosLiberados.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternosLiberados.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(3).setPreferredWidth(350);
+        jTabelaInternosLiberados.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternosLiberados.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaInternosLiberados.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternosLiberados.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternosLiberados.setAutoResizeMode(jTabelaInternosLiberados.AUTO_RESIZE_OFF);
+        jTabelaInternosLiberados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
 
@@ -853,7 +843,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistro.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAtend.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
