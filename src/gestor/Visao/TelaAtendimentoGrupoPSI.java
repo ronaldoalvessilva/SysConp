@@ -100,6 +100,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
      * Creates new form TelaAtendimentoGrupoPSI
      */
     public static TelaLiberacaoAtendimentoGruposPSI pATENDE_GRUPO;
+    public static TelaSelecaoLoteInternosAG pPESQUISA_LOTE;
 
     public TelaAtendimentoGrupoPSI() {
         initComponents();
@@ -110,6 +111,11 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     public void mostrarTelaAG() {
         pATENDE_GRUPO = new TelaLiberacaoAtendimentoGruposPSI(this, true);
         pATENDE_GRUPO.setVisible(true);
+    }
+
+    public void mostrarPesquisaLote() {
+        pPESQUISA_LOTE = new TelaSelecaoLoteInternosAG(this, true);
+        pPESQUISA_LOTE.setVisible(true);
     }
 
     /**
@@ -176,6 +182,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jGrupoAtividade = new javax.swing.JTextField();
         jObservacao = new javax.swing.JTextField();
+        jComboBoxNivelPavilhao = new javax.swing.JComboBox<>();
+        jLabel31 = new javax.swing.JLabel();
         jPlanejamento = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
@@ -234,6 +242,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jBtSalvarParticipantes = new javax.swing.JButton();
         jBtCancelarParticipantes = new javax.swing.JButton();
         jBtAuditoriaParticipantes = new javax.swing.JButton();
+        jBtPesquisaLote = new javax.swing.JButton();
         jPanel45 = new javax.swing.JPanel();
         jtotalRegistrosInternos = new javax.swing.JLabel();
         jPanel46 = new javax.swing.JPanel();
@@ -288,7 +297,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jFotoInternoGrupo = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jBtEncerrar = new javax.swing.JButton();
         jBtLiberar = new javax.swing.JButton();
         jBtImpressao = new javax.swing.JButton();
         jBtLiberador = new javax.swing.JButton();
@@ -755,6 +763,16 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jComboBoxPavilhaoGaleria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxPavilhaoGaleria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxPavilhaoGaleria.setEnabled(false);
+        jComboBoxPavilhaoGaleria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxPavilhaoGaleriaItemStateChanged(evt);
+            }
+        });
+        jComboBoxPavilhaoGaleria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxPavilhaoGaleriaMouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Observação");
@@ -796,6 +814,14 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         jObservacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jObservacao.setEnabled(false);
 
+        jComboBoxNivelPavilhao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxNivelPavilhao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B" }));
+        jComboBoxNivelPavilhao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxNivelPavilhao.setEnabled(false);
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel31.setText("PV");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -813,9 +839,19 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel15)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel53)
-                            .addComponent(jComboBoxPavilhaoGaleria, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jLabel53)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jComboBoxPavilhaoGaleria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jLabel31)
+                                        .addGap(21, 21, 21))
+                                    .addComponent(jComboBoxNivelPavilhao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -832,12 +868,15 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel13))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(jLabel13))
+                    .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxPavilhaoGaleria, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNivelPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHorarioInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHorarioTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1462,6 +1501,15 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtPesquisaLote.setForeground(new java.awt.Color(0, 0, 204));
+        jBtPesquisaLote.setText("Pesquisa Lote");
+        jBtPesquisaLote.setToolTipText("Pesquisa de Internos em Lote");
+        jBtPesquisaLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaLoteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -1477,6 +1525,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 .addComponent(jBtSalvarParticipantes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jBtCancelarParticipantes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(jBtPesquisaLote)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaParticipantes, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1494,7 +1544,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                     .addComponent(jBtExcluirParticipantes)
                     .addComponent(jBtSalvarParticipantes)
                     .addComponent(jBtCancelarParticipantes)
-                    .addComponent(jBtAuditoriaParticipantes))
+                    .addComponent(jBtAuditoriaParticipantes)
+                    .addComponent(jBtPesquisaLote))
                 .addGap(2, 2, 2))
         );
 
@@ -2165,15 +2216,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
-        jBtEncerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
-        jBtEncerrar.setText("Encerrar");
-        jBtEncerrar.setToolTipText("Concluir Atendimento");
-        jBtEncerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEncerrarActionPerformed(evt);
-            }
-        });
-
         jBtLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Biometria16Vermelho.png"))); // NOI18N
         jBtLiberar.setText("Liberar");
         jBtLiberar.setToolTipText("LiberarAtendimento");
@@ -2207,21 +2249,18 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtEncerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(jBtLiberar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(jBtImpressao, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(jBtLiberador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEncerrar, jBtImpressao, jBtLiberar});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtImpressao, jBtLiberar});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jBtEncerrar)
-                .addGap(51, 51, 51)
+                .addGap(98, 98, 98)
                 .addComponent(jBtLiberar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImpressao)
@@ -2380,6 +2419,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             jBtNovoAvInd.setEnabled(true);
             //
             jComboBoxPavilhaoGaleria.removeAllItems();
+              jComboBoxNivelPavilhao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
@@ -2392,6 +2432,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                 jDataAtend.setDate(conecta.rs.getDate("DataAtend"));
                 jResponsavel.setText(conecta.rs.getString("Responsavel"));
                 jComboBoxPavilhaoGaleria.addItem(conecta.rs.getString("DescricaoPav"));
+                jComboBoxNivelPavilhao.addItem(conecta.rs.getString("NivelPav"));
                 jHorarioInicio.setText(conecta.rs.getString("HoraioInicio"));
                 jHorarioTermino.setText(conecta.rs.getString("HorarioTermino"));
                 jComboBoxAmbiente.setSelectedItem(conecta.rs.getString("Ambiente"));
@@ -3404,23 +3445,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTabelaInternosAvIndividualMouseClicked
 
-    private void jBtEncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEncerrarActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(botaoEncerrar_PSI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(botaoEncerrar_PSI) && codAbrirPSI == 1) {
-            Integer row2 = jTabelaInternos.getRowCount();
-            if (row2 == 0) {
-                JOptionPane.showMessageDialog(rootPane, "Não existe participantes cadastrados.");
-            } else if (row2 == 1) {
-                JOptionPane.showMessageDialog(rootPane, "A quantidade de participantes é pequena para o aatendimento em grupo.");
-            } else {
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
-        }
-    }//GEN-LAST:event_jBtEncerrarActionPerformed
-
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(botaoLiberar_PSI);
@@ -3499,6 +3523,45 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
 
+    private void jBtPesquisaLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaLoteActionPerformed
+        // TODO add your handling code here:
+        mostrarPesquisaLote();
+    }//GEN-LAST:event_jBtPesquisaLoteActionPerformed
+
+    private void jComboBoxPavilhaoGaleriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPavilhaoGaleriaItemStateChanged
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            if (evt.getStateChange() == evt.SELECTED) {
+                jComboBoxNivelPavilhao.removeAllItems();
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM "
+                            + "PAVILHAO WHERE DescricaoPav='" + jComboBoxPavilhaoGaleria.getSelectedItem() + "'");
+                    conecta.rs.first();
+                    jComboBoxNivelPavilhao.addItem(conecta.rs.getString("NivelPav"));
+                } catch (Exception e) {
+                }
+                conecta.desconecta();
+            }
+        }
+    }//GEN-LAST:event_jComboBoxPavilhaoGaleriaItemStateChanged
+
+    private void jComboBoxPavilhaoGaleriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxPavilhaoGaleriaMouseClicked
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            jComboBoxNivelPavilhao.removeAllItems();
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PAVILHAO "
+                        + "WHERE DescricaoPav='" + jComboBoxPavilhaoGaleria.getSelectedItem() + "'");
+                conecta.rs.first();
+                jComboBoxNivelPavilhao.addItem(conecta.rs.getString("NivelPav"));
+            } catch (Exception e) {
+            }
+            conecta.desconecta();
+        }
+    }//GEN-LAST:event_jComboBoxPavilhaoGaleriaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAGlobal;
@@ -3519,7 +3582,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtCancelarAvInd;
     private javax.swing.JButton jBtCancelarParticipantes;
     private javax.swing.JButton jBtCancelarPlan;
-    private javax.swing.JButton jBtEncerrar;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirAvGrupo;
     private javax.swing.JButton jBtExcluirAvInd;
@@ -3536,6 +3598,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtNovoPlan;
     private javax.swing.JButton jBtPesqDatas;
     private javax.swing.JButton jBtPesqInternoAVI;
+    private javax.swing.JButton jBtPesquisaLote;
     private javax.swing.JButton jBtPesquisarInternos;
     private javax.swing.JButton jBtPesquisarPart;
     private javax.swing.JButton jBtSair;
@@ -3552,6 +3615,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCodigoAtend;
     public static javax.swing.JTextField jCodigoTema;
     private javax.swing.JComboBox<String> jComboBoxAmbiente;
+    public static javax.swing.JComboBox<String> jComboBoxNivelPavilhao;
     public static javax.swing.JComboBox<String> jComboBoxPavilhaoGaleria;
     private javax.swing.JComboBox<String> jComboBoxTurno;
     public static com.toedter.calendar.JDateChooser jDataAtend;
@@ -3591,6 +3655,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
@@ -3662,7 +3727,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAdmissaoPsicologica;
-    private javax.swing.JTable jTabelaInternos;
+    public static javax.swing.JTable jTabelaInternos;
     private javax.swing.JTable jTabelaInternosAvIndividual;
     private javax.swing.JTable jTabelaPlanejamento;
     private javax.swing.JTextField jTema;
@@ -4586,6 +4651,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             conecta.rs.first();
             do {
                 jComboBoxPavilhaoGaleria.addItem(conecta.rs.getString("DescricaoPav"));
+                jComboBoxNivelPavilhao.addItem(conecta.rs.getString("NivelPav"));
             } while (conecta.rs.next());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos!!!\nERRO: " + e);
