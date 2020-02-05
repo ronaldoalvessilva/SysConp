@@ -170,6 +170,24 @@ public class ControleAtendimentoGrupoPsicologia {
         return objAvalia;
     }
 
+    public AtividadesGrupoPsicologia incluirAGrupoPP(AtividadesGrupoPsicologia objAvalia) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA (IdAtGrupoPsi,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            pst.setInt(1, objAvalia.getIdAtGrupoPsi());
+            pst.setInt(2, objAvalia.getIdInternoCrc());
+            pst.setString(3, objAvalia.getUsuarioInsert());
+            pst.setString(4, objAvalia.getDataInsert());
+            pst.setString(5, objAvalia.getHorarioInsert());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAvalia;
+    }
+
     public AtividadesGrupoPsicologia alterarAtendimentoGrupoParticipantesPsi(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();

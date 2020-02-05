@@ -80,7 +80,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     int flag;
     int count = 0;
     int count0 = 0;
-    int count1 = 0;
+    public static int count1 = 0;
     int count2 = 0;
     int count3 = 0;
     int acao = 0;
@@ -1502,6 +1502,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         });
 
         jBtPesquisaLote.setForeground(new java.awt.Color(0, 0, 204));
+        jBtPesquisaLote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisaLote.setText("Pesquisa Lote");
         jBtPesquisaLote.setToolTipText("Pesquisa de Internos em Lote");
         jBtPesquisaLote.addActionListener(new java.awt.event.ActionListener() {
@@ -2419,7 +2420,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             jBtNovoAvInd.setEnabled(true);
             //
             jComboBoxPavilhaoGaleria.removeAllItems();
-              jComboBoxNivelPavilhao.removeAllItems();
+            jComboBoxNivelPavilhao.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
@@ -3525,7 +3526,16 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtPesquisaLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaLoteActionPerformed
         // TODO add your handling code here:
-        mostrarPesquisaLote();
+        objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+        if (jStatusAtend.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+        } else {
+            if (acao == 5 || acao == 6) {
+                mostrarPesquisaLote();
+            }else {
+                JOptionPane.showMessageDialog(rootPane, "Você não está no modo de inserção ou edição para modificar o registro selecionado.\nClique não botão novo ou alterar.");
+            }
+        }
     }//GEN-LAST:event_jBtPesquisaLoteActionPerformed
 
     private void jComboBoxPavilhaoGaleriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPavilhaoGaleriaItemStateChanged
@@ -3570,22 +3580,22 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarAvGrupo;
     private javax.swing.JButton jBtAlterarAvInd;
-    private javax.swing.JButton jBtAlterarParticipantes;
+    public static javax.swing.JButton jBtAlterarParticipantes;
     private javax.swing.JButton jBtAlterarPlan;
     public static javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoriaAvGrupo;
     private javax.swing.JButton jBtAuditoriaAvInd;
-    private javax.swing.JButton jBtAuditoriaParticipantes;
+    public static javax.swing.JButton jBtAuditoriaParticipantes;
     private javax.swing.JButton jBtAuditoriaPlan;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtCancelarAvGrupo;
     private javax.swing.JButton jBtCancelarAvInd;
-    private javax.swing.JButton jBtCancelarParticipantes;
+    public static javax.swing.JButton jBtCancelarParticipantes;
     private javax.swing.JButton jBtCancelarPlan;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtExcluirAvGrupo;
     private javax.swing.JButton jBtExcluirAvInd;
-    private javax.swing.JButton jBtExcluirParticipantes;
+    public static javax.swing.JButton jBtExcluirParticipantes;
     private javax.swing.JButton jBtExcluirPlan;
     private javax.swing.JButton jBtIDPesq;
     private javax.swing.JButton jBtImpressao;
@@ -3594,19 +3604,19 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoAvGrupo;
     private javax.swing.JButton jBtNovoAvInd;
-    private javax.swing.JButton jBtNovoParticipantes;
+    public static javax.swing.JButton jBtNovoParticipantes;
     private javax.swing.JButton jBtNovoPlan;
     private javax.swing.JButton jBtPesqDatas;
     private javax.swing.JButton jBtPesqInternoAVI;
-    private javax.swing.JButton jBtPesquisaLote;
+    public static javax.swing.JButton jBtPesquisaLote;
     private javax.swing.JButton jBtPesquisarInternos;
-    private javax.swing.JButton jBtPesquisarPart;
+    public static javax.swing.JButton jBtPesquisarPart;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSairAvGrupo;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtSalvarAvGrupo;
     private javax.swing.JButton jBtSalvarAvInd;
-    private javax.swing.JButton jBtSalvarParticipantes;
+    public static javax.swing.JButton jBtSalvarParticipantes;
     private javax.swing.JButton jBtSalvarPlan;
     public static javax.swing.JTextField jCNC;
     public static javax.swing.JTextField jCNCAI;
@@ -3734,7 +3744,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextoAvalaicaoIndividual;
     private javax.swing.JTextArea jTextoAvaliacaoGrupo;
     private javax.swing.JLabel jtotalRegistros;
-    private javax.swing.JLabel jtotalRegistrosInternos;
+    public static javax.swing.JLabel jtotalRegistrosInternos;
     private javax.swing.JLabel jtotalRegistrosInternosAVI;
     private javax.swing.JLabel jtotalRegistrosPlanejamento;
     // End of variables declaration//GEN-END:variables
@@ -4254,7 +4264,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvag");
             jTextoAvaliacaoGrupo.setText(conecta.rs.getString("TextoAvalaiacaoGrupo"));
         } catch (SQLException ex) {
-            Logger.getLogger(TelaAtendimentoGrupoPSI.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(TelaAtendimentoGrupoPSI.class.getName()).log(Level.SEVERE, null, ex);
         }
         conecta.desconecta();
         if (pCODIGO_AVALIACAO_GRUPO != 0) {

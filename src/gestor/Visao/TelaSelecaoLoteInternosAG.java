@@ -5,20 +5,49 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAtendimentoGrupoPsicologia;
 import gestor.Controle.ControleListaInternosCelasAG;
 import gestor.Controle.ControleListaInternosGaleiraAG;
 import gestor.Controle.ControleListaInternosPavilhaoAG;
 import gestor.Controle.ControleListaInternosPavilhaoAG_II;
+import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ModeloTabela;
+import gestor.Modelo.AtividadesGrupoPsicologia;
+import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtAlterarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtAuditoriaParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtCancelarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtExcluirParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtNovoParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtSalvarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jBtPesquisarPart;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jCNC;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jCela;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jComboBoxNivelPavilhao;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jComboBoxPavilhaoGaleria;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jDataNascimento;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jIdInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jNomeInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jNomeMae;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jPavilhao;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jRegime;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jTabelaInternos;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jtotalRegistrosInternos;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.pCODIGO_ITEM_PARTICIPANTE;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -30,26 +59,38 @@ import javax.swing.table.DefaultTableModel;
 public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
+    ControleAtendimentoGrupoPsicologia control = new ControleAtendimentoGrupoPsicologia();
     ControleListaInternosCelasAG listaPorCelas = new ControleListaInternosCelasAG();
     ControleListaInternosGaleiraAG listaPorGaleira = new ControleListaInternosGaleiraAG();
     ControleListaInternosPavilhaoAG listaPorPavilhao = new ControleListaInternosPavilhaoAG();
     ControleListaInternosPavilhaoAG_II listaPorPavilhao_B = new ControleListaInternosPavilhaoAG_II();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     //
+    ControleLogSistema controlLog = new ControleLogSistema();
+    LogSistema objLogSys = new LogSistema();
+    //
+    String nomeModuloTela3 = "Psicologia:Atendimento em Grupo:Participantes";
+    //
     public static int qtdInternos = 0;
     public static int codigoPavilhao = 0;
     String idInterno = "";
-    public static int qtdInternosSelecionados = 0;
+    public static int qtdInternosDestino = 0;
     public static int qtdInternosOrigem = 0;
     int count1 = 0; // PARA TABELA DE INTERNOS SELECIONADOS
     int count2 = 0;
     int count3 = 0;
     int qtdTotal = 0;
+    //
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
 
     /**
      * Creates new form TelaSelecaoLoteInternosAG
      */
     public static TelaAtendimentoGrupoPSI pATENDIMENTO_GRUPO;
+    public static TelaGravarInternosAtividadeGrupo_PSI pGRAVAR_INTERNOS_PART;
 
     public TelaSelecaoLoteInternosAG(TelaAtendimentoGrupoPSI parent, boolean modal) {
         this.pATENDIMENTO_GRUPO = parent;
@@ -58,6 +99,11 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         initComponents();
         preencherGaleria();
         preencherCelas();
+    }
+
+    public void mostrarGravar() {
+        pGRAVAR_INTERNOS_PART = new TelaGravarInternosAtividadeGrupo_PSI(this, true);
+        pGRAVAR_INTERNOS_PART.setVisible(true);
     }
 
     /**
@@ -88,7 +134,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         jPanel30 = new javax.swing.JPanel();
         jLabel67 = new javax.swing.JLabel();
         jPanel32 = new javax.swing.JPanel();
-        jtotalInternosPavilhao = new javax.swing.JLabel();
+        jtotalInternosOrigem = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -97,9 +143,9 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         jPanel34 = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
         jPanel35 = new javax.swing.JPanel();
-        jtotalInternosSelecionados = new javax.swing.JLabel();
+        jtotalInternosDestino = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        jBtConfirmarOperacao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Seleção de Internos - AG :::..");
@@ -287,17 +333,17 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        jtotalInternosPavilhao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jtotalInternosOrigem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalInternosPavilhao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jtotalInternosOrigem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalInternosPavilhao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+            .addComponent(jtotalInternosOrigem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -403,17 +449,17 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
 
         jPanel35.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        jtotalInternosSelecionados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jtotalInternosDestino.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalInternosSelecionados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jtotalInternosDestino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalInternosSelecionados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+            .addComponent(jtotalInternosDestino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -447,12 +493,12 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
 
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jButton5.setForeground(new java.awt.Color(0, 102, 0));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
-        jButton5.setText("Confirmar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jBtConfirmarOperacao.setForeground(new java.awt.Color(0, 102, 0));
+        jBtConfirmarOperacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtConfirmarOperacao.setText("Confirmar");
+        jBtConfirmarOperacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jBtConfirmarOperacaoActionPerformed(evt);
             }
         });
 
@@ -462,14 +508,14 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtConfirmarOperacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(jBtConfirmarOperacao)
                 .addContainerGap())
         );
 
@@ -523,7 +569,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             while (jTabelaInternosOrigem.getModel().getRowCount() > 0) {
                 ((DefaultTableModel) jTabelaInternosOrigem.getModel()).removeRow(0);
             }
-            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
             qtdInternos = 0;
             if (jComboBoxNivelPavilhao.getSelectedItem().equals("A")) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
@@ -531,7 +577,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                 try {
                     for (PavilhaoInternoMontaKit dd : listaPorPavilhao.read()) {
                         codigoPavilhao = dd.getIdPav();
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
                         jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -551,7 +597,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                 try {
                     for (PavilhaoInternoMontaKit dd : listaPorPavilhao_B.read()) {
                         codigoPavilhao = dd.getIdPav();
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
                         jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -571,14 +617,14 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             while (jTabelaInternosOrigem.getModel().getRowCount() > 0) {
                 ((DefaultTableModel) jTabelaInternosOrigem.getModel()).removeRow(0);
             }
-            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
             qtdInternos = 0;
             DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
             PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
             try {
                 for (PavilhaoInternoMontaKit dd : listaPorGaleira.read()) {
                     codigoPavilhao = dd.getIdPav();
-                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                     dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -600,14 +646,14 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                 while (jTabelaInternosOrigem.getModel().getRowCount() > 0) {
                     ((DefaultTableModel) jTabelaInternosOrigem.getModel()).removeRow(0);
                 }
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
                 qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {
                     for (PavilhaoInternoMontaKit dd : listaPorCelas.read()) {
                         codigoPavilhao = dd.getIdPav();
-                        jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                        jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                         dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                         // BARRA DE ROLAGEM HORIZONTAL
                         jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -625,9 +671,14 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jBtConfirmarSelecaoActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jBtConfirmarOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarOperacaoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "Confirmar a gravação dos dados selecionados?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            mostrarGravar();
+        }
+    }//GEN-LAST:event_jBtConfirmarOperacaoActionPerformed
 
     private void jBtAdicionarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarSelecaoActionPerformed
         // TODO add your handling code here:
@@ -639,7 +690,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
             Object[] obj = {jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 0), jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 1), jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 2)};
             // BARRA DE ROLAGEM HORIZONTAL
-            jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelecionados)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosDestino.setText(Integer.toString(qtdInternosDestino)); // Converter inteiro em string para exibir na tela 
             jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             // ALINHAR TEXTO DA TABELA CENTRALIZADO
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -649,6 +700,10 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             //Adiciona no destino e remove da origem
             modelDestino.addRow(obj);
             modelOrigem.removeRow(jTabelaInternosOrigem.getSelectedRow());
+            qtdInternosDestino = qtdInternosDestino + 1;
+            qtdInternos = qtdInternos - 1;
+            jtotalInternosDestino.setText(Integer.toString(qtdInternosDestino)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
         } else if (jTabelaInternosOrigem.getSelectedRowCount() != 0 && row != 0) {
             DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
             DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternosDestino.getModel();
@@ -665,16 +720,15 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             if (encontrou == true) {
                 JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro.");
             } else if (encontrou == !true) {
-                qtdInternosSelecionados = qtdInternosSelecionados + 1;
+                qtdInternosDestino = qtdInternosDestino + 1;
                 qtdInternos = qtdInternos - 1;
                 //Adiciona no destino e remove da origem
                 Object[] obj = {jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 0), jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 1), jTabelaInternosOrigem.getValueAt(jTabelaInternosOrigem.getSelectedRow(), 2)};
                 modelDestino.addRow(obj);
                 modelOrigem.removeRow(jTabelaInternosOrigem.getSelectedRow());
             }
-            qtdInternos = qtdInternos - 1;
-            jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelecionados)); // Converter inteiro em string para exibir na tela 
-            jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosDestino.setText(Integer.toString(qtdInternosDestino)); // Converter inteiro em string para exibir na tela 
+            jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
             // BARRA DE ROLAGEM HORIZONTAL
             jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -713,6 +767,10 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                             preencherTabelaInternosPorPavilhao_II();
                         }
                     }
+                    qtdInternosDestino = qtdInternos;
+                    qtdInternos = 0;
+                    jtotalInternosDestino.setText(Integer.toString(qtdInternosDestino)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
                 }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Já foram transferido todos os internos.");
@@ -727,17 +785,15 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         if (rows != 0) {
             if (jTabelaInternosDestino.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
                 if (row0 == 0) {
-                    qtdInternos = 0;
-                    qtdInternos++;
-                    count2 = 0;
-                    count2 = qtdTotal - 1;
-                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-                } else if (row0 != 0) {
                     qtdInternos++;
                     count2 = count2 - 1;
-                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                    jtotalInternosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
+                } else if (row0 != 0) {
+                    qtdInternos++;
+                    qtdInternosDestino = qtdInternosDestino - 1;
+                    jtotalInternosDestino.setText(Integer.toString(qtdInternosDestino)); // Converter inteiro em string para exibir na tela 
+                    jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
                 }
                 //Pega os models das listas, para fazer as inserções e remoções
                 DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosDestino.getModel();
@@ -842,10 +898,10 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAdicionarSelecao;
     private javax.swing.JButton jBtAdicionarTodos;
+    private javax.swing.JButton jBtConfirmarOperacao;
     private javax.swing.JButton jBtConfirmarSelecao;
     private javax.swing.JButton jBtRetornarTodos;
     private javax.swing.JButton jBtRetornarUm;
-    private javax.swing.JButton jButton5;
     public static javax.swing.JComboBox<String> jComboBoxCelas;
     public static javax.swing.JComboBox<String> jComboBoxGaleria;
     public static javax.swing.JComboBox<String> jComboBoxPGC;
@@ -869,10 +925,44 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable jTabelaInternosDestino;
     public static javax.swing.JTable jTabelaInternosOrigem;
-    public static javax.swing.JLabel jtotalInternosPavilhao;
-    public static javax.swing.JLabel jtotalInternosSelecionados;
+    public static javax.swing.JLabel jtotalInternosDestino;
+    public static javax.swing.JLabel jtotalInternosOrigem;
     // End of variables declaration//GEN-END:variables
 
+//    public void bloquearTodosBotoes() {
+//        // ABA PARTICIPANTES
+//        jBtNovoParticipantes.setEnabled(!true);
+//        jBtAlterarParticipantes.setEnabled(!true);
+//        jBtExcluirParticipantes.setEnabled(!true);
+//        jBtSalvarParticipantes.setEnabled(!true);
+//        jBtCancelarParticipantes.setEnabled(!true);
+//        jBtAuditoriaParticipantes.setEnabled(!true);
+//        jBtPesquisarPart.setEnabled(!true);
+//    }
+//
+//    public void bloquearTodosCampos() {
+//        // ABA PARTICIPANTES
+//        jIdInternoGrp.setEnabled(!true);
+//        jCNC.setEnabled(!true);
+//        jRegime.setEnabled(!true);
+//        jDataNascimento.setEnabled(!true);
+//        jNomeInternoGrp.setEnabled(!true);
+//        jNomeMae.setEnabled(!true);
+//        jPavilhao.setEnabled(!true);
+//        jCela.setEnabled(!true);
+//    }
+//
+//    public void buscarCodigoParticipantes() {
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA");
+//            conecta.rs.last();
+//            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPart");
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
+//        }
+//        conecta.desconecta();
+//    }
     public void preencherCelas() {
         jComboBoxCelas.removeAllItems();
         conecta.abrirConexao();
@@ -915,8 +1005,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorCelas.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosDestino.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -939,8 +1029,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorCelas.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -963,8 +1053,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorGaleira.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosDestino.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -987,8 +1077,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorGaleira.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1011,8 +1101,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorPavilhao.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosDestino.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1035,8 +1125,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorPavilhao.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1059,8 +1149,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorPavilhao_B.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosDestino.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1083,8 +1173,8 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         try {
             for (PavilhaoInternoMontaKit dd : listaPorPavilhao_B.read()) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
-                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
-                jtotalInternosSelecionados.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosOrigem.setText(Integer.toString(qtdInternos)); // Converter inteiro em string para exibir na tela 
+                jtotalInternosDestino.setText(Integer.toString(qtdInternosOrigem)); // Converter inteiro em string para exibir na tela 
                 dadosOrigem.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
                 // BARRA DE ROLAGEM HORIZONTAL, dd.getNomeInternoCrc()
                 jTabelaInternosOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -1098,4 +1188,5 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             Logger.getLogger(TelaSelecaoInternosKitCompleto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }
