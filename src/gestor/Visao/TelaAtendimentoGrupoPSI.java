@@ -79,7 +79,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     //
     int flag;
     int count = 0;
-    int count0 = 0;
+    public static int count0 = 0;
     public static int count1 = 0;
     int count2 = 0;
     int count3 = 0;
@@ -3532,7 +3532,17 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
         } else {
             if (acao == 5 || acao == 6) {
                 mostrarPesquisaLote();
-            }else {
+                jBtNovoParticipantes.setEnabled(true);
+                jBtNovoAvGrupo.setEnabled(true);
+                jBtAlterarAvGrupo.setEnabled(true);
+                jBtExcluirAvGrupo.setEnabled(true);
+                jBtNovoAvInd.setEnabled(true);
+                //
+                jBtNovo.setEnabled(true);
+                jBtAlterar.setEnabled(true);
+                jBtExcluir.setEnabled(true);
+                jBtAuditoria.setEnabled(true);
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Você não está no modo de inserção ou edição para modificar o registro selecionado.\nClique não botão novo ou alterar.");
             }
         }

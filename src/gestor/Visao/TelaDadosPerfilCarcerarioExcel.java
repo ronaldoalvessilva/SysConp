@@ -146,7 +146,7 @@ public class TelaDadosPerfilCarcerarioExcel extends javax.swing.JDialog {
         jTabelaPerfilCarcerarioInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPerfilCarcerarioInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Nome do Interno", "Ano Nasc.", "Sexo", "Opção Sexual", "Escolaridade", "Pavilhão", "Cor/Etinia", "RG", "CPF", "Cidade", "Bairro", "RF", "CF", "FSRP", "F>21", "F<21", "FRBG", "TV", "FEU", "FENEN", "AL", "Int.Trab.", "TCA", "TM", "USOD", "USAD", "HIP", "DIAB", "TUB", "SIF", "HIV", "HEP", "HAN", "ART", "REU", "AF"
