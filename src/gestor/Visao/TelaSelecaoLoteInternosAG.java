@@ -531,6 +531,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         jProgressBar1.setStringPainted(true);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 0, 0));
         jLabel5.setText("Registros Gravados:");
 
         jTOTAL_REG_GRAVADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -540,6 +541,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
         jTOTAL_REG_GRAVADO.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 0, 0));
         jLabel4.setText("Registros Verificados:");
 
         jTOTAL_REG_COPIADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1296,7 +1298,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                                 + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
-                        pTOTAL_REGISTROS_PRO = i;
+                        pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
                     }

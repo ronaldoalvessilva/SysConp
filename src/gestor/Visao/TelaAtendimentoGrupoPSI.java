@@ -95,6 +95,11 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     public static int pCODIGO_AVALIACAO_GRUPO_AVG = 0; // CÓDIGO DA AVALIAÇÃO EXISTENTE, PARA NÃO SER GRAVADA DUAS PARA A MESMA ATIVIDADE
     public static int pCODIGO_AVALIACAO_GRUPO_AVGI = 0;
     String pCODIGO_AVI;
+    //
+    String pCODIGO_ATENDE_PLAN = "";
+    String pCODIGO_ATENDE_PART = "";
+    String pCODIGO_ATENDE_AVAG = "";
+    String pCODIGO_ATENDE_AVAI = "";
 
     /**
      * Creates new form TelaAtendimentoGrupoPSI
@@ -2301,7 +2306,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
         } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
             preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
                     + "INNER JOIN PAVIHAO "
                     + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
@@ -2316,7 +2320,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
         } else {
-            jTabelaAdmissaoPsicologica.setVisible(true);
             preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
                     + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
                     + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
@@ -2348,7 +2351,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        jTabelaAdmissaoPsicologica.setVisible(true);
                         preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
                                 + "INNER JOIN PAVILHAO "
                                 + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
@@ -2372,7 +2374,6 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        jTabelaAdmissaoPsicologica.setVisible(true);
                         preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
                                 + "INNER JOIN PAVILHAO "
                                 + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
@@ -2532,7 +2533,36 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
                     if (jStatusAtend.getText().equals("FINALIZADO")) {
                         JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
                     } else {
-//                    verificarEvolucao();
+                        //VERIFICAR SE EXISTEM REGISTROS EM OUTRAS TABELAS RELACIONADOS A ESSE REGISTO.
+                        verificarRegistros();
+                        if (jCodigoAtend.getText().equals(pCODIGO_ATENDE_PLAN)
+                                || jCodigoAtend.getText().equals(pCODIGO_ATENDE_PART)
+                                || jCodigoAtend.getText().equals(pCODIGO_ATENDE_AVAG)
+                                || jCodigoAtend.getText().equals(pCODIGO_ATENDE_AVAI)) {
+                            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse resgistro, existe(m) outro(s) registro(s) vinculado a esse.");
+                        } else {
+                            statusMov = "Excluiu";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                            objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
+                            if (jStatusAtend.getText().equals("FINALIZADO")) {
+                                JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
+                            } else {
+                                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                        JOptionPane.YES_NO_OPTION);
+                                if (resposta == JOptionPane.YES_OPTION) {
+                                    objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
+                                    control.excluirAtendimentoGrupoManutencaoPsi(objAvalia);
+                                    objLog();
+                                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                    bloquearTodosBotoes();
+                                    bloquearTodosCampos();
+                                    limparTodosCampos();
+                                    Excluir();
+                                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                                }
+                            }
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
@@ -4040,6 +4070,43 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             jCodigoAtend.setText(conecta.rs.getString("IdAtGrupoPsi"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistros() {
+        conecta.abrirConexao();
+        //PLANEJAMENTO DE ATENDIMENTO
+        try {
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_ATENDE_PLAN = conecta.rs.getString("IdAtGrupoPsi");
+        } catch (Exception e) {
+        }
+        //PARTICIPANTES
+        try {
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_ATENDE_PART = conecta.rs.getString("IdAtGrupoPsi");
+        } catch (Exception e) {
+        }
+        //AVALIAÇÃO EM GRUPO
+        try {
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_ATENDE_AVAG = conecta.rs.getString("IdAtGrupoPsi");
+        } catch (Exception e) {
+        }
+        //AVALIAÇÃO INDIVIDUAL
+        try {
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_ATENDE_AVAI = conecta.rs.getString("IdAtGrupoPsi");
+        } catch (Exception e) {
         }
         conecta.desconecta();
     }

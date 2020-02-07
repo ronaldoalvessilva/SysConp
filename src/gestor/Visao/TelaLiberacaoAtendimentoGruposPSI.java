@@ -72,6 +72,8 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     public static String dataAssinatura = "";
     public static String horaAssinatura = "";
     int qtdAtend = 1;
+    //
+    int pQUANTIDADE_REGISTRO = 0;
 
     /**
      * Creates new form TelaLiberacaoAtendimentoGruposPSI
@@ -84,6 +86,10 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(atendGPSI);
         initComponents();
+        jPanel3.setVisible(!true);
+        jMensagemAlerta.setVisible(!true);
+        jTotalRegistrosProc.setVisible(!true);
+        jRegistrosProcessados.setVisible(!true);
         corCampos();
         //ABA PARTICIPANTES
         preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
@@ -140,6 +146,10 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         jBtCancelar = new javax.swing.JButton();
         jBtBiometria = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jPanel3 = new javax.swing.JPanel();
+        jMensagemAlerta = new javax.swing.JLabel();
+        jTotalRegistrosProc = new javax.swing.JLabel();
+        jRegistrosProcessados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Liberação de Atendimento em Grupo :::...");
@@ -425,6 +435,45 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
 
         jProgressBar1.setStringPainted(true);
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        jMensagemAlerta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jMensagemAlerta.setForeground(new java.awt.Color(153, 0, 0));
+        jMensagemAlerta.setText("Processando registros, aguarde...");
+
+        jTotalRegistrosProc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTotalRegistrosProc.setForeground(new java.awt.Color(153, 0, 0));
+        jTotalRegistrosProc.setText("Total de Registros:");
+
+        jRegistrosProcessados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRegistrosProcessados.setForeground(new java.awt.Color(153, 0, 0));
+        jRegistrosProcessados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jRegistrosProcessados.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jMensagemAlerta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTotalRegistrosProc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRegistrosProcessados)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jMensagemAlerta)
+                    .addComponent(jRegistrosProcessados)
+                    .addComponent(jTotalRegistrosProc))
+                .addGap(3, 3, 3))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -439,10 +488,11 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                         .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -453,16 +503,18 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addGap(5, 5, 5))
         );
 
         pack();
@@ -582,17 +634,21 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jMensagemAlerta;
     private javax.swing.JTextArea jMotivo;
     private javax.swing.JTextField jNomeDepartamento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel40;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel jRegistrosProcessados;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabelaInternosLiberados;
+    private javax.swing.JLabel jTotalRegistrosProc;
     private javax.swing.JLabel jtotalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
 
@@ -673,6 +729,10 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
     }
 
     public void gravarDadosBanco() {
+        jPanel3.setVisible(true);
+        jMensagemAlerta.setVisible(true);
+        jRegistrosProcessados.setVisible(true);
+        jTotalRegistrosProc.setVisible(true);
         atendido = "Sim";
         qtdAtend = 1;
         try {
@@ -707,11 +767,15 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                         control.incluirRegAtendGrupo(objRegAtend);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        pQUANTIDADE_REGISTRO = i + 1;
+                        jRegistrosProcessados.setText(String.valueOf(pQUANTIDADE_REGISTRO));
                     }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                     }
+                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                    dispose();
                 }
             };
             t0.start();
@@ -740,10 +804,9 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
                         }
+                        jProgressBar1.setValue(i);
                     }
-                    jProgressBar1.setValue(0);
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
+                    jMensagemAlerta.setText("Concluíndo, favor aguardar...");
                     try {
                     } catch (Exception e) {
                     }
@@ -760,7 +823,7 @@ public class TelaLiberacaoAtendimentoGruposPSI extends javax.swing.JDialog {
         dataModFinal = jDataSistema.getText();
         String statusLanc = "FINALIZADO";
         objRegAtend.setStatusAtendimento(statusLanc);
-        objRegAtend.setIdAtend(Integer.parseInt(jCodigoAtend.getText()));
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAtend.getText()));
         control.finalizarAtendimentoGrupoPSI(objRegAtend);
         objLog();
         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação

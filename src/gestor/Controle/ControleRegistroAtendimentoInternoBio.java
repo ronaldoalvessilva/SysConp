@@ -155,7 +155,7 @@ public class ControleRegistroAtendimentoInternoBio {
             pst.setString(1, objRegAtend.getStatusAtendimento());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objRegAtend;

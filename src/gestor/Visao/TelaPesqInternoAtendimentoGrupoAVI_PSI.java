@@ -12,6 +12,7 @@ import static gestor.Visao.TelaAtendimentoGrupoPSI.jIdInternoAI;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jNomeInternoAVI;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jFotoInternoGrupo;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jCNCAI;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jNomeMaeInternoAVI;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jRegimeAVI;
 import java.awt.Image;
@@ -258,12 +259,13 @@ public class TelaPesqInternoAtendimentoGrupoAVI_PSI extends javax.swing.JInterna
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SSELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "                
-                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'"
+                    + "AND NomeInternoCrc LIKE'%" + jPesqNome.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeActionPerformed
 
@@ -274,12 +276,13 @@ public class TelaPesqInternoAtendimentoGrupoAVI_PSI extends javax.swing.JInterna
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+            buscarInternosMatricula("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "            
-                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc "
-                    + "WHERE MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%'");
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'"
+                    + "AND MatriculaCrc LIKE'" + jPesqMatricula.getText() + "%'");
         }
     }//GEN-LAST:event_jBtMatriculaActionPerformed
 
@@ -305,12 +308,13 @@ public class TelaPesqInternoAtendimentoGrupoAVI_PSI extends javax.swing.JInterna
         } else {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "                        
-                        + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc "
-                        + "WHERE PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                        + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'"
+                        + "AND PRONTUARIOSCRC.NomeInternoCrc='" + nomeInterno + "' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
                 jIdInternoAI.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -346,11 +350,12 @@ public class TelaPesqInternoAtendimentoGrupoAVI_PSI extends javax.swing.JInterna
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
+            this.preencherTodosInternos("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON PRONTUARIOSCRC.IdInternoCrc=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc ");
+                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
         } else {
             limparTabela();
         }
