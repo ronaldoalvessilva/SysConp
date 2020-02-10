@@ -6,21 +6,21 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoENF.jCodigoAtend;
 import java.sql.SQLException;
 
 /**
  *
  * @author Ronaldo
  */
-public class TelaLiberadorRegistroAtendGrupo extends javax.swing.JInternalFrame {
+public class TelaLiberadorRegistroAtendGrupo_ENF extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     /**
      * Creates new form TelaAuditoriaRolInternas
      */
-    public TelaLiberadorRegistroAtendGrupo() {
+    public TelaLiberadorRegistroAtendGrupo_ENF() {
         initComponents();
         auditoria();
     }

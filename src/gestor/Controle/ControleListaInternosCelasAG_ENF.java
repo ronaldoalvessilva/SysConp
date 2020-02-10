@@ -8,8 +8,8 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaSelecaoLoteInternosAG.jComboBoxGaleria;
-import static gestor.Visao.TelaSelecaoLoteInternosAG.qtdInternos;
+import static gestor.Visao.TelaSelecaoLoteInternosAG_ENF.jComboBoxCelas;
+import static gestor.Visao.TelaSelecaoLoteInternosAG_ENF.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosGaleiraAG {
+public class ControleListaInternosCelasAG_ENF {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
@@ -36,7 +36,7 @@ public class ControleListaInternosGaleiraAG {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxGaleria.getSelectedItem() + "' "
+                    + "WHERE CELAS.EndCelaPav='" + jComboBoxCelas.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
@@ -50,7 +50,7 @@ public class ControleListaInternosGaleiraAG {
             }
             return listaInternosPavilhao;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleListaInternosCelasAG.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleListaInternosCelasAG_ENF.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

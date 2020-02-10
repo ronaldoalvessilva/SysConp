@@ -1941,6 +1941,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ATIVIDADE EM GRUPO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaIndAtendimentoGrupoPSI_Manu + "'");
@@ -2206,6 +2207,7 @@ public class TelaModuloPsicologia extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaSPSI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //ATIVIDADES EM GRUPO
         if (!pNomeAGM.equals(telaIndAtendimentoGrupoPSI_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);

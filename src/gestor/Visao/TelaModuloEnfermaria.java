@@ -117,6 +117,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimentoImpresso objAutoImp = null;
     private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaAtendimentoGrupoENF objAtendGrupo = null;
     //    
     String dataLanc;
     int codUsuario;
@@ -236,7 +237,15 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaC = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Juridico/CRC";
     public static String telaIndAcompanhaAbaT = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:TO";
     public static String telaIndAcompanhaAbaPSI = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Psicologia";
-    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Serviço Social";        
+    public static String telaIndAcompanhaAbaS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES:Serviço Social";
+    // ATENDIMENTO EM GRUPO
+    public static String telaIndAtendimentoGrupoENF_Manu = "Movimentação:Atendimento Internos em Grupo:Mamnutenção";
+    public static String telaIndAtendimentoGrupoENF_Plan = "Movimentação:Atendimento Internos em Grupo:Planejamento";
+    public static String telaIndAtendimentoGrupoENF_Inte = "Movimentação:Atendimento Internos em Grupo:Internos";
+    public static String telaIndAtendimentoGrupoENF_AVG = "Movimentação:Atendimento Internos em Grupo:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoENF_AVI = "Movimentação:Atendimento Internos em Grupo:Avaliação Individual";
+    public static String botaoEncerrar_ENF = "Movimentação:Atendimento Internos em Grupo:Botao Encerrar";
+    public static String botaoLiberar_ENF = "Movimentação:Atendimento Internos em Grupo:Botão Liberar";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -326,7 +335,15 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
-    
+    // ATIVIDADES EM GRUPO
+    String pNomeAGM = "";
+    String pNomePLA = "";
+    String pNomeAGI = "";
+    String pNomeAVG = "";
+    String pNomeAVI = "";
+    //
+    String pNomeBTE = "";
+    String pNomeBTL = "";
 
     /**
      * Creates new form TelaMedico
@@ -400,6 +417,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         AdmissoaEnfermagem = new javax.swing.JMenuItem();
         jCalendarioVacinas = new javax.swing.JMenuItem();
         JHistoricoDoencaFamilia = new javax.swing.JMenuItem();
+        jAtendimentoEnfermagemGrupo = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         AtendimentoTecEnfermagem = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -747,6 +765,14 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             }
         });
         Movimentacao.add(JHistoricoDoencaFamilia);
+
+        jAtendimentoEnfermagemGrupo.setText("Atendimento  Enfermagem em Grupo");
+        jAtendimentoEnfermagemGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAtendimentoEnfermagemGrupoActionPerformed(evt);
+            }
+        });
+        Movimentacao.add(jAtendimentoEnfermagemGrupo);
         Movimentacao.add(jSeparator13);
 
         AtendimentoTecEnfermagem.setText("Atendimento/Anotação Técnico de Enfermagem");
@@ -2248,8 +2274,41 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-//        private TelaCancelamentoAtendimentoPSP objCancelaAtend
     }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+
+    private void jAtendimentoEnfermagemGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoEnfermagemGrupoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codAbrirENF == 1) {
+            if (objAtendGrupo == null || objAtendGrupo.isClosed()) {
+                objAtendGrupo = new TelaAtendimentoGrupoENF();
+                TelaModuloEnfermaria.jPainelMedico.add(objAtendGrupo);
+                objAtendGrupo.setVisible(true);
+            } else {
+                if (objAtendGrupo.isVisible()) {
+                    if (objAtendGrupo.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtendGrupo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtendGrupo.toFront(); // traz para frente
+                        objAtendGrupo.pack();//volta frame 
+                    }
+                } else {
+                    objAtendGrupo = new TelaAtendimentoGrupoENF();
+                    TelaModuloEnfermaria.jPainelMedico.add(objAtendGrupo);//adicona frame ao JDesktopPane  
+                    objAtendGrupo.setVisible(true);
+                }
+            }
+            try {
+                objAtendGrupo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jAtendimentoEnfermagemGrupoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2290,6 +2349,7 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem SolicitacaoExameMedico;
     private javax.swing.JMenuItem SolicitacaoMedicamentosFarmacia;
     private javax.swing.JMenuItem SolicitantesMedicamentos;
+    private javax.swing.JMenuItem jAtendimentoEnfermagemGrupo;
     private javax.swing.JMenuItem jCalendarioVacinas;
     private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JMenuItem jEncaminhamentosCirurgiasEspecialistas;
@@ -3189,6 +3249,56 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ATIVIDADE EM GRUPO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoENF_Manu + "'");
+            conecta.rs.first();
+            pNomeAGM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoENF_Inte + "'");
+            conecta.rs.first();
+            pNomeAGI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoENF_Plan + "'");
+            conecta.rs.first();
+            pNomePLA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoENF_AVG + "'");
+            conecta.rs.first();
+            pNomeAVG = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoENF_AVI + "'");
+            conecta.rs.first();
+            pNomeAVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + botaoEncerrar_ENF + "'");
+            conecta.rs.first();
+            pNomeBTE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + botaoLiberar_ENF + "'");
+            conecta.rs.first();
+            pNomeBTL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         if (!pNomeACD.equals(telaAcessoCadastroDoencasENF) || pNomeACD == null || pNomeACD.equals("")) {
             buscarCodigoModulo();
@@ -3624,6 +3734,49 @@ public class TelaModuloEnfermaria extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ATIVIDADES EM GRUPO
+        if (!pNomeAGM.equals(telaIndAtendimentoGrupoENF_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoENF_Manu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAGI.equals(telaIndAtendimentoGrupoENF_Inte) || pNomeAGI == null || pNomeAGI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoENF_Inte);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePLA.equals(telaIndAtendimentoGrupoENF_Plan) || pNomePLA == null || pNomePLA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoENF_Plan);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVG.equals(telaIndAtendimentoGrupoENF_AVG) || pNomeAVG == null || pNomeAVG.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoENF_AVG);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVI.equals(telaIndAtendimentoGrupoENF_AVI) || pNomeAVI == null || pNomeAVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoENF_AVI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBTE.equals(botaoEncerrar_ENF) || pNomeBTE == null || pNomeBTE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(botaoEncerrar_ENF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBTL.equals(botaoLiberar_ENF) || pNomeBTL == null || pNomeBTL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(botaoLiberar_ENF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

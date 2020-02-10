@@ -8,8 +8,8 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaSelecaoLoteInternosAG.jComboBoxGaleria;
-import static gestor.Visao.TelaSelecaoLoteInternosAG.qtdInternos;
+import static gestor.Visao.TelaSelecaoLoteInternosAG_ENF.jComboBoxGaleria;
+import static gestor.Visao.TelaSelecaoLoteInternosAG_ENF.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosGaleiraAG {
+public class ControleListaInternosGaleiraAG_ENF {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
