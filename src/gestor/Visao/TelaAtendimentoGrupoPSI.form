@@ -2246,9 +2246,11 @@
                           <Component id="jBtSalvarParticipantes" linkSize="8" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Component id="jBtCancelarParticipantes" linkSize="8" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                          <Component id="jBtPesquisaLote" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBtLocalizarInterno" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="jBtPesquisaLote" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtAuditoriaParticipantes" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -2266,6 +2268,7 @@
                               <Component id="jBtCancelarParticipantes" linkSize="2" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtAuditoriaParticipantes" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtPesquisaLote" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtLocalizarInterno" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
@@ -2385,6 +2388,18 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtLocalizarInterno">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/11985_16x16.png"/>
+                    </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Buscar"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtLocalizarInternoActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
 import static gestor.Visao.TelaAtendimentoGrupoPSI.jComboBoxNivelPavilhao;
+import static gestor.Visao.TelaSelecaoLoteInternosAG.jComboBoxGaleria;
 import static gestor.Visao.TelaSelecaoLoteInternosAG.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ControleListaInternosGaleiraAG {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE PAVILHAO.NivelPav='" + jComboBoxNivelPavilhao.getSelectedItem() + "' "
+                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxGaleria.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();

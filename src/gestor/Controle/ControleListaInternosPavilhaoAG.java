@@ -8,6 +8,7 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
+import static gestor.Visao.TelaAtendimentoGrupoPSI.jComboBoxNivelPavilhao;
 import static gestor.Visao.TelaSelecaoLoteInternosAG.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,9 +24,7 @@ public class ControleListaInternosPavilhaoAG {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
-    //
-    String pPAVILHAO_A = "PAVILHAO I";
-    //
+    //    
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
@@ -37,7 +36,7 @@ public class ControleListaInternosPavilhaoAG {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE PAVILHAO.DescricaoPav LIKE'%" + pPAVILHAO_A + "%' "
+                    + "WHERE PAVILHAO.NivelPav='" + jComboBoxNivelPavilhao.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();

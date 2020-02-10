@@ -637,6 +637,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
             }
             jtotalInternosOrigem.setText(Integer.toString(qtdInternos));
             qtdInternos = 0;
+            //PAVILHÃO I/A
             if (jComboBoxNivelPavilhao.getSelectedItem().equals("A")) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
@@ -657,6 +658,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                 } catch (Exception ex) {
                     Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //PAVILHÃO II/B 
             } else if (jComboBoxNivelPavilhao.getSelectedItem().equals("B")) {
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternosOrigem.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
@@ -678,6 +680,7 @@ public class TelaSelecaoLoteInternosAG extends javax.swing.JDialog {
                     Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            //GALERIA
         } else if (jComboBoxPGC.getSelectedItem().equals("Galeria")) {
             //LIMPAR A TABELA
             while (jTabelaInternosOrigem.getModel().getRowCount() > 0) {

@@ -377,7 +377,7 @@ public class TelaPesqInternoAtendimentoGrupoPSI extends javax.swing.JInternalFra
                     jFotoInternoGrupo.setIcon(i);
                     jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT)));
                 }
-                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                // BUSCAR A FOTO DO INTERNO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
