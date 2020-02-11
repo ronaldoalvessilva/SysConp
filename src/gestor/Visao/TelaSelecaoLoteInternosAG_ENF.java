@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAtendimentoGrupoEnfermagem;
 import gestor.Controle.ControleAtendimentoGrupoPsicologia;
 import gestor.Controle.ControleListaInternosCelasAG_ENF;
 import gestor.Controle.ControleListaInternosGaleiraAG_ENF;
@@ -62,7 +63,7 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
-    ControleAtendimentoGrupoPsicologia control = new ControleAtendimentoGrupoPsicologia();
+    ControleAtendimentoGrupoEnfermagem control = new ControleAtendimentoGrupoEnfermagem();
     ControleListaInternosCelasAG_ENF listaPorCelas = new ControleListaInternosCelasAG_ENF();
     ControleListaInternosGaleiraAG_ENF listaPorGaleira = new ControleListaInternosGaleiraAG_ENF();
     ControleListaInternosPavilhaoAG_ENF listaPorPavilhao = new ControleListaInternosPavilhaoAG_ENF();
@@ -746,7 +747,6 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
         if (resposta == JOptionPane.YES_OPTION) {
             gravarDadosBanco();
         }
-        // dispose();
     }//GEN-LAST:event_jBtConfirmarOperacaoActionPerformed
 
     private void jBtAdicionarSelecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarSelecaoActionPerformed
@@ -1289,18 +1289,18 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
                         objAvalia.setDataInsert(dataModFinal);
                         objAvalia.setHorarioInsert(horaMov);
                         //
-                        control.incluirAGrupoPP(objAvalia);
+                        control.incluirAGrupoENF(objAvalia);
                         buscarCodigoParticipantes();
                         objLog3();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
+                                + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
+                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
                         pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
@@ -1367,7 +1367,7 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
             do {
                 count1 = count1 + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPart"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartEnf"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }

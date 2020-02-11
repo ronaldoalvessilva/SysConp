@@ -240,7 +240,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
-                <StringItem index="0" value="Atendimento em Grupo/PSI"/>
+                <StringItem index="0" value="Atendimento em Grupo/ENF"/>
                 <StringItem index="1" value=" "/>
               </StringArray>
             </Property>

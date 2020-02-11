@@ -309,7 +309,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("...::: Atendimento em Grupo :::...");
+        setTitle("...::: Atendimento em Grupo Médico/Enfermagem :::...");
 
         jTabbedPane1.setToolTipText("");
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -915,7 +915,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             .addGroup(jManutencaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -3534,7 +3534,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
                         + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3543,7 +3543,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'"
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'"
                         + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
                 HashMap parametros = new HashMap();
                 parametros.put("pCODIGO_ATIVIDADE", jCodigoAtend.getText());
@@ -3553,7 +3553,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                 jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Tempo Laborativo de Interno");
+                jv.setTitle("Relatório Atendimento em Grupo - Enfermagem");
                 jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                 jv.toFront(); // Traz o relatorio para frente da aplicação            
                 conecta.desconecta();

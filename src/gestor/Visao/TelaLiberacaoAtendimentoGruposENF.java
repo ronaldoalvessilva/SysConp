@@ -55,7 +55,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    String nomeModuloTela = "PSICOLOGIA:Registro de Atendimento de Internos em Grupo";
+    String nomeModuloTela = "ENFERMARIA:Registro de Atendimento de Internos em Grupo";
     //
     int count = 0;
     int codigoDepto = 0;
@@ -174,7 +174,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/PSI", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/ENF", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -846,7 +846,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
             do {
                 count = count + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPart"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartEnf"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
