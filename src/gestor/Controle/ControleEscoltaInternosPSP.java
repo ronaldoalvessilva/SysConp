@@ -123,6 +123,7 @@ public class ControleEscoltaInternosPSP {
                 pDigi.setIdFunc(conecta.rs.getInt("IdFunc"));
                 pDigi.setNomeColaborador(conecta.rs.getString("NomeFunc"));
                 pDigi.setFuncao(conecta.rs.getString("NomeCargo"));
+                pDigi.setDescricaoDepartamento(conecta.rs.getString("NomeDepartamento"));
                 pDigi.setFotoColaborador(conecta.rs.getString("ImagemFunc"));
                 pDigi.setBiometriaDedo1(conecta.rs.getBytes("BiometriaDedo1"));
                 pDigi.setBiometriaDedo2(conecta.rs.getBytes("BiometriaDedo2"));

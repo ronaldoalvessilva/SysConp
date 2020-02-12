@@ -17,6 +17,8 @@ public class EscoltaInternosPSP {
     private String statusEscolta;
     private Date dataRegistro;
     private int idFunc;
+    private int idDepartamento;
+    private String descricaoDepartamento;
     private String nomeColaborador;
     private String funcao;
     private String fotoColaborador;
@@ -47,11 +49,13 @@ public class EscoltaInternosPSP {
     public EscoltaInternosPSP() {
     }
 
-    public EscoltaInternosPSP(int idEsco, String statusEscolta, Date dataRegistro, int idFunc, String nomeColaborador, String funcao, String fotoColaborador, byte[] imagemFrenteFunc, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, int idInternoCrc, String nomeInternoCrc, Date dataSaida, String horaSaida, Date dataEntrada, String horaEntrada, byte[] assinaturaColaboradorSaida, byte[] assinaturaColaboradorEntrada, byte[] assinaturaInternoSaida, byte[] assinaturaInternoEntrada, byte[] assinaturaColaboradorLiberadorSaida, byte[] assinaturaColaboradorLiberadorRetorno, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public EscoltaInternosPSP(int idEsco, String statusEscolta, Date dataRegistro, int idFunc, int idDepartamento, String descricaoDepartamento, String nomeColaborador, String funcao, String fotoColaborador, byte[] imagemFrenteFunc, byte[] biometriaDedo1, byte[] biometriaDedo2, byte[] biometriaDedo3, byte[] biometriaDedo4, int idInternoCrc, String nomeInternoCrc, Date dataSaida, String horaSaida, Date dataEntrada, String horaEntrada, byte[] assinaturaColaboradorSaida, byte[] assinaturaColaboradorEntrada, byte[] assinaturaInternoSaida, byte[] assinaturaInternoEntrada, byte[] assinaturaColaboradorLiberadorSaida, byte[] assinaturaColaboradorLiberadorRetorno, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idEsco = idEsco;
         this.statusEscolta = statusEscolta;
         this.dataRegistro = dataRegistro;
         this.idFunc = idFunc;
+        this.idDepartamento = idDepartamento;
+        this.descricaoDepartamento = descricaoDepartamento;
         this.nomeColaborador = nomeColaborador;
         this.funcao = funcao;
         this.fotoColaborador = fotoColaborador;
@@ -134,6 +138,34 @@ public class EscoltaInternosPSP {
      */
     public void setIdFunc(int idFunc) {
         this.idFunc = idFunc;
+    }
+
+    /**
+     * @return the idDepartamento
+     */
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    /**
+     * @param idDepartamento the idDepartamento to set
+     */
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
+    }
+
+    /**
+     * @return the descricaoDepartamento
+     */
+    public String getDescricaoDepartamento() {
+        return descricaoDepartamento;
+    }
+
+    /**
+     * @param descricaoDepartamento the descricaoDepartamento to set
+     */
+    public void setDescricaoDepartamento(String descricaoDepartamento) {
+        this.descricaoDepartamento = descricaoDepartamento;
     }
 
     /**

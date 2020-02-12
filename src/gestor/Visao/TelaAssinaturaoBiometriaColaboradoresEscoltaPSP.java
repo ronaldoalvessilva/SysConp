@@ -12,11 +12,9 @@ import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
 import com.sun.jna.win32.StdCallLibrary;
 import gestor.Controle.ControleEscoltaInternosPSP;
-import gestor.Controle.ControleItensEntSaiFunc;
 import gestor.Controle.ControleLogSistema;
 import static gestor.Controle.ControleEscoltaInternosPSP.qtdColaboradores;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Modelo.DigitalColaborador;
 import gestor.Modelo.EscoltaInternosPSP;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaEscoltaInternoPSP.jIdRegistro;
@@ -26,12 +24,10 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaEscoltaInternoPSP.codigoLiberador;
 import static gestor.Visao.TelaEscoltaInternoPSP.dataAssinatura;
 import static gestor.Visao.TelaEscoltaInternoPSP.horaAssinatura;
-import static gestor.Visao.TelaEscoltaInternoPSP.jDataSaida;
 import static gestor.Visao.TelaEscoltaInternoPSP.jBtSalvar;
 import static gestor.Visao.TelaEscoltaInternoPSP.jIdColaboradorEscolta;
 import static gestor.Visao.TelaEscoltaInternoPSP.nomeLiberador;
 import static gestor.Visao.TelaEscoltaInternoPSP.pDigitalCapturadaColaborador;
-import static gestor.Visao.TelaEscoltaInternoPSP.pLiberacaoImpressa;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
@@ -39,7 +35,6 @@ import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaEscoltaInternoPSP.jFotoColaboradorEscolta;
-import static gestor.Visao.TelaEscoltaInternoPSP.jHoraSaidaEscolta;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 /**
@@ -720,10 +715,10 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                 byte[] pDigitalCap = pDigital.getByteArray(0, 669);
                 pDigitalCapturada = pDigitalCap; // SALVAR DIGITAL NO BANCO DE DADOS - ANALISANDO
                 //
-                ControleItensEntSaiFunc digiControl = new ControleItensEntSaiFunc();
-                DigitalColaborador d = new DigitalColaborador();
+                ControleEscoltaInternosPSP digiControl = new ControleEscoltaInternosPSP();
+                EscoltaInternosPSP d = new EscoltaInternosPSP();
                 int pVar = 0;
-                for (DigitalColaborador dd : digiControl.read()) {
+                for (EscoltaInternosPSP dd : digiControl.read()) {
                     // LER DIGITAL PARA COMPRAR
                     final Pointer p1 = new Memory(669);
                     p1.write(0, pDigitalCap, 0, pDigitalCap.length);
@@ -757,9 +752,9 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                     // VERIFICAR SE A DIGITAL É IGUAL AO DEDO UM                  
                     if (iRetorno == 1) {
                         jIdColaborador.setText(String.valueOf(dd.getIdFunc()));
-                        jNomeColaborador.setText(dd.getNomeFunc());
+                        jNomeColaborador.setText(dd.getNomeColaborador());
                         jFuncaoColaborador.setText(dd.getFuncao());
-                        jDepartamento.setText(dd.getDepartamento());
+                        jDepartamento.setText(dd.getDescricaoDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
                         if (caminhoFotoColaborador != null) {
                             javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
@@ -767,7 +762,7 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                             jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                         }
                         // BUSCAR A FOTO DO COLABORADOR NO BANCO DE DADOS
-                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        imagemFrenteCola = dd.getImagemFrenteFunc();
                         if (imagemFrenteCola != null) {
                             ImageIcon pic2 = null;
                             pic2 = new ImageIcon(imagemFrenteCola);
@@ -782,9 +777,9 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                         // VERIFICAR SE A DIGITAL É IGUAL AO DEDO DOIS
                     } else if (iRetornod1 == 1) {
                         jIdColaborador.setText(String.valueOf(dd.getIdFunc()));
-                        jNomeColaborador.setText(dd.getNomeFunc());
+                        jNomeColaborador.setText(dd.getNomeColaborador());
                         jFuncaoColaborador.setText(dd.getFuncao());
-                        jDepartamento.setText(dd.getDepartamento());
+                        jDepartamento.setText(dd.getDescricaoDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
                         if (caminhoFotoColaborador != null) {
                             javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
@@ -792,7 +787,7 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                             jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                         }
                         // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        imagemFrenteCola = dd.getImagemFrenteFunc();
                         if (imagemFrenteCola != null) {
                             ImageIcon pic2 = null;
                             pic2 = new ImageIcon(imagemFrenteCola);
@@ -807,9 +802,9 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                         // VERIFICAR SE A DIGITAL É IGUAL AO DEDO TRÊS
                     } else if (iRetornod2 == 1) {
                         jIdColaborador.setText(String.valueOf(dd.getIdFunc()));
-                        jNomeColaborador.setText(dd.getNomeFunc());
+                        jNomeColaborador.setText(dd.getNomeColaborador());
                         jFuncaoColaborador.setText(dd.getFuncao());
-                        jDepartamento.setText(dd.getDepartamento());
+                        jDepartamento.setText(dd.getDescricaoDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
                         if (caminhoFotoColaborador != null) {
                             javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
@@ -817,7 +812,7 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                             jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                         }
                         // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        imagemFrenteCola = dd.getImagemFrenteFunc();
                         if (imagemFrenteCola != null) {
                             ImageIcon pic2 = null;
                             pic2 = new ImageIcon(imagemFrenteCola);
@@ -832,9 +827,9 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                         // VERIFICAR SE A DIGITAL É IGUAL AO DEDO QUATRO
                     } else if (iRetornod3 == 1) {
                         jIdColaborador.setText(String.valueOf(dd.getIdFunc()));
-                        jNomeColaborador.setText(dd.getNomeFunc());
+                        jNomeColaborador.setText(dd.getNomeColaborador());
                         jFuncaoColaborador.setText(dd.getFuncao());
-                        jDepartamento.setText(dd.getDepartamento());
+                        jDepartamento.setText(dd.getDescricaoDepartamento());
                         caminhoFotoColaborador = dd.getFotoColaborador();
                         if (caminhoFotoColaborador != null) {
                             javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoColaborador);
@@ -842,7 +837,7 @@ public class TelaAssinaturaoBiometriaColaboradoresEscoltaPSP extends javax.swing
                             jFotoColaborador.setIcon(new ImageIcon(a.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
                         }
                         // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                        imagemFrenteCola = dd.getImagemFrenteOF();
+                        imagemFrenteCola = dd.getImagemFrenteFunc();
                         if (imagemFrenteCola != null) {
                             ImageIcon pic2 = null;
                             pic2 = new ImageIcon(imagemFrenteCola);
