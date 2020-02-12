@@ -2045,7 +2045,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/RelatorioInternosEscolaridade.jasper";
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT *, FLOOR(DATEDIFF(DAY, CONVERT(DATE, DataNasciCrc), GETDATE()) / 365.25) AS Idade FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + statusEntrada + "'  "
