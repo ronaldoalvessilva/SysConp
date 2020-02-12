@@ -35,6 +35,7 @@ public class ConexaoBancoDados {
     private final String password = "W@e3R4#14"; // Senha do banco de dados
     public Connection con; // Responsavel por conectar no banco de dados
     public static String Computer = ""; //SISTEMA OPERACIONAL DO COMPUTADOR
+    public static String caminhoConecta = "";
 
     public void abrirConexao() { // Metodo resposavel por realizar conexão com o banco de dados
 
@@ -80,7 +81,7 @@ public class ConexaoBancoDados {
                 file = new FileInputStream("/home/configuracoes.properties");//ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
             } else {
                 //Se Windows
-                file = new FileInputStream("C:\\SysConp\\Conecta.properties");////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
+                file = new FileInputStream(caminhoConecta);////ALTERE AQUI DE ACORDO COM SUA NECESSIDADE
             }
             props.load(file);
         } catch (FileNotFoundException ex) {

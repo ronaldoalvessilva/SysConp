@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static gestor.Dao.ConexaoBancoDados.caminhoConecta;
 
 /**
  *
@@ -31,7 +32,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 // Inicio do desenvolvimento 20/03/2014
 public class TelaLoginSenha extends javax.swing.JDialog {
 
-    ConexaoBancoDados conecta = new ConexaoBancoDados();
     ControleVersao versao = new ControleVersao();
 
     public static int Codstatus;
@@ -84,85 +84,494 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }
 
     public void acessarSistema() {
-
-        try {
-            ConexaoBancoDados conecta = new ConexaoBancoDados();
-            conecta.abrirConexao();
-            conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
-                    + "AND SenhaUsuario='" + jPassword.getText() + "'");
-            conecta.rs.first();
-            // Verifica se o usuario e a senha são iguais ao banco de dados            
-            Codstatus = conecta.rs.getInt("StatusUsuario");
-            if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
-                    && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
-                    && Codstatus == 0) {
-                JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
-            } else {
+        if (jComboBoxUnidadePrisional.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma unidade prisional para acessar.");
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("localhost")) {
+            caminhoConecta = "C:\\SysConp\\Conecta.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
                 if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
                         && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
-                        && (Codstatus == 1)) {
-                    buscarEmpresa();
-                    // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
-                    if (caminhoExecutavelAntigo == null) {
-                        JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
-                    } else {
-                        File origem = new File(caminhoExecutavelAntigo);
-                        dataOrigem = origem.lastModified(); // Data do arquivo de origem
-                        tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
-                        File destino = new File("C://SysConp//SysConp.jar");
-                        dataDestino = destino.lastModified();
-                        tamanhoDestino = destino.length();
-                        if (origem.exists() && destino.exists()) {
-                            if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
-                                int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
-                                        JOptionPane.YES_NO_OPTION);
-                                if (resposta == JOptionPane.YES_OPTION) {
-                                    // CHAMA O EXECUTAVEL DE INSTALAÇÃO
-                                    Install_Sisconp();
-                                    // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
-                                    versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
 //                                java.util.Date data = new java.util.Date();
-                                    versao.setDataVersao(dataVersao);
-                                    PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
-                                            + "WHERE IdEmpresa='" + codigoEmpresa + "'");
-                                    pst.setDouble(1, versao.getVersao());
-                                    pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
-                                    pst.execute();
-                                    System.exit(0);
-                                } else {
-                                    versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-                                    if (versaoAtualSistema > versao.getVersao()) {
-                                        JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
                                     } else {
-                                        idUserAcesso = conecta.rs.getString("IdUsuario");
-                                        nameUser = conecta.rs.getString("NomeUsuario");
-                                        TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
-                                        tp.setVisible(true);
-                                        conecta.desconecta();
-                                        this.dispose();
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
                                     }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
                                 }
-                            } else {
-                                idUserAcesso = conecta.rs.getString("IdUsuario");
-                                nameUser = conecta.rs.getString("NomeUsuario");
-                                TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
-                                tp.setVisible(true);
-                                conecta.desconecta();
-                                this.dispose();
                             }
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-                    jUsuario.setText("");
-                    jPassword.setText("");
                 }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
-            jUsuario.setText("");
-            jPassword.setText("");
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de lauro de Freitas - CPLF")) {
+            caminhoConecta = "C:\\SysConp\\ConectaLF.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
+                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+//                                java.util.Date data = new java.util.Date();
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
+                                    } else {
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
+                                    }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
+            }
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")) {
+            caminhoConecta = "C:\\SysConp\\ConectaSSA.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
+                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+//                                java.util.Date data = new java.util.Date();
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
+                                    } else {
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
+                                    }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
+            }
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")) {
+            caminhoConecta = "C:\\SysConp\\ConectaITB.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
+                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+//                                java.util.Date data = new java.util.Date();
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
+                                    } else {
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
+                                    }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
+            }
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")) {
+            caminhoConecta = "C:\\SysConp\\ConectaVC.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
+                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+//                                java.util.Date data = new java.util.Date();
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
+                                    } else {
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
+                                    }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
+            }
+        } else if (jComboBoxUnidadePrisional.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")) {
+            caminhoConecta = "C:\\SysConp\\ConectaBAR.properties";
+            try {
+                ConexaoBancoDados conecta = new ConexaoBancoDados();
+                conecta.abrirConexao();
+                conecta.executaSQL("SELECT IdUsuario,LoginUsuario,SenhaUsuario,StatusUsuario,NomeUsuario FROM USUARIOS "
+                        + "WHERE LoginUsuario='" + jUsuario.getText() + "' "
+                        + "AND SenhaUsuario='" + jPassword.getText() + "'");
+                conecta.rs.first();
+                // Verifica se o usuario e a senha são iguais ao banco de dados            
+                Codstatus = conecta.rs.getInt("StatusUsuario");
+                if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                        && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                        && Codstatus == 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário INATIVO !!!");
+                } else {
+                    if (jUsuario.getText().equals(conecta.rs.getString("LoginUsuario"))
+                            && (jPassword.getText()).equals(conecta.rs.getString("SenhaUsuario"))
+                            && (Codstatus == 1)) {
+                        buscarEmpresa();
+                        // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
+                        if (caminhoExecutavelAntigo == null) {
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else {
+                            File origem = new File(caminhoExecutavelAntigo);
+                            dataOrigem = origem.lastModified(); // Data do arquivo de origem
+                            tamanhoOrigem = origem.length();  // Tamanho do arquivo de origem        
+                            File destino = new File("C://SysConp//SysConp.jar");
+                            dataDestino = destino.lastModified();
+                            tamanhoDestino = destino.length();
+                            if (origem.exists() && destino.exists()) {
+                                if (dataOrigem > dataDestino || tamanhoOrigem > tamanhoDestino) {
+                                    int resposta = JOptionPane.showConfirmDialog(this, "Existe uma nova atualização, deseja fazer isso agora?", "Confirmação",
+                                            JOptionPane.YES_NO_OPTION);
+                                    if (resposta == JOptionPane.YES_OPTION) {
+                                        // CHAMA O EXECUTAVEL DE INSTALAÇÃO
+                                        Install_Sisconp();
+                                        // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+//                                java.util.Date data = new java.util.Date();
+                                        versao.setDataVersao(dataVersao);
+                                        PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
+                                                + "WHERE IdEmpresa='" + codigoEmpresa + "'");
+                                        pst.setDouble(1, versao.getVersao());
+                                        pst.setTimestamp(2, new java.sql.Timestamp(versao.getDataVersao().getTime()));
+                                        pst.execute();
+                                        System.exit(0);
+                                    } else {
+                                        versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
+                                        if (versaoAtualSistema > versao.getVersao()) {
+                                            JOptionPane.showMessageDialog(rootPane, "Não é possível acessar o sistema, seu sistema está desatualizado. Faça a atualização e só assim você poderá acessar o sistema.");
+                                        } else {
+                                            idUserAcesso = conecta.rs.getString("IdUsuario");
+                                            nameUser = conecta.rs.getString("NomeUsuario");
+                                            TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                            tp.setVisible(true);
+                                            conecta.desconecta();
+                                            this.dispose();
+                                        }
+                                    }
+                                } else {
+                                    idUserAcesso = conecta.rs.getString("IdUsuario");
+                                    nameUser = conecta.rs.getString("NomeUsuario");
+                                    TelaModuloPrincipal tp = new TelaModuloPrincipal(jUsuario.getText(), nameUser);
+                                    tp.setVisible(true);
+                                    conecta.desconecta();
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                        jUsuario.setText("");
+                        jPassword.setText("");
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario ou senha Inváldo, tente novamente !!!");
+                jUsuario.setText("");
+                jPassword.setText("");
+            }
         }
     }
 
@@ -189,6 +598,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jBtCancelar = new javax.swing.JButton();
         jBtAcessar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBoxUnidadePrisional = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Tela de Acesso :::...");
@@ -310,29 +721,44 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/User_login_Icon_64.png"))); // NOI18N
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel5.setText("Unidade:");
+
+        jComboBoxUnidadePrisional.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxUnidadePrisional.setForeground(new java.awt.Color(204, 0, 0));
+        jComboBoxUnidadePrisional.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "localhost", "Conjunto Penal de lauro de Freitas - CPLF", "Conjunto Penal Masculino de Salvador - CPMS", "Conjunto Penal de Itabuna - CPIT", "Conjunto Penal de Vitória da Conquista - CPVC", "Conjunto Penal de Barreiras - CPBA" }));
+        jComboBoxUnidadePrisional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jBtAcessar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtCancelar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(jUsuario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jBtAcessar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelar)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jUsuario)
+                                    .addComponent(jPassword))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jComboBoxUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAcessar, jBtCancelar});
@@ -350,12 +776,16 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jComboBoxUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtAcessar)
                     .addComponent(jBtCancelar))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAcessar, jBtCancelar});
@@ -481,10 +911,12 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton jBtAcessar;
     public static javax.swing.JButton jBtCancelar;
+    private javax.swing.JComboBox<String> jComboBoxUnidadePrisional;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jNumeroVersao;
@@ -521,6 +953,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     }
 
     public void buscarEmpresa() {
+        ConexaoBancoDados conecta = new ConexaoBancoDados();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM EMPRESA "
