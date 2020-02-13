@@ -251,7 +251,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Lista de Participantes de Atendimento em Grupo - PSICOLOGIA]]></text>
+				<text><![CDATA[Lista de Participantes de Atendimento em Grupo - ENFERMARIA]]></text>
 			</staticText>
 		</band>
 	</title>

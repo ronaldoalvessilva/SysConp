@@ -19,7 +19,7 @@
 	<parameter name="pENTRADA_UNIDADE" class="java.lang.String"/>
 	<parameter name="pRETORNO_UNIDADE" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE (PRONTUARIOSCRC.SituacaoCrc!=$P{pOpcao} AND PRONTUARIOSCRC.SituacaoCrc!=$P{pRETORNO_UNIDADE}) AND PRONTUARIOSCRC.Tornozeleira=$P{pOpcao} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
+		<![CDATA[SELECT * FROM PRONTUARIOSCRC INNER JOIN DADOSPENAISINTERNOS ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc WHERE (PRONTUARIOSCRC.SituacaoCrc!=$P{pENTRADA_UNIDADE} AND PRONTUARIOSCRC.Tornozeleira!=$P{pOpcao} OR PRONTUARIOSCRC.SituacaoCrc!=$P{pRETORNO_UNIDADE}) AND PRONTUARIOSCRC.Tornozeleira!=$P{pOpcao} ORDER BY PRONTUARIOSCRC.NomeInternoCrc]]>
 	</queryString>
 	<field name="IdInternoCrc" class="java.lang.Integer"/>
 	<field name="MatriculaCrc" class="java.lang.String"/>

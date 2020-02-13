@@ -1011,27 +1011,28 @@
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="20">
+                      <StringArray count="21">
                         <StringItem index="0" value="Selecione..."/>
-                        <StringItem index="1" value="Fundamental I - 1&#xba; ano"/>
-                        <StringItem index="2" value="Fundamental I - 2&#xba; ano"/>
-                        <StringItem index="3" value="Fundamental I - 3&#xba; ano"/>
-                        <StringItem index="4" value="Fundamental I - 4&#xba; ano"/>
-                        <StringItem index="5" value="Fundamental I - 5&#xba; ano"/>
-                        <StringItem index="6" value="Fundamental I - Completo"/>
-                        <StringItem index="7" value="Fundamental II - 6&#xba; ano"/>
-                        <StringItem index="8" value="Fundamental II - 7&#xba; ano"/>
-                        <StringItem index="9" value="Fundamental II - 8&#xba; ano"/>
-                        <StringItem index="10" value="Fundamental II - 9&#xba; ano"/>
-                        <StringItem index="11" value="Fundamento II - Completo"/>
-                        <StringItem index="12" value="Ensino M&#xe9;dio - 1&#xba; ano"/>
-                        <StringItem index="13" value="Ensino M&#xe9;dio - 2&#xba; ano"/>
-                        <StringItem index="14" value="Ensino M&#xe9;dio - 3&#xba; ano"/>
-                        <StringItem index="15" value="Ensino M&#xe9;dio Completo"/>
-                        <StringItem index="16" value="Ensino M&#xe9;dio T&#xe9;cnico"/>
-                        <StringItem index="17" value="Superior Completo"/>
-                        <StringItem index="18" value="Superior Incompleto"/>
-                        <StringItem index="19" value=" "/>
+                        <StringItem index="1" value="N&#xe3;o Alfabetivado"/>
+                        <StringItem index="2" value="Fundamental I - 1&#xba; ano"/>
+                        <StringItem index="3" value="Fundamental I - 2&#xba; ano"/>
+                        <StringItem index="4" value="Fundamental I - 3&#xba; ano"/>
+                        <StringItem index="5" value="Fundamental I - 4&#xba; ano"/>
+                        <StringItem index="6" value="Fundamental I - 5&#xba; ano"/>
+                        <StringItem index="7" value="Fundamental I - Completo"/>
+                        <StringItem index="8" value="Fundamental II - 6&#xba; ano"/>
+                        <StringItem index="9" value="Fundamental II - 7&#xba; ano"/>
+                        <StringItem index="10" value="Fundamental II - 8&#xba; ano"/>
+                        <StringItem index="11" value="Fundamental II - 9&#xba; ano"/>
+                        <StringItem index="12" value="Fundamento II - Completo"/>
+                        <StringItem index="13" value="Ensino M&#xe9;dio - 1&#xba; ano"/>
+                        <StringItem index="14" value="Ensino M&#xe9;dio - 2&#xba; ano"/>
+                        <StringItem index="15" value="Ensino M&#xe9;dio - 3&#xba; ano"/>
+                        <StringItem index="16" value="Ensino M&#xe9;dio Completo"/>
+                        <StringItem index="17" value="Ensino M&#xe9;dio T&#xe9;cnico"/>
+                        <StringItem index="18" value="Superior Completo"/>
+                        <StringItem index="19" value="Superior Incompleto"/>
+                        <StringItem index="20" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

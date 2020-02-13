@@ -818,7 +818,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTurno.setEnabled(false);
 
         jComboBoxSerieAno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxSerieAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Fundamental I - 1º ano", "Fundamental I - 2º ano", "Fundamental I - 3º ano", "Fundamental I - 4º ano", "Fundamental I - 5º ano", "Fundamental I - Completo", "Fundamental II - 6º ano", "Fundamental II - 7º ano", "Fundamental II - 8º ano", "Fundamental II - 9º ano", "Fundamento II - Completo", "Ensino Médio - 1º ano", "Ensino Médio - 2º ano", "Ensino Médio - 3º ano", "Ensino Médio Completo", "Ensino Médio Técnico", "Superior Completo", "Superior Incompleto", " " }));
+        jComboBoxSerieAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Não Alfabetivado", "Fundamental I - 1º ano", "Fundamental I - 2º ano", "Fundamental I - 3º ano", "Fundamental I - 4º ano", "Fundamental I - 5º ano", "Fundamental I - Completo", "Fundamental II - 6º ano", "Fundamental II - 7º ano", "Fundamental II - 8º ano", "Fundamental II - 9º ano", "Fundamento II - Completo", "Ensino Médio - 1º ano", "Ensino Médio - 2º ano", "Ensino Médio - 3º ano", "Ensino Médio Completo", "Ensino Médio Técnico", "Superior Completo", "Superior Incompleto", " " }));
         jComboBoxSerieAno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxSerieAno.setEnabled(false);
 
