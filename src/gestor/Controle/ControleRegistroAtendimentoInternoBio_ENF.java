@@ -161,6 +161,20 @@ public class ControleRegistroAtendimentoInternoBio_ENF {
         return objRegAtend;
     }
 
+    public RegistroAtendimentoInternos finalizarAtendimentoGrupoTO(RegistroAtendimentoInternos objRegAtend) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_TO SET StatusAtendGrupo=? WHERE IdAtGrupoTO='" + objRegAtend.getIdAtend() + "'");
+            pst.setString(1, objRegAtend.getStatusAtendimento());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objRegAtend;
+    }
+
     //------------------------ ATENDIMENTO EM GRUPO -------------------------------------------//
     public RegistroAtendimentoInternos incluirRegAtendGrupo(RegistroAtendimentoInternos objRegAtend) {
 

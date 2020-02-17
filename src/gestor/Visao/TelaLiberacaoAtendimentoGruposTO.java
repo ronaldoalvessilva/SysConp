@@ -11,28 +11,28 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtAuditoria;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtNovo;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jCodigoAtend;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jDataAtend;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jStatusAtend;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtAuditoria;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtNovo;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jDataAtend;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jStatusAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
-import static gestor.Visao.TelaModuloEnfermaria.codAlterarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codExcluirENF;
-import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
-import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
-import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
-import static gestor.Visao.TelaModuloEnfermaria.nomeModuloENFER;
-import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
-import static gestor.Visao.TelaModuloEnfermaria.telaIndAtendimentoGrupoENF_Manu;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codExcluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codGravarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codIncluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codUserAcessoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeModuloTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_Manu;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.sql.SQLException;
@@ -47,15 +47,16 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Socializa TI 02
  */
-public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
+public class TelaLiberacaoAtendimentoGruposTO extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    //MÉTODO SENDO UTILIZADO PELA ENFERMARIA E TO
     ControleRegistroAtendimentoInternoBio_ENF control = new ControleRegistroAtendimentoInternoBio_ENF();
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    String nomeModuloTela = "ENFERMARIA:Registro de Atendimento de Internos em Grupo";
+    String nomeModuloTela = "TERAPIA OCUPACIONAL:Registro de Atendimento de Internos em Grupo";
     //
     int count = 0;
     int codigoDepto = 0;
@@ -78,10 +79,10 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
     /**
      * Creates new form TelaLiberacaoAtendimentoGruposPSI
      */
-    public static TelaAtendimentoGrupoENF atendGPSI;
-    public static TelaAssinaBiometriaColaboradoresPSP_AG_ENF assinaBio;
+    public static TelaAtendimentoGrupoTO atendGPSI;
+    public static TelaAssinaBiometriaColaboradoresPSP_AG_TO assinaBio;
 
-    public TelaLiberacaoAtendimentoGruposENF(TelaAtendimentoGrupoENF parent, boolean modal) {
+    public TelaLiberacaoAtendimentoGruposTO(TelaAtendimentoGrupoTO parent, boolean modal) {
         this.atendGPSI = parent;
         this.setModal(modal);
         setLocationRelativeTo(atendGPSI);
@@ -92,18 +93,18 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         jRegistrosProcessados.setVisible(!true);
         corCampos();
         //ABA PARTICIPANTES
-        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                 + "INNER JOIN PRONTUARIOSCRC "
-                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "INNER JOIN DADOSPENAISINTERNOS "
                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
     }
 
     public void mostrarLiberador() {
-        assinaBio = new TelaAssinaBiometriaColaboradoresPSP_AG_ENF(this, true);
+        assinaBio = new TelaAssinaBiometriaColaboradoresPSP_AG_TO(this, true);
         assinaBio.setVisible(true);
     }
 
@@ -174,7 +175,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/ENF", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/TO", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -523,8 +524,8 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
 
     private void jBtNovaLiberacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaLiberacaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Manu) && codIncluirTO == 1) {
             Novo();
             pesquisarAtendente();
         } else {
@@ -590,21 +591,23 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposTO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposTO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposTO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLiberacaoAtendimentoGruposTO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaLiberacaoAtendimentoGruposENF dialog = new TelaLiberacaoAtendimentoGruposENF(atendGPSI, true);
+                TelaLiberacaoAtendimentoGruposTO dialog = new TelaLiberacaoAtendimentoGruposTO(atendGPSI, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -666,10 +669,10 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
     public void Novo() {
         jIdRegistro.setText(jCodigoAtend.getText());
         jDataRegistro.setCalendar(Calendar.getInstance());
-        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/ENF");
+        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/TO");
         jComboBoxAtendente.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
-        jNomeDepartamento.setText(nomeModuloENFER);
+        jNomeDepartamento.setText(nomeModuloTO);
         jMotivo.setText("");
         //
         jComboBoxTipoMovimentacao.setEnabled(true);
@@ -684,7 +687,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
     public void Cancelar() {
         jIdRegistro.setText("");
         jDataRegistro.setDate(null);
-        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/ENF");
+        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/TO");
         jComboBoxAtendente.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText("");
         jNomeDepartamento.setText("");
@@ -704,7 +707,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "'");
+                    + "WHERE NomeDepartamento='" + nomeModuloTO + "'");
             conecta.rs.first();
             codigoDepto = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
@@ -716,7 +719,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloENFER + "' "
+                    + "WHERE NomeDepartamento='" + nomeModuloTO + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {
@@ -825,7 +828,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
         String statusLanc = "FINALIZADO";
         objRegAtend.setStatusAtendimento(statusLanc);
         objRegAtend.setIdAtend(Integer.valueOf(jCodigoAtend.getText()));
-        control.finalizarAtendimentoGrupoENF(objRegAtend);
+        control.finalizarAtendimentoGrupoTO(objRegAtend);
         objLog();
         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
         jStatusAtend.setText("FINALIZADO");
@@ -846,7 +849,7 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
             do {
                 count = count + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPartEnf"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartTO"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -918,33 +921,33 @@ public class TelaLiberacaoAtendimentoGruposENF extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUserENF = conecta.rs.getInt("IdUsuario");
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserENF + "'");
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
             conecta.rs.first();
-            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
-            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserENF + "' "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
-            codAbrirENF = conecta.rs.getInt("Abrir");
-            codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterarENF = conecta.rs.getInt("Alterar");
-            codExcluirENF = conecta.rs.getInt("Excluir");
-            codGravarENF = conecta.rs.getInt("Gravar");
-            codConsultarENF = conecta.rs.getInt("Consultar");
-            nomeTelaENF = conecta.rs.getString("NomeTela");
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

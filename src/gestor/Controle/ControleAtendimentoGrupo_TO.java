@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Socializa TI 02
  */
-public class ControleAtendimentoGrupoEnfermagem {
+public class ControleAtendimentoGrupo_TO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
@@ -24,11 +24,11 @@ public class ControleAtendimentoGrupoEnfermagem {
     int codigoCela;
     int codInterno;
 
-    public AtividadesGrupoPsicologia incluirAtendimentoGrupoManutencaoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoManutencaoTO(AtividadesGrupoPsicologia objAvalia) {
         buscarPavilhao(objAvalia.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_GRUPO_ENFERMAGEM (StatusAtendGrupo,DataAtend,Responsavel,IdPav,Ambiente,HoraioInicio,HorarioTermino,"
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTO_GRUPO_TO (StatusAtendGrupo,DataAtend,Responsavel,IdPav,Ambiente,HoraioInicio,HorarioTermino,"
                     + "LocalAtividade,GrupoAtividade,Observacao,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objAvalia.getStatusAtendGrupo());
             pst.setTimestamp(2, new java.sql.Timestamp(objAvalia.getDataAtend().getTime()));
@@ -51,12 +51,12 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarAtendimentoGrupoManutencaoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoManutencaoTO(AtividadesGrupoPsicologia objAvalia) {
         buscarPavilhao(objAvalia.getDescricaoPavilhao());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_ENFERMAGEM SET StatusAtendGrupo=?,DataAtend=?,Responsavel=?,IdPav=?,Ambiente=?,HoraioInicio=?,HorarioTermino=?,"
-                    + "LocalAtividade=?,GrupoAtividade=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAtGrupoEnf='" + objAvalia.getIdAtGrupoPsi() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTO_GRUPO_TO SET StatusAtendGrupo=?,DataAtend=?,Responsavel=?,IdPav=?,Ambiente=?,HoraioInicio=?,HorarioTermino=?,"
+                    + "LocalAtividade=?,GrupoAtividade=?,Observacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAtGrupoTO='" + objAvalia.getIdAtGrupoPsi() + "'");
             pst.setString(1, objAvalia.getStatusAtendGrupo());
             pst.setTimestamp(2, new java.sql.Timestamp(objAvalia.getDataAtend().getTime()));
             pst.setString(3, objAvalia.getResponsavel());
@@ -78,11 +78,11 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirAtendimentoGrupoManutencaoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoManutencaoTO(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ATENDIMENTO_GRUPO_ENFERMAGEM WHERE IdAtGrupoEnf='" + objAvalia.getIdAtGrupoPsi() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ATENDIMENTO_GRUPO_TO WHERE IdAtGrupoTO='" + objAvalia.getIdAtGrupoPsi() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
@@ -92,10 +92,10 @@ public class ControleAtendimentoGrupoEnfermagem {
     }
 
     //----------------------------- PLANEJAMENTO -------------------------------------------//
-    public AtividadesGrupoPsicologia incluirPlanejamentoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirPlanejamentoTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,Tema,HoraInicio,HoraTermino,Turno,Atividades,Recursos,"
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PLANEJAMENTO_ATENDIMENTO_GRUPO_TO (IdAtGrupoTO,Tema,HoraInicio,HoraTermino,Turno,Atividades,Recursos,"
                     + "UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTema());
@@ -115,11 +115,11 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarPlanejamentoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarPlanejamentoTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM SET IdAtGrupoEnf=?,Tema=?,HoraInicio=?,HoraTermino=?,Turno=?,Atividades=?,Recursos=?,"
-                    + "UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPlanEnf='" + objAvalia.getIdItemPlan() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO SET IdAtGrupoTO=?,Tema=?,HoraInicio=?,HoraTermino=?,Turno=?,Atividades=?,Recursos=?,"
+                    + "UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPlanTO='" + objAvalia.getIdItemPlan() + "'");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTema());
             pst.setString(3, objAvalia.getHoraInicio());
@@ -138,10 +138,10 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirPlanejamentoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirPlanejamentoTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM WHERE IdItemPlanEnf='" + objAvalia.getIdItemPlan() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO WHERE IdItemPlanTO='" + objAvalia.getIdItemPlan() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
@@ -151,11 +151,11 @@ public class ControleAtendimentoGrupoEnfermagem {
     }
 
     // ---------------------------- PARTICIPANTES -----------------------------------------//
-    public AtividadesGrupoPsicologia incluirAtendimentoGrupoParticipantesENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoParticipantesTO(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_TO (IdAtGrupoTO,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setInt(2, codInterno);
             pst.setString(3, objAvalia.getUsuarioInsert());
@@ -169,11 +169,11 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia incluirAGrupoENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAGrupoTO(AtividadesGrupoPsicologia objAvalia) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PARTICIPANTES_ATENDIMENTO_GRUPO_TO (IdAtGrupoTO,IdInternoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setInt(2, objAvalia.getIdInternoCrc());
             pst.setString(3, objAvalia.getUsuarioInsert());
@@ -187,11 +187,11 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarAtendimentoGrupoParticipantesENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoParticipantesTO(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM SET IdAtGrupoEnf=?,IdInternoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPartEnf='" + objAvalia.getIdItemPart() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE PARTICIPANTES_ATENDIMENTO_GRUPO_TO SET IdAtGrupoTO=?,IdInternoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPartTO='" + objAvalia.getIdItemPart() + "'");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setInt(2, codInterno);
             pst.setString(3, objAvalia.getUsuarioUp());
@@ -205,10 +205,10 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirAtendimentoGrupoParticipantesENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoParticipantesTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM WHERE IdItemPartEnf='" + objAvalia.getIdItemPart() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO WHERE IdItemPartTO='" + objAvalia.getIdItemPart() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
@@ -218,10 +218,10 @@ public class ControleAtendimentoGrupoEnfermagem {
     }
 
     // ---------------------------- AVALIAÇÃO EM GRUPO ------------------------------------ //
-    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAVGENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAVGTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,TextoAvalaiacaoGrupo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AVALICAO_ATENDIMENTO_GRUPO_TO (IdAtGrupoTO,TextoAvalaiacaoGrupo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTextoAvalaiacaoGrupo());
             pst.setString(3, objAvalia.getUsuarioInsert());
@@ -235,10 +235,10 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAVGENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAVGTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM SET IdAtGrupoEnf=?,TextoAvalaiacaoGrupo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemAvagEnf='" + objAvalia.getIdItemAvag() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AVALICAO_ATENDIMENTO_GRUPO_TO SET IdAtGrupoTO=?,TextoAvalaiacaoGrupo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemAvagTO='" + objAvalia.getIdItemAvag() + "'");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTextoAvalaiacaoGrupo());
             pst.setString(3, objAvalia.getUsuarioUp());
@@ -252,7 +252,7 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAVGENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAVGTO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM WHERE IdItemAvagEnf='" + objAvalia.getIdItemAvag() + "'");
@@ -265,11 +265,11 @@ public class ControleAtendimentoGrupoEnfermagem {
     }
 
     // ----------------------------- AVALIAÇÃO INDIVIDUAL ---------------------------------//
-    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAVGIENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia incluirAtendimentoGrupoAVGITO(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,IdInternoCrc,TextoAvalaiacaoInd,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO (IdAtGrupoTO,IdInternoCrc,TextoAvalaiacaoInd,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setInt(2, codInterno);
             pst.setString(3, objAvalia.getTextoAvalaiacaoInd());
@@ -284,11 +284,11 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAVGIENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia alterarAtendimentoGrupoAVGITO(AtividadesGrupoPsicologia objAvalia) {
         buscarInterno(objAvalia.getNomeInternoCrc(), objAvalia.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM SET IdAtGrupoEnf=?,IdInternoCrc=?,TextoAvalaiacaoInd=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemAvaiEnf='" + objAvalia.getIdItemAvai() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO SET IdAtGrupoTO=?,IdInternoCrc=?,TextoAvalaiacaoInd=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemAvaiTO='" + objAvalia.getIdItemAvai() + "'");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setInt(2, codInterno);
             pst.setString(3, objAvalia.getTextoAvalaiacaoInd());
@@ -303,10 +303,10 @@ public class ControleAtendimentoGrupoEnfermagem {
         return objAvalia;
     }
 
-    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAVGIENF(AtividadesGrupoPsicologia objAvalia) {
+    public AtividadesGrupoPsicologia excluirAtendimentoGrupoAVGITO(AtividadesGrupoPsicologia objAvalia) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM WHERE IdItemAvaiEnf='" + objAvalia.getIdItemAvai() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO WHERE IdItemAvaiTO='" + objAvalia.getIdItemAvai() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);

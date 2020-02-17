@@ -5,8 +5,7 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleAtendimentoGrupoEnfermagem;
-import gestor.Controle.ControleAtendimentoGrupoPsicologia;
+import gestor.Controle.ControleAtendimentoGrupo_TO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
@@ -24,9 +23,6 @@ import static gestor.Visao.TelaModuloEnfermaria.codGravarENF;
 import static gestor.Visao.TelaModuloEnfermaria.codIncluirENF;
 import static gestor.Visao.TelaModuloEnfermaria.codUserAcessoENF;
 import static gestor.Visao.TelaModuloEnfermaria.codigoUserENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoUserGroupENF;
-import static gestor.Visao.TelaModuloEnfermaria.codConsultarENF;
-import static gestor.Visao.TelaModuloEnfermaria.codigoGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeGrupoENF;
 import static gestor.Visao.TelaModuloEnfermaria.nomeTelaENF;
 import static gestor.Visao.TelaModuloEnfermaria.botaoLiberar_ENF;
@@ -52,24 +48,42 @@ import static gestor.Visao.TelaModuloEnfermaria.telaIndAtendimentoGrupoENF_Plan;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAtendimentoGrupoENF_Inte;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAtendimentoGrupoENF_AVG;
 import static gestor.Visao.TelaModuloEnfermaria.telaIndAtendimentoGrupoENF_AVI;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.botaoLiberar_TO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAbrirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codAlterarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codConsultarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codExcluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codGravarTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codIncluirTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codUserAcessoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserGroupTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.codigoUserTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeGrupoTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.nomeTelaTO;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_AVG;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_AVI;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_Inte;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_Manu;
+import static gestor.Visao.TelaModuloTerapiaOcupacional.telaIndAtendimentoGrupoTO_Plan;
 
 /**
  *
  * @author Socializa TI 02
  */
-public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
+public class TelaAtendimentoGrupoTO extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
-    ControleAtendimentoGrupoEnfermagem control = new ControleAtendimentoGrupoEnfermagem();
+    ControleAtendimentoGrupo_TO control = new ControleAtendimentoGrupo_TO();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Enfermaria:Atendimento em Grupo:Manutenção";
-    String nomeModuloTela2 = "Enfermaria:Atendimento em Grupo:Planejamento";
-    String nomeModuloTela3 = "Enfermaria:Atendimento em Grupo:Participantes";
-    String nomeModuloTela4 = "Enfermaria:Atendimento em Grupo:Avaliação em Grupo";
-    String nomeModuloTela5 = "Enfermaria:Atendimento em Grupo:Avaliação Individual";
+    String nomeModuloTela = "Terapia Ocupacional:Atendimento em Grupo:Manutenção";
+    String nomeModuloTela2 = "Terapia Ocupacional:Atendimento em Grupo:Planejamento";
+    String nomeModuloTela3 = "Terapia Ocupacional:Atendimento em Grupo:Participantes";
+    String nomeModuloTela4 = "Terapia Ocupacional:Atendimento em Grupo:Avaliação em Grupo";
+    String nomeModuloTela5 = "Terapia Ocupacional:Atendimento em Grupo:Avaliação Individual";
     //
     String statusMov;
     String horaMov;
@@ -104,22 +118,22 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaAtendimentoGrupoPSI
      */
-    public static TelaLiberacaoAtendimentoGruposENF pATENDE_GRUPO;
-    public static TelaSelecaoLoteInternosAG_ENF pPESQUISA_LOTE;
+    public static TelaLiberacaoAtendimentoGruposTO pATENDE_GRUPO;
+    public static TelaSelecaoLoteInternosAG_TO pPESQUISA_LOTE;
 
-    public TelaAtendimentoGrupoENF() {
+    public TelaAtendimentoGrupoTO() {
         initComponents();
         corCampos();
         formatarCampos();
     }
 
     public void mostrarTelaAG() {
-        pATENDE_GRUPO = new TelaLiberacaoAtendimentoGruposENF(this, true);
+        pATENDE_GRUPO = new TelaLiberacaoAtendimentoGruposTO(this, true);
         pATENDE_GRUPO.setVisible(true);
     }
 
     public void mostrarPesquisaLote() {
-        pPESQUISA_LOTE = new TelaSelecaoLoteInternosAG_ENF(this, true);
+        pPESQUISA_LOTE = new TelaSelecaoLoteInternosAG_TO(this, true);
         pPESQUISA_LOTE.setVisible(true);
     }
 
@@ -915,7 +929,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             .addGroup(jManutencaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -2319,10 +2333,10 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
         } else {
-            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
+            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_TO "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav "
-                    + "WHERE IdAtGrupoEnf='" + jIDPesq.getText() + "'");
+                    + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav "
+                    + "WHERE IdAtGrupoTO='" + jIDPesq.getText() + "'");
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
@@ -2333,13 +2347,13 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
         } else {
-            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_TO "
+                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                    + "ON ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav "
+                    + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesquisarInternosActionPerformed
@@ -2364,9 +2378,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
+                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_TO "
                                 + "INNER JOIN PAVILHAO "
-                                + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav "
+                                + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -2387,9 +2401,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
+                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_TO "
                                 + "INNER JOIN PAVILHAO "
-                                + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav "
+                                + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -2402,9 +2416,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
+            this.preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_TO "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav");
+                    + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -2437,12 +2451,12 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             jComboBoxNivelPavilhao.removeAllItems();
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
+                conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_TO "
                         + "INNER JOIN PAVILHAO "
-                        + "ON ATENDIMENTO_GRUPO_ENFERMAGEM.IdPav=PAVILHAO.IdPav "
-                        + "WHERE ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + IdLanc + "'");
+                        + "ON ATENDIMENTO_GRUPO_TO.IdPav=PAVILHAO.IdPav "
+                        + "WHERE ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + IdLanc + "'");
                 conecta.rs.first();
-                jCodigoAtend.setText(String.valueOf(conecta.rs.getInt("IdAtGrupoEnf")));
+                jCodigoAtend.setText(String.valueOf(conecta.rs.getInt("IdAtGrupoTO")));
                 jStatusAtend.setText(conecta.rs.getString("StatusAtendGrupo"));
                 jDataAtend.setDate(conecta.rs.getDate("DataAtend"));
                 jResponsavel.setText(conecta.rs.getString("Responsavel"));
@@ -2459,37 +2473,37 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             //ABA PLANEJAMENTO
-            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + IdLanc + "'");
+            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + IdLanc + "'");
             //ABA PARTICIPANTES
-            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + IdLanc + "'");
+                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + IdLanc + "'");
             //ABA AVALIAÇÃO EM GRUIPO
             buscarAvaliacaoGrupo();
             //ABA AVALIAÇÃO INDIVIDUAL
-            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAdmissaoPsicologicaMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Manu) && codIncluirTO == 1) {
             acao = 1;
             bloquearTodosCampos();
             bloquearTodosBotoes();
@@ -2509,8 +2523,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Manu) && codAlterarTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2531,8 +2545,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Manu) && codExcluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2565,7 +2579,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                                         JOptionPane.YES_NO_OPTION);
                                 if (resposta == JOptionPane.YES_OPTION) {
                                     objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
-                                    control.excluirAtendimentoGrupoManutencaoENF(objAvalia);
+                                    control.excluirAtendimentoGrupoManutencaoTO(objAvalia);
                                     objLog();
                                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                     bloquearTodosBotoes();
@@ -2589,8 +2603,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Manu) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Manu) && codGravarTO == 1) {
             if (jComboBoxPavilhaoGaleria.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o pavilhão.");
             } else if (jComboBoxAmbiente.getSelectedItem().equals("Selecione...")) {
@@ -2620,7 +2634,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
                     //
-                    control.incluirAtendimentoGrupoManutencaoENF(objAvalia);
+                    control.incluirAtendimentoGrupoManutencaoTO(objAvalia);
                     buscarCodigoManutencao();
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2636,7 +2650,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setHorarioUp(horaMov);
                     //
                     objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
-                    control.alterarAtendimentoGrupoManutencaoENF(objAvalia);
+                    control.alterarAtendimentoGrupoManutencaoTO(objAvalia);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosBotoes();
@@ -2662,15 +2676,15 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_MANU_ENF objAudMa = new TelaAuditoriaRegistroAtendGrupo_MANU_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudMa);
+        TelaAuditoriaRegistroAtendGrupo_MANU_TO objAudMa = new TelaAuditoriaRegistroAtendGrupo_MANU_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudMa);
         objAudMa.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovoPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Plan) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Plan) && codIncluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2691,8 +2705,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAlterarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Plan) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Plan) && codAlterarTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2712,8 +2726,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtExcluirPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Plan) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Plan) && codExcluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2731,17 +2745,17 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
                             objAvalia.setIdItemPlan(Integer.valueOf(jCodigoTema.getText()));
-                            control.excluirPlanejamentoENF(objAvalia);
+                            control.excluirPlanejamentoTO(objAvalia);
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             bloquearTodosCampos();
                             bloquearTodosBotoes();
                             limparCamposPlanejamento();
                             ExcluirPlan();
-                            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                         }
                     }
@@ -2757,8 +2771,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtSalvarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Plan) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Plan) && codGravarTO == 1) {
             if (jTema.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tema para o planejamento.");
             } else if (jHorarioInicialTema.getText().equals("00:00")) {
@@ -2782,7 +2796,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setUsuarioInsert(nameUser);
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
-                    control.incluirPlanejamentoENF(objAvalia);
+                    control.incluirPlanejamentoTO(objAvalia);
                     buscarCodigoPlanejamento();
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2790,10 +2804,10 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposPlanejamento();
                     SalvarPlan();
-                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 4) {
@@ -2803,17 +2817,17 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setHorarioUp(horaMov);
                     //
                     objAvalia.setIdItemPlan(Integer.valueOf(jCodigoTema.getText()));
-                    control.alterarPlanejamentoENF(objAvalia);
+                    control.alterarPlanejamentoTO(objAvalia);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosCampos();
                     bloquearTodosBotoes();
                     limparCamposPlanejamento();
                     SalvarPlan();
-                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -2829,8 +2843,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPlanActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_PLAN_ENF objAudiPlan = new TelaAuditoriaRegistroAtendGrupo_PLAN_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudiPlan);
+        TelaAuditoriaRegistroAtendGrupo_PLAN_TO objAudiPlan = new TelaAuditoriaRegistroAtendGrupo_PLAN_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudiPlan);
         objAudiPlan.show();
     }//GEN-LAST:event_jBtAuditoriaPlanActionPerformed
 
@@ -2849,13 +2863,13 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             jBtAuditoriaPlan.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                        + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "' "
-                        + "AND PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdItemPlanEnf='" + pCODIGO_PLAN + "'");
+                conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                        + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                        + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "' "
+                        + "AND PLANEJAMENTO_ATENDIMENTO_GRUPO_TO.IdItemPlanTO='" + pCODIGO_PLAN + "'");
                 conecta.rs.first();
-                jCodigoTema.setText(conecta.rs.getString("IdItemPlanEnf"));
+                jCodigoTema.setText(conecta.rs.getString("IdItemPlanTO"));
                 jTema.setText(conecta.rs.getString("Tema"));
                 jHorarioInicialTema.setText(conecta.rs.getString("HoraInicio"));
                 jHorarioFinalTema.setText(conecta.rs.getString("HoraTermino"));
@@ -2870,8 +2884,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtNovoParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Inte) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Inte) && codIncluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2892,8 +2906,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAlterarParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Inte) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Inte) && codAlterarTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2913,8 +2927,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtExcluirParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Inte) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Inte) && codExcluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2932,21 +2946,21 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
                             objAvalia.setIdItemPart(pCODIGO_ITEM_PARTICIPANTE);
-                            control.excluirAtendimentoGrupoParticipantesENF(objAvalia);
+                            control.excluirAtendimentoGrupoParticipantesTO(objAvalia);
                             objLog3();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             bloquearTodosCampos();
                             bloquearTodosBotoes();
                             limparCamposParticipantes();
                             ExcluirParticipante();
-                            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro exluído com sucesso.");
                         }
                     }
@@ -2962,8 +2976,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtSalvarParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Inte) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_Inte) && codGravarTO == 1) {
             if (jIdInternoGrp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
             } else if (jNomeInternoGrp.getText().equals("")) {
@@ -2978,7 +2992,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
                     //
-                    control.incluirAtendimentoGrupoParticipantesENF(objAvalia);
+                    control.incluirAtendimentoGrupoParticipantesTO(objAvalia);
                     buscarCodigoParticipantes();
                     objLog3();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2986,14 +3000,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposParticipantes();
                     SalvarPlan();
-                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 6) {
@@ -3002,21 +3016,21 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
                     objAvalia.setIdItemPart(pCODIGO_ITEM_PARTICIPANTE);
-                    control.alterarAtendimentoGrupoParticipantesENF(objAvalia);
+                    control.alterarAtendimentoGrupoParticipantesTO(objAvalia);
                     objLog3();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearTodosCampos();
                     bloquearTodosBotoes();
                     limparCamposParticipantes();
                     SalvarPlan();
-                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -3032,15 +3046,15 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaParticipantesActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_PART_ENF objAudi_PART = new TelaAuditoriaRegistroAtendGrupo_PART_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudi_PART);
+        TelaAuditoriaRegistroAtendGrupo_PART_TO objAudi_PART = new TelaAuditoriaRegistroAtendGrupo_PART_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudi_PART);
         objAudi_PART.show();
     }//GEN-LAST:event_jBtAuditoriaParticipantesActionPerformed
 
     private void jBtPesquisarPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarPartActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendimentoGrupoENF objPesqInterno = new TelaPesqInternoAtendimentoGrupoENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objPesqInterno);
+        TelaPesqInternoAtendimentoGrupoTO objPesqInterno = new TelaPesqInternoAtendimentoGrupoTO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqInterno);
         objPesqInterno.show();
     }//GEN-LAST:event_jBtPesquisarPartActionPerformed
 
@@ -3059,11 +3073,11 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             jBtAuditoriaParticipantes.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3072,9 +3086,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdItemPartEnf='" + pCODIGO_PART + "'");
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdItemPartTO='" + pCODIGO_PART + "'");
                 conecta.rs.first();
-                pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartEnf");
+                pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartTO");
                 jIdInternoGrp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegime.setText(conecta.rs.getString("Regime"));
@@ -3107,8 +3121,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtNovoAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVG) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVG) && codIncluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3134,8 +3148,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAlterarAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVG) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVG) && codAlterarTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3155,8 +3169,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtExcluirAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVG) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVG) && codExcluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -3174,7 +3188,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
                             objAvalia.setIdItemAvag(pCODIGO_AVALIACAO_GRUPO);
-                            control.excluirAtendimentoGrupoAVGENF(objAvalia);
+                            control.excluirAtendimentoGrupoAVGTO(objAvalia);
                             objLog4();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             bloquearTodosCampos();
@@ -3195,8 +3209,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtSalvarAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVG) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVG) && codGravarTO == 1) {
             objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
             objAvalia.setTextoAvalaiacaoGrupo(jTextoAvaliacaoGrupo.getText());
             //VERIFICAR SE JÁ EXISTE ALGUM REGISTRO, NÃO PODE DUPLICAR
@@ -3211,7 +3225,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
                     //
-                    control.incluirAtendimentoGrupoAVGENF(objAvalia);
+                    control.incluirAtendimentoGrupoAVGTO(objAvalia);
                     buscarCodigoAVG();
                     objLog4();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3228,7 +3242,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 objAvalia.setHorarioUp(horaMov);
                 //
                 objAvalia.setIdItemAvag(pCODIGO_AVALIACAO_GRUPO);
-                control.alterarAtendimentoGrupoAVGENF(objAvalia);
+                control.alterarAtendimentoGrupoAVGTO(objAvalia);
                 objLog4();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearTodosCampos();
@@ -3253,15 +3267,15 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvGrupoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_AGRU_ENF objAudi_AG = new TelaAuditoriaRegistroAtendGrupo_AGRU_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudi_AG);
+        TelaAuditoriaRegistroAtendGrupo_AGRU_TO objAudi_AG = new TelaAuditoriaRegistroAtendGrupo_AGRU_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudi_AG);
         objAudi_AG.show();
     }//GEN-LAST:event_jBtAuditoriaAvGrupoActionPerformed
 
     private void jBtNovoAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVI) && codIncluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVI) && codIncluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3282,8 +3296,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAlterarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVI) && codAlterarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVI) && codAlterarTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3303,8 +3317,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtExcluirAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVI) && codExcluirENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVI) && codExcluirTO == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -3322,21 +3336,21 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
                             objAvalia.setIdItemAvai(pCODIGO_AVALIACAO_GRUPO_AVGI);
-                            control.excluirAtendimentoGrupoAVGIENF(objAvalia);
+                            control.excluirAtendimentoGrupoAVGITO(objAvalia);
                             objLog5();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             bloquearTodosCampos();
                             bloquearTodosBotoes();
                             limparCamposAVI();
                             ExcluirAVGI();
-                            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                                     + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro exluído com sucesso.");
                         }
                     }
@@ -3352,8 +3366,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtSalvarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoENF_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_AVI) && codGravarENF == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoTO_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(telaIndAtendimentoGrupoTO_AVI) && codGravarTO == 1) {
             if (jIdInternoAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
             } else if (jNomeInternoAVI.getText().equals("")) {
@@ -3369,7 +3383,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setDataInsert(dataModFinal);
                     objAvalia.setHorarioInsert(horaMov);
                     //
-                    control.incluirAtendimentoGrupoAVGIENF(objAvalia);
+                    control.incluirAtendimentoGrupoAVGITO(objAvalia);
                     buscarCodigoAVI();
                     objLog5();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3377,14 +3391,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposAVI();
                     SalvarAVG();
-                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 10) {
@@ -3394,7 +3408,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     objAvalia.setHorarioUp(horaMov);
                     //
                     objAvalia.setIdItemAvai(pCODIGO_AVALIACAO_GRUPO_AVGI);
-                    control.alterarAtendimentoGrupoAVGIENF(objAvalia);
+                    control.alterarAtendimentoGrupoAVGITO(objAvalia);
                     buscarCodigoAVI();
                     objLog5();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3402,14 +3416,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposAVI();
                     SalvarAVG();
-                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoTO "
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -3425,15 +3439,15 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvIndActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_AIGRU_ENF objAudi_AIG = new TelaAuditoriaRegistroAtendGrupo_AIGRU_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objAudi_AIG);
+        TelaAuditoriaRegistroAtendGrupo_AIGRU_TO objAudi_AIG = new TelaAuditoriaRegistroAtendGrupo_AIGRU_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objAudi_AIG);
         objAudi_AIG.show();
     }//GEN-LAST:event_jBtAuditoriaAvIndActionPerformed
 
     private void jBtPesqInternoAVIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoAVIActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendimentoGrupoAVI_ENF objPesqIntAVI = new TelaPesqInternoAtendimentoGrupoAVI_ENF();
-        TelaModuloEnfermaria.jPainelMedico.add(objPesqIntAVI);
+        TelaPesqInternoAtendimentoGrupoAVI_TO objPesqIntAVI = new TelaPesqInternoAtendimentoGrupoAVI_TO();
+        TelaModuloTerapiaOcupacional.jPainelTerapia.add(objPesqIntAVI);
         objPesqIntAVI.show();
     }//GEN-LAST:event_jBtPesqInternoAVIActionPerformed
 
@@ -3452,11 +3466,11 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             jBtAuditoriaAvInd.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3465,9 +3479,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM.IdItemAvaiEnf='" + pCODIGO_AVI + "'");
+                        + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO.IdItemAvaiTO='" + pCODIGO_AVI + "'");
                 conecta.rs.first();
-                pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiEnf");
+                pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiTO");
                 jIdInternoAI.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNCAI.setText(conecta.rs.getString("Cnc"));
                 jRegimeAVI.setText(conecta.rs.getString("Regime"));
@@ -3498,8 +3512,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jBtLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(botaoLiberar_ENF);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(botaoLiberar_ENF) && codAbrirENF == 1) {
+        buscarAcessoUsuario(botaoLiberar_TO);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoTO.equals("ADMINISTRADORES") || codigoUserTO == codUserAcessoTO && nomeTelaTO.equals(botaoLiberar_TO) && codAbrirTO == 1) {
             Integer row1 = jTabelaInternos.getRowCount();
             if (row1 == 0) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe participantes cadastrados.");
@@ -3529,12 +3543,12 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAtendimentoGrupoInternosENF.jasper";
-                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
+                String path = "reports/RelatorioAtendimentoGrupoInternosTO.jasper";
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3543,7 +3557,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'"
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'"
                         + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
                 HashMap parametros = new HashMap();
                 parametros.put("pCODIGO_ATIVIDADE", jCodigoAtend.getText());
@@ -3553,7 +3567,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                 jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Atendimento em Grupo - Enfermagem");
+                jv.setTitle("Relatório Atendimento em Grupo - Terapia Ocupaional");
                 jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                 jv.toFront(); // Traz o relatorio para frente da aplicação            
                 conecta.desconecta();
@@ -3568,8 +3582,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         if (jCodigoAtend.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaLiberadorRegistroAtendGrupo_ENF objLibera = new TelaLiberadorRegistroAtendGrupo_ENF();
-            TelaModuloEnfermaria.jPainelMedico.add(objLibera);
+            TelaLiberadorRegistroAtendGrupo_TO objLibera = new TelaLiberadorRegistroAtendGrupo_TO();
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objLibera);
             objLibera.show();
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
@@ -3638,8 +3652,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         if (row == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existem internos a serem pesquisados, a tabela está vazia.");
         } else {
-            TelaLocalizarParticipantes_ENF objLocal = new TelaLocalizarParticipantes_ENF();
-            TelaModuloEnfermaria.jPainelMedico.add(objLocal);
+            TelaLocalizarParticipantes_TO objLocal = new TelaLocalizarParticipantes_TO();
+            TelaModuloTerapiaOcupacional.jPainelTerapia.add(objLocal);
             objLocal.show();
         }
     }//GEN-LAST:event_jBtLocalizarInternoActionPerformed
@@ -4098,9 +4112,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarCodigoManutencao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_TO");
             conecta.rs.last();
-            jCodigoAtend.setText(conecta.rs.getString("IdAtGrupoEnf"));
+            jCodigoAtend.setText(conecta.rs.getString("IdAtGrupoTO"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4111,34 +4125,34 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         //PLANEJAMENTO DE ATENDIMENTO
         try {
-            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_PLAN = conecta.rs.getString("IdAtGrupoEnf");
+            pCODIGO_ATENDE_PLAN = conecta.rs.getString("IdAtGrupoPsi");
         } catch (Exception e) {
         }
         //PARTICIPANTES
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_PART = conecta.rs.getString("IdAtGrupoEnf");
+            pCODIGO_ATENDE_PART = conecta.rs.getString("IdAtGrupoPsi");
         } catch (Exception e) {
         }
         //AVALIAÇÃO EM GRUPO
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_AVAG = conecta.rs.getString("IdAtGrupoPsi");
+            pCODIGO_ATENDE_AVAG = conecta.rs.getString("IdAtGrupoTO");
         } catch (Exception e) {
         }
         //AVALIAÇÃO INDIVIDUAL
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_AVAI = conecta.rs.getString("IdAtGrupoEnf");
+            pCODIGO_ATENDE_AVAI = conecta.rs.getString("IdAtGrupoTO");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4216,9 +4230,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarCodigoPlanejamento() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM");
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_TO");
             conecta.rs.last();
-            jCodigoTema.setText(conecta.rs.getString("IdItemPlanEnf"));
+            jCodigoTema.setText(conecta.rs.getString("IdItemPlanTO"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4282,9 +4296,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarCodigoParticipantes() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO");
             conecta.rs.last();
-            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartEnf");
+            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartTO");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4354,9 +4368,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarCodigoAVG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_TO");
             conecta.rs.last();
-            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagEnf");
+            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagTO");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4366,12 +4380,12 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarAvaliacaoGrupo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "ON AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf=ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf "
-                    + "WHERE AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_TO "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_TO "
+                    + "ON AVALICAO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO=ATENDIMENTO_GRUPO_TO.IdAtGrupoTO "
+                    + "WHERE AVALICAO_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagEnf");
+            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagTO");
             jTextoAvaliacaoGrupo.setText(conecta.rs.getString("TextoAvalaiacaoGrupo"));
         } catch (SQLException ex) {
         }
@@ -4387,10 +4401,10 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void verificarExistenciaRegistroAVG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO_AVG = conecta.rs.getInt("IdAtGrupoEnf");
+            pCODIGO_AVALIACAO_GRUPO_AVG = conecta.rs.getInt("IdAtGrupoTO");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4461,9 +4475,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void buscarCodigoAVI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_ENFERMAGEM ");
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_TO ");
             conecta.rs.last();
-            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiEnf");
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiTO");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4474,7 +4488,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP ");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiEnf");
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiTO");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4498,7 +4512,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdAtGrupoEnf"), dataEntrada, conecta.rs.getString("StatusAtendGrupo"), conecta.rs.getString("DescricaoPav"), conecta.rs.getString("LocalAtividade")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAtGrupoTO"), dataEntrada, conecta.rs.getString("StatusAtendGrupo"), conecta.rs.getString("DescricaoPav"), conecta.rs.getString("LocalAtividade")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -4568,7 +4582,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             do {
                 count0 = count0 + 1;
                 jtotalRegistrosPlanejamento.setText(Integer.toString(count0)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPlanEnf"), conecta.rs.getString("HoraInicio"), conecta.rs.getString("HoraTermino"), conecta.rs.getString("Atividades"), conecta.rs.getString("Recursos")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPlanTO"), conecta.rs.getString("HoraInicio"), conecta.rs.getString("HoraTermino"), conecta.rs.getString("Atividades"), conecta.rs.getString("Recursos")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4639,7 +4653,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             do {
                 count1 = count1 + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPartEnf"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartTO"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4710,7 +4724,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             do {
                 count2 = count2 + 1;
                 jtotalRegistrosInternosAVI.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemAvaiEnf"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemAvaiTO"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4787,8 +4801,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void verificarUsuarioCriador() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_ENFERMAGEM "
-                    + "WHERE IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_TO "
+                    + "WHERE IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
             nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
         } catch (SQLException ex) {
@@ -4848,33 +4862,33 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUserENF = conecta.rs.getInt("IdUsuario");
+            codigoUserTO = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserENF + "'");
+                    + "WHERE IdUsuario='" + codigoUserTO + "'");
             conecta.rs.first();
-            codigoUserGroupENF = conecta.rs.getInt("IdUsuario");
-            codigoGrupoENF = conecta.rs.getInt("IdGrupo");
-            nomeGrupoENF = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupTO = conecta.rs.getInt("IdUsuario");
+            codigoGrupoTO = conecta.rs.getInt("IdGrupo");
+            nomeGrupoTO = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserENF + "' "
+                    + "WHERE IdUsuario='" + codigoUserTO + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcessoENF = conecta.rs.getInt("IdUsuario");
-            codAbrirENF = conecta.rs.getInt("Abrir");
-            codIncluirENF = conecta.rs.getInt("Incluir");
-            codAlterarENF = conecta.rs.getInt("Alterar");
-            codExcluirENF = conecta.rs.getInt("Excluir");
-            codGravarENF = conecta.rs.getInt("Gravar");
-            codConsultarENF = conecta.rs.getInt("Consultar");
-            nomeTelaENF = conecta.rs.getString("NomeTela");
+            codUserAcessoTO = conecta.rs.getInt("IdUsuario");
+            codAbrirTO = conecta.rs.getInt("Abrir");
+            codIncluirTO = conecta.rs.getInt("Incluir");
+            codAlterarTO = conecta.rs.getInt("Alterar");
+            codExcluirTO = conecta.rs.getInt("Excluir");
+            codGravarTO = conecta.rs.getInt("Gravar");
+            codConsultarTO = conecta.rs.getInt("Consultar");
+            nomeTelaTO = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

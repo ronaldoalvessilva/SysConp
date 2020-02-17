@@ -366,7 +366,7 @@
 			</textField>
 			<image>
 				<reportElement x="9" y="27" width="143" height="49" uuid="f7a2d3c2-1e79-4ccf-903f-aee705454f70"/>
-				<imageExpression><![CDATA["C:\\Users\\Socializa TI 02\\Documents\\NetBeansProjects\\SysConp\\Fotos\\logo_socializa_novo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\SysConp\\Fotos\\logo_socializa_novo.png"]]></imageExpression>
 			</image>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="475" y="62" width="70" height="15" uuid="4134240d-cc75-4ce7-9914-bebd7a6e656a"/>

@@ -8,21 +8,21 @@ package gestor.Visao;
 import gestor.Dao.*;
 import gestor.Modelo.EntradaLote;
 import gestor.Modelo.ItensEntradaLote;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jCNC;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jCela;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jCodigoAtend;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jDataNascimento;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jFotoInternoGrupo;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jIdInternoGrp;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jNomeInternoGrp;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jNomeMae;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jPavilhao;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jRegime;
-import static gestor.Visao.TelaAtendimentoGrupoENF.idItem;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtAlterarParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtCancelarParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtExcluirParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jBtNovoParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jCNC;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jCela;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jDataNascimento;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jFotoInternoGrupo;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jIdInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jNomeInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jNomeMae;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jPavilhao;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jRegime;
+import static gestor.Visao.TelaAtendimentoGrupoTO.idItem;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtAlterarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtCancelarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtExcluirParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jBtNovoParticipantes;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
+public class TelaLocalizarParticipantes_TO extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EntradaLote objEntLote = new EntradaLote();
@@ -49,7 +49,7 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesqColaborador
      */
-    public TelaLocalizarParticipantes_ENF() {
+    public TelaLocalizarParticipantes_TO() {
         initComponents();
         jNomeInternoCrc.setDocument(new LimiteDigitos(50));
     }
@@ -227,9 +227,9 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                         + "INNER JOIN CELAS "
@@ -239,7 +239,7 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "WHERE NomeInternoCrc='" + jNomeInternoCrc.getText() + "' "
-                        + "AND PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                        + "AND PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
                 conecta.rs.first();
                 // Tabela Funcionarios
                 jIdInternoGrp.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -263,7 +263,7 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
                     jFotoInternoGrupo.setIcon(icon);
                 }
                 //
-                idItem = conecta.rs.getString("IdItemPartEnf");
+                idItem = conecta.rs.getString("IdItemPart");
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jNomeMae.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPavilhao.setText(conecta.rs.getString("DescricaoPav"));
@@ -289,9 +289,9 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeInternoCrc.requestFocus();
         } else {
-            buscarInternos("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM "
+            buscarInternos("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_TO "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                     + "INNER JOIN CELAS "
@@ -301,7 +301,7 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoCrc.getText() + "%' "
-                    + "AND PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM.IdAtGrupoEnf='" + jCodigoAtend.getText() + "'");
+                    + "AND PARTICIPANTES_ATENDIMENTO_GRUPO_TO.IdAtGrupoTO='" + jCodigoAtend.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
@@ -337,7 +337,7 @@ public class TelaLocalizarParticipantes_ENF extends javax.swing.JInternalFrame {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPartEnf"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartTO"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");

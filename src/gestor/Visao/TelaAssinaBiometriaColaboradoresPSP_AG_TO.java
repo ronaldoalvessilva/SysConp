@@ -20,14 +20,14 @@ import gestor.Modelo.ItensEntSaiFunc;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaAtendimentoGrupoENF.jCodigoAtend;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.codigoLiberador;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.dataAssinatura;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.horaAssinatura;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.jBtConfirmar;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.nomeLiberador;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.pDigitalCapturadaColaborador;
-import static gestor.Visao.TelaLiberacaoAtendimentoGruposENF.pLiberacaoImpressa;
+import static gestor.Visao.TelaAtendimentoGrupoTO.jCodigoAtend;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.codigoLiberador;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.dataAssinatura;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.horaAssinatura;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.jBtConfirmar;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.nomeLiberador;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.pDigitalCapturadaColaborador;
+import static gestor.Visao.TelaLiberacaoAtendimentoGruposTO.pLiberacaoImpressa;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ronaldo
  */
-public class TelaAssinaBiometriaColaboradoresPSP_AG_ENF extends javax.swing.JDialog {
+public class TelaAssinaBiometriaColaboradoresPSP_AG_TO extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ItensEntSaiFunc objItensFunc = new ItensEntSaiFunc();
@@ -48,7 +48,7 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_ENF extends javax.swing.JDia
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela2 = "ENFERMARIA:Liberação de Atendimento em Grupo:Biometria";
+    String nomeModuloTela2 = "TERAPIA COUPACIONAL:Liberação de Atendimento em Grupo:Biometria";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -102,12 +102,12 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_ENF extends javax.swing.JDia
     /**
      * Creates new form TelaAcessoBiometria
      */
-    public static TelaLiberacaoAtendimentoGruposENF assinaturaFuncPSP_AG_ENF;
+    public static TelaLiberacaoAtendimentoGruposTO assinaturaFuncPSP_AG_TO;
 
-    public TelaAssinaBiometriaColaboradoresPSP_AG_ENF(TelaLiberacaoAtendimentoGruposENF parent, boolean modal) {
-        this.assinaturaFuncPSP_AG_ENF = parent;
+    public TelaAssinaBiometriaColaboradoresPSP_AG_TO(TelaLiberacaoAtendimentoGruposTO parent, boolean modal) {
+        this.assinaturaFuncPSP_AG_TO = parent;
         this.setModal(modal);
-        setLocationRelativeTo(assinaturaFuncPSP_AG_ENF);
+        setLocationRelativeTo(assinaturaFuncPSP_AG_TO);
         initComponents();
         corCampos();
     }
@@ -545,14 +545,78 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_ENF extends javax.swing.JDia
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_ENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_TO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_ENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_TO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_ENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_TO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_ENF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAssinaBiometriaColaboradoresPSP_AG_TO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -621,7 +685,7 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_ENF extends javax.swing.JDia
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaAssinaBiometriaColaboradoresPSP_AG_ENF dialog = new TelaAssinaBiometriaColaboradoresPSP_AG_ENF(assinaturaFuncPSP_AG_ENF, true);
+                TelaAssinaBiometriaColaboradoresPSP_AG_TO dialog = new TelaAssinaBiometriaColaboradoresPSP_AG_TO(assinaturaFuncPSP_AG_TO, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
