@@ -186,6 +186,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static TelaPrescricaoMedicaEnfermaria prescricaoMedica;
     public static TelaAtestadoMedicoPsiquiatrico atestadoMedico;
     public static TelaDietaMedicaPsiquiatrica dietaMedica;
+    public static TelaAdmissaoMedicaSecundaria pADMISSAO_ADICIONAL;
 
     public TelaAdmissaoMedica() {
         super();
@@ -254,6 +255,11 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         dietaMedica.setVisible(true);
     }
 
+    public void mostrarNovaAdmissao() {
+        pADMISSAO_ADICIONAL = new TelaAdmissaoMedicaSecundaria(this, true);
+        pADMISSAO_ADICIONAL.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,7 +278,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         Listagem = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
-        jPesqNomeInternoOdonto = new javax.swing.JTextField();
+        jPesqNomeInternoAdmissao = new javax.swing.JTextField();
         jBtPesqNomeInterno = new javax.swing.JButton();
         jLabel37 = new javax.swing.JLabel();
         jIDPesqAtend = new javax.swing.JTextField();
@@ -599,7 +605,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Nome :");
 
-        jPesqNomeInternoOdonto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPesqNomeInternoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqNomeInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqNomeInterno.setContentAreaFilled(false);
@@ -668,7 +674,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jPesqNomeInternoOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPesqNomeInternoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel15Layout.createSequentialGroup()
@@ -700,7 +706,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                     .addComponent(jBtPesqData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jPesqNomeInternoOdonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPesqNomeInternoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel36)
                     .addComponent(jBtPesqNomeInterno)
                     .addComponent(jCheckBox1))
@@ -1855,8 +1861,13 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaAdmissao.setText("N.ADM");
+        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
         jBtNovaAdmissao.setToolTipText("Nova Admissão");
+        jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaAdmissaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -1876,9 +1887,9 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addComponent(jBtFinalizar)
                 .addGap(2, 2, 2)
                 .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtNovaAdmissao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -3724,7 +3735,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         preencherAdmissaoMedica("SELECT * FROM ADMISSAOMEDICA "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInternoOdonto.getText() + "%'");
+                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInternoAdmissao.getText() + "%'");
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
 
     private void jBtIdPesqAtendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdPesqAtendActionPerformed
@@ -3968,7 +3979,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
-                            JOptionPane.showMessageDialog(rootPane, "Ainda não está pronto, zé mané...");
+                            mostrarNovaAdmissao();
                         }
                     } else {
                         // log de usuario
@@ -5920,6 +5931,15 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtDietaMedicaCLINActionPerformed
 
+    private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
+        // TODO add your handling code here:
+        if (jIdAdm.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar uma nova admissão sem ter realizado uma admissão principal do interno.");
+        } else {
+            mostrarNovaAdmissao();
+        }
+    }//GEN-LAST:event_jBtNovaAdmissaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AnaMedica;
@@ -6170,7 +6190,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jPesqNomeInternoOdonto;
+    private javax.swing.JTextField jPesqNomeInternoAdmissao;
     private javax.swing.JTextField jQuaisAlergias;
     private javax.swing.JTextField jQuaisOutrasAlergias;
     private javax.swing.JTextField jQualDrogas;
@@ -6283,7 +6303,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     }
 
     public void formatarCampos() {
-        jPesqNomeInternoOdonto.setDocument(new LimiteDigitos(70));
+        jPesqNomeInternoAdmissao.setDocument(new LimiteDigitos(70));
         jAR.setDocument(new LimiteDigitosAlfa(70));
         jACV.setDocument(new LimiteDigitosAlfa(70));
         jAGU.setDocument(new LimiteDigitosAlfa(70));
