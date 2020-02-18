@@ -14,6 +14,7 @@ import java.util.Date;
 public class AdmissaoMedica {
 
     private int idLanc;
+    private int idAdmAd;
     private String statusLanc;
     private Date dataLanc;
     private int idInternoCrc;
@@ -70,8 +71,9 @@ public class AdmissaoMedica {
     public AdmissaoMedica() {
     }
 
-    public AdmissaoMedica(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String ar, String acv, String agu, String cabPesc, String ext, String abd, String comboBoxAR, String comboBoxACV, String comboBoxAGU, String comboBoxCAB, String comboBoxEXT, String comboBoxABD, String tipoSanguineo, String fatorRH, String alergia, String quaisAlergias, String sexualidade, String numeroParceiros, String usoPreservativos, String drogasInjetavel, String qualTipoDrograInjet, String diagnostico, String cirurgiasPrevisas, String tratamentoCurso, String qualDrogas, String qualEtilismo, String quantoTempoTabagismo, String drogas, String etilismo, String tabagismo, String vacinas, String atualizadaIgnorada, String usaMedicamentos, String qualMedicacaoUsa, String outrasAlergias, String quaisOutrasAlergias, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String diagnosticooInicial, int tipoDiagnostico, String admEvo) {
+    public AdmissaoMedica(int idLanc, int idAdmAd, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String ar, String acv, String agu, String cabPesc, String ext, String abd, String comboBoxAR, String comboBoxACV, String comboBoxAGU, String comboBoxCAB, String comboBoxEXT, String comboBoxABD, String tipoSanguineo, String fatorRH, String alergia, String quaisAlergias, String sexualidade, String numeroParceiros, String usoPreservativos, String drogasInjetavel, String qualTipoDrograInjet, String diagnostico, String cirurgiasPrevisas, String tratamentoCurso, String qualDrogas, String qualEtilismo, String quantoTempoTabagismo, String drogas, String etilismo, String tabagismo, String vacinas, String atualizadaIgnorada, String usaMedicamentos, String qualMedicacaoUsa, String outrasAlergias, String quaisOutrasAlergias, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String diagnosticooInicial, int tipoDiagnostico, String admEvo) {
         this.idLanc = idLanc;
+        this.idAdmAd = idAdmAd;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
         this.idInternoCrc = idInternoCrc;
@@ -138,6 +140,20 @@ public class AdmissaoMedica {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idAdmAd
+     */
+    public int getIdAdmAd() {
+        return idAdmAd;
+    }
+
+    /**
+     * @param idAdmAd the idAdmAd to set
+     */
+    public void setIdAdmAd(int idAdmAd) {
+        this.idAdmAd = idAdmAd;
     }
 
     /**
@@ -867,5 +883,4 @@ public class AdmissaoMedica {
     public void setAdmEvo(String admEvo) {
         this.admEvo = admEvo;
     }
-   
 }

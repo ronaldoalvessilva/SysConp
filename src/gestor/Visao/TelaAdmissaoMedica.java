@@ -4243,9 +4243,20 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAdm.setIcon(i);
-                jFotoInternoAdm.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAdm.setIcon(i);
+                    jFotoInternoAdm.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoAdm.setIcon(icon);
+                }
                 //
                 jAR.setText(conecta.rs.getString("AR"));
                 jACV.setText(conecta.rs.getString("ACV"));
@@ -6226,8 +6237,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     public static javax.swing.JTable jTabelaAtestado;
-    private javax.swing.JTable jTabelaEvolPsiquiatrica;
-    private javax.swing.JTable jTabelaEvolucaoMedica;
+    public static javax.swing.JTable jTabelaEvolPsiquiatrica;
+    public static javax.swing.JTable jTabelaEvolucaoMedica;
     private javax.swing.JTable jTabelaMedico;
     private javax.swing.JTable jTabelaPatologia;
     public static javax.swing.JTable jTabelaPrescricaoMedica;
@@ -6237,8 +6248,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     public static javax.swing.JTextArea jTextoEvolucaoMedica;
     public static javax.swing.JTextArea jTextoEvolucaoPsiquiatrica;
     private javax.swing.JTextArea jTextoPrescricaoMedica;
-    private javax.swing.JLabel jTotalRegistrosMed;
-    private javax.swing.JLabel jTotalRegistrosPsi;
+    public static javax.swing.JLabel jTotalRegistrosMed;
+    public static javax.swing.JLabel jTotalRegistrosPsi;
     private javax.swing.JTextField jTratamentoCurso;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
