@@ -210,13 +210,13 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static String telaFreqCapacitacaoInternoManuTO = "Movimentação:Frequência Capacitação de Interno:Manutenção";
     public static String telaFreqCapacitacaoInternoIntTO = "Movimentação:Frequência Capacitação de Interno:Interno";
     // ATENDIMENTO EM GRUPO
-    public static String telaIndAtendimentoGrupoTO_Manu = "Movimentação:Atendimento Internos em Grupo:Mamnutenção";
-    public static String telaIndAtendimentoGrupoTO_Plan = "Movimentação:Atendimento Internos em Grupo:Planejamento";
-    public static String telaIndAtendimentoGrupoTO_Inte = "Movimentação:Atendimento Internos em Grupo:Internos";
-    public static String telaIndAtendimentoGrupoTO_AVG = "Movimentação:Atendimento Internos em Grupo:Avaliação em Grupo";
-    public static String telaIndAtendimentoGrupoTO_AVI = "Movimentação:Atendimento Internos em Grupo:Avaliação Individual";
-    public static String botaoEncerrar_TO = "Movimentação:Atendimento Internos em Grupo:Botao Encerrar";
-    public static String botaoLiberar_TO = "Movimentação:Atendimento Internos em Grupo:Botão Liberar";
+    public static String telaIndAtendimentoGrupoTO_Manu = "Movimentação:Atendimento Internos em Grupo-TO:Mamnutenção";
+    public static String telaIndAtendimentoGrupoTO_Plan = "Movimentação:Atendimento Internos em Grupo-TO:Planejamento";
+    public static String telaIndAtendimentoGrupoTO_Inte = "Movimentação:Atendimento Internos em Grupo-TO:Internos";
+    public static String telaIndAtendimentoGrupoTO_AVG = "Movimentação:Atendimento Internos em Grupo-TO:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoTO_AVI = "Movimentação:Atendimento Internos em Grupo-TO:Avaliação Individual";
+    public static String botaoEncerrar_TO = "Movimentação:Atendimento Internos em Grupo-TO:Botao Encerrar";
+    public static String botaoLiberar_TO = "Movimentação:Atendimento Internos em Grupo-TO:Botão Liberar";
     //
     // MENU CADASTRO
     String pNomeELB_TO = "";
