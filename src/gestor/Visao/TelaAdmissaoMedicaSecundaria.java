@@ -14,6 +14,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovDiagnosticoMedico;
 import gestor.Controle.ControleMovEvolucaoMedica;
 import gestor.Controle.ControleMovMedico;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
@@ -22,6 +23,7 @@ import gestor.Modelo.EvolucaoMedica;
 import gestor.Modelo.EvolucaoPsiquiatrica;
 import gestor.Modelo.ItensDoencas;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAdmissaoMedica.codigoDepartamentoENF;
 import static gestor.Visao.TelaAdmissaoMedica.jIdAdm;
@@ -89,6 +91,9 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -128,6 +133,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
     int idItemEvolPsiquiatrico, idItemEvol, idItemPrescricao, idItemAtestado, idItemDieta;
     int countm = 0;
     int countp = 0;
+    //PORTA DE ENTRADA COM ORIGEM NO CRC/TRIAGEM
+    String pHABILITA_MEDICO = "Sim";
+    String pDEPARTAMENTO = "";
+    String pINTERNOCRC = "";
+    String pHABILITADO = "";
+    String pCONFIRMA_ADMISSAO = "Sim";
 
     /**
      * Creates new form TelaAdmissaoMedicaSecundaria
@@ -1752,26 +1763,31 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAcessoProntuarioMedicoENF);
         if (codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAcessoProntuarioMedicoENF) && codIncluirENF == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES")) {
+            verificarPortaEntrada();
             verificarRegistroBiometria();
-            if (pHabilitaMedico.equals("Não")) {
-                Novo();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                limpaTabelaDoencas();
-                acao = 1;
-                pesquisarInternoManual();
-            } else {
-                limpaTabelaDoencas();
-                Novo();
-                acao = 1;
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
-                procurarDepartamento();
-                //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
-                pesquisarInternoColaboradorBiometria();
+            if (jIdInternoAdm.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
+                if (pHabilitaMedico.equals("Não")) {
+                    Novo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    limpaTabelaDoencas();
+                    acao = 1;
+                    pesquisarInternoManual();
+                } else {
+                    limpaTabelaDoencas();
+                    Novo();
+                    acao = 1;
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
+                    procurarDepartamento();
+                    //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
+                    pesquisarInternoColaboradorBiometria();
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Não é possível fazer nova admissão para esse interno.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
@@ -1847,6 +1863,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO.
+                        pCONFIRMA_ADMISSAO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
+                        objPortaEntrada.setHabMed(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaMedica(objPortaEntrada);
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -1963,6 +1985,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         objRegAtend.setDataUp(dataModFinal);
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pCONFIRMA_ADMISSAO = "Sim";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
+                        objPortaEntrada.setHabMed(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaMedica(objPortaEntrada);
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2638,6 +2666,22 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         jQuaisOutrasAlergias.setText("");
         jDiagnosticoInicial.setText("");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
+    }
+
+    public void verificarPortaEntrada() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PORTA_ENTRADA "
+                    + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND PSPMed='" + deptoTecnico + "' "
+                    + "AND HabMed='" + pHABILITA_MEDICO + "'");
+            conecta.rs.first();
+            pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
+            pDEPARTAMENTO = conecta.rs.getString("PSPEnf");
+            pHABILITADO = conecta.rs.getString("HabEnf");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void pesquisarInternoManual() {
