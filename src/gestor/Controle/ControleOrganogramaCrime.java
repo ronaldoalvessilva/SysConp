@@ -149,7 +149,7 @@ public class ControleOrganogramaCrime {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1A_ORGANOGRAMA_CRIME IdOrg='" + objOrg.getIdOrg() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM L1A_ORGANOGRAMA_CRIME WHERE IdOrg='" + objOrg.getIdOrg() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (L1A) os Dados.\n\nERRO: " + ex);
