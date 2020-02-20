@@ -119,9 +119,9 @@ ON CURSOS.IdCurso=FREQUENCIA_CAPACITACAO_INTERNO_TO.IdCurso WHERE IdFreqCap=$P{c
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="26" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<subreport>
-				<reportElement x="1" y="0" width="200" height="26" uuid="dde71d90-b770-4244-9cf3-2938ea606b3f"/>
+				<reportElement x="-21" y="0" width="233" height="25" uuid="cdf28e10-fffc-43ee-935e-e82eba96f039"/>
 				<subreportParameter name="codigoFreq">
 					<subreportParameterExpression><![CDATA[$F{IdFreqCap}]]></subreportParameterExpression>
 				</subreportParameter>

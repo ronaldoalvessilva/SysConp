@@ -1124,6 +1124,8 @@ public class TelaCapacitacaoInternoTO extends javax.swing.JInternalFrame {
             jBtAuditoria.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             //
+            limparCamposInternos();
+            //
             jBtNovoInterno.setEnabled(true);
             //
             conecta.abrirConexao();

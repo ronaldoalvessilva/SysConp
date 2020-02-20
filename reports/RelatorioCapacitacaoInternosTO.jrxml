@@ -138,9 +138,9 @@ ON CURSOS.IdCurso=CAPACITACAO_INTERNO_TO.IdCurso WHERE CAPACITACAO_INTERNO_TO.Id
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="14" splitType="Stretch">
+		<band height="19" splitType="Stretch">
 			<subreport>
-				<reportElement x="-20" y="-4" width="551" height="17" uuid="8a084079-5651-42e5-befe-f49a250fb387"/>
+				<reportElement x="-21" y="0" width="340" height="17" uuid="9694cdf7-455c-4c38-a7e7-af7e6149d6af"/>
 				<subreportParameter name="pIdCap">
 					<subreportParameterExpression><![CDATA[$F{IdCap}]]></subreportParameterExpression>
 				</subreportParameter>
