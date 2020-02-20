@@ -1775,19 +1775,23 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
-                    limpaTabelaDoencas();
-                    Novo();
-                    acao = 1;
-                    statusMov = "Incluiu";
-                    horaMov = jHoraSistema.getText();
-                    dataModFinal = jDataSistema.getText();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
                     pesquisarInternoColaboradorBiometria();
+                    if (jIdInternoAdmAD.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
+                    } else {
+                        limpaTabelaDoencas();
+                        Novo();
+                        acao = 1;
+                        statusMov = "Incluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                    }
                 }
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Não é possível fazer nova admissão para esse interno.");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Já existe uma admissão para esse interno, por isso não é possível fazer uma nova admissão.");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir prontuário médico.");
@@ -1986,7 +1990,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                         objRegAtend.setHorarioUp(horaMov);
                         controlRegAtend.alterarRegAtend(objRegAtend);
                         //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
-                        pCONFIRMA_ADMISSAO = "Sim";
+                        pHABILITA_MEDICO = "Não";
                         objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
                         objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
                         objPortaEntrada.setHabMed(pHABILITA_MEDICO);
@@ -2242,7 +2246,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherAdmissaoMedica("SELECT * FROM ADMISSAO_MEDICA_ADICIONAL "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_MEDICA_ADICIONAL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.IdinternoCrc='" + jIdInternoAdm.getText() + "'");
         } else {
             count = 0;
             jtotalRegistros.setText("");
@@ -2678,7 +2683,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
             conecta.rs.first();
             pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
             pDEPARTAMENTO = conecta.rs.getString("PSPEnf");
-            pHABILITADO = conecta.rs.getString("HabEnf");
+            pHABILITADO = conecta.rs.getString("HabMed");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -2745,7 +2750,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=" + jIdInternoAdmAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdmAD.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
