@@ -249,8 +249,8 @@ public class TelaModuloPedagogia extends javax.swing.JInternalFrame {
     //
     public static String telaAtualizarMaticuliaPEDA = "Movimentação:Controle de Matricula:Concluir Matricula";
     //CONTROLE DE CURSOS E ATIVIDADES COMPLEMENTARES (FREQUENCIAS)
-    public static String telaCCAC_TPS_ManuPEDA = "Movimentação:Controle de Cursos e Atividades Complementares:Manutenção";
-    public static String telaCCAC_TPS_partPEDA = "Movimentação:Controle de Cursos e Atividades Complementares:Participantes";
+    public static String telaCCAC_TPS_ManuPEDA = "Movimentação:Controle de Cursos e Atividades Complementares-PE:Manutenção";
+    public static String telaCCAC_TPS_partPEDA = "Movimentação:Controle de Cursos e Atividades Complementares-PE:Participantes";
     //
     public static String telaFCCAC_TPS_ManuPEDA = "Movimentação:Controle de Frequência de Cursos e Atividades Complementares:Manutenção";
     public static String telaFCCAC_TPS_partPEDA = "Movimentação:Controle de Frequência de Cursos e Atividades Complementares:Participantes";

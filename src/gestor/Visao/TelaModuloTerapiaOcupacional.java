@@ -207,8 +207,8 @@ public class TelaModuloTerapiaOcupacional extends javax.swing.JInternalFrame {
     public static String telaCapacitacaoInternoManuTO = "Movimentação:Capacitação de Interno:Manutenção";
     public static String telaCapacitacaoInternoIntTO = "Movimentação:Capacitação de Interno:Interno";
     //
-    public static String telaFreqCapacitacaoInternoManuTO = "Movimentação:Frequência Capacitação de Interno:Manutenção";
-    public static String telaFreqCapacitacaoInternoIntTO = "Movimentação:Frequência Capacitação de Interno:Interno";
+    public static String telaFreqCapacitacaoInternoManuTO = "Movimentação:Frequência Capacitação de Interno-TO:Manutenção";
+    public static String telaFreqCapacitacaoInternoIntTO = "Movimentação:Frequência Capacitação de Interno-TO:Interno";
     // ATENDIMENTO EM GRUPO
     public static String telaIndAtendimentoGrupoTO_Manu = "Movimentação:Atendimento Internos em Grupo-TO:Mamnutenção";
     public static String telaIndAtendimentoGrupoTO_Plan = "Movimentação:Atendimento Internos em Grupo-TO:Planejamento";
