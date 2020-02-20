@@ -181,7 +181,7 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -235,7 +235,7 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
         jTabelaVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Visitante", "Data Cadastro", "Parentesco"
@@ -336,9 +336,9 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Visita", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Visita", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 51)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 51))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -537,7 +537,7 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
         jTabbedPane2.setForeground(new java.awt.Color(51, 51, 255));
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Endereço:");
@@ -1015,6 +1015,7 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
 //            jBtExcluir.setEnabled(true);
 //            jBtCancelar.setEnabled(true);
 //            jBtAuditoria.setEnabled(true);
+            limparCampos();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM VISITASINTERNO WHERE NomeVisita LIKE '" + nomeVisita + "'");
@@ -1173,6 +1174,28 @@ public class TelaVisitaInternosSeguranca extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     private javax.swing.JLabel jtotalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
+
+    public void limparCampos() {
+        jNomeVisita.setText("");
+        jParentesco.setText("");
+        jDataNascVisita.setDate(null);
+        jLabelFoto.setIcon(null);
+        jComboBoxSexo.setSelectedItem(null);
+        jDataCadastro.setDate(null);
+        jEnderecoVisita.setText("");
+        jBairroVisita.setText("");
+        jCidade.setText("");
+        jCEP.setText("");
+        jEstado.setText("");
+        jTelefone.setText("");
+        jTelefone1.setText("");
+        jCelular.setText("");
+        jCelular1.setText("");
+        jRG.setText("");
+        jCPF.setText("");
+        jemissor.setText("");
+        jDataValiAntece.setDate(null);
+    }
 
     public void Novo() {
         // Limpar os campos para insersão
