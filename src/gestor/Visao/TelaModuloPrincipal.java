@@ -114,7 +114,8 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     public static String tela_PRODUTIVIDADE = "Tela de Produtividade";
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     String pNomePRO = "";
-
+    // ------  FIM DAS VARIÁVEIS -----
+    
     /**
      * Creates new form TelaPrincipal
      *
