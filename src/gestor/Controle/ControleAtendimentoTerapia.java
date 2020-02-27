@@ -23,7 +23,7 @@ public class ControleAtendimentoTerapia {
 
     // Incluir Atendimeto do Terapia Ocupacional
     public AtendimentoTerapeuta incluirAtendTerapia(AtendimentoTerapeuta objAtend) {
-        buscarInternoCrc(objAtend.getNomeInternoCrc(),objAtend.getIdInternoCrc());
+        buscarInternoCrc(objAtend.getNomeInternoCrc(), objAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATENDIMENTOTERAPIA (StatusLanc,DataLanc,IdInternoCrc,Dominancia,Amputacao,"
@@ -131,7 +131,7 @@ public class ControleAtendimentoTerapia {
 
     // Alterar Atendimeto do Terapia Ocupacional
     public AtendimentoTerapeuta alterarAtendTerapia(AtendimentoTerapeuta objAtend) {
-        buscarInternoCrc(objAtend.getNomeInternoCrc(),objAtend.getIdInternoCrc());
+        buscarInternoCrc(objAtend.getNomeInternoCrc(), objAtend.getIdInternoCrc());
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATENDIMENTOTERAPIA  SET StatusLanc=?,DataLanc=?,IdInternoCrc=?,Dominancia=?,Amputacao=?,"
@@ -271,7 +271,7 @@ public class ControleAtendimentoTerapia {
         try {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE NomeInternoCrc='" + desc + "' "
-                            + "IdInternoCrc='" + codigo + "'");
+                    + "AND IdInternoCrc='" + codigo + "'");
             conecta.rs.first();
             codInt = conecta.rs.getInt("IdInternoCrc");
         } catch (Exception e) {

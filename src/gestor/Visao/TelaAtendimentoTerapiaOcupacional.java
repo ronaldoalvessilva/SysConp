@@ -4572,6 +4572,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                         objAtend.setHoraUp(horaMov);
                         //
                         objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         control.alterarAtendTerapia(objAtend);
                         objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
