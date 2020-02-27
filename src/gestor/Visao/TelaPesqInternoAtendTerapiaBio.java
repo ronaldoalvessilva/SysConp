@@ -350,7 +350,7 @@ public class TelaPesqInternoAtendTerapiaBio extends javax.swing.JInternalFrame {
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                 jFotoInternoTerapia.setIcon(i);
-                jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_DEFAULT)));
+                jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jEstadoCivil.setText(conecta.rs.getString("EstadoCivilCrc"));
                 jEscolaridade.setText(conecta.rs.getString("EscolaridadeCrc"));

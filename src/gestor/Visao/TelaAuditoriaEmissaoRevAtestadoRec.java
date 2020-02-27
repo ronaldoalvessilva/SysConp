@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaRevalidacaoAtestadoReclusao.jIdAtestado;
 import java.sql.SQLException;
- 
+
 /**
  *
  * @author Ronaldo
