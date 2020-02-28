@@ -82,7 +82,7 @@ import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
  * @author ronaldo
  */
 public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
-    
+
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoEnfermagem objAdmEnfermagem = new AdmissaoEnfermagem();
     ControleAdmissaoEnfermagem control = new ControleAdmissaoEnfermagem();
@@ -243,6 +243,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
+    String pCODIGO_INTERNO = "";
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -252,52 +253,52 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         formatarCampos();
         corCampos();
     }
-    
+
     public void mostrarFA() {
         tFA = new TelaFA(this, true);
         tFA.setVisible(true);
     }
-    
+
     public void mostrarPE() {
         tPE = new TelaPE(this, true);
         tPE.setVisible(true);
     }
-    
+
     public void mostrarCC() {
         tCC = new TelaCC(this, true);
         tCC.setVisible(true);
     }
-    
+
     public void mostrarFT() {
         tFT = new TelaFT(this, true);
         tFT.setVisible(true);
     }
-    
+
     public void mostrarFIA() {
         tFI = new TelaFIA(this, true);
         tFI.setVisible(true);
     }
-    
+
     public void mostrarFVG() {
         tFVG = new TelaFVG(this, true);
         tFVG.setVisible(true);
     }
-    
+
     public void mostrarVA() {
         tVA = new TelaVA(this, true);
         tVA.setVisible(true);
     }
-    
+
     public void mostrarTRC() {
         tTRC = new TelaTRC(this, true);
         tTRC.setVisible(true);
     }
-    
+
     public void mostrarPC() {
         tPC = new TelaTPC(this, true);
         tPC.setVisible(true);
     }
-    
+
     public void mostrarADM2() {
         ADM_ENF2 = new TelaAdmissaoSecundariaEnfermagem(this, true);
         ADM_ENF2.setVisible(true);
@@ -4460,67 +4461,76 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setQuaisAlergias(jQuaisAlergias.getText());
                 objAdmEnfermagem.setObservacao(jObservacao.getText());
                 if (acao == 1) {
-                    // log de usuario
-                    objAdmEnfermagem.setUsuarioInsert(nameUser);
-                    objAdmEnfermagem.setDataInsert(dataModFinal);
-                    objAdmEnfermagem.setHoraInsert(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
-                    control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
-                    buscarID();
-                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
-                    objAdmEnfermagem.setDeptoMedico(deptoTecnico);
-                    controle.incluirMovTec(objAdmEnfermagem);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
-                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-                    objEvolEnferma.setAdmEvo(admEvolucao);
-                    // log de usuario
-                    objEvolEnferma.setUsuarioInsert(nameUser);
-                    objEvolEnferma.setDataInsert(dataModFinal);
-                    objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
-                    pATENDIMENTO_CONCLUIDO = "Sim";
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
-                    //
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    buscarEvolucao();
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                    if (jIdInternoEnfermeiro.getText().equals(pCODIGO_INTERNO)) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível cadastrar a admissão para esse interno, já foi realizado admissão nessa tela.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            mostrarADM2();
+                        }
+                    } else {
+                        // log de usuario
+                        objAdmEnfermagem.setUsuarioInsert(nameUser);
+                        objAdmEnfermagem.setDataInsert(dataModFinal);
+                        objAdmEnfermagem.setHoraInsert(horaMov);
+                        objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
+                        control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
+                        buscarID();
+                        objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
+                        objAdmEnfermagem.setDeptoMedico(deptoTecnico);
+                        controle.incluirMovTec(objAdmEnfermagem);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                        objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                        objEvolEnferma.setAdmEvo(admEvolucao);
+                        // log de usuario
+                        objEvolEnferma.setUsuarioInsert(nameUser);
+                        objEvolEnferma.setDataInsert(dataModFinal);
+                        objEvolEnferma.setHoraInsert(horaMov);
+                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                        pATENDIMENTO_CONCLUIDO = "Sim";
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //
+                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        buscarEvolucao();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
                 if (acao == 2) {
                     // log de usuario
@@ -5771,7 +5781,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 tipoDrogaCraque = 1;
             }
             objAfP3.setCraque(tipoDrogaCraque);
-            
+
             if (jCheckBoxAlcool.isSelected()) {
                 tipoDrogaAlcool = 0;
             } else if (!jCheckBoxAlcool.isSelected()) {
@@ -6413,7 +6423,11 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtAdmissaoSecundaria1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdmissaoSecundaria1ActionPerformed
         // TODO add your handling code here:
-        mostrarADM2();
+        if (jIdLanc.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Para adicionar uma outra admissão nessa tela, será necessário que ja tenha sido realizado outra admissão principal.");
+        } else {
+            mostrarADM2();
+        }
     }//GEN-LAST:event_jBtAdmissaoSecundaria1ActionPerformed
 
 
@@ -6787,7 +6801,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTabelaAdmissaoEnfermeira;
-    private javax.swing.JTable jTabelaEvolucaoEnfermagem;
+    public static javax.swing.JTable jTabelaEvolucaoEnfermagem;
     private javax.swing.JFormattedTextField jTemperatura;
     private javax.swing.JTextArea jTextoEvolucao;
     private javax.swing.JTextField jTipoCirurgia;
@@ -6883,9 +6897,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jExameAbdomem.setWrapStyleWord(true);
         jPosicaoFetal.setLineWrap(true);
         jPosicaoFetal.setWrapStyleWord(true);
-        
+
     }
-    
+
     public void corCampos() {
         // ADMISSÃO
         jIdLanc.setBackground(Color.white);
@@ -6978,7 +6992,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jDataEvolu.setBackground(Color.white);
         jTextoEvolucao.setBackground(Color.white);
     }
-    
+
     public void bloquearCampos() {
         // ADMISSÃO
         jDataLanc.setEnabled(!true);
@@ -7100,7 +7114,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jDataEvolu.setEnabled(!true);
         jTextoEvolucao.setEnabled(!true);
     }
-    
+
     public void Novo() {
         // Limpar campos para inclusão
         jIdLanc.setText("");
@@ -7232,7 +7246,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
     }
-    
+
     public void Alterar() {
         //Habilitar/Desabilitar Campos        
         jDataLanc.setEnabled(true);
@@ -7336,7 +7350,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
     }
-    
+
     public void Excluir() {
         // Limpar campos para inclusão
         jIdLanc.setText("");
@@ -7488,7 +7502,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
     }
-    
+
     public void Salvar() {
         //Habilitar/Desabilitar Campos        
         jDataLanc.setEnabled(!true);
@@ -7589,7 +7603,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(true);
     }
-    
+
     public void Cancelar() {
         if (jIdLanc.getText().equals("")) {
             jStatusLanc.setText("");
@@ -7840,7 +7854,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtAuditoriaEvolucao.setEnabled(!true);
         }
     }
-    
+
     public void NovoAFP1() {
         jComboBoxHipertensao.setSelectedItem("Não");
         jComboBoxCardiopatias.setSelectedItem("Não");
@@ -7930,7 +7944,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
     }
-    
+
     public void AlterarAFP1() {
         jComboBoxHipertensao.setEnabled(true);
         jComboBoxCardiopatias.setEnabled(true);
@@ -8002,7 +8016,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoriaEvolucao.setEnabled(!true);
         jBtImpressaoFicha.setEnabled(!true);
     }
-    
+
     public void ExcluirAFP1() {
         jComboBoxHipertensao.setSelectedItem("Não");
         jComboBoxCardiopatias.setSelectedItem("Não");
@@ -8093,9 +8107,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void SalvarAFP1() {
-        
+
         jComboBoxHipertensao.setEnabled(!true);
         jComboBoxCardiopatias.setEnabled(!true);
         jComboBoxAnemias.setEnabled(!true);
@@ -8167,9 +8181,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void CancelarAFP1() {
-        
+
         jComboBoxHipertensao.setEnabled(!true);
         jComboBoxCardiopatias.setEnabled(!true);
         jComboBoxAnemias.setEnabled(!true);
@@ -8272,7 +8286,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtNovaEvolucao.setEnabled(true);
         }
     }
-    
+
     public void buscarCodigoAFP1() {
         conecta.abrirConexao();
         try {
@@ -8283,7 +8297,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarAEFP1() {
         conecta.abrirConexao();
         try {
@@ -8297,7 +8311,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void NovoAFP2() {
         jNumeroGestacoes.setText("0");
         jNumeroPartos.setText("0");
@@ -8394,7 +8408,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void AlterarAFP2() {
         jNumeroGestacoes.setEnabled(true);
         jNumeroPartos.setEnabled(true);
@@ -8470,7 +8484,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void ExcluirAFP2() {
         jNumeroGestacoes.setText("");
         jNumeroPartos.setText("");
@@ -8567,7 +8581,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void SalvarAFP2() {
         jNumeroGestacoes.setEnabled(!true);
         jNumeroPartos.setEnabled(!true);
@@ -8643,7 +8657,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void CancelarAFP2() {
         jNumeroGestacoes.setEnabled(!true);
         jNumeroPartos.setEnabled(!true);
@@ -8743,7 +8757,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtNovaEvolucao.setEnabled(true);
         }
     }
-    
+
     public void buscarCodigoAFP2() {
         conecta.abrirConexao();
         try {
@@ -8754,7 +8768,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarAEFP2() {
         conecta.abrirConexao();
         try {
@@ -8768,7 +8782,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void NovoAFP3() {
         jDataUltimaMenstruacao.setDate(null);
         jComboBoxGestante.setSelectedItem("Nao");
@@ -8861,7 +8875,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void AlterarAFP3() {
         jDataUltimaMenstruacao.setEnabled(true);
         jComboBoxGestante.setEnabled(true);
@@ -8935,7 +8949,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void ExcluirAFP3() {
         jDataUltimaMenstruacao.setDate(null);
         jComboBoxGestante.setSelectedItem("Nao");
@@ -9028,7 +9042,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void SalvarAFP3() {
         jDataUltimaMenstruacao.setEnabled(!true);
         jComboBoxGestante.setEnabled(!true);
@@ -9102,7 +9116,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void CancelarAFP3() {
         jDataUltimaMenstruacao.setEnabled(!true);
         jComboBoxGestante.setEnabled(!true);
@@ -9233,7 +9247,19 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtNovaEvolucao.setEnabled(true);
         }
     }
-    
+
+    public void verificarAdmissao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
+                    + "WHERE IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
     public void buscarCodigoAFP3() {
         conecta.abrirConexao();
         try {
@@ -9244,7 +9270,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarAEFP3() {
         conecta.abrirConexao();
         try {
@@ -9258,7 +9284,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void NovoAFP4() {
         jPesoGestante.setText("0");
         jAlturaGestante.setText("0");
@@ -9337,7 +9363,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void AlterarAFP4() {
         jPesoGestante.setEnabled(true);
         jAlturaGestante.setEnabled(true);
@@ -9404,7 +9430,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void ExcluirAFP4() {
         jPesoGestante.setText("");
         jAlturaGestante.setText("");
@@ -9483,7 +9509,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void SalvarAFP4() {
         jPesoGestante.setEnabled(!true);
         jAlturaGestante.setEnabled(!true);
@@ -9550,7 +9576,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtCancelarEvolucao.setEnabled(!true);
         jBtAuditoriaEvolucao.setEnabled(!true);
     }
-    
+
     public void CancelarAFP4() {
         jPesoGestante.setEnabled(!true);
         jAlturaGestante.setEnabled(!true);
@@ -9675,7 +9701,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtNovaEvolucao.setEnabled(true);
         }
     }
-    
+
     public void buscarCodigoAFP4() {
         conecta.abrirConexao();
         try {
@@ -9686,7 +9712,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarAEFP4() {
         conecta.abrirConexao();
         try {
@@ -9700,7 +9726,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void Finalizar() {
         String statusLanc = "FINALIZADO";
         JOptionPane.showMessageDialog(rootPane, "Se esse Lançamento for finaliza,\nvocê não poderá mais excluir ou alterar.");
@@ -9723,7 +9749,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(!true);
         }
     }
-    
+
     public void buscarID() {
         conecta.abrirConexao();
         try {
@@ -9734,7 +9760,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o ID do atendimento.\nERRO: " + ex);
         }
     }
-    
+
     public void buscarEvolucao() {
         conecta.abrirConexao();
         try {
@@ -9745,7 +9771,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarEvolucao() {
         conecta.abrirConexao();
         try {
@@ -9756,7 +9782,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void NovaEvolucao() {
         jIdEvolucao.setText("");
         jNomeInternoEvolEnf.setText(jNomeInternoEnfermeiro.getText());
@@ -9791,7 +9817,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoria1.setEnabled(!true);
         jBtImpressaoFicha1.setEnabled(!true);
     }
-    
+
     public void AlterarEvolucao() {
         //
         jDataEvolu.setEnabled(true);
@@ -9821,7 +9847,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtFinalizar1.setEnabled(!true);
         jBtAuditoria1.setEnabled(!true);
     }
-    
+
     public void ExcluirEvolucao() {
         jIdEvolucao.setText("");
         jNomeInternoEvolEnf.setText("");
@@ -9856,7 +9882,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoria1.setEnabled(true);
         jBtImpressaoFicha1.setEnabled(true);
     }
-    
+
     public void SalvarEvolucao() {
         //
         jDataEvolu.setEnabled(!true);
@@ -9887,7 +9913,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jBtAuditoria1.setEnabled(true);
         jBtImpressaoFicha1.setEnabled(true);
     }
-    
+
     public void CancelarEvolucao() {
         if (jIdEvolucao.getText().equals("")) {
             jIdEvolucao.setText("");
@@ -9952,7 +9978,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jBtImpressaoFicha1.setEnabled(true);
         }
     }
-    
+
     public void preencherAdmissaoEnfermeira(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Histórico Criminal"};
@@ -9992,7 +10018,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         alinharCamposTabelaEnfermagem();
         conecta.desconecta();
     }
-    
+
     public void alinharCamposTabelaEnfermagem() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
@@ -10005,7 +10031,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaAdmissaoEnfermeira.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAdmissaoEnfermeira.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
-    
+
     public void limparTabelaAdmissao() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Status", "Nome Completo do Interno", "Histórico Criminal"};
@@ -10026,7 +10052,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaAdmissaoEnfermeira.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-    
+
     public void preencherTabelaEvolucaoEnfermagem(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Seq.", "Data", "Anotação/Evolução"};
@@ -10058,7 +10084,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         alinharCamposTabelaEvolucao();
         conecta.desconecta();
     }
-    
+
     public void limparTabelaEvolucao() {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Data", "Anotação/Evolução"};
@@ -10075,7 +10101,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaEvolucaoEnfermagem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
-    
+
     public void alinharCamposTabelaEvolucao() {
         //
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
@@ -10088,7 +10114,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jTabelaEvolucaoEnfermagem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaEvolucaoEnfermagem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
     }
-    
+
     public void compararRadioButtons() {
         // Estado Emocional
         if (jRBTranquilo.isSelected()) {
@@ -10141,7 +10167,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             statusFuncaoMotora = 1;
         }
     }
-    
+
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10150,7 +10176,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void objLog2() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10159,7 +10185,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void objLog3() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10168,7 +10194,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void objLog4() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10177,7 +10203,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void objLog5() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10186,7 +10212,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void objLog6() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -10195,7 +10221,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
-    
+
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
         conecta.abrirConexao();
         try {
@@ -10233,7 +10259,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarInternoRegistradoAdm() {
         conecta.abrirConexao();
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
@@ -10250,7 +10276,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void verificarRegistroBiometria() {
         conecta.abrirConexao();
         try {
@@ -10265,7 +10291,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
     // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
     public void verificarEvolucaoAdmissao() {
-        
+
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM EVOLUCAOENFERMAGEM "

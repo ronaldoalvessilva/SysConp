@@ -29,7 +29,11 @@ public class ControleItensCartilhaVacinasInternos {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_CARTILHA_VACINAS_INTERNOS (IdCart,IdVacina,Data1Dose,Data2Dose,Data3Dose,DataReforco,Lote1Dose,Lote2Dose,Lote3Dose,LoteReforco,DataValidade1,DataValidade2,DataValidade3,DataValidadeRef,UsuarioInsert,DataInsert,HorarioInsert) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensVac.getIdCart());
             pst.setInt(2, codVacina);
-            pst.setTimestamp(3, new java.sql.Timestamp(objItensVac.getData1Dose().getTime()));
+            if (objItensVac.getData1Dose() != null) {
+                pst.setTimestamp(3, new java.sql.Timestamp(objItensVac.getData1Dose().getTime()));
+            } else {
+                pst.setDate(3, null);
+            }
             if (objItensVac.getData2Dose() != null) {
                 pst.setTimestamp(4, new java.sql.Timestamp(objItensVac.getData2Dose().getTime()));
             } else {
@@ -86,9 +90,12 @@ public class ControleItensCartilhaVacinasInternos {
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_CARTILHA_VACINAS_INTERNOS SET IdCart=?,IdVacina=?,Data1Dose=?,Data2Dose=?,Data3Dose=?,DataReforco=?,Lote1Dose=?,Lote2Dose=?,Lote3Dose=?,LoteReforco=?,DataValidade1=?,DataValidade2=?,DataValidade3=?,DataValidadeRef=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemCart='" + objItensVac.getIdItemCart() + "'");
             pst.setInt(1, objItensVac.getIdCart());
-            pst.setInt(1, objItensVac.getIdCart());
             pst.setInt(2, codVacina);
-            pst.setTimestamp(3, new java.sql.Timestamp(objItensVac.getData1Dose().getTime()));
+            if (objItensVac.getData1Dose() != null) {
+                pst.setTimestamp(3, new java.sql.Timestamp(objItensVac.getData1Dose().getTime()));
+            } else {
+                pst.setDate(3, null);
+            }
             if (objItensVac.getData2Dose() != null) {
                 pst.setTimestamp(4, new java.sql.Timestamp(objItensVac.getData2Dose().getTime()));
             } else {

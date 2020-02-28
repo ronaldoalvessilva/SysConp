@@ -14,6 +14,7 @@ import java.util.Date;
 public class AdmissaoEnfermagem {
 
     private int idLanc;
+    private int idADME;
     private String statusLanc;
     private Date dataLanc;
     private int idInternoCrc;
@@ -87,8 +88,9 @@ public class AdmissaoEnfermagem {
     public AdmissaoEnfermagem() {
     }
 
-    public AdmissaoEnfermagem(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao, String tuberculose, String escabiose, String hanseniase, String vacina, String dst, String hpv) {
+    public AdmissaoEnfermagem(int idLanc, int idADME, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, int estadoEmocional, int sonoRepouso, int nivelConciencia, String pressaoArterial, String hemograma, String temperatura, String frequenciaRespitatoria, String peso, String frequenciaCardiaca, String usaMedicamentos, String qualMedicacao, int locomocao, int acuidadeVisual, int acuidadeAuditiva, int funcaoMotora, String qualFuncaoMotora, int falaLinguagem, String qualFala, int pele, int mucosa, String tipoPele, String localizacao, int cabelos, int boca, int funcaoRespiratoria, int torax, int funcaoIntestinal, String diasConstipado, int abdome, int funcaoVesical, int genitalia, String qualGenitalia, String vacinado, String quaisVacinas, String vdrl, String hepatiteC, String hepatiteB, String hiv, String cirurgias, String quaisCirurgias, String usuarioDrogas, String quaisDrogas, String portadorDoenca, String quaisDoencas, String Alergias, String quaisAlergias, String observacao, String deptoMedico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String sifilis, String diabetes, String hipertensao, String tuberculose, String escabiose, String hanseniase, String vacina, String dst, String hpv) {
         this.idLanc = idLanc;
+        this.idADME = idADME;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
         this.idInternoCrc = idInternoCrc;
@@ -172,6 +174,20 @@ public class AdmissaoEnfermagem {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idADME
+     */
+    public int getIdADME() {
+        return idADME;
+    }
+
+    /**
+     * @param idADME the idADME to set
+     */
+    public void setIdADME(int idADME) {
+        this.idADME = idADME;
     }
 
     /**

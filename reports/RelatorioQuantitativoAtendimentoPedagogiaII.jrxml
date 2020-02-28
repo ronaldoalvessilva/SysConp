@@ -66,7 +66,6 @@ order by A.UsuarioInsert, A.DataAdm, P.NomeInternoCrc]]>
 	<field name="DataDelete" class="java.lang.String"/>
 	<field name="Cnc" class="java.lang.String"/>
 	<field name="ImagemFrente" class="java.sql.Blob"/>
-	<field name="BiometriaInternos" class="java.lang.Integer"/>
 	<field name="DocumentacaoCompleta" class="java.lang.String"/>
 	<field name="QuaisDocumentosFaltam" class="java.lang.String"/>
 	<variable name="SUBREPORT_COUNT" class="java.lang.Integer" calculation="System"/>

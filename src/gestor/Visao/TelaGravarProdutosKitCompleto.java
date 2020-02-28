@@ -249,9 +249,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                         }
-                    }
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
+                    }                    
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
@@ -290,8 +288,8 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                         }
                     }
                     jProgressBar1.setValue(0);
-//                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-//                    dispose();
+                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                    dispose();
                     try {
                     } catch (Exception e) {
                     }
