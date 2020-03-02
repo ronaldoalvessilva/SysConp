@@ -33,9 +33,13 @@ public class Usuarios {
     private int idModulo;
     private int idMod;
     private String nomeModulo;
-    private String permissaoModulo;           
+    private String permissaoModulo;        
+    private String acessoTodasUnidades;
 
-    public Usuarios(int IdUsuario, Boolean Status, Date dataCadastro, String NomeUsuario, String Login, String Senha1, String Senha2, int idUserGroup, int IdGrupo, String NomeGrupo, int idDepartamento, String NomeDepartamento, int idCargo, String nomeCargo, int idEmpresa, String descricaoEmpresa, int idModulo, int idMod, String nomeModulo, String permissaoModulo) {
+    public Usuarios() {
+    }
+
+    public Usuarios(int IdUsuario, Boolean Status, Date dataCadastro, String NomeUsuario, String Login, String Senha1, String Senha2, int idUserGroup, int IdGrupo, String NomeGrupo, int idDepartamento, String NomeDepartamento, int idCargo, String nomeCargo, int idEmpresa, String descricaoEmpresa, int idModulo, int idMod, String nomeModulo, String permissaoModulo, String acessoTodasUnidades) {
         this.IdUsuario = IdUsuario;
         this.Status = Status;
         this.dataCadastro = dataCadastro;
@@ -56,9 +60,7 @@ public class Usuarios {
         this.idMod = idMod;
         this.nomeModulo = nomeModulo;
         this.permissaoModulo = permissaoModulo;
-    }
-
-    public Usuarios() {
+        this.acessoTodasUnidades = acessoTodasUnidades;
     }
 
     /**
@@ -339,5 +341,19 @@ public class Usuarios {
      */
     public void setPermissaoModulo(String permissaoModulo) {
         this.permissaoModulo = permissaoModulo;
+    }
+
+    /**
+     * @return the acessoTodasUnidades
+     */
+    public String getAcessoTodasUnidades() {
+        return acessoTodasUnidades;
+    }
+
+    /**
+     * @param acessoTodasUnidades the acessoTodasUnidades to set
+     */
+    public void setAcessoTodasUnidades(String acessoTodasUnidades) {
+        this.acessoTodasUnidades = acessoTodasUnidades;
     }
 }

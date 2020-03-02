@@ -156,7 +156,6 @@ public class TelaFechamentoCrc extends javax.swing.JInternalFrame {
         });
 
         jProgressBar1.setForeground(new java.awt.Color(204, 51, 0));
-        jProgressBar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jProgressBar1.setStringPainted(true);
 
         lblCarregando.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -167,12 +166,12 @@ public class TelaFechamentoCrc extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -316,7 +315,7 @@ public class TelaFechamentoCrc extends javax.swing.JInternalFrame {
                                 lblCarregando.setText("Fechamento concluído com Sucesso !!!");
                                 jBtSair.setEnabled(true);
                                 jBtConfirmar.setEnabled(true);
-                            }
+                            }                           
                         } catch (InterruptedException e) {
                         }
                     }
