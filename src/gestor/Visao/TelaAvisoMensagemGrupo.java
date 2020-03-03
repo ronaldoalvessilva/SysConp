@@ -19,11 +19,15 @@ import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TelaAcessos;
 import gestor.Modelo.Usuarios;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaUsuarios.IdUsuario;
+import static gestor.Visao.TelaUsuarios.jCodigoGrupo;
 import static gestor.Visao.TelaUsuarios.jComboBoxAcessaTodasUnidades;
 import static gestor.Visao.TelaUsuarios.jComboBoxCargo;
 import static gestor.Visao.TelaUsuarios.jComboBoxDepartamento;
 import static gestor.Visao.TelaUsuarios.jComboBoxStatus;
 import static gestor.Visao.TelaUsuarios.jDataCadastro;
+import static gestor.Visao.TelaUsuarios.jDescricaoGrupo;
 import static gestor.Visao.TelaUsuarios.jNomeUsuarioCompleto;
 import static gestor.Visao.TelaUsuarios.jSenha;
 import static gestor.Visao.TelaUsuarios.jSenhaConf;
@@ -37,7 +41,7 @@ import javax.swing.JOptionPane;
  *
  * @author Socializa TI 02
  */
-public class TelaAvisoMensagem extends javax.swing.JDialog {
+public class TelaAvisoMensagemGrupo extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
@@ -55,32 +59,45 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
     ConexaoBancoDadosITB conectaITB = new ConexaoBancoDadosITB();
     ConexaoBancoDadosVC conectaVC = new ConexaoBancoDadosVC();
     ConexaoBancoDadosBAR conectaBAR = new ConexaoBancoDadosBAR();
+    //
+    String nomeModuloTela1 = "Configurações:Usuários do Sistema:Grupo Usuários";
+    String statusMov;
+    String horaMov;
+    String dataModFinal;
     //VARIAVEIS DE ACESSO AO CADASTRO DO USUARIO NAS OUTRAS UNIDADES
-    String pLOGIN_USUARIO_LF = null;
-    String pCODIGO_USUARIO_LF = null;
+    String pNOME_USUARIO_GRUPO_LF = null;
+    int pCODIGO_USUARIO_LF = 0;
     //
-    String pLOGIN_USUARIO_SSA = null;
-    String pCODIGO_USUARIO_SSA = null;
+    String pNOME_USUARIO_GRUPO_SSA = null;
+    int pCODIGO_USUARIO_SSA = 0;
     //
-    String pLOGIN_USUARIO_ITB = null;
-    String pCODIGO_USUARIO_ITB = null;
+    String pNOME_USUARIO_GRUPO_ITB = null;
+    int pCODIGO_USUARIO_ITB = 0;
     //
-    String pCODIGO_USUARIO_BAR = null;
-    String pLOGIN_USUARIO_BAR = null;
+    String pNOME_USUARIO_GRUPO_BAR = null;
+    int pCODIGO_USUARIO_BAR = 0;
     //
-    String pCODIGO_USUARIO_VC = null;
-    String pLOGIN_USUARIO_VC = null;
+    String pNOME_USUARIO_GRUPO_VC = null;
+    int pCODIGO_USUARIO_VC = 0;
     //
     int pPERCENTUAL = 0;
+    //
+    int codUserGroup, codModelGroup;
+    //
+    int pUSUARIO_LF = 0;
+    int pUSUARIO_VC = 0;
+    int pUSUARIO_SSA = 0;
+    int pUSUARIO_ITB = 0;
+    int pUSUARIO_BAR = 0;
 
     /**
      * Creates new form TelaAvisoMensagem
      */
-    public static TelaUsuarios pUSUARIOS;
+    public static TelaUsuarios pUSUARIOS_GRUPO;
 
-    public TelaAvisoMensagem(TelaUsuarios parent, boolean modal) {
-        this.pUSUARIOS = parent;
-        setLocationRelativeTo(pUSUARIOS);
+    public TelaAvisoMensagemGrupo(TelaUsuarios parent, boolean modal) {
+        this.pUSUARIOS_GRUPO = parent;
+        setLocationRelativeTo(pUSUARIOS_GRUPO);
         initComponents();
         setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
         Thread();
@@ -200,20 +217,21 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaAvisoMensagem dialog = new TelaAvisoMensagem(pUSUARIOS, true);
+                TelaAvisoMensagemGrupo dialog = new TelaAvisoMensagemGrupo(pUSUARIOS_GRUPO, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -288,284 +306,257 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         //BARREIRAS
         File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
 //        if (arqLF.exists()) {
-//            pesquisarUsuarioUnidadeLF();
-//            if (jlogin.getText().equals(pLOGIN_USUARIO_LF)) {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
+//            pesquisarUsuarioGrupoUnidadeLF();
+//            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_LF)) {
 //                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.incluirUsuariosLF(objUser);
+//                objUser.setIdUsuario(pCODIGO_USUARIO_LF);
+//                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+//                objUser.setIdUserGroup(codUserGroup);
+//                controle.alterarGrupoUsuariosLF(objUser);
 //            } else {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
+//                buscarUsuarioBaseLF();
 //                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.alterarUsuariosLF(objUser);
+//                objUser.setIdUsuario(pUSUARIO_LF);
+//                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+//                controle.incluirGrupoUsuariosLF(objUser);
 //            }
 //        } else {
 //            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
 //        }
         // VITORIA DA CONQUISTA
         if (arqVC.exists()) {
-            pesquisarUsuarioUnidadeVC();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_VC)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+            pesquisarUsuarioGrupoUnidadeVC();
+            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_VC)) {
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_VC));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosVC(objUser);
+                objUser.setIdUsuario(pCODIGO_USUARIO_VC);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                objUser.setIdUserGroup(codUserGroup);
+                controle.alterarGrupoUsuariosVC(objUser);
             } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+                buscarUsuarioBaseVC();
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosVC(objUser);
+                objUser.setIdUsuario(pUSUARIO_VC);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                controle.incluirGrupoUsuariosVC(objUser);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
         }
         //ITABUNA
         if (arqITB.exists()) {
-            pesquisarUsuarioUnidadeITB();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_ITB)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+            pesquisarUsuarioGrupoUnidadeITB();
+            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_ITB)) {
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_ITB));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosITB(objUser);
+                objUser.setIdUsuario(pCODIGO_USUARIO_ITB);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                objUser.setIdUserGroup(codUserGroup);
+                controle.alterarGrupoUsuariosITB(objUser);
             } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+                buscarUsuarioBaseITB();
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosITB(objUser);
+                objUser.setIdUsuario(pUSUARIO_ITB);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                controle.incluirGrupoUsuariosITB(objUser);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
         //SALVADOR
         if (arqSSA.exists()) {
-            pesquisarUsuarioUnidadeSSA();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_SSA)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+            pesquisarUsuarioGrupoUnidadeSSA();
+            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_SSA)) {
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_SSA));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosSSA(objUser);
+                objUser.setIdUsuario(pCODIGO_USUARIO_SSA);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                objUser.setIdUserGroup(codUserGroup);
+                controle.alterarGrupoUsuariosSSA(objUser);
             } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+                buscarUsuarioBaseSSA();
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosSSA(objUser);
+                objUser.setIdUsuario(pUSUARIO_SSA);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                controle.incluirGrupoUsuariosSSA(objUser);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Salvador, não existe. Solicite ajuda do Administrador do Sistema.");
         }
-
         //BARREIRAS
         if (arqBAR.exists()) {
-            pesquisarUsuarioUnidadeBAR();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_BAR)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+            pesquisarUsuarioGrupoUnidadeBAR();
+            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_BAR)) {
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_BAR));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosBAR(objUser);
+                objUser.setIdUsuario(pCODIGO_USUARIO_BAR);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                objUser.setIdUserGroup(codUserGroup);
+                controle.alterarGrupoUsuariosBAR(objUser);
             } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
+                buscarUsuarioBaseBAR();
                 objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosBAR(objUser);
+                objUser.setIdUsuario(pUSUARIO_BAR);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                controle.incluirGrupoUsuariosBAR(objUser);
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
         }
     }
 
-    public void pesquisarUsuarioUnidadeLF() {
+    public void pesquisarUsuarioGrupoUnidadeLF() {
         conectaLF.abrirConexao();
         try {
-            conectaLF.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaLF.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
             conectaLF.rs.first();
-            pCODIGO_USUARIO_LF = conectaLF.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_LF = conectaLF.rs.getString("LoginUsuario");
+            pCODIGO_USUARIO_LF = conectaLF.rs.getInt("IdUsuario");
+            pNOME_USUARIO_GRUPO_LF = conectaLF.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conectaLF.desconecta();
     }
 
     //VITORIA DA CONQUISTA
-    public void pesquisarUsuarioUnidadeVC() {
+    public void pesquisarUsuarioGrupoUnidadeVC() {
         conectaVC.abrirConexao();
         try {
-            conectaVC.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaVC.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
             conectaVC.rs.first();
-            pCODIGO_USUARIO_VC = conectaVC.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_VC = conectaVC.rs.getString("LoginUsuario");
+            pCODIGO_USUARIO_VC = conectaVC.rs.getInt("IdUsuario");
+            pNOME_USUARIO_GRUPO_VC = conectaVC.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conectaVC.desconecta();
     }
 
     //ITABUNA
-    public void pesquisarUsuarioUnidadeITB() {
+    public void pesquisarUsuarioGrupoUnidadeITB() {
         conectaITB.abrirConexao();
         try {
-            conectaITB.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaITB.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
             conectaITB.rs.first();
-            pCODIGO_USUARIO_ITB = conectaITB.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_ITB = conectaITB.rs.getString("LoginUsuario");
+            pCODIGO_USUARIO_ITB = conectaITB.rs.getInt("IdUsuario");
+            pNOME_USUARIO_GRUPO_ITB = conectaITB.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conectaITB.desconecta();
     }
 
     //SALVADOR
-    public void pesquisarUsuarioUnidadeSSA() {
+    public void pesquisarUsuarioGrupoUnidadeSSA() {
         conectaSSA.abrirConexao();
         try {
-            conectaSSA.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaSSA.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
             conectaSSA.rs.first();
-            pCODIGO_USUARIO_SSA = conectaSSA.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_SSA = conectaSSA.rs.getString("LoginUsuario");
+            pCODIGO_USUARIO_SSA = conectaSSA.rs.getInt("IdUsuario");
+            pNOME_USUARIO_GRUPO_SSA = conectaSSA.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conectaSSA.desconecta();
     }
 
     //BARREIRAS
-    public void pesquisarUsuarioUnidadeBAR() {
+    public void pesquisarUsuarioGrupoUnidadeBAR() {
         conectaBAR.abrirConexao();
         try {
-            conectaBAR.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaBAR.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN USUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdUsuario=USUARIOS.IdUsuario "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
             conectaBAR.rs.first();
-            pCODIGO_USUARIO_BAR = conectaBAR.rs.getString("IdUsuario");
-            pLOGIN_USUARIO_BAR = conectaBAR.rs.getString("LoginUsuario");
+            pCODIGO_USUARIO_BAR = conectaBAR.rs.getInt("IdUsuario");
+            pNOME_USUARIO_GRUPO_BAR = conectaBAR.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         conectaBAR.desconecta();
     }
+
+    public void buscarUsuarioBaseLF() {
+        conectaLF.abrirConexao();
+        try {
+            conectaLF.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaLF.rs.first();
+            pUSUARIO_LF = conectaLF.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        conectaLF.desconecta();
+    }
+
+    public void buscarUsuarioBaseSSA() {
+        conectaSSA.abrirConexao();
+        try {
+            conectaSSA.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaSSA.rs.first();
+            pUSUARIO_SSA = conectaSSA.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        conectaSSA.desconecta();
+    }
+
+    public void buscarUsuarioBaseVC() {
+        conectaVC.abrirConexao();
+        try {
+            conectaVC.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaVC.rs.first();
+            pUSUARIO_VC = conectaVC.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        conectaVC.desconecta();
+    }
+
+    public void buscarUsuarioBaseITB() {
+        conectaITB.abrirConexao();
+        try {
+            conectaITB.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaITB.rs.first();
+            pUSUARIO_ITB = conectaITB.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        conectaITB.desconecta();
+    }
+
+    public void buscarUsuarioBaseBAR() {
+        conectaBAR.abrirConexao();
+        try {
+            conectaBAR.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE USUARIOS.LoginUsuario='" + jlogin.getText().trim() + "'");
+            conectaBAR.rs.first();
+            pUSUARIO_BAR = conectaBAR.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        conectaBAR.desconecta();
+    }
+
 //--------------------------------------------
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela1);
+        objLogSys.setIdLancMov(Integer.valueOf(IdUsuario.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
 }

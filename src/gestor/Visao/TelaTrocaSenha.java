@@ -23,17 +23,24 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
     //
     int codigoUsuario;
     String senhaAnterior;
+    String pACESSO_TODAS_UNIDADES = null;
 
     /**
      * Creates new form TelaTrocaSenha
      */
     public static TelaModuloPrincipal telaModuloPrincipal;
+    public static TelaAvisoMensagemTrocaSenha pTROCA_SENHA;
 
     public TelaTrocaSenha(TelaModuloPrincipal parent, boolean modal) {
         this.telaModuloPrincipal = parent;
         this.setModal(modal);
         setLocationRelativeTo(telaModuloPrincipal);
         initComponents();
+    }
+
+    public void mostrarAviso() {
+        pTROCA_SENHA = new TelaAvisoMensagemTrocaSenha(this, true);
+        pTROCA_SENHA.setVisible(true);
     }
 
     /**
@@ -276,8 +283,14 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
             } else if (jConfirmaSenha.getText() == null ? jNovaSenha.getText() == null : jConfirmaSenha.getText().equals(jNovaSenha.getText())) {
                 objUser.setIdUsuario(codigoUsuario);
                 control.trocarSenhaUsuario(objUser);
-                JOptionPane.showMessageDialog(rootPane, "A senha foi trocada com sucesso.");
-                limparCampos();
+                if (pACESSO_TODAS_UNIDADES.equals("Sim")) {
+                    mostrarAviso();
+                } else {
+                    objUser.setIdUsuario(codigoUsuario);
+                    control.trocarSenhaUsuario(objUser);
+                    JOptionPane.showMessageDialog(rootPane, "A senha foi trocada com sucesso.");
+                    limparCampos();
+                }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Senhas não conferem !!!");
             }
@@ -342,14 +355,14 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
-    private javax.swing.JPasswordField jConfirmaSenha;
+    public static javax.swing.JPasswordField jConfirmaSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPasswordField jNovaSenha;
+    public static javax.swing.JPasswordField jNovaSenha;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -363,6 +376,7 @@ public class TelaTrocaSenha extends javax.swing.JDialog {
             conecta.rs.first();
             codigoUsuario = conecta.rs.getInt("IdUsuario");
             senhaAnterior = conecta.rs.getString("SenhaUsuario");
+            pACESSO_TODAS_UNIDADES = conecta.rs.getString("AcessoTodasUnidades");
         } catch (Exception e) {
         }
         conecta.desconecta();

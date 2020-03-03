@@ -19,14 +19,9 @@ import gestor.Dao.ConexaoBancoDadosVC;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TelaAcessos;
 import gestor.Modelo.Usuarios;
-import static gestor.Visao.TelaUsuarios.jComboBoxAcessaTodasUnidades;
-import static gestor.Visao.TelaUsuarios.jComboBoxCargo;
-import static gestor.Visao.TelaUsuarios.jComboBoxDepartamento;
-import static gestor.Visao.TelaUsuarios.jComboBoxStatus;
-import static gestor.Visao.TelaUsuarios.jDataCadastro;
-import static gestor.Visao.TelaUsuarios.jNomeUsuarioCompleto;
-import static gestor.Visao.TelaUsuarios.jSenha;
-import static gestor.Visao.TelaUsuarios.jSenhaConf;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+import static gestor.Visao.TelaTrocaSenha.jConfirmaSenha;
+import static gestor.Visao.TelaTrocaSenha.jNovaSenha;
 import static gestor.Visao.TelaUsuarios.jlogin;
 import java.io.File;
 import static java.lang.Thread.sleep;
@@ -37,7 +32,7 @@ import javax.swing.JOptionPane;
  *
  * @author Socializa TI 02
  */
-public class TelaAvisoMensagem extends javax.swing.JDialog {
+public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Usuarios objUser = new Usuarios();
@@ -76,11 +71,12 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
     /**
      * Creates new form TelaAvisoMensagem
      */
-    public static TelaUsuarios pUSUARIOS;
+    public static TelaTrocaSenha pUSUARIOS_TROCA_SENHA;
 
-    public TelaAvisoMensagem(TelaUsuarios parent, boolean modal) {
-        this.pUSUARIOS = parent;
-        setLocationRelativeTo(pUSUARIOS);
+    public TelaAvisoMensagemTrocaSenha(TelaTrocaSenha parent, boolean modal) {
+        this.pUSUARIOS_TROCA_SENHA = parent;
+        setLocationRelativeTo(pUSUARIOS_TROCA_SENHA);
+        this.setModal(modal);
         initComponents();
         setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
         Thread();
@@ -200,20 +196,21 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemTrocaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemTrocaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemTrocaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAvisoMensagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAvisoMensagemTrocaSenha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaAvisoMensagem dialog = new TelaAvisoMensagem(pUSUARIOS, true);
+                TelaAvisoMensagemTrocaSenha dialog = new TelaAvisoMensagemTrocaSenha(pUSUARIOS_TROCA_SENHA, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -289,168 +286,40 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
 //        if (arqLF.exists()) {
 //            pesquisarUsuarioUnidadeLF();
-//            if (jlogin.getText().equals(pLOGIN_USUARIO_LF)) {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.incluirUsuariosLF(objUser);
-//            } else {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.alterarUsuariosLF(objUser);
-//            }
+//            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
+//            objUser.setSenha1(jNovaSenha.getText());
+//            objUser.setSenha2(jConfirmaSenha.getText());
+//            control.trocarSenhaUsuarioLF(objUser);
 //        } else {
 //            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
 //        }
         // VITORIA DA CONQUISTA
         if (arqVC.exists()) {
             pesquisarUsuarioUnidadeVC();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_VC)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_VC));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosVC(objUser);
-            } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosVC(objUser);
-            }
+            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_VC));
+            objUser.setSenha1(jNovaSenha.getText());
+            objUser.setSenha2(jConfirmaSenha.getText());
+            control.trocarSenhaUsuarioVC(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
         }
         //ITABUNA
         if (arqITB.exists()) {
             pesquisarUsuarioUnidadeITB();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_ITB)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_ITB));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosITB(objUser);
-            } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosITB(objUser);
-            }
+            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_ITB));
+            objUser.setSenha1(jNovaSenha.getText());
+            objUser.setSenha2(jConfirmaSenha.getText());
+            control.trocarSenhaUsuarioITB(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Itabuna, não existe. Solicite ajuda do Administrador do Sistema.");
         }
         //SALVADOR
         if (arqSSA.exists()) {
             pesquisarUsuarioUnidadeSSA();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_SSA)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_SSA));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosSSA(objUser);
-            } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosSSA(objUser);
-            }
+            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_SSA));
+            objUser.setSenha1(jNovaSenha.getText());
+            objUser.setSenha2(jConfirmaSenha.getText());
+            control.trocarSenhaUsuarioSSA(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Salvador, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -458,42 +327,10 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         //BARREIRAS
         if (arqBAR.exists()) {
             pesquisarUsuarioUnidadeBAR();
-            if (jlogin.getText().equals(pLOGIN_USUARIO_BAR)) {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_BAR));
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.alterarUsuariosBAR(objUser);
-            } else {
-                objUser.setDataCadastro(jDataCadastro.getDate());
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-                objUser.setStatus(objUser.getStatus());
-                if (jComboBoxStatus.getSelectedIndex() == 0) {
-                    objUser.setStatus(true);
-                } else {
-                    objUser.setStatus(false);
-                }
-                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-                objUser.setLogin(jlogin.getText());
-                objUser.setSenha1(jSenha.getText());
-                objUser.setSenha2(jSenhaConf.getText());
-                control.incluirUsuariosBAR(objUser);
-            }
+            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_BAR));
+            objUser.setSenha1(jNovaSenha.getText());
+            objUser.setSenha2(jConfirmaSenha.getText());
+            control.trocarSenhaUsuarioBAR(objUser);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Barreiras, não existe. Solicite ajuda do Administrador do Sistema.");
         }
@@ -517,7 +354,7 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         conectaVC.abrirConexao();
         try {
             conectaVC.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+                    + "WHERE NomeUsuario='" + nameUser + "'");
             conectaVC.rs.first();
             pCODIGO_USUARIO_VC = conectaVC.rs.getString("IdUsuario");
             pLOGIN_USUARIO_VC = conectaVC.rs.getString("LoginUsuario");
@@ -531,7 +368,7 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         conectaITB.abrirConexao();
         try {
             conectaITB.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+                    + "WHERE NomeUsuario='" + nameUser + "'");
             conectaITB.rs.first();
             pCODIGO_USUARIO_ITB = conectaITB.rs.getString("IdUsuario");
             pLOGIN_USUARIO_ITB = conectaITB.rs.getString("LoginUsuario");
@@ -545,7 +382,7 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         conectaSSA.abrirConexao();
         try {
             conectaSSA.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+                    + "WHERE NomeUsuario='" + nameUser + "'");
             conectaSSA.rs.first();
             pCODIGO_USUARIO_SSA = conectaSSA.rs.getString("IdUsuario");
             pLOGIN_USUARIO_SSA = conectaSSA.rs.getString("LoginUsuario");
@@ -559,7 +396,7 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         conectaBAR.abrirConexao();
         try {
             conectaBAR.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE LoginUsuario='" + jlogin.getText().trim() + "'");
+                    + "WHERE NomeUsuario='" + nameUser + "'");
             conectaBAR.rs.first();
             pCODIGO_USUARIO_BAR = conectaBAR.rs.getString("IdUsuario");
             pLOGIN_USUARIO_BAR = conectaBAR.rs.getString("LoginUsuario");

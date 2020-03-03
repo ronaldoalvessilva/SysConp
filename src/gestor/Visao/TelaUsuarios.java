@@ -101,6 +101,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     public static TelaPesquisaModulos pesquisaModulos;
     public static TelaCopiaPerfilUsuario pesquisarPerfilUsuario;
     public static TelaAvisoMensagem pMENSAGEM;
+    public static TelaAvisoMensagemGrupo pMENSAGEM_GRUPO;
     //
     String nomeTelaUsuario = "";
     String codigoUsuario = "";
@@ -145,9 +146,14 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         pesquisarPerfilUsuario.setVisible(true);
     }
 
-    public void mostraMensagem() {
+    public void mostrarMensagem() {
         pMENSAGEM = new TelaAvisoMensagem(this, true);
         pMENSAGEM.setVisible(true);
+    }
+
+    public void mostrarMensagemGrupo() {
+        pMENSAGEM_GRUPO = new TelaAvisoMensagemGrupo(this, true);
+        pMENSAGEM_GRUPO.setVisible(true);
     }
 
     /**
@@ -396,6 +402,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
+        jTabelaUsuarios.setAutoCreateRowSorter(true);
         jTabelaUsuarios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -492,13 +499,13 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Listagem", jPanel2);
@@ -881,7 +888,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -901,7 +908,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -913,7 +920,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1907,7 +1914,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação      
                                         //GRAVAR OS DADOS DO USUÁRIO EM TODAS AS BASES DE DADOS DA SOCIALIZA.
                                         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
-                                            mostraMensagem();
+                                            mostrarMensagem();
                                         } else {
                                             JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso");
                                         }
@@ -1923,7 +1930,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                                 control.alterarUsuarios(objUser);
                                 //GRAVAR OS DADOS DO USUÁRIO EM TODAS AS BASES DE DADOS DA SOCIALIZA.
                                 if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
-                                    mostraMensagem();
+                                    mostrarMensagem();
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Usuario Alterado com sucesso!!");
                                 }
@@ -2243,14 +2250,19 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                     objUser.setNomeGrupo(jDescricaoGrupo.getText());
                     controle.incluirGrupoUsuarios(objUser);
                     objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    //
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                    
                     SalvarGrupo();
+                    //
+                    if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
+                        mostrarMensagemGrupo();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                     preencherTabelaGrupos("SELECT * FROM USUARIOS_GRUPOS "
                             + "INNER JOIN GRUPOUSUARIOS "
                             + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                             + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
             if (acao == 4) {
@@ -2259,13 +2271,17 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 controle.alterarGrupoUsuarios(objUser);
                 objLog1();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                //
                 SalvarGrupo();
+                if (nameUser.equals("ADMINISTRADOR DO SISTEMA") && jComboBoxAcessaTodasUnidades.getSelectedItem().equals("Sim")) {
+                    mostrarMensagemGrupo();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
                 preencherTabelaGrupos("SELECT * FROM USUARIOS_GRUPOS "
                         + "INNER JOIN GRUPOUSUARIOS "
                         + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                         + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+              //  JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
         }
     }//GEN-LAST:event_jBtSalvarGrupoActionPerformed

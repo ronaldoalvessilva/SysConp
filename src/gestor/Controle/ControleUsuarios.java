@@ -177,6 +177,21 @@ public class ControleUsuarios {
         conectaVC.desconecta();
         return objUser;
     }
+
+    public Usuarios trocarSenhaUsuarioLF(Usuarios objUser) {
+
+        conectaLF.abrirConexao();
+        try {
+            PreparedStatement pst = conectaLF.con.prepareStatement("UPDATE USUARIOS SET SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setString(1, objUser.getSenha1());
+            pst.setString(2, objUser.getSenha2());
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+        }
+        conectaLF.desconecta();
+        return objUser;
+    }
     //------------------------------- VITÓRIA DA CONQUISTA -------------------------------------------------
 
     public Usuarios incluirUsuariosVC(Usuarios objUser) {
@@ -239,6 +254,21 @@ public class ControleUsuarios {
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+        }
+        conectaVC.desconecta();
+        return objUser;
+    }
+
+    public Usuarios trocarSenhaUsuarioVC(Usuarios objUser) {
+
+        conectaVC.abrirConexao();
+        try {
+            PreparedStatement pst = conectaVC.con.prepareStatement("UPDATE USUARIOS SET SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setString(1, objUser.getSenha1());
+            pst.setString(2, objUser.getSenha2());
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
         }
         conectaVC.desconecta();
         return objUser;
@@ -310,6 +340,21 @@ public class ControleUsuarios {
         return objUser;
     }
 
+    public Usuarios trocarSenhaUsuarioITB(Usuarios objUser) {
+
+        conectaITB.abrirConexao();
+        try {
+            PreparedStatement pst = conectaITB.con.prepareStatement("UPDATE USUARIOS SET SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setString(1, objUser.getSenha1());
+            pst.setString(2, objUser.getSenha2());
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+        }
+        conectaITB.desconecta();
+        return objUser;
+    }
+
     //SALVADOR
     public Usuarios incluirUsuariosSSA(Usuarios objUser) {
 
@@ -375,9 +420,24 @@ public class ControleUsuarios {
         conectaSSA.desconecta();
         return objUser;
     }
-    
+
+    public Usuarios trocarSenhaUsuarioSSA(Usuarios objUser) {
+
+        conectaSSA.abrirConexao();
+        try {
+            PreparedStatement pst = conectaSSA.con.prepareStatement("UPDATE USUARIOS SET SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setString(1, objUser.getSenha1());
+            pst.setString(2, objUser.getSenha2());
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+        }
+        conectaSSA.desconecta();
+        return objUser;
+    }
+
     //BARREIRAS
-     public Usuarios incluirUsuariosBAR(Usuarios objUser) {
+    public Usuarios incluirUsuariosBAR(Usuarios objUser) {
 
         conectaBAR.abrirConexao();
         try {
@@ -437,6 +497,21 @@ public class ControleUsuarios {
             pst.executeUpdate(); // Executa a inserção
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO: " + ex);
+        }
+        conectaBAR.desconecta();
+        return objUser;
+    }
+
+    public Usuarios trocarSenhaUsuarioBAR(Usuarios objUser) {
+
+        conectaBAR.abrirConexao();
+        try {
+            PreparedStatement pst = conectaBAR.con.prepareStatement("UPDATE USUARIOS SET SenhaUsuario=?,ConfirmaSenhaUsuario=? WHERE IdUsuario='" + objUser.getIdUsuario() + "'");
+            pst.setString(1, objUser.getSenha1());
+            pst.setString(2, objUser.getSenha2());
+            pst.executeUpdate(); // Executa a inserção
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
         }
         conectaBAR.desconecta();
         return objUser;
