@@ -52,6 +52,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -175,6 +176,11 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     //
     String codigoCheck;
     //
+    byte[] persona_imagem = null;
+    byte[] persona_imagem1 = null;
+    byte[] persona_imagem2 = null;
+    byte[] persona_imagem3 = null;
+    byte[] persona_imagem4 = null;
     /**
      * Creates new form TelaTriagem
      */
@@ -4748,100 +4754,25 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     conecta.desconecta();
                 } catch (SQLException | HeadlessException | NumberFormatException e) {
                 }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                if (jLabelFotoInterno.getIcon() != null) {
-                    Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
-                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            img.getWidth(null),
-                            img.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2 = bi.createGraphics();
-                    g2.drawImage(img, 0, 0, null);
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bi, "jpg", buffer);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioCrc.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioCrc.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objProCrc.setImagemInterno(buffer.toByteArray());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
+                if (jLabelFotoInterno.getIcon() != null) {//                                                                   
+                    objProCrc.setImagemInterno(persona_imagem);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                if (jFotoPerfil.getIcon() != null) {
-                    Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
-                    BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgp.getWidth(null),
-                            imgp.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2a = bip.createGraphics();
-                    g2a.drawImage(imgp, 0, 0, null);
-                    ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bip, "jpg", bufferp);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                if (jFotoPerfil.getIcon() != null) {//                                                                
+                    objDadosPena.setImagemPerfil(persona_imagem1);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
                 if (jFotoCorpo.getIcon() != null) {
-                    Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
-                    BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc.getWidth(null),
-                            imgc.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2b = bic.createGraphics();
-                    g2b.drawImage(imgc, 0, 0, null);
-                    ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic, "jpg", bufferc);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                    objDadosPena.setImagemCorpo(persona_imagem2);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                if (jFotoCorpo1.getIcon() != null) {
-                    Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
-                    BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc1.getWidth(null),
-                            imgc1.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2c = bic1.createGraphics();
-                    g2c.drawImage(imgc1, 0, 0, null);
-                    ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic1, "jpg", bufferc1);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                if (jFotoCorpo1.getIcon() != null) {//                                                                  
+                    objDadosPena.setImagemCorpo1(persona_imagem3);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                if (jFotoCorpo2.getIcon() != null) {
-                    Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
-                    BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc2.getWidth(null),
-                            imgc2.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2c2 = bic2.createGraphics();
-                    g2c2.drawImage(imgc2, 0, 0, null);
-                    ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic2, "jpg", bufferc2);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
+                if (jFotoCorpo2.getIcon() != null) {//                                                                    
+                    objDadosPena.setImagemCorpo2(persona_imagem4);
                 }
                 if (acao == 1) {
                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
@@ -5042,14 +4973,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                     jLabelFotoInterno.setIcon(i);
-                    jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    jLabelFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     jLabelFotoInterno.setIcon(icon);
                 }
@@ -5113,32 +5044,32 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (caminhoFotoPerfil != null) {
                     javax.swing.ImageIcon w = new javax.swing.ImageIcon(caminhoFotoPerfil);
                     jFotoPerfil.setIcon(w);
-                    jFotoPerfil.setIcon(new ImageIcon(w.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoPerfil.setIcon(new ImageIcon(w.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 caminhoFotoCorpo = conecta.rs.getString("FotoCorpo");
                 if (caminhoFotoCorpo != null) {
                     javax.swing.ImageIcon y = new javax.swing.ImageIcon(caminhoFotoCorpo);
                     jFotoCorpo.setIcon(y);
-                    jFotoCorpo.setIcon(new ImageIcon(y.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoCorpo.setIcon(new ImageIcon(y.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 caminhoFotoCorpo1 = conecta.rs.getString("FotoCorpo1");
                 if (caminhoFotoCorpo1 != null) {
                     javax.swing.ImageIcon z = new javax.swing.ImageIcon(caminhoFotoCorpo1);
                     jFotoCorpo1.setIcon(z);
-                    jFotoCorpo1.setIcon(new ImageIcon(z.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoCorpo1.setIcon(new ImageIcon(z.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 caminhoFotoCorpo2 = conecta.rs.getString("FotoCorpo2");
                 if (caminhoFotoCorpo2 != null) {
                     javax.swing.ImageIcon t = new javax.swing.ImageIcon(caminhoFotoCorpo2);
                     jFotoCorpo2.setIcon(t);
-                    jFotoCorpo2.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoCorpo2.setIcon(new ImageIcon(t.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO BANCO DE DADOS - FOTO PERFIL
                 byte[] imgPerfilBytes = ((byte[]) conecta.rs.getBytes("ImagemPerfil"));
                 if (imgPerfilBytes != null) {
                     ImageIcon picPerf = null;
                     picPerf = new ImageIcon(imgPerfilBytes);
-                    Image scaledp = picPerf.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaledp = picPerf.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon iconPerf = new ImageIcon(scaledp);
                     jFotoPerfil.setIcon(iconPerf);
                 }
@@ -5147,7 +5078,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (imgCorpoBytes != null) {
                     ImageIcon picCorpo = null;
                     picCorpo = new ImageIcon(imgCorpoBytes);
-                    Image scaled0 = picCorpo.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled0 = picCorpo.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon iconCorpo = new ImageIcon(scaled0);
                     jFotoCorpo.setIcon(iconCorpo);
                 }
@@ -5156,7 +5087,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (imgCorpo1Bytes != null) {
                     ImageIcon picCorpo1 = null;
                     picCorpo1 = new ImageIcon(imgCorpo1Bytes);
-                    Image scaled1 = picCorpo1.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled1 = picCorpo1.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon iconCorpo1 = new ImageIcon(scaled1);
                     jFotoCorpo1.setIcon(iconCorpo1);
                 }
@@ -5165,7 +5096,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 if (imgCorpo2Bytes != null) {
                     ImageIcon picCorpo2 = null;
                     picCorpo2 = new ImageIcon(imgCorpo2Bytes);
-                    Image scaled2 = picCorpo2.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled2 = picCorpo2.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon iconCorpo2 = new ImageIcon(scaled2);
                     jFotoCorpo2.setIcon(iconCorpo2);
                 }
@@ -5236,18 +5167,26 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtNovaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoActionPerformed
         // TODO add your handling code here:
         // Incluir Foto
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao = seletor.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminho = f.getPath();
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-            jLabelFotoInterno.setIcon(i);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jLabelFotoInterno.setIcon(new ImageIcon(image.getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
-            caminho = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminho = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminho).getImage().getScaledInstance(jLabelFotoInterno.getWidth(), jLabelFotoInterno.getHeight(), Image.SCALE_SMOOTH));
+            jLabelFotoInterno.setIcon(imagemicon);
+            try {
+                File image = new File(caminho);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto do interno cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
     }//GEN-LAST:event_jBtNovaFotoActionPerformed
 
@@ -5272,18 +5211,26 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovaFotoPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoPerfilActionPerformed
         // TODO add your handling code here:
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao1 = seletor.showOpenDialog(this);
-        if (acao1 == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoPerfil = f.getPath();
-            javax.swing.ImageIcon a = new javax.swing.ImageIcon(caminhoFotoPerfil);
-            jFotoPerfil.setIcon(a);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jFotoPerfil.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoPerfil = f.getPath();
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            caminhoFotoPerfil = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoPerfil).getImage().getScaledInstance(jFotoPerfil.getWidth(), jFotoPerfil.getHeight(), Image.SCALE_SMOOTH));
+            jFotoPerfil.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoPerfil);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem1 = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
     }//GEN-LAST:event_jBtNovaFotoPerfilActionPerformed
 
@@ -5295,18 +5242,26 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovaFotoCorpoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoCorpoActionPerformed
         // TODO add your handling code here:
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao = seletor.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoCorpo = f.getPath();
-            javax.swing.ImageIcon b = new javax.swing.ImageIcon(caminhoFotoCorpo);
-            jFotoCorpo.setIcon(b);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jFotoCorpo.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoCorpo = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminhoFotoCorpo = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoCorpo).getImage().getScaledInstance(jFotoCorpo.getWidth(), jFotoCorpo.getHeight(), Image.SCALE_SMOOTH));
+            jFotoCorpo.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoCorpo);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem2 = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
     }//GEN-LAST:event_jBtNovaFotoCorpoActionPerformed
 
@@ -5318,20 +5273,27 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovaFotoCorpo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoCorpo1ActionPerformed
         // TODO add your handling code here:
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao = seletor.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoCorpo1 = f.getPath();
-            javax.swing.ImageIcon c = new javax.swing.ImageIcon(caminhoFotoCorpo1);
-            jFotoCorpo1.setIcon(c);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jFotoCorpo1.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoCorpo1 = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminhoFotoCorpo1 = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoCorpo1).getImage().getScaledInstance(jFotoCorpo1.getWidth(), jFotoCorpo1.getHeight(), Image.SCALE_SMOOTH));
+            jFotoCorpo1.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoCorpo1);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem3 = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
-
     }//GEN-LAST:event_jBtNovaFotoCorpo1ActionPerformed
 
     private void jBtExcluirFotoCorpo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFotoCorpo1ActionPerformed
@@ -5342,18 +5304,26 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
     private void jBtNovaFotoCorpo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoCorpo2ActionPerformed
         // TODO add your handling code here:
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao = seletor.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoCorpo2 = f.getPath();
-            javax.swing.ImageIcon d = new javax.swing.ImageIcon(caminhoFotoCorpo2);
-            jFotoCorpo2.setIcon(d);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jFotoCorpo2.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoCorpo2 = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminhoFotoCorpo2 = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoCorpo2).getImage().getScaledInstance(jFotoCorpo2.getWidth(), jFotoCorpo2.getHeight(), Image.SCALE_SMOOTH));
+            jFotoCorpo2.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoCorpo2);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem4 = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
     }//GEN-LAST:event_jBtNovaFotoCorpo2ActionPerformed
 
@@ -5703,100 +5673,25 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     conecta.desconecta();
                 } catch (SQLException | HeadlessException | NumberFormatException e) {
                 }
-                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
-                if (jLabelFotoInterno.getIcon() != null) {
-                    Image img = ((ImageIcon) jLabelFotoInterno.getIcon()).getImage();
-                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            img.getWidth(null),
-                            img.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2 = bi.createGraphics();
-                    g2.drawImage(img, 0, 0, null);
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bi, "jpg", buffer);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objProCrc.setImagemInterno(buffer.toByteArray());
+                // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE 
+                if (jLabelFotoInterno.getIcon() != null) {//                                                                   
+                    objProCrc.setImagemInterno(persona_imagem);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL
-                if (jFotoPerfil.getIcon() != null) {
-                    Image imgp = ((ImageIcon) jFotoPerfil.getIcon()).getImage();
-                    BufferedImage bip = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgp.getWidth(null),
-                            imgp.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2a = bip.createGraphics();
-                    g2a.drawImage(imgp, 0, 0, null);
-                    ByteArrayOutputStream bufferp = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bip, "jpg", bufferp);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemPerfil(bufferp.toByteArray());
+                if (jFotoPerfil.getIcon() != null) {//                                                                
+                    objDadosPena.setImagemPerfil(persona_imagem1);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO
                 if (jFotoCorpo.getIcon() != null) {
-                    Image imgc = ((ImageIcon) jFotoCorpo.getIcon()).getImage();
-                    BufferedImage bic = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc.getWidth(null),
-                            imgc.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2b = bic.createGraphics();
-                    g2b.drawImage(imgc, 0, 0, null);
-                    ByteArrayOutputStream bufferc = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic, "jpg", bufferc);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo(bufferc.toByteArray());
+                    objDadosPena.setImagemCorpo(persona_imagem2);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO1
-                if (jFotoCorpo1.getIcon() != null) {
-                    Image imgc1 = ((ImageIcon) jFotoCorpo1.getIcon()).getImage();
-                    BufferedImage bic1 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc1.getWidth(null),
-                            imgc1.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2c = bic1.createGraphics();
-                    g2c.drawImage(imgc1, 0, 0, null);
-                    ByteArrayOutputStream bufferc1 = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic1, "jpg", bufferc1);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo1(bufferc1.toByteArray());
+                if (jFotoCorpo1.getIcon() != null) {//                                                                  
+                    objDadosPena.setImagemCorpo1(persona_imagem3);
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS FOTO DE PERFIL - FOTO CORPO2
-                if (jFotoCorpo2.getIcon() != null) {
-                    Image imgc2 = ((ImageIcon) jFotoCorpo2.getIcon()).getImage();
-                    BufferedImage bic2 = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            imgc2.getWidth(null),
-                            imgc2.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2c2 = bic2.createGraphics();
-                    g2c2.drawImage(imgc2, 0, 0, null);
-                    ByteArrayOutputStream bufferc2 = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bic2, "jpg", bufferc2);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaProntuarioTriagem.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objDadosPena.setImagemCorpo2(bufferc2.toByteArray());
+                if (jFotoCorpo2.getIcon() != null) {//                                                                    
+                    objDadosPena.setImagemCorpo2(persona_imagem4);
                 }
                 if (acao == 1) {
                     if (jNomeInterno.getText().trim().equals(nomeInternoCrc) && jMaeInterno.getText().trim().equals(nomeMaeInterno)) {
