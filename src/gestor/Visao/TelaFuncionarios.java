@@ -47,6 +47,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -108,6 +110,8 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     //
     String dataNascDep; // Formatar a data de Nascimento dependente
     String dataInicial, dataFinal;
+    //ARRAY PARA FOTO DO COLABORADOR
+    byte[] persona_imagem = null;
 
     /**
      * Creates new form TelaFuncionarios
@@ -373,7 +377,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Colaborador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesqNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -523,7 +527,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jTabelaFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome do Colaborador", "Departamento"
@@ -853,7 +857,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataAdmissao, jDataNascimento});
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -1570,7 +1574,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovoLogradouro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoLogradouro.setText("Novo");
@@ -2134,7 +2138,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtNovoDocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoDocumentos.setText("Novo");
@@ -2405,7 +2409,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
         jTabelaDependentes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDependentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Dependente", "Nascimento", "Parentesco"
@@ -2722,22 +2726,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                     objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
                                     // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
                                     if (jFotoColaborador.getIcon() != null) {
-                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                img.getWidth(null),
-                                                img.getHeight(null),
-                                                BufferedImage.TYPE_INT_RGB);
-                                        Graphics2D g2 = bi.createGraphics();
-                                        g2.drawImage(img, 0, 0, null);
-                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                        try {
-                                            ImageIO.write(bi, "jpg", buffer);
-                                        } catch (FileNotFoundException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                        objCola.setImagemFrenteCO(persona_imagem);
                                     }
                                     // DADOS DO ENDEREÇO
                                     objEnd.setEndereco(jEndereco.getText());
@@ -2865,24 +2854,44 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
     private void jBtNovoFoto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFoto2ActionPerformed
         // CÓDIGO PARA O BOTÃO ABRIR IMAGEM
         // Cria o objeto Janela de Seleção de Arquivos
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        // Exibir a janela de seleção
-        int acao = seletor.showOpenDialog(this);
+//        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
+//        // Exibir a janela de seleção
+//        int acao = seletor.showOpenDialog(this);
+//        if (acao == JFileChooser.APPROVE_OPTION) {
+//            // Captura o arquivo selecionado na janela
+//            java.io.File f = seletor.getSelectedFile();
+//            caminhoFotoFunc = f.getPath();
+//            // Converter imagem para Icone
+//            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
+//            // Aplica o icone (imagem) no rotulo
+//            jFotoColaborador.setIcon(i);
+//            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
+//            jFotoColaborador.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+//            caminhoFotoFunc = f.getPath();
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Seleção da foto foi cancelada.");
+//        }
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            // Captura o arquivo selecionado na janela
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoFunc = f.getPath();
-            // Converter imagem para Icone
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
-            // Aplica o icone (imagem) no rotulo
-            jFotoColaborador.setIcon(i);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            jFotoColaborador.setIcon(new ImageIcon(image.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoFunc = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminhoFotoFunc = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoFunc).getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH));
+            jFotoColaborador.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoFunc);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto foi cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
-
     }//GEN-LAST:event_jBtNovoFoto2ActionPerformed
 
     private void jBtExcluirFoto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFoto2ActionPerformed
@@ -2977,14 +2986,14 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                 if (caminhoFotoFunc != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
                     jFotoColaborador.setIcon(i);
-                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     jFotoColaborador.setIcon(icon);
                 }
@@ -3217,22 +3226,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                     objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
                                     // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
                                     if (jFotoColaborador.getIcon() != null) {
-                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                img.getWidth(null),
-                                                img.getHeight(null),
-                                                BufferedImage.TYPE_INT_RGB);
-                                        Graphics2D g2 = bi.createGraphics();
-                                        g2.drawImage(img, 0, 0, null);
-                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                        try {
-                                            ImageIO.write(bi, "jpg", buffer);
-                                        } catch (FileNotFoundException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                        objCola.setImagemFrenteCO(persona_imagem);
                                     }
                                     // DADOS DO ENDEREÇO
                                     objEnd.setEndereco(jEndereco.getText());
@@ -3495,22 +3489,7 @@ public class TelaFuncionarios extends javax.swing.JInternalFrame {
                                     objCola.setEstadoNacionalidade((String) jComboBoxEstadoNaturalidade.getSelectedItem());
                                     // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
                                     if (jFotoColaborador.getIcon() != null) {
-                                        Image img = ((ImageIcon) jFotoColaborador.getIcon()).getImage();
-                                        BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                                                img.getWidth(null),
-                                                img.getHeight(null),
-                                                BufferedImage.TYPE_INT_RGB);
-                                        Graphics2D g2 = bi.createGraphics();
-                                        g2.drawImage(img, 0, 0, null);
-                                        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                                        try {
-                                            ImageIO.write(bi, "jpg", buffer);
-                                        } catch (FileNotFoundException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        } catch (IOException ex) {
-                                            Logger.getLogger(TelaFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        objCola.setImagemFrenteCO(buffer.toByteArray());
+                                        objCola.setImagemFrenteCO(persona_imagem);
                                     }
                                     // DADOS DO ENDEREÇO
                                     objEnd.setEndereco(jEndereco.getText());

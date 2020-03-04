@@ -34,6 +34,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -114,6 +116,8 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
     String nomeMae_PESQUISA_OF = "";
     String rg_PESQUISA_OF = "";
     String cpf_PESQUISA_OF = "";
+    //
+    byte[] persona_imagem = null;
 
     /**
      * Creates new form TelaAdvogados
@@ -984,22 +988,7 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 }
                 // PREPARAR FOTO PARA GRAVAR NO BANCO DE DADOS - FOTO DE FRENTE   
                 if (FotoOficialJustica.getIcon() != null) {
-                    Image img = ((ImageIcon) FotoOficialJustica.getIcon()).getImage();
-                    BufferedImage bi = new BufferedImage(//é a imagem na memória e que pode ser alterada
-                            img.getWidth(null),
-                            img.getHeight(null),
-                            BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2 = bi.createGraphics();
-                    g2.drawImage(img, 0, 0, null);
-                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-                    try {
-                        ImageIO.write(bi, "jpg", buffer);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(TelaOficialJustica.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(TelaOficialJustica.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    objOficial.setImagemFrenteOF(buffer.toByteArray());
+                    objOficial.setImagemFrenteOF(persona_imagem);
                 }
                 if (acao == 1) {
                     // log de usuario
@@ -1088,14 +1077,14 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
                 if (caminhoFotoOffice != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
                     FotoOficialJustica.setIcon(i);
-                    FotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
+                    FotoOficialJustica.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteOF"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled = pic.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     FotoOficialJustica.setIcon(icon);
                 }
@@ -1116,20 +1105,27 @@ public class TelaOficialJustica extends javax.swing.JInternalFrame {
 
     private void jBtNovaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoActionPerformed
         // TODO add your handling code here:       
-        javax.swing.JFileChooser seletor = new javax.swing.JFileChooser();
-        int acao = seletor.showOpenDialog(this);
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
         if (acao == JFileChooser.APPROVE_OPTION) {
-            java.io.File f = seletor.getSelectedFile();
-            caminhoFotoOffice = f.getPath();
-            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoOffice);
-            FotoOficialJustica.setIcon(i);
-            ImageIcon image = new ImageIcon(seletor.getSelectedFile().getPath());
-            FotoOficialJustica.setIcon(new ImageIcon(image.getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_DEFAULT)));
-            caminhoFotoOffice = f.getPath();
+            File f = chooser.getSelectedFile();
+            caminhoFotoOffice = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminhoFotoOffice).getImage().getScaledInstance(FotoOficialJustica.getWidth(), FotoOficialJustica.getHeight(), Image.SCALE_SMOOTH));
+            FotoOficialJustica.setIcon(imagemicon);
+            try {
+                File image = new File(caminhoFotoOffice);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Seleção da foto foi cancelada.");
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
         }
-
     }//GEN-LAST:event_jBtNovaFotoActionPerformed
 
     private void jBtExcluirFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirFotoActionPerformed
