@@ -318,7 +318,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
         jTabelaEntradaSaidaVisitasReligiosas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaVisitasReligiosas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome Advogado", "Observação"
@@ -553,7 +553,7 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
         jTabelaVisitasReligiosas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasReligiosas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Visita Religiosa", "Data Entrada", "Horário", "Data Saída", "Horário"
@@ -1059,52 +1059,52 @@ public class TelaEntradaSaidaVisitasReligiosas extends javax.swing.JInternalFram
         count = 0;
         flag = 1;
         if (tipoServidor == null || tipoServidor.equals("")) {
-        JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodasEntSai("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
-                            + "INNER JOIN INSTITUICAO_RELIGIOSA "
-                            + "ON ENTRADA_SAIDA_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasEntSai("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
+                                + "INNER JOIN INSTITUICAO_RELIGIOSA "
+                                + "ON ENTRADA_SAIDA_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        preencherTodasEntSai("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
+                                + "INNER JOIN INSTITUICAO_RELIGIOSA "
+                                + "ON ENTRADA_SAIDA_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
+                    }
                 }
             }
         }
-         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
- if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesqFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesqFinal.requestFocus();
-            } else {
-                if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                    preencherTodasEntSai("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
-                            + "INNER JOIN INSTITUICAO_RELIGIOSA "
-                            + "ON ENTRADA_SAIDA_VISITAS_RELIGIOSA.IdCod=INSTITUICAO_RELIGIOSA.IdCod "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "'AND'" + dataFinal + "'");
-                }
-            }
-        }
-}
     }//GEN-LAST:event_jBtPesqDataActionPerformed
 
     private void jBtPesqIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqIDActionPerformed

@@ -17,9 +17,14 @@
 	<parameter name="dataFinal" class="java.lang.String"/>
 	<parameter name="nomeUsuario" class="java.lang.String"/>
 	<parameter name="descricaoUnidade" class="java.lang.String"/>
+	<parameter name="entradaUnidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="retornoUnidade" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM ITENSFAMILIAR INNER JOIN PRONTUARIOSCRC ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN VISITASINTERNO ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita WHERE CONVERT(DATE, DataEntrada) BETWEEN $P{dataInicial} AND $P{dataFinal} ORDER BY NomeInternoCrc,DataEntrada
-]]>
+		<![CDATA[SELECT * FROM ITENSFAMILIAR INNER JOIN PRONTUARIOSCRC ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN VISITASINTERNO ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita WHERE CONVERT(DATE, DataEntrada) BETWEEN $P{dataInicial} AND $P{dataFinal} AND (SituacaoCrc=$P{entradaUnidade} OR SituacaoCrc=$P{retornoUnidade}) ORDER BY NomeInternoCrc,DataEntrada]]>
 	</queryString>
 	<field name="IdItem" class="java.lang.Integer"/>
 	<field name="IdVisita" class="java.lang.Integer"/>

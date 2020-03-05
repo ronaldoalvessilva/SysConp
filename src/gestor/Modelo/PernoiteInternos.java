@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class PernoiteInternos {
 
-    private int codigoRegistro;
+    private int idRegistro;
     private String statusRegistro;
     private Date DataRegistro;
     private String DescricaoPavilhao;
@@ -27,7 +27,7 @@ public class PernoiteInternos {
     private String veiculo;
     private String placa;
     private String motivo;
-    private int codigoInterno;
+    private int idRegistroInterno;
     private String nomeInterno;
     private String nomeMae;
     private String nomePai;
@@ -42,13 +42,13 @@ public class PernoiteInternos {
     private String usuarioUp;
     private String dataUp;
     private String horaUp;
-    private String useuaroAdmin;
+    private String useuaroAdmin;    
 
     public PernoiteInternos() {
     }
 
-    public PernoiteInternos(int codigoRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String documento, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int codigoInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
-        this.codigoRegistro = codigoRegistro;
+    public PernoiteInternos(int idRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String documento, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int idRegistroInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
+        this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.DataRegistro = DataRegistro;
         this.DescricaoPavilhao = DescricaoPavilhao;
@@ -62,7 +62,7 @@ public class PernoiteInternos {
         this.veiculo = veiculo;
         this.placa = placa;
         this.motivo = motivo;
-        this.codigoInterno = codigoInterno;
+        this.idRegistroInterno = idRegistroInterno;
         this.nomeInterno = nomeInterno;
         this.nomeMae = nomeMae;
         this.nomePai = nomePai;
@@ -81,17 +81,17 @@ public class PernoiteInternos {
     }
 
     /**
-     * @return the codigoRegistro
+     * @return the idRegistro
      */
-    public int getCodigoRegistro() {
-        return codigoRegistro;
+    public int getIdRegistro() {
+        return idRegistro;
     }
 
     /**
-     * @param codigoRegistro the codigoRegistro to set
+     * @param idRegistro the idRegistro to set
      */
-    public void setCodigoRegistro(int codigoRegistro) {
-        this.codigoRegistro = codigoRegistro;
+    public void setIdRegistro(int idRegistro) {
+        this.idRegistro = idRegistro;
     }
 
     /**
@@ -277,17 +277,17 @@ public class PernoiteInternos {
     }
 
     /**
-     * @return the codigoInterno
+     * @return the idRegistroInterno
      */
-    public int getCodigoInterno() {
-        return codigoInterno;
+    public int getIdRegistroInterno() {
+        return idRegistroInterno;
     }
 
     /**
-     * @param codigoInterno the codigoInterno to set
+     * @param idRegistroInterno the idRegistroInterno to set
      */
-    public void setCodigoInterno(int codigoInterno) {
-        this.codigoInterno = codigoInterno;
+    public void setIdRegistroInterno(int idRegistroInterno) {
+        this.idRegistroInterno = idRegistroInterno;
     }
 
     /**

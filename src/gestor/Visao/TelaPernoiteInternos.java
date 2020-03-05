@@ -8,9 +8,9 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Dao.PernoiteDao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PernoiteInternos;
-import gestor.Modelo.acessosP1;
 import java.awt.Color;
 import java.util.Calendar;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -26,13 +26,20 @@ import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
 import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
 import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
 import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaPernoiteIntP1;
 import static gestor.Visao.TelaModuloPortarias.telaPernoiteManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.awt.Image;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -46,7 +53,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PernoiteInternos objPernoite = new PernoiteInternos();
-
+    PernoiteDao pDAO = new PernoiteDao();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -61,16 +68,32 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     int flag;
     int count = 0;
     String dataLancaMov = "";
+    String dataInicial;
+    String dataFinal;
+    String dataEntrada;
+    String dataSaida;
+    byte[] persona_imagem;
+    String caminho = "";
+    public static int pID_ITEM_PER = 0;
 
     /**
      * Creates new form TelaPernoiteInternos
      */
+    
+    public static TelaFotoInternoPernoite pFOTO_INTERNO;
+    
     public TelaPernoiteInternos() {
         initComponents();
         corCampos();
         formatarCampos();
     }
 
+    
+     public void mostraTelaFotoCrc() {
+        pFOTO_INTERNO = new TelaFotoInternoPernoite(this, true);
+        pFOTO_INTERNO.setVisible(true);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,8 +109,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jDataInicial = new com.toedter.calendar.JDateChooser();
-        jDataFinal = new com.toedter.calendar.JDateChooser();
+        jDataPesqInicial = new com.toedter.calendar.JDateChooser();
+        jDataPesqFinal = new com.toedter.calendar.JDateChooser();
         jBtPesqData = new javax.swing.JButton();
         jBtPesqCodigo = new javax.swing.JButton();
         jCodigoPesq = new javax.swing.JTextField();
@@ -117,6 +140,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jComboBoxObjetivo = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
         jDocumento = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -131,6 +158,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel20 = new javax.swing.JLabel();
         jVeiculo = new javax.swing.JTextField();
         jPlaca = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
         jBtNovo = new javax.swing.JButton();
@@ -189,9 +217,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel24.setText("Data Final:");
 
-        jDataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesqInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesqFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqData.setContentAreaFilled(false);
@@ -235,13 +263,13 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesqData, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jCheckBoxTodos))
@@ -252,18 +280,16 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBoxTodos)
                     .addComponent(jLabel22)
                     .addComponent(jCodigoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqCodigo))
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtPesqData, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24))
-                        .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jBtPesqCodigo)
+                    .addComponent(jCheckBoxTodos))
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel23)
+                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24)
+                    .addComponent(jDataPesqFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqData))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -386,7 +412,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jCodigoRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoRegistro.setEnabled(false);
 
+        jStatusRegistro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jStatusRegistro.setForeground(new java.awt.Color(204, 0, 0));
         jStatusRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusRegistro.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jStatusRegistro.setEnabled(false);
 
         jDataRegistro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -402,6 +431,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jComboBoxCela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
         jComboBoxCela.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxCela.setEnabled(false);
+        jComboBoxCela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxCelaMouseEntered(evt);
+            }
+        });
 
         jComboBoxPavilhao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxPavilhao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
@@ -427,8 +461,25 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setText("Documento");
 
+        jDocumento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jDocumento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDocumento.setEnabled(false);
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel25.setText("*");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel26.setText("*");
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel27.setText("*");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel28.setText("*");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -442,15 +493,23 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel26)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jComboBoxCela, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel27))
                             .addComponent(jComboBoxObjetivo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel28))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -461,7 +520,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
                                             .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel5))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel25)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
@@ -490,7 +552,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel25))
                     .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -499,15 +563,21 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel26))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxCela, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel27))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxObjetivo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxUnidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -527,9 +597,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("C.P.F.");
 
+        jRG.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jRG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jRG.setEnabled(false);
 
+        jCPF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCPF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCPF.setEnabled(false);
 
@@ -555,6 +627,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jPlaca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPlaca.setEnabled(false);
 
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel29.setText("*");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -564,8 +640,6 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addComponent(jNomeCondutor, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -585,13 +659,23 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                             .addComponent(jPlaca)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel20)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel29))
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jLabel9)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel29))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jNomeCondutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -778,6 +862,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel18.setText("Hora");
 
         jHoraSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHoraSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHoraSaida.setText("00:00");
         jHoraSaida.setEnabled(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -824,6 +910,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jDataEntrada.setEnabled(false);
 
         jHoraEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHoraEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHoraEntrada.setText("00:00");
         jHoraEntrada.setEnabled(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -985,17 +1073,28 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome do Interno", "Nome da Mãe"
+                "Código", "Nome do Interno", "Data Entrada", "H. Entrada", "Data Saída", "H.Saida"
             }
         ));
+        jTabelaInternos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaInternosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTabelaInternos);
         if (jTabelaInternos.getColumnModel().getColumnCount() > 0) {
             jTabelaInternos.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaInternos.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(250);
-            jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaInternos.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         jBtNovoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
@@ -1117,21 +1216,125 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         if (jCodigoPesq.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do registro para pesquisa.");
         } else {
-            pesquisarLancCod("SELECT * FROM REGSAIDACRC "
-                    + "WHERE IdSaida='" + jCodigoPesq.getText() + "'");
+            pesquisarPernoitesInternos("SELECT * FROM PERNOITE_INTERNOS "
+                    + "WHERE IdPer='" + jCodigoPesq.getText() + "'");
         }
     }//GEN-LAST:event_jBtPesqCodigoActionPerformed
 
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (evt.getStateChange() == evt.SELECTED) {
+            this.pesquisarPernoitesInternos("SELECT * FROM PERNOITE_INTERNOS");
+        } else {
+            limparTabela();
+            count = 0;
+            jtotalRegistros.setText("");
+        }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
     private void jBtPesqDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataActionPerformed
         // TODO add your handling code here:
+        count = 0;
+        flag = 1;
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        pesquisarPernoitesInternos("SELECT * FROM PERNOITE_INTERNOS "
+                                + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesqFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesqFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesqFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
+                        pesquisarPernoitesInternos("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
+                                + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
+                                + "AND'" + dataFinal + "'");
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtPesqDataActionPerformed
 
     private void jTabelaPernoiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaPernoiteMouseClicked
         // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String IdLanc = "" + jTabelaPernoite.getValueAt(jTabelaPernoite.getSelectedRow(), 0);
+            jCodigoPesq.setText(IdLanc);
+            //
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            //
+            jBtNovoInterno.setEnabled(true);
+            //
+            limparCampos();
+            bloquearCampos();
+            //
+            jComboBoxPavilhao.removeAllItems();
+            jComboBoxCela.removeAllItems();
+            jComboBoxUnidadeOrigem.removeAllItems();
+            //
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM PERNOITE_INTERNOS "
+                        + "WHERE IdPer='" + IdLanc + "'");
+                conecta.rs.first();
+                jCodigoRegistro.setText(String.valueOf(conecta.rs.getInt("IdPer")));
+                jStatusRegistro.setText(conecta.rs.getString("StatusRegistro"));
+                jDataRegistro.setDate(conecta.rs.getDate("DataRegistro"));
+                jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPavilhao"));
+                jDocumento.setText(conecta.rs.getString("Documento"));
+                jComboBoxCela.addItem(conecta.rs.getString("DescricaoCela"));
+                jComboBoxObjetivo.setSelectedItem(conecta.rs.getString("Objetivo"));
+                jComboBoxUnidadeOrigem.addItem(conecta.rs.getString("UnidadeOrigem"));
+                jNomeCondutor.setText(conecta.rs.getString("NomeCondutor"));
+                jRG.setText(conecta.rs.getString("Rg"));
+                jCPF.setText(conecta.rs.getString("Cpf"));
+                jVeiculo.setText(conecta.rs.getString("Veiculo"));
+                jPlaca.setText(conecta.rs.getString("Placa"));
+                jMotivo.setText(conecta.rs.getString("Motivo"));
+                conecta.desconecta();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+            }
+            preencherTabelaItens("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                    + "INNER JOIN PERNOITE_INTERNOS "
+                    + "ON ITENS_PERNOITE_INTERNOS.IdPer=PERNOITE_INTERNOS.IdPer "
+                    + "WHERE ITENS_PERNOITE_INTERNOS.IdPer='" + jCodigoRegistro.getText() + "'");
+        }
     }//GEN-LAST:event_jTabelaPernoiteMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1139,7 +1342,12 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaPernoiteManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteManuP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
             acao = 1;
+            limparCampos();
+            bloquearBotoes();
+            bloquearCampos();
             Novo();
+            pesquisarPavilhao();
+            pesquisarUnidadePrisional();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
             dataModFinal = jDataSistema.getText();
@@ -1152,11 +1360,18 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPernoiteManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteManuP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
-            acao = 2;
-            Alterar();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            objPernoite.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                bloquearBotoes();
+                bloquearCampos();
+                Alterar();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1166,10 +1381,27 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPernoiteManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteManuP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-
+            objPernoite.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPernoite.setIdRegistro(Integer.parseInt(jCodigoRegistro.getText()));
+                    pDAO.excluirPernoite(objPernoite);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    bloquearBotoes();
+                    limparCampos();
+                    Excluir();
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1179,7 +1411,59 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaPernoiteManuP1);
         if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteManuP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
-
+            if (jComboBoxPavilhao.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione um pavilhão.");
+            } else if (jComboBoxCela.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma cela.");
+            } else if (jComboBoxObjetivo.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione o objetivo.");
+            } else if (jComboBoxUnidadeOrigem.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma unidade de origem.");
+            } else if (jNomeCondutor.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do responsável pela condução.");
+            } else {
+                objPernoite.setStatusRegistro(jStatusRegistro.getText());
+                objPernoite.setDataRegistro(jDataRegistro.getDate());
+                objPernoite.setDescricaoPavilhao((String) jComboBoxPavilhao.getSelectedItem());
+                objPernoite.setDocumento(jDocumento.getText());
+                objPernoite.setDescricaoCela((String) jComboBoxCela.getSelectedItem());
+                objPernoite.setObjetivo((String) jComboBoxObjetivo.getSelectedItem());
+                objPernoite.setUnidadeOrigem((String) jComboBoxUnidadeOrigem.getSelectedItem());
+                objPernoite.setNomeCondutor(jNomeCondutor.getText());
+                objPernoite.setRgCondutor(jRG.getText());
+                objPernoite.setCpfCondutor(jCPF.getText());
+                objPernoite.setVeiculo(jVeiculo.getText());
+                objPernoite.setPlaca(jPlaca.getText());
+                objPernoite.setMotivo(jMotivo.getText());
+                if (acao == 1) {
+                    objPernoite.setUsuarioInsert(nameUser);
+                    objPernoite.setDataInsert(dataModFinal);
+                    objPernoite.setHoraInsert(horaMov);
+                    //
+                    pDAO.incluirPernoite(objPernoite);
+                    buscarCodigo();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objPernoite.setUsuarioUp(nameUser);
+                    objPernoite.setDataUp(dataModFinal);
+                    objPernoite.setHoraUp(horaMov);
+                    objPernoite.setIdRegistro(Integer.valueOf(jCodigoRegistro.getText()));
+                    pDAO.alterarPernoite(objPernoite);
+                    //
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -1204,23 +1488,150 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
-        // TODO add your handling code here:telaPernoiteIntP1
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaPernoiteIntP1);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteIntP1) && codIncluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            objPernoite.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                bloquearBotoes();
+                limparCamposInternos();
+                NovoInterno();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoInternoActionPerformed
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPernoiteIntP1);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteIntP1) && codAlterarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            objPernoite.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 4;
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                bloquearBotoes();
+                AlterarInterno();
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarInternoActionPerformed
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPernoiteIntP1);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteIntP1) && codExcluirP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            objPernoite.setStatusRegistro(jStatusRegistro.getText());
+            if (jStatusRegistro.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objPernoite.setIdRegistroInterno(Integer.parseInt(jCodigoRegistro.getText()));
+                    pDAO.excluirInternosPernoite(objPernoite);
+                    //
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    preencherTabelaItens("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                            + "INNER JOIN PERNOITE_INTERNOS "
+                            + "ON ITENS_PERNOITE_INTERNOS.IdPer=PERNOITE_INTERNOS.IdPer "
+                            + "WHERE ITENS_PERNOITE_INTERNOS.IdPer='" + jCodigoRegistro.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+                    bloquearBotoes();
+                    limparCamposInternos();
+                    ExcluirInterno();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirInternoActionPerformed
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaPernoiteIntP1);
+        if (codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteIntP1) && codGravarP1 == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            if (jNomeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jFotoInterno.getIcon() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a foto.");
+            } else if (jNomeMaeInterno.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome da mãae.");
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Digite a data de entrada do interno.");
+            } else if (jHoraEntrada.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Digite a hora de entrada do interno.");
+            } else {
+                objPernoite.setIdRegistro(Integer.valueOf(jCodigoRegistro.getText()));
+                objPernoite.setNomeInterno(jNomeInterno.getText());
+                objPernoite.setNomeMae(jNomeMaeInterno.getText());
+                objPernoite.setNomePai(jNomePaiInterno.getText());
+                objPernoite.setDataEntrada(jDataEntrada.getDate());
+                objPernoite.setHoraEntrada(jHoraEntrada.getText());
+                objPernoite.setDataSaida(jDataSaida.getDate());
+                objPernoite.setHoraSaida(jHoraSaida.getText());
+                if (jFotoInterno.getIcon() != null) {
+                    objPernoite.setImgemInterno(persona_imagem);
+                }
+                if (acao == 3) {
+                    objPernoite.setUsuarioInsert(nameUser);
+                    objPernoite.setDataInsert(dataModFinal);
+                    objPernoite.setHoraInsert(horaMov);
+                    //
+                    pDAO.incluirInternosPernoite(objPernoite);
+                    buscarCodigoInterno();
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    SalvarInterno();
+                    preencherTabelaItens("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                            + "INNER JOIN PERNOITE_INTERNOS "
+                            + "ON ITENS_PERNOITE_INTERNOS.IdPer=PERNOITE_INTERNOS.IdPer "
+                            + "WHERE ITENS_PERNOITE_INTERNOS.IdPer='" + jCodigoRegistro.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+                if (acao == 4) {
+                    objPernoite.setUsuarioUp(nameUser);
+                    objPernoite.setDataUp(dataModFinal);
+                    objPernoite.setHoraUp(horaMov);
+                    objPernoite.setIdRegistroInterno(pID_ITEM_PER);
+                    pDAO.alterarInternosPernoite(objPernoite);
+                    objLog2();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearBotoes();
+                    bloquearCampos();
+                    SalvarInterno();
+                    preencherTabelaItens("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                            + "INNER JOIN PERNOITE_INTERNOS "
+                            + "ON ITENS_PERNOITE_INTERNOS.IdPer=PERNOITE_INTERNOS.IdPer "
+                            + "WHERE ITENS_PERNOITE_INTERNOS.IdPer='" + jCodigoRegistro.getText() + "'");
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvarInternoActionPerformed
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
         // TODO add your handling code here:
+        CancelarInterno();
     }//GEN-LAST:event_jBtCancelarInternoActionPerformed
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
@@ -1229,16 +1640,94 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jBtZoonFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtZoonFotoActionPerformed
         // TODO add your handling code here:
+        mostraTelaFotoCrc();
     }//GEN-LAST:event_jBtZoonFotoActionPerformed
 
     private void jBtNovaFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFotoActionPerformed
         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        int acao = chooser.showOpenDialog(this);
+        if (acao == JFileChooser.APPROVE_OPTION) {
+            File f = chooser.getSelectedFile();
+            caminho = f.getAbsolutePath();
+            ImageIcon imagemicon = new ImageIcon(new ImageIcon(caminho).getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH));
+            jFotoInterno.setIcon(imagemicon);
+            try {
+                File image = new File(caminho);
+                FileInputStream fis = new FileInputStream(image);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                persona_imagem = bos.toByteArray();
+            } catch (Exception e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Seleção da figura cancelada.");
+        }
     }//GEN-LAST:event_jBtNovaFotoActionPerformed
 
     private void jBtApagarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtApagarFotoActionPerformed
         // TODO add your handling code here:
         jFotoInterno.setIcon(null);
     }//GEN-LAST:event_jBtApagarFotoActionPerformed
+
+    private void jComboBoxCelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCelaMouseEntered
+        // TODO add your handling code here:
+        if (acao == 1 || acao == 2) {
+            pesquisarCela();
+        }
+    }//GEN-LAST:event_jComboBoxCelaMouseEntered
+
+    private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
+        // TODO add your handling code here:
+        if (flag == 1) {
+            String nomeInterno = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1);
+            jNomeInterno.setText(nomeInterno);
+            String idItem = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
+            //
+            bloquearCampos();
+            jBtNovoInterno.setEnabled(true);
+            jBtAlterarInterno.setEnabled(true);
+            jBtExcluirInterno.setEnabled(true);
+            jBtSalvarInterno.setEnabled(!true);
+            jBtCancelarInterno.setEnabled(true);
+            jBtAuditoriaInterno.setEnabled(true);
+            jBtZoonFoto.setEnabled(true);
+            conecta.abrirConexao();
+            try {
+                conecta.executaSQL("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                        + "INNER JOIN PERNOITE_INTERNOS "
+                        + "ON ITENS_PERNOITE_INTERNOS.IdPer=PERNOITE_INTERNOS.IdPer "
+                        + "WHERE ITENS_PERNOITE_INTERNOS.IdPer='" + jCodigoRegistro.getText() + "'"
+                        + "AND IdItemPer='" + idItem + "'");
+                conecta.rs.first();
+                jCodigoRegistro.setText(conecta.rs.getString("IdPer"));
+                pID_ITEM_PER = conecta.rs.getInt("IdItemPer");
+                jNomeInterno.setText(conecta.rs.getString("NomeInterno"));
+                jNomeMaeInterno.setText(conecta.rs.getString("NomeMae"));
+                jNomePaiInterno.setText(conecta.rs.getString("NomePai"));
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemInterno"));
+                persona_imagem = ((byte[]) conecta.rs.getBytes("ImagemInterno"));
+                if (img2Bytes != null) {
+                    ImageIcon pic2 = null;
+                    pic2 = new ImageIcon(img2Bytes);
+                    Image scaled2 = pic2.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon2 = new ImageIcon(scaled2);
+                    jFotoInterno.setIcon(icon2);
+                }
+                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
+                jHoraEntrada.setText(conecta.rs.getString("HoraEntrada"));
+                jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
+                jHoraSaida.setText(conecta.rs.getString("HoraSaida"));
+                conecta.desconecta();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem alterado!!!" + ex);
+            }
+        }
+    }//GEN-LAST:event_jTabelaInternosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1264,14 +1753,14 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCPF;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JTextField jCodigoPesq;
-    private javax.swing.JTextField jCodigoRegistro;
+    public static javax.swing.JTextField jCodigoRegistro;
     private javax.swing.JComboBox<String> jComboBoxCela;
     private javax.swing.JComboBox<String> jComboBoxObjetivo;
     private javax.swing.JComboBox<String> jComboBoxPavilhao;
     private javax.swing.JComboBox<String> jComboBoxUnidadeOrigem;
     private com.toedter.calendar.JDateChooser jDataEntrada;
-    private com.toedter.calendar.JDateChooser jDataFinal;
-    private com.toedter.calendar.JDateChooser jDataInicial;
+    private com.toedter.calendar.JDateChooser jDataPesqFinal;
+    private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
     private com.toedter.calendar.JDateChooser jDataSaida;
     private javax.swing.JTextField jDocumento;
@@ -1295,6 +1784,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1414,6 +1908,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jHoraEntrada.setText("");
         jDataSaida.setDate(null);
         jHoraSaida.setText("");
+        jFotoInterno.setIcon(null);
     }
 
     public void bloquearBotoes() {
@@ -1439,6 +1934,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     public void Novo() {
         jDataRegistro.setCalendar(Calendar.getInstance());
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jDataRegistro.setEnabled(true);
+        }
         jComboBoxPavilhao.setEnabled(true);
         jDocumento.setEnabled(true);
         jComboBoxCela.setEnabled(true);
@@ -1504,32 +2002,151 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     }
 
     public void buscarCodigo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PERNOITE_INTERNOS");
+            conecta.rs.last();
+            jCodigoRegistro.setText(conecta.rs.getString("IdPer"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.\nERRO : " + ex);
+            conecta.desconecta();
+        }
+    }
 
+    public void pesquisarPavilhao() {
+        jComboBoxPavilhao.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PAVILHAO");
+            conecta.rs.first();
+            do {
+                jComboBoxPavilhao.addItem(conecta.rs.getString("DescricaoPav"));
+            } while (conecta.rs.next());
+            jComboBoxPavilhao.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarCela() {
+        jComboBoxCela.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM CELAS "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "'");
+            conecta.rs.first();
+            do {
+                jComboBoxCela.addItem(conecta.rs.getString("EndCelaPav"));
+            } while (conecta.rs.next());
+            jComboBoxCela.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarUnidadePrisional() {
+        jComboBoxUnidadeOrigem.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM UNIDADE");
+            conecta.rs.first();
+            do {
+                jComboBoxUnidadeOrigem.addItem(conecta.rs.getString("DescricaoUnid"));
+            } while (conecta.rs.next());
+            jComboBoxUnidadeOrigem.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
     }
 
     public void NovoInterno() {
-
+        jNomeInterno.setEnabled(true);
+        jNomeMaeInterno.setEnabled(true);
+        jNomePaiInterno.setEnabled(true);
+        jDataEntrada.setEnabled(true);
+        jHoraEntrada.setEnabled(true);
+        jDataSaida.setEnabled(true);
+        jHoraSaida.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+        jBtNovaFoto.setEnabled(true);
+        jBtApagarFoto.setEnabled(true);
     }
 
     public void AlterarInterno() {
-
+        jNomeInterno.setEnabled(true);
+        jNomeMaeInterno.setEnabled(true);
+        jNomePaiInterno.setEnabled(true);
+        jDataEntrada.setEnabled(true);
+        jHoraEntrada.setEnabled(true);
+        jDataSaida.setEnabled(true);
+        jHoraSaida.setEnabled(true);
+        //
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+        jBtNovaFoto.setEnabled(true);
+        jBtApagarFoto.setEnabled(true);
     }
 
     public void ExcluirInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void SalvarInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void CancelarInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
-    public void pesquisarLancCod(String sql) {
+    public void limparCamposInternos() {
+        jNomeInterno.setText("");
+        jNomeMaeInterno.setText("");
+        jNomePaiInterno.setText("");
+        jDataEntrada.setDate(null);
+        jHoraEntrada.setText("");
+        jDataSaida.setDate(null);
+        jHoraSaida.setText("");
+        jFotoInterno.setIcon(null);
+    }
+
+    public void buscarCodigoInterno() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENS_PERNOITE_INTERNOS "
+                    + "WHERE IdPer='" + jCodigoRegistro.getText() + "'");
+            conecta.rs.last();
+            pID_ITEM_PER = conecta.rs.getInt("IdItemPer");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarPernoitesInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Observação"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Motivo"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1537,13 +2154,13 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             do {
                 count = count + 1; // Contador de registros
                 // Formatar a data no formato Brasil
-                dataLancaMov = conecta.rs.getString("DataLancaMov");
+                dataLancaMov = conecta.rs.getString("DataRegistro");
                 String dia = dataLancaMov.substring(8, 10);
                 String mes = dataLancaMov.substring(5, 7);
                 String ano = dataLancaMov.substring(0, 4);
                 dataLancaMov = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdSaida"), dataLancaMov, conecta.rs.getString("StatusSai"), conecta.rs.getString("ObsSaida")});
+                dados.add(new Object[]{conecta.rs.getInt("IdPer"), dataLancaMov, conecta.rs.getString("StatusRegistro"), conecta.rs.getString("Motivo")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1556,7 +2173,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jTabelaPernoite.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPernoite.getColumnModel().getColumn(2).setPreferredWidth(70);
         jTabelaPernoite.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaPernoite.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTabelaPernoite.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTabelaPernoite.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPernoite.getTableHeader().setReorderingAllowed(false);
         jTabelaPernoite.setAutoResizeMode(jTabelaPernoite.AUTO_RESIZE_OFF);
@@ -1576,6 +2193,126 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jTabelaPernoite.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaPernoite.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaPernoite.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Motivo"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaPernoite.setModel(modelo);
+        jTabelaPernoite.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPernoite.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaPernoite.getColumnModel().getColumn(1).setPreferredWidth(70);
+        jTabelaPernoite.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPernoite.getColumnModel().getColumn(2).setPreferredWidth(70);
+        jTabelaPernoite.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPernoite.getColumnModel().getColumn(3).setPreferredWidth(300);
+        jTabelaPernoite.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaPernoite.getTableHeader().setReorderingAllowed(false);
+        jTabelaPernoite.setAutoResizeMode(jTabelaPernoite.AUTO_RESIZE_OFF);
+        jTabelaPernoite.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void preencherTabelaItens(String sql) {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "H.Entrada", "Data Saída", "H.Saída"};
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL(sql);
+            conecta.rs.first();
+            do {
+                // Formatar a data Entrada
+                dataEntrada = conecta.rs.getString("DataEntrada");
+                if (dataEntrada != null) {
+                    String dia = dataEntrada.substring(8, 10);
+                    String mes = dataEntrada.substring(5, 7);
+                    String ano = dataEntrada.substring(0, 4);
+                    dataEntrada = dia + "/" + mes + "/" + ano;
+                }
+                dataSaida = conecta.rs.getString("DataSaida");
+                if (dataSaida != null) {
+                    String diaS = dataSaida.substring(8, 10);
+                    String mesS = dataSaida.substring(5, 7);
+                    String anoS = dataSaida.substring(0, 4);
+                    dataSaida = diaS + "/" + mesS + "/" + anoS;
+                }
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPer"), conecta.rs.getString("NomeInterno"), dataEntrada, conecta.rs.getString("HoraEntrada"), dataSaida, conecta.rs.getString("HoraSaida")});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternos.setModel(modelo);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        alinharTabelaItens();
+        conecta.desconecta();
+    }
+
+    public void alinharTabelaItens() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaInternos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+    }
+
+    public void limparTabelaItens() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "H.Entrada", "Data Saída", "H.Saída"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaInternos.setModel(modelo);
+        jTabelaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInternos.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaInternos.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaInternos.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInternos.getTableHeader().setReorderingAllowed(false);
+        jTabelaInternos.setAutoResizeMode(jTabelaInternos.AUTO_RESIZE_OFF);
+        jTabelaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
+    }
+
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoRegistro.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog2() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela1);
+        objLogSys.setIdLancMov(pID_ITEM_PER);
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
