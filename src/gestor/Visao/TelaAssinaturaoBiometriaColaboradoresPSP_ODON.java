@@ -102,6 +102,9 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP_ODON extends javax.swing.J
      */
     public static TelaRegistroInternosAtendimentoImpressoODON assinaturaFuncPSP_ODON;
 
+    public TelaAssinaturaoBiometriaColaboradoresPSP_ODON(){ 
+    }
+    
     public TelaAssinaturaoBiometriaColaboradoresPSP_ODON(TelaRegistroInternosAtendimentoImpressoODON parent, boolean modal) {
         this.assinaturaFuncPSP_ODON = parent;
         this.setModal(modal);
@@ -440,9 +443,8 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP_ODON extends javax.swing.J
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
-    private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
-        // TODO add your handling code here:    
-        Novo();
+    private void iniciarLeitor(){
+          Novo();
         // Instanciar a DLL
         CIS_SDK dll = CIS_SDK.INSTANCE;
         //
@@ -510,6 +512,11 @@ public class TelaAssinaturaoBiometriaColaboradoresPSP_ODON extends javax.swing.J
         }
         jBtCancelarLeitura.setEnabled(true);
         new Thread(LerDigital1).start();
+    }
+    
+    private void jBtIniciarLeitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIniciarLeitorActionPerformed
+        // TODO add your handling code here:    
+        iniciarLeitor();
     }//GEN-LAST:event_jBtIniciarLeitorActionPerformed
 
     private void jBtCancelarLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarLeituraActionPerformed

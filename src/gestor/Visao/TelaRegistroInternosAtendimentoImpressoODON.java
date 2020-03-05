@@ -23,7 +23,6 @@ import static gestor.Visao.TelaModuloOdontologia.codigoGrupoODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeGrupoODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeTelaODON;
 import static gestor.Visao.TelaModuloOdontologia.nomeModuloODONTOLOGIA;
-import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -65,6 +64,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
     //
     ControleConfirmacaoAtendimento control_ATENE_TV = new ControleConfirmacaoAtendimento();
+    //
+    TelaAtendimentoOdontologico telaAtendimentoOdontologico = new TelaAtendimentoOdontologico();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -140,7 +141,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTPAutorizacaoImpressa = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaRegistroInterno = new javax.swing.JTable();
@@ -211,7 +212,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         setTitle("...::: Registro de Atendimento de Internos - IMPRESSÃO :::...");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/gtklp-icone-3770-16.png"))); // NOI18N
 
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTPAutorizacaoImpressa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jTabelaRegistroInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaRegistroInterno.setModel(new javax.swing.table.DefaultTableModel(
@@ -431,7 +432,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 .addGap(6, 6, 6))
         );
 
-        jTabbedPane1.addTab("Listagem", jPanel3);
+        jTPAutorizacaoImpressa.addTab("Listagem", jPanel3);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
 
@@ -723,7 +724,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtCancelar, jBtSair, jBtSalvar});
 
-        jTabbedPane1.addTab("Manutenção", jPanel4);
+        jTPAutorizacaoImpressa.addTab("Manutenção", jPanel4);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto Interno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
@@ -849,7 +850,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTPAutorizacaoImpressa, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -861,7 +862,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
             .addGroup(layout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTPAutorizacaoImpressa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -872,7 +873,8 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:           
+        // TODO add your handling code here:  
+        //telaAtendimentoOdontologico = new TelaAtendimentoOdontologico();
         buscarAcessoUsuario(telaRegistroAtenImpODON);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroAtenImpODON) && codGravarODON == 1) {
             verificarInternos();
@@ -935,6 +937,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                         control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        new TelaAtendimentoOdontologico().setVisible(true); // nao esquecer
                         relatorioAutorizacao();
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Essa autorização ainda não foi liberada, solicite ao responsavel a liberação.");
@@ -946,11 +949,15 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
-    private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
-        // TODO add your handling code here:        
+    private void pesquisaInterno() {
         TelaPesqInternoRegistroImpressoODON objPesqIntImp = new TelaPesqInternoRegistroImpressoODON();
         TelaModuloOdontologia.jPainelOdontologia.add(objPesqIntImp);
         objPesqIntImp.show();
+    }
+
+    private void jBtPesquisaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaInternoActionPerformed
+        // TODO add your handling code here:        
+        pesquisaInterno();
     }//GEN-LAST:event_jBtPesquisaInternoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1177,11 +1184,13 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
+                pesquisaInterno();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
     }//GEN-LAST:event_jBtNovoActionPerformed
+
 
     private void jBtLiberarAutorizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLiberarAutorizacaoActionPerformed
         // TODO add your handling code here:
@@ -1191,10 +1200,12 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                 JOptionPane.showMessageDialog(rootPane, "E necessário selecionar primeiro o interno para liberação.");
             } else {
                 mostraLiberador();
+                jTPAutorizacaoImpressa.setSelectedIndex(1);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
+
     }//GEN-LAST:event_jBtLiberarAutorizacaoActionPerformed
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
@@ -1283,7 +1294,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTPAutorizacaoImpressa;
     private javax.swing.JTable jTabelaRegistroInterno;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables

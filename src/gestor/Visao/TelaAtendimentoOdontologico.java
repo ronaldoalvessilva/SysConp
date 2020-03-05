@@ -4412,6 +4412,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
                 bloquearCampos();
                 preencherComboNovoEvol();
                 NovoProcedimento();
+                limpaTabelaEvol();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -5408,6 +5409,11 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             jBt38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/ModeloDente10.jpg")));
         }
     }//GEN-LAST:event_jComboBoxTipoProcedimentoEvolMouseClicked
+
+    private void limpaTabelaEvol() {
+        DefaultTableModel tabOdonto = (DefaultTableModel) jTabelaOdontogramaEvol.getModel();
+        tabOdonto.setRowCount(0);
+    }
 
     private void jBtAdicionarEvolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarEvolActionPerformed
         // TODO add your handling code here:        
@@ -7934,13 +7940,13 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             }
             objOdonto.getDescricaoProcedimento();
             objOdonto.setDataOdontograma(date);
-            if (rows0 == 0) {
-                controlOdontograma.incluirOdontoGramaEvolucao(objOdonto);
-                qtdTipo = qtdTipo + 1;
-            } else if (rows0 != 0) {
-                controlOdontograma.alterarOdontoGramaEvolucao(objOdonto);
-                qtdTipo = qtdTipo + 1;
-            }
+            // if (rows0 == 0) {
+            controlOdontograma.incluirOdontoGramaEvolucao(objOdonto);
+            //  qtdTipo = qtdTipo + 1;
+            // } else if (rows0 != 0) {
+            //    controlOdontograma.alterarOdontoGramaEvolucao(objOdonto);
+            qtdTipo = qtdTipo + 1;
+            // }
         }
     }
 
