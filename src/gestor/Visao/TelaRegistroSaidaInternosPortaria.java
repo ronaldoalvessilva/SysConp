@@ -1288,8 +1288,13 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     private void jBtIdLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdLancActionPerformed
         // TODO add your handling code here:
         count = 0;
-        pesquisarLancCod("SELECT * FROM REGSAIDACRC "
-                + "WHERE IdSaida='" + jIDPesqLan.getText() + "'");
+        flag = 1;
+        if (jIDPesqLan.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o código do registro para pesquisa.");
+        } else {
+            pesquisarLancCod("SELECT * FROM REGSAIDACRC "
+                    + "WHERE IdSaida='" + jIDPesqLan.getText() + "'");
+        }
     }//GEN-LAST:event_jBtIdLancActionPerformed
 
     private void jTabelaSaidaInternoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaSaidaInternoMouseClicked

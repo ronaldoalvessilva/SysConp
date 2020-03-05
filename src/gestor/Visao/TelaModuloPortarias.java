@@ -125,6 +125,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private TelaEntradaSaidaVisitasReligiosas objEntSaiVisitaRel = null;
     private TelaConsultaInternosIsolamento objConIsola = null;
     private TelaConsultaVisitasPortariaExterna objConRegVisita = null;
+    private TelaPernoiteInternos objPernoite = null;
     //
     String dataLanc;
     int codUsuario;
@@ -251,6 +252,9 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static String telaRelatorioPrevisaoSaidaP1 = "Relatórios - P1I:Previsão de Saída de Internos";
     // MENU CONSULTAS
     public static String telaConsultaVisitaInternosP1 = "Consulta:Visitantes de Internos";
+    //PERNOITE
+    public static String telaPernoiteManuP1 = "Movimentação:Pernoite de Internos:Manutenção";
+    public static String telaPernoiteIntP1 = "Movimentação:Pernoite de Internos:Internos";
     //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
@@ -342,6 +346,9 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     String pNomeRPSI = "";
     // MENU CONSULTAS
     String pNomeCVI = "";
+    //
+    String pNomePER = "";
+    String pNomePERI = "";
 
     /**
      * Creates new form TelaPortarias
@@ -431,6 +438,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         RegistrosSaidasInternos = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
+        jRegistroEntradaSaidaPernoite = new javax.swing.JMenuItem();
         ControlePertences = new javax.swing.JMenuItem();
         ControleDepositoInternos = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -869,6 +878,15 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             }
         });
         ControleAcessosInternos.add(jMenuItem3);
+        ControleAcessosInternos.add(jSeparator25);
+
+        jRegistroEntradaSaidaPernoite.setText("Registro Entrada/Saída PERNOITE de Internos");
+        jRegistroEntradaSaidaPernoite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistroEntradaSaidaPernoiteActionPerformed(evt);
+            }
+        });
+        ControleAcessosInternos.add(jRegistroEntradaSaidaPernoite);
 
         Movimentacao.add(ControleAcessosInternos);
 
@@ -2785,6 +2803,40 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_ConsultaRegistroVisitasPortariaExtActionPerformed
 
+    private void jRegistroEntradaSaidaPernoiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroEntradaSaidaPernoiteActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaPernoiteManuP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaPernoiteManuP1) && codAbrirP1 == 1) {
+            if (objPernoite == null || objPernoite.isClosed()) {
+                objPernoite = new TelaPernoiteInternos();
+                jPainelPortarias.add(objPernoite);
+                objPernoite.setVisible(true);
+            } else {
+                if (objPernoite.isVisible()) {
+                    if (objPernoite.isIcon()) { // Se esta minimizado
+                        try {
+                            objPernoite.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objPernoite.toFront(); // traz para frente
+                        objPernoite.pack();//volta frame
+                    }
+                } else {
+                    objPernoite = new TelaPernoiteInternos();
+                    TelaModuloPortarias.jPainelPortarias.add(objPernoite);//adicona frame ao JDesktopPane
+                    objPernoite.setVisible(true);
+                }
+            }
+            try {
+                objPernoite.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jRegistroEntradaSaidaPernoiteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -2872,6 +2924,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jOficialJustica;
     public static javax.swing.JDesktopPane jPainelPortarias;
     private javax.swing.JMenuItem jRegistroAcessosTransientes;
+    private javax.swing.JMenuItem jRegistroEntradaSaidaPernoite;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
@@ -2889,6 +2942,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3696,6 +3750,21 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             pNomeCVI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //PERNOITE
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPernoiteManuP1 + "'");
+            conecta.rs.first();
+            pNomePER = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaPernoiteIntP1 + "'");
+            conecta.rs.first();
+            pNomePERI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //CADASTRO
         if (!pNomeCVPM.equals(telaCadastroVeiculosManuP1) || pNomeCVPM == null || pNomeCVPM.equals("")) {
             buscarCodigoModulo();
@@ -4060,6 +4129,19 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaConsultaVisitaInternosP1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //PERNOITE
+        if (!pNomePER.equals(telaPernoiteManuP1) || pNomePER == null || pNomePER.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPernoiteManuP1);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePERI.equals(telaPernoiteIntP1) || pNomePERI == null || pNomePERI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaPernoiteIntP1);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
