@@ -115,6 +115,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jComboBoxUnidadeOrigem = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jComboBoxObjetivo = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
+        jDocumento = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -422,6 +424,12 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jComboBoxObjetivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxObjetivo.setEnabled(false);
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel21.setText("Documento");
+
+        jDocumento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDocumento.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -429,7 +437,6 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxPavilhao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxUnidadeOrigem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,21 +450,28 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                             .addComponent(jComboBoxObjetivo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCodigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCodigoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel1))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
                                     .addComponent(jLabel3)
-                                    .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(0, 7, Short.MAX_VALUE)))
+                                    .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 7, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDocumento)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -475,9 +489,13 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxPavilhao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1256,6 +1274,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataInicial;
     private com.toedter.calendar.JDateChooser jDataRegistro;
     private com.toedter.calendar.JDateChooser jDataSaida;
+    private javax.swing.JTextField jDocumento;
     private javax.swing.JLabel jFotoInterno;
     private javax.swing.JFormattedTextField jHoraEntrada;
     private javax.swing.JFormattedTextField jHoraSaida;
@@ -1272,6 +1291,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1326,6 +1346,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jStatusRegistro.setBackground(Color.white);
         jDataRegistro.setBackground(Color.white);
         jComboBoxPavilhao.setBackground(Color.white);
+        jDocumento.setBackground(Color.white);
         jComboBoxCela.setBackground(Color.white);
         jComboBoxObjetivo.setBackground(Color.white);
         jComboBoxUnidadeOrigem.setBackground(Color.white);
@@ -1350,6 +1371,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jStatusRegistro.setEnabled(!true);
         jDataRegistro.setEnabled(!true);
         jComboBoxPavilhao.setEnabled(!true);
+        jDocumento.setEnabled(!true);
         jComboBoxCela.setEnabled(!true);
         jComboBoxObjetivo.setEnabled(!true);
         jComboBoxUnidadeOrigem.setEnabled(!true);
@@ -1374,6 +1396,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jStatusRegistro.setText("ABERTO");
         jDataRegistro.setDate(null);
         jComboBoxPavilhao.setSelectedItem("Selecione...");
+        jDocumento.setText("");
         jComboBoxCela.setSelectedItem("Selecione...");
         jComboBoxObjetivo.setSelectedItem("Selecione...");
         jComboBoxUnidadeOrigem.setSelectedItem("Selecione...");
@@ -1417,6 +1440,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     public void Novo() {
         jDataRegistro.setCalendar(Calendar.getInstance());
         jComboBoxPavilhao.setEnabled(true);
+        jDocumento.setEnabled(true);
         jComboBoxCela.setEnabled(true);
         jComboBoxObjetivo.setEnabled(true);
         jComboBoxUnidadeOrigem.setEnabled(true);
@@ -1433,6 +1457,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     public void Alterar() {
         jComboBoxPavilhao.setEnabled(true);
+        jDocumento.setEnabled(true);
         jComboBoxCela.setEnabled(true);
         jComboBoxObjetivo.setEnabled(true);
         jComboBoxUnidadeOrigem.setEnabled(true);

@@ -17,6 +17,7 @@ public class PernoiteInternos {
     private String statusRegistro;
     private Date DataRegistro;
     private String DescricaoPavilhao;
+    private String documento;
     private String descricaoCela;
     private String objetivo;
     private String unidadeOrigem;
@@ -46,11 +47,12 @@ public class PernoiteInternos {
     public PernoiteInternos() {
     }
 
-    public PernoiteInternos(int codigoRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int codigoInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
+    public PernoiteInternos(int codigoRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String documento, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int codigoInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
         this.codigoRegistro = codigoRegistro;
         this.statusRegistro = statusRegistro;
         this.DataRegistro = DataRegistro;
         this.DescricaoPavilhao = DescricaoPavilhao;
+        this.documento = documento;
         this.descricaoCela = descricaoCela;
         this.objetivo = objetivo;
         this.unidadeOrigem = unidadeOrigem;
@@ -132,6 +134,20 @@ public class PernoiteInternos {
      */
     public void setDescricaoPavilhao(String DescricaoPavilhao) {
         this.DescricaoPavilhao = DescricaoPavilhao;
+    }
+
+    /**
+     * @return the documento
+     */
+    public String getDocumento() {
+        return documento;
+    }
+
+    /**
+     * @param documento the documento to set
+     */
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     /**
