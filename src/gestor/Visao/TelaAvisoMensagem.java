@@ -287,47 +287,48 @@ public class TelaAvisoMensagem extends javax.swing.JDialog {
         File arqSSA = new File("C:\\SysConp\\ConectaSSA.properties");
         //BARREIRAS
         File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
-//        if (arqLF.exists()) {
-//            pesquisarUsuarioUnidadeLF();
-//            if (jlogin.getText().equals(pLOGIN_USUARIO_LF)) {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.incluirUsuariosLF(objUser);
-//            } else {
-//                objUser.setDataCadastro(jDataCadastro.getDate());
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
-//                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
-//                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
-//                objUser.setStatus(objUser.getStatus());
-//                if (jComboBoxStatus.getSelectedIndex() == 0) {
-//                    objUser.setStatus(true);
-//                } else {
-//                    objUser.setStatus(false);
-//                }
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setLogin(jlogin.getText());
-//                objUser.setSenha1(jSenha.getText());
-//                objUser.setSenha2(jSenhaConf.getText());
-//                control.alterarUsuariosLF(objUser);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
-//        }
+        //LAURO DE FREITAS
+        if (arqLF.exists()) {
+            pesquisarUsuarioUnidadeLF();
+            if (jlogin.getText().equals(pLOGIN_USUARIO_LF)) {
+                objUser.setDataCadastro(jDataCadastro.getDate());
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
+                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
+                objUser.setStatus(objUser.getStatus());
+                if (jComboBoxStatus.getSelectedIndex() == 0) {
+                    objUser.setStatus(true);
+                } else {
+                    objUser.setStatus(false);
+                }
+                objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setLogin(jlogin.getText());
+                objUser.setSenha1(jSenha.getText());
+                objUser.setSenha2(jSenhaConf.getText());
+                control.incluirUsuariosLF(objUser);
+            } else {
+                objUser.setDataCadastro(jDataCadastro.getDate());
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setNomeDepartamento((String) jComboBoxDepartamento.getSelectedItem());
+                objUser.setNomeCargo((String) jComboBoxCargo.getSelectedItem());
+                objUser.setAcessoTodasUnidades((String) jComboBoxAcessaTodasUnidades.getSelectedItem());
+                objUser.setStatus(objUser.getStatus());
+                if (jComboBoxStatus.getSelectedIndex() == 0) {
+                    objUser.setStatus(true);
+                } else {
+                    objUser.setStatus(false);
+                }
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setLogin(jlogin.getText());
+                objUser.setSenha1(jSenha.getText());
+                objUser.setSenha2(jSenhaConf.getText());
+                control.alterarUsuariosLF(objUser);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         // VITORIA DA CONQUISTA
         if (arqVC.exists()) {
             pesquisarUsuarioUnidadeVC();

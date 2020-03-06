@@ -79,21 +79,19 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPernoiteInternos
      */
-    
     public static TelaFotoInternoPernoite pFOTO_INTERNO;
-    
+
     public TelaPernoiteInternos() {
         initComponents();
         corCampos();
         formatarCampos();
     }
 
-    
-     public void mostraTelaFotoCrc() {
+    public void mostraTelaFotoCrc() {
         pFOTO_INTERNO = new TelaFotoInternoPernoite(this, true);
         pFOTO_INTERNO.setVisible(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1276,7 +1274,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                        pesquisarPernoitesInternos("SELECT * FROM ENTRADA_SAIDA_VISITAS_RELIGIOSA "
+                        pesquisarPernoitesInternos("SELECT * FROM PERNOITE_INTERNOS "
                                 + "WHERE DataRegistro BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -1476,6 +1474,29 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        statusMov = "Finalizou";
+        horaMov = jHoraSistema.getText();
+        dataModFinal = jDataSistema.getText();
+        String statusSaida = "FINALIZADO";
+        JOptionPane.showMessageDialog(rootPane, "Se esse registro for finalizado, você não poderá\nmais excluir ou alterar.");
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente FINALIZAR a saída selecionado?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            objPernoite.setStatusRegistro(statusSaida);
+            objPernoite.setIdRegistro(Integer.valueOf(jCodigoRegistro.getText()));
+            pDAO.finalizarPernoite(objPernoite);
+            jStatusRegistro.setText(statusMov);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            jStatusRegistro.setText(statusSaida);
+            JOptionPane.showMessageDialog(rootPane, "Registro FINALIZADO com sucesso !!!");
+            //
+            bloquearCampos();
+            bloquearBotoes();
+            //
+            jBtNovo.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1485,6 +1506,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaPernoite objAud = new TelaAuditoriaPernoite();
+        TelaModuloPortarias.jPainelPortarias.add(objAud);
+        objAud.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
@@ -1636,6 +1660,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaItensPernoite objAudItem = new TelaAuditoriaItensPernoite();
+        TelaModuloPortarias.jPainelPortarias.add(objAudItem);
+        objAudItem.show();
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jBtZoonFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtZoonFotoActionPerformed

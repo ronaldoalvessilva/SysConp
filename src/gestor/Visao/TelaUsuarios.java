@@ -2262,7 +2262,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                             + "INNER JOIN GRUPOUSUARIOS "
                             + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                             + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
-                    //JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
             if (acao == 4) {
@@ -2281,7 +2280,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                         + "INNER JOIN GRUPOUSUARIOS "
                         + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
                         + "WHERE USUARIOS_GRUPOS.IdUsuario='" + IdUsuario.getText() + "'");
-              //  JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
             }
         }
     }//GEN-LAST:event_jBtSalvarGrupoActionPerformed

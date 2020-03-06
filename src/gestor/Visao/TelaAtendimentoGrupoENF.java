@@ -100,6 +100,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     String pCODIGO_ATENDE_AVAI = "";
     //
     public static String idItem;
+    String pSIGLA = "EN";
 
     /**
      * Creates new form TelaAtendimentoGrupoPSI
@@ -132,6 +133,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btGrupo = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jListagem = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -202,9 +204,16 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jComboBoxTurno = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTema = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jCodigoTema = new javax.swing.JTextField();
+        jComboBoxTema = new javax.swing.JComboBox<>();
+        jLabel32 = new javax.swing.JLabel();
+        jComboBoxTipoVacina = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        jRBPrimeira = new javax.swing.JRadioButton();
+        jRBSegunda = new javax.swing.JRadioButton();
+        jRBTerceira = new javax.swing.JRadioButton();
+        jRBReforco = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabelaPlanejamento = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -401,7 +410,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel15Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtPesqDatas, jBtPesquisarInternos});
@@ -918,7 +927,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jManutencaoLayout.setVerticalGroup(
             jManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -975,15 +984,79 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Tema");
 
-        jTema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTema.setEnabled(false);
-
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel30.setText("Código");
 
         jCodigoTema.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jCodigoTema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCodigoTema.setEnabled(false);
+
+        jComboBoxTema.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxTema.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTema.setEnabled(false);
+        jComboBoxTema.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTemaItemStateChanged(evt);
+            }
+        });
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel32.setText("Tipo de Vacina");
+
+        jComboBoxTipoVacina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoVacina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
+        jComboBoxTipoVacina.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoVacina.setEnabled(false);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dose da Vacina", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        btGrupo.add(jRBPrimeira);
+        jRBPrimeira.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBPrimeira.setText("1ª Dose");
+        jRBPrimeira.setEnabled(false);
+
+        btGrupo.add(jRBSegunda);
+        jRBSegunda.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBSegunda.setText("2ª Dose");
+        jRBSegunda.setEnabled(false);
+
+        btGrupo.add(jRBTerceira);
+        jRBTerceira.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBTerceira.setText("3ª Dose");
+        jRBTerceira.setEnabled(false);
+
+        btGrupo.add(jRBReforco);
+        jRBReforco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBReforco.setText("Reforço");
+        jRBReforco.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(jRBPrimeira)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBSegunda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBTerceira)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBReforco)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jRBPrimeira)
+                    .addComponent(jRBSegunda)
+                    .addComponent(jRBTerceira)
+                    .addComponent(jRBReforco))
+                .addGap(3, 3, 3))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -992,44 +1065,48 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jHorarioInicialTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel30)
-                    .addComponent(jCodigoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jHorarioFinalTema, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jAtividades))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27)
+                            .addComponent(jRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jHorarioInicialTema, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel30)
+                            .addComponent(jCodigoTema, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel19)
+                                .addComponent(jLabel18)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBoxTurno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jTema)
+                            .addComponent(jComboBoxTema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jHorarioFinalTema, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxTurno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel27)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                            .addComponent(jLabel32)
+                            .addComponent(jComboBoxTipoVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoTema, jHorarioFinalTema, jHorarioInicialTema});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtividades, jRecursos});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1040,27 +1117,38 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel29)
-                    .addComponent(jLabel19))
+                    .addComponent(jCodigoTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTema, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jHorarioInicialTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHorarioFinalTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jComboBoxTipoVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jLabel28)
+                                    .addComponent(jLabel29)
+                                    .addComponent(jLabel19))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jHorarioInicialTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jHorarioFinalTema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jAtividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRecursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabelaPlanejamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1237,25 +1325,25 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPlanejamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPlanejamentoLayout.createSequentialGroup()
                         .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPlanejamentoLayout.setVerticalGroup(
             jPlanejamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPlanejamentoLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPlanejamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1382,7 +1470,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel30Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(0, 75, Short.MAX_VALUE))
+                                .addGap(0, 83, Short.MAX_VALUE))
                             .addComponent(jRegime))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1831,7 +1919,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jAGlobalLayout.setVerticalGroup(
             jAGlobalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2293,7 +2381,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2309,7 +2397,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 60, 632, 478);
+        setBounds(300, 60, 642, 478);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
@@ -2420,6 +2508,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             //            
             bloquearTodosBotoes();
             bloquearTodosCampos();
+            limparCamposPlanejamento();
+            limparCamposParticipantes();
             //
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(true);
@@ -2680,6 +2770,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 bloquearTodosBotoes();
                 limparCamposPlanejamento();
                 NovoPlan();
+                pesquisarPlanejamento();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -2759,7 +2850,9 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaIndAtendimentoGrupoENF_Plan);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaIndAtendimentoGrupoENF_Plan) && codGravarENF == 1) {
-            if (jTema.getText().equals("")) {
+            if (jComboBoxTema.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tema para o planejamento.");
+            } else if (jComboBoxTema.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tema para o planejamento.");
             } else if (jHorarioInicialTema.getText().equals("00:00")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o horário inicial da atividade.");
@@ -2771,7 +2864,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe um recurso para a atividade.");
             } else {
                 objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
-                objAvalia.setTema(jTema.getText());
+                objAvalia.setTema((String) jComboBoxTema.getSelectedItem());
                 objAvalia.setHoraInicio(jHorarioInicialTema.getText());
                 objAvalia.setHoraTermino(jHorarioFinalTema.getText());
                 objAvalia.setTurno((String) jComboBoxTurno.getSelectedItem());
@@ -2847,6 +2940,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             jBtExcluirPlan.setEnabled(true);
             jBtCancelarPlan.setEnabled(true);
             jBtAuditoriaPlan.setEnabled(true);
+            jComboBoxTema.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
@@ -2856,7 +2950,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                         + "AND PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM.IdItemPlanEnf='" + pCODIGO_PLAN + "'");
                 conecta.rs.first();
                 jCodigoTema.setText(conecta.rs.getString("IdItemPlanEnf"));
-                jTema.setText(conecta.rs.getString("Tema"));
+                jComboBoxTema.addItem(conecta.rs.getString("Tema"));
                 jHorarioInicialTema.setText(conecta.rs.getString("HoraInicio"));
                 jHorarioFinalTema.setText(conecta.rs.getString("HoraTermino"));
                 jComboBoxTurno.setSelectedItem(conecta.rs.getString("Turno"));
@@ -3088,14 +3182,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                     jFotoInternoGrupo.setIcon(i);
-                    jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     jFotoInternoGrupo.setIcon(icon);
                 }
@@ -3479,14 +3573,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                     jFotoInternoGrupo.setIcon(i);
-                    jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoInternoGrupo.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_SMOOTH)));
                 }
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_DEFAULT);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoGrupo.getWidth(), jFotoInternoGrupo.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
                     jFotoInternoGrupo.setIcon(icon);
                 }
@@ -3644,8 +3738,20 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtLocalizarInternoActionPerformed
 
+    private void jComboBoxTemaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTemaItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == evt.SELECTED && jComboBoxTema.getSelectedItem().equals("Vacinas")) {
+            pesquisarPlanejamento();
+            opcaoVacinas(true);
+            pesquisarTipoVacina();
+        } else {
+            opcaoVacinas(!true);
+        }
+    }//GEN-LAST:event_jComboBoxTemaItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btGrupo;
     private javax.swing.JPanel jAGlobal;
     private javax.swing.JPanel jAIndividual;
     private javax.swing.JTextField jAtividades;
@@ -3700,6 +3806,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jComboBoxAmbiente;
     public static javax.swing.JComboBox<String> jComboBoxNivelPavilhao;
     public static javax.swing.JComboBox<String> jComboBoxPavilhaoGaleria;
+    private javax.swing.JComboBox<String> jComboBoxTema;
+    private javax.swing.JComboBox<String> jComboBoxTipoVacina;
     private javax.swing.JComboBox<String> jComboBoxTurno;
     public static com.toedter.calendar.JDateChooser jDataAtend;
     private com.toedter.calendar.JDateChooser jDataFinal;
@@ -3739,6 +3847,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
@@ -3770,6 +3879,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel27;
@@ -3796,6 +3906,10 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jPavilhao;
     private javax.swing.JTextField jPesqNomeInterno;
     private javax.swing.JPanel jPlanejamento;
+    private javax.swing.JRadioButton jRBPrimeira;
+    private javax.swing.JRadioButton jRBReforco;
+    private javax.swing.JRadioButton jRBSegunda;
+    private javax.swing.JRadioButton jRBTerceira;
     private javax.swing.JTextField jRecursos;
     public static javax.swing.JTextField jRegime;
     public static javax.swing.JTextField jRegimeAVI;
@@ -3813,7 +3927,6 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public static javax.swing.JTable jTabelaInternos;
     private javax.swing.JTable jTabelaInternosAvIndividual;
     private javax.swing.JTable jTabelaPlanejamento;
-    private javax.swing.JTextField jTema;
     private javax.swing.JTextArea jTextoAvalaicaoIndividual;
     private javax.swing.JTextArea jTextoAvaliacaoGrupo;
     private javax.swing.JLabel jtotalRegistros;
@@ -3837,7 +3950,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jObservacao.setBackground(Color.white);
         // ABA PLANEJAMENTO
         jCodigoTema.setBackground(Color.white);
-        jTema.setBackground(Color.white);
+        jComboBoxTema.setBackground(Color.white);
         jHorarioInicialTema.setBackground(Color.white);
         jHorarioFinalTema.setBackground(Color.white);
         jComboBoxTurno.setBackground(Color.white);
@@ -3868,6 +3981,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         //
         jTextoAvalaicaoIndividual.setLineWrap(true);
         jTextoAvalaicaoIndividual.setWrapStyleWord(true);
+    }
+
+    public void opcaoVacinas(boolean flag) {
+        jComboBoxTipoVacina.setEnabled(flag);
+        jRBPrimeira.setEnabled(flag);
+        jRBSegunda.setEnabled(flag);
+        jRBTerceira.setEnabled(flag);
+        jRBReforco.setEnabled(flag);
     }
 
     public void bloquearTodosBotoes() {
@@ -3925,7 +4046,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         // ABA PLANEJAMENTO
         jCodigoTema.setEnabled(!true);
         jComboBoxTurno.setEnabled(!true);
-        jTema.setEnabled(!true);
+        jComboBoxTema.setEnabled(!true);
         jHorarioInicialTema.setEnabled(!true);
         jHorarioFinalTema.setEnabled(!true);
         jAtividades.setEnabled(!true);
@@ -3966,7 +4087,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         // ABA PLANEJAMENTO
         jCodigoTema.setText("");
         jComboBoxTurno.setSelectedItem("Selecione...");
-        jTema.setText("");
+        jComboBoxTema.setSelectedItem("Selecione...");
         jHorarioInicialTema.setText("");
         jHorarioFinalTema.setText("");
         jAtividades.setText("");
@@ -3994,7 +4115,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     public void limparCamposPlanejamento() {
         jCodigoTema.setText("");
         jComboBoxTurno.setSelectedItem("Selecione...");
-        jTema.setText("");
+        jComboBoxTema.setSelectedItem("Selecione...");
         jHorarioInicialTema.setText("");
         jHorarioFinalTema.setText("");
         jAtividades.setText("");
@@ -4107,6 +4228,39 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
+    public void pesquisarPlanejamento() {
+        jComboBoxTema.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATIVIDADES_GRUPO "
+                    + "WHERE Sigla='" + pSIGLA + "' "
+                    + "ORDER BY DescricaoPlaneja,Setor");
+            conecta.rs.first();
+            do {
+                jComboBoxTema.addItem(conecta.rs.getString("DescricaoPlaneja"));
+            } while (conecta.rs.next());
+            jComboBoxTema.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+    
+    public void pesquisarTipoVacina() {
+        jComboBoxTipoVacina.removeAllItems();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TIPOS_VACINAS "
+                    + "ORDER BY DescricaoVacina");
+            conecta.rs.first();
+            do {
+                jComboBoxTipoVacina.addItem(conecta.rs.getString("DescricaoVacina"));
+            } while (conecta.rs.next());
+            jComboBoxTipoVacina.updateUI();
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+    }
+
     public void verificarRegistros() {
         conecta.abrirConexao();
         //PLANEJAMENTO DE ATENDIMENTO
@@ -4148,7 +4302,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jHorarioInicialTema.setText("00:00");
         jHorarioFinalTema.setText("00:00");
         //        
-        jTema.setEnabled(true);
+        jComboBoxTema.setEnabled(true);
         jHorarioInicialTema.setEnabled(true);
         jHorarioFinalTema.setEnabled(true);
         jComboBoxTurno.setEnabled(true);
@@ -4160,7 +4314,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     }
 
     public void AlterarPlan() {
-        jTema.setEnabled(true);
+        jComboBoxTema.setEnabled(true);
         jHorarioInicialTema.setEnabled(true);
         jHorarioFinalTema.setEnabled(true);
         jComboBoxTurno.setEnabled(true);

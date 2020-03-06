@@ -12,6 +12,9 @@ import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -29,6 +32,8 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
 
     int flag;
     String dataInicial, dataFinal;
+    String pENTRADA = "ENTRADA NA UNIDADE";
+    String pRETORNO = "RETORNO A UNIDADE";
 
     /**
      * Creates new form TelaRelatorioPorIdade
@@ -209,19 +214,17 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                                     + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN VISITASINTERNO "
                                     + "ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita "
-                                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                                    + "INNER JOIN CELAS "
-                                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
-                                    + "WHERE ITENSFAMILIAR.DataEntrada>='" + dataInicial + "' "
-                                    + "AND ITENSFAMILIAR.DataEntrada<='" + dataFinal + "' "
+                                    + "WHERE CONVERT(DATE, DataEntrada) BETWEEN '" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' AND (SituacaoCrc='" + pENTRADA + "' "
+                                    + "OR SituacaoCrc='" + pRETORNO + "' "
                                     + "ORDER BY NomeInternoCrc,DataEntrada");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
                             parametros.put("nomeUsuario", nameUser);
                             parametros.put("descricaoUnidade", descricaoUnidade);
+                            parametros.put("entradaUnidade", pENTRADA);
+                            parametros.put("retornoUnidade", pRETORNO);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
@@ -259,19 +262,17 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                                     + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN VISITASINTERNO "
                                     + "ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita "
-                                    + "INNER JOIN ITENSLOCACAOINTERNO "
-                                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
-                                    + "INNER JOIN CELAS "
-                                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
-                                    + "INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav "
-                                    + "WHERE ITENSFAMILIAR.DataEntrada>='" + dataInicial + "' "
-                                    + "AND ITENSFAMILIAR.DataEntrada<='" + dataFinal + "' "
+                                    + "WHERE CONVERT(DATE, DataEntrada) BETWEEN '" + dataInicial + "' "
+                                    + "AND'" + dataFinal + "' AND (SituacaoCrc='" + pENTRADA + "' "
+                                    + "OR SituacaoCrc='" + pRETORNO + "' "
                                     + "ORDER BY NomeInternoCrc,DataEntrada");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
                             parametros.put("dataFinal", dataFinal);
                             parametros.put("nomeUsuario", nameUser);
                             parametros.put("descricaoUnidade", descricaoUnidade);
+                            parametros.put("entradaUnidade", pENTRADA);
+                            parametros.put("retornoUnidade", pRETORNO);
                             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
                             JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                             JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          

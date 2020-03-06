@@ -284,15 +284,16 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
         File arqSSA = new File("C:\\SysConp\\ConectaSSA.properties");
         //BARREIRAS
         File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
-//        if (arqLF.exists()) {
-//            pesquisarUsuarioUnidadeLF();
-//            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
-//            objUser.setSenha1(jNovaSenha.getText());
-//            objUser.setSenha2(jConfirmaSenha.getText());
-//            control.trocarSenhaUsuarioLF(objUser);
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
-//        }
+        //LAURO DE FREITAS
+        if (arqLF.exists()) {
+            pesquisarUsuarioUnidadeLF();
+            objUser.setIdUsuario(Integer.valueOf(pCODIGO_USUARIO_LF));
+            objUser.setSenha1(jNovaSenha.getText());
+            objUser.setSenha2(jConfirmaSenha.getText());
+            control.trocarSenhaUsuarioLF(objUser);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         // VITORIA DA CONQUISTA
         if (arqVC.exists()) {
             pesquisarUsuarioUnidadeVC();
@@ -336,6 +337,7 @@ public class TelaAvisoMensagemTrocaSenha extends javax.swing.JDialog {
         }
     }
 
+    //LAURO DE FREITAS
     public void pesquisarUsuarioUnidadeLF() {
         conectaLF.abrirConexao();
         try {
