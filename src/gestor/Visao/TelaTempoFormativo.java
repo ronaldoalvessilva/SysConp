@@ -1346,6 +1346,12 @@ public class TelaTempoFormativo extends javax.swing.JInternalFrame {
         } else if (evt.getStateChange() == evt.SELECTED && jComboBoxDescricaoTempoFormativo.getSelectedItem().equals("TEMPO FORMATIVO III - EIXO 4 e 5 (ENSINO MÉDIO)")) {
             jComboBoxEIXO.setSelectedItem("EIXO VI e VII - Ensino Médio");
             jComboBoxGrauInstrucaoEqui.setSelectedItem("Ensino Médio");
+        }else if(evt.getStateChange() == evt.SELECTED && jComboBoxDescricaoTempoFormativo.getSelectedItem().equals("TEMPO DE APRENDER I")){
+             jComboBoxEIXO.setSelectedItem("EIXO I - 1º ano");
+            jComboBoxGrauInstrucaoEqui.setSelectedItem("Ensino Fundamental - 1º ano");
+        }else if(evt.getStateChange() == evt.SELECTED && jComboBoxDescricaoTempoFormativo.getSelectedItem().equals("TEMPO DE APRENDER II")){
+            jComboBoxEIXO.setSelectedItem("EIXO I - 2º ano");
+            jComboBoxGrauInstrucaoEqui.setSelectedItem("Ensino Fundamental - 2º ano");
         }
     }//GEN-LAST:event_jComboBoxDescricaoTempoFormativoItemStateChanged
 

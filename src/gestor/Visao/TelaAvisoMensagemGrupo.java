@@ -305,24 +305,25 @@ public class TelaAvisoMensagemGrupo extends javax.swing.JDialog {
         File arqSSA = new File("C:\\SysConp\\ConectaSSA.properties");
         //BARREIRAS
         File arqBAR = new File("C:\\SysConp\\ConectaBAR.properties");
-//        if (arqLF.exists()) {
-//            pesquisarUsuarioGrupoUnidadeLF();
-//            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_LF)) {
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setIdUsuario(pCODIGO_USUARIO_LF);
-//                objUser.setNomeGrupo(jDescricaoGrupo.getText());
-//                objUser.setIdUserGroup(codUserGroup);
-//                controle.alterarGrupoUsuariosLF(objUser);
-//            } else {
-//                buscarUsuarioBaseLF();
-//                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
-//                objUser.setIdUsuario(pUSUARIO_LF);
-//                objUser.setNomeGrupo(jDescricaoGrupo.getText());
-//                controle.incluirGrupoUsuariosLF(objUser);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
-//        }
+        //LAURO DE FREITAS
+        if (arqLF.exists()) {
+            pesquisarUsuarioGrupoUnidadeLF();
+            if (jDescricaoGrupo.getText().equals(pNOME_USUARIO_GRUPO_LF)) {
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setIdUsuario(pCODIGO_USUARIO_LF);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                objUser.setIdUserGroup(codUserGroup);
+                controle.alterarGrupoUsuariosLF(objUser);
+            } else {
+                buscarUsuarioBaseLF();
+                objUser.setNomeUsuario(jNomeUsuarioCompleto.getText());
+                objUser.setIdUsuario(pUSUARIO_LF);
+                objUser.setNomeGrupo(jDescricaoGrupo.getText());
+                controle.incluirGrupoUsuariosLF(objUser);
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Arquivo de conexão de Lauro de Freitas, não existe. Solicite ajuda do Administrador do Sistema.");
+        }
         // VITORIA DA CONQUISTA
         if (arqVC.exists()) {
             pesquisarUsuarioGrupoUnidadeVC();
