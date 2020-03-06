@@ -12,6 +12,9 @@ import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -200,7 +203,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                     } else {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());                      
                         try {
                             conecta.abrirConexao();
                             String path = "reports/RelatorioEntradaSaidaVisitasInternos.jasper";
@@ -307,5 +310,5 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
-
+   
 }

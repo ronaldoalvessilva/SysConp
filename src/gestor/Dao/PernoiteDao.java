@@ -153,9 +153,9 @@ public class PernoiteDao {
             }
             pst.setString(8, objPernoite.getHoraSaida());
             pst.setBytes(9, objPernoite.getImgemInterno());
-            pst.setString(10, objPernoite.getUsuarioInsert());
-            pst.setString(11, objPernoite.getDataInsert());
-            pst.setString(12, objPernoite.getHoraInsert());
+            pst.setString(10, objPernoite.getUsuarioUp());
+            pst.setString(11, objPernoite.getDataUp());
+            pst.setString(12, objPernoite.getHoraUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
