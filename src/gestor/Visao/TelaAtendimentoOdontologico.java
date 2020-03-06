@@ -4356,38 +4356,39 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
             }
             // EVOLUÇÃO
-            preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO "
-                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM ODONTOGRAMA_EVOLUCAO "
-                        + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
-                        + "ON ODONTOGRAMA_EVOLUCAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
-                        + "WHERE ODONTOGRAMA_EVOLUCAO.IdLanc='" + jIDLanc.getText() + "'");
-                conecta.rs.first();
-                DefaultTableModel pOdontoEvol = (DefaultTableModel) jTabelaOdontogramaEvol.getModel();
-                pOdontoEvol.getDataVector().clear(); // limpa a tabela 
-                do {
-                    dataOdonto = conecta.rs.getString("DataOdontograma");
-                    if (dataOdonto != null) {
-                        String dia = dataOdonto.substring(8, 10);
-                        String mes = dataOdonto.substring(5, 7);
-                        String ano = dataOdonto.substring(0, 4);
-                        dataOdonto = dia + "/" + mes + "/" + ano;
-                    }
-                    statusRelEvol = conecta.rs.getInt("TipoProc");
-                    if (statusRelEvol == 1) {
-                        pRealizadoEvol = "Realizado";
-                    } else if (statusRelEvol == 0) {
-                        pRealizadoEvol = "A realizar";
-                    }
-                    pOdontoEvol.addRow(new Object[]{conecta.rs.getInt("IdProcOdonto"), conecta.rs.getString("DescricaoProcedimento"), conecta.rs.getInt("NumeroDente"), conecta.rs.getString("FacesDente"), dataOdonto, pRealizadoEvol});
-                } while (conecta.rs.next());
-            } catch (SQLException ex) {
-            }
-            // PRESCRIÇÃO          
-            preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA "
-                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+            carregarTabelaOdontogramaEvolucao();
+//            preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO "
+//                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+//            conecta.abrirConexao();
+//            try {
+//                conecta.executaSQL("SELECT * FROM ODONTOGRAMA_EVOLUCAO "
+//                        + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
+//                        + "ON ODONTOGRAMA_EVOLUCAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
+//                        + "WHERE ODONTOGRAMA_EVOLUCAO.IdLanc='" + jIDLanc.getText() + "'");
+//                conecta.rs.first();
+//                DefaultTableModel pOdontoEvol = (DefaultTableModel) jTabelaOdontogramaEvol.getModel();
+//                pOdontoEvol.getDataVector().clear(); // limpa a tabela 
+//                do {
+//                    dataOdonto = conecta.rs.getString("DataOdontograma");
+//                    if (dataOdonto != null) {
+//                        String dia = dataOdonto.substring(8, 10);
+//                        String mes = dataOdonto.substring(5, 7);
+//                        String ano = dataOdonto.substring(0, 4);
+//                        dataOdonto = dia + "/" + mes + "/" + ano;
+//                    }
+//                    statusRelEvol = conecta.rs.getInt("TipoProc");
+//                    if (statusRelEvol == 1) {
+//                        pRealizadoEvol = "Realizado";
+//                    } else if (statusRelEvol == 0) {
+//                        pRealizadoEvol = "A realizar";
+//                    }
+//                    pOdontoEvol.addRow(new Object[]{conecta.rs.getInt("IdProcOdonto"), conecta.rs.getString("DescricaoProcedimento"), conecta.rs.getInt("NumeroDente"), conecta.rs.getString("FacesDente"), dataOdonto, pRealizadoEvol});
+//                } while (conecta.rs.next());
+//            } catch (SQLException ex) {
+//            }
+//            // PRESCRIÇÃO          
+//            preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA "
+//                    + "WHERE IdLanc='" + jIDLanc.getText() + "'");
         }
         conecta.desconecta();
     }//GEN-LAST:event_jTabelaOdontologiaMouseClicked
@@ -4652,6 +4653,7 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
+        carregarTabelaOdontogramaEvolucao();
     }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
 
     private void jBtCancelarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarEvolucaoActionPerformed
@@ -8102,6 +8104,43 @@ public class TelaAtendimentoOdontologico extends javax.swing.JInternalFrame {
             atendido = conecta.rs.getString("Atendido");
         } catch (Exception e) {
         }
+        conecta.desconecta();
+    }
+
+    public void carregarTabelaOdontogramaEvolucao() {
+        preencherItensProcedimentos("SELECT * FROM ODONTOPROCEDIMENTO "
+                + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ODONTOGRAMA_EVOLUCAO "
+                    + "INNER JOIN PROCEDIMENTOS_ODONTOLOGICO "
+                    + "ON ODONTOGRAMA_EVOLUCAO.IdProcOdonto=PROCEDIMENTOS_ODONTOLOGICO.IdProcOdonto "
+                    + "WHERE ODONTOGRAMA_EVOLUCAO.IdLanc='" + jIDLanc.getText() + "'");
+            conecta.rs.first();
+            DefaultTableModel pOdontoEvol = (DefaultTableModel) jTabelaOdontogramaEvol.getModel();
+            pOdontoEvol.getDataVector().clear(); // limpa a tabela 
+            do {
+                dataOdonto = conecta.rs.getString("DataOdontograma");
+                if (dataOdonto != null) {
+                    String dia = dataOdonto.substring(8, 10);
+                    String mes = dataOdonto.substring(5, 7);
+                    String ano = dataOdonto.substring(0, 4);
+                    dataOdonto = dia + "/" + mes + "/" + ano;
+                }
+                statusRelEvol = conecta.rs.getInt("TipoProc");
+                if (statusRelEvol == 1) {
+                    pRealizadoEvol = "Realizado";
+                } else if (statusRelEvol == 0) {
+                    pRealizadoEvol = "A realizar";
+                }
+                pOdontoEvol.addRow(new Object[]{conecta.rs.getInt("IdProcOdonto"), conecta.rs.getString("DescricaoProcedimento"), conecta.rs.getInt("NumeroDente"), conecta.rs.getString("FacesDente"), dataOdonto, pRealizadoEvol});
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+        }
+        // PRESCRIÇÃO          
+        preencherItensPrescricao("SELECT * FROM PRESCRICAO_ODONTOLOGIA "
+                + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+
         conecta.desconecta();
     }
 }

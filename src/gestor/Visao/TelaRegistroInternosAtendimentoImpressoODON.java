@@ -873,8 +873,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        // TODO add your handling code here:  
-        //telaAtendimentoOdontologico = new TelaAtendimentoOdontologico();
+        // TODO add your handling code here:          
         buscarAcessoUsuario(telaRegistroAtenImpODON);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoODON.equals("ADMINISTRADORES") || codigoUserODON == codUserAcessoODON && nomeTelaODON.equals(telaRegistroAtenImpODON) && codGravarODON == 1) {
             verificarInternos();
@@ -937,7 +936,6 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
                         control_ATENE_TV.iniciarAtendimento(objRegAtend);
                         Salvar();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        new TelaAtendimentoOdontologico().setVisible(true); // nao esquecer
                         relatorioAutorizacao();
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Essa autorização ainda não foi liberada, solicite ao responsavel a liberação.");
@@ -947,6 +945,7 @@ public class TelaRegistroInternosAtendimentoImpressoODON extends javax.swing.JIn
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
+        
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void pesquisaInterno() {
