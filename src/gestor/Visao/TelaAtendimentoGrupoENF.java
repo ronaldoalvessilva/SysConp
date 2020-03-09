@@ -6,7 +6,6 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleAtendimentoGrupoEnfermagem;
-import gestor.Controle.ControleAtendimentoGrupoPsicologia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
@@ -101,6 +100,11 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
     //
     public static String idItem;
     String pSIGLA = "EN";
+    //
+    int pPRIMEIRA_DOSE = 0;
+    int pSEGUNDA_DOSE = 0;
+    int pTERCEIRA_DOSE = 0;
+    int pREFORCO_DOSE = 0;
 
     /**
      * Creates new form TelaAtendimentoGrupoPSI
@@ -1013,6 +1017,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
         btGrupo.add(jRBPrimeira);
         jRBPrimeira.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBPrimeira.setSelected(true);
         jRBPrimeira.setText("1ª Dose");
         jRBPrimeira.setEnabled(false);
 
@@ -1102,7 +1107,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel32)
                             .addComponent(jComboBoxTipoVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -2791,6 +2796,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 acao = 4;
                 bloquearTodosCampos();
                 bloquearTodosBotoes();
+                pesquisarPlanejamento();
                 AlterarPlan();
                 statusMov = "Alterou";
                 horaMov = jHoraSistema.getText();
@@ -2870,6 +2876,35 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 objAvalia.setTurno((String) jComboBoxTurno.getSelectedItem());
                 objAvalia.setAtividades(jAtividades.getText());
                 objAvalia.setRecursos(jRecursos.getText());
+                objAvalia.setTipoVacina((String) jComboBoxTipoVacina.getSelectedItem());
+                if (jRBPrimeira.isSelected()) {
+                    pPRIMEIRA_DOSE = 1;
+                    objAvalia.setPrimeiraDose(pPRIMEIRA_DOSE);
+                } else if (!jRBPrimeira.isSelected()) {
+                    pPRIMEIRA_DOSE = 0;
+                    objAvalia.setPrimeiraDose(pPRIMEIRA_DOSE);
+                }
+                if (jRBSegunda.isSelected()) {
+                    pSEGUNDA_DOSE = 1;
+                    objAvalia.setSegundaDose(pSEGUNDA_DOSE);
+                } else if (!jRBSegunda.isSelected()) {
+                    pSEGUNDA_DOSE = 0;
+                    objAvalia.setSegundaDose(pSEGUNDA_DOSE);
+                }
+                if (jRBTerceira.isSelected()) {
+                    pTERCEIRA_DOSE = 1;
+                    objAvalia.setTerceiraDose(pTERCEIRA_DOSE);
+                } else if (!jRBTerceira.isSelected()) {
+                    pTERCEIRA_DOSE = 0;
+                    objAvalia.setTerceiraDose(pTERCEIRA_DOSE);
+                }
+                if (jRBReforco.isSelected()) {
+                    pREFORCO_DOSE = 1;
+                    objAvalia.setDoseReforco(pREFORCO_DOSE);
+                } else if (!jRBReforco.isSelected()) {
+                    pREFORCO_DOSE = 0;
+                    objAvalia.setDoseReforco(pREFORCO_DOSE);
+                }
                 if (acao == 3) {
                     // log de usuario
                     objAvalia.setUsuarioInsert(nameUser);
@@ -2910,6 +2945,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
+            acao = 0;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
@@ -2935,12 +2971,14 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
             //
             bloquearTodosBotoes();
             bloquearTodosCampos();
+            limparCamposPlanejamento();
             jBtNovoPlan.setEnabled(true);
             jBtAlterarPlan.setEnabled(true);
             jBtExcluirPlan.setEnabled(true);
             jBtCancelarPlan.setEnabled(true);
             jBtAuditoriaPlan.setEnabled(true);
             jComboBoxTema.removeAllItems();
+            jComboBoxTipoVacina.removeAllItems();
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM "
@@ -2951,11 +2989,36 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
                 conecta.rs.first();
                 jCodigoTema.setText(conecta.rs.getString("IdItemPlanEnf"));
                 jComboBoxTema.addItem(conecta.rs.getString("Tema"));
+                jComboBoxTipoVacina.addItem(conecta.rs.getString("TipoVacina"));
                 jHorarioInicialTema.setText(conecta.rs.getString("HoraInicio"));
                 jHorarioFinalTema.setText(conecta.rs.getString("HoraTermino"));
                 jComboBoxTurno.setSelectedItem(conecta.rs.getString("Turno"));
                 jAtividades.setText(conecta.rs.getString("Atividades"));
                 jRecursos.setText(conecta.rs.getString("Recursos"));
+                pPRIMEIRA_DOSE = conecta.rs.getInt("PD");
+                if (pPRIMEIRA_DOSE == 1) {
+                    jRBPrimeira.setSelected(true);
+                } else {
+                    jRBPrimeira.setSelected(!true);
+                }
+                pSEGUNDA_DOSE = conecta.rs.getInt("SD");
+                if (pSEGUNDA_DOSE == 1) {
+                    jRBSegunda.setSelected(true);
+                } else {
+                    jRBSegunda.setSelected(!true);
+                }
+                pTERCEIRA_DOSE = conecta.rs.getInt("TD");
+                if (pTERCEIRA_DOSE == 1) {
+                    jRBTerceira.setSelected(true);
+                } else {
+                    jRBTerceira.setSelected(!true);
+                }
+                pREFORCO_DOSE = conecta.rs.getInt("RD");
+                if (pREFORCO_DOSE == 1) {
+                    jRBReforco.setSelected(true);
+                } else {
+                    jRBReforco.setSelected(!true);
+                }
             } catch (Exception e) {
             }
             conecta.desconecta();
@@ -3740,12 +3803,23 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
 
     private void jComboBoxTemaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTemaItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == evt.SELECTED && jComboBoxTema.getSelectedItem().equals("Vacinas")) {
-            pesquisarPlanejamento();
+        if (evt.getStateChange() == evt.SELECTED
+                && jComboBoxTema.getSelectedItem().equals("Vacinas")
+                && acao == 3
+                || evt.getStateChange() == evt.SELECTED
+                && jComboBoxTema.getSelectedItem().equals("Vacinas")
+                && acao == 4) {
             opcaoVacinas(true);
             pesquisarTipoVacina();
-        } else {
+        } else if (evt.getStateChange() == evt.SELECTED 
+                && !jComboBoxTema.getSelectedItem().equals("Vacinas") 
+                && acao == 3 
+                || evt.getStateChange() == evt.SELECTED && 
+                !jComboBoxTema.getSelectedItem().equals("Vacinas") 
+                && acao == 4) {
             opcaoVacinas(!true);
+            jComboBoxTipoVacina.addItem("Selecione...");
+            btGrupo.clearSelection();
         }
     }//GEN-LAST:event_jComboBoxTemaItemStateChanged
 
@@ -4047,6 +4121,11 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jCodigoTema.setEnabled(!true);
         jComboBoxTurno.setEnabled(!true);
         jComboBoxTema.setEnabled(!true);
+        jComboBoxTipoVacina.setEnabled(!true);
+        jRBPrimeira.setEnabled(!true);
+        jRBSegunda.setEnabled(!true);
+        jRBTerceira.setEnabled(!true);
+        jRBReforco.setEnabled(!true);
         jHorarioInicialTema.setEnabled(!true);
         jHorarioFinalTema.setEnabled(!true);
         jAtividades.setEnabled(!true);
@@ -4116,6 +4195,8 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         jCodigoTema.setText("");
         jComboBoxTurno.setSelectedItem("Selecione...");
         jComboBoxTema.setSelectedItem("Selecione...");
+        jComboBoxTipoVacina.setSelectedItem("Selecione...");
+        btGrupo.clearSelection();
         jHorarioInicialTema.setText("");
         jHorarioFinalTema.setText("");
         jAtividades.setText("");
@@ -4244,7 +4325,7 @@ public class TelaAtendimentoGrupoENF extends javax.swing.JInternalFrame {
         }
         conecta.desconecta();
     }
-    
+
     public void pesquisarTipoVacina() {
         jComboBoxTipoVacina.removeAllItems();
         conecta.abrirConexao();

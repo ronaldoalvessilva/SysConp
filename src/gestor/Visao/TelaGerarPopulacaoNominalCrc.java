@@ -10,10 +10,12 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Dao.listarInternosPopulacaoNominal;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import static java.lang.Thread.sleep;
 import java.sql.SQLException;
@@ -21,11 +23,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,6 +40,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    listarInternosPopulacaoNominal listaDAO = new listarInternosPopulacaoNominal();
     ControleGerarPopulacao control = new ControleGerarPopulacao();
     GerarPopNominal objPopNom = new GerarPopNominal();
     ControleMovInternos controlMov = new ControleMovInternos();  // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
@@ -58,6 +65,9 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     String nrDocumentoRetorno = ""; //Número documeto vazio para gerar o aviso de evasão
     String evadido = "";
     int count = 0;
+    int pTOTAL_REGISTROS = 0;
+    public static int qtdInternosPop = 0;
+    String idInterno;
 
     /**
      * Creates new form TelaGerarValeTransporte
@@ -79,22 +89,16 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBtSalvar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaPopulacaoAtual = new javax.swing.JTable();
+        jTabelaDestino = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaPrevisaoPopulacaoInternos = new javax.swing.JTable();
+        jTabelaOrigem = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jCheckBoxBuscarTodos = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jDataLancamento = new com.toedter.calendar.JDateChooser();
-        jBtSair = new javax.swing.JButton();
-        jBtEnviarTodos = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         lblCarregando = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -103,94 +107,95 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jtotalRegistros2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jBtSelecionarUm = new javax.swing.JButton();
+        jBtSelecionarTodos = new javax.swing.JButton();
+        jBtRetornarTodos = new javax.swing.JButton();
+        jBtRetornarUm = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jContador = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jBtEnviarTodos = new javax.swing.JButton();
+        jBtSalvar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Gerar População Nominal de Internos Por Data :::...");
 
-        jBtSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSalvar.setForeground(new java.awt.Color(0, 204, 51));
-        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
-        jBtSalvar.setEnabled(false);
-        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarActionPerformed(evt);
-            }
-        });
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "População Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "População Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
-
-        jTabelaPopulacaoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaPopulacaoAtual.setForeground(new java.awt.Color(0, 0, 255));
-        jTabelaPopulacaoAtual.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaDestino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDestino.setForeground(new java.awt.Color(0, 0, 255));
+        jTabelaDestino.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome do Interno"
+                "Código", "CNC", "Nome do Interno"
             }
         ));
-        jTabelaPopulacaoAtual.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTabelaPopulacaoAtual);
-        if (jTabelaPopulacaoAtual.getColumnModel().getColumnCount() > 0) {
-            jTabelaPopulacaoAtual.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPopulacaoAtual.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPopulacaoAtual.getColumnModel().getColumn(1).setMinWidth(320);
-            jTabelaPopulacaoAtual.getColumnModel().getColumn(1).setMaxWidth(320);
+        jTabelaDestino.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTabelaDestino);
+        if (jTabelaDestino.getColumnModel().getColumnCount() > 0) {
+            jTabelaDestino.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaDestino.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaDestino.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaDestino.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaDestino.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaDestino.getColumnModel().getColumn(2).setMaxWidth(350);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Internos na Unidade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista de Internos na Unidade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTabelaPrevisaoPopulacaoInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaPrevisaoPopulacaoInternos.setForeground(new java.awt.Color(255, 0, 0));
-        jTabelaPrevisaoPopulacaoInternos.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaOrigem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaOrigem.setForeground(new java.awt.Color(255, 0, 0));
+        jTabelaOrigem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome Interno"
+                "Código", "CNC", "Nome Interno"
             }
         ));
-        jScrollPane1.setViewportView(jTabelaPrevisaoPopulacaoInternos);
-        if (jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setMaxWidth(50);
+        jScrollPane1.setViewportView(jTabelaOrigem);
+        if (jTabelaOrigem.getColumnModel().getColumnCount() > 0) {
+            jTabelaOrigem.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaOrigem.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaOrigem.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaOrigem.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaOrigem.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaOrigem.getColumnModel().getColumn(2).setMaxWidth(350);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Polução dos Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Dados da Polução dos Internos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jCheckBoxBuscarTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jCheckBoxBuscarTodos.setText("Buscar Internos");
@@ -213,7 +218,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBoxBuscarTodos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,39 +231,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                     .addComponent(jCheckBoxBuscarTodos)
                     .addComponent(jLabel3)
                     .addComponent(jDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
-
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
-
-        jBtEnviarTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviarTodos.setForeground(new java.awt.Color(255, 0, 0));
-        jBtEnviarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7854_16x16.png"))); // NOI18N
-        jBtEnviarTodos.setText("Selecionar Internos");
-        jBtEnviarTodos.setEnabled(false);
-        jBtEnviarTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEnviarTodosActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Essa tarefa só poderá ser executada uma vez por data. Caso seja executado mais de uma vez na mesma data, irá truncar a ");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("população. Dúvidas, solicite apoio do Administrador do Sistema.");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel8.setText("ATENÇÃO: ");
 
         jProgressBar1.setStringPainted(true);
 
@@ -266,7 +240,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         lblCarregando.setForeground(new java.awt.Color(204, 0, 0));
         lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -295,7 +269,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jtotalRegistros});
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jtotalRegistros2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jtotalRegistros2.setForeground(new java.awt.Color(0, 0, 255));
@@ -310,7 +284,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 200, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -318,11 +292,205 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 2, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jBtSelecionarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131515_16.png"))); // NOI18N
+        jBtSelecionarUm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionarUmActionPerformed(evt);
+            }
+        });
+
+        jBtSelecionarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131115_16.png"))); // NOI18N
+        jBtSelecionarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionarTodosActionPerformed(evt);
+            }
+        });
+
+        jBtRetornarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131210_16.png"))); // NOI18N
+        jBtRetornarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRetornarTodosActionPerformed(evt);
+            }
+        });
+
+        jBtRetornarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131526_16.png"))); // NOI18N
+        jBtRetornarUm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRetornarUmActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jBtSelecionarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtRetornarTodos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jBtRetornarUm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtSelecionarUm, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtRetornarTodos, jBtRetornarUm, jBtSelecionarTodos, jBtSelecionarUm});
+
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(jBtSelecionarUm, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSelecionarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRetornarTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRetornarUm)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtRetornarTodos, jBtRetornarUm, jBtSelecionarTodos, jBtSelecionarUm});
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel8.setText("ATENÇÃO: ");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Essa tarefa só poderá ser executada uma vez por data. Caso seja executado mais de uma vez na mesma data, irá truncar a população. ");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Dúvidas, solicite apoio do Administrador do Sistema.");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel7))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jContador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jContador.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jContador.setText("0");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Total de Registros:");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jContador, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(jContador, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jBtEnviarTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtEnviarTodos.setForeground(new java.awt.Color(255, 0, 0));
+        jBtEnviarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7854_16x16.png"))); // NOI18N
+        jBtEnviarTodos.setText("Selecionar Internos");
+        jBtEnviarTodos.setEnabled(false);
+        jBtEnviarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtEnviarTodosActionPerformed(evt);
+            }
+        });
+
+        jBtSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtSalvar.setForeground(new java.awt.Color(0, 204, 51));
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setText("Gravar");
+        jBtSalvar.setEnabled(false);
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(jBtEnviarTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addContainerGap(155, Short.MAX_VALUE))
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
+
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtEnviarTodos)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtSair)
+                        .addComponent(jBtSalvar)))
+                .addGap(3, 3, 3))
+        );
+
+        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -332,96 +500,82 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 12, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(221, 221, 221)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBtEnviarTodos)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtSalvar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtSair)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtSalvar)
-                        .addComponent(jBtSair))
-                    .addComponent(jBtEnviarTodos))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(944, 944, 944)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, 4, Short.MAX_VALUE)
+                .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
-
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel3});
 
-        setBounds(250, 10, 812, 475);
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel10, jPanel9});
+
+        setBounds(250, 10, 885, 464);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarTodosActionPerformed
         // TODO add your handling code here  
-        jTabelaPopulacaoAtual.setModel(jTabelaPrevisaoPopulacaoInternos.getModel());
+        jTabelaDestino.setModel(jTabelaOrigem.getModel());
         String[] Colunas = new String[]{"Código", "Nome do Interno"};
         //
-        jTabelaPopulacaoAtual.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPopulacaoAtual.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPopulacaoAtual.getColumnModel().getColumn(1).setPreferredWidth(320);
-        jTabelaPopulacaoAtual.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPopulacaoAtual.getTableHeader().setReorderingAllowed(false);
-        jTabelaPopulacaoAtual.setAutoResizeMode(jTabelaPopulacaoAtual.AUTO_RESIZE_OFF);
-        jTabelaPopulacaoAtual.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaDestino.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaDestino.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaDestino.getColumnModel().getColumn(1).setPreferredWidth(320);
+        jTabelaDestino.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaDestino.getTableHeader().setReorderingAllowed(false);
+        jTabelaDestino.setAutoResizeMode(jTabelaDestino.AUTO_RESIZE_OFF);
+        jTabelaDestino.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaAtual();
         // Limpa a tabela caso selecione todos os registros 
-        jTabelaPrevisaoPopulacaoInternos.setVisible(!true);
+        jTabelaOrigem.setVisible(!true);
         jBtSalvar.setEnabled(true);
         jDataLancamento.setEnabled(true);
         jtotalRegistros2.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela               
@@ -432,51 +586,112 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
-        verificarPopulacao(); // Verificar se a população já foi gerada pelo usuário.
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
-        if (dataBanco != null) {
-            dataPopulacao = formatoAmerica.format(dataBanco);
-        }
-        if (dataPopulacao != null && dataGeracao.compareTo(dataPopulacao) <= 0) {
-            JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
-        } else {
-            if (jDataLancamento.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data da População.");
-                jDataLancamento.requestFocus();
-                jDataLancamento.setBackground(Color.red);
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            verificarPopulacaoLinux(); // Verificar se a população já foi gerada pelo usuário.
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyy/MM/dd");
+            dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
+            if (dataBanco != null) {
+                dataPopulacao = formatoAmerica.format(dataBanco);
+            }
+            if (dataPopulacao != null && dataGeracao.compareTo(dataPopulacao) <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
             } else {
-                int resposta = JOptionPane.showConfirmDialog(this, "Antes de realizar essa tarefa, faça todas as entradas e saidas dos internos.\nTem certeza que deseja gerar a população diária dos internos?", "Confirmação",
-                        JOptionPane.YES_NO_OPTION);
-                if (resposta == JOptionPane.YES_OPTION) {
-                    jProgressBar1.setVisible(true);
-                    jBtEnviarTodos.setEnabled(!true);
-                    jBtSalvar.setEnabled(!true);
-                    jBtSair.setEnabled(!true);
-                    jCheckBoxBuscarTodos.setEnabled(!true);
-                    jDataLancamento.setEnabled(!true);
-                    new Thread() {
-                        public void run() {
-                            try {
-                                sleep(100);
-                            } catch (InterruptedException ex) {
-                            }
-                            for (int i = 0; i < jTabelaPopulacaoAtual.getRowCount(); i++) {
-                                jProgressBar1.setValue(i);
-                                objPopNom.setDataLanc(jDataLancamento.getDate());
-                                objPopNom.setIdInternoCrc((int) jTabelaPopulacaoAtual.getValueAt(i, 0));
-                                control.incluirPopulacaoNominal(objPopNom);
-                                if (jProgressBar1.getValue() <= 15) {
-                                    lblCarregando.setText("Carregando registros, Aguarde...");
-                                } else if (jProgressBar1.getValue() <= 40) {
-                                    lblCarregando.setText("Iniciando transferência de registros, Aguarde...");
-                                } else if (jProgressBar1.getValue() == 100 && count == jTabelaPopulacaoAtual.getRowCount()) {
-                                    lblCarregando.setText("População gerado com sucesso !!!");
-                                    jBtSair.setEnabled(true);
+                if (jDataLancamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data da População.");
+                    jDataLancamento.requestFocus();
+                    jDataLancamento.setBackground(Color.red);
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Antes de realizar essa tarefa, faça todas as entradas e saidas dos internos.\nTem certeza que deseja gerar a população diária dos internos?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        jProgressBar1.setVisible(true);
+                        jBtEnviarTodos.setEnabled(!true);
+                        jBtSalvar.setEnabled(!true);
+                        jBtSair.setEnabled(!true);
+                        jCheckBoxBuscarTodos.setEnabled(!true);
+                        jDataLancamento.setEnabled(!true);
+                        new Thread() {
+                            public void run() {
+                                try {
+                                    sleep(100);
+                                } catch (InterruptedException ex) {
+                                }
+                                for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
+                                    pTOTAL_REGISTROS = i + 1;
+                                    jProgressBar1.setValue(i);
+                                    objPopNom.setDataLanc(jDataLancamento.getDate());
+                                    objPopNom.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
+                                    control.incluirPopulacaoNominal(objPopNom);
+                                    if (jProgressBar1.getValue() <= 15) {
+                                        lblCarregando.setText("Carregando registros, Aguarde...");
+                                    } else if (jProgressBar1.getValue() <= 40) {
+                                        lblCarregando.setText("Iniciando transferência de registros, Aguarde...");
+                                    } else if (jProgressBar1.getValue() <= 60) {
+                                        lblCarregando.setText("processando, Aguarde...");
+                                    } else if (jProgressBar1.getValue() <= 80) {
+                                        lblCarregando.setText("Preparando para finalizar, Aguarde...");
+                                    } else if (jProgressBar1.getValue() == 100 && count == pTOTAL_REGISTROS) {
+                                        lblCarregando.setText("População gerado com sucesso !!!");
+                                        jBtSair.setEnabled(true);
+                                    }
+                                    jContador.setText(Integer.toString(pTOTAL_REGISTROS));
                                 }
                             }
-                        }
-                    }.start();
+                        }.start();
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            verificarPopulacaoWindows(); // Verificar se a população já foi gerada pelo usuário.
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
+            if (dataBanco != null) {
+                dataPopulacao = formatoAmerica.format(dataBanco);
+            }
+            if (dataPopulacao != null && dataGeracao.compareTo(dataPopulacao) <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "População já foi cadastrada.");
+            } else {
+                if (jDataLancamento.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data da População.");
+                    jDataLancamento.requestFocus();
+                    jDataLancamento.setBackground(Color.red);
+                } else {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Antes de realizar essa tarefa, faça todas as entradas e saidas dos internos.\nTem certeza que deseja gerar a população diária dos internos?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        jProgressBar1.setVisible(true);
+                        jBtEnviarTodos.setEnabled(!true);
+                        jBtSalvar.setEnabled(!true);
+                        jBtSair.setEnabled(!true);
+                        jCheckBoxBuscarTodos.setEnabled(!true);
+                        jDataLancamento.setEnabled(!true);
+                        new Thread() {
+                            public void run() {
+                                try {
+                                    sleep(100);
+                                } catch (InterruptedException ex) {
+                                }
+                                for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
+                                    pTOTAL_REGISTROS = i + 1;
+                                    jProgressBar1.setValue(i);
+                                    objPopNom.setDataLanc(jDataLancamento.getDate());
+                                    objPopNom.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
+                                    control.incluirPopulacaoNominal(objPopNom);
+                                    if (jProgressBar1.getValue() <= 15) {
+                                        lblCarregando.setText("Carregando registros, Aguarde...");
+                                    } else if (jProgressBar1.getValue() <= 40) {
+                                        lblCarregando.setText("Iniciando transferência de registros, Aguarde...");
+                                    } else if (jProgressBar1.getValue() == 100 && count == pTOTAL_REGISTROS) {
+                                        lblCarregando.setText("População gerado com sucesso !!!");
+                                        jBtSair.setEnabled(true);
+                                    }
+                                    jContador.setText(Integer.toString(pTOTAL_REGISTROS));
+                                }
+                            }
+                        }.start();
+                    }
                 }
             }
         }
@@ -491,45 +706,261 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaPrevisaoPopulacaoInternos.setVisible(true);
-            this.preencherTabelaPrevisaoPopulacaoInternos("SELECT * FROM PRONTUARIOSCRC "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR SituacaoCrc='" + situacaoRet + "' "
-                    + "OR SituacaoCrc='" + situacaoTmp + "'");
-            jDataLancamento.setEnabled(true);
-            jBtEnviarTodos.setEnabled(true);
-        } else {
-            jtotalRegistros.setText("");
-            limparTabela();
-            jDataLancamento.setEnabled(!true);
-            jBtEnviarTodos.setEnabled(!true);
+//        if (evt.getStateChange() == evt.SELECTED) {
+//            jTabelaPrevisaoPopulacaoInternos.setVisible(true);
+//            this.preencherTabelaPrevisaoPopulacaoInternos("SELECT * FROM PRONTUARIOSCRC "
+//                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+//                    + "OR SituacaoCrc='" + situacaoRet + "' "
+//                    + "OR SituacaoCrc='" + situacaoTmp + "'");
+//            jDataLancamento.setEnabled(true);
+//            jBtEnviarTodos.setEnabled(true);
+//        } else {
+//            jtotalRegistros.setText("");
+//            limparTabela();
+//            jDataLancamento.setEnabled(!true);
+//            jBtEnviarTodos.setEnabled(!true);
+//        }
+
+        jDataLancamento.setEnabled(true);
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+        GerarPopNominal p = new GerarPopNominal();
+        try {
+            for (GerarPopNominal pp : listaDAO.read()) {
+                jtotalRegistros.setText(Integer.toString(qtdInternosPop)); // Converter inteiro em string para exibir na tela 
+                dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxBuscarTodosItemStateChanged
+
+    private void jBtSelecionarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmActionPerformed
+        // TODO add your handling code here:
+        Integer row = jTabelaDestino.getRowCount();
+        boolean encontrou = !true;
+        if (jTabelaOrigem.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
+            if (row == 0) {
+//                count2 = count2 + 1;
+//                qtdInternos = qtdInternos - 1;
+//                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+//                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+            } else if (row != 0) {
+//                qtdTotal = count2 + qtdInternosKD;
+//                jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+            }
+            //Pega os models das listas, para fazer as inserções e remoções
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+            Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            //Adiciona no destino e remove da origem
+            modelDestino.addRow(obj);
+            modelOrigem.removeRow(jTabelaOrigem.getSelectedRow());
+        } else if (jTabelaOrigem.getSelectedRowCount() != 0 && row != 0) {
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+            // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+            for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
+                String codInter = "" + jTabelaDestino.getValueAt(i, 0).toString();
+                if (idInterno.equals(codInter)) {
+                    encontrou = true;
+                    break;
+                } else {
+                    encontrou = !true;
+                }
+            }
+            if (encontrou == true) {
+                JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro.");
+            } else if (encontrou == !true) {
+//                count2 = count2 + 1;
+//                qtdInternos = qtdInternos - 1;
+//                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+//                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                //Adiciona no destino e remove da origem
+                Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaOrigem.getSelectedRow());
+            }
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+            //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                    
+        }
+    }//GEN-LAST:event_jBtSelecionarUmActionPerformed
+
+    private void jBtSelecionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        GerarPopNominal p = new GerarPopNominal();
+        try {
+            for (GerarPopNominal pp : listaDAO.read()) {
+                jtotalRegistros.setText(Integer.toString(qtdInternosPop));
+                jtotalRegistros2.setText(jtotalRegistros.getText()); // Converter inteiro em string para exibir na tela     
+//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+                dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarPopulacaoNominalCrc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(i);
+                tblRemove.setRowCount(0);
+                if (tblRemove.getRowCount() < i) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                }
+            }
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA
+        jtotalRegistros.setText("0");
+        //KIT SEMESTRAL
+    }//GEN-LAST:event_jBtSelecionarTodosActionPerformed
+
+    private void jBtRetornarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarTodosActionPerformed
+        // TODO add your handling code here:
+//        Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
+//        Integer row0 = jTabelaInternos.getModel().getRowCount();
+//        if (rows != 0) {
+//            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
+//                if (row0 == 0) {
+//                    qtdInternos = 0;
+//                    qtdInternos++;
+//                    count2 = 0;
+//                    count2 = qtdTotal - 1;
+//                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+//                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+//                } else if (row0 != 0) {
+//                    qtdInternos++;
+//                    count2 = count2 - 1;
+//                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+//                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+//                }
+//                //Pega os models das listas, para fazer as inserções e remoções
+//                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
+//                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
+//                //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+//                Object[] obj = {jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 0), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 1), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 2)};
+//                // BARRA DE ROLAGEM HORIZONTAL
+//                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+//                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+//                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+//                //
+//                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+//                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+//                //Adiciona no destino e remove da origem
+//                modelDestino.addRow(obj);
+//                modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+//                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.            
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
+//        }
+    }//GEN-LAST:event_jBtRetornarTodosActionPerformed
+
+    private void jBtRetornarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarUmActionPerformed
+        // TODO add your handling code here:
+//        if (rows != 0) {
+//                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
+//                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
+//                try {
+//                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+//                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
+//                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
+//                        // BARRA DE ROLAGEM HORIZONTAL
+//                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+//                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+//                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+//                        //
+//                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+//                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+//
+//                    }
+//                } catch (Exception ex) {
+//                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
+//                            .getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            // APAGAR DADOS DA TABELA
+//            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
+//                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
+//            }
+//            // LIMPAR O TOTALIZADOR DA TABELA
+//            jtotalInternosSelecionados.setText("");
+//            //KIT ANUAL
+    }//GEN-LAST:event_jBtRetornarUmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtEnviarTodos;
+    private javax.swing.JButton jBtRetornarTodos;
+    private javax.swing.JButton jBtRetornarUm;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
+    private javax.swing.JButton jBtSelecionarTodos;
+    private javax.swing.JButton jBtSelecionarUm;
     private javax.swing.JCheckBox jCheckBoxBuscarTodos;
+    private javax.swing.JLabel jContador;
     public static com.toedter.calendar.JDateChooser jDataLancamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    public static javax.swing.JTable jTabelaPopulacaoAtual;
-    private javax.swing.JTable jTabelaPrevisaoPopulacaoInternos;
+    public static javax.swing.JTable jTabelaDestino;
+    private javax.swing.JTable jTabelaOrigem;
     private javax.swing.JLabel jtotalRegistros;
     private javax.swing.JLabel jtotalRegistros2;
     private javax.swing.JLabel lblCarregando;
@@ -554,14 +985,14 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPrevisaoPopulacaoInternos.setModel(modelo);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(1).setPreferredWidth(310);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPrevisaoPopulacaoInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaPrevisaoPopulacaoInternos.setAutoResizeMode(jTabelaPrevisaoPopulacaoInternos.AUTO_RESIZE_OFF);
-        jTabelaPrevisaoPopulacaoInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaOrigem.setModel(modelo);
+        jTabelaOrigem.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOrigem.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOrigem.getColumnModel().getColumn(1).setPreferredWidth(310);
+        jTabelaOrigem.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOrigem.getTableHeader().setReorderingAllowed(false);
+        jTabelaOrigem.setAutoResizeMode(jTabelaOrigem.AUTO_RESIZE_OFF);
+        jTabelaOrigem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         alinharCamposTabelaPrevisao();
         conecta.desconecta();
     }
@@ -570,14 +1001,14 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPrevisaoPopulacaoInternos.setModel(modelo);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(1).setPreferredWidth(310);
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPrevisaoPopulacaoInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaPrevisaoPopulacaoInternos.setAutoResizeMode(jTabelaPrevisaoPopulacaoInternos.AUTO_RESIZE_OFF);
-        jTabelaPrevisaoPopulacaoInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTabelaOrigem.setModel(modelo);
+        jTabelaOrigem.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOrigem.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOrigem.getColumnModel().getColumn(1).setPreferredWidth(310);
+        jTabelaOrigem.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOrigem.getTableHeader().setReorderingAllowed(false);
+        jTabelaOrigem.setAutoResizeMode(jTabelaOrigem.AUTO_RESIZE_OFF);
+        jTabelaOrigem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     public void alinharCamposTabelaPrevisao() {
@@ -588,7 +1019,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaPrevisaoPopulacaoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void alinharCamposTabelaAtual() {
@@ -599,11 +1030,23 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaPopulacaoAtual.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
-    public void verificarPopulacao() {
+    public void verificarPopulacaoWindows() {
         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM POPULACAOINTERNOS_CRC WHERE DataPop='" + dataGeracao + "'");
+            conecta.rs.first();
+            dataBanco = conecta.rs.getDate("DataPop");
+        } catch (Exception e) {
+        }
+    }
+
+    public void verificarPopulacaoLinux() {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
         dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
         conecta.abrirConexao();
         try {

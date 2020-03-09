@@ -96,7 +96,7 @@ public class ControleAtendimentoGrupoEnfermagem {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM (IdAtGrupoEnf,Tema,HoraInicio,HoraTermino,Turno,Atividades,Recursos,"
-                    + "UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?)");
+                    + "UsuarioInsert,DataInsert,HorarioInsert,TipoVacina,PD,SD,TD,RD) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTema());
             pst.setString(3, objAvalia.getHoraInicio());
@@ -107,6 +107,11 @@ public class ControleAtendimentoGrupoEnfermagem {
             pst.setString(8, objAvalia.getUsuarioInsert());
             pst.setString(9, objAvalia.getDataInsert());
             pst.setString(10, objAvalia.getHorarioInsert());
+            pst.setString(11, objAvalia.getTipoVacina());
+            pst.setInt(12, objAvalia.getPrimeiraDose());
+            pst.setInt(13, objAvalia.getSegundaDose());
+            pst.setInt(14, objAvalia.getTerceiraDose());
+            pst.setInt(15, objAvalia.getDoseReforco());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
@@ -119,7 +124,7 @@ public class ControleAtendimentoGrupoEnfermagem {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE PLANEJAMENTO_ATENDIMENTO_GRUPO_ENFERMAGEM SET IdAtGrupoEnf=?,Tema=?,HoraInicio=?,HoraTermino=?,Turno=?,Atividades=?,Recursos=?,"
-                    + "UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItemPlanEnf='" + objAvalia.getIdItemPlan() + "'");
+                    + "UsuarioUp=?,DataUp=?,HorarioUp=?,TipoVacina=?,PD=?,SD=?,TD=?,RD=? WHERE IdItemPlanEnf='" + objAvalia.getIdItemPlan() + "'");
             pst.setInt(1, objAvalia.getIdAtGrupoPsi());
             pst.setString(2, objAvalia.getTema());
             pst.setString(3, objAvalia.getHoraInicio());
@@ -130,6 +135,11 @@ public class ControleAtendimentoGrupoEnfermagem {
             pst.setString(8, objAvalia.getUsuarioUp());
             pst.setString(9, objAvalia.getDataUp());
             pst.setString(10, objAvalia.getHorarioUp());
+            pst.setString(11, objAvalia.getTipoVacina());
+            pst.setInt(12, objAvalia.getPrimeiraDose());
+            pst.setInt(13, objAvalia.getSegundaDose());
+            pst.setInt(14, objAvalia.getTerceiraDose());
+            pst.setInt(15, objAvalia.getDoseReforco());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);

@@ -37,6 +37,11 @@ public class AtividadesGrupoPsicologia {
     private String atividades;
     private String recursos;
     private String textoAtendimento;
+    private String tipoVacina;
+    private int primeiraDose;
+    private int segundaDose;
+    private int terceiraDose;
+    private int doseReforco;
     // ABA PARTICIPANTES
     private int idItemPart;
     private int idInternoCrc;
@@ -53,12 +58,12 @@ public class AtividadesGrupoPsicologia {
     private String horarioInsert;
     private String usuarioUp;
     private String dataUp;
-    private String horarioUp;
+    private String horarioUp;   
 
     public AtividadesGrupoPsicologia() {
     }
 
-    public AtividadesGrupoPsicologia(int idAtGrupoPsi, String statusAtendGrupo, Date dataAtend, String responsavel, int idPav, int idCela, String descricaoPavilhao, String descricaoCela, String ambiente, String horaioInicio, String horarioTermino, String localAtividade, String grupoAtividade, String observacao, int idItemPlan, String tema, String horaInicio, String horaTermino, String turno, String atividades, String recursos, String textoAtendimento, int idItemPart, int idInternoCrc, String nomeInternoCrc, int idItemAvag, String textoAvalaiacaoGrupo, int idItemAvai, String textoAvalaiacaoInd, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public AtividadesGrupoPsicologia(int idAtGrupoPsi, String statusAtendGrupo, Date dataAtend, String responsavel, int idPav, int idCela, String descricaoPavilhao, String descricaoCela, String ambiente, String horaioInicio, String horarioTermino, String localAtividade, String grupoAtividade, String observacao, int idItemPlan, String tema, String horaInicio, String horaTermino, String turno, String atividades, String recursos, String textoAtendimento, String tipoVacina, int primeiraDose, int segundaDose, int terceiraDose, int doseReforco, int idItemPart, int idInternoCrc, String nomeInternoCrc, int idItemAvag, String textoAvalaiacaoGrupo, int idItemAvai, String textoAvalaiacaoInd, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idAtGrupoPsi = idAtGrupoPsi;
         this.statusAtendGrupo = statusAtendGrupo;
         this.dataAtend = dataAtend;
@@ -81,6 +86,11 @@ public class AtividadesGrupoPsicologia {
         this.atividades = atividades;
         this.recursos = recursos;
         this.textoAtendimento = textoAtendimento;
+        this.tipoVacina = tipoVacina;
+        this.primeiraDose = primeiraDose;
+        this.segundaDose = segundaDose;
+        this.terceiraDose = terceiraDose;
+        this.doseReforco = doseReforco;
         this.idItemPart = idItemPart;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
@@ -402,6 +412,76 @@ public class AtividadesGrupoPsicologia {
      */
     public void setTextoAtendimento(String textoAtendimento) {
         this.textoAtendimento = textoAtendimento;
+    }
+
+    /**
+     * @return the tipoVacina
+     */
+    public String getTipoVacina() {
+        return tipoVacina;
+    }
+
+    /**
+     * @param tipoVacina the tipoVacina to set
+     */
+    public void setTipoVacina(String tipoVacina) {
+        this.tipoVacina = tipoVacina;
+    }
+
+    /**
+     * @return the primeiraDose
+     */
+    public int getPrimeiraDose() {
+        return primeiraDose;
+    }
+
+    /**
+     * @param primeiraDose the primeiraDose to set
+     */
+    public void setPrimeiraDose(int primeiraDose) {
+        this.primeiraDose = primeiraDose;
+    }
+
+    /**
+     * @return the segundaDose
+     */
+    public int getSegundaDose() {
+        return segundaDose;
+    }
+
+    /**
+     * @param segundaDose the segundaDose to set
+     */
+    public void setSegundaDose(int segundaDose) {
+        this.segundaDose = segundaDose;
+    }
+
+    /**
+     * @return the terceiraDose
+     */
+    public int getTerceiraDose() {
+        return terceiraDose;
+    }
+
+    /**
+     * @param terceiraDose the terceiraDose to set
+     */
+    public void setTerceiraDose(int terceiraDose) {
+        this.terceiraDose = terceiraDose;
+    }
+
+    /**
+     * @return the doseReforco
+     */
+    public int getDoseReforco() {
+        return doseReforco;
+    }
+
+    /**
+     * @param doseReforco the doseReforco to set
+     */
+    public void setDoseReforco(int doseReforco) {
+        this.doseReforco = doseReforco;
     }
 
     /**

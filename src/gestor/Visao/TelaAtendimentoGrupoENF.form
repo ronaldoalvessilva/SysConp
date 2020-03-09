@@ -1309,7 +1309,7 @@
                                       <Component id="jComboBoxTipoVacina" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel2" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel2" pref="292" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1617,6 +1617,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="1&#xaa; Dose"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>

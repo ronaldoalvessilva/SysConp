@@ -15,19 +15,21 @@ public class GerarPopNominal {
     
     private Date dataLanc;
     private int IdInternoCrc; 
+    private String cnc;
     private String nomeInterno;
     private String situacaoEntrada;
     private String situacaoRetorno;       
 
-    public GerarPopNominal(Date dataLanc, int IdInternoCrc, String nomeInterno, String situacaoEntrada, String situacaoRetorno) {
+    public GerarPopNominal() {
+    }
+
+    public GerarPopNominal(Date dataLanc, int IdInternoCrc, String cnc, String nomeInterno, String situacaoEntrada, String situacaoRetorno) {
         this.dataLanc = dataLanc;
         this.IdInternoCrc = IdInternoCrc;
+        this.cnc = cnc;
         this.nomeInterno = nomeInterno;
         this.situacaoEntrada = situacaoEntrada;
         this.situacaoRetorno = situacaoRetorno;
-    }
-
-    public GerarPopNominal() {
     }
 
     /**
@@ -56,6 +58,20 @@ public class GerarPopNominal {
      */
     public void setIdInternoCrc(int IdInternoCrc) {
         this.IdInternoCrc = IdInternoCrc;
+    }
+
+    /**
+     * @return the cnc
+     */
+    public String getCnc() {
+        return cnc;
+    }
+
+    /**
+     * @param cnc the cnc to set
+     */
+    public void setCnc(String cnc) {
+        this.cnc = cnc;
     }
 
     /**
