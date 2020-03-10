@@ -13,6 +13,7 @@ import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleMovSaidaEvasao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
+import gestor.Dao.listaPrevisaoSaidaCRC;
 import gestor.Modelo.ItensMovSaidaRetorno;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.ItensSaidaInterno;
@@ -21,6 +22,7 @@ import gestor.Modelo.PrevisaoSaida;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaSaidaInterno.jBtAlterarItem;
 import static gestor.Visao.TelaSaidaInterno.jBtBuscarPrevisao;
 import static gestor.Visao.TelaSaidaInterno.jBtCancelarItem;
@@ -34,14 +36,20 @@ import static gestor.Visao.TelaSaidaInterno.jNrDocumento;
 import static gestor.Visao.TelaSaidaInterno.jTabelaItensInterno;
 import static gestor.Visao.TelaSaidaInterno.totalRegistrosInternos;
 import java.awt.Color;
-import static java.lang.Thread.sleep;
+import java.awt.Rectangle;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -58,6 +66,9 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     ControleItensSaidaInterno control = new ControleItensSaidaInterno();
     ControleItensPrevisaoSaida controle = new ControleItensPrevisaoSaida();
     ControleItensSaidaInternoPortaria controlePort = new ControleItensSaidaInternoPortaria(); // Grava os registros na tabela de ITENSCRCPORTARIA   
+    //
+    listaPrevisaoSaidaCRC listaDAO = new listaPrevisaoSaidaCRC();
+    //
     ControleMovInternos controlMov = new ControleMovInternos();  // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -71,9 +82,11 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     int acao;
     //         
     String confirmaSaida = "Não"; // CRC informa como não para portaria poder visualizar a saida
-    String utilizacaoSaida = "Não";
+    public static String utilizacaoSaida = "Não";
     String evadidos = "";
-    String dataInicial, dataFinal, dataSaida;
+    public static String dataInicial;
+    public static String dataFinal;
+    String dataSaida;
     String beneficio = "SAIDA TEMPORARIA";
     //
     String nrDocumentoRetorno = ""; //Número documeto vazio para gerar o aviso de evasão
@@ -81,6 +94,10 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     int count = 0;
     int count1 = 0;
     int count2 = 0;
+    int qtdTotal = 0;
+    int pTOTAL_REGISTROS = 0;
+    public static int qtdInternosPS = 0;
+    String idInterno = "";
 
     /**
      * Creates new form TelaGerarValeTransporte
@@ -92,9 +109,6 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         buscarId();
         corCampos();
         setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
-//        BarraDeProgesso barra = new BarraDeProgesso(); //Retirado daqui pois, estava dando erro. Mas está logo abaixo
-//        SalvarRegistros registro = new SalvarRegistros(); // Mesma coisa do de cima.Apresentando erro de thread intermitente.
-//        jTabelaItensInterno.setVisible(true);
     }
 
     /**
@@ -106,17 +120,8 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBtSalvar = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaSaidaInternos = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jtotalRegistroSaida = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaPrevisaoSaidaInternos = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        jtotalRegistroPrevisao = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jBtPesqDataPrevisao = new javax.swing.JButton();
@@ -126,6 +131,22 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jDescricaoOp = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jBtPesqBeneficio = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTabelaOrigemInternos = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jBtSelecionarUm = new javax.swing.JButton();
+        jBtSelecionarTodos = new javax.swing.JButton();
+        jBtRetornarTodos = new javax.swing.JButton();
+        jBtRetornarUm = new javax.swing.JButton();
+        jBtSalvar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jtotalRegistrosOrigem = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTOTAL_REG_COPIADO = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jDataSaida = new com.toedter.calendar.JDateChooser();
@@ -137,137 +158,29 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jDataPrevRetorno = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jDestinoInterno = new javax.swing.JTextField();
-        jBtSair = new javax.swing.JButton();
-        jBtEnviarTodos = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTabelaDestinoInternos = new javax.swing.JTable();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jtotalRegistrosDestino = new javax.swing.JTextField();
+        jTotalRegistrosGravados = new javax.swing.JLabel();
+        jTOTAL_REG_GRAVADO = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        lblCarregando = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("...::: Utilizar Previsão de Saida :::...");
 
-        jBtSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSalvar.setForeground(new java.awt.Color(0, 204, 51));
-        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
-        jBtSalvar.setEnabled(false);
-        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarActionPerformed(evt);
-            }
-        });
+        jProgressBar1.setInheritsPopupMenu(true);
+        jProgressBar1.setStringPainted(true);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista Saidas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Dados da Previsão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTabelaSaidaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaSaidaInternos.setForeground(new java.awt.Color(0, 0, 255));
-        jTabelaSaidaInternos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null}
-            },
-            new String [] {
-                "Código", "Nome do Interno"
-            }
-        ));
-        jTabelaSaidaInternos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTabelaSaidaInternos);
-        if (jTabelaSaidaInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaSaidaInternos.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaSaidaInternos.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaSaidaInternos.getColumnModel().getColumn(1).setMinWidth(310);
-            jTabelaSaidaInternos.getColumnModel().getColumn(1).setMaxWidth(310);
-        }
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel13.setText("Total de Registros:");
-
-        jtotalRegistroSaida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalRegistroSaida.setForeground(new java.awt.Color(0, 0, 255));
-        jtotalRegistroSaida.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtotalRegistroSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jtotalRegistroSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Previsão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        jTabelaPrevisaoSaidaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaPrevisaoSaidaInternos.setForeground(new java.awt.Color(255, 0, 0));
-        jTabelaPrevisaoSaidaInternos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null}
-            },
-            new String [] {
-                "Código", "Nome do Interno"
-            }
-        ));
-        jScrollPane1.setViewportView(jTabelaPrevisaoSaidaInternos);
-        if (jTabelaPrevisaoSaidaInternos.getColumnModel().getColumnCount() > 0) {
-            jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(1).setMinWidth(315);
-            jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(1).setMaxWidth(315);
-        }
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setText("Total de Registros:");
-
-        jtotalRegistroPrevisao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalRegistroPrevisao.setForeground(new java.awt.Color(255, 0, 0));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtotalRegistroPrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jtotalRegistroPrevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Previsão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Data Inicial:");
@@ -308,7 +221,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -326,11 +239,12 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtPesqDataPrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jDescricaoOp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
@@ -345,7 +259,212 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Saída", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista de Previsão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+
+        jTabelaOrigemInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaOrigemInternos.setForeground(new java.awt.Color(255, 0, 0));
+        jTabelaOrigemInternos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "CNC", "Nome do Interno"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTabelaOrigemInternos);
+        if (jTabelaOrigemInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaOrigemInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaOrigemInternos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaOrigemInternos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaOrigemInternos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaOrigemInternos.getColumnModel().getColumn(2).setMinWidth(330);
+            jTabelaOrigemInternos.getColumnModel().getColumn(2).setMaxWidth(330);
+        }
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jBtSelecionarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131515_16.png"))); // NOI18N
+        jBtSelecionarUm.setToolTipText("Seleciona apenas um registro");
+        jBtSelecionarUm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionarUmActionPerformed(evt);
+            }
+        });
+
+        jBtSelecionarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131115_16.png"))); // NOI18N
+        jBtSelecionarTodos.setToolTipText("Seleciona todos os registros");
+        jBtSelecionarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSelecionarTodosActionPerformed(evt);
+            }
+        });
+
+        jBtRetornarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131210_16.png"))); // NOI18N
+        jBtRetornarTodos.setToolTipText("Retorno todos os registros selecionados");
+        jBtRetornarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRetornarTodosActionPerformed(evt);
+            }
+        });
+
+        jBtRetornarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131526_16.png"))); // NOI18N
+        jBtRetornarUm.setToolTipText("Retorno apenas um registro selecionado");
+        jBtRetornarUm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRetornarUmActionPerformed(evt);
+            }
+        });
+
+        jBtSalvar.setForeground(new java.awt.Color(0, 204, 51));
+        jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
+        jBtSalvar.setToolTipText("Gravar");
+        jBtSalvar.setEnabled(false);
+        jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
+        jBtSair.setToolTipText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtRetornarUm, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtRetornarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jBtSelecionarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtSelecionarUm, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtRetornarTodos, jBtRetornarUm, jBtSair, jBtSalvar, jBtSelecionarTodos, jBtSelecionarUm});
+
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jBtSelecionarUm, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSelecionarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRetornarTodos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtRetornarUm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addComponent(jBtSalvar)
+                .addGap(42, 42, 42)
+                .addComponent(jBtSair)
+                .addContainerGap())
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtRetornarTodos, jBtRetornarUm, jBtSair, jBtSalvar, jBtSelecionarTodos, jBtSelecionarUm});
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel6.setText("Total de Registros:");
+
+        jtotalRegistrosOrigem.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotalRegistrosOrigem.setForeground(new java.awt.Color(204, 0, 0));
+        jtotalRegistrosOrigem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jtotalRegistrosOrigem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jtotalRegistrosOrigem.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jtotalRegistrosOrigem.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Registros Copiados:");
+
+        jTOTAL_REG_COPIADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTOTAL_REG_COPIADO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTOTAL_REG_COPIADO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTOTAL_REG_COPIADO.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTOTAL_REG_COPIADO.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtotalRegistrosOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTOTAL_REG_COPIADO, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel14)
+                        .addComponent(jTOTAL_REG_COPIADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtotalRegistrosOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)))
+                .addGap(3, 3, 3))
+        );
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Dados da Saída", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Nr. Documento");
@@ -367,13 +486,13 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jDocumento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data Retorno:");
+        jLabel2.setText("Data Retorno");
 
         jDataPrevRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataPrevRetorno.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Beneficio:");
+        jLabel12.setText("Beneficio");
 
         jDestinoInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDestinoInterno.setEnabled(false);
@@ -383,47 +502,49 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jDataPrevRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDestinoInterno)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jDestinoInterno)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 112, Short.MAX_VALUE))
+                            .addComponent(jDocumento))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel4))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel12))
@@ -431,45 +552,149 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDataPrevRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDestinoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtSair.setForeground(new java.awt.Color(255, 0, 0));
-        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
-            }
-        });
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista Saidas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jBtEnviarTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviarTodos.setForeground(new java.awt.Color(255, 0, 0));
-        jBtEnviarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7854_16x16.png"))); // NOI18N
-        jBtEnviarTodos.setText("Selecionar Internos");
-        jBtEnviarTodos.setEnabled(false);
-        jBtEnviarTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEnviarTodosActionPerformed(evt);
+        jTabelaDestinoInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDestinoInternos.setForeground(new java.awt.Color(0, 0, 255));
+        jTabelaDestinoInternos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "CNC", "Nome do Interno"
             }
-        });
+        ));
+        jTabelaDestinoInternos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTabelaDestinoInternos);
+        if (jTabelaDestinoInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaDestinoInternos.getColumnModel().getColumn(2).setMinWidth(330);
+            jTabelaDestinoInternos.getColumnModel().getColumn(2).setMaxWidth(330);
+        }
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel13.setText("Total de Registros:");
+
+        jtotalRegistrosDestino.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotalRegistrosDestino.setForeground(new java.awt.Color(0, 0, 204));
+        jtotalRegistrosDestino.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jtotalRegistrosDestino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jtotalRegistrosDestino.setDisabledTextColor(new java.awt.Color(0, 0, 204));
+        jtotalRegistrosDestino.setEnabled(false);
+
+        jTotalRegistrosGravados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTotalRegistrosGravados.setText("Registros Gravados:");
+
+        jTOTAL_REG_GRAVADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTOTAL_REG_GRAVADO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTOTAL_REG_GRAVADO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTOTAL_REG_GRAVADO.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTOTAL_REG_GRAVADO.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtotalRegistrosDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTotalRegistrosGravados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTOTAL_REG_GRAVADO, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jtotalRegistrosDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTotalRegistrosGravados)
+                        .addComponent(jTOTAL_REG_GRAVADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(3, 3, 3))
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Essa tarefa só poderá ser executada uma vez por beneficio. Caso o existam mais de um beneficio, faça um novo lançamento .");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Dúvidas, solicite apoio do Administrador do Sistema.");
+        jLabel5.setText("Essa tarefa só poderá ser executada uma vez por beneficio. Caso o existam mais de um beneficio, faça um novo lançamento . Dúvidas, ");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 0, 0));
         jLabel8.setText("ATENÇÃO: ");
 
-        jProgressBar1.setInheritsPopupMenu(true);
-        jProgressBar1.setStringPainted(true);
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("solicite apoio do Administrador do Sistema.");
 
-        lblCarregando.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblCarregando.setForeground(new java.awt.Color(0, 0, 255));
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -478,109 +703,52 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 10, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel7)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(217, 217, 217)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBtEnviarTodos)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtSalvar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtSair))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(267, 267, 267)
-                                .addComponent(lblCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtSalvar)
-                        .addComponent(jBtSair))
-                    .addComponent(jBtEnviarTodos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(3, 3, 3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGap(3, 3, 3)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
-
-        setBounds(250, 10, 836, 477);
+        setBounds(250, 10, 900, 551);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtEnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarTodosActionPerformed
-        // TODO add your handling code here         
-        jTabelaSaidaInternos.setModel(jTabelaPrevisaoSaidaInternos.getModel());
-        String[] Colunas = new String[]{"Código", "     Nome do Interno "};
-        //
-        jTabelaSaidaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaSaidaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaSaidaInternos.getColumnModel().getColumn(1).setPreferredWidth(310);
-        jTabelaSaidaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaSaidaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaSaidaInternos.setAutoResizeMode(jTabelaSaidaInternos.AUTO_RESIZE_OFF);
-        jTabelaSaidaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // Limpa a tabela caso selecione todos os registros        
-        preencherTabelaPrevisaoSaidaInternos("SELECT * FROM ITENSPREVISAOSAIDA "
-                + "INNER JOIN PRONTUARIOSCRC "
-                + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE ConfirmaSaida='" + jIdLanc.getText() + "'");
-        jBtSalvar.setEnabled(true);
-        jDataSaida.setEnabled(true);
-        jBtEnviarTodos.setEnabled(!true);
-        jDataPesqInicial.setEnabled(!true);
-        jDataPesFinal.setEnabled(!true);
-        jBtPesqBeneficio.setEnabled(!true);
-        jBtPesqDataPrevisao.setEnabled(!true);
-        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA")) {
-            jDataPrevRetorno.setEnabled(true);
-            jBtBuscarPrevisao.setEnabled(!true);
-        }
-        count1 = count1 -1;
-        jtotalRegistroSaida.setText(Integer.toString(count1));
-        jtotalRegistroPrevisao.setText("");
-    }//GEN-LAST:event_jBtEnviarTodosActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         statusMov = "Incluiu";
@@ -600,7 +768,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                     jDocumento.requestFocus();
                     jDocumento.setBackground(Color.red);
                 } else {
-                    if (jTabelaSaidaInternos.getModel() == null) {
+                    if (jTabelaDestinoInternos.getModel() == null) {
                         JOptionPane.showMessageDialog(rootPane, "Selecione os dados dos internos a serem gerados.");
                     } else {
                         if (jDescricaoOp.getText().equals("SAIDA TEMPORARIA") && jDataPrevRetorno.getDate() == null) {
@@ -612,39 +780,11 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                                     JOptionPane.YES_NO_OPTION);
                             if (resposta == JOptionPane.YES_OPTION) {
                                 jProgressBar1.setVisible(true);
-                                jBtEnviarTodos.setEnabled(!true);
-                                jBtSalvar.setEnabled(!true);
-                                jBtSair.setEnabled(!true);
-                                //
-                                jBtNovoItem.setEnabled(true);
-                                jBtAlterarItem.setEnabled(!true);
-                                jBtExcluirItem.setEnabled(!true);
-                                jBtSalvarItem.setEnabled(!true);
-                                jBtCancelarItem.setEnabled(!true);
-                                jBtPesInterno.setEnabled(!true);
-                                //                                                        
-                                jDataRetorno.setEnabled(!true);
-                                jDestinoInterno.setEnabled(!true);
-                                jNrDocumento.setEnabled(!true);
-                                jBtBuscarPrevisao.setEnabled(!true);
-
-                                jDocumento.setEnabled(!true);
-                                jDataPrevRetorno.setEnabled(!true);
-                                jDataSaida.setEnabled(!true);
-                                //
-                                jTabelaItensInterno.setVisible(true);
-                                // log de usuario
-                                objItensPreSaida.setUsuarioInsert(nameUser);
-                                objItensPreSaida.setDataInsert(dataModFinal);
-                                objItensPreSaida.setHorarioInsert(horaMov);
-                                objItensPreSaida.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                                //
-                                SalvarRegistros registro = new SalvarRegistros();
-                                BarraDeProgesso barra = new BarraDeProgesso();
-                                Thread threadBarra = new Thread(barra);
-                                threadBarra.start();
-                                Thread executor = new Thread(registro);  // Criação da Thread                             
-                                executor.start();   // Inicio da execução da Thread                                
+                                jBtSelecionarUm.setEnabled(!true);
+                                jBtSelecionarTodos.setEnabled(!true);
+                                jBtRetornarTodos.setEnabled(!true);
+                                jBtRetornarUm.setEnabled(!true);
+                                gravarDadosBanco();
                             }
                         }
                     }
@@ -663,34 +803,100 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     private void jBtPesqDataPrevisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDataPrevisaoActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDescricaoOp.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o beneficio do interno");
-        } else {
-            if (!jDescricaoOp.getText().equals(jDestinoInterno.getText())) {
-                JOptionPane.showMessageDialog(rootPane, "Beneficio diferente do documento de saida.");
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDescricaoOp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o beneficio do interno");
             } else {
-                if (jDataPesqInicial.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                    jDataPesqInicial.requestFocus();
+                if (!jDescricaoOp.getText().equals(jDestinoInterno.getText())) {
+                    JOptionPane.showMessageDialog(rootPane, "Beneficio diferente do documento de saida.");
                 } else {
-                    if (jDataPesFinal.getDate() == null) {
-                        JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                        jDataPesFinal.requestFocus();
+                    if (jDataPesqInicial.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                        jDataPesqInicial.requestFocus();
                     } else {
-                        if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                        if (jDataPesFinal.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                            jDataPesFinal.requestFocus();
                         } else {
-                            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                            dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                            dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                            jTabelaSaidaInternos.setVisible(true);
-                            preencherTabelaPrevisaoSaidaInternos("SELECT * FROM ITENSPREVISAOSAIDA "
-                                    + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON ITENSPREVISAOSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                    + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'AND ConfirmaSaida='" + utilizacaoSaida + "'AND Beneficio='" + jDescricaoOp.getText() + "'");
+                            if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                                JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                            } else {
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                                count = 0;
+                                flag = 1;
+                                DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+                                ItensPrevisaoSaida p = new ItensPrevisaoSaida();
+                                try {
+                                    for (ItensPrevisaoSaida pp : listaDAO.read()) {
+                                        jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS)); // Converter inteiro em string para exibir na tela 
+                                        count = qtdInternosPS;
+                                        dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                                        // BARRA DE ROLAGEM HORIZONTAL
+                                        jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                                        //
+                                        jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                                        jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                                    }
+                                } catch (Exception ex) {
+                                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
                         }
                     }
-                    jBtEnviarTodos.setEnabled(true);
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDescricaoOp.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o beneficio do interno");
+            } else {
+                if (!jDescricaoOp.getText().equals(jDestinoInterno.getText())) {
+                    JOptionPane.showMessageDialog(rootPane, "Beneficio diferente do documento de saida.");
+                } else {
+                    if (jDataPesqInicial.getDate() == null) {
+                        JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                        jDataPesqInicial.requestFocus();
+                    } else {
+                        if (jDataPesFinal.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                            jDataPesFinal.requestFocus();
+                        } else {
+                            if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                                JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                            } else {
+                                SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                                dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                                dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                                count = 0;
+                                flag = 1;
+                                DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+                                ItensPrevisaoSaida p = new ItensPrevisaoSaida();
+                                try {
+                                    for (ItensPrevisaoSaida pp : listaDAO.read()) {
+                                        jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS)); // Converter inteiro em string para exibir na tela 
+                                        count = qtdInternosPS;
+                                        dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                                        // BARRA DE ROLAGEM HORIZONTAL
+                                        jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                                        //
+                                        jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                                        jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                                    }
+                                } catch (Exception ex) {
+                                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -703,13 +909,211 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         objPesOpSai.show();
     }//GEN-LAST:event_jBtPesqBeneficioActionPerformed
 
+    private void jBtSelecionarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmActionPerformed
+        // TODO add your handling code here:
+        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA")) {
+            jDataPrevRetorno.setEnabled(true);
+            jBtBuscarPrevisao.setEnabled(!true);
+        }
+        Integer row = jTabelaDestinoInternos.getRowCount();
+        boolean encontrou = !true;
+        if (jTabelaOrigemInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
+            if (row == 0) {
+                count2 = count2 + 1;
+                qtdInternosPS = qtdInternosPS - 1;
+                jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
+                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS));
+            } else if (row != 0) {
+                qtdTotal = count2 + qtdInternosPS;
+                jtotalRegistrosDestino.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela
+            }
+            //Pega os models das listas, para fazer as inserções e remoções
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
+            //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+            Object[] obj = {jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 0), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 1), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 2)};
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            //Adiciona no destino e remove da origem
+            modelDestino.addRow(obj);
+            modelOrigem.removeRow(jTabelaOrigemInternos.getSelectedRow());
+        } else if (jTabelaOrigemInternos.getSelectedRowCount() != 0 && row != 0) {
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
+            // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
+            for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {
+                String codInter = "" + jTabelaDestinoInternos.getValueAt(i, 0).toString();
+                if (idInterno.equals(codInter)) {
+                    encontrou = true;
+                    break;
+                } else {
+                    encontrou = !true;
+                }
+            }
+            if (encontrou == true) {
+                JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro.");
+            } else if (encontrou == !true) {
+                count2 = count2 + 1;
+                qtdInternosPS = qtdInternosPS - 1;
+                jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
+                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS));
+                //Adiciona no destino e remove da origem
+                Object[] obj = {jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 0), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 1), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 2)};
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaOrigemInternos.getSelectedRow());
+            }
+            // BARRA DE ROLAGEM HORIZONTAL
+            jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            // ALINHAR TEXTO DA TABELA CENTRALIZADO
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            //
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+            //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.
+        }
+    }//GEN-LAST:event_jBtSelecionarUmActionPerformed
+
+    private void jBtSelecionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosActionPerformed
+        // TODO add your handling code here:
+        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA")) {
+            jDataPrevRetorno.setEnabled(true);
+            jBtBuscarPrevisao.setEnabled(!true);
+        }
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
+        ItensPrevisaoSaida p = new ItensPrevisaoSaida();
+        try {
+            for (ItensPrevisaoSaida pp : listaDAO.read()) {
+                //                jtotalRegistros.setText(Integer.toString(qtdInternosPop));
+                jtotalRegistrosDestino.setText(jtotalRegistrosOrigem.getText().toString()); // Converter inteiro em string para exibir na tela
+                dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGerarPopulacaoNominalCrc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(i);
+                tblRemove.setRowCount(0);
+                if (tblRemove.getRowCount() < i) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                }
+            }
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA
+        jtotalRegistrosOrigem.setText("0");
+        jDataPrevRetorno.setEnabled(true);
+        jBtSalvar.setEnabled(true);
+    }//GEN-LAST:event_jBtSelecionarTodosActionPerformed
+
+    private void jBtRetornarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarTodosActionPerformed
+        // TODO add your handling code here:
+        jDataPrevRetorno.setEnabled(true);
+        Integer rows = jTabelaDestinoInternos.getModel().getRowCount();
+        if (rows != 0) {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            ItensPrevisaoSaida p = new ItensPrevisaoSaida();
+            try {
+                for (ItensPrevisaoSaida pp : listaDAO.read()) {
+                    jtotalRegistrosOrigem.setText(jtotalRegistrosDestino.getText()); // Converter inteiro em string para exibir na tela
+                    dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // APAGAR DADOS DA TABELA
+        while (jTabelaDestinoInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaDestinoInternos.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA
+        jtotalRegistrosDestino.setText("0");
+    }//GEN-LAST:event_jBtRetornarTodosActionPerformed
+
+    private void jBtRetornarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarUmActionPerformed
+        // TODO add your handling code here:
+        jDataPrevRetorno.setEnabled(true);
+        Integer rows = jTabelaDestinoInternos.getModel().getRowCount();
+        Integer row0 = jTabelaOrigemInternos.getModel().getRowCount();
+        if (rows != 0) {
+            if (jTabelaDestinoInternos.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores
+                if (row0 == 0) {
+                    qtdInternosPS = 0;
+                    qtdInternosPS++;
+                    count2 = 0;
+                    count2 = qtdTotal - 1;
+                    jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
+                    jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS));
+                } else if (row0 != 0) {
+                    qtdInternosPS++;
+                    count2 = count2 - 1;
+                    jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
+                    jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPS));
+                }
+                //Pega os models das listas, para fazer as inserções e remoções
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaDestinoInternos.getModel();
+                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+                //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+                Object[] obj = {jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 0), jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 1), jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 2)};
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                //Adiciona no destino e remove da origem
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaDestinoInternos.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
+        }
+    }//GEN-LAST:event_jBtRetornarUmActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtEnviarTodos;
     private javax.swing.JButton jBtPesqBeneficio;
     private javax.swing.JButton jBtPesqDataPrevisao;
+    private javax.swing.JButton jBtRetornarTodos;
+    private javax.swing.JButton jBtRetornarUm;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
+    private javax.swing.JButton jBtSelecionarTodos;
+    private javax.swing.JButton jBtSelecionarUm;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static com.toedter.calendar.JDateChooser jDataPrevRetorno;
@@ -723,6 +1127,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -731,18 +1136,26 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTabelaPrevisaoSaidaInternos;
-    public static javax.swing.JTable jTabelaSaidaInternos;
-    private javax.swing.JLabel jtotalRegistroPrevisao;
-    private javax.swing.JLabel jtotalRegistroSaida;
-    private javax.swing.JLabel lblCarregando;
+    private javax.swing.JTextField jTOTAL_REG_COPIADO;
+    private javax.swing.JTextField jTOTAL_REG_GRAVADO;
+    public static javax.swing.JTable jTabelaDestinoInternos;
+    private javax.swing.JTable jTabelaOrigemInternos;
+    private javax.swing.JLabel jTotalRegistrosGravados;
+    private javax.swing.JTextField jtotalRegistrosDestino;
+    private javax.swing.JTextField jtotalRegistrosOrigem;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
@@ -754,32 +1167,159 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         jDataSaida.setBackground(Color.white);
         jDataPrevRetorno.setBackground(Color.white);
         jDestinoInterno.setBackground(Color.white);
+        jTOTAL_REG_COPIADO.setBackground(Color.white);
+        jTOTAL_REG_GRAVADO.setBackground(Color.white);
+        jtotalRegistrosOrigem.setBackground(Color.white);
+        jtotalRegistrosDestino.setBackground(Color.white);
     }
 
-    public void preencherTabelaPrevisaoSaidaInternos(String sql) {        
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
-        conecta.abrirConexao();
+    public void gravarDadosBanco() {
         try {
-            conecta.executaSQL(sql);
-            conecta.rs.first();
-            do {
-                count1 = count1 + 1;
-                jtotalRegistroPrevisao.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+            Thread t0 = new Thread() {
+                public void run() {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {//      
+                        jBtSalvar.setEnabled(!true);
+                        jBtSair.setEnabled(!true);
+                        //
+                        jBtNovoItem.setEnabled(true);
+                        jBtAlterarItem.setEnabled(!true);
+                        jBtExcluirItem.setEnabled(!true);
+                        jBtSalvarItem.setEnabled(!true);
+                        jBtCancelarItem.setEnabled(!true);
+                        jBtPesInterno.setEnabled(!true);
+                        //                                                        
+                        jDataRetorno.setEnabled(!true);
+                        jDestinoInterno.setEnabled(!true);
+                        jNrDocumento.setEnabled(!true);
+                        jBtBuscarPrevisao.setEnabled(!true);
+
+                        jDocumento.setEnabled(!true);
+                        jDataPrevRetorno.setEnabled(!true);
+                        jDataSaida.setEnabled(!true);
+                        //
+                        jTabelaItensInterno.setVisible(true);
+                        // log de usuario
+                        objItensPreSaida.setUsuarioInsert(nameUser);
+                        objItensPreSaida.setDataInsert(dataModFinal);
+                        objItensPreSaida.setHorarioInsert(horaMov);
+                        objItensPreSaida.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        //
+                        count = 0;
+                        objItensPreSaida.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objItensPreSaida.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
+                        objItensPreSaida.setNomeInterno((String) jTabelaDestinoInternos.getValueAt(i, 2));
+                        objItensPreSaida.setDataSaida(jDataSaida.getDate());
+                        objItensPreSaida.setDataPrevRetorno(jDataPrevRetorno.getDate());
+                        objItensPreSaida.setBeneficio(jDestinoInterno.getText());
+                        objItensPreSaida.setNumeroDocumento(jDocumento.getText());
+                        objItensPreSaida.setConfirmaSaida(confirmaSaida);
+                        objItensPreSaida.setUtilizadoSaida(utilizacaoSaida);
+                        objItensPreSaida.setEvadidos(evadidos);
+                        //
+                        control.incluirInternoPrevSaida(objItensPreSaida); // Tabela ITENSSAIDA quando utilizado a previsão
+                        preencherTabelaItens("SELECT * FROM ITENSSAIDA "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdSaida='" + jIDlanc.getText() + "'");
+                        controle.alterarUtilizacaoPrevisaoSaida(objItensPreSaida);
+                        // GRAVA NA TABELA OS INTERNOS PARA SAIREM NA PORTARIA - ITENSCRCPORTARIA                               
+                        objItensPreSaida.setIdItem(i + 1 + objItensPreSaida.getIdLanc());
+                        controlePort.incluirItensSaidaCrcPortaria(objItensPreSaida); // Tabela ITENSCRCPORTARIA
+                        //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC  
+                        objItemSaida.setIdInternoSaida((int) jTabelaDestinoInternos.getValueAt(i, 0));
+                        objItemSaida.setNomeInterno((String) jTabelaDestinoInternos.getValueAt(i, 2));
+                        objItemSaida.setIdSaida(Integer.valueOf(jIdLanc.getText()));
+                        objItemSaida.setDataSaida(jDataSaida.getDate());
+                        objItemSaida.setNomeDestino(jDescricaoOp.getText());
+                        objItemSaida.setIdItemSaida((i + 1 + objItemSaida.getIdSaida()));
+                        controlMov.incluirMovSaida(objItemSaida); // Tabela MOVIMENTOCRC
+                        // Grava registros para retorno de interno (Sinalizar evasão) MOVISR                                
+                        objMovSaiRetornoEva.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
+                        objMovSaiRetornoEva.setIdSaida(Integer.valueOf(jIdLanc.getText()));
+                        objMovSaiRetornoEva.setNrDocSaida(jDocumento.getText());
+                        objMovSaiRetornoEva.setDataSaida(jDataSaida.getDate());
+                        objMovSaiRetornoEva.setDataPrevRetorno(jDataPrevRetorno.getDate());
+                        objMovSaiRetornoEva.setNrDocRetorno(nrDocumentoRetorno);
+                        objMovSaiRetornoEva.setDataEvasao(evadido);
+                        controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava saida MOVISR para retorno de internos.      
+
+                        //
+                        pTOTAL_REGISTROS = i + 1;
+                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                        jProgressBar1.setValue(i);
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                    qtdInternosPS = 0;
+                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                    dispose();
+                }
+            };
+            t0.start();
+        } catch (Exception e) {
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaPrevisaoSaidaInternos.setModel(modelo);
-        jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(1).setPreferredWidth(315);
-        jTabelaPrevisaoSaidaInternos.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaPrevisaoSaidaInternos.getTableHeader().setReorderingAllowed(false);
-        jTabelaPrevisaoSaidaInternos.setAutoResizeMode(jTabelaPrevisaoSaidaInternos.AUTO_RESIZE_OFF);
-        jTabelaPrevisaoSaidaInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        conecta.desconecta();
+        // THREAD DA BARRA DE EXECUÇÃO
+        try {
+            Thread t = new Thread() {
+                public void run() {
+                    jProgressBar1.setMaximum(jTabelaDestinoInternos.getRowCount());
+                    Rectangle rect;
+                    for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {
+                        rect = jTabelaDestinoInternos.getCellRect(i, 0, true);
+                        try {
+                            jTabelaDestinoInternos.scrollRectToVisible(rect);
+                        } catch (java.lang.ClassCastException e) {
+                        }
+                        if (i == 0) {
+                            jTabelaDestinoInternos.setRowSelectionInterval(i, 0);
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jTabelaDestinoInternos.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                            pTOTAL_REGISTROS = i + 1;
+                            jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                            jProgressBar1.setValue(i);
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+                    }
+                    try {
+                    } catch (Exception e) {
+                    }
+                }
+            };
+            t.start();
+        } catch (Exception e) {
+        }
+    }
+
+    public void alinharCamposTabelaPrevisao() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
+    public void alinharCamposTabelaAtual() {
+        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
+        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        direita.setHorizontalAlignment(SwingConstants.RIGHT);
+        //
+        jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void preencherTabelaItens(String sql) {
@@ -833,77 +1373,5 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         } catch (SQLException ex) {
         }
         conecta.desconecta();
-    }
-    // Runnable para barra de processo
-
-    class BarraDeProgesso implements Runnable {
-
-        //Método de exibição da barra
-        @Override
-        public void run() {
-
-            for (int i = 0; i < jTabelaSaidaInternos.getRowCount() || i <= 101; i++) {
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                }
-                jProgressBar1.setValue(i);
-                if (jProgressBar1.getValue() == 100) {
-                    lblCarregando.setText("Transferência concluida com sucesso !!!");
-                    jBtSair.setEnabled(true);
-                }
-            }
-        }
-    }
-
-    class SalvarRegistros implements Runnable {
-
-        @Override
-        public void run() {
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-            }
-            for (int i = 0; i < jTabelaSaidaInternos.getRowCount(); i++) {
-                count = 0;
-                objItensPreSaida.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                objItensPreSaida.setIdInternoCrc((int) jTabelaSaidaInternos.getValueAt(i, 0));
-                objItensPreSaida.setNomeInterno((String) jTabelaSaidaInternos.getValueAt(i, 1));
-                objItensPreSaida.setDataSaida(jDataSaida.getDate());
-                objItensPreSaida.setDataPrevRetorno(jDataPrevRetorno.getDate());
-                objItensPreSaida.setBeneficio(jDestinoInterno.getText());
-                objItensPreSaida.setNumeroDocumento(jDocumento.getText());
-                objItensPreSaida.setConfirmaSaida(confirmaSaida);
-                objItensPreSaida.setUtilizadoSaida(utilizacaoSaida);
-                objItensPreSaida.setEvadidos(evadidos);
-                //
-                control.incluirInternoPrevSaida(objItensPreSaida); // Tabela ITENSSAIDA quando utilizado a previsão
-                preencherTabelaItens("SELECT * FROM ITENSSAIDA "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENSSAIDA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdSaida='" + jIDlanc.getText() + "'");
-                controle.alterarUtilizacaoPrevisaoSaida(objItensPreSaida);
-                // GRAVA NA TABELA OS INTERNOS PARA SAIREM NA PORTARIA - ITENSCRCPORTARIA                               
-                objItensPreSaida.setIdItem(i + 1 + objItensPreSaida.getIdLanc());
-                controlePort.incluirItensSaidaCrcPortaria(objItensPreSaida); // Tabela ITENSCRCPORTARIA
-                //Inserir na tabela de movimentação (SAIDA) HISTÓRICO DE MOVIMENTAÇÃO NO CRC  
-                objItemSaida.setIdInternoSaida((int) jTabelaSaidaInternos.getValueAt(i, 0));
-                objItemSaida.setNomeInterno((String) jTabelaSaidaInternos.getValueAt(i, 1));
-                objItemSaida.setIdSaida(Integer.valueOf(jIdLanc.getText()));
-                objItemSaida.setDataSaida(jDataSaida.getDate());
-                objItemSaida.setNomeDestino(jDescricaoOp.getText());
-                objItemSaida.setIdItemSaida((i + 1 + objItemSaida.getIdSaida()));
-                controlMov.incluirMovSaida(objItemSaida); // Tabela MOVIMENTOCRC
-                // Grava registros para retorno de interno (Sinalizar evasão) MOVISR                                
-                objMovSaiRetornoEva.setIdInternoCrc((int) jTabelaSaidaInternos.getValueAt(i, 0));
-                objMovSaiRetornoEva.setIdSaida(Integer.valueOf(jIdLanc.getText()));
-                objMovSaiRetornoEva.setNrDocSaida(jDocumento.getText());
-                objMovSaiRetornoEva.setDataSaida(jDataSaida.getDate());
-                objMovSaiRetornoEva.setDataPrevRetorno(jDataPrevRetorno.getDate());
-                objMovSaiRetornoEva.setNrDocRetorno(nrDocumentoRetorno);
-                objMovSaiRetornoEva.setDataEvasao(evadido);
-                controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava saida MOVISR para retorno de internos.                             
-            }
-        }
     }
 }

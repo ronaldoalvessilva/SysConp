@@ -118,7 +118,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jTOTAL_REG_COPIADO = new javax.swing.JTextField();
-        lblCarregando = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jPanel8 = new javax.swing.JPanel();
         jBtSalvar = new javax.swing.JButton();
@@ -477,8 +476,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         jProgressBar1.setStringPainted(true);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -549,7 +546,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblCarregando, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -588,15 +584,14 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(lblCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel3});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel10, jPanel9});
 
-        setBounds(250, 10, 879, 503);
+        setBounds(250, 10, 879, 486);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
@@ -927,7 +922,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jTotalRegistrosGravados;
     private javax.swing.JLabel jtotalRegistrosDestino;
     private javax.swing.JLabel jtotalRegistrosOrigem;
-    private javax.swing.JLabel lblCarregando;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
@@ -944,7 +938,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {//      
-                        lblCarregando.setText("Processando, Aguarde...");
                         objPopNom.setDataLanc(jDataLancamento.getDate());
                         objPopNom.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
                         control.incluirPopulacaoNominal(objPopNom);
@@ -957,7 +950,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                     } catch (InterruptedException ex) {
                     }
                     qtdInternosPop = 0;
-                    lblCarregando.setText("Processo Concluído !!!");
                     JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
                     dispose();
                 }

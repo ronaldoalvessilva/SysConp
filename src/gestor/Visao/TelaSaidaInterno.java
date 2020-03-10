@@ -577,7 +577,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Nome do Interno", "Data Saída", "Destino", "Documento"

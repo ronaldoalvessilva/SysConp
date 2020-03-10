@@ -19,13 +19,13 @@ import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jDescricaoOp;
 import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jDestinoInterno;
 import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jDocumento;
 import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jIdLanc;
-import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jTabelaSaidaInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaSaidaInterno.jTabelaItensInterno;
 import static java.lang.Thread.sleep;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jTabelaDestinoInternos;
 
 /**
  *

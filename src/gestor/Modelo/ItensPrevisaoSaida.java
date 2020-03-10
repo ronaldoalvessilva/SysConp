@@ -17,6 +17,7 @@ public class ItensPrevisaoSaida {
     private int idLanc;
     private int idInternoCrc;
     private String nomeInterno;
+    private String cnc;
     private Date dataPrevSaida;
     private Date dataPrevRetorno;
     private Date dataSaida;
@@ -34,11 +35,15 @@ public class ItensPrevisaoSaida {
     private String horarioInsert;
     private String horarioUp;   
 
-    public ItensPrevisaoSaida(int idItem, int idLanc, int idInternoCrc, String nomeInterno, Date dataPrevSaida, Date dataPrevRetorno, Date dataSaida, String numeroDocumento, String beneficio, String confirmaSaida, String utilizadoSaida, String evadidos, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public ItensPrevisaoSaida() {
+    }
+
+    public ItensPrevisaoSaida(int idItem, int idLanc, int idInternoCrc, String nomeInterno, String cnc, Date dataPrevSaida, Date dataPrevRetorno, Date dataSaida, String numeroDocumento, String beneficio, String confirmaSaida, String utilizadoSaida, String evadidos, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
         this.idItem = idItem;
         this.idLanc = idLanc;
         this.idInternoCrc = idInternoCrc;
         this.nomeInterno = nomeInterno;
+        this.cnc = cnc;
         this.dataPrevSaida = dataPrevSaida;
         this.dataPrevRetorno = dataPrevRetorno;
         this.dataSaida = dataSaida;
@@ -55,9 +60,6 @@ public class ItensPrevisaoSaida {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensPrevisaoSaida() {
     }
 
     /**
@@ -114,6 +116,20 @@ public class ItensPrevisaoSaida {
      */
     public void setNomeInterno(String nomeInterno) {
         this.nomeInterno = nomeInterno;
+    }
+
+    /**
+     * @return the cnc
+     */
+    public String getCnc() {
+        return cnc;
+    }
+
+    /**
+     * @param cnc the cnc to set
+     */
+    public void setCnc(String cnc) {
+        this.cnc = cnc;
     }
 
     /**
