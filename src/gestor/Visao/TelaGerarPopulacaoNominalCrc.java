@@ -9,7 +9,6 @@ import gestor.Controle.ControleGerarPopulacao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
 import gestor.Dao.listarInternosPopulacaoNominal;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
@@ -17,10 +16,8 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
-import static java.lang.Thread.sleep;
-import java.sql.SQLException;
+import java.awt.Rectangle;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -28,7 +25,6 @@ import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -65,9 +61,11 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     String nrDocumentoRetorno = ""; //Número documeto vazio para gerar o aviso de evasão
     String evadido = "";
     int count = 0;
+    int count2 = 0;
+    int qtdTotal = 0;
     int pTOTAL_REGISTROS = 0;
     public static int qtdInternosPop = 0;
-    String idInterno;
+    String idInterno = "";
 
     /**
      * Creates new form TelaGerarValeTransporte
@@ -91,19 +89,19 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTabelaDestino = new javax.swing.JTable();
+        jTabelaDestinoInternos = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaOrigem = new javax.swing.JTable();
+        jTabelaOrigemInternos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jCheckBoxBuscarTodos = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jDataLancamento = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jtotalRegistros = new javax.swing.JLabel();
+        jtotalRegistrosOrigem = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jtotalRegistros2 = new javax.swing.JLabel();
+        jtotalRegistrosDestino = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jBtSelecionarUm = new javax.swing.JButton();
@@ -115,14 +113,16 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jContador = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jTotalRegistrosGravados = new javax.swing.JLabel();
+        jTOTAL_REG_GRAVADO = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
-        jBtEnviarTodos = new javax.swing.JButton();
-        jBtSalvar = new javax.swing.JButton();
-        jBtSair = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTOTAL_REG_COPIADO = new javax.swing.JTextField();
         lblCarregando = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jPanel8 = new javax.swing.JPanel();
+        jBtSalvar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -130,32 +130,40 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "População Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
-        jTabelaDestino.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaDestino.setForeground(new java.awt.Color(0, 0, 255));
-        jTabelaDestino.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaDestinoInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaDestinoInternos.setForeground(new java.awt.Color(0, 0, 255));
+        jTabelaDestinoInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Código", "CNC", "Nome do Interno"
             }
-        ));
-        jTabelaDestino.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTabelaDestino);
-        if (jTabelaDestino.getColumnModel().getColumnCount() > 0) {
-            jTabelaDestino.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaDestino.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaDestino.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaDestino.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaDestino.getColumnModel().getColumn(2).setMinWidth(350);
-            jTabelaDestino.getColumnModel().getColumn(2).setMaxWidth(350);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTabelaDestinoInternos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTabelaDestinoInternos);
+        if (jTabelaDestinoInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaDestinoInternos.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaDestinoInternos.getColumnModel().getColumn(2).setMaxWidth(350);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,24 +172,32 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista de Internos na Unidade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jTabelaOrigem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaOrigem.setForeground(new java.awt.Color(255, 0, 0));
-        jTabelaOrigem.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaOrigemInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaOrigemInternos.setForeground(new java.awt.Color(255, 0, 0));
+        jTabelaOrigemInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Código", "CNC", "Nome Interno"
             }
-        ));
-        jScrollPane1.setViewportView(jTabelaOrigem);
-        if (jTabelaOrigem.getColumnModel().getColumnCount() > 0) {
-            jTabelaOrigem.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaOrigem.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaOrigem.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaOrigem.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaOrigem.getColumnModel().getColumn(2).setMinWidth(350);
-            jTabelaOrigem.getColumnModel().getColumn(2).setMaxWidth(350);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTabelaOrigemInternos);
+        if (jTabelaOrigemInternos.getColumnModel().getColumnCount() > 0) {
+            jTabelaOrigemInternos.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaOrigemInternos.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaOrigemInternos.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaOrigemInternos.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaOrigemInternos.getColumnModel().getColumn(2).setMinWidth(350);
+            jTabelaOrigemInternos.getColumnModel().getColumn(2).setMaxWidth(350);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -240,9 +256,9 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setText("Total de Registros--->:");
 
-        jtotalRegistros.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalRegistros.setForeground(new java.awt.Color(255, 0, 0));
-        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jtotalRegistrosOrigem.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotalRegistrosOrigem.setForeground(new java.awt.Color(255, 0, 0));
+        jtotalRegistrosOrigem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,22 +268,22 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jtotalRegistrosOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1)
-            .addComponent(jtotalRegistros)
+            .addComponent(jtotalRegistrosOrigem)
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jtotalRegistros});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jtotalRegistrosOrigem});
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jtotalRegistros2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jtotalRegistros2.setForeground(new java.awt.Color(0, 0, 255));
-        jtotalRegistros2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jtotalRegistrosDestino.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtotalRegistrosDestino.setForeground(new java.awt.Color(0, 0, 255));
+        jtotalRegistrosDestino.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
@@ -278,10 +294,11 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtotalRegistrosDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +306,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addGap(0, 2, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jtotalRegistrosDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -398,46 +415,73 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jContador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jContador.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jContador.setText("0");
+        jTotalRegistrosGravados.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTotalRegistrosGravados.setText("Registros Gravados:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Total de Registros:");
+        jTOTAL_REG_GRAVADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTOTAL_REG_GRAVADO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTOTAL_REG_GRAVADO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTOTAL_REG_GRAVADO.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTOTAL_REG_GRAVADO.setEnabled(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTotalRegistrosGravados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jContador, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTOTAL_REG_GRAVADO, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel4)
-                    .addComponent(jContador, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTotalRegistrosGravados)
+                    .addComponent(jTOTAL_REG_GRAVADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jBtEnviarTodos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jBtEnviarTodos.setForeground(new java.awt.Color(255, 0, 0));
-        jBtEnviarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/7854_16x16.png"))); // NOI18N
-        jBtEnviarTodos.setText("Selecionar Internos");
-        jBtEnviarTodos.setEnabled(false);
-        jBtEnviarTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtEnviarTodosActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Registros Copiados:");
+
+        jTOTAL_REG_COPIADO.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTOTAL_REG_COPIADO.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTOTAL_REG_COPIADO.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTOTAL_REG_COPIADO.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTOTAL_REG_COPIADO.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTOTAL_REG_COPIADO, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel4)
+                    .addComponent(jTOTAL_REG_COPIADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jProgressBar1.setStringPainted(true);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtSalvar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSalvar.setForeground(new java.awt.Color(0, 204, 51));
@@ -460,38 +504,31 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jBtEnviarTodos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar)
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtEnviarTodos)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtSair)
-                        .addComponent(jBtSalvar)))
-                .addGap(3, 3, 3))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtSair))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
-
-        lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCarregando.setText("jLabel6");
+        jPanel8Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -500,25 +537,28 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblCarregando, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,48 +582,27 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCarregando)
-                .addGap(3, 3, 3))
+                .addGap(3, 3, 3)
+                .addComponent(lblCarregando, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel3});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel10, jPanel9});
 
-        setBounds(250, 10, 885, 508);
+        setBounds(250, 10, 879, 503);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtEnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarTodosActionPerformed
-        // TODO add your handling code here  
-        jTabelaDestino.setModel(jTabelaOrigem.getModel());
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
-        //
-        jTabelaDestino.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaDestino.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaDestino.getColumnModel().getColumn(1).setPreferredWidth(320);
-        jTabelaDestino.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaDestino.getTableHeader().setReorderingAllowed(false);
-        jTabelaDestino.setAutoResizeMode(jTabelaDestino.AUTO_RESIZE_OFF);
-        jTabelaDestino.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaAtual();
-        // Limpa a tabela caso selecione todos os registros 
-        jTabelaOrigem.setVisible(!true);
-        jBtSalvar.setEnabled(true);
-        jDataLancamento.setEnabled(true);
-        jtotalRegistros2.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela               
-        jtotalRegistros.setText("");
-    }//GEN-LAST:event_jBtEnviarTodosActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();
+        dataModFinal = jDataSistema.getText();        
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -605,39 +624,16 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
                         jProgressBar1.setVisible(true);
-                        jBtEnviarTodos.setEnabled(!true);
                         jBtSalvar.setEnabled(!true);
                         jBtSair.setEnabled(!true);
                         jCheckBoxBuscarTodos.setEnabled(!true);
                         jDataLancamento.setEnabled(!true);
-                        new Thread() {
-                            public void run() {
-                                try {
-                                    sleep(100);
-                                } catch (InterruptedException ex) {
-                                }
-                                for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
-                                    pTOTAL_REGISTROS = i + 1;
-                                    jProgressBar1.setValue(i);
-                                    objPopNom.setDataLanc(jDataLancamento.getDate());
-                                    objPopNom.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
-                                    control.incluirPopulacaoNominal(objPopNom);
-                                    if (jProgressBar1.getValue() <= 15) {
-                                        lblCarregando.setText("Carregando registros, Aguarde...");
-                                    } else if (jProgressBar1.getValue() <= 40) {
-                                        lblCarregando.setText("Iniciando transferência de registros, Aguarde...");
-                                    } else if (jProgressBar1.getValue() <= 60) {
-                                        lblCarregando.setText("processando, Aguarde...");
-                                    } else if (jProgressBar1.getValue() <= 80) {
-                                        lblCarregando.setText("Preparando para finalizar, Aguarde...");
-                                    } else if (jProgressBar1.getValue() == 100 && count == pTOTAL_REGISTROS) {
-                                        lblCarregando.setText("População gerado com sucesso !!!");
-                                        jBtSair.setEnabled(true);
-                                    }
-                                    jContador.setText(Integer.toString(pTOTAL_REGISTROS));
-                                }
-                            }
-                        }.start();
+                        //
+                        jBtSelecionarUm.setEnabled(!true);
+                        jBtSelecionarTodos.setEnabled(!true);
+                        jBtRetornarTodos.setEnabled(!true);
+                        jBtRetornarUm.setEnabled(!true);
+                        gravarDadosBanco();
                     }
                 }
             }
@@ -660,35 +656,16 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
                         jProgressBar1.setVisible(true);
-                        jBtEnviarTodos.setEnabled(!true);
                         jBtSalvar.setEnabled(!true);
                         jBtSair.setEnabled(!true);
                         jCheckBoxBuscarTodos.setEnabled(!true);
                         jDataLancamento.setEnabled(!true);
-                        new Thread() {
-                            public void run() {
-                                try {
-                                    sleep(100);
-                                } catch (InterruptedException ex) {
-                                }
-                                for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
-                                    pTOTAL_REGISTROS = i + 1;
-                                    jProgressBar1.setValue(i);
-                                    objPopNom.setDataLanc(jDataLancamento.getDate());
-                                    objPopNom.setIdInternoCrc((int) jTabelaDestino.getValueAt(i, 0));
-                                    control.incluirPopulacaoNominal(objPopNom);
-                                    if (jProgressBar1.getValue() <= 15) {
-                                        lblCarregando.setText("Carregando registros, Aguarde...");
-                                    } else if (jProgressBar1.getValue() <= 40) {
-                                        lblCarregando.setText("Iniciando transferência de registros, Aguarde...");
-                                    } else if (jProgressBar1.getValue() == 100 && count == pTOTAL_REGISTROS) {
-                                        lblCarregando.setText("População gerado com sucesso !!!");
-                                        jBtSair.setEnabled(true);
-                                    }
-                                    jContador.setText(Integer.toString(pTOTAL_REGISTROS));
-                                }
-                            }
-                        }.start();
+                        //
+                        jBtSelecionarUm.setEnabled(!true);
+                        jBtSelecionarTodos.setEnabled(!true);
+                        jBtRetornarTodos.setEnabled(!true);
+                        jBtRetornarUm.setEnabled(!true);
+                        gravarDadosBanco();
                     }
                 }
             }
@@ -697,6 +674,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         // TODO add your handling code here:
+        qtdInternosPop = 0;
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -704,36 +682,23 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         count = 0;
         flag = 1;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            jTabelaPrevisaoPopulacaoInternos.setVisible(true);
-//            this.preencherTabelaPrevisaoPopulacaoInternos("SELECT * FROM PRONTUARIOSCRC "
-//                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
-//                    + "OR SituacaoCrc='" + situacaoRet + "' "
-//                    + "OR SituacaoCrc='" + situacaoTmp + "'");
-//            jDataLancamento.setEnabled(true);
-//            jBtEnviarTodos.setEnabled(true);
-//        } else {
-//            jtotalRegistros.setText("");
-//            limparTabela();
-//            jDataLancamento.setEnabled(!true);
-//            jBtEnviarTodos.setEnabled(!true);
-//        }
-
+        jCheckBoxBuscarTodos.setEnabled(!true);
         jDataLancamento.setEnabled(true);
-        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+        DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
         GerarPopNominal p = new GerarPopNominal();
         try {
             for (GerarPopNominal pp : listaDAO.read()) {
-                jtotalRegistros.setText(Integer.toString(qtdInternosPop)); // Converter inteiro em string para exibir na tela 
+                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop)); // Converter inteiro em string para exibir na tela 
+                count = qtdInternosPop;
                 dadosOrigem.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
@@ -742,40 +707,40 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     private void jBtSelecionarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmActionPerformed
         // TODO add your handling code here:
-        Integer row = jTabelaDestino.getRowCount();
+        Integer row = jTabelaDestinoInternos.getRowCount();
         boolean encontrou = !true;
-        if (jTabelaOrigem.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
+        if (jTabelaOrigemInternos.getSelectedRowCount() != 0 && row == 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores  
             if (row == 0) {
-//                count2 = count2 + 1;
-//                qtdInternos = qtdInternos - 1;
-//                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-//                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                count2 = count2 + 1;
+                qtdInternosPop = qtdInternosPop - 1;
+                jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop));
             } else if (row != 0) {
-//                qtdTotal = count2 + qtdInternosKD;
-//                jtotalInternosSelecionados.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
+                qtdTotal = count2 + qtdInternosPop;
+                jtotalRegistrosDestino.setText(Integer.toString(qtdTotal)); // Converter inteiro em string para exibir na tela                                
             }
             //Pega os models das listas, para fazer as inserções e remoções
-            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
-            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
             //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-            Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+            Object[] obj = {jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 0), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 1), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 2)};
             // BARRA DE ROLAGEM HORIZONTAL
-            jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             // ALINHAR TEXTO DA TABELA CENTRALIZADO
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
             //
-            jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-            jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             //Adiciona no destino e remove da origem
             modelDestino.addRow(obj);
-            modelOrigem.removeRow(jTabelaOrigem.getSelectedRow());
-        } else if (jTabelaOrigem.getSelectedRowCount() != 0 && row != 0) {
-            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
-            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+            modelOrigem.removeRow(jTabelaOrigemInternos.getSelectedRow());
+        } else if (jTabelaOrigemInternos.getSelectedRowCount() != 0 && row != 0) {
+            DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
             // VERIFICAR SE O PRODUTO JÁ EXISTE NA TABELA, SE EXITIR AVISA.
-            for (int i = 0; i < jTabelaDestino.getRowCount(); i++) {
-                String codInter = "" + jTabelaDestino.getValueAt(i, 0).toString();
+            for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {
+                String codInter = "" + jTabelaDestinoInternos.getValueAt(i, 0).toString();
                 if (idInterno.equals(codInter)) {
                     encontrou = true;
                     break;
@@ -786,23 +751,23 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             if (encontrou == true) {
                 JOptionPane.showMessageDialog(rootPane, "Interno já foi selecionado, escolha outro.");
             } else if (encontrou == !true) {
-//                count2 = count2 + 1;
-//                qtdInternos = qtdInternos - 1;
-//                jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-//                jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                count2 = count2 + 1;
+                qtdInternosPop = qtdInternosPop - 1;
+                jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop));
                 //Adiciona no destino e remove da origem
-                Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+                Object[] obj = {jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 0), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 1), jTabelaOrigemInternos.getValueAt(jTabelaOrigemInternos.getSelectedRow(), 2)};
                 modelDestino.addRow(obj);
-                modelOrigem.removeRow(jTabelaOrigem.getSelectedRow());
+                modelOrigem.removeRow(jTabelaOrigemInternos.getSelectedRow());
             }
             // BARRA DE ROLAGEM HORIZONTAL
-            jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             // ALINHAR TEXTO DA TABELA CENTRALIZADO
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
             //
-            jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-            jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
             //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.                    
@@ -811,29 +776,28 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     private void jBtSelecionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestino.getModel();
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaDestinoInternos.getModel();
         GerarPopNominal p = new GerarPopNominal();
         try {
             for (GerarPopNominal pp : listaDAO.read()) {
-                jtotalRegistros.setText(Integer.toString(qtdInternosPop));
-                jtotalRegistros2.setText(jtotalRegistros.getText()); // Converter inteiro em string para exibir na tela     
-//                    jtotalInternosSelecionados.setText(Integer.toString(qtdInternosSelec + qtdInternos)); // Converter inteiro em string para exibir na tela                                                         
+//                jtotalRegistros.setText(Integer.toString(qtdInternosPop));
+                jtotalRegistrosDestino.setText(jtotalRegistrosOrigem.getText().toString()); // Converter inteiro em string para exibir na tela                                                             
                 dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaDestino.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaDestinoInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaDestino.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaDestinoInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
 
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaGerarPopulacaoNominalCrc.class.getName()).log(Level.SEVERE, null, ex);
         }
         // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
-        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigem.getModel();
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaOrigemInternos.getModel();
         if (tblRemove.getRowCount() > 0) {
             for (int i = 0; i <= tblRemove.getRowCount(); i++) {
                 tblRemove.removeRow(i);
@@ -845,45 +809,78 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             }
         }
         // LIMPAR O TOTALIZADOR DA TABELA
-        jtotalRegistros.setText("0");
-        //KIT SEMESTRAL
+        jtotalRegistrosOrigem.setText("0");
+        jBtSalvar.setEnabled(true);
+        jDataLancamento.setEnabled(true);
     }//GEN-LAST:event_jBtSelecionarTodosActionPerformed
 
     private void jBtRetornarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarTodosActionPerformed
         // TODO add your handling code here:
-        Integer rows = jTabelaDestino.getModel().getRowCount();
-        Integer row0 = jTabelaOrigem.getModel().getRowCount();
+        Integer rows = jTabelaDestinoInternos.getModel().getRowCount();
         if (rows != 0) {
-            if (jTabelaDestino.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigemInternos.getModel();
+            GerarPopNominal p = new GerarPopNominal();
+            try {
+                for (GerarPopNominal pp : listaDAO.read()) {
+                    jtotalRegistrosOrigem.setText(jtotalRegistrosDestino.getText()); // Converter inteiro em string para exibir na tela                                     
+                    dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        // APAGAR DADOS DA TABELA
+        while (jTabelaDestinoInternos.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTabelaDestinoInternos.getModel()).removeRow(0);
+        }
+        // LIMPAR O TOTALIZADOR DA TABELA
+        jtotalRegistrosDestino.setText("0");
+    }//GEN-LAST:event_jBtRetornarTodosActionPerformed
+
+    private void jBtRetornarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarUmActionPerformed
+        // TODO add your handling code here:
+        Integer rows = jTabelaDestinoInternos.getModel().getRowCount();
+        Integer row0 = jTabelaOrigemInternos.getModel().getRowCount();
+        if (rows != 0) {
+            if (jTabelaDestinoInternos.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
                 if (row0 == 0) {
-//                    qtdInternos = 0;
-//                    qtdInternos++;
-//                    count2 = 0;
-//                    count2 = qtdTotal - 1;
-//                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-//                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                    qtdInternosPop = 0;
+                    qtdInternosPop++;
+                    count2 = 0;
+                    count2 = qtdTotal - 1;
+                    jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop));
                 } else if (row0 != 0) {
-//                    qtdInternos++;
-//                    count2 = count2 - 1;
-//                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
-//                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
+                    qtdInternosPop++;
+                    count2 = count2 - 1;
+                    jtotalRegistrosDestino.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
+                    jtotalRegistrosOrigem.setText(Integer.toString(qtdInternosPop));
                 }
                 //Pega os models das listas, para fazer as inserções e remoções
-                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
-                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaDestinoInternos.getModel();
+                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaOrigemInternos.getModel();
                 //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-                Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+                Object[] obj = {jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 0), jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 1), jTabelaDestinoInternos.getValueAt(jTabelaDestinoInternos.getSelectedRow(), 2)};
                 // BARRA DE ROLAGEM HORIZONTAL
-                jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                jTabelaOrigemInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 // ALINHAR TEXTO DA TABELA CENTRALIZADO
                 DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
                 centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                 //
-                jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaOrigemInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
                 //Adiciona no destino e remove da origem
                 modelDestino.addRow(obj);
-                modelOrigem.removeRow(jTabelaDestino.getSelectedRow());
+                modelOrigem.removeRow(jTabelaDestinoInternos.getSelectedRow());
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
                 //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.            
@@ -891,43 +888,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
         }
-    }//GEN-LAST:event_jBtRetornarTodosActionPerformed
-
-    private void jBtRetornarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarUmActionPerformed
-        // TODO add your handling code here:
-        Integer rows = jTabelaOrigem.getModel().getRowCount();
-        if (rows != 0) {
-                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigem.getModel();
-                GerarPopNominal p = new GerarPopNominal();
-                try {
-                    for (GerarPopNominal pp : listaDAO.read()) {
-//                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
-                        dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
-                        // BARRA DE ROLAGEM HORIZONTAL
-                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
-                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-                        //
-                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                        jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            // APAGAR DADOS DA TABELA
-            while (jTabelaDestino.getModel().getRowCount() > 0) {
-                ((DefaultTableModel) jTabelaDestino.getModel()).removeRow(0);
-            }
-            // LIMPAR O TOTALIZADOR DA TABELA
-//            jtotalInternosSelecionados.setText("");
     }//GEN-LAST:event_jBtRetornarUmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtEnviarTodos;
     private javax.swing.JButton jBtRetornarTodos;
     private javax.swing.JButton jBtRetornarUm;
     private javax.swing.JButton jBtSair;
@@ -935,7 +899,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSelecionarTodos;
     private javax.swing.JButton jBtSelecionarUm;
     private javax.swing.JCheckBox jCheckBoxBuscarTodos;
-    private javax.swing.JLabel jContador;
     public static com.toedter.calendar.JDateChooser jDataLancamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -952,61 +915,93 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    public static javax.swing.JTable jTabelaDestino;
-    private javax.swing.JTable jTabelaOrigem;
-    private javax.swing.JLabel jtotalRegistros;
-    private javax.swing.JLabel jtotalRegistros2;
+    private javax.swing.JTextField jTOTAL_REG_COPIADO;
+    private javax.swing.JTextField jTOTAL_REG_GRAVADO;
+    public static javax.swing.JTable jTabelaDestinoInternos;
+    private javax.swing.JTable jTabelaOrigemInternos;
+    private javax.swing.JLabel jTotalRegistrosGravados;
+    private javax.swing.JLabel jtotalRegistrosDestino;
+    private javax.swing.JLabel jtotalRegistrosOrigem;
     private javax.swing.JLabel lblCarregando;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
         jDataLancamento.setBackground(Color.white);
+        jTOTAL_REG_COPIADO.setBackground(Color.white);
+        jTOTAL_REG_GRAVADO.setBackground(Color.white);
     }
 
-    public void preencherTabelaPrevisaoPopulacaoInternos(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
-        conecta.abrirConexao();
+    public void gravarDadosBanco() {
         try {
-            conecta.executaSQL(sql);
-            conecta.rs.first();
-            do {
-                count = count + 1;
-                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
+            Thread t0 = new Thread() {
+                public void run() {
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {//      
+                        lblCarregando.setText("Processando, Aguarde...");
+                        objPopNom.setDataLanc(jDataLancamento.getDate());
+                        objPopNom.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
+                        control.incluirPopulacaoNominal(objPopNom);
+                        pTOTAL_REGISTROS = i + 1;
+                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                        jProgressBar1.setValue(i);
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                    }
+                    qtdInternosPop = 0;
+                    lblCarregando.setText("Processo Concluído !!!");
+                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                    dispose();
+                }
+            };
+            t0.start();
+        } catch (Exception e) {
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaOrigem.setModel(modelo);
-        jTabelaOrigem.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaOrigem.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOrigem.getColumnModel().getColumn(1).setPreferredWidth(310);
-        jTabelaOrigem.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaOrigem.getTableHeader().setReorderingAllowed(false);
-        jTabelaOrigem.setAutoResizeMode(jTabelaOrigem.AUTO_RESIZE_OFF);
-        jTabelaOrigem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaPrevisao();
-        conecta.desconecta();
+        // THREAD DA BARRA DE EXECUÇÃO
+        try {
+            Thread t = new Thread() {
+                public void run() {
+                    jProgressBar1.setMaximum(jTabelaDestinoInternos.getRowCount());
+                    Rectangle rect;
+                    for (int i = 0; i < jTabelaDestinoInternos.getRowCount(); i++) {
+                        rect = jTabelaDestinoInternos.getCellRect(i, 0, true);
+                        try {
+                            jTabelaDestinoInternos.scrollRectToVisible(rect);
+                        } catch (java.lang.ClassCastException e) {
+                        }
+                        if (i == 0) {
+                            jTabelaDestinoInternos.setRowSelectionInterval(i, 0);
+                            jProgressBar1.setValue((i + 1));
+                        } else if (i > 0) {
+                            jTabelaDestinoInternos.setRowSelectionInterval(i, 1);
+                            jProgressBar1.setValue((i + 1));
+                            pTOTAL_REGISTROS = i + 1;
+                            jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                            jProgressBar1.setValue(i);
+                        }
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
+                    }
+                    try {
+                    } catch (Exception e) {
+                    }
+                }
+            };
+            t.start();
+        } catch (Exception e) {
+        }
     }
 
-    public void limparTabela() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaOrigem.setModel(modelo);
-        jTabelaOrigem.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaOrigem.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOrigem.getColumnModel().getColumn(1).setPreferredWidth(310);
-        jTabelaOrigem.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaOrigem.getTableHeader().setReorderingAllowed(false);
-        jTabelaOrigem.setAutoResizeMode(jTabelaOrigem.AUTO_RESIZE_OFF);
-        jTabelaOrigem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
 
     public void alinharCamposTabelaPrevisao() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
@@ -1016,7 +1011,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaOrigemInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void alinharCamposTabelaAtual() {
@@ -1027,7 +1022,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
-        jTabelaDestino.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaDestinoInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
     public void verificarPopulacaoWindows() {
