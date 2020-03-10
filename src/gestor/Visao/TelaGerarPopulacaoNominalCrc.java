@@ -99,8 +99,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jCheckBoxBuscarTodos = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jDataLancamento = new com.toedter.calendar.JDateChooser();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        lblCarregando = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jtotalRegistros = new javax.swing.JLabel();
@@ -123,6 +121,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jBtEnviarTodos = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
+        lblCarregando = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setClosable(true);
         setIconifiable(true);
@@ -155,11 +155,11 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Lista de Internos na Unidade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -234,12 +234,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addGap(0, 1, Short.MAX_VALUE))
         );
 
-        jProgressBar1.setStringPainted(true);
-
-        lblCarregando.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblCarregando.setForeground(new java.awt.Color(204, 0, 0));
-        lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -284,7 +278,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 200, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -298,9 +292,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                     .addComponent(jtotalRegistros2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Seleção", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jBtSelecionarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131515_16.png"))); // NOI18N
+        jBtSelecionarUm.setToolTipText("Seleciona apenas um registro");
         jBtSelecionarUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarUmActionPerformed(evt);
@@ -308,6 +303,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         });
 
         jBtSelecionarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131115_16.png"))); // NOI18N
+        jBtSelecionarTodos.setToolTipText("Seleciona todos os registros");
         jBtSelecionarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarTodosActionPerformed(evt);
@@ -315,6 +311,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         });
 
         jBtRetornarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131210_16.png"))); // NOI18N
+        jBtRetornarTodos.setToolTipText("Retorno todos os registros selecionados");
         jBtRetornarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRetornarTodosActionPerformed(evt);
@@ -322,6 +319,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         });
 
         jBtRetornarUm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/250718131526_16.png"))); // NOI18N
+        jBtRetornarUm.setToolTipText("Retorno apenas um registro selecionado");
         jBtRetornarUm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRetornarUmActionPerformed(evt);
@@ -355,7 +353,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                 .addComponent(jBtRetornarTodos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtRetornarUm)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtRetornarTodos, jBtRetornarUm, jBtSelecionarTodos, jBtSelecionarUm});
@@ -492,6 +490,9 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
         jPanel10Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSalvar});
 
+        lblCarregando.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCarregando.setText("jLabel6");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -499,66 +500,63 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(944, 944, 944)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCarregando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(lblCarregando)
+                .addGap(3, 3, 3))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel1, jPanel3});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel10, jPanel9});
 
-        setBounds(250, 10, 885, 464);
+        setBounds(250, 10, 885, 508);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarTodosActionPerformed
@@ -853,79 +851,78 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
 
     private void jBtRetornarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarTodosActionPerformed
         // TODO add your handling code here:
-//        Integer rows = jTabelaInternosSelecionados.getModel().getRowCount();
-//        Integer row0 = jTabelaInternos.getModel().getRowCount();
-//        if (rows != 0) {
-//            if (jTabelaInternosSelecionados.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
-//                if (row0 == 0) {
+        Integer rows = jTabelaDestino.getModel().getRowCount();
+        Integer row0 = jTabelaOrigem.getModel().getRowCount();
+        if (rows != 0) {
+            if (jTabelaDestino.getSelectedRowCount() != 0) { //Verifica se existe linha selecionada para não dar erro na hora de pegar os valores               
+                if (row0 == 0) {
 //                    qtdInternos = 0;
 //                    qtdInternos++;
 //                    count2 = 0;
 //                    count2 = qtdTotal - 1;
 //                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
 //                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-//                } else if (row0 != 0) {
+                } else if (row0 != 0) {
 //                    qtdInternos++;
 //                    count2 = count2 - 1;
 //                    jtotalInternosSelecionados.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela 
 //                    jtotalInternosPavilhao.setText(Integer.toString(qtdInternos));
-//                }
-//                //Pega os models das listas, para fazer as inserções e remoções
-//                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaInternosSelecionados.getModel();
-//                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaInternos.getModel();
-//                //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
-//                Object[] obj = {jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 0), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 1), jTabelaInternosSelecionados.getValueAt(jTabelaInternosSelecionados.getSelectedRow(), 2)};
-//                // BARRA DE ROLAGEM HORIZONTAL
-//                jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//                // ALINHAR TEXTO DA TABELA CENTRALIZADO
-//                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//                //
-//                jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//                jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//                //Adiciona no destino e remove da origem
-//                modelDestino.addRow(obj);
-//                modelOrigem.removeRow(jTabelaInternosSelecionados.getSelectedRow());
-//            } else {
-//                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
-//                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.            
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
-//        }
+                }
+                //Pega os models das listas, para fazer as inserções e remoções
+                DefaultTableModel modelOrigem = (DefaultTableModel) jTabelaOrigem.getModel();
+                DefaultTableModel modelDestino = (DefaultTableModel) jTabelaDestino.getModel();
+                //Cria uma linha para ser incluida na tabela de destino, no meu caso tem duas colunas, adapte para as suas tabelas
+                Object[] obj = {jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 0), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 1), jTabelaOrigem.getValueAt(jTabelaOrigem.getSelectedRow(), 2)};
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                //Adiciona no destino e remove da origem
+                modelDestino.addRow(obj);
+                modelOrigem.removeRow(jTabelaDestino.getSelectedRow());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione pelo menos uma linha para transferir todos registros da tabela.");
+                //Não tem nenhuma linha selecionada na tabela de origem, faça um aviso para o usuário ou algo do tipo.            
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Não existe dados a ser excluído.");
+        }
     }//GEN-LAST:event_jBtRetornarTodosActionPerformed
 
     private void jBtRetornarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRetornarUmActionPerformed
         // TODO add your handling code here:
-//        if (rows != 0) {
-//                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
-//                PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
-//                try {
-//                    for (PavilhaoInternoMontaKit dd : controleKS.read()) {
+        Integer rows = jTabelaOrigem.getModel().getRowCount();
+        if (rows != 0) {
+                DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaOrigem.getModel();
+                GerarPopNominal p = new GerarPopNominal();
+                try {
+                    for (GerarPopNominal pp : listaDAO.read()) {
 //                        jtotalInternosPavilhao.setText(jtotalInternosSelecionados.getText()); // Converter inteiro em string para exibir na tela                                     
-//                        dadosDestino.addRow(new Object[]{dd.getIdInternoCrc(), dd.getCncInternoCrc(), dd.getNomeInternoCrc()});
-//                        // BARRA DE ROLAGEM HORIZONTAL
-//                        jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
-//                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-//                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-//                        //
-//                        jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-//                        jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-//
-//                    }
-//                } catch (Exception ex) {
-//                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
-//                            .getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//            // APAGAR DADOS DA TABELA
-//            while (jTabelaInternosSelecionados.getModel().getRowCount() > 0) {
-//                ((DefaultTableModel) jTabelaInternosSelecionados.getModel()).removeRow(0);
-//            }
-//            // LIMPAR O TOTALIZADOR DA TABELA
+                        dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
+                        // BARRA DE ROLAGEM HORIZONTAL
+                        jTabelaOrigem.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                        // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                        //
+                        jTabelaOrigem.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                        jTabelaOrigem.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            // APAGAR DADOS DA TABELA
+            while (jTabelaDestino.getModel().getRowCount() > 0) {
+                ((DefaultTableModel) jTabelaDestino.getModel()).removeRow(0);
+            }
+            // LIMPAR O TOTALIZADOR DA TABELA
 //            jtotalInternosSelecionados.setText("");
-//            //KIT ANUAL
     }//GEN-LAST:event_jBtRetornarUmActionPerformed
 
 
