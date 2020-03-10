@@ -40,7 +40,8 @@ public class listaPrevisaoSaidaCRC {
                     + "WHERE DataPrevSaida BETWEEN'" + dataInicial + "' "
                     + "AND '" + dataFinal + "' "
                     + "AND ConfirmaSaida='" + utilizacaoSaida + "' "
-                    + "AND Beneficio='" + jDescricaoOp.getText() + "'");
+                    + "AND Beneficio='" + jDescricaoOp.getText() + "' "
+                    + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 ItensPrevisaoSaida pDigi = new ItensPrevisaoSaida();
                 pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));

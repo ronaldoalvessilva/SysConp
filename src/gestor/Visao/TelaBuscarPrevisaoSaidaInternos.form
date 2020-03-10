@@ -79,7 +79,6 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
@@ -402,7 +401,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace pref="113" max="32767" attributes="0"/>
                   <Component id="jBtSelecionarUm" linkSize="9" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBtSelecionarTodos" linkSize="9" min="-2" pref="25" max="-2" attributes="0"/>
@@ -410,7 +409,7 @@
                   <Component id="jBtRetornarTodos" linkSize="9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jBtRetornarUm" linkSize="9" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="133" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                   <Component id="jBtSalvar" linkSize="9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="jBtSair" linkSize="9" min="-2" max="-2" attributes="0"/>
@@ -955,12 +954,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtotalRegistrosDestino" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jTotalRegistrosGravados" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTOTAL_REG_GRAVADO" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtotalRegistrosDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>

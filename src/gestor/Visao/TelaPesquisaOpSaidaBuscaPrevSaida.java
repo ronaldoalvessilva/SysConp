@@ -190,11 +190,10 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         if (jPesDescOp.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe dados para pesquisa");
             jPesDescOp.requestFocus();
-        } else {
-            jTabelaOperacao.setVisible(true);
+        } else {            
             preencherTabelaNome("SELECT * FROM OPERACAO "
                     + "WHERE DescricaoOp LIKE'" + jPesDescOp.getText() + "%' "
-                            + "AND TipoOp='" + tipo + "'");
+                    + "AND TipoOp='" + tipo + "'");
         }
 
     }//GEN-LAST:event_jBtNomeActionPerformed
@@ -224,11 +223,10 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            jTabelaOperacao.setVisible(true);
+        if (evt.getStateChange() == evt.SELECTED) {            
             this.preencherTabela();
         } else {
-            jTabelaOperacao.setVisible(!true);
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -260,9 +258,9 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(260);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -286,9 +284,9 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(260);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -306,5 +304,20 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaOperacao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+    }
+
+    public void limparTabela() {
+        ArrayList dados = new ArrayList();
+        String[] Colunas = new String[]{"Código", "Descrição"};
+        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
+        jTabelaOperacao.setModel(modelo);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
+        jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
+        jTabelaOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modelo.getLinhas().clear();
     }
 }
