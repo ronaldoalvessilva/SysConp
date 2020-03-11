@@ -232,6 +232,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelarVisitaInternoActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator24">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jAtendimentoGrupoSS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Atendimento em Grupo Servi&#xe7;o Social"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtendimentoGrupoSSActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator19">
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="jMenu8">

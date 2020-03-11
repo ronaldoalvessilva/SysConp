@@ -109,6 +109,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private TelaSolicitacaoAuxilioReclusao objSoliPedRec = null;
 //    private TelaIndicadoresAcompanhamento objIndAcomp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaAtendimentoGrupoSS objAtenSS = null;
     //
     public static String nomeModuloSERV = "SERVICO";
     String dataLanc;
@@ -208,6 +209,14 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     public static String telaIndAcompanhaAbaPSISS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/SS:Psicologia";
     public static String telaIndAcompanhaAbaSSS = "Movimentação:Programa de Indicadores de Acompanhamento - PRORES/SS:Serviço Social";
     //
+    public static String telaIndAtendimentoGrupoSS_Manu = "Movimentação:Atendimento Internos em Grupo - SS:Mamnutenção";
+    public static String telaIndAtendimentoGrupoSS_Plan = "Movimentação:Atendimento Internos em Grupo - SS:Planejamento";
+    public static String telaIndAtendimentoGrupoSS_Inte = "Movimentação:Atendimento Internos em Grupo - SS:Internos";
+    public static String telaIndAtendimentoGrupoSS_AVG = "Movimentação:Atendimento Internos em Grupo - SS:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoSS_AVI = "Movimentação:Atendimento Internos em Grupo - SS:Avaliação Individual";
+    public static String botaoEncerrar_SS = "Movimentação:Atendimento Internos em Grupo - SS:Botao Encerrar";
+    public static String botaoLiberar_SS = "Movimentação:Atendimento Internos em Grupo - SS:Botão Liberar";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -267,6 +276,12 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     String pNomeIAT = "";
     String pNomeIAPS = "";
     String pNomeIAS = "";
+    // ATIVIDADES EM GRUPO
+    String pNomeAGM = "";
+    String pNomePLA = "";
+    String pNomeAGI = "";
+    String pNomeAVG = "";
+    String pNomeAVI = "";
     //
     public static int pQUANTIDADE_ATENDIDA = 1;
 
@@ -326,6 +341,8 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
         AtendimentoFamiliar = new javax.swing.JMenuItem();
         CancelarVisitaInterno = new javax.swing.JMenuItem();
+        jSeparator24 = new javax.swing.JPopupMenu.Separator();
+        jAtendimentoGrupoSS = new javax.swing.JMenuItem();
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
         jMenu8 = new javax.swing.JMenu();
         jPaiNOVO = new javax.swing.JMenuItem();
@@ -602,6 +619,15 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             }
         });
         jMenu2.add(CancelarVisitaInterno);
+        jMenu2.add(jSeparator24);
+
+        jAtendimentoGrupoSS.setText("Atendimento em Grupo Serviço Social");
+        jAtendimentoGrupoSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAtendimentoGrupoSSActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jAtendimentoGrupoSS);
         jMenu2.add(jSeparator19);
 
         jMenu8.setText("P.A.I. - Programa de Assistência Individualizado");
@@ -2194,36 +2220,36 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
 
     private void jRelatorioQuantidadeAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioQuantidadeAtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
-         try {
-                            conecta.abrirConexao();
-                            String path = "reports/RelatorioQuantitativoFamiliarAcomp.jasper";
-                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
-                                    + "P.NomeInternoCrc,\n"
-                                    + "V.IdVisita AS Cadastradas,\n"
-                                    + "H.IdVisita AS Visitaram,\n"
-                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
-                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
-                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
-                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
-                                    + "WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'\n" 
-                                    + "ORDER BY P.NomeInternoCrc");
-                            HashMap parametros = new HashMap();
+        try {
+            conecta.abrirConexao();
+            String path = "reports/RelatorioQuantitativoFamiliarAcomp.jasper";
+            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                    + "P.NomeInternoCrc,\n"
+                    + "V.IdVisita AS Cadastradas,\n"
+                    + "H.IdVisita AS Visitaram,\n"
+                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                    + "WHERE  P.SituacaoCrc LIKE 'ENTRADA NA UNIDADE' OR P.SituacaoCrc LIKE 'RETORNO A UNIDADE'\n"
+                    + "ORDER BY P.NomeInternoCrc");
+            HashMap parametros = new HashMap();
 //                            parametros.put("dataInicial", dataInicial); // Descomentar linha caso mude a chamada do relatório por data.
 //                            parametros.put("dataFinal", dataFinal); // Descomentar linha caso mude a chamada do relatório por data.
-                            parametros.put("pUsuario", nameUser);
-                            parametros.put("pUnidade", descricaoUnidade);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Acompanhamento Familiar.");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
-         
+            parametros.put("pUsuario", nameUser);
+            parametros.put("pUnidade", descricaoUnidade);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Acompanhamento Familiar.");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+
         //--> Descomentar as três linhas abaixo e comentar codigo acima caso mude a chamada do relatório por data.
         //TelaRelatorioQuantidadeAconpanhamentoFamiliar objRelAF = new TelaRelatorioQuantidadeAconpanhamentoFamiliar();
         //TelaModuloServicoSocial.jPainelServicoSocial.add(objRelAF);
@@ -2271,33 +2297,67 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private void jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed
         // TODO add your handling code here:
         try {
-                            conecta.abrirConexao();
-                            String path = "reports/RelatorioQuantitativoFamiliarAcompGeral.jasper";
-                            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
-                                    + "P.NomeInternoCrc,\n"
-                                    + "V.IdVisita AS Cadastradas,\n"
-                                    + "H.IdVisita AS Visitaram,\n"
-                                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
-                                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
-                                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
-                                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
-                                    + "ORDER BY P.NomeInternoCrc");
-                            HashMap parametros = new HashMap();//                          
-                            parametros.put("pUsuario", nameUser);
-                            parametros.put("pUnidade", descricaoUnidade);
-                            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
-                            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
-                            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
-                            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                            jv.setTitle("Relatório de Acompanhamento Familiar.");
-                            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
-                            jv.toFront(); // Traz o relatorio para frente da aplicação            
-                            conecta.desconecta();
-                        } catch (JRException e) {
-                            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
-                        }
-         
+            conecta.abrirConexao();
+            String path = "reports/RelatorioQuantitativoFamiliarAcompGeral.jasper";
+            conecta.executaSQL("SELECT DISTINCT P.IdInternoCrc,\n"
+                    + "P.NomeInternoCrc,\n"
+                    + "V.IdVisita AS Cadastradas,\n"
+                    + "H.IdVisita AS Visitaram,\n"
+                    + " A.IdVisita AS Atendidas FROM PRONTUARIOSCRC AS P\n"
+                    + "INNER JOIN VERIFICA_DOCUMENTOS_VISITA AS V ON P.IdInternoCrc=V.IdInternoCrc\n"
+                    + "LEFT JOIN HISTORICOVISITASINTERNOS AS H ON V.IdVisita=H.IdVisita\n"
+                    + "LEFT JOIN ATENDIMENTOFAMILIAR AS A ON H.IdVisita=A.IdVisita\n"
+                    + "ORDER BY P.NomeInternoCrc");
+            HashMap parametros = new HashMap();//                          
+            parametros.put("pUsuario", nameUser);
+            parametros.put("pUnidade", descricaoUnidade);
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Acompanhamento Familiar.");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
+
     }//GEN-LAST:event_jRelatorioGeralQuantidadeAtendimentoFamiliarActionPerformed
+
+    private void jAtendimentoGrupoSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoGrupoSSActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelaVisitaSS);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaCancelaVisitaSS) && codAbrirSS == 1) {
+            if (objAtenSS == null || objAtenSS.isClosed()) {
+                objAtenSS = new TelaAtendimentoGrupoSS();
+                jPainelServicoSocial.add(objAtenSS);
+                objAtenSS.setVisible(true);
+            } else {
+                if (objAtenSS.isVisible()) {
+                    if (objAtenSS.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtenSS.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtenSS.toFront(); // traz para frente
+                        objAtenSS.pack();//volta frame 
+                    }
+                } else {
+                    objAtenSS = new TelaAtendimentoGrupoSS();
+                    TelaModuloServicoSocial.jPainelServicoSocial.add(objAtenSS);//adicona frame ao JDesktopPane  
+                    objAtenSS.setVisible(true);
+                }
+            }
+            try {
+                objAtenSS.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jAtendimentoGrupoSSActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2342,6 +2402,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenuItem VisitantesReligiosos;
     private javax.swing.JMenuItem Vistantes;
+    private javax.swing.JMenuItem jAtendimentoGrupoSS;
     private javax.swing.JMenuItem jCancelamentoRegistroAtendimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -2385,6 +2446,7 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator21;
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
+    private javax.swing.JPopupMenu.Separator jSeparator24;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
@@ -3067,6 +3129,42 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             pNomeIAS = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ATIVIDADE EM GRUPO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoSS_Manu + "'");
+            conecta.rs.first();
+            pNomeAGM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoSS_Inte + "'");
+            conecta.rs.first();
+            pNomeAGI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoSS_Plan + "'");
+            conecta.rs.first();
+            pNomePLA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoSS_AVG + "'");
+            conecta.rs.first();
+            pNomeAVG = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoSS_AVI + "'");
+            conecta.rs.first();
+            pNomeAVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCV.equals(telaCadastroVisitasSS) || pNomeCV == null || pNomeCV.equals("")) {
             buscarCodigoModulo();
@@ -3375,6 +3473,37 @@ public class TelaModuloServicoSocial extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaIndAcompanhaAbaSSS);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ATIVIDADES EM GRUPO
+        if (!pNomeAGM.equals(telaIndAtendimentoGrupoSS_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoSS_Manu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAGI.equals(telaIndAtendimentoGrupoSS_Inte) || pNomeAGI == null || pNomeAGI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoSS_Inte);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePLA.equals(telaIndAtendimentoGrupoSS_Plan) || pNomePLA == null || pNomePLA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoSS_Plan);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVG.equals(telaIndAtendimentoGrupoSS_AVG) || pNomeAVG == null || pNomeAVG.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoSS_AVG);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVI.equals(telaIndAtendimentoGrupoSS_AVI) || pNomeAVI == null || pNomeAVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoSS_AVI);
             controle.incluirTelaAcesso(objCadastroTela);
         }
         conecta.desconecta();

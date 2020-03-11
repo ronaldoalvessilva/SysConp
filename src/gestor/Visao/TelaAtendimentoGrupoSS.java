@@ -29,11 +29,11 @@ import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
 import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
 import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_AVG;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_AVI;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Inte;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Manu;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Plan;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_AVG;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_AVI;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_Inte;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_Manu;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_Plan;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -56,7 +56,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Socializa TI 02
  */
-public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
+public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
@@ -64,11 +64,11 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "Psicologia:Atendimento em Grupo:Manutenção";
-    String nomeModuloTela2 = "Psicologia:Atendimento em Grupo:Planejamento";
-    String nomeModuloTela3 = "Psicologia:Atendimento em Grupo:Participantes";
-    String nomeModuloTela4 = "Psicologia:Atendimento em Grupo:Avaliação em Grupo";
-    String nomeModuloTela5 = "Psicologia:Atendimento em Grupo:Avaliação Individual";
+    String nomeModuloTela = "Serviço Social:Atendimento em Grupo:Manutenção";
+    String nomeModuloTela2 = "Serviço Social:Atendimento em Grupo:Planejamento";
+    String nomeModuloTela3 = "Serviço Social:Atendimento em Grupo:Participantes";
+    String nomeModuloTela4 = "Serviço Social:Atendimento em Grupo:Avaliação em Grupo";
+    String nomeModuloTela5 = "Serviço Social:Atendimento em Grupo:Avaliação Individual";
     //
     String statusMov;
     String horaMov;
@@ -104,23 +104,23 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaAtendimentoGrupoPSI
      */
-    public static TelaLiberacaoAtendimentoGruposPSI pATENDE_GRUPO;
-    public static TelaSelecaoLoteInternosAG pPESQUISA_LOTE;
+    public static TelaLiberacaoAtendimentoGruposSS pATENDE_GRUPO_SS;
+    public static TelaSelecaoLoteInternosAGSS pPESQUISA_LOTE_SS;
 
-    public TelaAtendimentoGrupoPSI() {
+    public TelaAtendimentoGrupoSS() {
         initComponents();
         corCampos();
         formatarCampos();
     }
 
     public void mostrarTelaAG() {
-        pATENDE_GRUPO = new TelaLiberacaoAtendimentoGruposPSI(this, true);
-        pATENDE_GRUPO.setVisible(true);
+        pATENDE_GRUPO_SS = new TelaLiberacaoAtendimentoGruposSS(this, true);
+        pATENDE_GRUPO_SS.setVisible(true);
     }
 
     public void mostrarPesquisaLote() {
-        pPESQUISA_LOTE = new TelaSelecaoLoteInternosAG(this, true);
-        pPESQUISA_LOTE.setVisible(true);
+        pPESQUISA_LOTE_SS = new TelaSelecaoLoteInternosAGSS(this, true);
+        pPESQUISA_LOTE_SS.setVisible(true);
     }
 
     /**
@@ -915,7 +915,7 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
             .addGroup(jManutencaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -2490,8 +2490,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Manu) && codIncluirPSI == 1) {
             acao = 1;
             bloquearTodosCampos();
             bloquearTodosBotoes();
@@ -2511,8 +2511,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codAlterarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Manu) && codAlterarPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2533,8 +2533,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codExcluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Manu) && codExcluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2591,8 +2591,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codGravarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Manu) && codGravarPSI == 1) {
             if (jComboBoxPavilhaoGaleria.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "É necessário informar o pavilhão.");
             } else if (jComboBoxAmbiente.getSelectedItem().equals("Selecione...")) {
@@ -2671,8 +2671,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Plan) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Plan) && codIncluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2694,8 +2694,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAlterarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Plan) && codAlterarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Plan) && codAlterarPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2716,8 +2716,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtExcluirPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Plan) && codExcluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Plan) && codExcluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2761,8 +2761,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtSalvarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarPlanActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Plan);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Plan) && codGravarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Plan);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Plan) && codGravarPSI == 1) {
             if (jComboBoxTema.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o tema para o planejamento.");
             } else if (jHorarioInicialTema.getText().equals("00:00")) {
@@ -2875,8 +2875,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Inte) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Inte) && codIncluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2897,8 +2897,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAlterarParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Inte) && codAlterarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Inte) && codAlterarPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -2918,8 +2918,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtExcluirParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Inte) && codExcluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Inte) && codExcluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -2967,8 +2967,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtSalvarParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarParticipantesActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Inte);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Inte) && codGravarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Inte);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_Inte) && codGravarPSI == 1) {
             if (jIdInternoGrp.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
             } else if (jNomeInternoGrp.getText().equals("")) {
@@ -3112,8 +3112,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVG) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVG) && codIncluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3139,8 +3139,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAlterarAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVG) && codAlterarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVG) && codAlterarPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3160,8 +3160,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtExcluirAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVG) && codExcluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVG) && codExcluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -3200,8 +3200,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtSalvarAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAvGrupoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVG);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVG) && codGravarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVG);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVG) && codGravarPSI == 1) {
             objAvalia.setIdAtGrupoPsi(Integer.valueOf(jCodigoAtend.getText()));
             objAvalia.setTextoAvalaiacaoGrupo(jTextoAvaliacaoGrupo.getText());
             //VERIFICAR SE JÁ EXISTE ALGUM REGISTRO, NÃO PODE DUPLICAR
@@ -3265,8 +3265,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtNovoAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVI) && codIncluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3287,8 +3287,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtAlterarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codAlterarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVI) && codAlterarPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -3308,8 +3308,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtExcluirAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codExcluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVI) && codExcluirPSI == 1) {
             objAvalia.setStatusAtendGrupo(jStatusAtend.getText());
             if (jStatusAtend.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -3357,8 +3357,8 @@ public class TelaAtendimentoGrupoPSI extends javax.swing.JInternalFrame {
 
     private void jBtSalvarAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarAvIndActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_AVI);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_AVI) && codGravarPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_AVI);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoSS_AVI) && codGravarPSI == 1) {
             if (jIdInternoAI.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do participante.");
             } else if (jNomeInternoAVI.getText().equals("")) {
