@@ -222,7 +222,7 @@ public class TelaInstituicaoReligiosaPortarias extends javax.swing.JInternalFram
         jTabelaInstituicao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInstituicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Nome da Instituição"
@@ -667,7 +667,7 @@ public class TelaInstituicaoReligiosaPortarias extends javax.swing.JInternalFram
         jTabelaHistoricoFreqExterna.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaHistoricoFreqExterna.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Visitante", "Data Saida", "H. Saída", "Data Entrada", "H. Entrada"

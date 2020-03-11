@@ -358,7 +358,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
         jTabelaPesquisaRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesquisaRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Interno", "Observação"
@@ -692,7 +692,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Portaria", jPanel18);
@@ -742,8 +742,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2)
-                .addContainerGap())
+                .addComponent(jTabbedPane2))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -894,7 +893,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
         jTabelaVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisita.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome da Visita", "Data Inicio", "Parentesco", "Status"
@@ -936,8 +935,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Visitas", jPanel6);
@@ -1039,7 +1037,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
         jTabelaItensInternas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaItensInternas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Seq.", "Código", "Nome do Interno", "Data Validade", "Status"
@@ -1081,8 +1079,7 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Internos", jPanel11);
@@ -1240,9 +1237,20 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                     jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                     // Capturando foto
                     caminho = conecta.rs.getString("FotoInternoCrc");
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInterno.setIcon(i);
-                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(i);
+                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoInterno.setIcon(icon);
+                    }
                     jDataNascInterno.setDate(conecta.rs.getDate("DataNasciCrc"));
                     jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                     jObsRol.setText(conecta.rs.getString("ObsRol"));
@@ -1284,9 +1292,21 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                     jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                     // Capturando foto
                     caminho = conecta.rs.getString("FotoInternoCrc");
-                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                    jFotoInterno.setIcon(i);
-                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    if (caminho != null) {
+                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                        jFotoInterno.setIcon(i);
+                        jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                    }
+                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                    byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                    if (imgBytes != null) {
+                        ImageIcon pic = null;
+                        pic = new ImageIcon(imgBytes);
+                        Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(scaled);
+                        jFotoInterno.setIcon(icon);
+                    }
+                    //
                     jDataNascInterno.setDate(conecta.rs.getDate("DataNasciCrc"));
                     jDataEntradaInterno.setDate(conecta.rs.getDate("DataEntrada"));
                     jObsRol.setText(conecta.rs.getString("ObsRol"));
@@ -1337,9 +1357,20 @@ public class TelaRolVisitasPortaria extends javax.swing.JInternalFrame {
                 jDataNascVisita.setDate(conecta.rs.getDate("DataNasc"));
                 // Capturando foto
                 camFotoVisita = conecta.rs.getString("ImagemVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(camFotoVisita);
-                FotoVisita.setIcon(i);
-                FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                if (camFotoVisita != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(camFotoVisita);
+                    FotoVisita.setIcon(i);
+                    FotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoVisita.getWidth(), FotoVisita.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoVisita.setIcon(icon);
+                }
                 jDataCadaVisita.setDate(conecta.rs.getDate("DataCadVisita"));
                 jDataInicio.setDate(conecta.rs.getDate("DataInicio"));
                 jDataValiAntecedente.setDate(conecta.rs.getDate("DataValiAnte"));

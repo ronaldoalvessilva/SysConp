@@ -182,7 +182,7 @@ public class TelaFotoVisitaDiversasExterna extends javax.swing.JDialog {
             if (img2Bytes != null) {
                 ImageIcon pic2 = null;
                 pic2 = new ImageIcon(img2Bytes);
-                Image scaled2 = pic2.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_DEFAULT);
+                Image scaled2 = pic2.getImage().getScaledInstance(FotoVisitasDiversas.getWidth(), FotoVisitasDiversas.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon2 = new ImageIcon(scaled2);
                 FotoVisitasDiversas.setIcon(icon2);
             }

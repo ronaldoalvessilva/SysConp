@@ -166,7 +166,7 @@ public class TelaFotoColaboradorExterna extends javax.swing.JDialog {
             if (img2Bytes != null) {
                 ImageIcon pic2 = null;
                 pic2 = new ImageIcon(img2Bytes);
-                Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
+                Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon2 = new ImageIcon(scaled2);
                 jFotoColaborador.setIcon(icon2);
             }

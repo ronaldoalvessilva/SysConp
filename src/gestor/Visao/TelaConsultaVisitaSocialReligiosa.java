@@ -177,7 +177,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisa de Visitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jPesqNomeVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -296,7 +296,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
         jTabelaVisitasReligiosas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasReligiosas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Visitante", "Data Cadastro", "Religião"
@@ -600,7 +600,7 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
         jTabbedPane2.setForeground(new java.awt.Color(51, 51, 255));
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Endereço:");
@@ -910,10 +910,20 @@ public class TelaConsultaVisitaSocialReligiosa extends javax.swing.JInternalFram
                 jNomeVisita.setText(conecta.rs.getString("NomeVisitaRel"));
                 // Capturando foto
                 caminho = conecta.rs.getString("ImagemVisitaRel");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jLabelFoto.setIcon(i);
-                jLabelFoto.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jLabelFoto.setIcon(i);
+                    jLabelFoto.setIcon(new ImageIcon(i.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVR"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jLabelFoto.setIcon(icon);
+                }
                 jReligiao.setText(conecta.rs.getString("ReligiaoVisitaRel"));
                 jDataNascVisita.setDate(conecta.rs.getDate("DataNascRel"));
                 jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoVisitaRel"));
