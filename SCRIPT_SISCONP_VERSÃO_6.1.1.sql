@@ -374,15 +374,17 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('PLANEJAMENTO_AT
 	Setor VARCHAR(80) NULL,
 	)
 
-	--INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Vacinas','EN','Enfermaria')
-	--INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Roda de Conversa','SS','Serviço Social')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Palestras','SS','Serviço Social')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Palestras','PS','Psicologia')
-	--INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Projetos','EN','Enfermaria')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Projetos','PS','Psicologia')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Vermectina','EN','Enfermaria')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Oficinas','TO','Terapia Ocupacional')
---	INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Leituras','PE','Pedagogia')
+/**
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Vacinas','EN','Enfermaria')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Roda de Conversa','SS','Serviço Social')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Palestras','SS','Serviço Social')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Palestras','PS','Psicologia')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Projetos','EN','Enfermaria')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Projetos','PS','Psicologia')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Vermectina','EN','Enfermaria')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Oficinas','TO','Terapia Ocupacional')
+INSERT INTO PLANEJAMENTO_ATIVIDADES_GRUPO(DescricaoPlaneja,Sigla,Setor) VALUES('Leituras','PE','Pedagogia')
+**/
 
 -- PLANEJAMENTO ATENDIMENTO EM GRUPO ENFERMARIA
 -- VACINAS
