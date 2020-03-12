@@ -5,19 +5,18 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleAtendimentoGrupoPsicologia;
-import gestor.Controle.ControleListaInternosCelasAG;
-import gestor.Controle.ControleListaInternosGaleiraAG;
-import gestor.Controle.ControleListaInternosPavilhaoAG;
-import gestor.Controle.ControleListaInternosPavilhaoAG_II;
+import gestor.Dao.ControleListaInternosPavilhaoAG_SS_DAO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ControleAtendimentoGrupoPsicologiaDAO;
+import gestor.Dao.ControleListaInternosCelasAG_SS_DAO;
+import gestor.Dao.ControleListaInternosGaleiraAG_SS_DAO;
+import gestor.Dao.ControleListaInternosPavilhaoAG_II_SS_DAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaAtendimentoGrupoSS.count1;
 import static gestor.Visao.TelaAtendimentoGrupoSS.jBtAlterarParticipantes;
 import static gestor.Visao.TelaAtendimentoGrupoSS.jBtAuditoriaParticipantes;
 import static gestor.Visao.TelaAtendimentoGrupoSS.jBtCancelarParticipantes;
@@ -63,11 +62,11 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
-    ControleAtendimentoGrupoPsicologia control = new ControleAtendimentoGrupoPsicologia();
-    ControleListaInternosCelasAG listaPorCelas = new ControleListaInternosCelasAG();
-    ControleListaInternosGaleiraAG listaPorGaleira = new ControleListaInternosGaleiraAG();
-    ControleListaInternosPavilhaoAG listaPorPavilhao = new ControleListaInternosPavilhaoAG();
-    ControleListaInternosPavilhaoAG_II listaPorPavilhao_B = new ControleListaInternosPavilhaoAG_II();
+    ControleAtendimentoGrupoPsicologiaDAO control = new ControleAtendimentoGrupoPsicologiaDAO();
+    ControleListaInternosCelasAG_SS_DAO listaPorCelas = new ControleListaInternosCelasAG_SS_DAO();
+    ControleListaInternosGaleiraAG_SS_DAO listaPorGaleira = new ControleListaInternosGaleiraAG_SS_DAO();
+    ControleListaInternosPavilhaoAG_SS_DAO listaPorPavilhao = new ControleListaInternosPavilhaoAG_SS_DAO();
+    ControleListaInternosPavilhaoAG_II_SS_DAO listaPorPavilhao_B = new ControleListaInternosPavilhaoAG_II_SS_DAO();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -1337,7 +1336,7 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
                         } else if (i > 0) {
                             jTabelaInternosDestino.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
-                            pTOTAL_REGISTROS = i;
+                            pTOTAL_REGISTROS = i + 1;
                             jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
                             jProgressBar1.setValue(i);
                         }

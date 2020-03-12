@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ControleRegistroAtendimentoInternoBioDAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;
@@ -19,20 +19,20 @@ import static gestor.Visao.TelaAtendimentoGrupoSS.jStatusAtend;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaModuloPsicologia.codAbrirPSI;
-import static gestor.Visao.TelaModuloPsicologia.codAlterarPSI;
-import static gestor.Visao.TelaModuloPsicologia.codExcluirPSI;
-import static gestor.Visao.TelaModuloPsicologia.codGravarPSI;
-import static gestor.Visao.TelaModuloPsicologia.codIncluirPSI;
-import static gestor.Visao.TelaModuloPsicologia.codUserAcessoPSI;
-import static gestor.Visao.TelaModuloPsicologia.codigoUserPSI;
-import static gestor.Visao.TelaModuloPsicologia.nomeGrupoPSI;
-import static gestor.Visao.TelaModuloPsicologia.codConsultarPSI;
-import static gestor.Visao.TelaModuloPsicologia.codigoUserGroupPSI;
-import static gestor.Visao.TelaModuloPsicologia.codigoGrupoPSI;
-import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
-import static gestor.Visao.TelaModuloPsicologia.nomeTelaPSI;
-import static gestor.Visao.TelaModuloPsicologia.telaIndAtendimentoGrupoPSI_Manu;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserGroupSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codExcluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codGravarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codConsultarSS;
+import static gestor.Visao.TelaModuloServicoSocial.codIncluirSS;
+import static gestor.Visao.TelaModuloServicoSocial.codUserAcessoSS;
+import static gestor.Visao.TelaModuloServicoSocial.codigoUserSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeGrupoSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeModuloSS;
+import static gestor.Visao.TelaModuloServicoSocial.nomeTelaSS;
+import static gestor.Visao.TelaModuloServicoSocial.telaIndAtendimentoGrupoSS_Manu;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.sql.SQLException;
@@ -50,12 +50,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    ControleRegistroAtendimentoInternoBio control = new ControleRegistroAtendimentoInternoBio();
+    ControleRegistroAtendimentoInternoBioDAO control = new ControleRegistroAtendimentoInternoBioDAO();
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
-    String nomeModuloTela = "PSICOLOGIA:Registro de Atendimento de Internos em Grupo";
+    String nomeModuloTela = "SERVIÇO SOCIAL:Registro de Atendimento de Internos em Grupo";
     //
     int count = 0;
     int codigoDepto = 0;
@@ -92,14 +92,14 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
         jRegistrosProcessados.setVisible(!true);
         corCampos();
         //ABA PARTICIPANTES
-        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                 + "INNER JOIN PRONTUARIOSCRC "
-                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "INNER JOIN DADOSPENAISINTERNOS "
                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
     }
 
     public void mostrarLiberador() {
@@ -174,7 +174,7 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
         jLabel9.setText("Tipo de Atendimento");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/PSI", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Atendimento em Grupo/SS", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -523,8 +523,8 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
 
     private void jBtNovaLiberacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaLiberacaoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaIndAtendimentoGrupoPSI_Manu);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES") || codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaIndAtendimentoGrupoPSI_Manu) && codIncluirPSI == 1) {
+        buscarAcessoUsuario(telaIndAtendimentoGrupoSS_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaIndAtendimentoGrupoSS_Manu) && codIncluirSS == 1) {
             Novo();
             pesquisarAtendente();
         } else {
@@ -666,10 +666,10 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
     public void Novo() {
         jIdRegistro.setText(jCodigoAtend.getText());
         jDataRegistro.setCalendar(Calendar.getInstance());
-        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/PSI");
+        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/SS");
         jComboBoxAtendente.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText(jHoraSistema.getText());
-        jNomeDepartamento.setText(nomeModuloPSICOLOGIA);
+        jNomeDepartamento.setText(nomeModuloSS);
         jMotivo.setText("");
         //
         jComboBoxTipoMovimentacao.setEnabled(true);
@@ -684,7 +684,7 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
     public void Cancelar() {
         jIdRegistro.setText("");
         jDataRegistro.setDate(null);
-        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/PSI");
+        jComboBoxTipoMovimentacao.setSelectedItem("Atendimento em Grupo/SS");
         jComboBoxAtendente.setSelectedItem("Selecione...");
         jHorarioSaidaEntrada.setText("");
         jNomeDepartamento.setText("");
@@ -704,7 +704,7 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "'");
+                    + "WHERE NomeDepartamento='" + nomeModuloSS + "'");
             conecta.rs.first();
             codigoDepto = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
@@ -716,7 +716,7 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "' "
+                    + "WHERE NomeDepartamento='" + nomeModuloSS + "' "
                     + "ORDER BY NomeUsuario");
             conecta.rs.first();
             do {
@@ -846,7 +846,7 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
             do {
                 count = count + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPart"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartSS"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -918,33 +918,33 @@ public class TelaLiberacaoAtendimentoGruposSS extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM USUARIOS "
                     + "WHERE NomeUsuario='" + nameUser + "'");
             conecta.rs.first();
-            codigoUserPSI = conecta.rs.getInt("IdUsuario");
+            codigoUserSS = conecta.rs.getInt("IdUsuario");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
                     + "INNER JOIN GRUPOUSUARIOS "
                     + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
-                    + "WHERE IdUsuario='" + codigoUserPSI + "'");
+                    + "WHERE IdUsuario='" + codigoUserSS + "'");
             conecta.rs.first();
-            codigoUserGroupPSI = conecta.rs.getInt("IdUsuario");
-            codigoGrupoPSI = conecta.rs.getInt("IdGrupo");
-            nomeGrupoPSI = conecta.rs.getString("NomeGrupo");
+            codigoUserGroupSS = conecta.rs.getInt("IdUsuario");
+            codigoGrupoSS = conecta.rs.getInt("IdGrupo");
+            nomeGrupoSS = conecta.rs.getString("NomeGrupo");
         } catch (Exception e) {
         }
         try {
             conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
-                    + "WHERE IdUsuario='" + codigoUserPSI + "' "
+                    + "WHERE IdUsuario='" + codigoUserSS + "' "
                     + "AND NomeTela='" + nomeTelaAcesso + "'");
             conecta.rs.first();
-            codUserAcessoPSI = conecta.rs.getInt("IdUsuario");
-            codAbrirPSI = conecta.rs.getInt("Abrir");
-            codIncluirPSI = conecta.rs.getInt("Incluir");
-            codAlterarPSI = conecta.rs.getInt("Alterar");
-            codExcluirPSI = conecta.rs.getInt("Excluir");
-            codGravarPSI = conecta.rs.getInt("Gravar");
-            codConsultarPSI = conecta.rs.getInt("Consultar");
-            nomeTelaPSI = conecta.rs.getString("NomeTela");
+            codUserAcessoSS = conecta.rs.getInt("IdUsuario");
+            codAbrirSS = conecta.rs.getInt("Abrir");
+            codIncluirSS = conecta.rs.getInt("Incluir");
+            codAlterarSS = conecta.rs.getInt("Alterar");
+            codExcluirSS = conecta.rs.getInt("Excluir");
+            codGravarSS = conecta.rs.getInt("Gravar");
+            codConsultarSS = conecta.rs.getInt("Consultar");
+            nomeTelaSS = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

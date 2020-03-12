@@ -8,6 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAtendimentoGrupoPsicologia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ControleAtendimentoGrupoPsicologiaDAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
@@ -60,7 +61,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
-    ControleAtendimentoGrupoPsicologia control = new ControleAtendimentoGrupoPsicologia();
+    ControleAtendimentoGrupoPsicologiaDAO control = new ControleAtendimentoGrupoPsicologiaDAO();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -99,7 +100,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     String pCODIGO_ATENDE_AVAI = "";
     //
     public static String idItem;
-    String pSIGLA = "PS";
+    String pSIGLA = "SS";
 
     /**
      * Creates new form TelaAtendimentoGrupoPSI
@@ -2321,10 +2322,10 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
             jIDPesq.requestFocus();
         } else {
-            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_SS "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
-                    + "WHERE IdAtGrupoPsi='" + jIDPesq.getText() + "'");
+                    + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav "
+                    + "WHERE IdAtGrupoSS='" + jIDPesq.getText() + "'");
         }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
@@ -2335,13 +2336,13 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             jPesqNomeInterno.requestFocus();
         } else {
-            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_SS "
+                    + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                    + "ON ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
+                    + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtPesquisarInternosActionPerformed
@@ -2366,9 +2367,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_SS "
                                 + "INNER JOIN PAVILHAO "
-                                + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
+                                + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -2389,9 +2390,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_SS "
                                 + "INNER JOIN PAVILHAO "
-                                + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
+                                + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav "
                                 + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
                                 + "AND '" + dataFinal + "'");
                     }
@@ -2404,9 +2405,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+            this.preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_SS "
                     + "INNER JOIN PAVILHAO "
-                    + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav");
+                    + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -2439,12 +2440,12 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             jComboBoxNivelPavilhao.removeAllItems();
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
+                conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_SS "
                         + "INNER JOIN PAVILHAO "
-                        + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
-                        + "WHERE ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + IdLanc + "'");
+                        + "ON ATENDIMENTO_GRUPO_SS.IdPav=PAVILHAO.IdPav "
+                        + "WHERE ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + IdLanc + "'");
                 conecta.rs.first();
-                jCodigoAtend.setText(String.valueOf(conecta.rs.getInt("IdAtGrupoPsi")));
+                jCodigoAtend.setText(String.valueOf(conecta.rs.getInt("IdAtGrupoSS")));
                 jStatusAtend.setText(conecta.rs.getString("StatusAtendGrupo"));
                 jDataAtend.setDate(conecta.rs.getDate("DataAtend"));
                 jResponsavel.setText(conecta.rs.getString("Responsavel"));
@@ -2461,30 +2462,30 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             //ABA PLANEJAMENTO
-            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + IdLanc + "'");
+            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + IdLanc + "'");
             //ABA PARTICIPANTES
-            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + IdLanc + "'");
+                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + IdLanc + "'");
             //ABA AVALIAÇÃO EM GRUIPO
             buscarAvaliacaoGrupo();
             //ABA AVALIAÇÃO INDIVIDUAL
-            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAdmissaoPsicologicaMouseClicked
 
@@ -2664,8 +2665,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_MANU objAudMa = new TelaAuditoriaRegistroAtendGrupo_MANU();
-        TelaModuloPsicologia.jPainelPsicologia.add(objAudMa);
+        TelaAuditoriaRegistroAtendGrupo_MANU_SS objAudMa = new TelaAuditoriaRegistroAtendGrupo_MANU_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudMa);
         objAudMa.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
@@ -2742,10 +2743,10 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                             bloquearTodosBotoes();
                             limparCamposPlanejamento();
                             ExcluirPlan();
-                            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                                    + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                                    + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                         }
                     }
@@ -2794,10 +2795,10 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposPlanejamento();
                     SalvarPlan();
-                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 4) {
@@ -2814,10 +2815,10 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposPlanejamento();
                     SalvarPlan();
-                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                    preencherTabelaPlanejamento("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                            + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                            + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -2833,8 +2834,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaPlanActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_PLAN objAudiPlan = new TelaAuditoriaRegistroAtendGrupo_PLAN();
-        TelaModuloPsicologia.jPainelPsicologia.add(objAudiPlan);
+        TelaAuditoriaRegistroAtendGrupo_PLAN_SS objAudiPlan = new TelaAuditoriaRegistroAtendGrupo_PLAN_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudiPlan);
         objAudiPlan.show();
     }//GEN-LAST:event_jBtAuditoriaPlanActionPerformed
 
@@ -2854,13 +2855,13 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             jComboBoxTema.removeAllItems();
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                        + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "' "
-                        + "AND PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdItemPlan='" + pCODIGO_PLAN + "'");
+                conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                        + "ON PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                        + "WHERE PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "' "
+                        + "AND PLANEJAMENTO_ATENDIMENTO_GRUPO_SS.IdItemPlanSS='" + pCODIGO_PLAN + "'");
                 conecta.rs.first();
-                jCodigoTema.setText(conecta.rs.getString("IdItemPlan"));
+                jCodigoTema.setText(conecta.rs.getString("IdItemPlanSS"));
                 jComboBoxTema.addItem(conecta.rs.getString("Tema"));
                 jHorarioInicialTema.setText(conecta.rs.getString("HoraInicio"));
                 jHorarioFinalTema.setText(conecta.rs.getString("HoraTermino"));
@@ -2944,14 +2945,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                             bloquearTodosBotoes();
                             limparCamposParticipantes();
                             ExcluirParticipante();
-                            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                            preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                                     + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                                    + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro exluído com sucesso.");
                         }
                     }
@@ -2991,14 +2992,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposParticipantes();
                     SalvarPlan();
-                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 6) {
@@ -3014,14 +3015,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposParticipantes();
                     SalvarPlan();
-                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
+                    preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
                             + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -3037,15 +3038,15 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaParticipantesActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_PART objAudi_PART = new TelaAuditoriaRegistroAtendGrupo_PART();
-        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_PART);
+        TelaAuditoriaRegistroAtendGrupo_PART_SS objAudi_PART = new TelaAuditoriaRegistroAtendGrupo_PART_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudi_PART);
         objAudi_PART.show();
     }//GEN-LAST:event_jBtAuditoriaParticipantesActionPerformed
 
     private void jBtPesquisarPartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarPartActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendimentoGrupoPSI objPesqInterno = new TelaPesqInternoAtendimentoGrupoPSI();
-        TelaModuloPsicologia.jPainelPsicologia.add(objPesqInterno);
+        TelaPesqInternoAtendimentoGrupoSS objPesqInterno = new TelaPesqInternoAtendimentoGrupoSS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objPesqInterno);
         objPesqInterno.show();
     }//GEN-LAST:event_jBtPesquisarPartActionPerformed
 
@@ -3064,11 +3065,11 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             jBtAuditoriaParticipantes.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3077,9 +3078,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdItemPart='" + pCODIGO_PART + "'");
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdItemPartSS='" + pCODIGO_PART + "'");
                 conecta.rs.first();
-                pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPart");
+                pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartSS");
                 jIdInternoGrp.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNC.setText(conecta.rs.getString("Cnc"));
                 jRegime.setText(conecta.rs.getString("Regime"));
@@ -3258,8 +3259,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvGrupoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_AGRU objAudi_AG = new TelaAuditoriaRegistroAtendGrupo_AGRU();
-        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_AG);
+        TelaAuditoriaRegistroAtendGrupo_AGRU_SS objAudi_AG = new TelaAuditoriaRegistroAtendGrupo_AGRU_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudi_AG);
         objAudi_AG.show();
     }//GEN-LAST:event_jBtAuditoriaAvGrupoActionPerformed
 
@@ -3334,14 +3335,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                             bloquearTodosBotoes();
                             limparCamposAVI();
                             ExcluirAVGI();
-                            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                            preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                                     + "INNER JOIN PRONTUARIOSCRC "
-                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "INNER JOIN DADOSPENAISINTERNOS "
                                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                                    + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                             JOptionPane.showMessageDialog(rootPane, "Registro exluído com sucesso.");
                         }
                     }
@@ -3382,14 +3383,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposAVI();
                     SalvarAVG();
-                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
                 if (acao == 10) {
@@ -3407,14 +3408,14 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                     bloquearTodosBotoes();
                     limparCamposAVI();
                     SalvarAVG();
-                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                    preencherTabelaAvaliacaoIndividual("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                            + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                             + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                            + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "INNER JOIN DADOSPENAISINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+                            + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
@@ -3430,15 +3431,15 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaAvIndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaAvIndActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaRegistroAtendGrupo_AIGRU objAudi_AIG = new TelaAuditoriaRegistroAtendGrupo_AIGRU();
-        TelaModuloPsicologia.jPainelPsicologia.add(objAudi_AIG);
+        TelaAuditoriaRegistroAtendGrupo_AIGRU_SS objAudi_AIG = new TelaAuditoriaRegistroAtendGrupo_AIGRU_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objAudi_AIG);
         objAudi_AIG.show();
     }//GEN-LAST:event_jBtAuditoriaAvIndActionPerformed
 
     private void jBtPesqInternoAVIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqInternoAVIActionPerformed
         // TODO add your handling code here:
-        TelaPesqInternoAtendimentoGrupoAVI_PSI objPesqIntAVI = new TelaPesqInternoAtendimentoGrupoAVI_PSI();
-        TelaModuloPsicologia.jPainelPsicologia.add(objPesqIntAVI);
+        TelaPesqInternoAtendimentoGrupoAVI_SS objPesqIntAVI = new TelaPesqInternoAtendimentoGrupoAVI_SS();
+        TelaModuloServicoSocial.jPainelServicoSocial.add(objPesqIntAVI);
         objPesqIntAVI.show();
     }//GEN-LAST:event_jBtPesqInternoAVIActionPerformed
 
@@ -3457,11 +3458,11 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             jBtAuditoriaAvInd.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3470,9 +3471,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA.IdItemAvai='" + pCODIGO_AVI + "'");
+                        + "WHERE AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS.IdItemAvaiSS='" + pCODIGO_AVI + "'");
                 conecta.rs.first();
-                pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+                pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiSS");
                 jIdInternoAI.setText(conecta.rs.getString("IdInternoCrc"));
                 jCNCAI.setText(conecta.rs.getString("Cnc"));
                 jRegimeAVI.setText(conecta.rs.getString("Regime"));
@@ -3534,12 +3535,12 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         } else {
             try {
                 conecta.abrirConexao();
-                String path = "reports/RelatorioAtendimentoGrupoInternosPSI.jasper";
-                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
+                String path = "reports/RelatorioAtendimentoGrupoInternosSS.jasper";
+                conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                        + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN DADOSPENAISINTERNOS "
                         + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                         + "INNER JOIN ITENSLOCACAOINTERNO "
@@ -3548,7 +3549,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                         + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                         + "INNER JOIN PAVILHAO "
                         + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'"
+                        + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'"
                         + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
                 HashMap parametros = new HashMap();
                 parametros.put("pCODIGO_ATIVIDADE", jCodigoAtend.getText());
@@ -3558,7 +3559,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                 JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
                 JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
                 jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
-                jv.setTitle("Relatório Tempo Laborativo de Interno");
+                jv.setTitle("Relatório de Atendimento em Grupo - Serviço Social");
                 jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
                 jv.toFront(); // Traz o relatorio para frente da aplicação            
                 conecta.desconecta();
@@ -3573,8 +3574,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         if (jCodigoAtend.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário selecionar primeiro um registro.");
         } else {
-            TelaLiberadorRegistroAtendGrupo objLibera = new TelaLiberadorRegistroAtendGrupo();
-            TelaModuloPsicologia.jPainelPsicologia.add(objLibera);
+            TelaLiberadorRegistroAtendGrupoSS objLibera = new TelaLiberadorRegistroAtendGrupoSS();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objLibera);
             objLibera.show();
         }
     }//GEN-LAST:event_jBtLiberadorActionPerformed
@@ -3643,8 +3644,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         if (row == 0) {
             JOptionPane.showMessageDialog(rootPane, "Não existem internos a serem pesquisados, a tabela está vazia.");
         } else {
-            TelaLocalizarParticipantes_PSI objLocal = new TelaLocalizarParticipantes_PSI();
-            TelaModuloPsicologia.jPainelPsicologia.add(objLocal);
+            TelaLocalizarParticipantes_SS objLocal = new TelaLocalizarParticipantes_SS();
+            TelaModuloServicoSocial.jPainelServicoSocial.add(objLocal);
             objLocal.show();
         }
     }//GEN-LAST:event_jBtLocalizarInternoActionPerformed
@@ -4120,9 +4121,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarCodigoManutencao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_SS");
             conecta.rs.last();
-            jCodigoAtend.setText(conecta.rs.getString("IdAtGrupoPsi"));
+            jCodigoAtend.setText(conecta.rs.getString("IdAtGrupoSS"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4133,34 +4134,34 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         //PLANEJAMENTO DE ATENDIMENTO
         try {
-            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_PLAN = conecta.rs.getString("IdAtGrupoPsi");
+            pCODIGO_ATENDE_PLAN = conecta.rs.getString("IdAtGrupoSS");
         } catch (Exception e) {
         }
         //PARTICIPANTES
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_PART = conecta.rs.getString("IdAtGrupoPsi");
+            pCODIGO_ATENDE_PART = conecta.rs.getString("IdAtGrupoSS");
         } catch (Exception e) {
         }
         //AVALIAÇÃO EM GRUPO
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_AVAG = conecta.rs.getString("IdAtGrupoPsi");
+            pCODIGO_ATENDE_AVAG = conecta.rs.getString("IdAtGrupoSS");
         } catch (Exception e) {
         }
         //AVALIAÇÃO INDIVIDUAL
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_ATENDE_AVAI = conecta.rs.getString("IdAtGrupoPsi");
+            pCODIGO_ATENDE_AVAI = conecta.rs.getString("IdAtGrupoSS");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4238,9 +4239,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarCodigoPlanejamento() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM PLANEJAMENTO_ATENDIMENTO_GRUPO_SS");
             conecta.rs.last();
-            jCodigoTema.setText(conecta.rs.getString("IdItemPlan"));
+            jCodigoTema.setText(conecta.rs.getString("IdItemPlanSS"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4304,9 +4305,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarCodigoParticipantes() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS");
             conecta.rs.last();
-            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPart");
+            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartSS");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4376,9 +4377,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarCodigoAVG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_SS");
             conecta.rs.last();
-            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvag");
+            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagS");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -4388,12 +4389,12 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarAvaliacaoGrupo() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "INNER JOIN ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "ON AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi=ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi "
-                    + "WHERE AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA.IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_SS "
+                    + "INNER JOIN ATENDIMENTO_GRUPO_SS "
+                    + "ON AVALICAO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                    + "WHERE AVALICAO_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvag");
+            pCODIGO_AVALIACAO_GRUPO = conecta.rs.getInt("IdItemAvagSS");
             jTextoAvaliacaoGrupo.setText(conecta.rs.getString("TextoAvalaiacaoGrupo"));
         } catch (SQLException ex) {
         }
@@ -4409,10 +4410,10 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void verificarExistenciaRegistroAVG() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALICAO_ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO_AVG = conecta.rs.getInt("IdAtGrupoPsi");
+            pCODIGO_AVALIACAO_GRUPO_AVG = conecta.rs.getInt("IdAtGrupoSS");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4483,9 +4484,9 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void buscarCodigoAVI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_PSICOLOGIA ");
+            conecta.executaSQL("SELECT * FROM AVALICAO_INDIVIDUAL_ATENDIMENTO_GRUPO_SS ");
             conecta.rs.last();
-            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiSS");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4496,7 +4497,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP ");
             conecta.rs.first();
-            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvai");
+            pCODIGO_AVALIACAO_GRUPO_AVGI = conecta.rs.getInt("IdItemAvaiSS");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -4520,7 +4521,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdAtGrupoPsi"), dataEntrada, conecta.rs.getString("StatusAtendGrupo"), conecta.rs.getString("DescricaoPav"), conecta.rs.getString("LocalAtividade")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAtGrupoSS"), dataEntrada, conecta.rs.getString("StatusAtendGrupo"), conecta.rs.getString("DescricaoPav"), conecta.rs.getString("LocalAtividade")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -4590,7 +4591,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             do {
                 count0 = count0 + 1;
                 jtotalRegistrosPlanejamento.setText(Integer.toString(count0)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPlan"), conecta.rs.getString("HoraInicio"), conecta.rs.getString("HoraTermino"), conecta.rs.getString("Atividades"), conecta.rs.getString("Recursos")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPlanSS"), conecta.rs.getString("HoraInicio"), conecta.rs.getString("HoraTermino"), conecta.rs.getString("Atividades"), conecta.rs.getString("Recursos")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4661,7 +4662,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             do {
                 count1 = count1 + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPart"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartSS"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4732,7 +4733,7 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
             do {
                 count2 = count2 + 1;
                 jtotalRegistrosInternosAVI.setText(Integer.toString(count2)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemAvai"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemAvaiSS"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -4809,8 +4810,8 @@ public class TelaAtendimentoGrupoSS extends javax.swing.JInternalFrame {
     public void verificarUsuarioCriador() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_PSICOLOGIA "
-                    + "WHERE IdAtGrupoPsi='" + jCodigoAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTO_GRUPO_SS "
+                    + "WHERE IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
             conecta.rs.first();
             nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
         } catch (SQLException ex) {

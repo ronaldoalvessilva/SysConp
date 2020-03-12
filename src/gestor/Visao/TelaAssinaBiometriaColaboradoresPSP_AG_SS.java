@@ -20,7 +20,7 @@ import gestor.Modelo.ItensEntSaiFunc;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
-import static gestor.Visao.TelaAtendimentoGrupoPSI.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoSS.jCodigoAtend;
 import static gestor.Visao.TelaLiberacaoAtendimentoGruposSS.codigoLiberador;
 import static gestor.Visao.TelaLiberacaoAtendimentoGruposSS.dataAssinatura;
 import static gestor.Visao.TelaLiberacaoAtendimentoGruposSS.horaAssinatura;
@@ -48,7 +48,7 @@ public class TelaAssinaBiometriaColaboradoresPSP_AG_SS extends javax.swing.JDial
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela2 = "PSICOLOGIA:Liberação de Atendimento em Grupo:Biometria";
+    String nomeModuloTela2 = "SERVIÇO SOCIAL:Liberação de Atendimento em Grupo:Biometria";
     String statusMov;
     String horaMov;
     String dataModFinal;
