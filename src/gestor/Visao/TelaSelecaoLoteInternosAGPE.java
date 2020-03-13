@@ -5,39 +5,39 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ControleListaInternosPavilhaoAG_SS_DAO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendimentoGrupoPsicologiaDAO;
-import gestor.Dao.ControleListaInternosCelasAG_SS_DAO;
-import gestor.Dao.ControleListaInternosGaleiraAG_SS_DAO;
-import gestor.Dao.ControleListaInternosPavilhaoAG_II_SS_DAO;
+import gestor.Dao.ControleAtendimentoGrupoPedagogiaDAO;
+import gestor.Dao.ControleListaInternosCelasAG_PE_DAO;
+import gestor.Dao.ControleListaInternosGaleiraAG_PE_DAO;
+import gestor.Dao.ControleListaInternosPavilhaoAG_II_PE_DAO;
+import gestor.Dao.ControleListaInternosPavilhaoAG_PE_DAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtAlterarParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtAuditoriaParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtCancelarParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtExcluirParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtNovoParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtSalvarParticipantes;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jBtPesquisarPart;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jCNC;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jCela;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jCodigoAtend;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jComboBoxNivelPavilhao;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jComboBoxPavilhaoGaleria;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jDataNascimento;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jIdInternoGrp;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jNomeInternoGrp;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jNomeMae;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jPavilhao;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jRegime;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jTabelaInternos;
-import static gestor.Visao.TelaAtendimentoGrupoSS.jtotalRegistrosInternos;
-import static gestor.Visao.TelaAtendimentoGrupoSS.pCODIGO_ITEM_PARTICIPANTE;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtAlterarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtAuditoriaParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtCancelarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtExcluirParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtNovoParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtSalvarParticipantes;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jBtPesquisarPart;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jCNC;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jCela;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jCodigoAtend;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jComboBoxNivelPavilhao;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jComboBoxPavilhaoGaleria;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jDataNascimento;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jIdInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jNomeInternoGrp;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jNomeMae;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jPavilhao;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jRegime;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jTabelaInternos;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jtotalRegistrosInternos;
+import static gestor.Visao.TelaAtendimentoGrupoPE.pCODIGO_ITEM_PARTICIPANTE;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
@@ -58,21 +58,21 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Socializa TI 02
  */
-public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
+public class TelaSelecaoLoteInternosAGPE extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesGrupoPsicologia objAvalia = new AtividadesGrupoPsicologia();
-    ControleAtendimentoGrupoPsicologiaDAO control = new ControleAtendimentoGrupoPsicologiaDAO();
-    ControleListaInternosCelasAG_SS_DAO listaPorCelas = new ControleListaInternosCelasAG_SS_DAO();
-    ControleListaInternosGaleiraAG_SS_DAO listaPorGaleira = new ControleListaInternosGaleiraAG_SS_DAO();
-    ControleListaInternosPavilhaoAG_SS_DAO listaPorPavilhao = new ControleListaInternosPavilhaoAG_SS_DAO();
-    ControleListaInternosPavilhaoAG_II_SS_DAO listaPorPavilhao_B = new ControleListaInternosPavilhaoAG_II_SS_DAO();
+    ControleAtendimentoGrupoPedagogiaDAO control = new ControleAtendimentoGrupoPedagogiaDAO();
+    ControleListaInternosCelasAG_PE_DAO listaPorCelas = new ControleListaInternosCelasAG_PE_DAO();
+    ControleListaInternosGaleiraAG_PE_DAO listaPorGaleira = new ControleListaInternosGaleiraAG_PE_DAO();
+    ControleListaInternosPavilhaoAG_PE_DAO listaPorPavilhao = new ControleListaInternosPavilhaoAG_PE_DAO();
+    ControleListaInternosPavilhaoAG_II_PE_DAO listaPorPavilhao_B = new ControleListaInternosPavilhaoAG_II_PE_DAO();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
-    String nomeModuloTela3 = "Serviço Social:Atendimento em Grupo:Participantes";
+    String nomeModuloTela3 = "Pedagogia:Atendimento em Grupo:Participantes";
     //
     public static int qtdInternos = 0;
     public static int codigoPavilhao = 0;
@@ -94,9 +94,9 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
     /**
      * Creates new form TelaSelecaoLoteInternosAG
      */
-    public static TelaAtendimentoGrupoSS pATENDIMENTO_GRUPO;
+    public static TelaAtendimentoGrupoPE pATENDIMENTO_GRUPO;
 
-    public TelaSelecaoLoteInternosAGSS(TelaAtendimentoGrupoSS parent, boolean modal) {
+    public TelaSelecaoLoteInternosAGPE(TelaAtendimentoGrupoPE parent, boolean modal) {
         this.pATENDIMENTO_GRUPO = parent;
         this.setModal(modal);
         setLocationRelativeTo(pATENDIMENTO_GRUPO);
@@ -938,21 +938,23 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGSS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGPE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGSS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGPE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGSS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGPE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGSS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaSelecaoLoteInternosAGPE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaSelecaoLoteInternosAGSS dialog = new TelaSelecaoLoteInternosAGSS(pATENDIMENTO_GRUPO, true);
+                TelaSelecaoLoteInternosAGPE dialog = new TelaSelecaoLoteInternosAGPE(pATENDIMENTO_GRUPO, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1263,9 +1265,9 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
     public void buscarCodigoParticipantes() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PE");
             conecta.rs.last();
-            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartSS");
+            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartPE");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -1292,14 +1294,14 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
                         buscarCodigoParticipantes();
                         objLog3();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_SS "
-                                + "INNER JOIN ATENDIMENTO_GRUPO_SS "
-                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS=ATENDIMENTO_GRUPO_SS.IdAtGrupoSS "
+                        preencherTabelaParticipantes("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PE "
+                                + "INNER JOIN ATENDIMENTO_GRUPO_PE "
+                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PE.IdAtGrupoPE=ATENDIMENTO_GRUPO_PE.IdAtGrupoPE "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "INNER JOIN DADOSPENAISINTERNOS "
                                 + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_SS.IdAtGrupoSS='" + jCodigoAtend.getText() + "'");
+                                + "WHERE PARTICIPANTES_ATENDIMENTO_GRUPO_PE.IdAtGrupoPE='" + jCodigoAtend.getText() + "'");
                         pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
@@ -1366,7 +1368,7 @@ public class TelaSelecaoLoteInternosAGSS extends javax.swing.JDialog {
             do {
                 count1 = count1 + 1;
                 jtotalRegistrosInternos.setText(Integer.toString(count1)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdItemPartSS"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItemPartPE"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("Cnc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Regime")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
