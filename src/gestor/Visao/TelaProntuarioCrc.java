@@ -4644,6 +4644,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
                 jComboBoxTornozeleira.requestFocus();
                 jComboBoxTornozeleira.setBackground(Color.red);
+            } else if (jComboBoxTornozeleira.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
+                jComboBoxTornozeleira.requestFocus();
+                jComboBoxTornozeleira.setBackground(Color.red);  
             } else if (jComboBoxEscolaridade.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
                 jComboBoxEscolaridade.requestFocus();
@@ -5560,6 +5564,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jComboBoxDocumentacaoCompleta.requestFocus();
                 jComboBoxDocumentacaoCompleta.setBackground(Color.red);
             } else if (jComboBoxTornozeleira.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
+                jComboBoxTornozeleira.requestFocus();
+                jComboBoxTornozeleira.setBackground(Color.red);
+            } else if (jComboBoxTornozeleira.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe se o interno tem tornozeleira ou não.");
                 jComboBoxTornozeleira.requestFocus();
                 jComboBoxTornozeleira.setBackground(Color.red);
