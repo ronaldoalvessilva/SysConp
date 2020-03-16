@@ -14,6 +14,7 @@ import java.util.Date;
 public class AtendimentoServicoSocial {
 
     private int idAtend;
+    private int idAtendNova;
     private Date dataAtend;
     private int idInternoCrc;
     private String nomeInterno;
@@ -82,10 +83,14 @@ public class AtendimentoServicoSocial {
     private String horaInsert;
     private String horaUp;
     private String dataFechamento;
-    private String horaFechamento;   
+    private String horaFechamento;       
 
-    public AtendimentoServicoSocial(int idAtend, Date dataAtend, int idInternoCrc, String nomeInterno, String statusAtend, String ContatoAtend, String TelefoneAtend, String Telefone1Atend, String CelualarAtend, String EnderecoAtend, String BairroAtend, String CidadeAtend, String EstadoAtend, String CartTrabAtend, String Periodo, String RecebeRecluAtend, String DireitoAuxAtend, String RecebeBolAtend, String QtdPessoasAtend, String QtdTrabaAtend, String CN1Atend, String CN2Atend, String RG1Atend, String RG2atend, String CPF1Atend, String CPF2Atend, String CTPS1Atend, String CTPS2Atend, String municipioNascimento, String tituloEleito1, String tituloEleitor2, String reservista1, String reservista2, String cartorioRegistro, String recebeBeneficio, String condicaoSegurado, String esposaCompanheira, String tempoConvivencia, String nomeEsposaConvivencia, String qtdPessoasResiCasa, String encaminhaOutrosSetore, String qualSetor, String cancelarVisita, String motivo, String encaminhaTirarDoc, Date dataEncaminharTiraDoc, String encaminarReconhecerPaternidade, Date dataEncaRecPaterna, String recebeVisita, String nomeConjuge, String PossuiFilhosAtend, String QtdFilhosAtend, String QtdFilhos2Atend, String FilhosNaoRegAtend, String OutrosFilhosAtend, String PaternidadeAtend, String DefensorAtend, String PartiFamiAtend, String ConsiderAtend, String deptoSocial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public AtendimentoServicoSocial() {
+    }
+
+    public AtendimentoServicoSocial(int idAtend, int idAtendNova, Date dataAtend, int idInternoCrc, String nomeInterno, String statusAtend, String ContatoAtend, String TelefoneAtend, String Telefone1Atend, String CelualarAtend, String EnderecoAtend, String BairroAtend, String CidadeAtend, String EstadoAtend, String CartTrabAtend, String Periodo, String RecebeRecluAtend, String DireitoAuxAtend, String RecebeBolAtend, String QtdPessoasAtend, String QtdTrabaAtend, String CN1Atend, String CN2Atend, String RG1Atend, String RG2atend, String CPF1Atend, String CPF2Atend, String CTPS1Atend, String CTPS2Atend, String municipioNascimento, String tituloEleito1, String tituloEleitor2, String reservista1, String reservista2, String cartorioRegistro, String recebeBeneficio, String condicaoSegurado, String esposaCompanheira, String tempoConvivencia, String nomeEsposaConvivencia, String qtdPessoasResiCasa, String encaminhaOutrosSetore, String qualSetor, String cancelarVisita, String motivo, String encaminhaTirarDoc, Date dataEncaminharTiraDoc, String encaminarReconhecerPaternidade, Date dataEncaRecPaterna, String recebeVisita, String nomeConjuge, String PossuiFilhosAtend, String QtdFilhosAtend, String QtdFilhos2Atend, String FilhosNaoRegAtend, String OutrosFilhosAtend, String PaternidadeAtend, String DefensorAtend, String PartiFamiAtend, String ConsiderAtend, String deptoSocial, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
         this.idAtend = idAtend;
+        this.idAtendNova = idAtendNova;
         this.dataAtend = dataAtend;
         this.idInternoCrc = idInternoCrc;
         this.nomeInterno = nomeInterno;
@@ -155,9 +160,6 @@ public class AtendimentoServicoSocial {
         this.horaFechamento = horaFechamento;
     }
 
-    public AtendimentoServicoSocial() {
-    }
-
     /**
      * @return the idAtend
      */
@@ -170,6 +172,20 @@ public class AtendimentoServicoSocial {
      */
     public void setIdAtend(int idAtend) {
         this.idAtend = idAtend;
+    }
+
+    /**
+     * @return the idAtendNova
+     */
+    public int getIdAtendNova() {
+        return idAtendNova;
+    }
+
+    /**
+     * @param idAtendNova the idAtendNova to set
+     */
+    public void setIdAtendNova(int idAtendNova) {
+        this.idAtendNova = idAtendNova;
     }
 
     /**

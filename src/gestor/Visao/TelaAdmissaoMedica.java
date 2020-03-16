@@ -713,6 +713,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaMedico.setAutoCreateRowSorter(true);
         jTabelaMedico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

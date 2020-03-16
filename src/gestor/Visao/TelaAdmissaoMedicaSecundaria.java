@@ -440,6 +440,7 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaMedicoAD.setAutoCreateRowSorter(true);
         jTabelaMedicoAD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaMedicoAD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

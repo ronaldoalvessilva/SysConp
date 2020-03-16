@@ -131,10 +131,11 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         indicacaoVisitas.setVisible(true);
     }
 
-    public void mostrarPortaEntrada(){
-         pPORTA_ENTRADA = new TelaPortaEntradaServicoSocial(this, true);
+    public void mostrarPortaEntrada() {
+        pPORTA_ENTRADA = new TelaPortaEntradaServicoSocial(this, true);
         pPORTA_ENTRADA.setVisible(true);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -488,6 +489,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
         jPanel15Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAtend, jBtPesqData, jBtPesqNomeInterno});
 
+        jTabelaAtendimentoSocial.setAutoCreateRowSorter(true);
         jTabelaAtendimentoSocial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaAtendimentoSocial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2968,6 +2970,11 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovaPortaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaPortaEntradaActionPerformed
         // TODO add your handling code here:
+        if (jIDAtend.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Antes de fazer a indicação das visitas, será necessário gravar o atendimento antes.");
+        } else {
+            mostrarPortaEntrada();
+        }
     }//GEN-LAST:event_jBtNovaPortaEntradaActionPerformed
 
 

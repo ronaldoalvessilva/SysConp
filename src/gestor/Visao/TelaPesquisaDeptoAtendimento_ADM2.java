@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaAtendimentoSocial.jQualSetor;
+import static gestor.Visao.TelaPortaEntradaServicoSocial.jQualSetor;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -17,17 +17,22 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author Ronaldo
+ * @author Socializa TI 02
  */
-public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
-
+public class TelaPesquisaDeptoAtendimento_ADM2 extends javax.swing.JDialog {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
 
     /**
-     * Creates new form TelaPesquisaDeptoAtendimento
+     * Creates new form TelaPesquisaDeptoAtendimento_ADM2
      */
-    public TelaPesquisaDeptoAtendimento() {
+    
+    public static TelaPortaEntradaServicoSocial pPORTA_ENTRADA_SS;
+    
+    public TelaPesquisaDeptoAtendimento_ADM2(TelaPortaEntradaServicoSocial parent, boolean modal) {
+        this.pPORTA_ENTRADA_SS = parent;
+        this.setModal(modal);
+        setLocationRelativeTo(pPORTA_ENTRADA_SS);
         initComponents();
     }
 
@@ -52,8 +57,8 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
         jBtEnviar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
-        setClosable(true);
-        setTitle("...::: Pesquisa Departamentos :::...");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("...::: Pesquisa de DEpartamento :::...");
 
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -158,7 +163,7 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 199, Short.MAX_VALUE))
+                        .addGap(0, 269, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -170,15 +175,13 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jBtSair))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtEnviar, jBtSair});
 
         jTabbedPane1.addTab("Pesquisa", jPanel1);
 
@@ -186,21 +189,22 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(450, 250, 420, 244);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDeptoActionPerformed
         // TODO add your handling code here:
         if (jDescricaoDepto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Departamento.");
-        } else {            
+        } else {
             preencherTodosDepartamentos("SELECT * FROM DEPARTAMENTOS WHERE NomeDepartamento LIKE'%" + jDescricaoDepto.getText() + "'%");
         }
     }//GEN-LAST:event_jBtPesqDeptoActionPerformed
@@ -208,10 +212,10 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
     private void jCheckBoxTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxTodosItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosDepartamentos("SELECT * FROM DEPARTAMENTOS ORDER BY NomeDepartamento");
         } else {
-           limparTabela();
+            limparTabela();
         }
     }//GEN-LAST:event_jCheckBoxTodosItemStateChanged
 
@@ -239,6 +243,47 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaPesquisaDeptoAtendimento_ADM2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaPesquisaDeptoAtendimento_ADM2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaPesquisaDeptoAtendimento_ADM2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaPesquisaDeptoAtendimento_ADM2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                TelaPesquisaDeptoAtendimento_ADM2 dialog = new TelaPesquisaDeptoAtendimento_ADM2(pPORTA_ENTRADA_SS, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtEnviar;
@@ -254,6 +299,7 @@ public class TelaPesquisaDeptoAtendimento extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTabelaDepartamento;
     // End of variables declaration//GEN-END:variables
 
+    
     public void preencherTodosDepartamentos(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código ", "Departamento"};
