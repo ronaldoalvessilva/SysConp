@@ -116,6 +116,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
      * Creates new form AtendimentoSocial
      */
     public static TelaIndicacaoVisitasInternos indicacaoVisitas;
+    public static TelaPortaEntradaServicoSocial pPORTA_ENTRADA;
 
     public TelaAtendimentoSocial() {
         super();
@@ -130,6 +131,10 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         indicacaoVisitas.setVisible(true);
     }
 
+    public void mostrarPortaEntrada(){
+         pPORTA_ENTRADA = new TelaPortaEntradaServicoSocial(this, true);
+        pPORTA_ENTRADA.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,6 +316,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jBtImprimir = new javax.swing.JButton();
         jBtFinalizar = new javax.swing.JButton();
         jBtAuditoria = new javax.swing.JButton();
+        jBtNovaPortaEntrada = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jLabel52 = new javax.swing.JLabel();
         jIDAtend = new javax.swing.JTextField();
@@ -1794,6 +1800,14 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtNovaPortaEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtNovaPortaEntrada.setToolTipText("Nova Porta de entrada");
+        jBtNovaPortaEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaPortaEntradaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
@@ -1810,11 +1824,13 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImprimir)
-                .addGap(62, 62, 62)
-                .addComponent(jBtSair)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtNovaPortaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtSair)
+                .addGap(33, 33, 33)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1828,14 +1844,22 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                         .addComponent(jBtExcluir)
                         .addComponent(jBtSalvar)
                         .addComponent(jBtCancelar))
-                    .addComponent(jBtImprimir)
-                    .addComponent(jBtSair))
+                    .addComponent(jBtImprimir))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBtSair))
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoria)
-                    .addComponent(jBtFinalizar))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtAuditoria))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap(7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtFinalizar))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtNovaPortaEntrada)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1950,8 +1974,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1960,7 +1983,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtIndicacaoVisitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jBtIndicacaoVisitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -2582,9 +2606,20 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 jPaiInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInterno.setIcon(i);
-                FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInterno.setIcon(i);
+                    FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInterno.setIcon(icon);
+                }
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jEstadoCivil.setText(conecta.rs.getString("EstadoCivilCrc"));
                 jProfissao.setText(conecta.rs.getString("ProfissaoCrc"));
@@ -2931,6 +2966,10 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtIndicacaoVisitasActionPerformed
 
+    private void jBtNovaPortaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaPortaEntradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtNovaPortaEntradaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Consideracoes;
@@ -2954,6 +2993,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtImprimir;
     private javax.swing.JButton jBtIndicacaoVisitas;
     private javax.swing.JButton jBtNovaEvolucao;
+    private javax.swing.JButton jBtNovaPortaEntrada;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesqData;
     private javax.swing.JButton jBtPesqDepartamento;
@@ -3130,7 +3170,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTabelaAtendimentoSocial;
-    private javax.swing.JTable jTabelaEvolucaoServicoSocial;
+    public static javax.swing.JTable jTabelaEvolucaoServicoSocial;
     private javax.swing.JFormattedTextField jTelefone;
     private javax.swing.JFormattedTextField jTelefone1;
     private javax.swing.JTextArea jTextoEvolucao;
