@@ -2769,7 +2769,7 @@
                 <Component class="javax.swing.JButton" name="jBtNovaAdmissao">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/gestor/Imagens/overlays.png"/>
+                      <Image iconType="3" name="/gestor/Imagens/290718163923_16.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Nova Admiss&#xe3;o"/>
                   </Properties>

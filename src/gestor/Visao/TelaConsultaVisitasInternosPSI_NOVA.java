@@ -7,7 +7,6 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -16,12 +15,13 @@ import javax.swing.ImageIcon;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaNovaAdmissaoPSI.jIdInternoNovo;
 
 /**
  *
  * @author Ronaldo
  */
-public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
+public class TelaConsultaVisitasInternosPSI_NOVA extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     //
@@ -31,12 +31,12 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
     /**
      * Creates new form TelaConsultaVisitasInternosPSI
      */
-    public static TelaAdmissaoPsicologica telaAdmPSIVisita;
+    public static TelaNovaAdmissaoPSI pTELA_ADMPSIVisita;
 
-    public TelaConsultaVisitasInternosPSI(TelaAdmissaoPsicologica parent, boolean modal) {
-        this.telaAdmPSIVisita = parent;
+    public TelaConsultaVisitasInternosPSI_NOVA(TelaNovaAdmissaoPSI parent, boolean modal) {
+        this.pTELA_ADMPSIVisita = parent;
         this.setModal(modal);
-        setLocationRelativeTo(telaAdmPSIVisita);
+        setLocationRelativeTo(pTELA_ADMPSIVisita);
         initComponents();
         corCampos();
         buscarVisita();
@@ -69,7 +69,7 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
         jTabelaVisitas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("...::: Consuta de Visitas de Interno :::...");
+        setTitle("...::: Consulta de Visitas de Interno :::...");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -237,8 +237,8 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,19 +247,20 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
 
     private void jTabelaVisitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaVisitasMouseClicked
         // TODO add your handling code here:
-        if(flag == 1){
+        if (flag == 1) {
             String codigoVisita = "" + jTabelaVisitas.getValueAt(jTabelaVisitas.getSelectedRow(), 2);
             //
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENSROL "
-                + "INNER JOIN PRONTUARIOSCRC "
-                + "ON ITENSROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "INNER JOIN ADMISSAOPSI "
-                + "ON ITENSROL.IdInternoCrc=ADMISSAOPSI.IdInternoCrc "
-                + "INNER JOIN VISITASINTERNO "
-                + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                + "WHERE ADMISSAOPSI.IdInternoCrc='" + jIdInterno.getText()  + "'AND VISITASINTERNO.IdVisita='" + codigoVisita + "'");
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN PORTA_ENTRADA_PSICOLOGIA "
+                        + "ON ITENSROL.IdInternoCrc=PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc "
+                        + "INNER JOIN VISITASINTERNO "
+                        + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
+                        + "WHERE PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInternoNovo.getText() + "' "
+                        + "AND VISITASINTERNO.IdVisita='" + codigoVisita + "'");
                 conecta.rs.first();
                 jIdVisita.setText(conecta.rs.getString("IdVisita"));
                 jDataRol.setDate(conecta.rs.getDate("DataRol"));
@@ -267,9 +268,20 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
                 jNomeVisita.setText(conecta.rs.getString("NomeVisita"));
                 jGrauParentesco.setText(conecta.rs.getString("ParentescoVisita"));
                 caminho = conecta.rs.getString("ImagemVisita");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoVisita.setIcon(i);
-                jFotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));                
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoVisita.setIcon(i);
+                    jFotoVisita.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_DEFAULT)));
+                }                           
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoVisita.getWidth(), jFotoVisita.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoVisita.setIcon(icon);
+                }
             } catch (Exception e) {
             }
             conecta.desconecta();
@@ -293,20 +305,21 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI_NOVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI_NOVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI_NOVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaConsultaVisitasInternosPSI_NOVA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaConsultaVisitasInternosPSI dialog = new TelaConsultaVisitasInternosPSI(telaAdmPSIVisita, true);
+                TelaConsultaVisitasInternosPSI_NOVA dialog = new TelaConsultaVisitasInternosPSI_NOVA(pTELA_ADMPSIVisita, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -337,25 +350,27 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
     private javax.swing.JTable jTabelaVisitas;
     // End of variables declaration//GEN-END:variables
 
-    public void corCampos(){
+    public void corCampos() {
         jIdVisita.setBackground(Color.white);
         jDataRol.setBackground(Color.white);
         jStatusVisita.setBackground(Color.white);
         jNomeVisita.setBackground(Color.white);
         jGrauParentesco.setBackground(Color.white);
     }
+
     public void buscarVisita() {
-  
+
         preencherTabelaVisitaInterno("SELECT * FROM ITENSROL "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ITENSROL.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "INNER JOIN ADMISSAOPSI "
-                + "ON ITENSROL.IdInternoCrc=ADMISSAOPSI.IdInternoCrc "
+                + "INNER JOIN PORTA_ENTRADA_PSICOLOGIA "
+                + "ON ITENSROL.IdInternoCrc=PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc "
                 + "INNER JOIN VISITASINTERNO "
                 + "ON ITENSROL.IdVisita=VISITASINTERNO.IdVisita "
-                + "WHERE ADMISSAOPSI.IdInternoCrc='" + jIdInterno.getText()  + "'");        
+                + "WHERE PORTA_ENTRADA_PSICOLOGIA.IdInternoCrc='" + jIdInternoNovo.getText() + "'");
     }
-     public void preencherTabelaVisitaInterno(String sql) {
+
+    public void preencherTabelaVisitaInterno(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Id Rol", "Data Rol", "Código", "Nome da Visita"};
         conecta.abrirConexao();
@@ -389,7 +404,8 @@ public class TelaConsultaVisitasInternosPSI extends javax.swing.JDialog {
         alinharTabelaVisita();
         conecta.desconecta();
     }
-     public void alinharTabelaVisita() {
+
+    public void alinharTabelaVisita() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         DefaultTableCellRenderer direita = new DefaultTableCellRenderer();

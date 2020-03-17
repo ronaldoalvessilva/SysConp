@@ -1579,7 +1579,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtAdmissaoSecundaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/061218140238_16.png"))); // NOI18N
+        jBtAdmissaoSecundaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
         jBtAdmissaoSecundaria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAdmissaoSecundariaActionPerformed(evt);
@@ -1605,10 +1605,10 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jBtSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAdmissaoSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtAdmissaoSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtImpressaoFicha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

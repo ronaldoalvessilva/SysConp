@@ -124,6 +124,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
+    String pCODIGO_INTERNO = "";
 
     /**
      * Creates new form TelaAdmissaoPsicologica
@@ -132,6 +133,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public static TelaConsultaVisitasInternosPSI telaVisitasInternosPSI;
     public static AgendamentoAtendimentoPsicologico agendaAtendimento;
     public static TelaTratamentoPsicologico TP;
+    public static TelaNovaAdmissaoPSI pTELA_NOVA_ADMISSAO;
 
     public TelaAdmissaoPsicologica() {
         super();
@@ -159,6 +161,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public void mostraTelaTratamentoPSI() {
         TP = new TelaTratamentoPsicologico(this, true);
         TP.setVisible(true);
+    }
+
+    public void mostrarTelaNovaAdm() {
+        pTELA_NOVA_ADMISSAO = new TelaNovaAdmissaoPSI(this, true);
+        pTELA_NOVA_ADMISSAO.setVisible(true);
     }
 
     /**
@@ -313,8 +320,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jPanel21 = new javax.swing.JPanel();
         jBtArtigosParagrafos = new javax.swing.JButton();
         jBtLocalizacaoInterno = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBtVisitasInterno = new javax.swing.JButton();
         jBtTratamento = new javax.swing.JButton();
+        jBtNovaAdmissao = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jParecerPsicologico = new javax.swing.JTextArea();
@@ -627,7 +635,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jLabel2.setText("Status");
 
         jStatusLanc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jStatusLanc.setForeground(new java.awt.Color(204, 0, 0));
         jStatusLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jStatusLanc.setDisabledTextColor(new java.awt.Color(204, 0, 0));
         jStatusLanc.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -768,9 +778,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -785,9 +795,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                                 .addComponent(jComboBoxFamiliaPreso, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jQuemFamiliaPreso)
                             .addComponent(jOndePreso)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1503,7 +1511,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
 
         jBtFinalizar.setForeground(new java.awt.Color(255, 0, 0));
         jBtFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
-        jBtFinalizar.setText("Finalizar");
+        jBtFinalizar.setToolTipText("Finalizar");
         jBtFinalizar.setContentAreaFilled(false);
         jBtFinalizar.setEnabled(false);
         jBtFinalizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1534,42 +1542,41 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jBtAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addComponent(jBtExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtCancelar)
+                .addGap(42, 42, 42)
+                .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtFinalizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtSair)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtNovo)
-            .addComponent(jBtAlterar)
-            .addComponent(jBtExcluir)
-            .addComponent(jBtSalvar)
-            .addComponent(jBtCancelar)
-            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jBtFinalizar)
-                .addComponent(jBtSair))
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtAuditoria)
-                    .addComponent(jBtImpressao)))
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtImpressao)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtAuditoria))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtNovo, jBtSair, jBtSalvar});
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -1604,12 +1611,12 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/user-group-forum-icone-3716-16.png"))); // NOI18N
-        jButton1.setToolTipText("Visitas de Internos");
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtVisitasInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/user-group-forum-icone-3716-16.png"))); // NOI18N
+        jBtVisitasInterno.setToolTipText("Visitas de Internos");
+        jBtVisitasInterno.setContentAreaFilled(false);
+        jBtVisitasInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtVisitasInternoActionPerformed(evt);
             }
         });
 
@@ -1623,6 +1630,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
+        jBtNovaAdmissao.setContentAreaFilled(false);
+        jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaAdmissaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
@@ -1633,8 +1648,10 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtLocalizacaoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtVisitasInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addComponent(jBtTratamento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -1645,8 +1662,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     .addComponent(jBtTratamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtArtigosParagrafos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBtLocalizacaoInterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jBtVisitasInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1662,9 +1680,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -2375,6 +2391,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaMovimentacaoAdmIntManuPSI);
         if (codigoUserPSI == codUserAcessoPSI && nomeTelaPSI.equals(telaMovimentacaoAdmIntManuPSI) && codGravarPSI == 1 || nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPSI.equals("ADMINISTRADORES")) {
+            verificarAdmissao();
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
                 jDataLanc.requestFocus();
@@ -2471,53 +2488,63 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     objAdmPsi.setRecebeVisitas((String) jComboBoxRecebeVisitas.getSelectedItem());
                     objAdmPsi.setFamiliares(jFamiliares.getText());
                     if (acao == 1) {
-                        // log de usuario
-                        objAdmPsi.setUsuarioInsert(nameUser);
-                        objAdmPsi.setDataInsert(dataModFinal);
-                        objAdmPsi.setHoraInsert(horaMov);
-                        objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objAdmPsi.setNomeInterno(jNomeInterno.getText());
-                        control.incluirAdmissaoPsi(objAdmPsi);
-                        buscarID();
-                        objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                        objAdmPsi.setNomeInterno(jNomeInterno.getText());
-                        objAdmPsi.setDeptoPsicologico(deptoTecnico);
-                        controle.incluirMovTec(objAdmPsi);
-                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
-                        atendido = "Sim";
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
-                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        objRegAtend.setAtendido(atendido);
-                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                        //
-                        objRegAtend.setUsuarioUp(nameUser);
-                        objRegAtend.setDataUp(dataModFinal);
-                        objRegAtend.setHorarioUp(horaMov);
-                        controlRegAtend.alterarRegAtend(objRegAtend);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
-                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
-                        objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
-                        objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
-                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                        objRegAtend.setHorarioUp(horaMov);
-                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                        control_ATENDE.confirmarAtendimento(objRegAtend);
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            mostraTelaTratamentoPSI();
+                        if (jIdInterno.getText().equals(pCODIGO_INTERNO)) {
+                            JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
+                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                pesquisarInternoExistente();
+                                mostrarTelaNovaAdm();
+                            }
+                        } else {
+                            // log de usuario
+                            objAdmPsi.setUsuarioInsert(nameUser);
+                            objAdmPsi.setDataInsert(dataModFinal);
+                            objAdmPsi.setHoraInsert(horaMov);
+                            objAdmPsi.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                            control.incluirAdmissaoPsi(objAdmPsi);
+                            buscarID();
+                            objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                            objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                            objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                            controle.incluirMovTec(objAdmPsi);
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO   
+                            atendido = "Sim";
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                            objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                            objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                            objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoPSI);
+                            objRegAtend.setNomeDepartamento(nomeModuloPSICOLOGIA);
+                            objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                            objRegAtend.setHorarioUp(horaMov);
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            control_ATENDE.confirmarAtendimento(objRegAtend);
+                            Salvar();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (resposta == JOptionPane.YES_OPTION) {
+                                mostraTelaTratamentoPSI();
+                            }
                         }
                     }
                     if (acao == 2) {
@@ -2658,9 +2685,20 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
                 // HISTORICO CRIMINAL
                 jComboBoxPresoAntes.setSelectedItem(conecta.rs.getString("PresoAntes"));
                 jComboBoxFamiliaPreso.setSelectedItem(conecta.rs.getString("FamiliaPreso"));
@@ -3266,14 +3304,14 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         objLoca.show();
     }//GEN-LAST:event_jBtLocalizacaoInternoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtVisitasInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVisitasInternoActionPerformed
         // TODO add your handling code here:
         if (jIdInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Pesquise primeiro o interno para consultar a(s) visita(s).");
         } else {
             mostrarVisitasInternos();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtVisitasInternoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -3292,6 +3330,15 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
             mostraTelaTratamentoPSI();
         }
     }//GEN-LAST:event_jBtTratamentoActionPerformed
+
+    private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
+        // TODO add your handling code here:
+        if (jIdLanc.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário pesquisar primeiro o interno.");
+        } else {
+            mostrarTelaNovaAdm();
+        }
+    }//GEN-LAST:event_jBtNovaAdmissaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -3314,6 +3361,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtLocalizacaoInterno;
     private javax.swing.JButton jBtLocalizarVisitaRol;
+    private javax.swing.JButton jBtNovaAdmissao;
     private javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoParecer;
@@ -3324,7 +3372,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvarEvolucao;
     private javax.swing.JButton jBtSalvarParecer;
     private javax.swing.JButton jBtTratamento;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtVisitasInterno;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
@@ -3489,6 +3537,18 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jUsoMedicamentos;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void verificarAdmissao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jPesqNomeInterno.setDocument(new LimiteDigitos(50));
@@ -5177,5 +5237,153 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void pesquisarInternoExistente() {
+        bloquearCampos();
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOPSI "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ADMISSAOPSI.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAOPSI.IdInternoCrc='" + jIdInterno.getText() + "'");
+            conecta.rs.first();
+            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
+            jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+            jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+            jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
+            jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInterno.setIcon(i);
+                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInterno.setIcon(icon);
+            }
+            // HISTORICO CRIMINAL
+            jComboBoxPresoAntes.setSelectedItem(conecta.rs.getString("PresoAntes"));
+            jComboBoxFamiliaPreso.setSelectedItem(conecta.rs.getString("FamiliaPreso"));
+            jQuemFamiliaPreso.setText(conecta.rs.getString("QuemFamiliaPreso"));
+            jOndePreso.setText(conecta.rs.getString("OndePreso"));
+            jHistoricoCriminal.setText(conecta.rs.getString("HistoricoCriminal"));
+            // DROGAS     
+            jComboBoxUsaDrogras.setSelectedItem(conecta.rs.getString("UsaDrogras"));
+            tipoAlcool = conecta.rs.getInt("Alcool");
+            if (tipoAlcool == 0) {
+                jCheckBoxAlcool.setSelected(true);
+            } else if (tipoAlcool == 1) {
+                jCheckBoxAlcool.setSelected(!true);
+            }
+            tipoCigarro = conecta.rs.getInt("Cigarro");
+            if (tipoCigarro == 0) {
+                jCheckBoxCigarro.setSelected(true);
+            } else if (tipoCigarro == 1) {
+                jCheckBoxCigarro.setSelected(!true);
+            }
+            tipoMaconha = conecta.rs.getInt("Maconha");
+            if (tipoMaconha == 0) {
+                jCheckBoxMaconha.setSelected(true);
+            } else if (tipoMaconha == 1) {
+                jCheckBoxMaconha.setSelected(!true);
+            }
+            tipoCrack = conecta.rs.getInt("Crack");
+            if (tipoCrack == 0) {
+                jCheckBoxCrack.setSelected(true);
+            } else if (tipoCrack == 1) {
+                jCheckBoxCrack.setSelected(!true);
+            }
+            tipoCocaina = conecta.rs.getInt("Cocaina");
+            if (tipoCocaina == 0) {
+                jCheckBoxCocaina.setSelected(true);
+            } else if (tipoCocaina == 1) {
+                jCheckBoxCocaina.setSelected(!true);
+            }
+            tipoCola = conecta.rs.getInt("Cola");
+            if (tipoCola == 0) {
+                jCheckBoxCola.setSelected(true);
+            } else if (tipoCola == 1) {
+                jCheckBoxCola.setSelected(!true);
+            }
+            tipoOutros = conecta.rs.getInt("Outros");
+            if (tipoOutros == 0) {
+                jCheckBoxOutros.setSelected(true);
+            } else if (tipoOutros == 1) {
+                jCheckBoxOutros.setSelected(!true);
+            }
+            jOutrasDrogas.setText(conecta.rs.getString("OutrasDrogas"));
+            jQualIdade.setText(conecta.rs.getString("QualIdade"));
+            jPorqueUsaDrogas.setText(conecta.rs.getString("PorqueUsaDrogas"));
+            jDrogas.setText(conecta.rs.getString("Drogas"));
+            // TRANSTORNO MENTAL
+            jComboBoxTratamentoPSI.setSelectedItem(conecta.rs.getString("TratamentoPSI"));
+            jComboBoxMedicamentoPSI.setSelectedItem(conecta.rs.getString("MedicamentoPSI"));
+            jQualMedicamento.setText(conecta.rs.getString("QualMedicamento"));
+            jComboBoxAcompanhaPSI.setSelectedItem(conecta.rs.getString("AcompanhaPSI"));
+            jTranstornoMental.setText(conecta.rs.getString("TranstornoMental"));
+            // ENCAMINHAMENTO
+            jComboBoxDepartamentoEncaminha.setSelectedItem(conecta.rs.getString("DepartamentoEncaminha"));
+            jDataEncaminhamento.setDate(conecta.rs.getDate("DataEncaminhamento"));
+            jHoraAcompanha.setText(conecta.rs.getString("HoraAcompanha"));
+            jEncaminhamento.setText(conecta.rs.getString("Encaminhamento"));
+            // TRATAMENTO ANTERIORES
+            jComboBoxTratamentoSaude.setSelectedItem(conecta.rs.getString("TratamentoSaude"));
+            jQualTratamentoSaude.setText(conecta.rs.getString("QualTratamentoSaude"));
+            jOndeFazTratamento.setText(conecta.rs.getString("OndeFazTratamento"));
+            jTratamentoAntriores.setText(conecta.rs.getString("TratamentoAnteriores"));
+            // TENTATIVA SUICIDIO
+            jComboBoxSituacaoTraumatica.setSelectedItem(conecta.rs.getString("SituacaoTraumatica"));
+            jQualSituacaoTraumatica.setText(conecta.rs.getString("QualSituacaoTraumatica"));
+            jComboBoxHouveTentativaSuicidio.setSelectedItem(conecta.rs.getString("HouveTentativaSuicidio"));
+            jPorQueSuicidio.setText(conecta.rs.getString("PorQueSuicidio"));
+            jComoFoiTentarSuicidio.setText(conecta.rs.getString("ComoFoiTentarSuicidio"));
+            jOndeTentouSuicidio.setText(conecta.rs.getString("OndeTentouSuicidio"));
+            jTentativaSuicidio.setText(conecta.rs.getString("TentativaSuicidio"));
+            // USO MEDICAMENTOS
+            jQualMedicamentoUtiliza.setText(conecta.rs.getString("QualMedicamentoUtiliza"));
+            jPorqueUsaMedicamento.setText(conecta.rs.getString("PorqueUsaMedicamento"));
+            jUsoMedicamentos.setText(conecta.rs.getString("UsoMedicamentos"));
+            jUsoMedicamentos.setText(conecta.rs.getString("UsoMedicamentos"));
+            // FAMILIARES
+            jComboBoxRecebeVisitas.setSelectedItem(conecta.rs.getString("RecebeVisitas"));
+            if (jComboBoxRecebeVisitas.getSelectedItem().equals("Sim")) {
+                jBtLocalizarVisitaRol.setEnabled(true);
+            } else if (jComboBoxRecebeVisitas.getSelectedItem().equals("Não") || jComboBoxRecebeVisitas.getSelectedItem().equals("")) {
+                jBtLocalizarVisitaRol.setEnabled(!true);
+            }
+            jFamiliares.setText(conecta.rs.getString("Familiares"));
+            conecta.desconecta();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+        }
+        // PARECER PSICOLOGICO
+        preencherParecerPsicologia("SELECT * FROM PARECER_PSI INNER "
+                + "JOIN ADMISSAOPSI "
+                + "ON PARECER_PSI.IdLanc=ADMISSAOPSI.IdLanc "
+                + "INNER JOIN PRONTUARIOSCRC "
+                + "ON PARECER_PSI.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                + "WHERE PARECER_PSI.IdLanc='" + jIdLanc.getText() + "'");
+        // EVOLUÇÃO PSICOLOGICA
+        jIdEvolucao.setText("");
+        jComboBoxStatusEvolucao.setSelectedItem("Em Andamento");
+        jDataEvolucao.setDate(null);
+        jComboBoxEncaminharSetorEvo.setSelectedItem("Selecione...");
+        jDataEncaminhamentoEvo.setDate(null);
+        jHoraEnvioEvo.setText("");
+        jEvolucao.setText("");
+        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOPSICOLOGICA "
+                + "INNER JOIN PRONTUARIOSCRC "
+                + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
     }
 }

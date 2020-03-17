@@ -1862,7 +1862,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/overlays.png"))); // NOI18N
+        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
         jBtNovaAdmissao.setToolTipText("Nova Admissão");
         jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

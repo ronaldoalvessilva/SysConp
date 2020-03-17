@@ -325,9 +325,20 @@ public class TelaPesqInternoAdmPsicologia extends javax.swing.JInternalFrame {
                 jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInterno.setIcon(i);
+                    jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInterno.setIcon(icon);
+                }
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
                 jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
                 conecta.desconecta();
@@ -486,11 +497,10 @@ public class TelaPesqInternoAdmPsicologia extends javax.swing.JInternalFrame {
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-         modelo.getLinhas().clear();
+        modelo.getLinhas().clear();
     }
 
     // Método de pesquisa pela Matricula
-
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
@@ -534,6 +544,7 @@ public class TelaPesqInternoAdmPsicologia extends javax.swing.JInternalFrame {
         alinharCamposTabela();
         conecta.desconecta();
     }
+
     public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

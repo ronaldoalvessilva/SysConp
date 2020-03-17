@@ -14,6 +14,7 @@ import java.util.Date;
 public class AdmissaoPsicologica {
 
     private int idLanc;
+    private int idPortaPSI;
     private String statusLanc;
     private Date dataLanc;
     private int idInternoCrc;
@@ -83,8 +84,12 @@ public class AdmissaoPsicologica {
     private String dataFechamento;
     private String horaFechamento;   
 
-    public AdmissaoPsicologica(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String presoAntes, String familiaPreso, String quemFamiliaPreso, String ondePreso, String historicoCriminal, String usaDrogras, int alcool, int cigarro, int maconha, int crack, int cocaina, int cola, int outros, String outrasDrogas, int qualIdade, String porqueUsaDrogas, String drogas, String tratamentoPSI, String medicamentoPSI, String qualMedicamento, String acompanhaPSI, String transtornoMental, String departamentoEncaminha, Date dataEncaminhamento, String horaAcompanha, String encaminhamento, int idParecer, Date dataParecer, String parecerPsicologico, String tratamentoSaude, String qualTratamentoSaude, String ondeFazTratamento, String tratamentoAntriores, String situacaoTraumatica, String qualSituacaoTraumatica, String houveTentativaSuicidio, String porQueSuicidio, String comoFoiTentarSuicidio, String ondeTentouSuicidio, String tentativaSuicidio, String qualMedicamentoUtiliza, String porqueUsaMedicamento, String usoMedicamentos, String recebeVisitas, String familiares, String deptoPsicologico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public AdmissaoPsicologica() {
+    }
+
+    public AdmissaoPsicologica(int idLanc, int idPortaPSI, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, String presoAntes, String familiaPreso, String quemFamiliaPreso, String ondePreso, String historicoCriminal, String usaDrogras, int alcool, int cigarro, int maconha, int crack, int cocaina, int cola, int outros, String outrasDrogas, int qualIdade, String porqueUsaDrogas, String drogas, String tratamentoPSI, String medicamentoPSI, String qualMedicamento, String acompanhaPSI, String transtornoMental, String departamentoEncaminha, Date dataEncaminhamento, String horaAcompanha, String encaminhamento, int idParecer, Date dataParecer, String parecerPsicologico, String tratamentoSaude, String qualTratamentoSaude, String ondeFazTratamento, String tratamentoAntriores, String situacaoTraumatica, String qualSituacaoTraumatica, String houveTentativaSuicidio, String porQueSuicidio, String comoFoiTentarSuicidio, String ondeTentouSuicidio, String tentativaSuicidio, String qualMedicamentoUtiliza, String porqueUsaMedicamento, String usoMedicamentos, String recebeVisitas, String familiares, String deptoPsicologico, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
         this.idLanc = idLanc;
+        this.idPortaPSI = idPortaPSI;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
         this.idInternoCrc = idInternoCrc;
@@ -145,9 +150,6 @@ public class AdmissaoPsicologica {
         this.horaFechamento = horaFechamento;
     }
 
-    public AdmissaoPsicologica() {
-    }
-
     /**
      * @return the idLanc
      */
@@ -160,6 +162,20 @@ public class AdmissaoPsicologica {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idPortaPSI
+     */
+    public int getIdPortaPSI() {
+        return idPortaPSI;
+    }
+
+    /**
+     * @param idPortaPSI the idPortaPSI to set
+     */
+    public void setIdPortaPSI(int idPortaPSI) {
+        this.idPortaPSI = idPortaPSI;
     }
 
     /**

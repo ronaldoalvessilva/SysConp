@@ -669,3 +669,72 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('PORTA_ENTRADA_S
 	HorarioInsert VARCHAR(10) NULL,
 	HorarioUp VARCHAR(10) NULL,
 	)
+
+
+-- TABELA DE ADMISSÃO PSICOLOGICA
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('PORTA_ENTRADA_PSICOLOGIA'))
+	CREATE TABLE PORTA_ENTRADA_PSICOLOGIA
+	(
+	IdPortaPSI INT IDENTITY PRIMARY KEY NOT NULL,	
+	StatusLanc VARCHAR(20) NULL,
+	DataLanc DATETIME NULL,
+	IdLanc INT FOREIGN KEY REFERENCES ADMISSAOPSI(IdLanc) NOT NULL,
+	IdInternoCrc INT FOREIGN KEY REFERENCES PRONTUARIOSCRC(IdInternoCrc) NOT NULL,
+	PresoAntes VARCHAR(3) NULL,
+    FamiliaPreso  VARCHAR(3) NULL,
+    QuemFamiliaPreso VARCHAR(80) NULL,
+    OndePreso VARCHAR(80) NULL,
+    HistoricoCriminal VARCHAR(MAX) NULL,
+    -- DROGAS
+    UsaDrogras VARCHAR(3) NULL,
+    Alcool INT NULL,
+    Cigarro INT NULL,
+    Maconha INT NULL,
+    Crack INT NULL,
+    Cocaina INT NULL,
+    Cola INT NULL,
+    Outros INT NULL,
+    OutrasDrogas VARCHAR(50) NULL,
+    QualIdade VARCHAR(5) NULL,
+    PorqueUsaDrogas VARCHAR(50) NULL,
+    Drogas VARCHAR(MAX) NULL,
+	-- TRANSTORNO MENTAL
+    TratamentoPSI VARCHAR(3) NULL,
+    MedicamentoPSI VARCHAR(3) NULL,
+    QualMedicamento VARCHAR(80) NULL,
+    AcompanhaPSI VARCHAR(15) NULL,
+    TranstornoMental VARCHAR(MAX) NULL,
+    -- ENCAMINHAMENTOS
+    DepartamentoEncaminha VARCHAR(300) NULL,
+    DataEncaminhamento DATETIME NULL,
+    HoraAcompanha VARCHAR(10) NULL,
+    Encaminhamento VARCHAR(MAX) NULL,
+    -- TRATAMENTOS ANTERIORES
+    TratamentoSaude VARCHAR(3) NULL,
+    QualTratamentoSaude VARCHAR(40) NULL,
+    OndeFazTratamento VARCHAR(90) NULL,
+    TratamentoAnteriores VARCHAR(MAX) NULL,
+    -- TENTATIVA DE SUICIDIO
+    SituacaoTraumatica VARCHAR(3) NULL,
+    QualSituacaoTraumatica VARCHAR(30) NULL,
+    HouveTentativaSuicidio VARCHAR(3) NULL,
+    PorQueSuicidio VARCHAR(50) NULL,
+    ComoFoiTentarSuicidio VARCHAR(30) NULL,
+    OndeTentouSuicidio VARCHAR(50) NULL,
+    TentativaSuicidio VARCHAR(MAX) NULL,
+    -- USO DE MEDICAMENTOS
+    QualMedicamentoUtiliza VARCHAR(100) NULL,
+    PorqueUsaMedicamento VARCHAR(100) NULL,
+    UsoMedicamentos VARCHAR(MAX) NULL,
+    -- FAMILIARES
+    RecebeVisitas VARCHAR(3) NULL,
+    Familiares VARCHAR(MAX) NULL,	
+	--															
+	UsuarioInsert VARCHAR(50) NULL,
+	UsuarioUp VARCHAR(50) NULL,	
+	DataInsert VARCHAR(20) NULL,
+	DataUp VARCHAR(20) NULL,
+	HorarioInsert VARCHAR(10) NULL,
+	HorarioUp VARCHAR(10) NULL,
+	)
