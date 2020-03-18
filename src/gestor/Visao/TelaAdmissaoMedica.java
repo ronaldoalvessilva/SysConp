@@ -3980,6 +3980,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
+                            pesquisarAdmInterno();
                             mostrarNovaAdmissao();
                         }
                     } else {
@@ -6255,6 +6256,257 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void pesquisarAdmInterno() {
+        bloquearCampos();
+        bloquearBotoes();
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtNovaEvolucao.setEnabled(true);
+        jBtNovaEvolPsiquiatrica.setEnabled(true);
+        jBtNovaPrescicao.setEnabled(true);
+        jBtNovaDieta.setEnabled(true);
+        jBtNovoAtestado.setEnabled(true);
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOMEDICA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ADMISSAOMEDICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAOMEDICA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.rs.first();
+            jIdAdm.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
+            jDataAdm.setDate(conecta.rs.getDate("DataLanc"));
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoAdm.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAdm.setText(conecta.rs.getString("NomeInternoCrc"));
+            jDataNascAdm.setDate(conecta.rs.getDate("DataNasciCrc"));
+            jSexo.setText(conecta.rs.getString("SexoCrc"));
+            jNomeMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
+            jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoAdm.setIcon(i);
+                jFotoInternoAdm.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_SMOOTH)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoAdm.getWidth(), jFotoInternoAdm.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoAdm.setIcon(icon);
+            }
+            //
+            jAR.setText(conecta.rs.getString("AR"));
+            jACV.setText(conecta.rs.getString("ACV"));
+            jAGU.setText(conecta.rs.getString("AGU"));
+            jCABPESC.setText(conecta.rs.getString("CABPESC"));
+            jEXT.setText(conecta.rs.getString("EXT"));
+            jABD.setText(conecta.rs.getString("ABD"));
+            //jDiagnostico.setText("Diagnostico");
+            jCirurgiasPrevisas.setText(conecta.rs.getString("CirurgiasPrevisas"));
+            jTratamentoCurso.setText(conecta.rs.getString("TratamentoCurso"));
+            jQualDrogas.setText(conecta.rs.getString("QualDrogas"));
+            jQualEtilismo.setText(conecta.rs.getString("QualEtilismo"));
+            jQuantoTempoTabagismo.setText(conecta.rs.getString("QuantoTempoTabagismo"));
+            jComboBoxDrogas.setSelectedItem(conecta.rs.getString("Drogas"));
+            jComboBoxEtilismo.setSelectedItem(conecta.rs.getString("Etilismo"));
+            jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
+            jComboBoxVacinas.setSelectedItem(conecta.rs.getString("Vacinas"));
+            jComboBoxIgnoradoAtualizado.setSelectedItem(conecta.rs.getString("AtualizaIgnora"));
+            // ATUALIZAÇÃO DE CAMPOS EM 15/06/2016
+            jComboBoxAR.setSelectedItem(conecta.rs.getString("CombBoxAR"));
+            jComboBoxACV.setSelectedItem(conecta.rs.getString("CombBoxACV"));
+            jComboBoxAGU.setSelectedItem(conecta.rs.getString("CombBoxAGU"));
+            jComboBoxCAB.setSelectedItem(conecta.rs.getString("CombBoxCABPESC"));
+            jComboBoxEXT.setSelectedItem(conecta.rs.getString("CombBoxEXT"));
+            jComboBoxABD.setSelectedItem(conecta.rs.getString("CombBoxABD"));
+            jComboBoxAlergias.setSelectedItem(conecta.rs.getString("Alergia"));
+            jQuaisAlergias.setText(conecta.rs.getString("QuaisAlergias"));
+            jComboBoxDrogasInjetavel.setSelectedItem(conecta.rs.getString("DrogaInjetavel"));
+            jQualTipoDrograInjet.setText(conecta.rs.getString("QualTipoDrogaInjet"));
+            jComboBoxSexualidade.setSelectedItem(conecta.rs.getString("Sexualidade"));
+            jComboBoxNumeroParceiro.setSelectedItem(conecta.rs.getString("NumeroPareceiro"));
+            jComboBoxUsaPreserva.setSelectedItem(conecta.rs.getString("UsaPreserva"));
+            jComboBoxTipoSanguineo.setSelectedItem(conecta.rs.getString("TipoSangue"));
+            jComboBoxFatorRH.setSelectedItem(conecta.rs.getString("FatorRh"));
+            jComboBoxUsaMedicamento.setSelectedItem(conecta.rs.getString("UsaMedicamento"));
+            jQualMedicacaoUsa.setText(conecta.rs.getString("QualMedicamento"));
+            jComboBoxOutrasAlergias.setSelectedItem(conecta.rs.getString("OutrasAlergias"));
+            jQuaisOutrasAlergias.setText(conecta.rs.getString("QuaisOutrasAlergias"));
+            jDiagnosticoInicial.setText(conecta.rs.getString("DiagnosticoInicial"));
+            tipoDiagnosticoMed = conecta.rs.getInt("TipoDiag");
+            if (tipoDiagnosticoMed == 0) {
+                jComboBoxTipoDiagnostico.setSelectedItem("Diagnóstico Clínico");
+            } else if (tipoDiagnosticoMed == 1) {
+                jComboBoxTipoDiagnostico.setSelectedItem("Diagnóstico Psiquiatrico");
+            }
+            //           
+            conecta.desconecta();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+        }
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSADMISSAODOENCAS "
+                    + "INNER JOIN DOENCAS "
+                    + "ON ITENSADMISSAODOENCAS.IdDoenca=DOENCAS.IdDoenca "
+                    + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+            conecta.rs.first();
+            idItem = conecta.rs.getInt("IdItem");
+            DefaultTableModel dtmDoencas = (DefaultTableModel) jTabelaPatologia.getModel();
+            dtmDoencas.getDataVector().clear(); // limpa a tabela 
+            do {
+                dtmDoencas.addRow(new Object[]{conecta.rs.getInt("IdDoenca"), conecta.rs.getString("Descricao"), conecta.rs.getString("Cid")});
+            } while (conecta.rs.next());
+
+        } catch (SQLException ex) {
+        }
+        conecta.desconecta();
+        // TABELA DE EVOLUÇÃO PSIQUIATRICA
+        preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA WHERE IdLanc='" + jIdAdm.getText() + "'");
+        // TABELA DE EVOLUÇÃO MÉDICA
+        preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
+                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+        // TABELA DE PRESCRIÇÃO MÉDICA/PSIQUIATRICA
+        pesquisarPrescricao();
+        if (tipoPrescricao == 0 || tipoPrescricao == 1) {
+            preencherTabelaPrescricaoMedica("SELECT * FROM PRESCRICAO_MEDICA_PSIQUIATRICA "
+                    + "WHERE IdLanc='" + jIdAdm.getText() + "' "
+                    + "AND TipoP='" + tipoPM + "' "
+                    + "OR IdLanc='" + jIdAdm.getText() + "' "
+                    + "AND TipoP='" + tipoPP + "'");
+        }
+        // TABELA DE ATESTADO MÉDICO
+        preencherTabelaAtestadoMedica("SELECT * FROM ATESTADO_MEDICO_PSIQUIATRICO "
+                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+        // TABELA DE DIETA MÉDICA
+        preencherTabelaDietaMedica("SELECT * FROM DIETA_MEDICA_PSIQUIATRICA "
+                + "WHERE IdLanc='" + jIdAdm.getText() + "'");
+    }
+
+    public void bloquearCampos() {
+        jDataAdm.setEnabled(!true);
+        jBtPesqInternoAdm.setEnabled(!true);
+        jComboBoxAR.setEnabled(!true);
+        jComboBoxACV.setEnabled(!true);
+        jComboBoxAGU.setEnabled(!true);
+        jComboBoxCAB.setEnabled(!true);
+        jComboBoxEXT.setEnabled(!true);
+        jComboBoxABD.setEnabled(!true);
+        jAR.setEnabled(!true);
+        jACV.setEnabled(!true);
+        jAGU.setEnabled(!true);
+        jCABPESC.setEnabled(!true);
+        jEXT.setEnabled(!true);
+        jABD.setEnabled(!true);
+        jCirurgiasPrevisas.setEnabled(!true);
+        jTratamentoCurso.setEnabled(!true);
+        jQualDrogas.setEnabled(!true);
+        jComboBoxDrogasInjetavel.setEnabled(!true);
+        jQualTipoDrograInjet.setEnabled(!true);
+        jQualEtilismo.setEnabled(!true);
+        jComboBoxDrogas.setEnabled(!true);
+        jComboBoxEtilismo.setEnabled(!true);
+        jComboBoxTabagismo.setEnabled(!true);
+        jQuantoTempoTabagismo.setEnabled(!true);
+        jComboBoxSexualidade.setEnabled(!true);
+        jComboBoxNumeroParceiro.setEnabled(!true);
+        jComboBoxUsaPreserva.setEnabled(!true);
+        jComboBoxTipoSanguineo.setEnabled(!true);
+        jComboBoxFatorRH.setEnabled(!true);
+        jComboBoxVacinas.setEnabled(!true);
+        jComboBoxIgnoradoAtualizado.setEnabled(!true);
+        jComboBoxAlergias.setEnabled(!true);
+        jQuaisAlergias.setEnabled(!true);
+        jComboBoxUsaMedicamento.setEnabled(!true);
+        jQualMedicacaoUsa.setEnabled(!true);
+        jComboBoxOutrasAlergias.setEnabled(!true);
+        jQuaisOutrasAlergias.setEnabled(!true);
+        jDiagnosticoInicial.setEnabled(!true);
+        jComboBoxTipoDiagnostico.setEnabled(!true);
+        // TELA EVOLUÇAO PSIQUIATRICA
+        jIdEvolucaoPsiquiatrica.setEnabled(!true);
+        jNomeCompletoInternoDiagnosticos.setEnabled(!true);
+        jDataEvolPsiquiatrica.setEnabled(!true);
+        jTextoEvolucaoPsiquiatrica.setEnabled(!true);
+        // TELA DE EVOLUÇÃO MÉDICA
+        jIdEvolucaoMedica.setEnabled(!true);
+        jNomeCompletoInternoEvolucaoMedica.setEnabled(!true);
+        jDataEvolucao.setEnabled(!true);
+        // TELA PRESCRIÇÃO MÉDICA/PSIQUIATRICA
+        jIdPrescricaoMedica.setEnabled(!true);
+        jNomeInternoCrcPM.setEnabled(!true);
+        jDataPM.setEnabled(!true);
+        jTextoPrescricaoMedica.setEnabled(!true);
+        // TELA DE ATESTADO MÉDICO/PSIQUIATRICO
+        jIdAtestado.setEnabled(!true);
+        jNomeInternoAtestado.setEnabled(!true);
+        jDataAtestado.setEnabled(!true);
+        jTextoAtestado.setEnabled(!true);
+        // TELA DE DIETA MÉDICA
+        jIdDieta.setEnabled(!true);
+        jNomeInternoDieta.setEnabled(!true);
+        jDataDieta.setEnabled(!true);
+        jTextoDieta.setEnabled(!true);
+    }
+
+    public void bloquearBotoes() {
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovaEvolucao.setEnabled(!true);
+        jBtAlterarEvolucao.setEnabled(!true);
+        jBtExcluirEvolucao.setEnabled(!true);
+        jBtSalvarEvolucao.setEnabled(!true);
+        jBtCancelarEvolucao.setEnabled(!true);
+        jBtPesquisaEvolucaoMedica.setEnabled(!true);
+        jBtAuditoriaEvolucao.setEnabled(!true);
+        // PRESCRIÇÃO MÉDICA
+        jBtNovaPrescicao.setEnabled(!true);
+        jBtAlterarPrescicao.setEnabled(!true);
+        jBtExcluirPrescicao.setEnabled(!true);
+        jBtSalvarPrescicao.setEnabled(!true);
+        jBtCancelarPrescicao.setEnabled(!true);
+        jBtImpressaoPrescricao.setEnabled(!true);
+        jBtAuditoriaPrescicao.setEnabled(!true);
+        jRBPrescricaoMedica.setEnabled(!true);
+        jRBPrescricaoPsiquiatrica.setEnabled(!true);
+        // ATESTADO MÉDICO
+        jBtNovoAtestado.setEnabled(!true);
+        jBtAlterarAtestado.setEnabled(!true);
+        jBtExcluirAtestado.setEnabled(!true);
+        jBtCancelarAtestado.setEnabled(!true);
+        jBtSalvarAtestado.setEnabled(!true);
+        jBtImprimirAtestado.setEnabled(!true);
+        jBtAuditoriaAtestado.setEnabled(!true);
+        jRadioBtModeloA.setEnabled(!true);
+        jRadioBtModeloB.setEnabled(!true);
+        jRadioBtModeloC.setEnabled(!true);
+        jRadioBtModeloAleatorio.setEnabled(!true);
+        //
+        jBtNovaDieta.setEnabled(!true);
+        jBtAlterarDieta.setEnabled(!true);
+        jBtExcluirDieta.setEnabled(!true);
+        jBtSalvarDieta.setEnabled(!true);
+        jBtCancelarDieta.setEnabled(!true);
+        jBtImprimirDieta.setEnabled(!true);
+        jBtAuditoriaDieta.setEnabled(!true);
+    }
+
     public void limparCampos() {
         //EVOLUÇÃO P´SIQUIATRICA
         jIdEvolucaoPsiquiatrica.setText("");
@@ -6387,12 +6639,6 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         //
         jTextoDieta.setLineWrap(true);
         jTextoDieta.setWrapStyleWord(true);
-        //
-//        jTextoEvolucaoPsicologica.setLineWrap(true);
-//        jTextoEvolucaoPsicologica.setWrapStyleWord(true);
-//        //
-//        jTextoEvolucaoTerapeuta.setLineWrap(true);
-//        jTextoEvolucaoTerapeuta.setWrapStyleWord(true);
     }
 
     public void corCampos() {

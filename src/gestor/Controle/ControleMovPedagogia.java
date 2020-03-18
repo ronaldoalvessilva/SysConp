@@ -38,7 +38,7 @@ public class ControleMovPedagogia {
             pst.setString(6, objAdmPedago.getStatusAdm());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdmPedago;
@@ -58,7 +58,7 @@ public class ControleMovPedagogia {
             pst.setString(6, objAdmPedago.getStatusAdm());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdmPedago;
@@ -72,7 +72,7 @@ public class ControleMovPedagogia {
             pst.setString(1, objAdmPedago.getStatusAdm());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR na tabela MOVIMENTO TÉCNICO os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR na tabela MOVIMENTO TÉCNICO os Dados.\n\nERRO: " + ex);
         }
         conecta.desconecta();
         return objAdmPedago;

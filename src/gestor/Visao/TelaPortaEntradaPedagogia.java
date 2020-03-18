@@ -5,26 +5,27 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleAdmissaoPsicologica;
 import gestor.Controle.ControleConfirmacaoAtendimento;
-import gestor.Controle.ControleEducacaoFamilia;
 import gestor.Controle.ControleEvolucaoPedagogia;
-import gestor.Controle.ControleFemininoPedagogia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovPedagogia;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
-import gestor.Controle.ControleSocializacao;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ControleAdmissaoPsicologicaDAO;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;
-import gestor.Modelo.AdmissaoPedagogica;
+import gestor.Modelo.AdmissaoPedagogicaNova;
 import gestor.Modelo.EvolucaoPedagogica;
-import gestor.Modelo.FamiliaAdmissaoPedagogica;
-import gestor.Modelo.FemininoAdmissaoPedago;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
-import gestor.Modelo.SocializacaoAdmPedagogica;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jDataNascimentoInternoAdm;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jMaeInternoAdm;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jNaturalidadeInternoAdm;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jPaiInternoAdm;
+import static gestor.Visao.AdmissaoEvolucaoPedagogica.jIdInternoAdm;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPedagogia.codAbrirPEDA;
 import static gestor.Visao.TelaModuloPedagogia.codAlterarPEDA;
@@ -44,7 +45,6 @@ import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoFami_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoFemi_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoManu_PEDA;
 import static gestor.Visao.TelaModuloPedagogia.telaAdmissaoSoci_PEDA;
-import static gestor.Visao.TelaModuloPedagogia.telaEvolucao_PEDA;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -63,23 +63,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author Ronaldo
+ * @author Socializa TI 02
  */
-public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
+public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    AdmissaoPedagogica objAdmPedago = new AdmissaoPedagogica();
-    ControleAdmissaoPsicologica control = new ControleAdmissaoPsicologica();
+    AdmissaoPedagogicaNova objAdmPedago = new AdmissaoPedagogicaNova();
+    ControleAdmissaoPsicologicaDAO control = new ControleAdmissaoPsicologicaDAO();
     ControleMovPedagogia controleMov = new ControleMovPedagogia();
-    //
-    FamiliaAdmissaoPedagogica objFamAdmPedago = new FamiliaAdmissaoPedagogica();
-    ControleEducacaoFamilia controle = new ControleEducacaoFamilia();
-    //
-    SocializacaoAdmPedagogica objSociaAdmPedago = new SocializacaoAdmPedagogica();
-    ControleSocializacao controleSocial = new ControleSocializacao();
-    //
-    FemininoAdmissaoPedago objFemPedago = new FemininoAdmissaoPedago();
-    ControleFemininoPedagogia controleFem = new ControleFemininoPedagogia();
     //
     EvolucaoPedagogica objEvolucaoAdmPedago = new EvolucaoPedagogica();
     ControleEvolucaoPedagogia controleEvol = new ControleEvolucaoPedagogia();
@@ -88,6 +79,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -147,29 +141,40 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    //PORTA DE ENTRADA COM ORIGEM NO CRC/TRIAGEM
+    String pHABILITA_PEDAGOGIA = "Sim";
+    String pDEPARTAMENTO = "";
+    String pINTERNOCRC = "";
+    String pHABILITADO = "";
+    String pCONFIRMA_ADMISSAO = "Sim";
+    int codigoDepartamento = 0;
+    String situacao = "ENTRADA NA UNIDADE";
+    String sitRetorno = "RETORNO A UNIDADE";
+    String codInterno;
+    String nomeInternoAnterior = "";
+    String pATENDIDO_PESQUISA = "Não";
+    String pHabilitaPedagogia = "";
 
     /**
-     * Creates new form AdmissaoEvolucaoPsicologica
+     * Creates new form TelaPortaEntradaPedagogia
      */
-    public static AgendamentoAtendimentoPedagogia agendaAtendimentoPed;
-    public static TelaPortaEntradaPedagogia pPORTA_ENTRADA_PEDA;
+    public static AdmissaoEvolucaoPedagogica pADMISSAO_PEDAGOGIA;
+    public static TelaAuditoriaAdmNova pAUDITORIA_ABA1;
 
-    public AdmissaoEvolucaoPedagogica() {
+    public TelaPortaEntradaPedagogia(AdmissaoEvolucaoPedagogica parent, boolean modal) {
+        this.pADMISSAO_PEDAGOGIA = parent;
+        this.setModal(modal);
+        setLocationRelativeTo(pADMISSAO_PEDAGOGIA);
         initComponents();
         formatarCampos();
         corCampos();
+        jTabbedPane1.setSelectedIndex(1);
     }
 
-    public void mostrarAgendaAtendimento() {
-        agendaAtendimentoPed = new AgendamentoAtendimentoPedagogia(this, true);
-        agendaAtendimentoPed.setVisible(true);
+    public void mostrarAuditoriaAba1(){
+        pAUDITORIA_ABA1 = new TelaAuditoriaAdmNova(this, true);
+                pAUDITORIA_ABA1.setVisible(true);
     }
-
-    public void mostrarPortaEntrada() {
-        pPORTA_ENTRADA_PEDA = new TelaPortaEntradaPedagogia(this, true);
-        pPORTA_ENTRADA_PEDA.setVisible(true);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,12 +201,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtIdLanc = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTabelaAdmissaoPedagogica = new javax.swing.JTable();
-        jPanel32 = new javax.swing.JPanel();
-        jtotalRegistros = new javax.swing.JLabel();
+        jPanel31 = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
-        jPanel31 = new javax.swing.JPanel();
-        Admissao = new javax.swing.JPanel();
+        jPanel32 = new javax.swing.JPanel();
+        jtotalRegistros = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -211,19 +216,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataAdm = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jIdInternoAdm = new javax.swing.JTextField();
+        jIdInternoAdmNova = new javax.swing.JTextField();
         jNomeInternoAdm = new javax.swing.JTextField();
-        jDataNascimentoInternoAdm = new com.toedter.calendar.JDateChooser();
-        jNaturalidadeInternoAdm = new javax.swing.JTextField();
-        jBtPesquisarInterno = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jMaeInternoAdm = new javax.swing.JTextField();
-        jPaiInternoAdm = new javax.swing.JTextField();
-        jPanel17 = new javax.swing.JPanel();
-        jFotoInternoPedagogia = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jIdAtend = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jUltimaEscola = new javax.swing.JTextField();
@@ -241,10 +237,11 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtAuditoria = new javax.swing.JButton();
         jBtFinalizar = new javax.swing.JButton();
         jBtConfirmar = new javax.swing.JButton();
-        jBtNovaAdmissao = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jObservacao = new javax.swing.JTextArea();
+        jPanel7 = new javax.swing.JPanel();
+        jFotoInternoPedagogia = new javax.swing.JLabel();
         EducacaoFamilia = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -340,7 +337,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtCancelarSocializacao = new javax.swing.JButton();
         jBtAuditoriaSocializacao = new javax.swing.JButton();
         Feminino = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         jComboBoxFilhoDesejado = new javax.swing.JComboBox();
         jLabel52 = new javax.swing.JLabel();
@@ -355,52 +352,20 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jLabel56 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTextoComoFoiParto = new javax.swing.JTextArea();
-        jPanel15 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
         jBtNovoFeminino = new javax.swing.JButton();
         jBtAlterarFeminino = new javax.swing.JButton();
         jBtExcluirFeminino = new javax.swing.JButton();
         jBtSalvarFeminino = new javax.swing.JButton();
         jBtCancelarFeminino = new javax.swing.JButton();
         jBtAuditoriaFeminino = new javax.swing.JButton();
-        Evolucao = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTabelaEvolucaoPedagoga = new javax.swing.JTable();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jCodigoEvolucao = new javax.swing.JTextField();
-        jNomeInternoEvolucao = new javax.swing.JTextField();
-        jDataEvolucao = new com.toedter.calendar.JDateChooser();
-        jLabel61 = new javax.swing.JLabel();
-        jComboBoxAcessoUni = new javax.swing.JComboBox<>();
-        jLabel62 = new javax.swing.JLabel();
-        AnoIngresso = new com.toedter.calendar.JYearChooser();
-        jBtNovaEvolucao = new javax.swing.JButton();
-        jBtAlterarEvolucao = new javax.swing.JButton();
-        jBtExcluirEvolucao = new javax.swing.JButton();
-        jBtSalvarEvolucao = new javax.swing.JButton();
-        jBtCancelarEvolucao = new javax.swing.JButton();
-        jBtAuditoriaEvolucao = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jTextoEvolucao = new javax.swing.JTextArea();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel58 = new javax.swing.JLabel();
-        jComboBoxEncaminharSetorEvo = new javax.swing.JComboBox();
-        jLabel59 = new javax.swing.JLabel();
-        jDataEncaminhamentoEvo = new com.toedter.calendar.JDateChooser();
-        jHoraEnvioEvo = new javax.swing.JFormattedTextField();
-        jLabel60 = new javax.swing.JLabel();
-        jBtAgendamentoAtendimento = new javax.swing.JButton();
 
-        setClosable(true);
-        setIconifiable(true);
-        setTitle("...::: Admissão/Evolução Pedagógica :::...");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("...::: Porta de Entrada - Admissão :::...");
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel32.setText("Nome do Interno:");
@@ -465,41 +430,40 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jIDPesqLan, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCheckBox9))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jPesqNomeInterno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                                .addComponent(jBtIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jCheckBox9)
+                                .addGroup(jPanel16Layout.createSequentialGroup()
+                                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel34)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBtDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jBtIdLanc)
-                    .addComponent(jIDPesqLan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel35)
+                    .addComponent(jIDPesqLan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtIdLanc)
                     .addComponent(jCheckBox9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -531,30 +495,18 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane6.setViewportView(jTabelaAdmissaoPedagogica);
-        if (jTabelaAdmissaoPedagogica.getColumnModel().getColumnCount() > 0) {
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(1).setMinWidth(70);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(1).setMaxWidth(70);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(3).setMinWidth(370);
-            jTabelaAdmissaoPedagogica.getColumnModel().getColumn(3).setMaxWidth(370);
-        }
 
-        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-
-        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
-        jPanel32.setLayout(jPanel32Layout);
-        jPanel32Layout.setHorizontalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel32Layout.setVerticalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -574,17 +526,19 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             .addComponent(jLabel63)
         );
 
-        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
 
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jtotalRegistros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -594,22 +548,23 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -620,7 +575,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código");
@@ -645,64 +600,24 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jDataAdm.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setText("Código:");
+        jLabel4.setText("Código");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Nome Completo do Interno");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Nascimento");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setText("Naturalidade");
-
-        jIdInternoAdm.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdInternoAdm.setEnabled(false);
+        jIdInternoAdmNova.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdInternoAdmNova.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdInternoAdmNova.setEnabled(false);
 
         jNomeInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNomeInternoAdm.setEnabled(false);
 
-        jDataNascimentoInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataNascimentoInternoAdm.setEnabled(false);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("ADM");
 
-        jNaturalidadeInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNaturalidadeInternoAdm.setEnabled(false);
-
-        jBtPesquisarInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesquisarInterno.setToolTipText("Pesquisar Interno");
-        jBtPesquisarInterno.setContentAreaFilled(false);
-        jBtPesquisarInterno.setEnabled(false);
-        jBtPesquisarInterno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarInternoActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Mãe:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Pai:");
-
-        jMaeInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jMaeInternoAdm.setEnabled(false);
-
-        jPaiInternoAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPaiInternoAdm.setEnabled(false);
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-        );
+        jIdAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdAtend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdAtend.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -711,53 +626,37 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jNomeInternoAdm)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCodigoAdmissao)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jCodigoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jStatusAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 131, Short.MAX_VALUE))
+                            .addComponent(jStatusAdm))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 3, Short.MAX_VALUE))
+                            .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jIdInternoAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5))
-                                .addComponent(jNomeInternoAdm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jNaturalidadeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataNascimentoInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jLabel4)
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel6))
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jIdInternoAdmNova, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPaiInternoAdm)
-                                    .addComponent(jMaeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoAdmissao, jIdInternoAdm});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoAdmissao, jIdInternoAdmNova});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,44 +668,25 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCodigoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel4)
-                            .addComponent(jIdInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesquisarInterno))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jNomeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jNaturalidadeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDataNascimentoInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jMaeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jPaiInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jIdInternoAdmNova, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jNomeInternoAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Última escola que frequentou");
@@ -871,10 +751,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovo.setText("Novo");
+        jBtNovo.setToolTipText("Novo");
         jBtNovo.setContentAreaFilled(false);
         jBtNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtNovo.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -886,7 +766,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar");
         jBtAlterar.setContentAreaFilled(false);
         jBtAlterar.setEnabled(false);
         jBtAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -899,7 +779,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir");
         jBtExcluir.setContentAreaFilled(false);
         jBtExcluir.setEnabled(false);
         jBtExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -912,7 +792,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvar.setText("Gravar");
+        jBtSalvar.setToolTipText("Gravar");
         jBtSalvar.setContentAreaFilled(false);
         jBtSalvar.setEnabled(false);
         jBtSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -925,7 +805,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar");
         jBtCancelar.setContentAreaFilled(false);
         jBtCancelar.setEnabled(false);
         jBtCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -938,7 +818,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
-        jBtSair.setText("Sair");
+        jBtSair.setToolTipText("Sair");
         jBtSair.setContentAreaFilled(false);
         jBtSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -972,16 +852,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtConfirmar.setForeground(new java.awt.Color(51, 153, 0));
         jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/tick.png"))); // NOI18N
         jBtConfirmar.setToolTipText("Concluir");
+        jBtConfirmar.setContentAreaFilled(false);
         jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtConfirmarActionPerformed(evt);
-            }
-        });
-
-        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
-        jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaAdmissaoActionPerformed(evt);
             }
         });
 
@@ -990,44 +864,43 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jBtNovo)
-                .addGap(0, 0, 0)
-                .addComponent(jBtAlterar)
-                .addGap(0, 0, 0)
-                .addComponent(jBtExcluir)
-                .addGap(0, 0, 0)
-                .addComponent(jBtSalvar)
-                .addGap(0, 0, 0)
-                .addComponent(jBtCancelar)
-                .addGap(0, 0, 0)
-                .addComponent(jBtSair)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jBtNovo)
-                .addComponent(jBtAlterar)
-                .addComponent(jBtExcluir)
-                .addComponent(jBtSalvar)
-                .addComponent(jBtCancelar)
-                .addComponent(jBtSair)
-                .addComponent(jBtFinalizar)
-                .addComponent(jBtAuditoria)
-                .addComponent(jBtConfirmar)
-                .addComponent(jBtNovaAdmissao))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtSair)
+                    .addComponent(jBtConfirmar)
+                    .addComponent(jBtFinalizar)
+                    .addComponent(jBtAuditoria))
+                .addGap(5, 5, 5))
         );
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Observação:");
+        jLabel13.setText("Observação");
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -1036,42 +909,57 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jObservacao.setEnabled(false);
         jScrollPane1.setViewportView(jObservacao);
 
-        javax.swing.GroupLayout AdmissaoLayout = new javax.swing.GroupLayout(Admissao);
-        Admissao.setLayout(AdmissaoLayout);
-        AdmissaoLayout.setHorizontalGroup(
-            AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdmissaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 526, Short.MAX_VALUE)
-                    .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(AdmissaoLayout.createSequentialGroup()
-                            .addComponent(jLabel13)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane1))
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        AdmissaoLayout.setVerticalGroup(
-            AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AdmissaoLayout.createSequentialGroup()
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel13)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdmissaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Admissão", Admissao);
+        jTabbedPane1.addTab("Admissão", jPanel2);
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Relaciona-se bem: ");
@@ -1133,7 +1021,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(2, 2, 2)
                                 .addComponent(jLabel38))
                             .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1146,20 +1034,21 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel39)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxRelacaoMae, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addGap(6, 6, 6)
                                 .addComponent(jLabel40)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxIrmaos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(17, 17, 17)
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxPaisSeparados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jComboBoxPaisSeparados, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jReligiao)))
-                .addContainerGap())
+                .addGap(9, 9, 9))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1186,7 +1075,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 255))); // NOI18N
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel18.setText("Relacionamento com colegas?");
@@ -1213,7 +1102,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxRelacionamento, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addComponent(jLabel42)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxLider, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1231,7 +1120,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Idade que andou:");
@@ -1302,9 +1191,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         .addComponent(jQualDificuldadeFala)))
                 .addGap(10, 10, 10))
         );
-
-        jPanel10Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdadeAndou, jIdadeFalou});
-
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
@@ -1327,10 +1213,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtNovaFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaFamilia.setText("Novo");
+        jBtNovaFamilia.setToolTipText("Novo");
         jBtNovaFamilia.setContentAreaFilled(false);
         jBtNovaFamilia.setEnabled(false);
         jBtNovaFamilia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1343,7 +1229,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtAlterarFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarFamilia.setText("Alterar");
+        jBtAlterarFamilia.setToolTipText("Alterar");
         jBtAlterarFamilia.setContentAreaFilled(false);
         jBtAlterarFamilia.setEnabled(false);
         jBtAlterarFamilia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1356,7 +1242,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirFamilia.setText("Excluir");
+        jBtExcluirFamilia.setToolTipText("Excluir");
         jBtExcluirFamilia.setContentAreaFilled(false);
         jBtExcluirFamilia.setEnabled(false);
         jBtExcluirFamilia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1369,7 +1255,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtSalvarFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarFamilia.setText("Gravar");
+        jBtSalvarFamilia.setToolTipText("Gravar");
         jBtSalvarFamilia.setContentAreaFilled(false);
         jBtSalvarFamilia.setEnabled(false);
         jBtSalvarFamilia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1382,7 +1268,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtCancelarFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarFamilia.setText("Cancelar");
+        jBtCancelarFamilia.setToolTipText("Cancelar");
         jBtCancelarFamilia.setContentAreaFilled(false);
         jBtCancelarFamilia.setEnabled(false);
         jBtCancelarFamilia.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1409,16 +1295,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jBtNovaFamilia)
+                .addComponent(jBtNovaFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarFamilia)
+                .addComponent(jBtAlterarFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtExcluirFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtSalvarFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirFamilia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarFamilia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarFamilia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addComponent(jBtCancelarFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1433,7 +1319,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jBtAuditoriaFamilia))
         );
 
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel43.setText("Repetiu ano?");
@@ -1509,22 +1395,22 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jLabel47)
                     .addComponent(jLabel50))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(jComboBoxProblemaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel46)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jQualProblemaProfessor))
-                    .addComponent(jComoAtitudeSala)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel19Layout.createSequentialGroup()
                         .addComponent(jComboBoxFaltaEscola, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel49)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPorqueFaltaEscola))
-                    .addComponent(jPorqueRepetiuAno)
-                    .addComponent(jComboBoxAchaEscola, 0, 299, Short.MAX_VALUE))
+                    .addComponent(jComoAtitudeSala, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel19Layout.createSequentialGroup()
+                        .addComponent(jComboBoxProblemaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jQualProblemaProfessor))
+                    .addComponent(jPorqueRepetiuAno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxAchaEscola, 0, 281, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
@@ -1565,17 +1451,25 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
+                        .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
+                        .addGroup(EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         EducacaoFamiliaLayout.setVerticalGroup(
             EducacaoFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EducacaoFamiliaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1583,14 +1477,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Educação/Família", EducacaoFamilia);
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Faz amigos com facilidade?");
@@ -1697,7 +1589,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Vida Escolar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Vida Escolar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Idade em que entrou na escola:");
@@ -1758,45 +1650,44 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4))
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jIdadeEscolar, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxFamiliarPresente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel30))
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jIdadeEscolar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel28)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxFamiliarPresente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel29)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxAntecedentes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane5)
+                                    .addComponent(jScrollPane4)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel31)
+                                        .addGroup(jPanel13Layout.createSequentialGroup()
+                                            .addComponent(jLabel29)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jComboBoxAntecedentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jAdaptacao)
-                                    .addComponent(jRepetencias)))))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel30)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                    .addComponent(jRepetencias, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jAdaptacao))))))
                 .addContainerGap())
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1811,7 +1702,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     .addComponent(jLabel26)
                     .addComponent(jAdaptacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(jRepetencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1821,18 +1712,17 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
         );
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtNovaSocializacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaSocializacao.setText("Novo");
+        jBtNovaSocializacao.setToolTipText("Novo");
         jBtNovaSocializacao.setContentAreaFilled(false);
         jBtNovaSocializacao.setEnabled(false);
         jBtNovaSocializacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1845,7 +1735,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtAlterarSocializacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarSocializacao.setText("Alterar");
+        jBtAlterarSocializacao.setToolTipText("Alterar");
         jBtAlterarSocializacao.setContentAreaFilled(false);
         jBtAlterarSocializacao.setEnabled(false);
         jBtAlterarSocializacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1858,7 +1748,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirSocializacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirSocializacao.setText("Excluir");
+        jBtExcluirSocializacao.setToolTipText("Excluir");
         jBtExcluirSocializacao.setContentAreaFilled(false);
         jBtExcluirSocializacao.setEnabled(false);
         jBtExcluirSocializacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1871,7 +1761,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtSalvarSocializacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarSocializacao.setText("Gravar");
+        jBtSalvarSocializacao.setToolTipText("Gravar");
         jBtSalvarSocializacao.setContentAreaFilled(false);
         jBtSalvarSocializacao.setEnabled(false);
         jBtSalvarSocializacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1884,7 +1774,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtCancelarSocializacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarSocializacao.setText("Cancelar");
+        jBtCancelarSocializacao.setToolTipText("Cancelar");
         jBtCancelarSocializacao.setContentAreaFilled(false);
         jBtCancelarSocializacao.setEnabled(false);
         jBtCancelarSocializacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1911,19 +1801,22 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jBtNovaSocializacao)
+                .addComponent(jBtNovaSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAlterarSocializacao)
+                .addComponent(jBtAlterarSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtExcluirSocializacao)
+                .addComponent(jBtExcluirSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtSalvarSocializacao)
+                .addComponent(jBtSalvarSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtCancelarSocializacao)
+                .addComponent(jBtCancelarSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAuditoriaSocializacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel14Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarSocializacao, jBtCancelarSocializacao, jBtExcluirSocializacao, jBtNovaSocializacao, jBtSalvarSocializacao});
+
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -1941,29 +1834,29 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             SocializacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SocializacaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SocializacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(SocializacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
         SocializacaoLayout.setVerticalGroup(
             SocializacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SocializacaoLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Socialização e Preferências", Socializacao);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel51.setText("Filho(a) desejado(a)?");
+        jLabel51.setText("Filho desejado?");
 
         jComboBoxFilhoDesejado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxFilhoDesejado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
@@ -2014,58 +1907,55 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTextoComoFoiParto.setEnabled(false);
         jScrollPane9.setViewportView(jTextoComoFoiParto);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel55, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel53)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxFoiAcidental, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel51)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBoxFilhoDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel54))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel52)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxQueriaEngravidar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxPerturbou, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel56)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2))
-                        .addContainerGap())))
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel53)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxFoiAcidental, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jLabel51)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxFilhoDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel54)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxPerturbou, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel52)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxQueriaEngravidar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel15Layout.createSequentialGroup()
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel55)
+                            .addComponent(jLabel56))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel51)
                     .addComponent(jComboBoxFilhoDesejado, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel52)
                     .addComponent(jComboBoxQueriaEngravidar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel53)
                     .addComponent(jComboBoxFoiAcidental, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel54)
@@ -2073,18 +1963,18 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel55)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel56)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jBtNovoFeminino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovoFeminino.setText("Novo");
+        jBtNovoFeminino.setToolTipText("Novo");
         jBtNovoFeminino.setContentAreaFilled(false);
         jBtNovoFeminino.setEnabled(false);
         jBtNovoFeminino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2097,7 +1987,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtAlterarFeminino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarFeminino.setText("Alterar");
+        jBtAlterarFeminino.setToolTipText("Alterar");
         jBtAlterarFeminino.setContentAreaFilled(false);
         jBtAlterarFeminino.setEnabled(false);
         jBtAlterarFeminino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2110,7 +2000,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtExcluirFeminino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirFeminino.setText("Excluir");
+        jBtExcluirFeminino.setToolTipText("Excluir");
         jBtExcluirFeminino.setContentAreaFilled(false);
         jBtExcluirFeminino.setEnabled(false);
         jBtExcluirFeminino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2123,7 +2013,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtSalvarFeminino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
-        jBtSalvarFeminino.setText("Gravar");
+        jBtSalvarFeminino.setToolTipText("Gravar");
         jBtSalvarFeminino.setContentAreaFilled(false);
         jBtSalvarFeminino.setEnabled(false);
         jBtSalvarFeminino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2136,7 +2026,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         });
 
         jBtCancelarFeminino.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarFeminino.setText("Cancelar");
+        jBtCancelarFeminino.setToolTipText("Cancelar");
         jBtCancelarFeminino.setContentAreaFilled(false);
         jBtCancelarFeminino.setEnabled(false);
         jBtCancelarFeminino.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -2158,11 +2048,11 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jBtNovoFeminino)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAlterarFeminino)
@@ -2176,9 +2066,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 .addComponent(jBtAuditoriaFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                 .addComponent(jBtNovoFeminino)
                 .addComponent(jBtAlterarFeminino)
                 .addComponent(jBtExcluirFeminino)
@@ -2193,349 +2083,36 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             FemininoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FemininoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(FemininoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(FemininoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, 4))
         );
         FemininoLayout.setVerticalGroup(
             FemininoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FemininoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Feminino", Feminino);
-
-        jTabelaEvolucaoPedagoga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaEvolucaoPedagoga.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Data", "Evolução"
-            }
-        ));
-        jTabelaEvolucaoPedagoga.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaEvolucaoPedagogaMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(jTabelaEvolucaoPedagoga);
-        if (jTabelaEvolucaoPedagoga.getColumnModel().getColumnCount() > 0) {
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setMinWidth(390);
-            jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setMaxWidth(390);
-        }
-
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setText("Código");
-
-        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel36.setText("Data");
-
-        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel37.setText("Nome Completo do Interno");
-
-        jCodigoEvolucao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCodigoEvolucao.setEnabled(false);
-
-        jNomeInternoEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNomeInternoEvolucao.setEnabled(false);
-
-        jDataEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataEvolucao.setEnabled(false);
-
-        jLabel61.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel61.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel61.setText("Acesso a Universidade?");
-
-        jComboBoxAcessoUni.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxAcessoUni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
-        jComboBoxAcessoUni.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxAcessoUni.setEnabled(false);
-
-        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel62.setForeground(new java.awt.Color(204, 51, 0));
-        jLabel62.setText("Ano de Ingresso:");
-
-        AnoIngresso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        AnoIngresso.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCodigoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jNomeInternoEvolucao)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel37)
-                                .addGap(0, 198, Short.MAX_VALUE))))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel61)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxAcessoUni, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel62)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnoIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel36)
-                    .addComponent(jLabel37))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCodigoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeInternoEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel62)
-                    .addComponent(AnoIngresso, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAcessoUni, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel61))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
-        jBtNovaEvolucao.setToolTipText("Nova Evolução");
-        jBtNovaEvolucao.setEnabled(false);
-        jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtAlterarEvolucao.setToolTipText("Alterar Evolução");
-        jBtAlterarEvolucao.setEnabled(false);
-        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/3630_16x16.png"))); // NOI18N
-        jBtExcluirEvolucao.setToolTipText("Excluir Evolução");
-        jBtExcluirEvolucao.setEnabled(false);
-        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/save-document-icone-9010-16.png"))); // NOI18N
-        jBtSalvarEvolucao.setToolTipText("Gravar Evolução");
-        jBtSalvarEvolucao.setEnabled(false);
-        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSalvarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
-        jBtCancelarEvolucao.setToolTipText("Cancelar Evolução");
-        jBtCancelarEvolucao.setEnabled(false);
-        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
-        jBtAuditoriaEvolucao.setToolTipText("Auditoria Evolução");
-        jBtAuditoriaEvolucao.setContentAreaFilled(false);
-        jBtAuditoriaEvolucao.setEnabled(false);
-        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAuditoriaEvolucaoActionPerformed(evt);
-            }
-        });
-
-        jTextoEvolucao.setColumns(20);
-        jTextoEvolucao.setRows(5);
-        jTextoEvolucao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTextoEvolucao.setEnabled(false);
-        jScrollPane8.setViewportView(jTextoEvolucao);
-
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
-
-        jLabel58.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel58.setText("Qual Setor foi Encamihado? ");
-
-        jComboBoxEncaminharSetorEvo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxEncaminharSetorEvo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione..." }));
-        jComboBoxEncaminharSetorEvo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxEncaminharSetorEvo.setEnabled(false);
-
-        jLabel59.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel59.setText("Data");
-
-        jDataEncaminhamentoEvo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataEncaminhamentoEvo.setEnabled(false);
-
-        jHoraEnvioEvo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jHoraEnvioEvo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
-        jHoraEnvioEvo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jHoraEnvioEvo.setEnabled(false);
-
-        jLabel60.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel60.setText("Horário");
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBoxEncaminharSetorEvo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDataEncaminhamentoEvo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jHoraEnvioEvo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel20Layout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addComponent(jLabel58)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
-                    .addComponent(jLabel59)
-                    .addGap(74, 74, 74)
-                    .addComponent(jLabel60)
-                    .addGap(25, 25, 25)))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jComboBoxEncaminharSetorEvo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataEncaminhamentoEvo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHoraEnvioEvo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel20Layout.createSequentialGroup()
-                    .addGap(4, 4, 4)
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel60)
-                        .addComponent(jLabel59)
-                        .addComponent(jLabel58))
-                    .addContainerGap(36, Short.MAX_VALUE)))
-        );
-
-        jBtAgendamentoAtendimento.setForeground(new java.awt.Color(0, 0, 255));
-        jBtAgendamentoAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/composer-preferences-icone-5121-16.png"))); // NOI18N
-        jBtAgendamentoAtendimento.setText("Agendar");
-        jBtAgendamentoAtendimento.setToolTipText("Agenda Atendimento Psicologico");
-        jBtAgendamentoAtendimento.setEnabled(false);
-        jBtAgendamentoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAgendamentoAtendimentoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout EvolucaoLayout = new javax.swing.GroupLayout(Evolucao);
-        Evolucao.setLayout(EvolucaoLayout);
-        EvolucaoLayout.setHorizontalGroup(
-            EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EvolucaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(EvolucaoLayout.createSequentialGroup()
-                        .addComponent(jBtNovaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtAlterarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtExcluirEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSalvarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtAgendamentoAtendimento)
-                        .addGap(26, 26, 26)
-                        .addComponent(jBtAuditoriaEvolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addComponent(jScrollPane8)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        EvolucaoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        EvolucaoLayout.setVerticalGroup(
-            EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EvolucaoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EvolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtAlterarEvolucao)
-                        .addComponent(jBtExcluirEvolucao)
-                        .addComponent(jBtSalvarEvolucao)
-                        .addComponent(jBtCancelarEvolucao, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jBtAuditoriaEvolucao)
-                        .addComponent(jBtNovaEvolucao))
-                    .addComponent(jBtAgendamentoAtendimento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
-
-        jTabbedPane1.addTab("Evolução", Evolucao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, Short.MAX_VALUE)
-                .addGap(2, 2, 2))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(350, 40, 571, 515);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtDataLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataLancActionPerformed
@@ -2559,9 +2136,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
+                        preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataAdm BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
                     }
                 }
@@ -2581,9 +2158,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
+                        preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataAdm BETWEEN'" + dataInicial + "'AND '" + dataFinal + "'");
                     }
                 }
@@ -2598,21 +2175,21 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário informar um nome ou parte do nome para pesquisa.");
         } else {
-            preencherTodasAdmissaoNomes("SELECT * FROM ADMISSAO_PEDAGOGIA "
+            preencherTodasAdmissaoNomes("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
     }//GEN-LAST:event_jBtNomeInternoActionPerformed
 
     private void jCheckBox9ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox9ItemStateChanged
-//         TODO add your handling code here:
+        //         TODO add your handling code here:
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
+            this.preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
@@ -2622,19 +2199,18 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private void jBtIdLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIdLancActionPerformed
         // TODO add your handling code here:
         count = 0;
-        flag = 1;
         if (jIDPesqLan.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um código para pesquisa.");
         } else {
             preencherTodasAdmissao("SELECT * FROM ADMISSAO_PEDAGOGIA "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdAdm='" + jIDPesqLan.getText() + "'");
+                    + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdAdmNova='" + jIDPesqLan.getText() + "'");
         }
     }//GEN-LAST:event_jBtIdLancActionPerformed
 
     private void jTabelaAdmissaoPedagogicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAdmissaoPedagogicaMouseClicked
-        // TODO add your handling code here:        
+        // TODO add your handling code here:
         if (flag == 1) {
             String IdLanc = "" + jTabelaAdmissaoPedagogica.getValueAt(jTabelaAdmissaoPedagogica.getSelectedRow(), 0);
             jIDPesqLan.setText(IdLanc);
@@ -2647,23 +2223,20 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             jBtFinalizar.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             //
-            limparCamposEvolucao();
-            //
             jBtNovaFamilia.setEnabled(true);
             jBtNovaSocializacao.setEnabled(true);
             jBtNovoFeminino.setEnabled(true);
-            jBtNovaEvolucao.setEnabled(true);
-            jBtAgendamentoAtendimento.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA "
+                conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "ON ADMISSAO_PEDAGOGIA_NOVA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "INNER JOIN CIDADES "
                         + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                        + "WHERE IdAdm='" + IdLanc + "'");
+                        + "WHERE IdAdmNova='" + IdLanc + "'");
                 conecta.rs.first();
-                jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
+                jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAdmNova")));
+                jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
                 jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
                 jDataAdm.setDate(conecta.rs.getDate("DataAdm"));
                 // Capturando foto
@@ -2681,7 +2254,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     ImageIcon icon = new ImageIcon(scaled);
                     jFotoInternoPedagogia.setIcon(icon);
                 }
-                jIdInternoAdm.setText(conecta.rs.getString("IdInternoCrc"));
+                jIdInternoAdmNova.setText(conecta.rs.getString("IdInternoCrc"));
                 jNomeInternoAdm.setText(conecta.rs.getString("NomeInternoCrc"));
                 jNaturalidadeInternoAdm.setText(conecta.rs.getString("NomeCidade"));
                 jDataNascimentoInternoAdm.setDate(conecta.rs.getDate("DataNasciCrc"));
@@ -2697,12 +2270,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             //EDUCAÇÃO E FAMILIA
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA "
-                        + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                        + "ON FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                        + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+                conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
+                        + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                        + "ON FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                        + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
                 conecta.rs.first();
-                codigoFam = conecta.rs.getInt("IdFam");
+                codigoFam = conecta.rs.getInt("IdFamNova");
                 jComboBoxRelacaoPai.setSelectedItem(conecta.rs.getString("RelacaoPai"));
                 jComboBoxRelacaoMae.setSelectedItem(conecta.rs.getString("RelacaoMae"));
                 jComboBoxIrmaos.setSelectedItem(conecta.rs.getString("Irmaos"));
@@ -2737,12 +2310,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             // SOCIALIZAÇÃO
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA "
-                        + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                        + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                        + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+                conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
+                        + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                        + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                        + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
                 conecta.rs.first();
-                codigoSocia = conecta.rs.getInt("IdSocial");
+                codigoSocia = conecta.rs.getInt("IdSocialNova");
                 jAmigosFacilidade.setText(conecta.rs.getString("AmigosFacilidade"));
                 introvertido = conecta.rs.getInt("Introvertido");
                 if (introvertido == 0) {
@@ -2813,12 +2386,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             // FEMININO
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA "
-                        + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                        + "ON FEMININO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                        + "WHERE FEMININO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+                conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
+                        + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                        + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                        + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
                 conecta.rs.first();
-                codigoFem = conecta.rs.getInt("IdFemAdm");
+                codigoFem = conecta.rs.getInt("IdFemAdmNova");
                 jComboBoxFilhoDesejado.setSelectedItem(conecta.rs.getString("FilhoDesejado"));
                 jComboBoxQueriaEngravidar.setSelectedItem(conecta.rs.getString("QueriaEngravidar"));
                 jComboBoxFoiAcidental.setSelectedItem(conecta.rs.getString("FoiAcidental"));
@@ -2835,51 +2408,42 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 }
             } catch (Exception e) {
             }
-            // EVOLUÇÃO
-            jCodigoEvolucao.setText("");
-            jDataEvolucao.setDate(null);
-            jComboBoxEncaminharSetorEvo.setSelectedItem("Selecione...");
-            jDataEncaminhamentoEvo.setDate(null);
-            jHoraEnvioEvo.setText("");
-            jTextoEvolucao.setText("");
-            preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
         }
         conecta.desconecta();
     }//GEN-LAST:event_jTabelaAdmissaoPedagogicaMouseClicked
-
-    private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
-        // TODO add your handling code here:
-        verificarRegistroBiometria();
-        if (pHabilitaPEDA.equals("Não")) {
-            TelaPesqInternoAdmPedagogia objPesqAdmPeda = new TelaPesqInternoAdmPedagogia();
-            TelaModuloPedagogia.jPainelPedagogia.add(objPesqAdmPeda);
-            objPesqAdmPeda.show();
-        } else {
-            TelaPesqInternoAtendPedaBio objPesqAdmPedaBio = new TelaPesqInternoAtendPedaBio();
-            TelaModuloPedagogia.jPainelPedagogia.add(objPesqAdmPedaBio);
-            objPesqAdmPedaBio.show();
-        }
-    }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoManu_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codIncluirPEDA == 1) {
-            acao = 1;
-            limparTodosCampos();
-            bloquearBotoes();
-            limparTabelaEvolucao();
-            Novo();
-            corCampos();
-            verificarInternoRegistradoAdm();
-            statusMov = "Incluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarPortaEntrada();
+            verificarRegistroBiometria();
+            if (jIdInternoAdm.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
+                if (pHabilitaPedagogia.equals("Não")) {
+                    acao = 1;
+                    Novo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    pesquisarInternoManual();
+                } else {
+                    //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
+                    procurarDepartamento();
+                    //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
+                    pesquisarInternoColaboradorBiometria();
+                    if (jIdInternoAdmNova.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
+                    } else {
+                        acao = 1;
+                        Novo();
+                        statusMov = "Incluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Já existe uma admissão para esse interno, por isso não é possível fazer uma nova admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -2919,13 +2483,13 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             if (jStatusAdm.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa admissão de internos não poderá ser excluída, o mesmo encontra-se FINALIZADO");
             } else {
-                if (jIdInternoAdm.getText().equals(codigoInternoEvolucao)) {
+                if (jIdInternoAdmNova.getText().equals(codigoInternoEvolucao)) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe evolução para esse interno.");
-                } else if (jIdInternoAdm.getText().equals(codigoInternoFeminino)) {
+                } else if (jIdInternoAdmNova.getText().equals(codigoInternoFeminino)) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Feminino para esse interno.");
-                } else if (jIdInternoAdm.getText().equals(codigoInternoSocializa)) {
+                } else if (jIdInternoAdmNova.getText().equals(codigoInternoSocializa)) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
-                } else if (jIdInternoAdm.getText().equals(codigoInternoFamilia)) {
+                } else if (jIdInternoAdmNova.getText().equals(codigoInternoFamilia)) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possivel excluir essa admissão, existe registro na aba Socialização e Preferências para esse interno.");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o LANÇAMENTO selecionado?", "Confirmação",
@@ -2936,10 +2500,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         bloquearBotoes();
                         // MOVIMENTAÇÃO CORPO TÉCNICO
                         objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                        objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                         objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                         objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                        controleMov.excluirMovTec(objAdmPedago);
+                        control.excluirMovTec(objAdmPedago);
                         //
                         control.excluirAdmissaoEscolar(objAdmPedago);
                         //
@@ -2959,52 +2523,48 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoManu_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoManu_PEDA) && codGravarPEDA == 1) {
-            verificarAdmissao();
-            if (jIdInternoAdm.getText().equals("")) {
+            if (jIdInternoAdmNova.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
             } else if (jDataAdm.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data da admissão.");
             } else if (jComboBoxSerieAno.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
             } else {
+                objAdmPedago.setIdAdm(Integer.valueOf(jIdAtend.getText()));
                 objAdmPedago.setStatusAdm(jStatusAdm.getText());
                 objAdmPedago.setDataAdm(jDataAdm.getDate());
-                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                 objAdmPedago.setUltimaEscola(jUltimaEscola.getText());
                 objAdmPedago.setSerieAno((String) jComboBoxSerieAno.getSelectedItem());
-                objAdmPedago.setTurno((String)jComboBoxTurno.getSelectedItem());
+                objAdmPedago.setTurno((String) jComboBoxTurno.getSelectedItem());
                 objAdmPedago.setObservacao(jObservacao.getText());
                 if (acao == 1) {
-                    if (jIdInternoAdm.getText().equals(pCODIGO_INTERNO)) {
-                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
-                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
-                                JOptionPane.YES_NO_OPTION);
-                        if (resposta == JOptionPane.YES_OPTION) {
-                            pesquisarInternoExistente();
-                            mostrarPortaEntrada();
-                        }
-                    } else {
-                        objAdmPedago.setUsuarioInsert(nameUser);
-                        objAdmPedago.setDataInsert(dataModFinal);
-                        objAdmPedago.setHorarioInsert(horaMov);
-                        //
-                        control.incluirAdmissaoEscolar(objAdmPedago);
-                        buscarCodigo();
-                        // MOVIMENTAÇÃO CORPO TÉCNICO
-                        objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                        objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                        objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                        objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                        controleMov.incluirMovTec(objAdmPedago);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                        bloquearCampos();
-                        bloquearBotoes();
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                        JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
-                    }
+                    objAdmPedago.setUsuarioInsert(nameUser);
+                    objAdmPedago.setDataInsert(dataModFinal);
+                    objAdmPedago.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAdmissaoEscolar(objAdmPedago);
+                    buscarCodigo();
+                    // MOVIMENTAÇÃO CORPO TÉCNICO
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+                    objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objAdmPedago.setDeptoPedagogia(deptoTecnico);
+                    control.incluirMovTec(objAdmPedago);
+                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                    pHABILITA_PEDAGOGIA = "Não";
+                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+                    objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objPortaEntrada.setHabPed(pHABILITA_PEDAGOGIA);
+                    control_PE.alterarPortaEntradaPedagogia(objPortaEntrada);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearCampos();
+                    bloquearBotoes();
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    JOptionPane.showMessageDialog(rootPane, "Se já terminou o atendimento, será necessário clicar no botão <Concluir> para contabilizar o atendimento e liberar o interno.");
                 }
                 if (acao == 2) {
                     objAdmPedago.setUsuarioUp(nameUser);
@@ -3015,12 +2575,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     control.alterarAdmissaoEscolar(objAdmPedago);
                     // MOVIMENTAÇÃO CORPO TÉCNICO
                     objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                     objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objAdmPedago.setDeptoPedagogia(deptoTecnico);
-                    controleMov.alterarMovTec(objAdmPedago);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO                             
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    control.alterarMovTec(objAdmPedago);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                     objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
@@ -3032,6 +2592,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objRegAtend.setDataUp(dataModFinal);
                     objRegAtend.setHorarioUp(horaMov);
                     controlRegAtend.alterarRegAtend(objRegAtend);
+                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                    pHABILITA_PEDAGOGIA = "Não";
+                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+                    objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objPortaEntrada.setHabPed(pHABILITA_PEDAGOGIA);
+                    control_PE.alterarPortaEntradaPedagogia(objPortaEntrada);
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3047,7 +2613,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        // TODO add your handling code here:       
+        // TODO add your handling code here:
         Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
@@ -3056,11 +2622,16 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
+    private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
+        // TODO add your handling code here:
+        mostrarAuditoriaAba1();
+    }//GEN-LAST:event_jBtAuditoriaActionPerformed
+
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "'");
             conecta.rs.first();
             jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
             if (jStatusAdm.getText().equals("FINALIZADO")) {
@@ -3074,12 +2645,36 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
-    private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
+    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAdmissaoPedagogia objAudAdmPed = new TelaAuditoriaAdmissaoPedagogia();
-        TelaModuloPedagogia.jPainelPedagogia.add(objAudAdmPed);
-        objAudAdmPed.show();
-    }//GEN-LAST:event_jBtAuditoriaActionPerformed
+        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO
+        atendido = "Sim";
+        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+        objRegAtend.setAtendido(atendido);
+        objRegAtend.setDataAtendimento(jDataAdm.getDate());
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+        //
+        objRegAtend.setUsuarioUp(nameUser);
+        objRegAtend.setDataUp(dataModFinal);
+        objRegAtend.setHorarioUp(horaMov);
+        controlRegAtend.alterarRegAtend(objRegAtend);
+        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV
+        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+        objRegAtend.setHorarioUp(horaMov);
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+        control_ATENDE.confirmarAtendimento(objRegAtend);
+        JOptionPane.showMessageDialog(rootPane, "Atendimento concluído com sucesso.");
+    }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtNovaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaFamiliaActionPerformed
         // TODO add your handling code here:
@@ -3093,7 +2688,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 bloquearCampos();
                 bloquearBotoes();
                 NovaFamilia();
-                corCampos();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
@@ -3139,10 +2733,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objFamAdmPedago.setIdFam(codigoFam);
-                    controle.excluirFamiliaAdmissaoEscolar(objFamAdmPedago);
+                    objAdmPedago.setIdFam(codigoFam);
+                    control.excluirFamiliaAdmissaoEscolar(objAdmPedago);
                     objLog2();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     bloquearBotoes();
                     ExcluirFamilia();
@@ -3164,39 +2758,39 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             } else if (jIdadeFalou.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe uma idade que falou, ou deixe o campo com valor zero.");
             } else {
-                objFamAdmPedago.setRelacaoPai((String) jComboBoxRelacaoPai.getSelectedItem());
-                objFamAdmPedago.setRelacaoMae((String) jComboBoxRelacaoMae.getSelectedItem());
-                objFamAdmPedago.setIrmaos((String) jComboBoxIrmaos.getSelectedItem());
-                objFamAdmPedago.setPaisLerEscrever((String) jComboBoxPaisLerEscrever.getSelectedItem());
-                objFamAdmPedago.setPaisSeparados((String) jComboBoxPaisSeparados.getSelectedItem());
-                objFamAdmPedago.setReligiao(jReligiao.getText());
-                objFamAdmPedago.setIdadeAndou(Integer.valueOf(jIdadeAndou.getText()));
-                objFamAdmPedago.setIdadeFalou(Integer.valueOf(jIdadeFalou.getText()));
-                objFamAdmPedago.setDificuldadeFala((String) jComboBoxDificuldadeFala.getSelectedItem());
-                objFamAdmPedago.setQualDificuldadeFala(jQualDificuldadeFala.getText());
-                objFamAdmPedago.setComunicacao(jComunicacao.getText());
-                objFamAdmPedago.setRelacionamento((String) jComboBoxRelacionamento.getSelectedItem());
-                objFamAdmPedago.setLider((String) jComboBoxLider.getSelectedItem());
-                objFamAdmPedago.setRepetiuAno((String) jComboBoxRepetiuAno.getSelectedItem());
-                objFamAdmPedago.setPorqueRepetiuAno(jPorqueRepetiuAno.getText());
-                objFamAdmPedago.setProblemaProfessor((String) jComboBoxProblemaProfessor.getSelectedItem());
-                objFamAdmPedago.setQualProblemaProfessor(jQualProblemaProfessor.getText());
-                objFamAdmPedago.setComoAtitudeSala(jComoAtitudeSala.getText());
-                objFamAdmPedago.setFaltaEscola((String) jComboBoxFaltaEscola.getSelectedItem());
-                objFamAdmPedago.setPorqueFaltaEscola(jPorqueFaltaEscola.getText());
-                objFamAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
-                objFamAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objFamAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objFamAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                objAdmPedago.setRelacaoPai((String) jComboBoxRelacaoPai.getSelectedItem());
+                objAdmPedago.setRelacaoMae((String) jComboBoxRelacaoMae.getSelectedItem());
+                objAdmPedago.setIrmaos((String) jComboBoxIrmaos.getSelectedItem());
+                objAdmPedago.setPaisLerEscrever((String) jComboBoxPaisLerEscrever.getSelectedItem());
+                objAdmPedago.setPaisSeparados((String) jComboBoxPaisSeparados.getSelectedItem());
+                objAdmPedago.setReligiao(jReligiao.getText());
+                objAdmPedago.setIdadeAndou(Integer.valueOf(jIdadeAndou.getText()));
+                objAdmPedago.setIdadeFalou(Integer.valueOf(jIdadeFalou.getText()));
+                objAdmPedago.setDificuldadeFala((String) jComboBoxDificuldadeFala.getSelectedItem());
+                objAdmPedago.setQualDificuldadeFala(jQualDificuldadeFala.getText());
+                objAdmPedago.setComunicacao(jComunicacao.getText());
+                objAdmPedago.setRelacionamento((String) jComboBoxRelacionamento.getSelectedItem());
+                objAdmPedago.setLider((String) jComboBoxLider.getSelectedItem());
+                objAdmPedago.setRepetiuAno((String) jComboBoxRepetiuAno.getSelectedItem());
+                objAdmPedago.setPorqueRepetiuAno(jPorqueRepetiuAno.getText());
+                objAdmPedago.setProblemaProfessor((String) jComboBoxProblemaProfessor.getSelectedItem());
+                objAdmPedago.setQualProblemaProfessor(jQualProblemaProfessor.getText());
+                objAdmPedago.setComoAtitudeSala(jComoAtitudeSala.getText());
+                objAdmPedago.setFaltaEscola((String) jComboBoxFaltaEscola.getSelectedItem());
+                objAdmPedago.setPorqueFaltaEscola(jPorqueFaltaEscola.getText());
+                objAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
+                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+                objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
                 if (acao == 3) {
-                    if (jCodigoAdmissao.getText().equals(codigoAdm) && jIdInternoAdm.getText().equals(codigoInternoFAM)) {
+                    if (jCodigoAdmissao.getText().equals(codigoAdm) && jIdInternoAdmNova.getText().equals(codigoInternoFAM)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
-                        objFamAdmPedago.setUsuarioInsert(nameUser);
-                        objFamAdmPedago.setDataInsert(dataModFinal);
-                        objFamAdmPedago.setHorarioInsert(horaMov);
+                        objAdmPedago.setUsuarioInsert(nameUser);
+                        objAdmPedago.setDataInsert(dataModFinal);
+                        objAdmPedago.setHorarioInsert(horaMov);
                         //
-                        controle.incluirFamiliaAdmissaoEscolar(objFamAdmPedago);
+                        control.incluirFamiliaAdmissaoEscolar(objAdmPedago);
                         buscarFamilia();
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -3208,12 +2802,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     }
                 }
                 if (acao == 4) {
-                    objFamAdmPedago.setUsuarioUp(nameUser);
-                    objFamAdmPedago.setDataUp(dataModFinal);
-                    objFamAdmPedago.setHorarioUp(horaMov);
+                    objAdmPedago.setUsuarioUp(nameUser);
+                    objAdmPedago.setDataUp(dataModFinal);
+                    objAdmPedago.setHorarioUp(horaMov);
                     //
-                    objFamAdmPedago.setIdFam(codigoFam);
-                    controle.alterarFamiliaAdmissaoEscolar(objFamAdmPedago);
+                    objAdmPedago.setIdFam(codigoFam);
+                    control.alterarFamiliaAdmissaoEscolar(objAdmPedago);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
@@ -3297,10 +2891,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objSociaAdmPedago.setIdSocial(codigoSocia);
-                    controleSocial.excluirAdmissaoSocializaEscolar(objSociaAdmPedago);
+                    objAdmPedago.setIdSocial(codigoSocia);
+                    control.excluirAdmissaoSocializaEscolar(objAdmPedago);
                     objLog3();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     bloquearBotoes();
                     ExcluirSocializacao();
@@ -3320,79 +2914,79 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             if (jIdadeEscolar.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe um valor para a idade em que entrou na escola ou preencha o campo com valor zero.");
             } else {
-                objSociaAdmPedago.setAmigosFacilidade(jAmigosFacilidade.getText());
+                objAdmPedago.setAmigosFacilidade(jAmigosFacilidade.getText());
                 if (jIntrovertido.isSelected()) {
                     introvertido = 0;
                 } else if (!jIntrovertido.isSelected()) {
                     introvertido = 1;
                 }
-                objSociaAdmPedago.setIntrovertido(introvertido);
+                objAdmPedago.setIntrovertido(introvertido);
                 if (jAfetuoso.isSelected()) {
                     afetuoso = 0;
                 } else if (!jAfetuoso.isSelected()) {
                     afetuoso = 1;
                 }
-                objSociaAdmPedago.setAfetuoso(afetuoso);
+                objAdmPedago.setAfetuoso(afetuoso);
                 if (jObediente.isSelected()) {
                     obediente = 0;
                 } else if (!jObediente.isSelected()) {
                     obediente = 1;
                 }
-                objSociaAdmPedago.setObediente(obediente);
+                objAdmPedago.setObediente(obediente);
                 if (jResistente.isSelected()) {
                     resistente = 0;
                 } else if (!jResistente.isSelected()) {
                     resistente = 1;
                 }
-                objSociaAdmPedago.setResistente(resistente);
+                objAdmPedago.setResistente(resistente);
                 if (jCooperador.isSelected()) {
                     cooperador = 0;
                 } else if (!jCooperador.isSelected()) {
                     cooperador = 1;
                 }
-                objSociaAdmPedago.setCooperador(cooperador);
+                objAdmPedago.setCooperador(cooperador);
                 if (jMedroso.isSelected()) {
                     medroso = 0;
                 } else if (!jMedroso.isSelected()) {
                     medroso = 1;
                 }
-                objSociaAdmPedago.setMedroso(medroso);
+                objAdmPedago.setMedroso(medroso);
                 if (jInseguro.isSelected()) {
                     inseguro = 0;
                 } else if (jInseguro.isSelected()) {
                     inseguro = 1;
                 }
-                objSociaAdmPedago.setInseguro(inseguro);
+                objAdmPedago.setInseguro(inseguro);
                 if (jOutros.isSelected()) {
                     outros = 0;
                 } else if (!jOutros.isSelected()) {
                     outros = 1;
                 }
-                objSociaAdmPedago.setOutros(outros);
-                objSociaAdmPedago.setQualOutros(jQualOutros.getText());
-                objSociaAdmPedago.setIdadeEscolar(Integer.valueOf(jIdadeEscolar.getText()));
-                objSociaAdmPedago.setFamiliarPresente((String) jComboBoxFamiliarPresente.getSelectedItem());
-                objSociaAdmPedago.setAdaptacao(jAdaptacao.getText());
-                objSociaAdmPedago.setRepetencias(jRepetencias.getText());
-                objSociaAdmPedago.setAntecedentes((String) jComboBoxAntecedentes.getSelectedItem());
-                objSociaAdmPedago.setQualProblemaAprendizado(jQualProblemaAprendizado.getText());
-                objSociaAdmPedago.setObservacaoSocializacao(jObservacaoSocializacao.getText());
-                objSociaAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objSociaAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objSociaAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                objAdmPedago.setOutros(outros);
+                objAdmPedago.setQualOutros(jQualOutros.getText());
+                objAdmPedago.setIdadeEscolar(Integer.valueOf(jIdadeEscolar.getText()));
+                objAdmPedago.setFamiliarPresente((String) jComboBoxFamiliarPresente.getSelectedItem());
+                objAdmPedago.setAdaptacao(jAdaptacao.getText());
+                objAdmPedago.setRepetencias(jRepetencias.getText());
+                objAdmPedago.setAntecedentes((String) jComboBoxAntecedentes.getSelectedItem());
+                objAdmPedago.setQualProblemaAprendizado(jQualProblemaAprendizado.getText());
+                objAdmPedago.setObservacaoSocializacao(jObservacaoSocializacao.getText());
+                objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+                objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
                 if (acao == 5) {
-                    if (jCodigoAdmissao.getText().equals(codigoAdmSocial) && jIdInternoAdm.getText().equals(codigoInternoSocial)) {
+                    if (jCodigoAdmissao.getText().equals(codigoAdmSocial) && jIdInternoAdmNova.getText().equals(codigoInternoSocial)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
-                        objSociaAdmPedago.setUsuarioInsert(nameUser);
-                        objSociaAdmPedago.setDataInsert(dataModFinal);
-                        objSociaAdmPedago.setHorarioInsert(horaMov);
+                        objAdmPedago.setUsuarioInsert(nameUser);
+                        objAdmPedago.setDataInsert(dataModFinal);
+                        objAdmPedago.setHorarioInsert(horaMov);
                         //
-                        controleSocial.incluirAdmissaoSocializaEscolar(objSociaAdmPedago);
+                        control.incluirAdmissaoSocializaEscolar(objAdmPedago);
                         buscarSocializacao();
                         //
                         objLog3();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();
                         bloquearBotoes();
                         SalvarSocializacao();
@@ -3401,15 +2995,15 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     }
                 }
                 if (acao == 6) {
-                    objSociaAdmPedago.setUsuarioUp(nameUser);
-                    objSociaAdmPedago.setDataUp(dataModFinal);
-                    objSociaAdmPedago.setHorarioUp(horaMov);
+                    objAdmPedago.setUsuarioUp(nameUser);
+                    objAdmPedago.setDataUp(dataModFinal);
+                    objAdmPedago.setHorarioUp(horaMov);
                     //
-                    objSociaAdmPedago.setIdSocial(codigoSocia);
-                    controleSocial.alterarAdmissaoSocializaEscolar(objSociaAdmPedago);
+                    objAdmPedago.setIdSocial(codigoSocia);
+                    control.alterarAdmissaoSocializaEscolar(objAdmPedago);
                     //
                     objLog3();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação            
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     bloquearBotoes();
                     SalvarSocializacao();
@@ -3491,10 +3085,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objFemPedago.setIdFemAdm(codigoFem);
-                    controleFem.excluirAdmissaoFemininoEscolar(objFemPedago);
+                    objAdmPedago.setIdFemAdm(codigoFem);
+                    control.excluirAdmissaoFemininoEscolar(objAdmPedago);
                     objLog4();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     bloquearBotoes();
                     ExcluirFeminina();
@@ -3511,27 +3105,27 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         buscarAcessoUsuario(telaAdmissaoFemi_PEDA);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaAdmissaoFemi_PEDA) && codGravarPEDA == 1) {
             verificarFeminina();
-            objFemPedago.setFilhoDesejado((String) jComboBoxFilhoDesejado.getSelectedItem());
-            objFemPedago.setQueriaEngravidar((String) jComboBoxQueriaEngravidar.getSelectedItem());
-            objFemPedago.setFoiAcidental((String) jComboBoxFoiAcidental.getSelectedItem());
-            objFemPedago.setPerturbou((String) jComboBoxPerturbou.getSelectedItem());
-            objFemPedago.setComoFoiGestacao(jTextoComoFoiGestacao.getText());
-            objFemPedago.setComoFoiParto(jTextoComoFoiParto.getText());
-            objFemPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-            objFemPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-            objFemPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+            objAdmPedago.setFilhoDesejado((String) jComboBoxFilhoDesejado.getSelectedItem());
+            objAdmPedago.setQueriaEngravidar((String) jComboBoxQueriaEngravidar.getSelectedItem());
+            objAdmPedago.setFoiAcidental((String) jComboBoxFoiAcidental.getSelectedItem());
+            objAdmPedago.setPerturbou((String) jComboBoxPerturbou.getSelectedItem());
+            objAdmPedago.setComoFoiGestacao(jTextoComoFoiGestacao.getText());
+            objAdmPedago.setComoFoiParto(jTextoComoFoiParto.getText());
+            objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
+            objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
+            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
             if (acao == 7) {
-                if (jCodigoAdmissao.getText().equals(codigoAdmFem) && jIdInternoAdm.getText().equals(codigoInternoFem)) {
+                if (jCodigoAdmissao.getText().equals(codigoAdmFem) && jIdInternoAdmNova.getText().equals(codigoInternoFem)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
-                    objFemPedago.setUsuarioInsert(nameUser);
-                    objFemPedago.setDataInsert(dataModFinal);
-                    objFemPedago.setHorarioInsert(horaMov);
+                    objAdmPedago.setUsuarioInsert(nameUser);
+                    objAdmPedago.setDataInsert(dataModFinal);
+                    objAdmPedago.setHorarioInsert(horaMov);
                     //
-                    controleFem.incluirAdmissaoFemininoEscolar(objFemPedago);
+                    control.incluirAdmissaoFemininoEscolar(objAdmPedago);
                     buscarFeminina();
                     objLog4();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearCampos();
                     bloquearBotoes();
                     SalvarFeminina();
@@ -3540,12 +3134,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 }
             }
             if (acao == 8) {
-                objFemPedago.setUsuarioUp(nameUser);
-                objFemPedago.setDataUp(dataModFinal);
-                objFemPedago.setHorarioUp(horaMov);
+                objAdmPedago.setUsuarioUp(nameUser);
+                objAdmPedago.setDataUp(dataModFinal);
+                objAdmPedago.setHorarioUp(horaMov);
                 //
-                objFemPedago.setIdFemAdm(codigoFem);
-                controleFem.alterarAdmissaoFemininoEscolar(objFemPedago);
+                objAdmPedago.setIdFemAdm(codigoFem);
+                control.alterarAdmissaoFemininoEscolar(objAdmPedago);
                 objLog4();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                 bloquearCampos();
@@ -3570,356 +3164,90 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         objAudFemPed.show();
     }//GEN-LAST:event_jBtAuditoriaFemininoActionPerformed
 
-    private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaEvolucao_PEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEvolucao_PEDA) && codIncluirPEDA == 1) {
-            verificarInternoRegistradoAdm();
-            if (atendido == null) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário fazer o registro do interno para ser atendido.");
-            } else if (atendido.equals("Não")) {
-                acao = 9;
-                bloquearCampos();
-                bloquearBotoes();
-                corCampos();
-                NovaEvolucao();
-                preencherComboBoxDepartamento();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
-
-    private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaEvolucao_PEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEvolucao_PEDA) && codAlterarPEDA == 1) {
-            acao = 10;
-            bloquearCampos();
-            bloquearBotoes();
-            corCampos();
-            AlterarEvolucao();
-            preencherComboBoxDepartamento();
-            statusMov = "Alterar";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
-
-    private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaEvolucao_PEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEvolucao_PEDA) && codExcluirPEDA == 1) {
-            statusMov = "Excluiu";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
-            int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-            if (resposta == JOptionPane.YES_OPTION) {
-                objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoEvolucao.getText()));
-                controleEvol.excluirEvolucaoPed(objEvolucaoAdmPedago);
-                objLog5();
-                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                bloquearCampos();
-                bloquearBotoes();
-                ExcluirEvolucao();
-                preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                        + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                        + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
-                JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-        }
-    }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
-
-    private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        buscarAcessoUsuario(telaEvolucao_PEDA);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPEDA.equals("ADMINISTRADORES") || codigoUserPEDA == codUserAcessoPEDA && nomeTelaPEDA.equals(telaEvolucao_PEDA) && codGravarPEDA == 1) {
-            if (!jComboBoxEncaminharSetorEvo.getSelectedItem().equals("Selecione...") && jDataEncaminhamentoEvo.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "É necessario informar a data do agendamento.");
-            } else if (!jComboBoxEncaminharSetorEvo.getSelectedItem().equals("Selecione...") && jHoraEnvioEvo.getText().equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessario informar a hora do agendamento.");
-            } else if (jDataEvolucao.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "É necessario informar a data da evolução.");
-            } else {
-                objEvolucaoAdmPedago.setDataEvolucao(jDataEvolucao.getDate());
-                objEvolucaoAdmPedago.setNomeDepartamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
-                objEvolucaoAdmPedago.setDataEncaminhamento(jDataEncaminhamentoEvo.getDate());
-                objEvolucaoAdmPedago.setHoraEncaminhamento(jHoraEnvioEvo.getText());
-                objEvolucaoAdmPedago.setHistorico(jTextoEvolucao.getText());
-                objEvolucaoAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                objEvolucaoAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objEvolucaoAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-                if (jComboBoxAcessoUni.getSelectedItem().equals("Sim")) {
-                    objEvolucaoAdmPedago.setAcessoUniverso((String) jComboBoxAcessoUni.getSelectedItem());
-                    objEvolucaoAdmPedago.setAnoIngresso(AnoIngresso.getValue());
-                } else if (jComboBoxAcessoUni.getSelectedItem().equals("Não")) {
-                    objEvolucaoAdmPedago.setAnoIngresso(pAnoIngresso);
-                }
-                if (acao == 9) {
-                    objEvolucaoAdmPedago.setUsuarioInsert(nameUser);
-                    objEvolucaoAdmPedago.setDataInsert(dataModFinal);
-                    objEvolucaoAdmPedago.setHorarioInsert(horaMov);
-                    //
-                    controleEvol.incluirEvolucaoPed(objEvolucaoAdmPedago);
-                    buscarEvolucao();
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
-                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataEvolucao.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-                    objRegAtend.setIdEvol(Integer.valueOf(jCodigoEvolucao.getText()));
-                    objRegAtend.setAtendeEvol(atendido);
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegEvol(objRegAtend);
-                    objLog5();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoEvolucao.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
-                    bloquearCampos();
-                    bloquearBotoes();
-                    SalvarEvolucao();
-                    preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                            + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                            + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                }
-                if (acao == 10) {
-                    objEvolucaoAdmPedago.setUsuarioUp(nameUser);
-                    objEvolucaoAdmPedago.setDataUp(dataModFinal);
-                    objEvolucaoAdmPedago.setHorarioUp(horaMov);
-                    //
-                    objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoEvolucao.getText()));
-                    controleEvol.alterarEvolucaoPed(objEvolucaoAdmPedago);
-                    objLog5();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearCampos();
-                    bloquearBotoes();
-                    SalvarEvolucao();
-                    preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                            + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                            + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                            + "INNER JOIN PRONTUARIOSCRC "
-                            + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                            + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
                 }
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaPortaEntradaPedagogia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaPortaEntradaPedagogia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaPortaEntradaPedagogia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaPortaEntradaPedagogia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
+        //</editor-fold>
 
-    private void jBtCancelarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarEvolucaoActionPerformed
-        // TODO add your handling code here:
-        CancelarEvolucao();
-    }//GEN-LAST:event_jBtCancelarEvolucaoActionPerformed
-
-    private void jBtAuditoriaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEvolucaoActionPerformed
-        // TODO add your handling code here:
-        TelaAuditoriaAdmissaoPedagogiaEvolucao objAudiEvo = new TelaAuditoriaAdmissaoPedagogiaEvolucao();
-        TelaModuloPedagogia.jPainelPedagogia.add(objAudiEvo);
-        objAudiEvo.show();
-    }//GEN-LAST:event_jBtAuditoriaEvolucaoActionPerformed
-
-    private void jBtAgendamentoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAgendamentoAtendimentoActionPerformed
-        // TODO add your handling code here:
-        if (jIdInternoAdm.getText().equals("") && jCodigoAdmissao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "É necessário gravar primeiro a admissão para poder fazer o agendamento.");
-        } else {
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA "
-                        + "INNER JOIN ITENS_AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA "
-                        + "ON AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA.IdReg=ITENS_AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA.IdReg "
-                        + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON ITENS_AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE ITENS_AGENDA_ATENDIMENTO_INTERNOS_PEDAGOGIA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
-                conecta.rs.first();
-                nomeDepartamento = conecta.rs.getString("Departamento");
-                codigoStatusReg = conecta.rs.getString("StatusReg");
-                codigoInterno = conecta.rs.getString("IdInternoCrc");
-            } catch (Exception e) {
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                TelaPortaEntradaPedagogia dialog = new TelaPortaEntradaPedagogia(pADMISSAO_PEDAGOGIA, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
-            if (jIdInternoAdm.getText().equals(codigoInterno) && nomeDepartamento.equals("PEDAGOGIA") && codigoStatusReg.equals("Não Realizado")) {
-                JOptionPane.showMessageDialog(rootPane, "Já existe um agendamento para esse interno nesse departamento.");
-            } else {
-                mostrarAgendaAtendimento();
-            }
-        }
-    }//GEN-LAST:event_jBtAgendamentoAtendimentoActionPerformed
-
-    private void jTabelaEvolucaoPedagogaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEvolucaoPedagogaMouseClicked
-        // TODO add your handling code here:
-        if (flag == 1) {
-            String IdEvolucao = "" + jTabelaEvolucaoPedagoga.getValueAt(jTabelaEvolucaoPedagoga.getSelectedRow(), 0);
-            jCodigoEvolucao.setText(IdEvolucao);
-            //           
-            jBtNovaEvolucao.setEnabled(true);
-            jBtAlterarEvolucao.setEnabled(true);
-            jBtExcluirEvolucao.setEnabled(true);
-            jBtCancelarEvolucao.setEnabled(true);
-            jBtAuditoriaEvolucao.setEnabled(true);
-            //                   
-            jComboBoxEncaminharSetorEvo.removeAllItems();
-            //
-            conecta.abrirConexao();
-            try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                        + "WHERE IdEvolucao='" + IdEvolucao + "'");
-                conecta.rs.first();
-                jCodigoEvolucao.setText(conecta.rs.getString("IdEvolucao"));
-                jDataEvolucao.setDate(conecta.rs.getDate("DataEvolucao"));
-                jNomeInternoEvolucao.setText(jNomeInternoAdm.getText());
-                jComboBoxEncaminharSetorEvo.addItem(conecta.rs.getString("NomeDepartamento"));
-                jDataEncaminhamentoEvo.setDate(conecta.rs.getDate("DataEncaminhamento"));
-                jHoraEnvioEvo.setText(conecta.rs.getString("HoraEncaminhamento"));
-                jTextoEvolucao.setText(conecta.rs.getString("TextoEvolucao"));
-                jComboBoxAcessoUni.setSelectedItem(conecta.rs.getString("AcessoUni"));
-                AnoIngresso.setValue(conecta.rs.getInt("AnoIngresso"));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, "Erro na seleção...\nERRO: " + e);
-            }
-            conecta.desconecta();
-        }
-    }//GEN-LAST:event_jTabelaEvolucaoPedagogaMouseClicked
-
-    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        // TODO add your handling code here:
-        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
-        atendido = "Sim";
-        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
-        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
-        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-        objRegAtend.setAtendido(atendido);
-        objRegAtend.setDataAtendimento(jDataAdm.getDate());
-        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-        //
-        objRegAtend.setUsuarioUp(nameUser);
-        objRegAtend.setDataUp(dataModFinal);
-        objRegAtend.setHorarioUp(horaMov);
-        controlRegAtend.alterarRegAtend(objRegAtend);
-        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV         
-        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
-        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
-        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
-        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-        objRegAtend.setHorarioUp(horaMov);
-        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
-        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-        control_ATENDE.confirmarAtendimento(objRegAtend);
-        JOptionPane.showMessageDialog(rootPane, "Atendimento concluído com sucesso.");
-    }//GEN-LAST:event_jBtConfirmarActionPerformed
-
-    private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
-        // TODO add your handling code here:
-        if (jCodigoAdmissao.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário informar o atendimento anterior.");
-        } else {
-            mostrarPortaEntrada();
-        }
-    }//GEN-LAST:event_jBtNovaAdmissaoActionPerformed
-
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Admissao;
-    private com.toedter.calendar.JYearChooser AnoIngresso;
     private javax.swing.JPanel EducacaoFamilia;
-    private javax.swing.JPanel Evolucao;
     private javax.swing.JPanel Feminino;
     private javax.swing.JPanel Socializacao;
     private javax.swing.JTextField jAdaptacao;
     private javax.swing.JCheckBox jAfetuoso;
     private javax.swing.JTextField jAmigosFacilidade;
-    private javax.swing.JButton jBtAgendamentoAtendimento;
     private javax.swing.JButton jBtAlterar;
-    private javax.swing.JButton jBtAlterarEvolucao;
     private javax.swing.JButton jBtAlterarFamilia;
     private javax.swing.JButton jBtAlterarFeminino;
     private javax.swing.JButton jBtAlterarSocializacao;
     private javax.swing.JButton jBtAuditoria;
-    private javax.swing.JButton jBtAuditoriaEvolucao;
     private javax.swing.JButton jBtAuditoriaFamilia;
     private javax.swing.JButton jBtAuditoriaFeminino;
     private javax.swing.JButton jBtAuditoriaSocializacao;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtCancelarEvolucao;
     private javax.swing.JButton jBtCancelarFamilia;
     private javax.swing.JButton jBtCancelarFeminino;
     private javax.swing.JButton jBtCancelarSocializacao;
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtDataLanc;
     private javax.swing.JButton jBtExcluir;
-    private javax.swing.JButton jBtExcluirEvolucao;
     private javax.swing.JButton jBtExcluirFamilia;
     private javax.swing.JButton jBtExcluirFeminino;
     private javax.swing.JButton jBtExcluirSocializacao;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIdLanc;
     private javax.swing.JButton jBtNomeInterno;
-    private javax.swing.JButton jBtNovaAdmissao;
-    private javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovaFamilia;
     private javax.swing.JButton jBtNovaSocializacao;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtNovoFeminino;
-    private javax.swing.JButton jBtPesquisarInterno;
     private javax.swing.JButton jBtSair;
     private javax.swing.JButton jBtSalvar;
-    private javax.swing.JButton jBtSalvarEvolucao;
     private javax.swing.JButton jBtSalvarFamilia;
     private javax.swing.JButton jBtSalvarFeminino;
     private javax.swing.JButton jBtSalvarSocializacao;
     private javax.swing.JCheckBox jCheckBox9;
     public static javax.swing.JTextField jCodigoAdmissao;
-    public static javax.swing.JTextField jCodigoEvolucao;
-    private javax.swing.JComboBox<String> jComboBoxAcessoUni;
     private javax.swing.JComboBox jComboBoxAchaEscola;
     private javax.swing.JComboBox jComboBoxAntecedentes;
     private javax.swing.JComboBox jComboBoxDificuldadeFala;
-    private javax.swing.JComboBox jComboBoxEncaminharSetorEvo;
     private javax.swing.JComboBox jComboBoxFaltaEscola;
     private javax.swing.JComboBox jComboBoxFamiliarPresente;
     private javax.swing.JComboBox jComboBoxFilhoDesejado;
@@ -3941,22 +3269,18 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jComunicacao;
     private javax.swing.JCheckBox jCooperador;
     private com.toedter.calendar.JDateChooser jDataAdm;
-    private com.toedter.calendar.JDateChooser jDataEncaminhamentoEvo;
-    private com.toedter.calendar.JDateChooser jDataEvolucao;
-    public static com.toedter.calendar.JDateChooser jDataNascimentoInternoAdm;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JLabel jFotoInternoPedagogia;
-    private javax.swing.JFormattedTextField jHoraEnvioEvo;
     private javax.swing.JTextField jIDPesqLan;
-    public static javax.swing.JTextField jIdInternoAdm;
+    private javax.swing.JTextField jIdAtend;
+    public static javax.swing.JTextField jIdInternoAdmNova;
     private javax.swing.JTextField jIdadeAndou;
     private javax.swing.JFormattedTextField jIdadeEscolar;
     private javax.swing.JTextField jIdadeFalou;
     private javax.swing.JCheckBox jInseguro;
     private javax.swing.JCheckBox jIntrovertido;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -3984,8 +3308,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -4008,26 +3330,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    public static javax.swing.JTextField jMaeInternoAdm;
     private javax.swing.JCheckBox jMedroso;
-    public static javax.swing.JTextField jNaturalidadeInternoAdm;
     public static javax.swing.JTextField jNomeInternoAdm;
-    private javax.swing.JTextField jNomeInternoEvolucao;
     private javax.swing.JCheckBox jObediente;
     private javax.swing.JTextArea jObservacao;
     private javax.swing.JTextArea jObservacaoSocializacao;
     private javax.swing.JCheckBox jOutros;
-    public static javax.swing.JTextField jPaiInternoAdm;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -4037,16 +3347,15 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jPesqNomeInterno;
@@ -4065,46 +3374,53 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jStatusAdm;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaAdmissaoPedagogica;
-    private javax.swing.JTable jTabelaEvolucaoPedagoga;
     private javax.swing.JTextArea jTextoComoFoiGestacao;
     private javax.swing.JTextArea jTextoComoFoiParto;
-    private javax.swing.JTextArea jTextoEvolucao;
     private javax.swing.JTextField jUltimaEscola;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void verificarAdmissao() {
+    public void verificarPortaEntrada() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA "
-                    + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PORTA_ENTRADA "
+                    + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND PSPPed='" + deptoTecnico + "' "
+                    + "AND HabPed='" + pHABILITA_PEDAGOGIA + "'");
             conecta.rs.first();
-            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
+            pINTERNOCRC = conecta.rs.getString("IdInternoCrc");
+            pDEPARTAMENTO = conecta.rs.getString("PSPPed");
+            pHABILITADO = conecta.rs.getString("HabPed");
         } catch (Exception e) {
         }
         conecta.desconecta();
     }
 
-    public void pesquisarInternoExistente() {
+    public void pesquisarInternoManual() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "INNER JOIN CIDADES "
-                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
-                    + "WHERE ADMISSAO_PEDAGOGIA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAO_PEDAGOGIA.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacao + "' "
+                    + "AND ADMISSAO_PEDAGOGIA.IdInternoCrc='" + jIdInternoAdm.getText() + " '"
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
+                    + "AND ADMISSAO_PEDAGOGIA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
             conecta.rs.first();
-            jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
-            jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
-            jDataAdm.setDate(conecta.rs.getDate("DataAdm"));
+            jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoAdmNova.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoAdm.setText(conecta.rs.getString("NomeInternoCrc"));
             // Capturando foto
             caminho = conecta.rs.getString("FotoInternoCrc");
             if (caminho != null) {
@@ -4121,181 +3437,89 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 ImageIcon icon = new ImageIcon(scaled);
                 jFotoInternoPedagogia.setIcon(icon);
             }
-            jIdInternoAdm.setText(conecta.rs.getString("IdInternoCrc"));
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void procurarDepartamento() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
+                    + "WHERE NomeDepartamento='" + nomeModuloPEDA + "'");
+            conecta.rs.first();
+            codigoDepartamento = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoPEDA = conecta.rs.getInt("IdDepartamento");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void pesquisarInternoColaboradorBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSFISICOSINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
+                    + "INNER JOIN PAISES ON PRONTUARIOSCRC.IdPais=PAISES.IdPais "
+                    + "INNER JOIN CIDADES "
+                    + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "INNER JOIN UNIDADE "
+                    + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND SituacaoCrc='" + situacao + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
+                    + "AND SituacaoCrc='" + sitRetorno + "' "
+                    + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
+                    + "AND IdDepartamento='" + codigoDepartamento + "'");
+            conecta.rs.first();
+            jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
+            codInterno = conecta.rs.getString("IdInternoCrc");
+            nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
+            jIdInternoAdmNova.setText(conecta.rs.getString("IdInternoCrc"));
             jNomeInternoAdm.setText(conecta.rs.getString("NomeInternoCrc"));
-            jNaturalidadeInternoAdm.setText(conecta.rs.getString("NomeCidade"));
-            jDataNascimentoInternoAdm.setDate(conecta.rs.getDate("DataNasciCrc"));
-            jMaeInternoAdm.setText(conecta.rs.getString("MaeInternoCrc"));
-            jPaiInternoAdm.setText(conecta.rs.getString("PaiInternoCrc"));
-            jUltimaEscola.setText(conecta.rs.getString("UltimaEscola"));
-            jComboBoxSerieAno.setSelectedItem(conecta.rs.getString("SerieAno"));
-            jComboBoxTurno.setSelectedItem(conecta.rs.getString("Turno"));
-            jObservacao.setText(conecta.rs.getString("Observacao"));
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
-        }
-        //EDUCAÇÃO E FAMILIA
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
-            conecta.rs.first();
-            codigoFam = conecta.rs.getInt("IdFam");
-            jComboBoxRelacaoPai.setSelectedItem(conecta.rs.getString("RelacaoPai"));
-            jComboBoxRelacaoMae.setSelectedItem(conecta.rs.getString("RelacaoMae"));
-            jComboBoxIrmaos.setSelectedItem(conecta.rs.getString("Irmaos"));
-            jComboBoxPaisLerEscrever.setSelectedItem(conecta.rs.getString("PaisLerEscrever"));
-            jComboBoxPaisSeparados.setSelectedItem(conecta.rs.getString("PaisSeparados"));
-            jReligiao.setText(conecta.rs.getString("Religiao"));
-            jIdadeAndou.setText(conecta.rs.getString("IdadeAndou"));
-            jIdadeFalou.setText(conecta.rs.getString("IdadeFalou"));
-            jComboBoxDificuldadeFala.setSelectedItem(conecta.rs.getString("DificuldadeFala"));
-            jQualDificuldadeFala.setText(conecta.rs.getString("QualDificuldadeFala"));
-            jComunicacao.setText(conecta.rs.getString("Comunicacao"));
-            jComboBoxRelacionamento.setSelectedItem(conecta.rs.getString("Relacionamento"));
-            jComboBoxLider.setSelectedItem(conecta.rs.getString("Lider"));
-            jComboBoxRepetiuAno.setSelectedItem(conecta.rs.getString("RepetiuAno"));
-            jPorqueRepetiuAno.setText(conecta.rs.getString("PorqueRepetiuAno"));
-            jComboBoxProblemaProfessor.setSelectedItem(conecta.rs.getString("ProblemaProfessor"));
-            jQualProblemaProfessor.setText(conecta.rs.getString("QualProblemaProfessor"));
-            jComoAtitudeSala.setText(conecta.rs.getString("ComoAtitudeSala"));
-            jComboBoxFaltaEscola.setSelectedItem(conecta.rs.getString("FaltaEscola"));
-            jPorqueFaltaEscola.setText(conecta.rs.getString("PorqueFaltaEscola"));
-            jComboBoxAchaEscola.setSelectedItem(conecta.rs.getString("AchaEscola"));
-            if (codigoFam != 0) {
-                jBtNovaFamilia.setEnabled(true);
-                jBtAlterarFamilia.setEnabled(true);
-                jBtExcluirFamilia.setEnabled(true);
-                jBtSalvarFamilia.setEnabled(!true);
-                jBtCancelarFamilia.setEnabled(!true);
-                jBtAuditoriaFamilia.setEnabled(true);
+            // Capturando foto
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoPedagogia.setIcon(i);
+                jFotoInternoPedagogia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoPedagogia.getWidth(), jFotoInternoPedagogia.getHeight(), Image.SCALE_DEFAULT)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoPedagogia.getWidth(), jFotoInternoPedagogia.getHeight(), Image.SCALE_DEFAULT);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoPedagogia.setIcon(icon);
             }
         } catch (Exception e) {
         }
-        // SOCIALIZAÇÃO
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
             conecta.rs.first();
-            codigoSocia = conecta.rs.getInt("IdSocial");
-            jAmigosFacilidade.setText(conecta.rs.getString("AmigosFacilidade"));
-            introvertido = conecta.rs.getInt("Introvertido");
-            if (introvertido == 0) {
-                jIntrovertido.setSelected(true);
-            } else if (introvertido == 1) {
-                jIntrovertido.setSelected(!true);
-            }
-            afetuoso = conecta.rs.getInt("Afetuoso");
-            if (afetuoso == 0) {
-                jAfetuoso.setSelected(true);
-            } else if (afetuoso == 1) {
-                jAfetuoso.setSelected(!true);
-            }
-            obediente = conecta.rs.getInt("Obediente");
-            if (obediente == 0) {
-                jObediente.setSelected(true);
-            } else if (obediente == 1) {
-                jObediente.setSelected(!true);
-            }
-            resistente = conecta.rs.getInt("Resistente");
-            if (resistente == 0) {
-                jResistente.setSelected(true);
-            } else if (resistente == 1) {
-                jResistente.setSelected(!true);
-            }
-            cooperador = conecta.rs.getInt("Cooperador");
-            if (cooperador == 0) {
-                jCooperador.setSelected(true);
-            } else if (cooperador == 1) {
-                jCooperador.setSelected(!true);
-            }
-            medroso = conecta.rs.getInt("Medroso");
-            if (medroso == 0) {
-                jMedroso.setSelected(true);
-            } else if (medroso == 1) {
-                jMedroso.setSelected(!true);
-            }
-            inseguro = conecta.rs.getInt("Inseguro");
-            if (inseguro == 0) {
-                jInseguro.setSelected(true);
-            } else if (inseguro == 1) {
-                jInseguro.setSelected(!true);
-            }
-            outros = conecta.rs.getInt("Outros");
-            if (outros == 0) {
-                jOutros.setSelected(true);
-            } else if (outros == 1) {
-                jOutros.setSelected(!true);
-            }
-            jQualOutros.setText(conecta.rs.getString("QualOutros"));
-            jIdadeEscolar.setText(conecta.rs.getString("IdadeEscolar"));
-            jComboBoxFamiliarPresente.setSelectedItem(conecta.rs.getString("FamiliarPresente"));
-            jAdaptacao.setText(conecta.rs.getString("Adaptacao"));
-            jRepetencias.setText(conecta.rs.getString("Repetencias"));
-            jComboBoxAntecedentes.setSelectedItem(conecta.rs.getString("Antecedentes"));
-            jQualProblemaAprendizado.setText(conecta.rs.getString("QualProblemaAprendizado"));
-            jObservacaoSocializacao.setText(conecta.rs.getString("ObservacaoSocializacao"));
-            if (codigoSocia != 0) {
-                jBtNovaSocializacao.setEnabled(true);
-                jBtAlterarSocializacao.setEnabled(true);
-                jBtExcluirSocializacao.setEnabled(true);
-                jBtSalvarSocializacao.setEnabled(!true);
-                jBtCancelarSocializacao.setEnabled(!true);
-                jBtAuditoriaSocializacao.setEnabled(true);
-            }
+            pHabilitaPedagogia = conecta.rs.getString("BiometriaPeda");
         } catch (Exception e) {
         }
-        // FEMININO
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON FEMININO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
-            conecta.rs.first();
-            codigoFem = conecta.rs.getInt("IdFemAdm");
-            jComboBoxFilhoDesejado.setSelectedItem(conecta.rs.getString("FilhoDesejado"));
-            jComboBoxQueriaEngravidar.setSelectedItem(conecta.rs.getString("QueriaEngravidar"));
-            jComboBoxFoiAcidental.setSelectedItem(conecta.rs.getString("FoiAcidental"));
-            jComboBoxPerturbou.setSelectedItem(conecta.rs.getString("Perturbou"));
-            jTextoComoFoiGestacao.setText(conecta.rs.getString("ComoFoiGestacao"));
-            jTextoComoFoiParto.setText(conecta.rs.getString("ComoFoiParto"));
-            if (codigoFem != 0) {
-                jBtNovoFeminino.setEnabled(true);
-                jBtAlterarFeminino.setEnabled(true);
-                jBtExcluirFeminino.setEnabled(true);
-                jBtSalvarFeminino.setEnabled(!true);
-                jBtCancelarFeminino.setEnabled(!true);
-                jBtAuditoriaFeminino.setEnabled(true);
-            }
-        } catch (Exception e) {
-        }
-        // EVOLUÇÃO
-        jCodigoEvolucao.setText("");
-        jDataEvolucao.setDate(null);
-        jComboBoxEncaminharSetorEvo.setSelectedItem("Selecione...");
-        jDataEncaminhamentoEvo.setDate(null);
-        jHoraEnvioEvo.setText("");
-        jTextoEvolucao.setText("");
-        preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
-                + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                + "ON EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                + "INNER JOIN PRONTUARIOSCRC "
-                + "ON ADMISSAO_PEDAGOGIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                + "WHERE EVOLUCAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
         conecta.desconecta();
     }
 
     public void formatarCampos() {
         // ADMISSÃO
         jUltimaEscola.setDocument(new LimiteDigitosAlfa(75));
-//        jComboBoxSerieAno.setDocument(new LimiteDigitosAlfa(37));
-//        jComboBoxTurno.setDocument(new LimiteDigitosAlfa(43));
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
         // EDUCAÇÃO/FAMILIA
@@ -4325,16 +3549,14 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTextoComoFoiGestacao.setWrapStyleWord(true);
         jTextoComoFoiParto.setLineWrap(true);
         jTextoComoFoiParto.setWrapStyleWord(true);
-        //EVOLUÇÃO
-        jTextoEvolucao.setLineWrap(true);
-        jTextoEvolucao.setWrapStyleWord(true);
     }
 
     public void corCampos() {
         jCodigoAdmissao.setBackground(Color.white);
+        jIdAtend.setBackground(Color.white);
         jStatusAdm.setBackground(Color.white);
         jDataAdm.setBackground(Color.white);
-        jIdInternoAdm.setBackground(Color.white);
+        jIdInternoAdmNova.setBackground(Color.white);
         jNomeInternoAdm.setBackground(Color.white);
         jNaturalidadeInternoAdm.setBackground(Color.white);
         jDataNascimentoInternoAdm.setBackground(Color.white);
@@ -4382,18 +3604,13 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxPerturbou.setBackground(Color.white);
         jTextoComoFoiGestacao.setBackground(Color.white);
         jTextoComoFoiParto.setBackground(Color.white);
-        // EVOLUÇAO
-        jCodigoEvolucao.setBackground(Color.white);
-        jDataEvolucao.setBackground(Color.white);
-        jNomeInternoEvolucao.setBackground(Color.white);
-        jTextoEvolucao.setBackground(Color.white);
     }
 
     public void bloquearCampos() {
         jCodigoAdmissao.setEnabled(!true);
         jStatusAdm.setEnabled(!true);
         jDataAdm.setEnabled(!true);
-        jIdInternoAdm.setEnabled(!true);
+        jIdInternoAdmNova.setEnabled(!true);
         jNomeInternoAdm.setEnabled(!true);
         jNaturalidadeInternoAdm.setEnabled(!true);
         jDataNascimentoInternoAdm.setEnabled(!true);
@@ -4451,13 +3668,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxPerturbou.setEnabled(!true);
         jTextoComoFoiGestacao.setEnabled(!true);
         jTextoComoFoiParto.setEnabled(!true);
-        // EVOLUÇAO
-        jCodigoEvolucao.setEnabled(!true);
-        jDataEvolucao.setEnabled(!true);
-        jNomeInternoEvolucao.setEnabled(!true);
-        jTextoEvolucao.setEnabled(!true);
-        jComboBoxAcessoUni.setEnabled(!true);
-        AnoIngresso.setEnabled(!true);
     }
 
     public void limparTodosCampos() {
@@ -4465,7 +3675,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jStatusAdm.setText("");
         jDataAdm.setDate(null);
         jFotoInternoPedagogia.setIcon(null);
-        jIdInternoAdm.setText("");
+        jIdInternoAdmNova.setText("");
         jNomeInternoAdm.setText("");
         jNaturalidadeInternoAdm.setText("");
         jDataNascimentoInternoAdm.setDate(null);
@@ -4523,23 +3733,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxPerturbou.setSelectedItem("Não");
         jTextoComoFoiGestacao.setText("");
         jTextoComoFoiParto.setText("");
-        // EVOLUÇAO
-        jCodigoEvolucao.setText("");
-        jDataEvolucao.setDate(null);
-        jNomeInternoEvolucao.setText("");
-        jTextoEvolucao.setText("");
-        jComboBoxAcessoUni.setSelectedItem("Não");
-        AnoIngresso.setValue(0);
-    }
-
-    public void limparCamposEvolucao() {
-        jCodigoEvolucao.setText("");
-        jDataEvolucao.setDate(null);
-        jNomeInternoEvolucao.setText("");
-        jTextoEvolucao.setText("");
-        jComboBoxAcessoUni.setSelectedItem("Não");
-        jComboBoxEncaminharSetorEvo.setSelectedItem("Selecione...");
-        AnoIngresso.setValue(WIDTH);
     }
 
     public void bloquearBotoes() {
@@ -4572,13 +3765,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(!true);
         jBtAuditoriaFeminino.setEnabled(!true);
-        // EVOLUÇÃO
-        jBtNovaEvolucao.setEnabled(!true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(!true);
-        jBtCancelarEvolucao.setEnabled(!true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
     }
 
     public void Novo() {
@@ -4590,8 +3776,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxSerieAno.setEnabled(true);
         jComboBoxTurno.setEnabled(true);
         jObservacao.setEnabled(true);
-        //
-        jBtPesquisarInterno.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -4609,8 +3793,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxTurno.setEnabled(true);
         jObservacao.setEnabled(true);
         //
-        jBtPesquisarInterno.setEnabled(true);
-        //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
@@ -4621,8 +3803,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     }
 
     public void Excluir() {
-        jBtPesquisarInterno.setEnabled(!true);
-        //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
         jBtExcluir.setEnabled(!true);
@@ -4633,8 +3813,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     }
 
     public void Salvar() {
-        jBtPesquisarInterno.setEnabled(!true);
-        //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
@@ -4646,15 +3824,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtNovaFamilia.setEnabled(true);
         jBtNovaSocializacao.setEnabled(true);
         jBtNovoFeminino.setEnabled(true);
-        jBtNovaEvolucao.setEnabled(true);
     }
 
     public void Cancelar() {
         if (jCodigoAdmissao.getText().equals("")) {
             limparTodosCampos();
             bloquearCampos();
-            //
-            jBtPesquisarInterno.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -4666,8 +3841,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         } else {
             bloquearCampos();
             //
-            jBtPesquisarInterno.setEnabled(!true);
-            //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
@@ -4678,7 +3851,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             // FAMILIA/SOCIALIZAÇÃO/EVOLUÇÃO
             jBtNovaFamilia.setEnabled(true);
             jBtNovaSocializacao.setEnabled(true);
-            jBtNovaEvolucao.setEnabled(true);
         }
     }
 
@@ -4696,10 +3868,10 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
             control.finalizarAdmissaoEscolar(objAdmPedago);
             // MOVIMENTAÇÃO CORPO TÉCNICO
             objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
-            objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+            objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
             objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
             objAdmPedago.setDeptoPedagogia(deptoTecnico);
-            controleMov.finalizarMovTec(objAdmPedago);
+            control.finalizarMovTec(objAdmPedago);
             //
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -4818,8 +3990,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(!true);
         jBtAuditoriaFeminino.setEnabled(!true);
-        //
-        jBtNovaEvolucao.setEnabled(!true);
         // ADMISSÃO
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -4874,8 +4044,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(!true);
         jBtAuditoriaFeminino.setEnabled(!true);
-        //
-        jBtNovaEvolucao.setEnabled(!true);
         // ADMISSÃO
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -4931,8 +4099,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(!true);
         jBtAuditoriaFeminino.setEnabled(true);
-        //
-        jBtNovaEvolucao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -4964,8 +4130,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(!true);
         jBtAuditoriaFeminino.setEnabled(true);
-        //
-        jBtNovaEvolucao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -5001,12 +4165,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jComboBoxAchaEscola.setEnabled(!true);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                    + "ON FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA.IdAdmNova "
+                    + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
             conecta.rs.first();
-            codigoFam = conecta.rs.getInt("IdFam");
+            codigoFam = conecta.rs.getInt("IdFamNova");
             jComboBoxRelacaoPai.setSelectedItem(conecta.rs.getString("RelacaoPai"));
             jComboBoxRelacaoMae.setSelectedItem(conecta.rs.getString("RelacaoMae"));
             jComboBoxIrmaos.setSelectedItem(conecta.rs.getString("Irmaos"));
@@ -5044,9 +4208,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void buscarFamilia() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA");
+            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA");
             conecta.rs.last();
-            codigoFam = conecta.rs.getInt("IdFam");
+            codigoFam = conecta.rs.getInt("IdFamNova");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -5056,11 +4220,11 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void verificarFamilia() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA "
-                    + "WHERE IdAdm='" + jCodigoAdmissao.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
-            codigoAdm = conecta.rs.getString("IdAdm");
+            codigoAdm = conecta.rs.getString("IdAdmNova");
             codigoInternoFAM = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
         }
@@ -5211,8 +4375,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtAuditoriaSocializacao.setEnabled(true);
         // FEMININO
         jBtNovoFeminino.setEnabled(true);
-        // EVOLUÇÃO
-        jBtNovaEvolucao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -5246,12 +4408,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         //
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                    + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                    + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
             conecta.rs.first();
-            codigoSocia = conecta.rs.getInt("IdSocial");
+            codigoSocia = conecta.rs.getInt("IdSocialNova");
             jAmigosFacilidade.setText(conecta.rs.getString("AmigosFacilidade"));
             introvertido = conecta.rs.getInt("Introvertido");
             if (introvertido == 0) {
@@ -5325,9 +4487,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void buscarSocializacao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA");
+            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA");
             conecta.rs.last();
-            codigoSocia = conecta.rs.getInt("IdSocial");
+            codigoSocia = conecta.rs.getInt("IdSocialNova");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -5337,9 +4499,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void verificarSocializacao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA "
-                    + "WHERE IdAdm='" + jCodigoAdmissao.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
             codigoAdmSocial = conecta.rs.getString("IdAdm");
             codigoInternoSocial = conecta.rs.getString("IdInternoCrc");
@@ -5424,8 +4586,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jBtSalvarFeminino.setEnabled(!true);
         jBtCancelarFeminino.setEnabled(true);
         jBtAuditoriaFeminino.setEnabled(true);
-        // EVOLUÇÃO
-        jBtNovaEvolucao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -5450,12 +4610,12 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         //
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA "
-                    + "INNER JOIN ADMISSAO_PEDAGOGIA "
-                    + "ON FEMININO_ADMISSAO_PEDAGOGIA.IdAdm=ADMISSAO_PEDAGOGIA.IdAdm "
-                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA.IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                    + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
             conecta.rs.first();
-            codigoFem = conecta.rs.getInt("IdFemAdm");
+            codigoFem = conecta.rs.getInt("IdFemAdmNova");
             jComboBoxFilhoDesejado.setSelectedItem(conecta.rs.getString("FilhoDesejado"));
             jComboBoxQueriaEngravidar.setSelectedItem(conecta.rs.getString("QueriaEngravidar"));
             jComboBoxFoiAcidental.setSelectedItem(conecta.rs.getString("FoiAcidental"));
@@ -5477,9 +4637,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void buscarFeminina() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA");
             conecta.rs.last();
-            codigoFem = conecta.rs.getInt("IdFemAdm");
+            codigoFem = conecta.rs.getInt("IdFemAdmNova");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -5489,284 +4649,13 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void verificarFeminina() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA "
-                    + "WHERE IdAdm='" + jCodigoAdmissao.getText() + "' "
-                    + "AND IdInternoCrc='" + jIdInternoAdm.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
-            codigoAdmFem = conecta.rs.getString("IdAdm");
+            codigoAdmFem = conecta.rs.getString("IdAdmNova");
             codigoInternoFem = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void NovaEvolucao() {
-        jCodigoEvolucao.setText("");
-        jDataEvolucao.setCalendar(Calendar.getInstance());
-        jNomeInternoEvolucao.setText(jNomeInternoAdm.getText());
-        jComboBoxEncaminharSetorEvo.setSelectedItem("Seleciione...");
-        jDataEncaminhamentoEvo.setCalendar(Calendar.getInstance());
-        jHoraEnvioEvo.setText(jHoraSistema.getText());
-        jTextoEvolucao.setText("");
-        //
-        jDataEvolucao.setEnabled(true);
-        jComboBoxEncaminharSetorEvo.setEnabled(true);
-        jDataEncaminhamentoEvo.setEnabled(true);
-        jHoraEnvioEvo.setEnabled(true);
-        jTextoEvolucao.setEnabled(true);
-        jComboBoxAcessoUni.setEnabled(true);
-        AnoIngresso.setEnabled(true);
-        //
-        jBtNovaEvolucao.setEnabled(!true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(true);
-        jBtCancelarEvolucao.setEnabled(true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-    }
-
-    public void AlterarEvolucao() {
-        jDataEvolucao.setEnabled(true);
-        jComboBoxEncaminharSetorEvo.setEnabled(true);
-        jDataEncaminhamentoEvo.setEnabled(true);
-        jHoraEnvioEvo.setEnabled(true);
-        jTextoEvolucao.setEnabled(true);
-        jComboBoxAcessoUni.setEnabled(true);
-        AnoIngresso.setEnabled(true);
-        //
-        jBtNovaEvolucao.setEnabled(!true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(true);
-        jBtCancelarEvolucao.setEnabled(true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-    }
-
-    public void ExcluirEvolucao() {
-        jCodigoEvolucao.setText("");
-        jDataEvolucao.setDate(null);
-        jNomeInternoEvolucao.setText("");
-        jComboBoxEncaminharSetorEvo.setSelectedItem("Seleciione...");
-        jDataEncaminhamentoEvo.setDate(null);
-        jHoraEnvioEvo.setText("");
-        jTextoEvolucao.setText("");
-        jComboBoxAcessoUni.setSelectedItem("Não");
-        AnoIngresso.setValue(0);
-        //
-        jDataEvolucao.setEnabled(!true);
-        jComboBoxEncaminharSetorEvo.setEnabled(!true);
-        jDataEncaminhamentoEvo.setEnabled(!true);
-        jHoraEnvioEvo.setEnabled(!true);
-        jTextoEvolucao.setEnabled(!true);
-        jComboBoxAcessoUni.setEnabled(!true);
-        AnoIngresso.setEnabled(!true);
-        //
-        jBtNovaEvolucao.setEnabled(true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(!true);
-        jBtCancelarEvolucao.setEnabled(!true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-        // ADMISSÃO
-        jBtNovo.setEnabled(true);
-        jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
-        jBtSalvar.setEnabled(!true);
-        jBtCancelar.setEnabled(!true);
-        jBtFinalizar.setEnabled(true);
-        jBtAuditoria.setEnabled(true);
-        // EDUCAÇÃO/FAMILIA
-        jBtNovaFamilia.setEnabled(true);
-        jBtAlterarFamilia.setEnabled(!true);
-        jBtExcluirFamilia.setEnabled(!true);
-        jBtSalvarFamilia.setEnabled(!true);
-        jBtCancelarFamilia.setEnabled(!true);
-        jBtAuditoriaFamilia.setEnabled(!true);
-        // SOCIALIZAÇÃO
-        jBtNovaSocializacao.setEnabled(true);
-        jBtAlterarSocializacao.setEnabled(!true);
-        jBtExcluirSocializacao.setEnabled(!true);
-        jBtSalvarSocializacao.setEnabled(!true);
-        jBtCancelarSocializacao.setEnabled(!true);
-        jBtAuditoriaSocializacao.setEnabled(!true);
-        //FEMININO
-        jBtNovoFeminino.setEnabled(true);
-        jBtAlterarFeminino.setEnabled(!true);
-        jBtExcluirFeminino.setEnabled(!true);
-        jBtSalvarFeminino.setEnabled(!true);
-        jBtCancelarFeminino.setEnabled(!true);
-        jBtAuditoriaFeminino.setEnabled(!true);
-    }
-
-    public void SalvarEvolucao() {
-        jDataEvolucao.setEnabled(!true);
-        jComboBoxEncaminharSetorEvo.setEnabled(!true);
-        jDataEncaminhamentoEvo.setEnabled(!true);
-        jHoraEnvioEvo.setEnabled(!true);
-        jTextoEvolucao.setEnabled(!true);
-        jComboBoxAcessoUni.setEnabled(!true);
-        AnoIngresso.setEnabled(!true);
-        //
-        jBtNovaEvolucao.setEnabled(true);
-        jBtAlterarEvolucao.setEnabled(!true);
-        jBtExcluirEvolucao.setEnabled(!true);
-        jBtSalvarEvolucao.setEnabled(!true);
-        jBtCancelarEvolucao.setEnabled(!true);
-        jBtAuditoriaEvolucao.setEnabled(!true);
-        // ADMISSÃO
-        jBtNovo.setEnabled(true);
-        jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
-        jBtSalvar.setEnabled(!true);
-        jBtCancelar.setEnabled(!true);
-        jBtFinalizar.setEnabled(true);
-        jBtAuditoria.setEnabled(true);
-        // EDUCAÇÃO/FAMILIA
-        jBtNovaFamilia.setEnabled(true);
-        jBtAlterarFamilia.setEnabled(!true);
-        jBtExcluirFamilia.setEnabled(!true);
-        jBtSalvarFamilia.setEnabled(!true);
-        jBtCancelarFamilia.setEnabled(!true);
-        jBtAuditoriaFamilia.setEnabled(!true);
-        // SOCIALIZAÇÃO
-        jBtNovaSocializacao.setEnabled(true);
-        jBtAlterarSocializacao.setEnabled(!true);
-        jBtExcluirSocializacao.setEnabled(!true);
-        jBtSalvarSocializacao.setEnabled(!true);
-        jBtCancelarSocializacao.setEnabled(!true);
-        jBtAuditoriaSocializacao.setEnabled(!true);
-        //FEMININO
-        jBtNovoFeminino.setEnabled(true);
-        jBtAlterarFeminino.setEnabled(!true);
-        jBtExcluirFeminino.setEnabled(!true);
-        jBtSalvarFeminino.setEnabled(!true);
-        jBtCancelarFeminino.setEnabled(!true);
-        jBtAuditoriaFeminino.setEnabled(!true);
-    }
-
-    public void CancelarEvolucao() {
-        if (jCodigoEvolucao.getText().equals("")) {
-            jDataEvolucao.setDate(null);
-            jNomeInternoEvolucao.setText("");
-            jComboBoxEncaminharSetorEvo.setSelectedItem("Seleciione...");
-            jDataEncaminhamentoEvo.setDate(null);
-            jHoraEnvioEvo.setText("");
-            jTextoEvolucao.setText("");
-            jComboBoxAcessoUni.setSelectedItem("Não");
-            AnoIngresso.setValue(0);
-            //
-            jDataEvolucao.setEnabled(!true);
-            jComboBoxEncaminharSetorEvo.setEnabled(!true);
-            jDataEncaminhamentoEvo.setEnabled(!true);
-            jHoraEnvioEvo.setEnabled(!true);
-            jTextoEvolucao.setEnabled(!true);
-            jComboBoxAcessoUni.setEnabled(!true);
-            AnoIngresso.setEnabled(!true);
-            //
-            jBtNovaEvolucao.setEnabled(true);
-            jBtAlterarEvolucao.setEnabled(!true);
-            jBtExcluirEvolucao.setEnabled(!true);
-            jBtSalvarEvolucao.setEnabled(!true);
-            jBtCancelarEvolucao.setEnabled(!true);
-            jBtAuditoriaEvolucao.setEnabled(!true);
-            // ADMISSÃO
-            jBtNovo.setEnabled(true);
-            jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(!true);
-            jBtFinalizar.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-            // EDUCAÇÃO/FAMILIA
-            jBtNovaFamilia.setEnabled(true);
-            jBtAlterarFamilia.setEnabled(!true);
-            jBtExcluirFamilia.setEnabled(!true);
-            jBtSalvarFamilia.setEnabled(!true);
-            jBtCancelarFamilia.setEnabled(!true);
-            jBtAuditoriaFamilia.setEnabled(!true);
-            // SOCIALIZAÇÃO
-            jBtNovaSocializacao.setEnabled(true);
-            jBtAlterarSocializacao.setEnabled(!true);
-            jBtExcluirSocializacao.setEnabled(!true);
-            jBtSalvarSocializacao.setEnabled(!true);
-            jBtCancelarSocializacao.setEnabled(!true);
-            jBtAuditoriaSocializacao.setEnabled(!true);
-            //FEMININO
-            jBtNovoFeminino.setEnabled(true);
-            jBtAlterarFeminino.setEnabled(!true);
-            jBtExcluirFeminino.setEnabled(!true);
-            jBtSalvarFeminino.setEnabled(!true);
-            jBtCancelarFeminino.setEnabled(!true);
-            jBtAuditoriaFeminino.setEnabled(!true);
-        } else {
-            jDataEvolucao.setEnabled(!true);
-            jComboBoxEncaminharSetorEvo.setEnabled(!true);
-            jDataEncaminhamentoEvo.setEnabled(!true);
-            jHoraEnvioEvo.setEnabled(!true);
-            jTextoEvolucao.setEnabled(!true);
-            jComboBoxAcessoUni.setEnabled(!true);
-            AnoIngresso.setEnabled(!true);
-            //
-            jBtNovaEvolucao.setEnabled(true);
-            jBtAlterarEvolucao.setEnabled(!true);
-            jBtExcluirEvolucao.setEnabled(!true);
-            jBtSalvarEvolucao.setEnabled(!true);
-            jBtCancelarEvolucao.setEnabled(!true);
-            jBtAuditoriaEvolucao.setEnabled(!true);
-            // ADMISSÃO
-            jBtNovo.setEnabled(true);
-            jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);
-            jBtSalvar.setEnabled(!true);
-            jBtCancelar.setEnabled(!true);
-            jBtFinalizar.setEnabled(true);
-            jBtAuditoria.setEnabled(true);
-            // EDUCAÇÃO/FAMILIA
-            jBtNovaFamilia.setEnabled(true);
-            jBtAlterarFamilia.setEnabled(!true);
-            jBtExcluirFamilia.setEnabled(!true);
-            jBtSalvarFamilia.setEnabled(!true);
-            jBtCancelarFamilia.setEnabled(!true);
-            jBtAuditoriaFamilia.setEnabled(!true);
-            // SOCIALIZAÇÃO
-            jBtNovaSocializacao.setEnabled(true);
-            jBtAlterarSocializacao.setEnabled(!true);
-            jBtExcluirSocializacao.setEnabled(!true);
-            jBtSalvarSocializacao.setEnabled(!true);
-            jBtCancelarSocializacao.setEnabled(!true);
-            jBtAuditoriaSocializacao.setEnabled(!true);
-            //FEMININO
-            jBtNovoFeminino.setEnabled(true);
-            jBtAlterarFeminino.setEnabled(!true);
-            jBtExcluirFeminino.setEnabled(!true);
-            jBtSalvarFeminino.setEnabled(!true);
-            jBtCancelarFeminino.setEnabled(!true);
-            jBtAuditoriaFeminino.setEnabled(!true);
-        }
-    }
-
-    public void buscarEvolucao() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA");
-            conecta.rs.last();
-            jCodigoEvolucao.setText(conecta.rs.getString("IdEvolucao"));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
-        }
-        conecta.desconecta();
-    }
-
-    public void preencherComboBoxDepartamento() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM DEPARTAMENTOS ORDER BY NomeDepartamento");
-            conecta.rs.first();
-            do {
-                jComboBoxEncaminharSetorEvo.addItem(conecta.rs.getString("NomeDepartamento"));
-            } while (conecta.rs.next());
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos!!!\nERRO: " + e);
         }
         conecta.desconecta();
     }
@@ -5787,7 +4676,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 String ano = dataCadastro.substring(0, 4);
                 dataCadastro = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdAdm"), dataCadastro, conecta.rs.getString("StatusAdm"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAdmNova"), dataCadastro, conecta.rs.getString("StatusAdm"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -5825,7 +4714,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                 String ano = dataCadastro.substring(0, 4);
                 dataCadastro = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdAdm"), dataCadastro, conecta.rs.getString("StatusAdm"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdAdmNova"), dataCadastro, conecta.rs.getString("StatusAdm"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -5878,69 +4767,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jTabelaAdmissaoPedagogica.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
-    public void preencherEvolucaoPedagogia(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL(sql);
-            conecta.rs.first();
-            do {
-                // Formatar a data Entrada
-                dataEvolucao = conecta.rs.getString("DataEvolucao");
-                String diae = dataEvolucao.substring(8, 10);
-                String mese = dataEvolucao.substring(5, 7);
-                String anoe = dataEvolucao.substring(0, 4);
-                dataEvolucao = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getInt("IdEvolucao"), dataEvolucao, conecta.rs.getString("TextoEvolucao")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-        }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaEvolucaoPedagoga.setModel(modelo);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setPreferredWidth(390);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEvolucaoPedagoga.getTableHeader().setReorderingAllowed(false);
-        jTabelaEvolucaoPedagoga.setAutoResizeMode(jTabelaEvolucaoPedagoga.AUTO_RESIZE_OFF);
-        jTabelaEvolucaoPedagoga.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaEvolucao();
-        conecta.desconecta();
-    }
-
-    public void alinharCamposTabelaEvolucao() {
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-    }
-
-    public void limparTabelaEvolucao() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Evolução"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaEvolucaoPedagoga.setModel(modelo);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setPreferredWidth(70);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setPreferredWidth(390);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEvolucaoPedagoga.getTableHeader().setReorderingAllowed(false);
-        jTabelaEvolucaoPedagoga.setAutoResizeMode(jTabelaEvolucaoPedagoga.AUTO_RESIZE_OFF);
-        jTabelaEvolucaoPedagoga.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
-    }
-
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
@@ -5984,35 +4810,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
-    }
-
-    public void verificarInternoRegistradoAdm() {
-
-        conecta.abrirConexao();
-        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-        dataReg = formatoAmerica.format(jDataAdm.getDate().getTime());
-        try {
-            conecta.executaSQL("SELECT * FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE IdInternoCrc='" + jIdInternoAdm.getText() + "' "
-                    + "AND Atendido='" + opcao + "'");
-            conecta.rs.first();
-            codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
-            codigoDepartamentoPEDA = conecta.rs.getInt("IdDepartamento");
-            atendido = conecta.rs.getString("Atendido");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
-    }
-
-    public void verificarRegistroBiometria() {
-        conecta.abrirConexao();
-        try {
-            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
-            conecta.rs.first();
-            pHabilitaPEDA = conecta.rs.getString("BiometriaPeda");
-        } catch (Exception e) {
-        }
-        conecta.desconecta();
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {

@@ -4384,6 +4384,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codGravarENF == 1) {
+            verificarAdmissao();
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataLanc.requestFocus();
@@ -4466,6 +4467,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
                                 JOptionPane.YES_NO_OPTION);
                         if (resposta == JOptionPane.YES_OPTION) {
+                            pesquisarInternoAdm();
                             mostrarADM2();
                         }
                     } else {
@@ -4749,9 +4751,20 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPaiInternoMedico.setText(conecta.rs.getString("PaiInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInternoMedico.setIcon(i);
-                jFotoInternoMedico.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoMedico.getWidth(), jFotoInternoMedico.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoMedico.setIcon(i);
+                    jFotoInternoMedico.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoMedico.getWidth(), jFotoInternoMedico.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoMedico.getWidth(), jFotoInternoMedico.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoMedico.setIcon(icon);
+                }
                 jEstadoCivilMedico.setText(conecta.rs.getString("EstadoCivilCrc"));
                 //
                 statusEstadoEmocional = conecta.rs.getInt("EstadoEmocional");
@@ -6124,6 +6137,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAdmissaoEnfeIntManuENF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoENF.equals("ADMINISTRADORES") || codigoUserENF == codUserAcessoENF && nomeTelaENF.equals(telaAdmissaoEnfeIntManuENF) && codGravarENF == 1) {
+            verificarAdmissao();
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do atendimento.");
                 jDataLanc.requestFocus();
@@ -6201,67 +6215,77 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setQuaisAlergias(jQuaisAlergias.getText());
                 objAdmEnfermagem.setObservacao(jObservacao.getText());
                 if (acao == 1) {
-                    // log de usuario
-                    objAdmEnfermagem.setUsuarioInsert(nameUser);
-                    objAdmEnfermagem.setDataInsert(dataModFinal);
-                    objAdmEnfermagem.setHoraInsert(horaMov);
-                    objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
-                    control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
-                    buscarID();
-                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
-                    objAdmEnfermagem.setDeptoMedico(deptoTecnico);
-                    controle.incluirMovTec(objAdmEnfermagem);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
-                    // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
-                    objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
-                    objEvolEnferma.setAdmEvo(admEvolucao);
-                    // log de usuario
-                    objEvolEnferma.setUsuarioInsert(nameUser);
-                    objEvolEnferma.setDataInsert(dataModFinal);
-                    objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
-                    pATENDIMENTO_CONCLUIDO = "Sim";
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
-                    objRegAtend.setNomeDepartamento(nomeModuloENFER);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
-                    //
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
-                    buscarEvolucao();
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                    if (jIdInternoEnfermeiro.getText().equals(pCODIGO_INTERNO)) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível cadastrar a admissão para esse interno, já foi realizado admissão nessa tela.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            pesquisarInternoAdm();
+                            mostrarADM2();
+                        }
+                    } else {
+                        // log de usuario
+                        objAdmEnfermagem.setUsuarioInsert(nameUser);
+                        objAdmEnfermagem.setDataInsert(dataModFinal);
+                        objAdmEnfermagem.setHoraInsert(horaMov);
+                        objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
+                        control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
+                        buscarID();
+                        objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiro.getText());
+                        objAdmEnfermagem.setDeptoMedico(deptoTecnico);
+                        controle.incluirMovTec(objAdmEnfermagem);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objEvolEnferma.setDataEvol(jDataLanc.getDate());
+                        objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                        objEvolEnferma.setAdmEvo(admEvolucao);
+                        // log de usuario
+                        objEvolEnferma.setUsuarioInsert(nameUser);
+                        objEvolEnferma.setDataInsert(dataModFinal);
+                        objEvolEnferma.setHoraInsert(horaMov);
+                        controleEnfa.incluirEvolucaoEnfermagem(objEvolEnferma);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV   
+                        pATENDIMENTO_CONCLUIDO = "Sim";
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoENFenf);
+                        objRegAtend.setNomeDepartamento(nomeModuloENFER);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //
+                        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                        buscarEvolucao();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
                 if (acao == 2) {
                     // log de usuario
@@ -6809,6 +6833,349 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
+    public void pesquisarInternoAdm() {
+        bloquearCampos();
+        bloquearBotoes();
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAOENFERMEIRA.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
+            conecta.rs.first();
+            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
+            jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+            jIdInternoEnfermeiro.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoEnfermeiro.setText(conecta.rs.getString("NomeInternoCrc"));
+            jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
+            jPaiInternoMedico.setText(conecta.rs.getString("PaiInternoCrc"));
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            if (caminho != null) {
+                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                jFotoInternoMedico.setIcon(i);
+                jFotoInternoMedico.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoMedico.getWidth(), jFotoInternoMedico.getHeight(), Image.SCALE_SMOOTH)));
+            }
+            // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+            byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+            if (imgBytes != null) {
+                ImageIcon pic = null;
+                pic = new ImageIcon(imgBytes);
+                Image scaled = pic.getImage().getScaledInstance(jFotoInternoMedico.getWidth(), jFotoInternoMedico.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(scaled);
+                jFotoInternoMedico.setIcon(icon);
+            }
+            jEstadoCivilMedico.setText(conecta.rs.getString("EstadoCivilCrc"));
+            //
+            statusEstadoEmocional = conecta.rs.getInt("EstadoEmocional");
+            if (statusEstadoEmocional == 0) {
+                jRBTranquilo.setSelected(true);
+            } else if (statusEstadoEmocional == 1) {
+                jRBAnsioso.setSelected(true);
+            } else if (statusEstadoEmocional == 2) {
+                jRBAgeressivo.setSelected(true);
+            } else if (statusEstadoEmocional == 3) {
+                jRBTrite.setSelected(true);
+            } else if (statusEstadoEmocional == 4) {
+                jRBAgitado.setSelected(true);
+            }
+            statusSonoRepouso = conecta.rs.getInt("SonoRepouso");
+            if (statusSonoRepouso == 0) {
+                jRBPreservado.setSelected(true);
+            } else if (statusSonoRepouso == 1) {
+                jRBDiminuido.setSelected(true);
+            }
+            statusNivelConsciencia = conecta.rs.getInt("NivelConsciencia");
+            if (statusNivelConsciencia == 0) {
+                jRBOrientado.setSelected(true);
+            } else if (statusNivelConsciencia == 1) {
+                jRBDesorientado.setSelected(true);
+            }
+            jPressaoArterial.setText(conecta.rs.getString("PressaoArterial"));
+            jHemograma.setText(conecta.rs.getString("Hemograma"));
+            jTemperatura.setText(conecta.rs.getString("Temperatura"));
+            jFrequenciaRespira.setText(conecta.rs.getString("FrequenciaRespiratoria"));
+            jPeso.setText(conecta.rs.getString("Peso"));
+            jFrequenciaCardiaca.setText(conecta.rs.getString("FrequenciaCardiaca"));
+            jComboBoxUsaMedica.setSelectedItem(conecta.rs.getString("UsaMedicamentos"));
+            jQualMedicamento.setText(conecta.rs.getString("QualMedicacao"));
+            statusLocomocao = conecta.rs.getInt("Locomocao");
+            if (statusLocomocao == 0) {
+                jRBDeambulando.setSelected(true);
+            } else if (statusLocomocao == 1) {
+                jRBDifiDeambulando.setSelected(true);
+            } else if (statusLocomocao == 2) {
+                jRBDeficiente.setSelected(true);
+            }
+            statusAcuidadeVisual = conecta.rs.getInt("AcuidadeVisual");
+            if (statusAcuidadeVisual == 0) {
+                jRBAcuiVisualPreservado.setSelected(true);
+            } else if (statusAcuidadeVisual == 1) {
+                jRBAcuiVisulaDiminuido.setSelected(true);
+            }
+            statusAcuidadeAuditiva = conecta.rs.getInt("AcuidadeAuditiva");
+            if (statusAcuidadeAuditiva == 0) {
+                jRBAcuAudiPreservado.setSelected(true);
+            } else if (statusAcuidadeAuditiva == 1) {
+                jRBAcuidAudDiminuido.setSelected(true);
+            }
+            statusFuncaoMotora = conecta.rs.getInt("FuncaoMotora");
+            if (statusFuncaoMotora == 0) {
+                jRBFuncaoComAlteracao.setSelected(true);
+            } else if (statusFuncaoMotora == 1) {
+                jRBFuncaoSemAlteracao.setSelected(true);
+            }
+            jQualFuncaoMotora.setText(conecta.rs.getString("QualFuncaoMotora"));
+            statusFalaLinguagem = conecta.rs.getInt("FalaLinguagem");
+            qualAlteracaoFala = conecta.rs.getString("QualFala");
+            statusMucosa = conecta.rs.getInt("Mucosa");
+            statusPele = conecta.rs.getInt("Pele");
+            pTipo = conecta.rs.getString("TipoPele");
+            pLocalizacao = conecta.rs.getString("Localizacao");
+            statusCabelos = conecta.rs.getInt("Cabelos");
+            statusBoca = conecta.rs.getInt("Boca");
+            statusFuncaoRespiratoria = conecta.rs.getInt("FuncaoRespiratoria");
+            statusTorax = conecta.rs.getInt("Torax");
+            statusFuncaoIntestinal = conecta.rs.getInt("FuncaoIntestinal");
+            pCostipacaoDias = conecta.rs.getString("DiasConstipado");
+            statusAbdome = conecta.rs.getInt("Abdome");
+            statusFuncaoVesical = conecta.rs.getInt("FuncaoVesical");
+            statusGenitalia = conecta.rs.getInt("Genitalia");
+            pQualGenitalia = conecta.rs.getString("QualGenitalia");
+            pVacina = conecta.rs.getString("Vacinado");
+            pQuaisVacinas = conecta.rs.getString("QuaisVacinas");
+            //
+            jComboBoxUsuarioDrogas.setSelectedItem(conecta.rs.getString("UsuarioDrogas"));
+            jQuaisDrogas.setText(conecta.rs.getString("QuaisDrogas"));
+            jComboBoxPortadorDoencas.setSelectedItem(conecta.rs.getString("PortadorDoenca"));
+            jQuaisDoencas.setText(conecta.rs.getString("QuaisDoencas"));
+            jComboBoxAlergias.setSelectedItem(conecta.rs.getString("Alergias"));
+            jQuaisAlergias.setText(conecta.rs.getString("QuaisAlergias"));
+            jObservacao.setText(conecta.rs.getString("Observacao"));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
+        }
+        // AEF -P1
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADME_AFP1 "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON ADME_AFP1.IdLanc=ADMISSAOENFERMEIRA.IdLanc "
+                    + "WHERE ADME_AFP1.IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            codigoAFP1 = conecta.rs.getInt("IdAfp1");
+            jComboBoxHipertensao.setSelectedItem(conecta.rs.getString("Hipertensao"));
+            jComboBoxCardiopatias.setSelectedItem(conecta.rs.getString("Cardiopatias"));
+            jComboBoxAnemias.setSelectedItem(conecta.rs.getString("Anemias"));
+            jComboBoxDoencasRenais.setSelectedItem(conecta.rs.getString("DoencasRenais"));
+            jComboBoxDiabetes.setSelectedItem(conecta.rs.getString("Diabetes"));
+            jComboBoxAPAlergias.setSelectedItem(conecta.rs.getString("APAlergias"));
+            jComboBoxPortadorHIV.setSelectedItem(conecta.rs.getString("PortadorHIV"));
+            jComboBoxTransfusao.setSelectedItem(conecta.rs.getString("Transfusao"));
+            jComboBoxRetroviarias.setSelectedItem(conecta.rs.getString("Retroviarias"));
+            jQuaisRetroviarias.setText(conecta.rs.getString("QuaisRetroviarias"));
+            jComboBoxCirurgias.setSelectedItem(conecta.rs.getString("Cirurgias"));
+            jDataCirurgia.setDate(conecta.rs.getDate("DataCirurgia"));
+            jTipoCirurgia.setText(conecta.rs.getString("TipoCirurgia"));
+            jCiclosMenstruais.setText(conecta.rs.getString("Ciclos"));
+            jMetodosAnticoncepcionais.setText(conecta.rs.getString("Metodos"));
+            jDoencasSexualmenteTransmissiveis.setText(conecta.rs.getString("Doencas"));
+            jColpocitologiaOncotica.setText(conecta.rs.getString("Colpocitologia"));
+        } catch (Exception e) {
+        }
+        if (codigoAFP1 != 0) {
+            jBtNovoAFP1.setEnabled(true);
+            jBtAlterarAFP1.setEnabled(true);
+            jBtExcluirAFP1.setEnabled(true);
+            jBtSalvarAFP1.setEnabled(!true);
+            jBtCancelarAFP1.setEnabled(true);
+            jBtAuditoriaAFP1.setEnabled(true);
+        }
+        //AEF-P2
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADME_AFP2 "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON ADME_AFP2.IdLanc=ADMISSAOENFERMEIRA.IdLanc "
+                    + "WHERE ADME_AFP2.IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            codigoAFP2 = conecta.rs.getInt("IdAfp2");
+            jNumeroGestacoes.setText(conecta.rs.getString("NumeroGestacoes"));
+            jNumeroPartos.setText(conecta.rs.getString("NumeroPartos"));
+            jNumeroAbortos.setText(conecta.rs.getString("NumeroAbortos"));
+            jNumeroFilhosVivos.setText(conecta.rs.getString("NumeroFilhosVivos"));
+            jIdadePrimeiraGestacao.setText(conecta.rs.getString("IdadePrimeiraGestacao"));
+            jIntervaloGestacoes.setText(conecta.rs.getString("IntervaloGestacoes"));
+            jPretermo.setText(conecta.rs.getString("Pretermo"));
+            jPostermo.setText(conecta.rs.getString("Postermo"));
+            jBaixoPeso.setText(conecta.rs.getString("BaixoPeso"));
+            jMortesNeonataisPrecoce.setText(conecta.rs.getString("MortesNeonataisPrecoce"));
+            jMotivoMorteNeonataisPrecoce.setText(conecta.rs.getString("MotivoMorteNeonataisPrecoce"));
+            jMortesNeonataisTardias.setText(conecta.rs.getString("MortesNeonataisTardias"));
+            jMotivoMortesNeonataisTardias.setText(conecta.rs.getString("MotivoMortesNeonataisTardias"));
+            jNatimortos.setText(conecta.rs.getString("Natimortos"));
+            jIctericia.setText(conecta.rs.getString("Ictericia"));
+            jTransfusao.setText(conecta.rs.getString("Transfusao"));
+            jHipoglicemia.setText(conecta.rs.getString("Hipoglicemia"));
+            jIsoimunizacaoRH.setText(conecta.rs.getString("IsoimunizacaoRH"));
+            jIntercorrenciaComplicacoesGestoes.setText(conecta.rs.getString("IntercorrenciaComplicacoesGestoes"));
+            jHistoriaAleitamentosAnteriores.setText(conecta.rs.getString("HistoriaAleitamentosAnteriores"));
+        } catch (Exception e) {
+        }
+        if (codigoAFP2 != 0) {
+            jBtNovoAFP2.setEnabled(true);
+            jBtAlterarAFP2.setEnabled(true);
+            jBtExcluirAFP2.setEnabled(true);
+            jBtSalvarAFP2.setEnabled(!true);
+            jBtCancelarAFP2.setEnabled(true);
+            jBtAuditoriaAFP2.setEnabled(true);
+        }
+        //AEF-P3
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADME_AFP3 "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON ADME_AFP3.IdLanc=ADMISSAOENFERMEIRA.IdLanc "
+                    + "WHERE ADME_AFP3.IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            codigoAFP3 = conecta.rs.getInt("IdAfp3");
+            jDataUltimaMenstruacao.setDate(conecta.rs.getDate("DataUltimaMenstruacao"));
+            jComboBoxGestante.setSelectedItem(conecta.rs.getString("Gestante"));
+            jCertezaDuvidaGestacao.setText(conecta.rs.getString("CertezaDuvidaGestacao"));
+            jHabitosAlimentares.setText(conecta.rs.getString("HabitosAlimentares"));
+            jMedicamentoGestacao.setText(conecta.rs.getString("MedicamentoGestacao"));
+            jComboBoxInternacaoGestacao.setSelectedItem(conecta.rs.getString("InternacaoGestacao"));
+            jOndeGestacao.setText(conecta.rs.getString("OndeGestacao"));
+            jQuaisDrogras.setText(conecta.rs.getString("QuaisDrogras"));
+            jSinaisSintomas.setText(conecta.rs.getString("SinaisSintomas"));
+            jOcupacaoHabitual.setText(conecta.rs.getString("OcupacaoHabitual"));
+            jAceitacaoGravidez.setText(conecta.rs.getString("AceitacaoGravidez"));
+            tipoDrogaCigarro = conecta.rs.getInt("Cigarro");
+            if (tipoDrogaCigarro == 0) {
+                jCheckBoxCigarro.setSelected(true);
+            } else if (tipoDrogaCigarro == 1) {
+                jCheckBoxCigarro.setSelected(!true);
+            }
+            tipoDrogaPacaia = conecta.rs.getInt("Pacaia");
+            if (tipoDrogaPacaia == 0) {
+                jCheckBoxPacaia.setSelected(true);
+            } else if (tipoDrogaPacaia == 1) {
+                jCheckBoxPacaia.setSelected(!true);
+            }
+            tipoDrogaMaconha = conecta.rs.getInt("Maconha");
+            if (tipoDrogaMaconha == 0) {
+                jCheckBoxMaconha.setSelected(true);
+            } else if (tipoDrogaMaconha == 1) {
+                jCheckBoxMaconha.setSelected(!true);
+            }
+            tipoDrogaCocaina = conecta.rs.getInt("Cocaina");
+            if (tipoDrogaCocaina == 0) {
+                jCheckBoxCocaina.setSelected(true);
+            } else if (tipoDrogaCocaina == 1) {
+                jCheckBoxCocaina.setSelected(!true);
+            }
+            tipoDrogaCraque = conecta.rs.getInt("Craque");
+            if (tipoDrogaCraque == 0) {
+                jCheckBoxCraque.setSelected(true);
+            } else if (tipoDrogaCraque == 1) {
+                jCheckBoxCraque.setSelected(!true);
+            }
+            tipoDrogaAlcool = conecta.rs.getInt("Alcool");
+            if (tipoDrogaAlcool == 0) {
+                jCheckBoxAlcool.setSelected(true);
+            } else if (tipoDrogaAlcool == 1) {
+                jCheckBoxAlcool.setSelected(!true);
+            }
+            tipoDrogaOutros = conecta.rs.getInt("Outros");
+            if (tipoDrogaOutros == 0) {
+                jCheckBoxOutros.setSelected(true);
+            } else if (tipoDrogaOutros == 1) {
+                jCheckBoxOutros.setSelected(!true);
+            }
+        } catch (Exception e) {
+        }
+        if (codigoAFP3 != 0) {
+            jBtNovoAFP3.setEnabled(true);
+            jBtAlterarAFP3.setEnabled(true);
+            jBtExcluirAFP3.setEnabled(true);
+            jBtSalvarAFP3.setEnabled(!true);
+            jBtCancelarAFP3.setEnabled(true);
+            jBtAuditoriaAFP3.setEnabled(true);
+        }
+        //AEF-P4
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADME_AFP4 "
+                    + "INNER JOIN ADMISSAOENFERMEIRA "
+                    + "ON ADME_AFP4.IdLanc=ADMISSAOENFERMEIRA.IdLanc "
+                    + "WHERE ADME_AFP4.IdLanc='" + jIdLanc.getText() + "'");
+            conecta.rs.first();
+            codigoAFP4 = conecta.rs.getInt("IdAfp4");
+            //
+            pesoGestante = conecta.rs.getFloat("PesoGestante");
+            DecimalFormat p1 = new DecimalFormat("#0.00");
+            String pg = p1.format(pesoGestante);
+            jPesoGestante.setText(pg);
+            //               
+            alturaGestante = conecta.rs.getFloat("AlturaGestante");
+            DecimalFormat a1 = new DecimalFormat("#0.00");
+            String ag = p1.format(alturaGestante);
+            jAlturaGestante.setText(ag);
+            //                
+            jInspecaoPeleMucosa.setText(conecta.rs.getString("InspecaoPeleMucosa"));
+            jPalpacaoTireoide.setText(conecta.rs.getString("PalpacaoTireoide"));;
+            jExameAbdomem.setText(conecta.rs.getString("ExameAbdomem"));
+            //
+            alturaUterina = conecta.rs.getFloat("AlturaUterina");
+            DecimalFormat altUter = new DecimalFormat("#0.00");
+            String altura = altUter.format(alturaUterina);
+            jAlturaUterina.setText(altura);
+            //
+            jPosicaoFetal.setText(conecta.rs.getString("PosicaoFetal"));
+            pesquisaEdemaFace = conecta.rs.getInt("Face");
+            if (pesquisaEdemaFace == 0) {
+                jCheckBoxFace.setSelected(true);
+            } else if (pesquisaEdemaFace == 1) {
+                jCheckBoxFace.setSelected(!true);
+            }
+            pesquisaEdemaTronco = conecta.rs.getInt("Tronco");
+            if (pesquisaEdemaTronco == 0) {
+                jCheckBoxTronco.setSelected(true);
+            } else if (pesquisaEdemaTronco == 1) {
+                jCheckBoxTronco.setSelected(!true);
+            }
+            pesquisaEdemaMMII = conecta.rs.getInt("MembroInferior");
+            if (pesquisaEdemaMMII == 0) {
+                jCheckBoxMembroInferior.setSelected(true);
+            } else if (pesquisaEdemaMMII == 1) {
+                jCheckBoxMembroInferior.setSelected(!true);
+            }
+            pesquisaEdemaMMSS = conecta.rs.getInt("MembroSuperior");
+            if (pesquisaEdemaMMSS == 0) {
+                jCheckBoxMembroSuperior.setSelected(true);
+            } else if (pesquisaEdemaMMSS == 1) {
+                jCheckBoxMembroSuperior.setSelected(!true);
+            }
+        } catch (Exception e) {
+        }
+        if (codigoAFP4 != 0) {
+            jBtNovoAFP4.setEnabled(true);
+            jBtAlterarAFP4.setEnabled(true);
+            jBtExcluirAFP4.setEnabled(true);
+            jBtSalvarAFP4.setEnabled(!true);
+            jBtCancelarAFP4.setEnabled(true);
+            jBtAuditoriaAFP4.setEnabled(true);
+        }
+        // EVOLUÇÃO
+        preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+    }
+
     public void formatarCampos() {
 
 //        try {
@@ -6897,7 +7264,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jExameAbdomem.setWrapStyleWord(true);
         jPosicaoFetal.setLineWrap(true);
         jPosicaoFetal.setWrapStyleWord(true);
-
     }
 
     public void corCampos() {
@@ -6991,6 +7357,61 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jNomeInternoEvolEnf.setBackground(Color.white);
         jDataEvolu.setBackground(Color.white);
         jTextoEvolucao.setBackground(Color.white);
+    }
+
+    public void bloquearBotoes() {
+        // ADMISSÃO
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
+        //
+        jBtNovo1.setEnabled(!true);
+        jBtAlterar1.setEnabled(!true);
+        jBtExcluir1.setEnabled(!true);
+        jBtSalvar1.setEnabled(!true);
+        jBtCancelar1.setEnabled(!true);
+        jBtFinalizar1.setEnabled(!true);
+        jBtAuditoria1.setEnabled(!true);
+        // AEF-P1
+        jBtNovoAFP1.setEnabled(!true);
+        jBtAlterarAFP1.setEnabled(!true);
+        jBtExcluirAFP1.setEnabled(!true);
+        jBtSalvarAFP1.setEnabled(!true);
+        jBtCancelarAFP1.setEnabled(!true);
+        jBtAuditoriaAFP1.setEnabled(!true);
+        // AEFP2
+        jBtNovoAFP2.setEnabled(!true);
+        jBtAlterarAFP2.setEnabled(!true);
+        jBtExcluirAFP2.setEnabled(!true);
+        jBtSalvarAFP2.setEnabled(!true);
+        jBtCancelarAFP2.setEnabled(!true);
+        jBtAuditoriaAFP2.setEnabled(!true);
+        // AEFP3
+        jBtNovoAFP3.setEnabled(!true);
+        jBtAlterarAFP3.setEnabled(!true);
+        jBtExcluirAFP3.setEnabled(!true);
+        jBtSalvarAFP3.setEnabled(!true);
+        jBtCancelarAFP3.setEnabled(!true);
+        jBtAuditoriaAFP3.setEnabled(!true);
+        // AEFP4
+        jBtNovoAFP4.setEnabled(!true);
+        jBtAlterarAFP4.setEnabled(!true);
+        jBtExcluirAFP4.setEnabled(!true);
+        jBtSalvarAFP4.setEnabled(!true);
+        jBtCancelarAFP4.setEnabled(!true);
+        jBtAuditoriaAFP4.setEnabled(!true);
+        // EVOLUÇÃO
+        jBtNovaEvolucao.setEnabled(!true);
+        jBtAlterarEvolucao.setEnabled(!true);
+        jBtExcluirEvolucao.setEnabled(!true);
+        jBtSalvarEvolucao.setEnabled(!true);
+        jBtCancelarEvolucao.setEnabled(!true);
+        jBtAuditoriaEvolucao.setEnabled(!true);
+        jBtImpressaoFicha.setEnabled(!true);
     }
 
     public void bloquearCampos() {

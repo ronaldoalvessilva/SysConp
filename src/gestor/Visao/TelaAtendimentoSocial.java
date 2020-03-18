@@ -3258,6 +3258,25 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jComboBoxRecebeVisita.setEnabled(!true);
     }
 
+    public void bloquearBotoes() {
+        jBtPesqInterno.setEnabled(!true);
+        jBtNovo.setEnabled(!true);
+        jBtAlterar.setEnabled(!true);
+        jBtExcluir.setEnabled(!true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(!true);
+        jBtFinalizar.setEnabled(!true);
+        jBtAuditoria.setEnabled(!true);
+        jBtIndicacaoVisitas.setEnabled(!true);
+        //
+        jBtNovaEvolucao.setEnabled(!true);
+        jBtAlterarEvolucao.setEnabled(!true);
+        jBtExcluirEvolucao.setEnabled(!true);
+        jBtSalvarEvolucao.setEnabled(!true);
+        jBtCancelarEvolucao.setEnabled(!true);
+        jBtAuditoriaEvolucao.setEnabled(!true);
+    }
+
     public void formatCampos() {
 
         JContato.setDocument(new LimiteDigitosAlfa(80));
@@ -4648,6 +4667,13 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     public void pesquisarInternoExistente() {
         bloquearCamposPesquisa();
+        bloquearBotoes();
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtNovaEvolucao.setEnabled(true);
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
