@@ -65,7 +65,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel31" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jPanel16" alignment="0" pref="508" max="32767" attributes="0"/>
+                          <Component id="jPanel16" alignment="0" pref="509" max="32767" attributes="0"/>
                           <Component id="jScrollPane6" alignment="1" pref="509" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -467,7 +467,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="99" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="105" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -897,7 +897,7 @@
                           <Component id="jBtConfirmar" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                           <Component id="jBtFinalizar" min="-2" pref="29" max="-2" attributes="0"/>
-                          <EmptySpace pref="54" max="32767" attributes="0"/>
+                          <EmptySpace pref="55" max="32767" attributes="0"/>
                           <Component id="jBtSair" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="jBtAuditoria" min="-2" pref="30" max="-2" attributes="0"/>

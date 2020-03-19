@@ -6,6 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
+import static gestor.Visao.TelaPortaEntradaPedagogia.codigoFem;
 import static gestor.Visao.TelaPortaEntradaPedagogia.jCodigoAdmissao;
 import java.sql.SQLException;
 
@@ -13,19 +14,19 @@ import java.sql.SQLException;
  *
  * @author Socializa TI 02
  */
-public class TelaAuditoriaAdmNova extends javax.swing.JDialog {
+public class TelaAuditoriaAdmNovaFem extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
     /**
      * Creates new form TelaAuditoriaAdmNova
      */
-    public static TelaPortaEntradaPedagogia pPORTA_ENTRADA_ABA1;
+    public static TelaPortaEntradaPedagogia pPORTA_ENTRADA_ABA4;
 
-    public TelaAuditoriaAdmNova(TelaPortaEntradaPedagogia parent, boolean modal) {
-        this.pPORTA_ENTRADA_ABA1 = parent;
+    public TelaAuditoriaAdmNovaFem(TelaPortaEntradaPedagogia parent, boolean modal) {
+        this.pPORTA_ENTRADA_ABA4 = parent;
         this.setModal(modal);
-        setLocationRelativeTo(pPORTA_ENTRADA_ABA1);
+        setLocationRelativeTo(pPORTA_ENTRADA_ABA4);
         initComponents();
         auditoria();
     }
@@ -250,20 +251,27 @@ public class TelaAuditoriaAdmNova extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNova.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNovaFem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNova.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNovaFem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNova.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNovaFem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNova.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAuditoriaAdmNovaFem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaAuditoriaAdmNova dialog = new TelaAuditoriaAdmNova(pPORTA_ENTRADA_ABA1, true);
+                TelaAuditoriaAdmNovaFem dialog = new TelaAuditoriaAdmNovaFem(pPORTA_ENTRADA_ABA4, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -296,7 +304,11 @@ public class TelaAuditoriaAdmNova extends javax.swing.JDialog {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
+                    + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
+                    + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
+                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "AND FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdFemAdmNova='" + codigoFem + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));

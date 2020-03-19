@@ -101,7 +101,10 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     // CÓDIGOS DE PESQUISAS PARA EVITAR EXCLUSÃO DESNECESSÁRIA
     String codigoInternoFamilia, codigoInternoSocializa, codigoInternoFeminino, codigoInternoEvolucao;
     //
-    int codigoFam, codigoSocia, codigoFem, codigoEvol;
+    public static int codigoFam = 0;
+    public static int codigoSocia = 0;
+    public static int codigoFem = 0;
+    public static int codigoEvol;
     //
     int introvertido;
     int afetuoso;
@@ -160,6 +163,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
      */
     public static AdmissaoEvolucaoPedagogica pADMISSAO_PEDAGOGIA;
     public static TelaAuditoriaAdmNova pAUDITORIA_ABA1;
+    public static TelaAuditoriaAdmNovaFam pAUDITORIA_ABA2;
+    public static TelaAuditoriaAdmNovaSoc pAUDITORIA_ABA3;
+    public static TelaAuditoriaAdmNovaFem pAUDITORIA_ABA4;
 
     public TelaPortaEntradaPedagogia(AdmissaoEvolucaoPedagogica parent, boolean modal) {
         this.pADMISSAO_PEDAGOGIA = parent;
@@ -171,10 +177,26 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jTabbedPane1.setSelectedIndex(1);
     }
 
-    public void mostrarAuditoriaAba1(){
+    public void mostrarAuditoriaAba1() {
         pAUDITORIA_ABA1 = new TelaAuditoriaAdmNova(this, true);
-                pAUDITORIA_ABA1.setVisible(true);
+        pAUDITORIA_ABA1.setVisible(true);
     }
+
+    public void mostrarAuditoriaAba2() {
+        pAUDITORIA_ABA2 = new TelaAuditoriaAdmNovaFam(this, true);
+        pAUDITORIA_ABA2.setVisible(true);
+    }
+
+    public void mostrarAuditoriaAba3() {
+        pAUDITORIA_ABA3 = new TelaAuditoriaAdmNovaSoc(this, true);
+        pAUDITORIA_ABA3.setVisible(true);
+    }
+
+    public void mostrarAuditoriaAba4() {
+        pAUDITORIA_ABA4 = new TelaAuditoriaAdmNovaFem(this, true);
+        pAUDITORIA_ABA4.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -2828,9 +2850,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     private void jBtAuditoriaFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaFamiliaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAdmissaoPedagogiaFam objAudFamPed = new TelaAuditoriaAdmissaoPedagogiaFam();
-        TelaModuloPedagogia.jPainelPedagogia.add(objAudFamPed);
-        objAudFamPed.show();
+        mostrarAuditoriaAba2();
     }//GEN-LAST:event_jBtAuditoriaFamiliaActionPerformed
 
     private void jBtNovaSocializacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaSocializacaoActionPerformed
@@ -3022,9 +3042,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     private void jBtAuditoriaSocializacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaSocializacaoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAdmissaoPedagogiaSocia objAudiSociaPed = new TelaAuditoriaAdmissaoPedagogiaSocia();
-        TelaModuloPedagogia.jPainelPedagogia.add(objAudiSociaPed);
-        objAudiSociaPed.show();
+        mostrarAuditoriaAba3();
     }//GEN-LAST:event_jBtAuditoriaSocializacaoActionPerformed
 
     private void jBtNovoFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoFemininoActionPerformed
@@ -3159,9 +3177,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     private void jBtAuditoriaFemininoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaFemininoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaAdmissaoPedagogiaFem objAudFemPed = new TelaAuditoriaAdmissaoPedagogiaFem();
-        TelaModuloPedagogia.jPainelPedagogia.add(objAudFemPed);
-        objAudFemPed.show();
+        mostrarAuditoriaAba4();
     }//GEN-LAST:event_jBtAuditoriaFemininoActionPerformed
 
     /**
