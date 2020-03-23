@@ -27,7 +27,7 @@ public class TelaPesquisaOpPrevisaoSaida extends javax.swing.JInternalFrame {
      */
     public TelaPesquisaOpPrevisaoSaida() {
         initComponents();
-        jPesDescOp.setDocument(new LimiteDigitosAlfa(33));
+        jPesDescOp.setDocument(new LimiteDigitosAlfa(100));
     }
 
     /**

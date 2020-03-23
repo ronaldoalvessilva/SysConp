@@ -755,7 +755,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
         horaMov = jHoraSistema.getText();
         dataModFinal = jDataSistema.getText();
         utilizacaoSaida = "Sim";
-        if (jDescricaoOp.getText().equals("SAIDA TEMPORARIA") && jDataPrevRetorno.getDate() == null) {
+        if (jDescricaoOp.getText().equals("SAIDA TEMPORARIA") && jDataPrevRetorno.getDate() == null || jDescricaoOp.getText().equals("PRISAO DOMICILIAR HUMANITARIA COVID-19") && jDataPrevRetorno.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data de previsão de retorno do interno.");
         } else {
             if (jDataSaida.getDate() == null) {
@@ -773,6 +773,10 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                     } else {
                         if (jDescricaoOp.getText().equals("SAIDA TEMPORARIA") && jDataPrevRetorno.getDate() == null) {
                             JOptionPane.showMessageDialog(rootPane, "Essa saida temporaria precisa de uma data de retorno.");
+                            jDataPrevRetorno.requestFocus();
+                            jDataPrevRetorno.setBackground(Color.red);
+                        } else if (jDescricaoOp.getText().equals("PRISAO DOMICILIAR HUMANITARIA COVID-19") && jDataPrevRetorno.getDate() == null) {
+                            JOptionPane.showMessageDialog(rootPane, "Essa saida de prisão domiciliar precisa de uma data de retorno.");
                             jDataPrevRetorno.requestFocus();
                             jDataPrevRetorno.setBackground(Color.red);
                         } else {
@@ -984,7 +988,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarTodosActionPerformed
         // TODO add your handling code here:
-        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA")) {
+        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA") || jDestinoInterno.getText().equals("PRISAO DOMICILIAR HUMANITARIA COVID-19")) {
             jDataPrevRetorno.setEnabled(true);
             jBtBuscarPrevisao.setEnabled(!true);
         }

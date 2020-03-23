@@ -29,7 +29,7 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
      */
     public TelaPesquisaOpSaidaBuscaPrevSaida() {
         initComponents();
-        jPesDescOp.setDocument(new LimiteDigitosAlfa(33));
+        jPesDescOp.setDocument(new LimiteDigitosAlfa(100));
     }
 
     /**
