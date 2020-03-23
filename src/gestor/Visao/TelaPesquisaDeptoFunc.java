@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import gestor.Dao.LimiteDigitosAlfa;
 
 /**
  *
@@ -28,7 +29,7 @@ public class TelaPesquisaDeptoFunc extends javax.swing.JInternalFrame {
      */
     public TelaPesquisaDeptoFunc() {
         initComponents();
-        jPesNomeDepto.setDocument(new LimiteDigitosAlfa(33));
+        jPesNomeDepto.setDocument(new LimiteDigitosAlfa(58));
     }
 
     /**
@@ -54,7 +55,7 @@ public class TelaPesquisaDeptoFunc extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Departamentos :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Departamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Departamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesNomeDepto.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -106,7 +107,7 @@ public class TelaPesquisaDeptoFunc extends javax.swing.JInternalFrame {
         jTabelaDepto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDepto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Departamento"

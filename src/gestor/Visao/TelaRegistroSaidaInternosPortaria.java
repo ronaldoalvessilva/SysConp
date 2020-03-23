@@ -107,6 +107,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     String saidaMedico = "SAIDA PARA MEDICO";
     String saidaOutras = "OUTRAS SAIDAS";
     String saidaTemporaria = "SAIDA TEMPORARIA"; // MODIFICADO EM 08/07/2016 TORNOU-SE PADRÃO DA SECRETARIA
+    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR HUMANITARIA COVID-19";
     int flagItem;
     int codItem = 0;
     public static String idItem;
@@ -1626,7 +1627,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                 // Se a saida não for para AUDIENCIA, SAIDA PARA MÉDICO E OUTRAS SAIDAS, excluir da cela CONSERTADO EM 07/08/2015
                                                                                 // SAIDA TEMPORARIA TAMBÉM NÃO RETIRAR DA CELA. SÓ RETIRAR APÓS O PRAZO DE VENCIDO, NA EVASÃO - 08/07/2016 
                                                                                 verificarInternoCela(); // 
-                                                                                if (!jTipoSaida.getText().equals(saidaAudiencia) && !jTipoSaida.getText().equals(saidaMedico) && !jTipoSaida.getText().equals(saidaOutras) && !jTipoSaida.getText().equals(saidaTemporaria)) {
+                                                                                if (!jTipoSaida.getText().equals(saidaAudiencia) && !jTipoSaida.getText().equals(saidaMedico) && !jTipoSaida.getText().equals(saidaOutras) && !jTipoSaida.getText().equals(saidaTemporaria) && !jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
                                                                                     // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
@@ -1637,6 +1638,12 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                 }
                                                                                 // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
                                                                                 if (jTipoSaida.getText().equals(saidaTemporaria)) {
+                                                                                    objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
+                                                                                    objProCrc.setSituacao(jTipoSaida.getText());
+                                                                                    mod.alterarSituacaoInterno(objProCrc);
+                                                                                }
+                                                                                // SE FOR SAIDA PRISAO DOMICILIAR HUMANITARIA COVID-19, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
+                                                                                if (jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
                                                                                     mod.alterarSituacaoInterno(objProCrc);
@@ -1914,7 +1921,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     public void formatarCampos() {
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
-        jTipoSaida.setDocument(new LimiteDigitosAlfa(32));
+        jTipoSaida.setDocument(new LimiteDigitosAlfa(100));
         jNrDocumento.setDocument(new LimiteDigitosAlfa(16));
         try {
             MaskFormatter horario = new MaskFormatter("##:##");

@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleOperacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitos;
+import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Operacao;
@@ -111,7 +111,7 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
 
         jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jBtPesNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesNome.setToolTipText("Pesquis por Descrição");
@@ -165,7 +165,7 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
         jTabelaTipoOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaTipoOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Tipo Op.", "Descrição da Operação"
@@ -208,7 +208,7 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Lisatagem", jPanel1);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código");
@@ -288,7 +288,7 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxTipoOp, jDescricaoOp});
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 0, 255)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 0, 255))); // NOI18N
 
         jBtNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovo.setText("Novo");
@@ -634,8 +634,8 @@ public class TelaOperacaoCrc extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void formatarCampos() {
-        jDescricaoOp.setDocument(new LimiteDigitos(40));
-        jPesqDescricao.setDocument(new LimiteDigitos(40));
+        jDescricaoOp.setDocument(new LimiteDigitosAlfa(150));
+        jPesqDescricao.setDocument(new LimiteDigitosAlfa(58));
     }
 
     public void corCampos() {

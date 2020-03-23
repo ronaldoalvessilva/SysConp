@@ -93,6 +93,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     int codSai;
     String tipo = "Saídas";
     String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres
+    String pSITUACAO = "PRISAO DOMICILIAR HUMANITARIA COVID-19";
     String saidaAudiencia = "SAIDA PARA AUDIENCIA";
     int flagItem;
     int codItem = 0;
@@ -1481,7 +1482,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
                 acao = 3;
-                if (jDescricaoOp.getText().equals(situacao)) {
+                if (jDescricaoOp.getText().equals(situacao) || jDescricaoOp.getText().equals(pSITUACAO)) {
                     jDataRetorno.setCalendar(Calendar.getInstance());
                     jDataRetorno.setEnabled(true);
                 }
@@ -1964,7 +1965,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     }
 
     public void formatarCampos() {
-        jDestinoInterno.setDocument(new LimiteDigitosAlfa(32));
+        jDestinoInterno.setDocument(new LimiteDigitosAlfa(100));
         jNrDocumento.setDocument(new LimiteDigitosAlfa(16));
     }
 

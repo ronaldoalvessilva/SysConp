@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import gestor.Dao.LimiteDigitosAlfa;
 
 /**
  *
@@ -28,7 +29,7 @@ public class TelaPesquisaCargoFunc extends javax.swing.JInternalFrame {
      */
     public TelaPesquisaCargoFunc() {
         initComponents();
-        jPesNomeCargo.setDocument(new LimiteDigitosAlfa(33));
+        jPesNomeCargo.setDocument(new LimiteDigitosAlfa(58));
     }
 
     /**
@@ -54,7 +55,7 @@ public class TelaPesquisaCargoFunc extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Cidades :::...");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Cargos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 51, 255)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Cargos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesNomeCargo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -106,7 +107,7 @@ public class TelaPesquisaCargoFunc extends javax.swing.JInternalFrame {
         jTabelaCargo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaCargo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Cargo"
@@ -157,21 +158,24 @@ public class TelaPesquisaCargoFunc extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addContainerGap(243, Short.MAX_VALUE))
+                        .addContainerGap(231, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jButton1});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
                     .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,7 +191,7 @@ public class TelaPesquisaCargoFunc extends javax.swing.JInternalFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(400, 150, 447, 243);
+        setBounds(400, 150, 447, 263);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import gestor.Dao.LimiteDigitosAlfa;
 
 /**
  *
@@ -121,8 +122,8 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
         if (jTabelaUnidadePenal.getColumnModel().getColumnCount() > 0) {
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMinWidth(70);
             jTabelaUnidadePenal.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(290);
-            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(290);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMinWidth(340);
+            jTabelaUnidadePenal.getColumnModel().getColumn(1).setMaxWidth(340);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -157,7 +158,7 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 193, Short.MAX_VALUE))
+                        .addGap(0, 201, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -180,14 +181,14 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 407, 243);
+        setBounds(300, 150, 408, 243);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -250,7 +251,7 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome Unidade"};
+        String[] Colunas = new String[]{"Código", "Nome da Unidade"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
@@ -265,7 +266,7 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(290);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);
@@ -291,7 +292,7 @@ public class TelaPesquisaUnididadeRetorno extends javax.swing.JInternalFrame {
         jTabelaUnidadePenal.setModel(modelo);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaUnidadePenal.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(290);
+        jTabelaUnidadePenal.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaUnidadePenal.getColumnModel().getColumn(1).setResizable(false);
         jTabelaUnidadePenal.getTableHeader().setReorderingAllowed(false);
         jTabelaUnidadePenal.setAutoResizeMode(jTabelaUnidadePenal.AUTO_RESIZE_OFF);

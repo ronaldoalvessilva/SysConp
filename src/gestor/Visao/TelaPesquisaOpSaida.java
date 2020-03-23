@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import gestor.Dao.LimiteDigitosAlfa;
 
 /**
  *
@@ -26,7 +27,7 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
      */
     public TelaPesquisaOpSaida() {
         initComponents();
-        jPesDescOp.setDocument(new LimiteDigitosAlfa(33));
+        jPesDescOp.setDocument(new LimiteDigitosAlfa(80));
     }
 
     /**
@@ -51,13 +52,15 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("...::: Pesquisar Tipo Operação :::...");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Tipo Operação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jPesDescOp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/pesq.png"))); // NOI18N
+        jBtNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtNome.setToolTipText("Pesquisa por Nome");
-        jBtNome.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBtNome.setContentAreaFilled(false);
         jBtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNomeActionPerformed(evt);
@@ -95,13 +98,10 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
 
         jTabelaOperacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Código", "Descrição da Operação"
             }
         ));
         jTabelaOperacao.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -110,6 +110,12 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTabelaOperacao);
+        if (jTabelaOperacao.getColumnModel().getColumnCount() > 0) {
+            jTabelaOperacao.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaOperacao.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMinWidth(340);
+            jTabelaOperacao.getColumnModel().getColumn(1).setMaxWidth(340);
+        }
 
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtEnviar.setText("Enviar");
@@ -136,43 +142,41 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jBtEnviar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtSair)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jBtEnviar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtSair)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtEnviar)
-                    .addComponent(jBtSair))
-                .addContainerGap())
+                    .addComponent(jBtSair)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setBounds(300, 150, 346, 243);
+        setBounds(300, 150, 438, 256);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
@@ -237,7 +241,7 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
 
     public void preencherTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Descrição da Operação"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM OPERACAO WHERE TipoOp='"+ tipo +"'");
@@ -250,9 +254,9 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);        
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -262,7 +266,7 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
 
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"ID", "Descrição"};
+        String[] Colunas = new String[]{"Co´digo", "Descrição"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -275,9 +279,9 @@ public class TelaPesquisaOpSaida extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(240);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);        
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);

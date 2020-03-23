@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import gestor.Dao.LimiteDigitosAlfa;
 
 /**
  *
@@ -258,9 +259,9 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -284,9 +285,9 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
@@ -311,9 +312,9 @@ public class TelaPesquisaOpSaidaBuscaPrevSaida extends javax.swing.JInternalFram
         String[] Colunas = new String[]{"Código", "Descrição"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaOperacao.setModel(modelo);
-        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaOperacao.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaOperacao.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTabelaOperacao.getColumnModel().getColumn(1).setPreferredWidth(340);
         jTabelaOperacao.getColumnModel().getColumn(1).setResizable(false);
         jTabelaOperacao.getTableHeader().setReorderingAllowed(false);
         jTabelaOperacao.setAutoResizeMode(jTabelaOperacao.AUTO_RESIZE_OFF);
