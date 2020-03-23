@@ -216,7 +216,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                                     + "ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita "
                                     + "WHERE CONVERT(DATE, DataEntrada) BETWEEN '" + dataInicial + "' "
                                     + "AND'" + dataFinal + "' AND (SituacaoCrc='" + pENTRADA + "' "
-                                    + "OR SituacaoCrc='" + pRETORNO + "' "
+                                    + "OR SituacaoCrc='" + pRETORNO + "')"
                                     + "ORDER BY NomeInternoCrc,DataEntrada");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
@@ -264,7 +264,7 @@ public class TelaRelatorioEntradaSaidaVisitasInternos extends javax.swing.JInter
                                     + "ON ITENSFAMILIAR.IdVisita=VISITASINTERNO.IdVisita "
                                     + "WHERE CONVERT(DATE, DataEntrada) BETWEEN '" + dataInicial + "' "
                                     + "AND'" + dataFinal + "' AND (SituacaoCrc='" + pENTRADA + "' "
-                                    + "OR SituacaoCrc='" + pRETORNO + "' "
+                                    + "OR SituacaoCrc='" + pRETORNO + "') "
                                     + "ORDER BY NomeInternoCrc,DataEntrada");
                             HashMap parametros = new HashMap();
                             parametros.put("dataInicial", dataInicial);
