@@ -15,6 +15,8 @@ public class AvaliacaoII {
 
     private int idAvaliaII;
     private int idLanc;
+    private int idATN;
+    private int idAvaliaTOII;
     private int idInternoCrc;
     private String nomeInternoCrc;
     private String organizoTempo;
@@ -42,9 +44,14 @@ public class AvaliacaoII {
     private String horarioInsert;
     private String horarioUp;   
 
-    public AvaliacaoII(int idAvaliaII, int idLanc, int idInternoCrc, String nomeInternoCrc, String organizoTempo, String mantenhoPapeis, String souRotina, String consigoOutros, String tenhoSocial, String planejoAgir, String concentroTrabalho, String identificoProblemas, String identificoSolucaoProblemas, String quandoAgir, String consigoHigiene, String consigoCotidianas, String consigoFinancas, String consigoCasa, String sintoPreciso, String costumoFrequentar, Date dataAplicacao, String responsavelAplicacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AvaliacaoII() {
+    }
+
+    public AvaliacaoII(int idAvaliaII, int idLanc, int idATN, int idAvaliaTOII, int idInternoCrc, String nomeInternoCrc, String organizoTempo, String mantenhoPapeis, String souRotina, String consigoOutros, String tenhoSocial, String planejoAgir, String concentroTrabalho, String identificoProblemas, String identificoSolucaoProblemas, String quandoAgir, String consigoHigiene, String consigoCotidianas, String consigoFinancas, String consigoCasa, String sintoPreciso, String costumoFrequentar, Date dataAplicacao, String responsavelAplicacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idAvaliaII = idAvaliaII;
         this.idLanc = idLanc;
+        this.idATN = idATN;
+        this.idAvaliaTOII = idAvaliaTOII;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.organizoTempo = organizoTempo;
@@ -73,9 +80,6 @@ public class AvaliacaoII {
         this.horarioUp = horarioUp;
     }
 
-    public AvaliacaoII() {
-    }
-
     /**
      * @return the idAvaliaII
      */
@@ -102,6 +106,34 @@ public class AvaliacaoII {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idATN
+     */
+    public int getIdATN() {
+        return idATN;
+    }
+
+    /**
+     * @param idATN the idATN to set
+     */
+    public void setIdATN(int idATN) {
+        this.idATN = idATN;
+    }
+
+    /**
+     * @return the idAvaliaTOII
+     */
+    public int getIdAvaliaTOII() {
+        return idAvaliaTOII;
+    }
+
+    /**
+     * @param idAvaliaTOII the idAvaliaTOII to set
+     */
+    public void setIdAvaliaTOII(int idAvaliaTOII) {
+        this.idAvaliaTOII = idAvaliaTOII;
     }
 
     /**

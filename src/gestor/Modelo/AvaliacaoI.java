@@ -13,6 +13,8 @@ public class AvaliacaoI {
 
     private int idAvaliaI;
     private int idLanc;
+    private int idAvaliaTOI;
+    private int idATN;
     private int idInternoCrc;
     private String nomeInternoCrc;
     private String conhecoHabilidades;
@@ -41,9 +43,14 @@ public class AvaliacaoI {
     private String horarioInsert;
     private String horarioUp;
 
-    public AvaliacaoI(int idAvaliaI, int idLanc, int idInternoCrc, String nomeInternoCrc, String conhecoHabilidades, String acreditaRealizacoes, String esperoResultados, String acreditoRealizaTrabalho, String acreditoRealizaLar, String acreditoDiverteLazer, String facoAtividades, String tenhoExpectativa, String tenhoObjetoFuturo, String identificoGostos, String participoProjetosImport, String tenhoVariosInteresse, String costumoComprometo, String deEstudante, String deTrabalho, String deAmigo, String deFamiliar, String reconhecoPapeis, String mantenhoVida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public AvaliacaoI() {
+    }
+
+    public AvaliacaoI(int idAvaliaI, int idLanc, int idAvaliaTOI, int idATN, int idInternoCrc, String nomeInternoCrc, String conhecoHabilidades, String acreditaRealizacoes, String esperoResultados, String acreditoRealizaTrabalho, String acreditoRealizaLar, String acreditoDiverteLazer, String facoAtividades, String tenhoExpectativa, String tenhoObjetoFuturo, String identificoGostos, String participoProjetosImport, String tenhoVariosInteresse, String costumoComprometo, String deEstudante, String deTrabalho, String deAmigo, String deFamiliar, String reconhecoPapeis, String mantenhoVida, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
         this.idAvaliaI = idAvaliaI;
         this.idLanc = idLanc;
+        this.idAvaliaTOI = idAvaliaTOI;
+        this.idATN = idATN;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.conhecoHabilidades = conhecoHabilidades;
@@ -73,9 +80,6 @@ public class AvaliacaoI {
         this.horarioUp = horarioUp;
     }
 
-    public AvaliacaoI() {
-    }
-
     /**
      * @return the idAvaliaI
      */
@@ -102,6 +106,34 @@ public class AvaliacaoI {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idAvaliaTOI
+     */
+    public int getIdAvaliaTOI() {
+        return idAvaliaTOI;
+    }
+
+    /**
+     * @param idAvaliaTOI the idAvaliaTOI to set
+     */
+    public void setIdAvaliaTOI(int idAvaliaTOI) {
+        this.idAvaliaTOI = idAvaliaTOI;
+    }
+
+    /**
+     * @return the idATN
+     */
+    public int getIdATN() {
+        return idATN;
+    }
+
+    /**
+     * @param idATN the idATN to set
+     */
+    public void setIdATN(int idATN) {
+        this.idATN = idATN;
     }
 
     /**

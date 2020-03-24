@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="...::: Admiss&#xe3;o Terapia - Porta Entrada :::..."/>
@@ -68,7 +68,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jScrollPane4" pref="543" max="32767" attributes="0"/>
-                                  <Component id="jPanel14" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jPanel14" pref="543" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -147,7 +147,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jnomeInternoPesq" min="-2" pref="374" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="jBtPesquisaNome" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -172,7 +172,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jButton1" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtPesquisaNome" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jnomeInternoPesq" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel12" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -286,7 +286,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="jBtPesquisaNome">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
@@ -295,7 +295,7 @@
                     <Property name="defaultCapable" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisaNomeActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -505,7 +505,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jIdAtend" linkSize="1" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
+                                      <Component id="jIdAtendNovo" linkSize="1" alignment="0" min="-2" pref="65" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -553,7 +553,7 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jIdAtend" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jIdAtendNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jStatusLanc" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -606,7 +606,7 @@
                     <Property name="text" type="java.lang.String" value="Data "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jIdAtend">
+                <Component class="javax.swing.JTextField" name="jIdAtendNovo">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -719,8 +719,8 @@
                           <Component id="jBtCancelar" linkSize="11" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jBtFinalizar" linkSize="11" min="-2" pref="33" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jBtConcluir" min="-2" pref="39" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jBtConcluir" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtImpressao" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -949,13 +949,15 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBoxDominancia" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="jLabel108" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel102" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel104" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel97" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jComboBoxDominancia" min="-2" pref="121" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -1012,10 +1014,8 @@
                               <Group type="103" groupAlignment="2" attributes="0">
                                   <Component id="jLabel104" alignment="2" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxReabilitacao" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="2" groupAlignment="2" attributes="0">
-                                      <Component id="jLabel98" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxDeficienciaOcupa" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel98" alignment="2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxDeficienciaOcupa" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="2" attributes="0">
@@ -2643,21 +2643,14 @@
                                           <Component id="jTipoEtilismo" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jTipoSPA" alignment="0" max="32767" attributes="0"/>
                                       </Group>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jComboBoxMedicaoAlopaticaUsuario" linkSize="5" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="jComboBoxSPAUsuario" linkSize="5" alignment="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jComboBoxMedicaoAlopaticaUsuario" linkSize="5" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              <Component id="jComboBoxSPAUsuario" linkSize="5" alignment="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jComboBoxEtilismoUsuario" linkSize="5" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="jComboBoxTabagismoUsuario" linkSize="5" alignment="1" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <Component id="jComboBoxEtilismoUsuario" linkSize="5" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jComboBoxTabagismoUsuario" linkSize="5" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -3443,10 +3436,8 @@
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jPanel34" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jPanel37" min="-2" pref="552" max="-2" attributes="0"/>
-                                      <Component id="jPanel12" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="jPanel37" min="-2" pref="552" max="-2" attributes="0"/>
+                                  <Component id="jPanel12" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -3963,12 +3954,10 @@
                       <Component id="jBtRefersCursos" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtCancelarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtAuditoriaHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="jBtNovoHistoricoEduca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtAlterarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluirHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtSalvarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jBtAlterarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtExcluirHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtSalvarHistoricoEduca" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtNovoHistoricoEduca" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -5148,12 +5137,14 @@
                               <Component id="jComboBoxIdentificoGostos" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBoxParticipoProjetosImport" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxTenhoVariosInteresse" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxParticipoProjetosImport" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>

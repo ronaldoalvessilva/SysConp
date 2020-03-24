@@ -15,6 +15,10 @@ public class HistoricoEducacionalLaboral {
     private int idHistoricoLab;
     private int idAtend;
     private int idItem;
+    private int idATN;
+    private int idHistoricoEduN;
+    private int idItemICTHEN;
+    private int idHistoricoLabPN;
     private int idInternoCrc;
     private String nomeInternoCrc;
     private String escreveProprioNome;
@@ -40,11 +44,18 @@ public class HistoricoEducacionalLaboral {
     private String dataUp;
     private String horarioUp;             
 
-    public HistoricoEducacionalLaboral(int idHistoricoEdu, int idHistoricoLab, int idAtend, int idItem, int idInternoCrc, String nomeInternoCrc, String escreveProprioNome, String sabeLerEscrever, String nivelInstrucao, String interesseEstudar, int idCurso, String cursoProfissionalizante, String descricaoCurso, int prioridadeCurso, String temProfissao, String qualProfissao, int idProfissao, String experienciaProfissional, String qualExperienciaProfissional, String desejaTrabalharUnid, int tipoRemuneracao, String interesseRemuneracao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public HistoricoEducacionalLaboral() {
+    }
+
+    public HistoricoEducacionalLaboral(int idHistoricoEdu, int idHistoricoLab, int idAtend, int idItem, int idATN, int idHistoricoEduN, int idItemICTHEN, int idHistoricoLabPN, int idInternoCrc, String nomeInternoCrc, String escreveProprioNome, String sabeLerEscrever, String nivelInstrucao, String interesseEstudar, int idCurso, String cursoProfissionalizante, String descricaoCurso, int prioridadeCurso, String temProfissao, String qualProfissao, int idProfissao, String experienciaProfissional, String qualExperienciaProfissional, String desejaTrabalharUnid, int tipoRemuneracao, String interesseRemuneracao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idHistoricoEdu = idHistoricoEdu;
         this.idHistoricoLab = idHistoricoLab;
         this.idAtend = idAtend;
         this.idItem = idItem;
+        this.idATN = idATN;
+        this.idHistoricoEduN = idHistoricoEduN;
+        this.idItemICTHEN = idItemICTHEN;
+        this.idHistoricoLabPN = idHistoricoLabPN;
         this.idInternoCrc = idInternoCrc;
         this.nomeInternoCrc = nomeInternoCrc;
         this.escreveProprioNome = escreveProprioNome;
@@ -69,9 +80,6 @@ public class HistoricoEducacionalLaboral {
         this.usuarioUp = usuarioUp;
         this.dataUp = dataUp;
         this.horarioUp = horarioUp;
-    }
-
-    public HistoricoEducacionalLaboral() {
     }
 
     /**
@@ -128,6 +136,62 @@ public class HistoricoEducacionalLaboral {
      */
     public void setIdItem(int idItem) {
         this.idItem = idItem;
+    }
+
+    /**
+     * @return the idATN
+     */
+    public int getIdATN() {
+        return idATN;
+    }
+
+    /**
+     * @param idATN the idATN to set
+     */
+    public void setIdATN(int idATN) {
+        this.idATN = idATN;
+    }
+
+    /**
+     * @return the idHistoricoEduN
+     */
+    public int getIdHistoricoEduN() {
+        return idHistoricoEduN;
+    }
+
+    /**
+     * @param idHistoricoEduN the idHistoricoEduN to set
+     */
+    public void setIdHistoricoEduN(int idHistoricoEduN) {
+        this.idHistoricoEduN = idHistoricoEduN;
+    }
+
+    /**
+     * @return the idItemICTHEN
+     */
+    public int getIdItemICTHEN() {
+        return idItemICTHEN;
+    }
+
+    /**
+     * @param idItemICTHEN the idItemICTHEN to set
+     */
+    public void setIdItemICTHEN(int idItemICTHEN) {
+        this.idItemICTHEN = idItemICTHEN;
+    }
+
+    /**
+     * @return the idHistoricoLabPN
+     */
+    public int getIdHistoricoLabPN() {
+        return idHistoricoLabPN;
+    }
+
+    /**
+     * @param idHistoricoLabPN the idHistoricoLabPN to set
+     */
+    public void setIdHistoricoLabPN(int idHistoricoLabPN) {
+        this.idHistoricoLabPN = idHistoricoLabPN;
     }
 
     /**

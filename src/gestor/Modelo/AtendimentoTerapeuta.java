@@ -14,17 +14,17 @@ import java.util.Date;
 public class AtendimentoTerapeuta {
 
     private int idLanc;
+    private int idATN;
+    private int idAvaliaTOI;
+    private int idAvaliaTOII;
+    private int idHistoricoEduN;
+    private int idItemICTHEN;
+    private int idHistoricoLabPN;
+    private int idItemPTHPN;
     private String statusLanc;
     private Date DataLanc;
     private int idInternoCrc;
     private String nomeInternoCrc;
-//    private String aspectoFisico;
-//    private String HistoricoProfissioanal;
-//    private String desejaTrabalhar;
-//    private String encaminhamentos;
-//    private String interesseCurso;
-//    private String cursos;
-//    private String aptidao;
     private String deptoTerapia;
     private String usuarioInsert;
     private String usuarioUp;
@@ -107,8 +107,6 @@ public class AtendimentoTerapeuta {
     private String vidaSexual;
     private String metodoContraCeptivo;
     private String qualMetodoContraCeptivo;
-//    private String menarca;
-//    private String menopausa;
     private String gestante;
     private String aborto;
     private String motivoAborto;
@@ -117,8 +115,18 @@ public class AtendimentoTerapeuta {
     private String trataPsicologica;
     private String obsEstiloVida;         
 
-    public AtendimentoTerapeuta(int idLanc, String statusLanc, Date DataLanc, int idInternoCrc, String nomeInternoCrc, String deptoTerapia, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String dominancia, String amputacao, String deficienciaOcupa, String reabilitacao, String motora, String cognitiva, String sensorial, String intPsi, String aVD, String aIVD, String lazer, String trabalho, String obsDesempenhoOcupacional, String paisVivos, String temCompanheira, String temFilhos, int quantosFilhos, String visitaFamiliar, int sFSeg, int sFTer, int sFQua, int sFQui, int sFSex, int sFSab, int sFDom, String visitaIntima, int intSeg, int intTer, int intQua, int intQui, int intSex, int intSab, int intDom, String ObsHistoricoFamiliar, String hipertensao, String diabetes, String cancer, String proRespiratorio, String transMental, String infectoContagiosa, String doencasDigestiva, String deficienciaVAF, String obsDadosClinicos, String humor, String insonia, String irritabilidade, String frustracao, String dificuldadeConcentrar, String raiva, String inquietacao, String ansiedade, String obsAlteracoesPsicologicas, String tabagismo, int quantoTabagismo, String tabagismoUsuario, String etilismo, String tipoEtilismo, String medicacaoAlopativa, String tipoMedicacaoAlopativa, String sPA, String tipoSPA, String etilismoUsuario, String medicaoAlopaticaUsuario, String sPAUsuario, String obsTriagemSPA, String vidaSexual, String metodoContraCeptivo, String qualMetodoContraCeptivo, String gestante, String aborto, String motivoAborto, String praticaAtividadeFisica, String qualAtividadeFisica, String trataPsicologica, String obsEstiloVida) {
+    public AtendimentoTerapeuta() {
+    }
+
+    public AtendimentoTerapeuta(int idLanc, int idATN, int idAvaliaTOI, int idAvaliaTOII, int idHistoricoEduN, int idItemICTHEN, int idHistoricoLabPN, int idItemPTHPN, String statusLanc, Date DataLanc, int idInternoCrc, String nomeInternoCrc, String deptoTerapia, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, String dominancia, String amputacao, String deficienciaOcupa, String reabilitacao, String motora, String cognitiva, String sensorial, String intPsi, String aVD, String aIVD, String lazer, String trabalho, String obsDesempenhoOcupacional, String paisVivos, String temCompanheira, String temFilhos, int quantosFilhos, String visitaFamiliar, int sFSeg, int sFTer, int sFQua, int sFQui, int sFSex, int sFSab, int sFDom, String visitaIntima, int intSeg, int intTer, int intQua, int intQui, int intSex, int intSab, int intDom, String ObsHistoricoFamiliar, String hipertensao, String diabetes, String cancer, String proRespiratorio, String transMental, String infectoContagiosa, String doencasDigestiva, String deficienciaVAF, String obsDadosClinicos, String humor, String insonia, String irritabilidade, String frustracao, String dificuldadeConcentrar, String raiva, String inquietacao, String ansiedade, String obsAlteracoesPsicologicas, String tabagismo, int quantoTabagismo, String tabagismoUsuario, String etilismo, String tipoEtilismo, String medicacaoAlopativa, String tipoMedicacaoAlopativa, String sPA, String tipoSPA, String etilismoUsuario, String medicaoAlopaticaUsuario, String sPAUsuario, String obsTriagemSPA, String vidaSexual, String metodoContraCeptivo, String qualMetodoContraCeptivo, String gestante, String aborto, String motivoAborto, String praticaAtividadeFisica, String qualAtividadeFisica, String trataPsicologica, String obsEstiloVida) {
         this.idLanc = idLanc;
+        this.idATN = idATN;
+        this.idAvaliaTOI = idAvaliaTOI;
+        this.idAvaliaTOII = idAvaliaTOII;
+        this.idHistoricoEduN = idHistoricoEduN;
+        this.idItemICTHEN = idItemICTHEN;
+        this.idHistoricoLabPN = idHistoricoLabPN;
+        this.idItemPTHPN = idItemPTHPN;
         this.statusLanc = statusLanc;
         this.DataLanc = DataLanc;
         this.idInternoCrc = idInternoCrc;
@@ -209,9 +217,6 @@ public class AtendimentoTerapeuta {
         this.obsEstiloVida = obsEstiloVida;
     }
 
-    public AtendimentoTerapeuta() {
-    }
-
     /**
      * @return the idLanc
      */
@@ -224,6 +229,104 @@ public class AtendimentoTerapeuta {
      */
     public void setIdLanc(int idLanc) {
         this.idLanc = idLanc;
+    }
+
+    /**
+     * @return the idATN
+     */
+    public int getIdATN() {
+        return idATN;
+    }
+
+    /**
+     * @param idATN the idATN to set
+     */
+    public void setIdATN(int idATN) {
+        this.idATN = idATN;
+    }
+
+    /**
+     * @return the idAvaliaTOI
+     */
+    public int getIdAvaliaTOI() {
+        return idAvaliaTOI;
+    }
+
+    /**
+     * @param idAvaliaTOI the idAvaliaTOI to set
+     */
+    public void setIdAvaliaTOI(int idAvaliaTOI) {
+        this.idAvaliaTOI = idAvaliaTOI;
+    }
+
+    /**
+     * @return the idAvaliaTOII
+     */
+    public int getIdAvaliaTOII() {
+        return idAvaliaTOII;
+    }
+
+    /**
+     * @param idAvaliaTOII the idAvaliaTOII to set
+     */
+    public void setIdAvaliaTOII(int idAvaliaTOII) {
+        this.idAvaliaTOII = idAvaliaTOII;
+    }
+
+    /**
+     * @return the idHistoricoEduN
+     */
+    public int getIdHistoricoEduN() {
+        return idHistoricoEduN;
+    }
+
+    /**
+     * @param idHistoricoEduN the idHistoricoEduN to set
+     */
+    public void setIdHistoricoEduN(int idHistoricoEduN) {
+        this.idHistoricoEduN = idHistoricoEduN;
+    }
+
+    /**
+     * @return the idItemICTHEN
+     */
+    public int getIdItemICTHEN() {
+        return idItemICTHEN;
+    }
+
+    /**
+     * @param idItemICTHEN the idItemICTHEN to set
+     */
+    public void setIdItemICTHEN(int idItemICTHEN) {
+        this.idItemICTHEN = idItemICTHEN;
+    }
+
+    /**
+     * @return the idHistoricoLabPN
+     */
+    public int getIdHistoricoLabPN() {
+        return idHistoricoLabPN;
+    }
+
+    /**
+     * @param idHistoricoLabPN the idHistoricoLabPN to set
+     */
+    public void setIdHistoricoLabPN(int idHistoricoLabPN) {
+        this.idHistoricoLabPN = idHistoricoLabPN;
+    }
+
+    /**
+     * @return the idItemPTHPN
+     */
+    public int getIdItemPTHPN() {
+        return idItemPTHPN;
+    }
+
+    /**
+     * @param idItemPTHPN the idItemPTHPN to set
+     */
+    public void setIdItemPTHPN(int idItemPTHPN) {
+        this.idItemPTHPN = idItemPTHPN;
     }
 
     /**

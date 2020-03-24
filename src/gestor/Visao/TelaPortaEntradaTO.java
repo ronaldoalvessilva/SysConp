@@ -5,19 +5,19 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleAtendimentoTerapia;
-import gestor.Controle.ControleAvaliacaoI;
-import gestor.Controle.ControleAvaliacaoII;
 import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Controle.ControleEvolucaoTerapia;
-import gestor.Controle.ControleHistoricoEducacional;
-import gestor.Controle.ControleHistoricoLaborativo;
-import gestor.Controle.ControleIncluirExperienciaProfissional;
-import gestor.Controle.ControleInclusaoCursosTO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovTerapiaOcupacional;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ControleAtendimentoTerapiaDAO;
+import gestor.Dao.ControleAvaliacaoIDAO;
+import gestor.Dao.ControleAvaliacaoIIDAO;
+import gestor.Dao.ControleHistoricoEducacionalDAO;
+import gestor.Dao.ControleHistoricoLaborativoDAO;
+import gestor.Dao.ControleIncluirExperienciaProfissionaDAO;
+import gestor.Dao.ControleInclusaoCursosTO_DAO;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;
@@ -74,23 +74,23 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtendimentoTerapeuta objAtend = new AtendimentoTerapeuta();
-    ControleAtendimentoTerapia control = new ControleAtendimentoTerapia();
+    ControleAtendimentoTerapiaDAO control = new ControleAtendimentoTerapiaDAO();
     EvolucaoTerapia objEvolu = new EvolucaoTerapia();
     ControleMovTerapiaOcupacional controle = new ControleMovTerapiaOcupacional();
     ControleEvolucaoTerapia controleEvolucao = new ControleEvolucaoTerapia();
     //
     AvaliacaoI objAvaliaI = new AvaliacaoI();
-    ControleAvaliacaoI controleAvaliacaoI = new ControleAvaliacaoI();
+    ControleAvaliacaoIDAO controleAvaliacaoI = new ControleAvaliacaoIDAO();
     //
     AvaliacaoII objAvaliaII = new AvaliacaoII();
-    ControleAvaliacaoII controleAvaliacaoII = new ControleAvaliacaoII();
+    ControleAvaliacaoIIDAO controleAvaliacaoII = new ControleAvaliacaoIIDAO();
     //
     HistoricoEducacionalLaboral objHistEducLabor = new HistoricoEducacionalLaboral();
-    ControleHistoricoEducacional controleHistEduca = new ControleHistoricoEducacional();
-    ControleInclusaoCursosTO controleCursosTO = new ControleInclusaoCursosTO();
+    ControleHistoricoEducacionalDAO controleHistEduca = new ControleHistoricoEducacionalDAO();
+    ControleInclusaoCursosTO_DAO controleCursosTO = new ControleInclusaoCursosTO_DAO();
     //
-    ControleHistoricoLaborativo controleHistLab = new ControleHistoricoLaborativo();
-    ControleIncluirExperienciaProfissional controleExpTO = new ControleIncluirExperienciaProfissional();
+    ControleHistoricoLaborativoDAO controleHistLab = new ControleHistoricoLaborativoDAO();
+    ControleIncluirExperienciaProfissionaDAO controleExpTO = new ControleIncluirExperienciaProfissionaDAO();
     // INFORMAR QUE O INTERNO FOI ATENDIDO NA ADMISSÃO E NA EVOLUÇÃO
     RegistroAtendimentoInternos objRegAtend = new RegistroAtendimentoInternos();
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
@@ -182,6 +182,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(pADMISSAO_TO);
         initComponents();
+        jTabbedPane1.setSelectedIndex(1);
         formataCampos();
         corCampos();
     }
@@ -209,7 +210,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel12 = new javax.swing.JLabel();
         jnomeInternoPesq = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBtPesquisaNome = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTabelaAtendimentoTerapia = new javax.swing.JTable();
         jPanel30 = new javax.swing.JPanel();
@@ -222,7 +223,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jIdAtend = new javax.swing.JTextField();
+        jIdAtendNovo = new javax.swing.JTextField();
         jStatusLanc = new javax.swing.JTextField();
         jDataLanc = new com.toedter.calendar.JDateChooser();
         jIdInterno = new javax.swing.JTextField();
@@ -600,12 +601,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
         jnomeInternoPesq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.setDefaultCapable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesquisaNome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesquisaNome.setContentAreaFilled(false);
+        jBtPesquisaNome.setDefaultCapable(false);
+        jBtPesquisaNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtPesquisaNomeActionPerformed(evt);
             }
         });
 
@@ -644,7 +645,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -665,7 +666,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jBtPesqData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton1)
+                    .addComponent(jBtPesquisaNome)
                     .addComponent(jnomeInternoPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -749,7 +750,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 543, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -781,9 +782,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Data ");
 
-        jIdAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdAtend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdAtend.setEnabled(false);
+        jIdAtendNovo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdAtendNovo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdAtendNovo.setEnabled(false);
 
         jStatusLanc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jStatusLanc.setForeground(new java.awt.Color(255, 0, 0));
@@ -815,7 +816,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdAtendNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -840,7 +841,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdAtend, jIdInterno});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdAtendNovo, jIdInterno});
 
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -853,7 +854,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                             .addComponent(jLabel2))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIdAtendNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -1017,8 +1018,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtConcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtImpressao, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1176,13 +1177,14 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel96)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxDominancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel108, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel102, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel104, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel97, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel108)
+                            .addComponent(jLabel102)
+                            .addComponent(jLabel104)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jComboBoxDominancia, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel97))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel99)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1228,9 +1230,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel104)
                     .addComponent(jComboBoxReabilitacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(jLabel98)
-                        .addComponent(jComboBoxDeficienciaOcupa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel98)
+                    .addComponent(jComboBoxDeficienciaOcupa, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel99)
@@ -1927,17 +1928,13 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                             .addComponent(jTipoMedicaoAlopatica, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                             .addComponent(jTipoEtilismo)
                             .addComponent(jTipoSPA))
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxMedicaoAlopaticaUsuario, 0, 0, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxSPAUsuario, 0, 0, Short.MAX_VALUE)))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxEtilismoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxTabagismoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBoxMedicaoAlopaticaUsuario, 0, 0, Short.MAX_VALUE)
+                                .addComponent(jComboBoxSPAUsuario, 0, 0, Short.MAX_VALUE))
+                            .addComponent(jComboBoxEtilismoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTabagismoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2535,11 +2532,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             .addComponent(jBtRefersCursos)
             .addComponent(jBtCancelarHistoricoEduca)
             .addComponent(jBtAuditoriaHistoricoEduca)
-            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jBtNovoHistoricoEduca)
-                .addComponent(jBtAlterarHistoricoEduca)
-                .addComponent(jBtExcluirHistoricoEduca)
-                .addComponent(jBtSalvarHistoricoEduca))
+            .addComponent(jBtAlterarHistoricoEduca)
+            .addComponent(jBtExcluirHistoricoEduca)
+            .addComponent(jBtSalvarHistoricoEduca)
+            .addComponent(jBtNovoHistoricoEduca)
         );
 
         jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Histórico Laboral", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 153, 0))); // NOI18N
@@ -2897,9 +2893,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         .addGap(2, 2, 2)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -3153,12 +3148,13 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     .addComponent(jLabel30)
                     .addComponent(jComboBoxIdentificoGostos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel32)
-                    .addComponent(jComboBoxParticipoProjetosImport, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel31)
-                        .addComponent(jComboBoxTenhoVariosInteresse, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxTenhoVariosInteresse, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel32)
+                        .addComponent(jComboBoxParticipoProjetosImport, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3, 3, 3))
         );
 
@@ -3960,10 +3956,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         if (jIDPesqLanc.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um ID para pesquisar.");
         } else {
-            preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
+            preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jIDPesqLanc.getText() + "'");
+                    + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE IdATN='" + jIDPesqLanc.getText() + "'");
         }
     }//GEN-LAST:event_jBtTodos1ActionPerformed
 
@@ -3988,9 +3984,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                        preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
+                        preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -4011,9 +4007,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
                         dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
                         dataFinal = formatoAmerica.format(jDataPesqFinal.getDate().getTime());
-                        preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
+                        preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                                 + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
                                 + "AND'" + dataFinal + "'");
                     }
@@ -4027,16 +4023,16 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
+            this.preencherAtendimentoTerapia("SELECT * FROM ADMISSAO_TERAPIA_PE "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
+                    + "ON ADMISSAO_TERAPIA_PE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc");
         } else {
             jtotalRegistros.setText("");
             limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtPesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaNomeActionPerformed
         // TODO add your handling code here:
         flag = 1;
         if (jnomeInternoPesq.getText().equals("")) {
@@ -4046,9 +4042,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             preencherAtendimentoTerapia("SELECT * FROM ATENDIMENTOTERAPIA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ATENDIMENTOTERAPIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE NomeInternoCrc LIKE'" + jnomeInternoPesq.getText() + "%'");
+                    + "WHERE NomeInternoCrc LIKE'%" + jnomeInternoPesq.getText() + "%'");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtPesquisaNomeActionPerformed
 
     private void jTabelaAtendimentoTerapiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAtendimentoTerapiaMouseClicked
         // TODO add your handling code here:
@@ -4075,12 +4071,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ATENDIMENTOTERAPIA "
+                conecta.executaSQL("SELECT * FROM ADMISSAO_TERAPIA_PE "
                         + "INNER JOIN PRONTUARIOSCRC "
-                        + "ON PRONTUARIOSCRC.IdInternoCrc=ATENDIMENTOTERAPIA.IdInternoCrc "
-                        + "WHERE IdLanc='" + idAtend + "'");
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ADMISSAO_TERAPIA_PE.IdInternoCrc "
+                        + "WHERE IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+                jIdAtendNovo.setText(String.valueOf(conecta.rs.getInt("IdATN")));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
                 jIdInterno.setText(conecta.rs.getString("IdInternoCrc"));
@@ -4090,7 +4086,16 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 if (caminho != null) {
                     javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
                     jFotoInternoTerapia.setIcon(i);
-                    jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_DEFAULT)));
+                    jFotoInternoTerapia.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoTerapia.getWidth(), jFotoInternoTerapia.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoTerapia.setIcon(icon);
                 }
                 // HISTÓRICO FAMILIAR
                 jComboBoxPaisVivos.setSelectedItem(conecta.rs.getString("PaisVivos"));
@@ -4249,12 +4254,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // HISTÓRICO EDUCACIONAL
             limparTabelaCursos();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL.IdLanc='" + idAtend + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEduN");
                 jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
                 jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
                 jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
@@ -4265,12 +4270,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE CURSOS PROFISSIONALIZANTES
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
                         + "INNER JOIN CURSOS "
-                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdLanc='" + idAtend + "'");
+                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso=CURSOS.IdCurso "
+                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                idItem = conecta.rs.getInt("IdItem");
+                idItem = conecta.rs.getInt("IdItemICTHEN");
                 DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela
                 do {
@@ -4298,12 +4303,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             limparTabelaExperiencia();
             jComboBoxQualProfissao.removeAllItems();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_PROFISSIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_PROFISSIONAL.IdLanc='" + idAtend + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLab");
+                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoEduN");
                 jComboBoxTemProfissao.setSelectedItem(conecta.rs.getString("TemProfissao"));
                 jComboBoxQualProfissao.addItem(conecta.rs.getString("QualProfissao"));
                 jComboBoxExperienciaProfissional.setSelectedItem(conecta.rs.getString("ExperienciaProfissional"));
@@ -4321,12 +4326,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE CURSOS PROFISSIONALIZANTES
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO "
                         + "INNER JOIN PROFISSAO "
-                        + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf=PROFISSAO.IdCodigoProf "
-                        + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdLanc='" + idAtend + "'");
+                        + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdCodigoProf=PROFISSAO.IdCodigoProf "
+                        + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdATN='" + idAtend + "'");
                 conecta.rs.first();
-                idItemProf = conecta.rs.getInt("IdItem");
+                idItemProf = conecta.rs.getInt("IdItemPTHPN");
                 DefaultTableModel dtmProf = (DefaultTableModel) jTabelaExperiencia.getModel();
                 dtmProf.getDataVector().clear(); // limpa a tabela
                 do {
@@ -4345,12 +4350,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // AVALIAÇÃO I
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM AVALIACAO_I "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON AVALIACAO_I.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE AVALIACAO_I.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM AVALIACAO_TO_I "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON AVALIACAO_TO_I.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE AVALIACAO_TO_I.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaI");
+                codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaTOI");
                 jComboBoxConhecoHabilidades.setSelectedItem(conecta.rs.getString("ConhecoHabilidades"));
                 jComboBoxAcreditaRealizacoes.setSelectedItem(conecta.rs.getString("AcreditaRealizacoes"));
                 jComboBoxEsperoResultados.setSelectedItem(conecta.rs.getString("EsperoResultados"));
@@ -4383,12 +4388,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // AVALIAÇÃO II
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM AVALIACAO_II "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON AVALIACAO_II.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE AVALIACAO_II.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM AVALIACAO_TO_II "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON AVALIACAO_TO_II.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE AVALIACAO_TO_II.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaII");
+                codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaTOII");
                 jComboBoxOrganizoTempo.setSelectedItem(conecta.rs.getString("OrganizoTempo"));
                 jComboBoxMantenhoPapeis.setSelectedItem(conecta.rs.getString("MantenhoPapeis"));
                 jComboBoxSouRotina.setSelectedItem(conecta.rs.getString("SouRotina"));
@@ -4416,7 +4421,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     jBtAuditoriaAvaliacaoII.setEnabled(true);
                 }
             } catch (Exception e) {
-            }           
+            }
         }
     }//GEN-LAST:event_jTabelaAtendimentoTerapiaMouseClicked
 
@@ -4468,9 +4473,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objAtend.setIdLanc(Integer.parseInt(jIdAtend.getText()));
+                    objAtend.setIdATN(Integer.parseInt(jIdAtendNovo.getText()));
                     control.excluirAtendTerapia(objAtend);
-                    objAtend.setIdLanc(Integer.parseInt(jIdAtend.getText()));
+                    objAtend.setIdLanc(Integer.parseInt(jIdAtendNovo.getText()));
                     controle.excluirMovTec(objAtend);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -4662,7 +4667,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         control.incluirAtendTerapia(objAtend);
                         buscarID();
-                        objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objAtend.setIdLanc(Integer.valueOf(jIdAtendNovo.getText()));
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.incluirMovTec(objAtend);
@@ -4679,11 +4684,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         objAtend.setDataUp(dataModFinal);
                         objAtend.setHoraUp(horaMov);
                         //
-                        objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objAtend.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
                         objAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         control.alterarAtendTerapia(objAtend);
-                        objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                        objAtend.setIdLanc(Integer.valueOf(jIdAtendNovo.getText()));
                         objAtend.setNomeInternoCrc(jNomeInterno.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.alterarMovTec(objAtend);
@@ -4716,9 +4721,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAtend.setStatusLanc(statusAtend);
-            objAtend.setIdLanc(Integer.parseInt(jIdAtend.getText()));
+            objAtend.setIdLanc(Integer.parseInt(jIdAtendNovo.getText()));
             control.finalizarAtendTerapia(objAtend);
-            objAtend.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+            objAtend.setIdLanc(Integer.valueOf(jIdAtendNovo.getText()));
             controle.finalizarMovTec(objAtend);
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -4745,7 +4750,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     private void jBtConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConcluirActionPerformed
         // TODO add your handling code here:
-        if (jIdAtend.getText().equals("")) {
+        if (jIdAtendNovo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não existe atendimento a ser concluído.");
         } else {
             verificarInternoRegistradoAdm();
@@ -4758,7 +4763,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
             objRegAtend.setAtendido(atendido);
             objRegAtend.setDataAtendimento(jDataLanc.getDate());
-            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+            objRegAtend.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
             objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
             //
             objRegAtend.setUsuarioUp(nameUser);
@@ -4773,7 +4778,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objRegAtend.setNomeDepartamento(nomeModuloTO);
             objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
             objRegAtend.setHorarioUp(horaMov);
-            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+            objRegAtend.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
             control_ATENDE.confirmarAtendimento(objRegAtend);
             JOptionPane.showMessageDialog(rootPane, "Registro concluído com sucesso.");
@@ -4794,10 +4799,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 String codItem = "" + jTabelaCursos.getValueAt(jTabelaCursos.getSelectedRow(), 0);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                    conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
                             + "INNER JOIN CURSOS "
-                            + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                            + "WHERE IdLanc='" + jIdAtend.getText() + "'AND ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso='" + codItem + "'");
+                            + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso=CURSOS.IdCurso "
+                            + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
+                            + "AND ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso='" + codItem + "'");
                     conecta.rs.first();
                     pesquisarPrioridadeCursos = conecta.rs.getInt("PrioridadeCurso");
                     if (pesquisarPrioridadeCursos == 0) {
@@ -4903,7 +4909,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 bloquearCampos();
-                objHistEducLabor.setIdHistoricoEdu(codigoHistoricoEduca);
+                objHistEducLabor.setIdHistoricoEduN(codigoHistoricoEduca);
                 // EXCLUIR OS DADOS DA TABELA ITENS_PROFISSAO_TO_HISTORICO_EDUCACIONAL
                 controleCursosTO.excluirCursos(objHistEducLabor);
                 limparTabelaCursos();
@@ -4935,10 +4941,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 objHistEducLabor.setInteresseEstudar((String) jComboBoxInteresseEstudar.getSelectedItem());
                 objHistEducLabor.setCursoProfissionalizante((String) jComboBoxCursoProfissionalizante.getSelectedItem());
                 objHistEducLabor.setDescricaoCurso((String) jComboBoxDescricaoCurso.getSelectedItem());
-                objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                objHistEducLabor.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
                 objHistEducLabor.setNomeInternoCrc(jNomeInterno.getText());
                 if (acao == 9) {
-                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtend.getText().equals(codigoRegistro)) {
+                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
                         JOptionPane.showMessageDialog(rootPane, "Registro ja foi gravado para esse interno.");
                     } else {
                         objHistEducLabor.setUsuarioInsert(nameUser);
@@ -4963,7 +4969,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     objHistEducLabor.setDataUp(dataModFinal);
                     objHistEducLabor.setHorarioUp(horaMov);
                     //
-                    objHistEducLabor.setIdHistoricoEdu(codigoHistoricoEduca);
+                    objHistEducLabor.setIdHistoricoEduN(codigoHistoricoEduca);
                     controleHistEduca.alterarHistoricoEduca(objHistEducLabor);
                     // ALTERAR OS DADOS DA TABELA ITENS_PROFISSAO_TO_HISTORICO_EDUCACIONAL
                     controleCursosTO.excluirCursos(objHistEducLabor);
@@ -5007,11 +5013,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 String codItemProf = "" + jTabelaExperiencia.getValueAt(jTabelaExperiencia.getSelectedRow(), 0);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL "
+                    conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO "
                             + "INNER JOIN PROFISSAO "
-                            + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf=PROFISSAO.IdCodigoProf "
-                            + "WHERE IdLanc='" + jIdAtend.getText() + "' "
-                            + "AND ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf='" + codItemProf + "'");
+                            + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdCodigoProf=PROFISSAO.IdCodigoProf "
+                            + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
+                            + "AND ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdCodigoProf='" + codItemProf + "'");
                     conecta.rs.first();
                 } catch (SQLException ex) {
                 }
@@ -5112,7 +5118,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 bloquearCampos();
-                objHistEducLabor.setIdHistoricoLab(codigoHistoricoProf);
+                objHistEducLabor.setIdHistoricoLabPN(codigoHistoricoProf);
                 // EXCLUIR OS DADOS DA TABELA ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL
                 controleExpTO.excluirExperiencia(objHistEducLabor);
                 limparTabelaExperiencia();
@@ -5143,7 +5149,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 objHistEducLabor.setExperienciaProfissional((String) jComboBoxExperienciaProfissional.getSelectedItem());
                 objHistEducLabor.setQualExperienciaProfissional((String) jComboBoxQualExperienciaProfissional.getSelectedItem());
                 objHistEducLabor.setDesejaTrabalharUnid((String) jComboBoxDesejaTrabalharUnid.getSelectedItem());
-                objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                objHistEducLabor.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
                 objHistEducLabor.setNomeInternoCrc(jNomeInterno.getText());
                 if (jRadioBtRemunerado.isSelected()) {
                     remuneracao = 0;
@@ -5154,7 +5160,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 }
                 objHistEducLabor.setTipoRemuneracao(remuneracao);
                 if (acao == 11) {
-                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtend.getText().equals(codigoRegistro)) {
+                    if (jIdInterno.getText().equals(codigoInterno) && jIdAtendNovo.getText().equals(codigoRegistro)) {
                         JOptionPane.showMessageDialog(rootPane, "Registro ja foi gravado para esse interno.");
                     } else {
                         objHistEducLabor.setUsuarioInsert(nameUser);
@@ -5178,7 +5184,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     objHistEducLabor.setDataUp(dataModFinal);
                     objHistEducLabor.setHorarioUp(horaMov);
                     //
-                    objHistEducLabor.setIdHistoricoLab(codigoHistoricoProf);
+                    objHistEducLabor.setIdHistoricoLabPN(codigoHistoricoProf);
                     controleHistLab.alterarHistoricoLabor(objHistEducLabor);
                     //
                     controleExpTO.excluirExperiencia(objHistEducLabor);
@@ -5262,7 +5268,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                objAvaliaI.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                objAvaliaI.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
                 objAvaliaI.setIdAvaliaI(codigoAvaliacaoI);
                 controleAvaliacaoI.excluirAvaliacaoI(objAvaliaI);
                 ExcluirAvaliacaoI();
@@ -5301,10 +5307,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objAvaliaI.setDeFamiliar((String) jComboBoxDeFamiliar.getSelectedItem());
             objAvaliaI.setReconhecoPapeis((String) jComboBoxReconhecoPapeis.getSelectedItem());
             objAvaliaI.setMantenhoVida((String) jComboBoxMantenhoVida.getSelectedItem());
-            objAvaliaI.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+            objAvaliaI.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
             objAvaliaI.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
             if (acao == 5) {
-                if (jIdAtend.getText().equals(codigoAtend) && jIdInterno.getText().equals(codigoInternoAtend)) {
+                if (jIdAtendNovo.getText().equals(codigoAtend) && jIdInterno.getText().equals(codigoInternoAtend)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAvaliaI.setUsuarioInsert(nameUser);
@@ -5398,7 +5404,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                objAvaliaII.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+                objAvaliaII.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
                 objAvaliaII.setIdAvaliaII(codigoAvaliacaoII);
                 controleAvaliacaoII.excluirAvaliacaoII(objAvaliaII);
                 ExcluirAvaliacaoII();
@@ -5436,10 +5442,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             objAvaliaII.setCostumoFrequentar((String) jComboBoxCostumoFrequentar.getSelectedItem());
             objAvaliaII.setDataAplicacao(jDataAplicacao.getDate());
             objAvaliaII.setResponsavelAplicacao(jResponsavelAplicacao.getText());
-            objAvaliaII.setIdLanc(Integer.valueOf(jIdAtend.getText()));
+            objAvaliaII.setIdATN(Integer.valueOf(jIdAtendNovo.getText()));
             objAvaliaII.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
             if (acao == 7) {
-                if (jIdAtend.getText().equals(codigoAtendII) && jIdInterno.getText().equals(codigoInternoAtendII)) {
+                if (jIdAtendNovo.getText().equals(codigoAtendII) && jIdInterno.getText().equals(codigoInternoAtendII)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAvaliaII.setUsuarioInsert(nameUser);
@@ -5461,7 +5467,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 objAvaliaII.setDataUp(dataModFinal);
                 objAvaliaII.setHorarioUp(horaMov);
                 //
-                objAvaliaII.setIdAvaliaII(codigoAvaliacaoII);
+                objAvaliaII.setIdAvaliaTOII(codigoAvaliacaoII);
                 controleAvaliacaoII.alterarAvaliacaoII(objAvaliaII);
                 //
                 objLog4();
@@ -5570,6 +5576,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JButton jBtNovoHistoricoEduca;
     private javax.swing.JButton jBtNovoHistoricoLabor;
     private javax.swing.JButton jBtPesqData;
+    private javax.swing.JButton jBtPesquisaNome;
     private javax.swing.JButton jBtRefersCursos;
     private javax.swing.JButton jBtRefersProfissao;
     private javax.swing.JButton jBtSair;
@@ -5582,7 +5589,6 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JButton jBtSalvarHistoricoEduca;
     private javax.swing.JButton jBtSalvarHistoricoLabor;
     private javax.swing.JButton jBtTodos1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBoxIntDom;
     private javax.swing.JCheckBox jCheckBoxIntQua;
@@ -5697,7 +5703,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     private javax.swing.JLabel jFotoInternoTerapia;
     private javax.swing.JTextField jIDPesqLanc;
-    public static javax.swing.JTextField jIdAtend;
+    public static javax.swing.JTextField jIdAtendNovo;
     public static javax.swing.JTextField jIdInterno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -5887,7 +5893,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-     public void formataCampos() {
+    public void formataCampos() {
         jQuantosFilhos.setDocument(new LimiteDigitosNum(4));
         jQuantoTabagismo.setDocument(new LimiteDigitosNum(4));
         jTipoEtilismo.setDocument(new LimiteDigitosAlfa(32));
@@ -5917,11 +5923,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     }
 
     public void corCampos() {
-        jIdAtend.setBackground(Color.white);
+        jIdAtendNovo.setBackground(Color.white);
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
         jIdInterno.setBackground(Color.white);
-        jNomeInterno.setBackground(Color.white); 
+        jNomeInterno.setBackground(Color.white);
         //
         jQuantosFilhos.setBackground(Color.white);
         jQuantoTabagismo.setBackground(Color.white);
@@ -6104,7 +6110,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     public void Novo() {
         // Limpara campos
-        jIdAtend.setText("");
+        jIdAtendNovo.setText("");
         jStatusLanc.setText("ABERTO");
         jDataLanc.setCalendar(Calendar.getInstance());
         jIdInterno.setText("");
@@ -6339,7 +6345,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jBtExcluirAvaliacaoII.setEnabled(!true);
         jBtSalvarAvaliacaoII.setEnabled(!true);
         jBtCancelarAvaliacaoII.setEnabled(!true);
-        jBtAuditoriaAvaliacaoII.setEnabled(!true);        
+        jBtAuditoriaAvaliacaoII.setEnabled(!true);
     }
 
     public void Alterar() {
@@ -6480,7 +6486,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     }
 
     public void Excluir() {
-        jIdAtend.setText("");
+        jIdAtendNovo.setText("");
         jStatusLanc.setText("");
         jDataLanc.setDate(null);
         jIdInterno.setText("");
@@ -6872,7 +6878,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
 
     public void Cancelar() {
         // Limpar campos caso seja uma insersão
-        if (jIdAtend.getText().equals("")) {
+        if (jIdAtendNovo.getText().equals("")) {
             //DESEMPENHO OCUPACIONAL
             jComboBoxDominancia.setSelectedItem("Destro");
             jComboBoxAmputacao.setSelectedItem("Não");
@@ -7170,7 +7176,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             jComboBoxPraticaAtividadeFisica.setEnabled(!true);
             jQualAtividadeFisica.setEnabled(!true);
             jComboBoxTrataPsicologico.setEnabled(!true);
-            jObsEstiloVida.setEnabled(!true);            
+            jObsEstiloVida.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
@@ -7436,12 +7442,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         if (codigoHistoricoEduca != 0) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEduN");
                 jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
                 jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
                 jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
@@ -7452,12 +7458,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE CURSOS PROFISSIONALIZANTES
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
                         + "INNER JOIN CURSOS "
-                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso=CURSOS.IdCurso "
+                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                idItem = conecta.rs.getInt("IdItem");
+                idItem = conecta.rs.getInt("IdItemICTHEN");
                 DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
@@ -7531,9 +7537,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void buscarCodigoHistoricoEduca() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL");
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO");
             conecta.rs.last();
-            codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+            codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEduN");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -7543,10 +7549,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         // VERIFICAR SE O INTERNO JÁ FOI CADASTRADO NESSE REGISTRO.
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL WHERE IdInternoCrc='" + jIdInterno.getText() + "'AND IdLanc='" + jIdAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
-            codigoRegistro = conecta.rs.getString("IdLanc");
+            codigoRegistro = conecta.rs.getString("IdATN");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -7577,7 +7585,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void incluirCursos() {
         // Grava os dados do arrayList na tabela
         for (int i = 0; i < jTabelaCursos.getRowCount(); i++) {
-            objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+            objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
             objHistEducLabor.setIdHistoricoEdu(codigoHistoricoEduca);
             objHistEducLabor.setIdCurso((int) jTabelaCursos.getValueAt(i, 0));
             objHistEducLabor.setDescricaoCurso((String) jTabelaCursos.getValueAt(i, 1));
@@ -7833,17 +7841,17 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jBtExcluirAvaliacaoII.setEnabled(!true);
         jBtSalvarAvaliacaoII.setEnabled(!true);
         jBtCancelarAvaliacaoII.setEnabled(!true);
-        jBtAuditoriaAvaliacaoII.setEnabled(!true);        
+        jBtAuditoriaAvaliacaoII.setEnabled(!true);
         // TABELA DE HISTORICO EDUCACIONAL
         if (codigoHistoricoEduca != 0) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEduN");
                 jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
                 jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
                 jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
@@ -7854,12 +7862,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE CURSOS PROFISSIONALIZANTES
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
                         + "INNER JOIN CURSOS "
-                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso=CURSOS.IdCurso "
+                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                idItem = conecta.rs.getInt("IdItem");
+                idItem = conecta.rs.getInt("IdItemICTHEN");
                 DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
@@ -7941,12 +7949,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         if (codigoHistoricoProf != 0) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_PROFISSIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_PROFISSIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_PROFISSIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_PROFISSIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLab");
+                codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLabPN");
                 jComboBoxTemProfissao.setSelectedItem(conecta.rs.getString("TemProfissao"));
                 jComboBoxQualProfissao.setSelectedItem(conecta.rs.getString("QualProfissao"));
                 jComboBoxExperienciaProfissional.setSelectedItem(conecta.rs.getString("ExperienciaProfissional"));
@@ -7956,12 +7964,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE EXPERIENCIAS PROFISSIONAIS
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO "
                         + "INNER JOIN PROFISSAO "
-                        + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdCodigoProf=PROFISSAO.IdCodigoProf "
-                        + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                        + "ON ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdCodigoProf=PROFISSAO.IdCodigoProf "
+                        + "WHERE ITENS_PROFISSAO_TO_HISTORICO_PROFISSIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                idItemProf = conecta.rs.getInt("IdItem");
+                idItemProf = conecta.rs.getInt("IdItemPTHPN");
                 DefaultTableModel dtmProf = (DefaultTableModel) jTabelaExperiencia.getModel();
                 dtmProf.getDataVector().clear(); // limpa a tabela 
                 do {
@@ -7996,12 +8004,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         if (codigoHistoricoEduca != 0) {
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL "
-                        + "INNER JOIN ATENDIMENTOTERAPIA "
-                        + "ON TO_HISTORICO_EDUCACIONAL.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                        + "WHERE TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                conecta.executaSQL("SELECT * FROM TO_HISTORICO_EDUCACIONAL_NOVO "
+                        + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                        + "ON TO_HISTORICO_EDUCACIONAL_NOVO.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                        + "WHERE TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEdu");
+                codigoHistoricoEduca = conecta.rs.getInt("IdHistoricoEduN");
                 jComboBoxEscreveProprioNome.setSelectedItem(conecta.rs.getString("EscreveProprioNome"));
                 jComboBoxSabeLerEscrever.setSelectedItem(conecta.rs.getString("SabeLerEscrever"));
                 jComboBoxNivelInstrucao.setSelectedItem(conecta.rs.getString("NivelInstrucao"));
@@ -8012,12 +8020,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
             // TABELA DE CURSOS PROFISSIONALIZANTES
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL "
+                conecta.executaSQL("SELECT * FROM ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO "
                         + "INNER JOIN CURSOS "
-                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdCurso=CURSOS.IdCurso "
-                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL.IdLanc='" + jIdAtend.getText() + "'");
+                        + "ON ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdCurso=CURSOS.IdCurso "
+                        + "WHERE ITENS_CURSOS_TO_HISTORICO_EDUCACIONAL_NOVO.IdATN='" + jIdAtendNovo.getText() + "'");
                 conecta.rs.first();
-                idItem = conecta.rs.getInt("IdItem");
+                idItem = conecta.rs.getInt("IdItemICTHEN");
                 DefaultTableModel dtmCursos = (DefaultTableModel) jTabelaCursos.getModel();
                 dtmCursos.getDataVector().clear(); // limpa a tabela 
                 do {
@@ -8048,9 +8056,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void buscarHistoricoLabor() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL");
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL_NOVO");
             conecta.rs.last();
-            codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLab");
+            codigoHistoricoProf = conecta.rs.getInt("IdHistoricoLabPN");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -8059,7 +8067,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void incluirExperiencia() {
         // Grava os dados do arrayList na tabela
         for (int i = 0; i < jTabelaExperiencia.getRowCount(); i++) {
-            objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+            objHistEducLabor.setIdAtend(Integer.valueOf(jIdAtendNovo.getText()));
             objHistEducLabor.setIdHistoricoLab(codigoHistoricoProf);
             objHistEducLabor.setIdProfissao((int) jTabelaExperiencia.getValueAt(i, 0));
             objHistEducLabor.setExperienciaProfissional((String) jTabelaExperiencia.getValueAt(i, 1));
@@ -8100,10 +8108,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         // VERIFICAR SE O INTERNO JÁ FOI CADASTRADO NESSE REGISTRO.
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL WHERE IdInternoCrc='" + jIdInterno.getText() + "'AND IdLanc='" + jIdAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM TO_HISTORICO_PROFISSIONAL_NOVO "
+                    + "WHERE IdInternoCrc='" + jIdInterno.getText() + "' "
+                    + "AND IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
             codigoInterno = conecta.rs.getString("IdInternoCrc");
-            codigoRegistro = conecta.rs.getString("IdLanc");
+            codigoRegistro = conecta.rs.getString("IdATN");
         } catch (Exception e) {
         }
         conecta.desconecta();
@@ -8352,12 +8362,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jBtAuditoria.setEnabled(true);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_I "
-                    + "INNER JOIN ATENDIMENTOTERAPIA "
-                    + "ON AVALIACAO_I.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                    + "WHERE AVALIACAO_I.IdLanc='" + jIdAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_I "
+                    + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                    + "ON AVALIACAO_TO_I.IdATN=ADMISSAO_TERAPIA_PE.IdATN "
+                    + "WHERE AVALIACAO_TO_I.IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
-            codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaI");
+            codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaTOI");
             jComboBoxConhecoHabilidades.setSelectedItem(conecta.rs.getString("ConhecoHabilidades"));
             jComboBoxAcreditaRealizacoes.setSelectedItem(conecta.rs.getString("AcreditaRealizacoes"));
             jComboBoxEsperoResultados.setSelectedItem(conecta.rs.getString("EsperoResultados"));
@@ -8393,9 +8403,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void buscarCodigoAvaliacaoI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_I");
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_I");
             conecta.rs.last();
-            codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaI");
+            codigoAvaliacaoI = conecta.rs.getInt("IdAvaliaTOI");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -8405,11 +8415,11 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void verificarCodigoAvaliacaoI() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_I "
-                    + "WHERE IdLanc='" + jIdAtend.getText() + "' "
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_I "
+                    + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
-            codigoAtend = conecta.rs.getString("IdLanc");
+            codigoAtend = conecta.rs.getString("IdATN");
             codigoInternoAtend = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
         }
@@ -8663,12 +8673,12 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         //
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_II "
-                    + "INNER JOIN ATENDIMENTOTERAPIA "
-                    + "ON AVALIACAO_II.IdLanc=ATENDIMENTOTERAPIA.IdLanc "
-                    + "WHERE AVALIACAO_II.IdLanc='" + jIdAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_II "
+                    + "INNER JOIN ADMISSAO_TERAPIA_PE "
+                    + "ON AVALIACAO_TO_II.IdATN=ADMISSAO_TERAPIA_PE.IdLanc "
+                    + "WHERE AVALIACAO_TO_II.IdATN='" + jIdAtendNovo.getText() + "'");
             conecta.rs.first();
-            codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaII");
+            codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaTOII");
             jComboBoxOrganizoTempo.setSelectedItem(conecta.rs.getString("OrganizoTempo"));
             jComboBoxMantenhoPapeis.setSelectedItem(conecta.rs.getString("MantenhoPapeis"));
             jComboBoxSouRotina.setSelectedItem(conecta.rs.getString("SouRotina"));
@@ -8703,9 +8713,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void buscarCodigoAvaliacaoII() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_II");
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_II");
             conecta.rs.last();
-            codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaII");
+            codigoAvaliacaoII = conecta.rs.getInt("IdAvaliaTOII");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -8715,23 +8725,23 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     public void verificarCodigoAvaliacaoII() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AVALIACAO_II "
-                    + "WHERE IdLanc='" + jIdAtend.getText() + "' "
+            conecta.executaSQL("SELECT * FROM AVALIACAO_TO_II "
+                    + "WHERE IdATN='" + jIdAtendNovo.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
-            codigoAtendII = conecta.rs.getString("IdLanc");
+            codigoAtendII = conecta.rs.getString("IdATN");
             codigoInternoAtendII = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
         }
         conecta.desconecta();
     }
-    
-   public void buscarID() {
+
+    public void buscarID() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTOTERAPIA");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_TERAPIA_PE");
             conecta.rs.last();
-            jIdAtend.setText(conecta.rs.getString("IdLanc"));
+            jIdAtendNovo.setText(conecta.rs.getString("IdATN"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do atendimento.");
         }
@@ -8753,7 +8763,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                 String ano = dataEntrada.substring(0, 4);
                 dataEntrada = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdLanc"), conecta.rs.getString("StatusLanc"), dataEntrada, conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdATN"), conecta.rs.getString("StatusLanc"), dataEntrada, conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -8807,13 +8817,13 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         jTabelaAtendimentoTerapia.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAtendimentoTerapia.getColumnModel().getColumn(2).setCellRenderer(centralizado);
 
-    }    
+    }
 
     public void objLog() {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendNovo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -8831,7 +8841,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela3);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendNovo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -8840,7 +8850,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela4);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendNovo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -8849,7 +8859,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela5);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendNovo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -8858,7 +8868,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela6);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdAtendNovo.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
