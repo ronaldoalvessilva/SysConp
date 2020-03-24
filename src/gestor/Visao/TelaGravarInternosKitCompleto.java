@@ -244,7 +244,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
                         }
-                    }                   
+                    }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
@@ -299,7 +299,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     public void buscarCodigoRegistroInternoKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
+            conecta.executaSQL("SELECT IdRegInternosKC FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
             conecta.rs.last();
             IdRegInternosKC = conecta.rs.getInt("IdRegInternosKC");
         } catch (Exception ERROR) {
@@ -312,7 +312,8 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
     public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT IdRegistroComp,IdInternoCrc "
+                    + "FROM ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();

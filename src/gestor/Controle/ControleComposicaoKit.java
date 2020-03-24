@@ -148,7 +148,10 @@ public class ControleComposicaoKit {
         conecta.abrirConexao();
         List<PavilhaoInternosSelecionados> listaInternosPavilhaoSelecionados = new ArrayList<PavilhaoInternosSelecionados>();
         try {
-            conecta.executaSQL("SELECT * FROM INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT DISTINCT INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
+                    + "INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc,PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc "
+                    + "FROM INTERNOS_PAVILHAO_KIT_LOTE "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "INNER JOIN COMPOSICAO_PAGAMENTO_KIT_INTERNOS_LOTE "

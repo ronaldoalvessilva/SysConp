@@ -53,7 +53,11 @@ public class ControlePavilhaoMontaKitMensal {
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT DISTINCT KITS_MENSAL_INTERNOS.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.Cnc,PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "KITS_MENSAL_INTERNOS.KitPago,KITS_MENSAL_INTERNOS.Utilizado, "
+                    + "KITS_MENSAL_INTERNOS.DataPrevisaoPro,PAVILHAO.IdPav,PAVILHAO.DescricaoPav "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                     + "INNER JOIN CELAS "

@@ -304,7 +304,7 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
     public void buscarCodigoRegistroProdutoKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
+            conecta.executaSQL("SELECT IdRegProdutosKC FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO");
             conecta.rs.last();
             IdRegProdutosKC = conecta.rs.getInt("IdRegProdutosKC");
         } catch (Exception ERROR) {
@@ -317,7 +317,8 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
     public void verificarProdutoBancoDados(int codigoReg, int codProdutoAC) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
+            conecta.executaSQL("SELECT IdRegistroComp,IdProd "
+                    + "FROM ITENS_PRODUTOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "WHERE IdRegistroComp='" + codigoReg + "' "
                     + "AND IdProd='" + codProdutoAC + "'");
             conecta.rs.last();

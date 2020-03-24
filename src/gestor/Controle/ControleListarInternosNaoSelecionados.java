@@ -28,7 +28,9 @@ public class ControleListarInternosNaoSelecionados {
         conecta.abrirConexao();
         List<ListarInternosNaoSelecionados> listaInternosNaoSelec = new ArrayList<ListarInternosNaoSelecionados>();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT DISTINCT INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,INTERNOS_PAVILHAO_KIT_LOTE.Utili "
+                    + "FROM PRONTUARIOSCRC  FROM PRONTUARIOSCRC "
                     + "INNER JOIN INTERNOS_PAVILHAO_KIT_LOTE "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=INTERNOS_PAVILHAO_KIT_LOTE.IdInternoCrc "
                     + "WHERE Utili='" + pUtili + "' "

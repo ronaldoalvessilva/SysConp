@@ -28,7 +28,10 @@ public class ControleListaInternosKitCompleto {
         conecta.abrirConexao();
         List<GravarInternosKitCompleto> listaInternosKitComp = new ArrayList<GravarInternosKitCompleto>();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT DISTINCT ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp, "
+                    + "ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.Gravado "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdInternoCrc "
                     + "WHERE ITENS_INTERNOS_AGRUPADOS_KIT_COMPLETO_INCOMPLETO.IdRegistroComp='" + jIdRegistroComp.getText() + "' "

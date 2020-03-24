@@ -98,12 +98,13 @@ public class ControleListarGravarProdutosKitCompleto {
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> listaInternosPavilhaoSelecionados = new ArrayList<ProdutoInternosKitLote>();
         try {
-//            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
-//                    + "INNER JOIN PRODUTOS_AC "
-//                    + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
-//                    + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "' "
-//                    + "AND ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd!=" + jTabelaProdutosKitCompleto.getValueAt(jTabelaProdutosKitCompleto.getSelectedRow(), 0) + "'");
-            conecta.executaSQL("SELECT * FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
+            conecta.executaSQL("SELECT DISTINCT "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdKit, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd, "
+                    + "PRODUTOS_AC.DescricaoProd,PRODUTOS_AC.UnidadeProd, "
+                    + "ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.QuantProd "
+                    + "FROM ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE "
                     + "INNER JOIN PRODUTOS_AC "
                     + "ON ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdProd=PRODUTOS_AC.IdProd "
                     + "WHERE ITENS_PRODUTOS_INTERNOS_PAVILHAO_KIT_LOTE.IdRegistroComp='" + jIdRegistroComp.getText() + "'");

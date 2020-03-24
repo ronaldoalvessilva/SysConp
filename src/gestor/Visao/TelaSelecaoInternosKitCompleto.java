@@ -426,7 +426,6 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
 //                ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
 //            }
             qtdInternos = 0;
-//            listarInternosKitIncompleto();
         } else if (tipoKitCI == 1) {
             while (jTabelaSelecaoInternosKit.getModel().getRowCount() > 0) {
                 ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
