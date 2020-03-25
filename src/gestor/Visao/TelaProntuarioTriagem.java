@@ -6619,7 +6619,7 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             jMaeInterno.setDocument(new LimiteDigitos(50));
             jPaiInterno.setDocument(new LimiteDigitos(50));
             jAlcunha.setDocument(new LimiteDigitosAlfa(30));
-            jSituacao.setDocument(new LimiteDigitos(50));
+            jSituacao.setDocument(new LimiteDigitosAlfa(50));
             jReligiao.setDocument(new LimiteDigitos(18));
             jProfissao.setDocument(new LimiteDigitos(35));
             jEndereco.setDocument(new LimiteDigitosAlfa(50));

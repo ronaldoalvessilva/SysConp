@@ -107,7 +107,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     String saidaMedico = "SAIDA PARA MEDICO";
     String saidaOutras = "OUTRAS SAIDAS";
     String saidaTemporaria = "SAIDA TEMPORARIA"; // MODIFICADO EM 08/07/2016 TORNOU-SE PADRÃO DA SECRETARIA
-    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR HUMANITARIA COVID-19";
+    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
     int flagItem;
     int codItem = 0;
     public static String idItem;
@@ -1642,7 +1642,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
                                                                                     mod.alterarSituacaoInterno(objProCrc);
                                                                                 }
-                                                                                // SE FOR SAIDA PRISAO DOMICILIAR HUMANITARIA COVID-19, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
+                                                                                // SE FOR SAIDA PRISAO DOMICILIAR HUMANITARIA COVID-19, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (23/03/2020)
                                                                                 if (jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());

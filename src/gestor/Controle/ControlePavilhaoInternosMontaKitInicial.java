@@ -31,6 +31,7 @@ public class ControlePavilhaoInternosMontaKitInicial {
     //
     String situacaoEntrada = "ENTRADA NA UNIDADE";
     String situacaoRetorno = "RETORNO A UNIDADE";
+    String pSAIDA_PRISAO_DOM = "PRISAO DOMICILIAR - COVID-19";
     int codPavilhao = 0;
     int codInterno = 0;
     String kitUtilizado = "Não";

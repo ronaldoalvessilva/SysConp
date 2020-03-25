@@ -915,7 +915,7 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
 
     private void jBtSelecionarUmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarUmActionPerformed
         // TODO add your handling code here:
-        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA")) {
+        if (jDestinoInterno.getText().equals("SAIDA TEMPORARIA") || jDestinoInterno.getText().equals("PRISAO DOMICILIAR - COVID-19")) {
             jDataPrevRetorno.setEnabled(true);
             jBtBuscarPrevisao.setEnabled(!true);
         }

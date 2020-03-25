@@ -93,6 +93,7 @@ public class ControleProdutosKitLote {
     }
 
     public List<ProdutoInternosKitLote> read() throws Exception {
+        qtdProd = 0;
         conecta.abrirConexao();
         List<ProdutoInternosKitLote> listaInternosPavilhaoSelecionados = new ArrayList<ProdutoInternosKitLote>();
         try {
