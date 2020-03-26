@@ -522,6 +522,11 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
                     }
+                    if (pTOTAL_REGISTROS_PRO == qtdInternos && pTOTAL_REGISTROS == qtdInternos) {
+                        jBtSair.setEnabled(true);
+                        JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                        dispose();
+                    }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
@@ -557,11 +562,6 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
                         }
-                    }
-                    if (pTOTAL_REGISTROS_PRO == qtdInternos && pTOTAL_REGISTROS == qtdInternos) {
-                        jBtSair.setEnabled(true);
-                        JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                        dispose();
                     }
                     try {
                     } catch (Exception e) {
