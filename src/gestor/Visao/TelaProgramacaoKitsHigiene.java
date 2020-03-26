@@ -2375,7 +2375,7 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     public void buscar_ID_KIT_DECENDIAL(int valor) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM KITS_HIGIENE_INTERNO "
+            conecta.executaSQL("SELECT KitDecendial,IdKit FROM KITS_HIGIENE_INTERNO "
                     + "WHERE KitDecendial='" + valor + "'");
             conecta.rs.first();
             idKitBusca = conecta.rs.getInt("IdKit");

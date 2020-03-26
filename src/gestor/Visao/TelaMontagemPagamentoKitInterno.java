@@ -3398,8 +3398,8 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
                 }
                 // KIT DECENDIAL
             } else if (pTipoKitCI == 2) {
-                qtdInternosKD = 0;
-                qtdInternos = 0;
+//                qtdInternosKD = 0;
+//                qtdInternos = 0;
                 DefaultTableModel dadosOrigem = (DefaultTableModel) jTabelaInternos.getModel();
                 PavilhaoInternoMontaKit d = new PavilhaoInternoMontaKit();
                 try {

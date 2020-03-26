@@ -310,7 +310,6 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
         // TODO add your handling code here:
         Integer rows = jTabelaInternosKitCompleto.getRowCount();
         Integer row = jTabelaSelecaoInternosKit.getRowCount();
-//        Integer row0 = jTabelaKitIncompleto.getRowCount();
         if (row == 0) {
             JOptionPane.showMessageDialog(rootPane, "É necessário pesquisar os internos primeiro.");
         } else {
@@ -326,21 +325,6 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
                     preencherTabelaInternosKitCompletos();
                     dispose();
                 }
-                // KIT INCOMPLETO
-//            } 
-//            else if (row0 == 0 && tipoKitCI == 0) {
-//                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
-//                        JOptionPane.YES_NO_OPTION);
-//                if (resposta == JOptionPane.YES_OPTION) {
-//                    if (tipoKitCI == 0) {
-//                        // APAGAR DADOS DA TABELA
-//                        while (jTabelaKitIncompleto.getModel().getRowCount() > 0) {
-//                            ((DefaultTableModel) jTabelaKitIncompleto.getModel()).removeRow(0);
-//                        }
-//                        preencherTabelaInternosKitIncompleto();
-//                        dispose();
-//                    }
-//                }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Já foram transferido todos os internos.");
             }
@@ -420,20 +404,13 @@ public class TelaSelecaoInternosKitCompleto extends javax.swing.JDialog {
 
     private void jBtBuscarInternosSelecionadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarInternosSelecionadosActionPerformed
         // TODO add your handling code here:
-        if (tipoKitCI == 0) {
-            // QUANDO FOR J=KIT INCOMPLETO CHAMAR ESSE METODO
-//            while (jTabelaKitIncompleto.getModel().getRowCount() > 0) {
-//                ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
-//            }
-            qtdInternos = 0;
-        } else if (tipoKitCI == 1) {
+            if (tipoKitCI == 1) {
             while (jTabelaSelecaoInternosKit.getModel().getRowCount() > 0) {
                 ((DefaultTableModel) jTabelaSelecaoInternosKit.getModel()).removeRow(0);
             }
             qtdInternos = 0;
             mostraSelecaoInternos();
         }
-
     }//GEN-LAST:event_jBtBuscarInternosSelecionadosActionPerformed
 
     /**
