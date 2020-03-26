@@ -118,7 +118,7 @@ public class TelaPesqInternosEventosAutor extends javax.swing.JInternalFrame {
         jTabelaPesqInternosRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome Completo do Interno"
@@ -224,9 +224,20 @@ public class TelaPesqInternosEventosAutor extends javax.swing.JInternalFrame {
                 jNomeInternoAutor.setText(conecta.rs.getString("NomeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
-                jFotoInternoAutor.setIcon(v);
-                jFotoInternoAutor.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoAutor.getWidth(), jFotoInternoAutor.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoAutor.setIcon(v);
+                    jFotoInternoAutor.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoAutor.getWidth(), jFotoInternoAutor.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoAutor.getWidth(), jFotoInternoAutor.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoAutor.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);

@@ -74,7 +74,6 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
         setLocationRelativeTo(montaKitProdComp);
         initComponents();
         listarTodosProdutosKitCompleto();
-//        gravarDadosBanco();
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
     }
 

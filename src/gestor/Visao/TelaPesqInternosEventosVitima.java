@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
- 
+
 /**
  *
  * @author user
@@ -119,7 +119,7 @@ public class TelaPesqInternosEventosVitima extends javax.swing.JInternalFrame {
         jTabelaPesqInternosRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternosRol.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno"
@@ -226,9 +226,20 @@ public class TelaPesqInternosEventosVitima extends javax.swing.JInternalFrame {
                 jNomeMaeInternoVitima.setText(conecta.rs.getString("MaeInternoCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
-                jFotoInternoVitima.setIcon(v);
-                jFotoInternoVitima.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoVitima.getWidth(), jFotoInternoVitima.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon v = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoVitima.setIcon(v);
+                    jFotoInternoVitima.setIcon(new ImageIcon(v.getImage().getScaledInstance(jFotoInternoVitima.getWidth(), jFotoInternoVitima.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoVitima.getWidth(), jFotoInternoVitima.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoVitima.setIcon(icon);
+                }
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);

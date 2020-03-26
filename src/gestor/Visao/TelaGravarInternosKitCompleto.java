@@ -543,10 +543,6 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                             jTabelaInternosKitSelecionados.scrollRectToVisible(rect);
                         } catch (java.lang.ClassCastException e) {
                         }
-//                        jTabelaInternosKitCompleto.setRowSelectionInterval(i, 1);
-//                        jProgressBar1.setValue((i + 1));
-                        //RETIRADO POR QUE QUANDO A TABELA SÓ TEM UMA LINHA ESTAVA
-                        //DANDO ERRO. TESTAR COM MAIS DE UMA LINHA.
                         if (i == 0) {
                             jTabelaInternosKitSelecionados.setRowSelectionInterval(i, 0);
                             jProgressBar1.setValue((i + 1));
@@ -562,7 +558,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         } catch (InterruptedException ex) {
                         }
                     }
-                     if (pTOTAL_REGISTROS_PRO == qtdInternos && pTOTAL_REGISTROS == qtdInternos) {
+                    if (pTOTAL_REGISTROS_PRO == qtdInternos && pTOTAL_REGISTROS == qtdInternos) {
                         jBtSair.setEnabled(true);
                         JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
                         dispose();
