@@ -308,16 +308,15 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                             controle.incluirProximoKitDecendial(objGravaIntComp);
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
-                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação 
+                            pTOTAL_REGISTROS_PRO = i + 1;
+                            jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
+                            jProgressBar1.setValue(i);
                         }
-                        pTOTAL_REGISTROS_PRO = i + 1;
-                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
-                        jProgressBar1.setValue(i);
-                    }
-                    jProgressBar1.setValue(100);
-                    if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
-                        JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                        dispose();
+                        jProgressBar1.setValue(100);
+                        if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                        }
                     }
                     try {
                         Thread.sleep(10);
@@ -369,7 +368,7 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
     public void buscarCodigoRegistroInternoKitCompleto() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM KITS_DECENDIAL_INTERNOS");
+            conecta.executaSQL("SELECT IdKitDecendial FROM KITS_DECENDIAL_INTERNOS");
             conecta.rs.last();
             IdRegInternosKC = conecta.rs.getInt("IdKitDecendial");
         } catch (Exception ERROR) {
@@ -382,7 +381,8 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
     public void verificarInternoBancoDados(int codigoReg, int codInternoCrc) {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM KITS_DECENDIAL_INTERNOS "
+            conecta.executaSQL("SELECT IdInternoCrc,IDREG_PROG "
+                    + "FROM KITS_DECENDIAL_INTERNOS "
                     + "WHERE IDREG_PROG='" + codigoReg + "' "
                     + "AND IdInternoCrc='" + codInternoCrc + "'");
             conecta.rs.last();

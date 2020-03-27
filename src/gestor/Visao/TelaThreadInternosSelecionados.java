@@ -386,11 +386,6 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                                 } catch (InterruptedException ex) {
                                 }
                             }
-//                            if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
-//                                jProgressBar1.setValue(100);
-//                                JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-//                                jBtSair.setEnabled(true);
-//                            }
                             try {
                             } catch (Exception e) {
                             }

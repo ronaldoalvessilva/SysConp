@@ -207,6 +207,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         MenuColaborador = new javax.swing.JMenu();
         FichaCadastral = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jAtividadesMensalUnidade = new javax.swing.JMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
         AgendaCompromissos = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
@@ -329,6 +331,15 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         Cadastros.add(MenuColaborador);
         Cadastros.add(jSeparator1);
 
+        jAtividadesMensalUnidade.setText("Atividades Mensal da Unidade");
+        jAtividadesMensalUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAtividadesMensalUnidadeActionPerformed(evt);
+            }
+        });
+        Cadastros.add(jAtividadesMensalUnidade);
+        Cadastros.add(jSeparator14);
+
         AgendaCompromissos.setText("Agenda de Compromissos Pessal");
         AgendaCompromissos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,6 +379,11 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         Consultas.add(jSeparator2);
 
         jMenuItem4.setText("Controle de Colaboradores");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         Consultas.add(jMenuItem4);
 
         jMenuBar1.add(Consultas);
@@ -1250,6 +1266,15 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jMenuItemPRORESActionPerformed
 
+    private void jAtividadesMensalUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtividadesMensalUnidadeActionPerformed
+        // TODO add your handling code here:
+//        TelaAtividadesMensalUnidade
+    }//GEN-LAST:event_jAtividadesMensalUnidadeActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1272,6 +1297,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Relatorios;
     private javax.swing.JMenuItem SolicitacaoComprasAdm;
     private javax.swing.JMenuItem SolicitantesCompras;
+    private javax.swing.JMenuItem jAtividadesMensalUnidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1301,6 +1327,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

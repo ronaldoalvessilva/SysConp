@@ -69,6 +69,16 @@
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jAtividadesMensalUnidade">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Atividades Mensal da Unidade"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtividadesMensalUnidadeActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator14">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="AgendaCompromissos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agenda de Compromissos Pessal"/>
@@ -116,6 +126,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Controle de Colaboradores"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

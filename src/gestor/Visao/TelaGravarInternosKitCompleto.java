@@ -522,7 +522,7 @@ public class TelaGravarInternosKitCompleto extends javax.swing.JDialog {
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
                     }
-                    if (pTOTAL_REGISTROS_PRO == qtdInternos && pTOTAL_REGISTROS == qtdInternos) {
+                    if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
                         jBtSair.setEnabled(true);
                         JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
                         dispose();
