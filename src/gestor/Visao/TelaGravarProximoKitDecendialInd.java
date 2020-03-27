@@ -314,6 +314,11 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
                     }
+                    jProgressBar1.setValue(100);
+                    if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                        JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                        dispose();
+                    }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
@@ -335,10 +340,6 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                             jTabelaDestino.scrollRectToVisible(rect);
                         } catch (java.lang.ClassCastException e) {
                         }
-//                        jTabelaDestino.setRowSelectionInterval(i, 1);
-//                        jProgressBar1.setValue((i + 1));
-                        //RETIRADO POR QUE QUANDO A TABELA SÓ TEM UMA LINHA ESTAVA
-                        //DANDO ERRO. TESTAR COM MAIS DE UMA LINHA.
                         if (i == 0) {
                             jTabelaDestino.setRowSelectionInterval(i, 0);
                             jProgressBar1.setValue((i + 1));
@@ -354,9 +355,6 @@ public class TelaGravarProximoKitDecendialInd extends javax.swing.JDialog {
                         } catch (InterruptedException ex) {
                         }
                     }
-                    jProgressBar1.setValue(0);
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
                     try {
                     } catch (Exception e) {
                     }
