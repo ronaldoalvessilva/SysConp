@@ -19,6 +19,10 @@ import static gestor.Visao.TelaProgramacaoKitsHigiene.jDataPrevisao;
 import static gestor.Visao.TelaProgramacaoKitsHigiene.jDataUltimoPagto;
 import static gestor.Visao.TelaProgramacaoKitsHigiene.jTabelaDestino;
 import static gestor.Visao.TelaProgramacaoKitsHigiene.idPROG;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jBtAuditoria;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jBtExcluirTodos;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jBtExcluirUm;
+import static gestor.Visao.TelaProgramacaoKitsHigiene.jBtImpressao;
 import java.awt.Rectangle;
 import java.util.Date;
 import javax.swing.JDialog;
@@ -71,7 +75,6 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
         this.setModal(modal);
         setLocationRelativeTo(gravarProximoKitQuinzenal);
         initComponents();
-        gravarDadosBanco();
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE); //Impedir que a janela seja fechada pelo X  
     }
 
@@ -93,6 +96,8 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
         jTOTAL_REG_COPIADO = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTOTAL_REG_GRAVADO = new javax.swing.JTextField();
+        jBtConfirmar = new javax.swing.JButton();
+        jBtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("...::: Gravar Internos para Próximo Kit :::...");
@@ -178,6 +183,24 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jBtConfirmar.setForeground(new java.awt.Color(0, 102, 0));
+        jBtConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/40_16x16.png"))); // NOI18N
+        jBtConfirmar.setText("Confirmar");
+        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarActionPerformed(evt);
+            }
+        });
+
+        jBtSair.setForeground(new java.awt.Color(204, 0, 0));
+        jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/shutdown-icone-6920-16.png"))); // NOI18N
+        jBtSair.setText("Sair");
+        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,22 +212,57 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtSair)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtConfirmar)
+                    .addComponent(jBtSair))
+                .addGap(3, 3, 3))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
+        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente confirmar essa operação?", "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            jBtConfirmar.setEnabled(!true);
+            jBtSair.setEnabled(!true);
+            gravarDadosBanco();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Operação Cancelada...");
+        }
+    }//GEN-LAST:event_jBtConfirmarActionPerformed
+
+    private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
+        // TODO add your handling code here:
+        jBtExcluirTodos.setEnabled(true);
+        jBtExcluirUm.setEnabled(true);
+        jBtImpressao.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        dispose();
+    }//GEN-LAST:event_jBtSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +338,8 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JButton jBtSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -338,13 +398,19 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
                             buscarCodigoRegistroInternoKitCompleto();
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                            pTOTAL_REGISTROS_PRO = i + 1;
-                            jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
-                            jProgressBar1.setValue(i);
-                        }
-                        jProgressBar1.setValue(100);
+                        }                        
+                        pTOTAL_REGISTROS_PRO = i + 1;
+                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
+                        jProgressBar1.setValue(i);
                         if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                            jProgressBar1.setValue(100);
                             JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                            jBtSair.setEnabled(true);
+                            jBtExcluirTodos.setEnabled(true);
+                            jBtExcluirUm.setEnabled(true);
+                            jBtImpressao.setEnabled(true);
+                            jBtAuditoria.setEnabled(true);
+                            dispose();
                         }
                     }
                     try {
@@ -379,7 +445,7 @@ public class TelaGravarProximoKitSemestralInd extends javax.swing.JDialog {
                         jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
                         jProgressBar1.setValue(i);
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } catch (InterruptedException ex) {
                         }
                         try {

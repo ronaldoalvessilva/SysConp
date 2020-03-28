@@ -345,6 +345,7 @@ public class TelaThreadInternosSelecionados extends javax.swing.JDialog {
                             if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
                                 JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
                                 jBtSair.setEnabled(true);
+                                dispose();
                             }
                             try {
                                 Thread.sleep(10);

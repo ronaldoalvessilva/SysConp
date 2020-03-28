@@ -2205,17 +2205,17 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jBtAdicionarTodos;
     private javax.swing.JButton jBtAdicionarUm;
-    private javax.swing.JButton jBtAuditoria;
-    private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtExcluirTodos;
-    private javax.swing.JButton jBtExcluirUm;
-    private javax.swing.JButton jBtImpressao;
+    public static javax.swing.JButton jBtAuditoria;
+    public static javax.swing.JButton jBtCancelar;
+    public static javax.swing.JButton jBtExcluirTodos;
+    public static javax.swing.JButton jBtExcluirUm;
+    public static javax.swing.JButton jBtImpressao;
     private javax.swing.JButton jBtNomePesquisa;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesquisaData;
     private javax.swing.JButton jBtPesquisaKit;
     private javax.swing.JButton jBtSair;
-    private javax.swing.JButton jBtSalvar;
+    public static javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtVoltarTodos;
     private javax.swing.JButton jBtVoltarUm;
     private javax.swing.JCheckBox jCheckBoxTodos;
@@ -2351,6 +2351,9 @@ public class TelaProgramacaoKitsHigiene extends javax.swing.JInternalFrame {
         bloquearBotoes();
         bloquearCampos();
         jBtNovo.setEnabled(true);
+        jBtExcluirTodos.setEnabled(true);
+        jBtExcluirUm.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
         jBtImpressao.setEnabled(true);
     }
 
