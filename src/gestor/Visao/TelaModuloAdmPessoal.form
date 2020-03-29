@@ -71,7 +71,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jAtividadesMensalUnidade">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atividades Mensal da Unidade"/>
+                <Property name="text" type="java.lang.String" value="AMRI - Atividades Mensal Realizada na Unidade"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtividadesMensalUnidadeActionPerformed"/>

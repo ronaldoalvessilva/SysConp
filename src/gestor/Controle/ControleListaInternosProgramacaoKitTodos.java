@@ -31,14 +31,21 @@ public class ControleListaInternosProgramacaoKitTodos {
         conecta.abrirConexao();
         List<GravarInternosKitCompleto> listaInternosKitComp = new ArrayList<GravarInternosKitCompleto>();
         try {
-            conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
+            conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc,PAVILHAO.IdPav, "
+                    + "PAVILHAO.DescricaoPav "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN ITENSLOCACAOINTERNO "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSLOCACAOINTERNO.IdInternoCrc "
                     + "INNER JOIN CELAS "
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "'"
+                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoENT + "' "
+                    + "OR PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRET + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();

@@ -39,9 +39,13 @@ public class ControleKitDecendialNomeInternoTodos {
                     + "INNER JOIN CELAS "
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
-                    + "ON CELAS.IdPav=PAVILHAO.IdPav "                   
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
                     + "WHERE NomeInternoCrc LIKE'%" + jNomeInternoPesq.getText() + "%' "
-                    + "AND PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "'");
+                    + "AND PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoENT + "' "
+                    + "OR NomeInternoCrc LIKE'%" + jNomeInternoPesq.getText() + "%' "
+                    + "AND PAVILHAO.DescricaoPav='" + jComboBoxPavilhao.getSelectedItem() + "' "
+                    + "AND PRONTUARIOSCRC.SituacaoCrc='" + situacaoRET + "'");
             while (conecta.rs.next()) {
                 GravarInternosKitCompleto pDigi = new GravarInternosKitCompleto();
                 pDigi.setIdInternoCrc(conecta.rs.getInt("IdInternoCrc"));

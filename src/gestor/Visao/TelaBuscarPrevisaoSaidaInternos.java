@@ -1249,7 +1249,6 @@ public class TelaBuscarPrevisaoSaidaInternos extends javax.swing.JInternalFrame 
                         objMovSaiRetornoEva.setNrDocRetorno(nrDocumentoRetorno);
                         objMovSaiRetornoEva.setDataEvasao(evadido);
                         controlMovSaiRet.incluirMovSaidaEvasao(objMovSaiRetornoEva); // Grava saida MOVISR para retorno de internos.      
-
                         //
                         pTOTAL_REGISTROS = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS));
