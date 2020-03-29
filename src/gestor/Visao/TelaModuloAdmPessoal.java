@@ -93,6 +93,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private TelaSolicitantesCompras objSoliComp = null;
     private TelaAgendaCompromissos objAgEventos = null;
     private TelaAprovarSolicitacaoCompras objAprovaSol = null;
+    private TelaAtividadesMensalUnidade objAtividadeMU = null;
     //
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -136,6 +137,16 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     public static String telaAprovadorSC_ADM = "Movimentação:Aprovar Solicitações de Compras:Solicitações de Compras";
     public static String telaAprovarItensSC_ADM = "Movimentação:Aprovar Itens Solicitação de Compras:Itens";
+    //ATIVIDADES MENSAL REALIZADA PELA UNIDADE
+    public static String telaAtividadeMensalManu_ADM = "Cadastro:Atividades Mensal da Unidade:Manutenção";
+    public static String telaAtividadeMensalSS_ADM = "Cadastro:Atividades Mensal da Unidade:Serviço Social";
+    public static String telaAtividadeMensalAL_ADM = "Cadastro:Atividades Mensal da Unidade:Alimentação Fornecida";
+    public static String telaAtividadeMensalAI_ADM = "Cadastro:Atividades Mensal da Unidade:Atendimento ao Interno";
+    public static String telaAtividadeMensalADI_ADM = "Cadastro:Atividades Mensal da Unidade:Atendimento Educação ao Interno";
+    public static String telaAtividadeMensalASMI_ADM = "Cadastro:Atividades Mensal da Unidade:Assistência Material do Interno";
+    public static String telaAtividadeMensalSI_ADM = "Cadastro:Atividades Mensal da Unidade:Segurança ao Interno";
+    public static String telaAtividadeMensalAJ_ADM = "Cadastro:Atividades Mensal da Unidade:Assistência Jurídica";
+    public static String telaAtividadeMensalALI_ADM = "Cadastro:Atividades Mensal da Unidade:Assistência Laborativa";
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
     String pNomeCD = "";
@@ -158,8 +169,17 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     //
     String pNomeAPR = "";
     String pNomeAPROI = "";
+    //ATIVIDADE MENSAL DA UNIDADE
+    String pNomeAMUM = "";
+    String pNomeASS = "";
+    String pNomeAL = "";
+    String pNomeAI = "";
+    String pNomeADI = "";
+    String pNomeASMI = "";
+    String pNomeSEI = "";
+    String pNomeAJ = "";
+    String pNomeALI = "";
     //
-
     public static int codigoUserADM = 0;
     public static int codUserAcessoADM = 0;
     public static int codigoUserGroupADM = 0;
@@ -1268,7 +1288,36 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
 
     private void jAtividadesMensalUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtividadesMensalUnidadeActionPerformed
         // TODO add your handling code here:
-//        TelaAtividadesMensalUnidade
+        buscarAcessoUsuario(telaAtividadeMensalManu_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAtividadeMensalManu_ADM) && codAbrirADM == 1) {
+            if (objAtividadeMU == null || objAtividadeMU.isClosed()) {
+                objAtividadeMU = new TelaAtividadesMensalUnidade();
+                jPainelAdmPessoal.add(objAtividadeMU);
+                objAtividadeMU.setVisible(true);
+            } else {
+                if (objAtividadeMU.isVisible()) {
+                    if (objAtividadeMU.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadeMU.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadeMU.toFront(); // traz para frente
+                        objAtividadeMU.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadeMU = new TelaAtividadesMensalUnidade();
+                    TelaModuloAdmPessoal.jPainelAdmPessoal.add(objAtividadeMU);//adicona frame ao JDesktopPane  
+                    objAtividadeMU.setVisible(true);
+                }
+            }
+            try {
+                objAtividadeMU.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jAtividadesMensalUnidadeActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1747,6 +1796,70 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             pNomeAPROI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        //ATIVIDADES MENSAL UNIDADE
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalManu_ADM + "'");
+            conecta.rs.first();
+            pNomeAMUM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalSS_ADM + "'");
+            conecta.rs.first();
+            pNomeASS = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalAL_ADM + "'");
+            conecta.rs.first();
+            pNomeAL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalAI_ADM + "'");
+            conecta.rs.first();
+            pNomeAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalADI_ADM + "'");
+            conecta.rs.first();
+            pNomeADI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalASMI_ADM + "'");
+            conecta.rs.first();
+            pNomeASMI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalSI_ADM + "'");
+            conecta.rs.first();
+            pNomeSEI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalAJ_ADM + "'");
+            conecta.rs.first();
+            pNomeAJ = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadeMensalALI_ADM + "'");
+            conecta.rs.first();
+            pNomeALI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // INICIO DA COMPARAÇÃO
         if (!pNomeCD.equals(telaCadastroDepartamento_ADM) || pNomeCD == null || pNomeCD.equals("")) {
             buscarCodigoModulo();
@@ -1837,6 +1950,61 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaAprovarItensSC_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ATIVIDADES MENSAL UNIDADE
+        if (!pNomeAMUM.equals(telaAprovarItensSC_ADM) || pNomeAMUM == null || pNomeAMUM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalManu_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeASS.equals(telaAtividadeMensalSS_ADM) || pNomeASS == null || pNomeASS.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalSS_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAL.equals(telaAtividadeMensalAL_ADM) || pNomeAL == null || pNomeAL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalAL_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAI.equals(telaAtividadeMensalAI_ADM) || pNomeAI == null || pNomeAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalAI_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeADI.equals(telaAtividadeMensalADI_ADM) || pNomeADI == null || pNomeADI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalADI_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeASMI.equals(telaAtividadeMensalASMI_ADM) || pNomeASMI == null || pNomeASMI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalASMI_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeSEI.equals(telaAtividadeMensalSI_ADM) || pNomeSEI == null || pNomeSEI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalSI_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAJ.equals(telaAtividadeMensalAJ_ADM) || pNomeAJ == null || pNomeAJ.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalAJ_ADM);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeALI.equals(telaAtividadeMensalAJ_ADM) || pNomeALI == null || pNomeALI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadeMensalALI_ADM);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }
