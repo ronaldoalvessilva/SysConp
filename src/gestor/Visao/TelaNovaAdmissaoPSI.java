@@ -13,7 +13,7 @@ import gestor.Controle.ControleParecerPsicologico;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAdminssaoPsicologiaDAO;
+import gestor.Controle.ControleAdminssaoPsicologiaDAO;
 import gestor.Dao.LimiteDigitos;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosSoNum;
