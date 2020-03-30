@@ -12,7 +12,7 @@ import gestor.Controle.ControleMovPedagogia;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAdmissaoPsicologicaDAO;
+import gestor.Controle.ControleAdmissaoPedagogicaDAO;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;
@@ -69,7 +69,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoPedagogicaNova objAdmPedago = new AdmissaoPedagogicaNova();
-    ControleAdmissaoPsicologicaDAO control = new ControleAdmissaoPsicologicaDAO();
+    ControleAdmissaoPedagogicaDAO control = new ControleAdmissaoPedagogicaDAO();
     ControleMovPedagogia controleMov = new ControleMovPedagogia();
     //
     EvolucaoPedagogica objEvolucaoAdmPedago = new EvolucaoPedagogica();

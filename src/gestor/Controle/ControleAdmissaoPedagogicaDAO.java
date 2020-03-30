@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoPedagogicaNova;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Ronaldo
  */
-public class ControleAdmissaoPsicologicaDAO {
+public class ControleAdmissaoPedagogicaDAO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoPedagogicaNova objAdmPedago = new AdmissaoPedagogicaNova();
