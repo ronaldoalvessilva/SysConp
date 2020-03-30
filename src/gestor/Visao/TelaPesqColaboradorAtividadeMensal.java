@@ -7,16 +7,12 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jBtZoonColaborador;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jCargoFunc;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jFotoColaborador;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jIDFunc;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jNomeFuncionario;
-import static gestor.Visao.TelaEntradaSaidaColaborador.jSetorFunc;
-import java.awt.Image;
+import static gestor.Visao.TelaAtividadesMensalUnidade.jColaboradorResponsavel;
+import static gestor.Visao.TelaAtividadesMensalUnidade.jDepartamento;
+import static gestor.Visao.TelaAtividadesMensalUnidade.jIdFunc;
+import static gestor.Visao.TelaAtividadesMensalUnidade.jMatricula;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -26,7 +22,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author user
  */
-public class TelaPesqColaborador extends javax.swing.JInternalFrame {
+public class TelaPesqColaboradorAtividadeMensal extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     int flag;
@@ -38,7 +34,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesqColaborador
      */
-    public TelaPesqColaborador() {
+    public TelaPesqColaboradorAtividadeMensal() {
         initComponents();
     }
 
@@ -133,15 +129,14 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTabelaPesqFunc);
         if (jTabelaPesqFunc.getColumnModel().getColumnCount() > 0) {
-            jTabelaPesqFunc.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaPesqFunc.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaPesqFunc.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaPesqFunc.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaPesqFunc.getColumnModel().getColumn(1).setMinWidth(200);
             jTabelaPesqFunc.getColumnModel().getColumn(1).setMaxWidth(200);
             jTabelaPesqFunc.getColumnModel().getColumn(2).setMinWidth(150);
             jTabelaPesqFunc.getColumnModel().getColumn(2).setMaxWidth(150);
         }
 
-        jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtEnviar.setForeground(new java.awt.Color(0, 0, 255));
         jBtEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/accept.png"))); // NOI18N
         jBtEnviar.setText("Enviar");
@@ -151,7 +146,6 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jBtSair.setForeground(new java.awt.Color(255, 0, 0));
         jBtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Log_Out_Icon_16.png"))); // NOI18N
         jBtSair.setText("Sair");
@@ -177,6 +171,9 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -185,9 +182,9 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtEnviar)
-                    .addComponent(jBtSair))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pesquisas", jPanel1);
@@ -218,7 +215,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                 nomeFuncionario = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 1);
                 jNomeColaborador.setText(nomeFuncionario);
                 idFunc = "" + jTabelaPesqFunc.getValueAt(jTabelaPesqFunc.getSelectedRow(), 0);
-                jIDFunc.setText(idFunc);
+                jIdFunc.setText(idFunc);
                 conecta.abrirConexao();
                 try {
                     conecta.executaSQL("SELECT * FROM COLABORADOR "
@@ -230,26 +227,10 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
                             + "AND StatusFunc='" + statusFunc + "'");
                     conecta.rs.first();
                     // Tabela Funcionarios
-                    jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
-                    jNomeFuncionario.setText(conecta.rs.getString("NomeFunc"));
-                    caminho = conecta.rs.getString("ImagemFunc");
-                    if (caminho != null) {
-                        javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                        jFotoColaborador.setIcon(i);
-                        jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT)));
-                    }
-                    // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-                    byte[] img2Bytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
-                    if (img2Bytes != null) {
-                        ImageIcon pic2 = null;
-                        pic2 = new ImageIcon(img2Bytes);
-                        Image scaled2 = pic2.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_DEFAULT);
-                        ImageIcon icon2 = new ImageIcon(scaled2);
-                        jFotoColaborador.setIcon(icon2);
-                    }
-                    jSetorFunc.setText(conecta.rs.getString("NomeDepartamento"));
-                    jCargoFunc.setText(conecta.rs.getString("NomeCargo"));
-                    jBtZoonColaborador.setEnabled(true);
+                    jIdFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
+                    jColaboradorResponsavel.setText(conecta.rs.getString("NomeFunc"));                    
+                    jDepartamento.setText(conecta.rs.getString("NomeDepartamento"));
+                    jMatricula.setText(conecta.rs.getString("MatriculaFunc"));                    
                     conecta.desconecta();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -337,7 +318,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqFunc.setModel(modelo);
-        jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(200);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setResizable(false);
@@ -368,7 +349,7 @@ public class TelaPesqColaborador extends javax.swing.JInternalFrame {
         String[] Colunas = new String[]{"Código", "Nome Colaborador", "Cargo", "Departamento"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqFunc.setModel(modelo);
-        jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(200);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setResizable(false);

@@ -352,7 +352,6 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         Cadastros.add(jSeparator1);
 
         jAtividadesMensalUnidade.setText("AMRI - Atividades Mensal Realizada na Unidade");
-        jAtividadesMensalUnidade.setEnabled(false);
         jAtividadesMensalUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAtividadesMensalUnidadeActionPerformed(evt);
