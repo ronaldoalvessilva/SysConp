@@ -2201,6 +2201,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //ALTERAR PORTA DE ENTRADA   
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabJur(pOPCAO_CONFIRMAR);
@@ -2214,6 +2215,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSAOENFERMEIRA
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_ENFERMEIRA)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2228,6 +2230,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ATENDIMENTOJURIDICO
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_JURIDICO)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2242,6 +2245,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSAO_PEDAGOGICA
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_PEDAGOGIA)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2256,6 +2260,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSAOPSI
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_PSICOLOGIA)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2270,6 +2275,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSAOSOCIAL
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_SERVICO)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2284,6 +2290,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSAODONTOLOGICA
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_ODONTOLOGIA)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2298,6 +2305,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //SE EXISTIR NA TABELA ADMISSA_TERAPIA
                                             } else if (jIDInterno.getText().equals(pID_INTERNO_TERAPIA)) {
                                                 objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                 objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                 objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                 objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2313,6 +2321,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                 //TABELA PORTA_ENTRADA
                                                 if (jIDInterno.getText().equals(pCODIGO_INTERNO_PE)) {
                                                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                    objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                     objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                     objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
                                                     objPortaEntrada.setHabMed(pOPCAO_CONFIRMAR);
@@ -2326,6 +2335,7 @@ public class TelaEntradasLote extends javax.swing.JInternalFrame {
                                                     control_PE.alterarPortaEntradaCRC(objPortaEntrada);
                                                 } else {
                                                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                                    objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
                                                     objPortaEntrada.setDataEntrada(jDataLancamento.getDate());
                                                     objPortaEntrada.setpSPEnf(pPSP_POSTO_MEDICO);
                                                     objPortaEntrada.setHabEnf(pOPCAO_CONFIRMAR);
