@@ -26,6 +26,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,6 +64,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
      */
     public TelaAtividadesMensalUnidade() {
         initComponents();
+        formatarCampos();
+        corCampos();
     }
 
     /**
@@ -144,23 +147,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPanel13 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
+        jAtendimentoPsiPreso = new javax.swing.JFormattedTextField();
+        jAtendimentoPsiFamilaPreso = new javax.swing.JFormattedTextField();
         jLabel116 = new javax.swing.JLabel();
         jLabel117 = new javax.swing.JLabel();
         jLabel118 = new javax.swing.JLabel();
         jLabel119 = new javax.swing.JLabel();
         jLabel120 = new javax.swing.JLabel();
-        jFormattedTextField91 = new javax.swing.JFormattedTextField();
-        jFormattedTextField92 = new javax.swing.JFormattedTextField();
-        jFormattedTextField93 = new javax.swing.JFormattedTextField();
-        jFormattedTextField94 = new javax.swing.JFormattedTextField();
-        jFormattedTextField95 = new javax.swing.JFormattedTextField();
+        jNumeroDiasVisitas = new javax.swing.JFormattedTextField();
+        jNumeroVistantesInternos = new javax.swing.JFormattedTextField();
+        jMediaVisitasDia = new javax.swing.JFormattedTextField();
+        jMediaVisitasInterno = new javax.swing.JFormattedTextField();
+        jNumeroCriancasVisitas = new javax.swing.JFormattedTextField();
         jPanel14 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        jPresoIdentCivil = new javax.swing.JFormattedTextField();
+        jPresoAtiviReligiosa = new javax.swing.JFormattedTextField();
         jPanel15 = new javax.swing.JPanel();
         jBtNovo1 = new javax.swing.JButton();
         jBtAlterar1 = new javax.swing.JButton();
@@ -190,15 +193,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jFormattedTextField5 = new javax.swing.JFormattedTextField();
-        jFormattedTextField6 = new javax.swing.JFormattedTextField();
-        jFormattedTextField7 = new javax.swing.JFormattedTextField();
-        jFormattedTextField8 = new javax.swing.JFormattedTextField();
-        jFormattedTextField9 = new javax.swing.JFormattedTextField();
-        jFormattedTextField10 = new javax.swing.JFormattedTextField();
-        jFormattedTextField11 = new javax.swing.JFormattedTextField();
-        jFormattedTextField12 = new javax.swing.JFormattedTextField();
-        jFormattedTextField13 = new javax.swing.JFormattedTextField();
+        jAlimentaServidaEmpContAlmoco = new javax.swing.JFormattedTextField();
+        jLanchesServidoVisita = new javax.swing.JFormattedTextField();
+        jAlimentaServidaEmpContJantar = new javax.swing.JFormattedTextField();
+        jAlimentaServidaEmpContLanche = new javax.swing.JFormattedTextField();
+        jAlimentaServidaServContCafe = new javax.swing.JFormattedTextField();
+        jAlimentaServidaEmpContCafe = new javax.swing.JFormattedTextField();
+        jAlimentaServidaServContAlmoco = new javax.swing.JFormattedTextField();
+        jAlimentaServidaServContJantar = new javax.swing.JFormattedTextField();
+        jAlimentaServidaServContLanche = new javax.swing.JFormattedTextField();
         jPanel19 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -227,19 +230,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
-        jFormattedTextField17 = new javax.swing.JFormattedTextField();
-        jFormattedTextField18 = new javax.swing.JFormattedTextField();
-        jFormattedTextField19 = new javax.swing.JFormattedTextField();
-        jFormattedTextField20 = new javax.swing.JFormattedTextField();
-        jFormattedTextField21 = new javax.swing.JFormattedTextField();
-        jFormattedTextField22 = new javax.swing.JFormattedTextField();
-        jFormattedTextField23 = new javax.swing.JFormattedTextField();
-        jFormattedTextField24 = new javax.swing.JFormattedTextField();
-        jFormattedTextField25 = new javax.swing.JFormattedTextField();
+        jAspectosSexual = new javax.swing.JFormattedTextField();
+        jAtendimentoMedClinico = new javax.swing.JFormattedTextField();
+        jAtendimentoMedPsi = new javax.swing.JFormattedTextField();
+        jAtendimentoEnfermagem = new javax.swing.JFormattedTextField();
+        jProcedimentoOdontologico = new javax.swing.JFormattedTextField();
+        jAtendimentoPsicologico = new javax.swing.JFormattedTextField();
+        jTratamentoAgravDiaginostico = new javax.swing.JFormattedTextField();
+        jPresoDoencaInfecto = new javax.swing.JFormattedTextField();
+        jPresoSaudeBucal = new javax.swing.JFormattedTextField();
         jFormattedTextField26 = new javax.swing.JFormattedTextField();
-        jFormattedTextField27 = new javax.swing.JFormattedTextField();
-        jFormattedTextField28 = new javax.swing.JFormattedTextField();
-        jFormattedTextField29 = new javax.swing.JFormattedTextField();
+        jPresosVacinados = new javax.swing.JFormattedTextField();
+        jControleDiabetes = new javax.swing.JFormattedTextField();
+        jControlHipertensao = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jBtNovo4 = new javax.swing.JButton();
@@ -254,11 +257,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPanel25 = new javax.swing.JPanel();
         jLabel131 = new javax.swing.JLabel();
         jLabel132 = new javax.swing.JLabel();
-        jFormattedTextField105 = new javax.swing.JFormattedTextField();
-        jFormattedTextField106 = new javax.swing.JFormattedTextField();
+        jPresoSentencaMatFreqEF = new javax.swing.JFormattedTextField();
+        jPresoSentenciadoEF = new javax.swing.JFormattedTextField();
         jPanel48 = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
-        jFormattedTextField30 = new javax.swing.JFormattedTextField();
+        jPresoAtiviPraticaEsportiva = new javax.swing.JFormattedTextField();
         jPanel7 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jBtNovo5 = new javax.swing.JButton();
@@ -289,36 +292,36 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel66 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
         jLabel70 = new javax.swing.JLabel();
-        jFormattedTextField31 = new javax.swing.JFormattedTextField();
-        jFormattedTextField32 = new javax.swing.JFormattedTextField();
-        jFormattedTextField33 = new javax.swing.JFormattedTextField();
-        jFormattedTextField34 = new javax.swing.JFormattedTextField();
-        jFormattedTextField35 = new javax.swing.JFormattedTextField();
-        jFormattedTextField36 = new javax.swing.JFormattedTextField();
-        jFormattedTextField37 = new javax.swing.JFormattedTextField();
-        jFormattedTextField38 = new javax.swing.JFormattedTextField();
-        jFormattedTextField39 = new javax.swing.JFormattedTextField();
-        jFormattedTextField40 = new javax.swing.JFormattedTextField();
-        jFormattedTextField41 = new javax.swing.JFormattedTextField();
-        jFormattedTextField42 = new javax.swing.JFormattedTextField();
-        jFormattedTextField43 = new javax.swing.JFormattedTextField();
-        jFormattedTextField44 = new javax.swing.JFormattedTextField();
-        jFormattedTextField45 = new javax.swing.JFormattedTextField();
-        jFormattedTextField46 = new javax.swing.JFormattedTextField();
-        jFormattedTextField47 = new javax.swing.JFormattedTextField();
-        jFormattedTextField48 = new javax.swing.JFormattedTextField();
+        jDesodorante = new javax.swing.JFormattedTextField();
+        jSabaoPo = new javax.swing.JFormattedTextField();
+        jSabonete = new javax.swing.JFormattedTextField();
+        jBermuda = new javax.swing.JFormattedTextField();
+        jCamisa = new javax.swing.JFormattedTextField();
+        jAparelhoBarbear = new javax.swing.JFormattedTextField();
+        jCremeDental = new javax.swing.JFormattedTextField();
+        jEscovaDente = new javax.swing.JFormattedTextField();
+        jAbsorvente = new javax.swing.JFormattedTextField();
+        jPapelHigienico = new javax.swing.JFormattedTextField();
+        jColchao = new javax.swing.JFormattedTextField();
+        jLencol = new javax.swing.JFormattedTextField();
+        jToalha = new javax.swing.JFormattedTextField();
+        jPote = new javax.swing.JFormattedTextField();
+        jCaneca = new javax.swing.JFormattedTextField();
+        jCobertor = new javax.swing.JFormattedTextField();
+        jChinelos = new javax.swing.JFormattedTextField();
+        jCuecas = new javax.swing.JFormattedTextField();
         jLabel69 = new javax.swing.JLabel();
-        jFormattedTextField49 = new javax.swing.JFormattedTextField();
+        jUniformeCompleto = new javax.swing.JFormattedTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
         jLabel72 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
-        jFormattedTextField50 = new javax.swing.JFormattedTextField();
-        jFormattedTextField51 = new javax.swing.JFormattedTextField();
-        jFormattedTextField52 = new javax.swing.JFormattedTextField();
-        jFormattedTextField53 = new javax.swing.JFormattedTextField();
+        jNumeroAparelhoConvive = new javax.swing.JFormattedTextField();
+        jObjetosMateriais = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciasInd = new javax.swing.JFormattedTextField();
+        jNumeroProcedRevista = new javax.swing.JFormattedTextField();
         jPanel37 = new javax.swing.JPanel();
         jBtNovo6 = new javax.swing.JButton();
         jBtAlterar6 = new javax.swing.JButton();
@@ -330,30 +333,30 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPanel38 = new javax.swing.JPanel();
         jLabel71 = new javax.swing.JLabel();
         jPanel43 = new javax.swing.JPanel();
-        jFormattedTextField64 = new javax.swing.JFormattedTextField();
-        jFormattedTextField65 = new javax.swing.JFormattedTextField();
+        jNumeroHorasTVCFTV = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaPessoasFerida = new javax.swing.JFormattedTextField();
         jLabel85 = new javax.swing.JLabel();
-        jFormattedTextField66 = new javax.swing.JFormattedTextField();
+        jNumeroFraldasEntreguePortaria = new javax.swing.JFormattedTextField();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
-        jFormattedTextField54 = new javax.swing.JFormattedTextField();
-        jFormattedTextField55 = new javax.swing.JFormattedTextField();
-        jFormattedTextField56 = new javax.swing.JFormattedTextField();
-        jFormattedTextField57 = new javax.swing.JFormattedTextField();
-        jFormattedTextField58 = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaPessoasRefem = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaPessoaFerida = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaRebeliao = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaTentaFuga = new javax.swing.JFormattedTextField();
+        jUmeroInterFuncVeiculosTP = new javax.swing.JFormattedTextField();
         jLabel78 = new javax.swing.JLabel();
-        jFormattedTextField59 = new javax.swing.JFormattedTextField();
+        jNumeroAbsorEntregueVisitas = new javax.swing.JFormattedTextField();
         jLabel79 = new javax.swing.JLabel();
-        jFormattedTextField60 = new javax.swing.JFormattedTextField();
+        jNumeroFalhasGerador = new javax.swing.JFormattedTextField();
         jLabel80 = new javax.swing.JLabel();
-        jFormattedTextField61 = new javax.swing.JFormattedTextField();
+        jNumeroHorasBloqueador = new javax.swing.JFormattedTextField();
         jLabel81 = new javax.swing.JLabel();
-        jFormattedTextField62 = new javax.swing.JFormattedTextField();
+        jNumeroDiasIntMetaPortatil = new javax.swing.JFormattedTextField();
         jLabel82 = new javax.swing.JLabel();
-        jFormattedTextField63 = new javax.swing.JFormattedTextField();
+        jNumeroDiasSemScannerCorpo = new javax.swing.JFormattedTextField();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
@@ -373,11 +376,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel94 = new javax.swing.JLabel();
         jLabel95 = new javax.swing.JLabel();
         jLabel96 = new javax.swing.JLabel();
-        jFormattedTextField86 = new javax.swing.JFormattedTextField();
-        jFormattedTextField87 = new javax.swing.JFormattedTextField();
-        jFormattedTextField88 = new javax.swing.JFormattedTextField();
-        jFormattedTextField89 = new javax.swing.JFormattedTextField();
-        jFormattedTextField90 = new javax.swing.JFormattedTextField();
+        jAtendInternoSAJ = new javax.swing.JFormattedTextField();
+        jAlvaraSolturaCumprido = new javax.swing.JFormattedTextField();
+        jLivarmentoCondRequerido = new javax.swing.JFormattedTextField();
+        jProgressaoRegDeferido = new javax.swing.JFormattedTextField();
+        jSaidasTempDeferida = new javax.swing.JFormattedTextField();
         jPanel42 = new javax.swing.JPanel();
         jLabel102 = new javax.swing.JLabel();
         jLabel103 = new javax.swing.JLabel();
@@ -391,8 +394,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel99 = new javax.swing.JLabel();
         jLabel100 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
-        jFormattedTextField67 = new javax.swing.JFormattedTextField();
-        jFormattedTextField68 = new javax.swing.JFormattedTextField();
+        jCondicionalRequerida = new javax.swing.JFormattedTextField();
+        jAlvarSolRecebeUni = new javax.swing.JFormattedTextField();
         jLabel109 = new javax.swing.JLabel();
         jLabel110 = new javax.swing.JLabel();
         jLabel111 = new javax.swing.JLabel();
@@ -400,23 +403,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel113 = new javax.swing.JLabel();
         jLabel114 = new javax.swing.JLabel();
         jLabel115 = new javax.swing.JLabel();
-        jFormattedTextField69 = new javax.swing.JFormattedTextField();
-        jFormattedTextField70 = new javax.swing.JFormattedTextField();
-        jFormattedTextField71 = new javax.swing.JFormattedTextField();
-        jFormattedTextField72 = new javax.swing.JFormattedTextField();
-        jFormattedTextField73 = new javax.swing.JFormattedTextField();
-        jFormattedTextField74 = new javax.swing.JFormattedTextField();
-        jFormattedTextField75 = new javax.swing.JFormattedTextField();
-        jFormattedTextField76 = new javax.swing.JFormattedTextField();
-        jFormattedTextField77 = new javax.swing.JFormattedTextField();
-        jFormattedTextField78 = new javax.swing.JFormattedTextField();
-        jFormattedTextField79 = new javax.swing.JFormattedTextField();
-        jFormattedTextField80 = new javax.swing.JFormattedTextField();
-        jFormattedTextField81 = new javax.swing.JFormattedTextField();
-        jFormattedTextField82 = new javax.swing.JFormattedTextField();
-        jFormattedTextField83 = new javax.swing.JFormattedTextField();
-        jFormattedTextField84 = new javax.swing.JFormattedTextField();
-        jFormattedTextField85 = new javax.swing.JFormattedTextField();
+        jAudienciaProvocadas = new javax.swing.JFormattedTextField();
+        jProgressaoRegRequerido = new javax.swing.JFormattedTextField();
+        jJuriPopular = new javax.swing.JFormattedTextField();
+        jAudienciaCumpridas = new javax.swing.JFormattedTextField();
+        jLiberdadeProvRequerida = new javax.swing.JFormattedTextField();
+        jJuriPopularCumprido = new javax.swing.JFormattedTextField();
+        jIndultosRequeridos = new javax.swing.JFormattedTextField();
+        jLiberdadeProvDeferida = new javax.swing.JFormattedTextField();
+        jRemissaoPenaRequerida = new javax.swing.JFormattedTextField();
+        jIndultosDeferidos = new javax.swing.JFormattedTextField();
+        jHabeasCorpusDeferido = new javax.swing.JFormattedTextField();
+        jLaudosPsiqEmitidos = new javax.swing.JFormattedTextField();
+        jTP = new javax.swing.JFormattedTextField();
+        jRemissaoPenaDeferida = new javax.swing.JFormattedTextField();
+        jLaudoPsicoEmitidos = new javax.swing.JFormattedTextField();
+        jHabeasCorpusImpetrados = new javax.swing.JFormattedTextField();
+        jSaidaTempRequerida = new javax.swing.JFormattedTextField();
         jPanel33 = new javax.swing.JPanel();
         jPanel44 = new javax.swing.JPanel();
         jBtNovo8 = new javax.swing.JButton();
@@ -436,18 +439,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel126 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
         jLabel128 = new javax.swing.JLabel();
-        jFormattedTextField96 = new javax.swing.JFormattedTextField();
-        jFormattedTextField97 = new javax.swing.JFormattedTextField();
-        jFormattedTextField98 = new javax.swing.JFormattedTextField();
-        jFormattedTextField99 = new javax.swing.JFormattedTextField();
-        jFormattedTextField100 = new javax.swing.JFormattedTextField();
-        jFormattedTextField101 = new javax.swing.JFormattedTextField();
-        jFormattedTextField102 = new javax.swing.JFormattedTextField();
+        jPresoMatProfissional = new javax.swing.JFormattedTextField();
+        jPresoCertificaCursoProf = new javax.swing.JFormattedTextField();
+        jPresoAtiviCantoTeatro = new javax.swing.JFormattedTextField();
+        jPresoAtiviLiteraria = new javax.swing.JFormattedTextField();
+        PresoAtiviArtesPlasticas = new javax.swing.JFormattedTextField();
+        jOcupacaoAtiviRecreaReligiosa = new javax.swing.JFormattedTextField();
+        jTriagemAtendInernos = new javax.swing.JFormattedTextField();
         jPanel47 = new javax.swing.JPanel();
         jLabel129 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
-        jFormattedTextField103 = new javax.swing.JFormattedTextField();
-        jFormattedTextField104 = new javax.swing.JFormattedTextField();
+        jPresoSentecaAtivLaboralRemun = new javax.swing.JFormattedTextField();
+        jPresoAtiviLaboralNaoRemunera = new javax.swing.JFormattedTextField();
         jPanel34 = new javax.swing.JPanel();
         jPanel60 = new javax.swing.JPanel();
         jBtNovo9 = new javax.swing.JButton();
@@ -462,10 +465,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPanel54 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jFormattedTextField14 = new javax.swing.JFormattedTextField();
+        jAlimentaServidaInternoCafe = new javax.swing.JFormattedTextField();
         jLabel32 = new javax.swing.JLabel();
-        jFormattedTextField15 = new javax.swing.JFormattedTextField();
-        jFormattedTextField16 = new javax.swing.JFormattedTextField();
+        jAlimentaServidaInternoAlmoco = new javax.swing.JFormattedTextField();
+        jAlimentaServidaInternoJantar = new javax.swing.JFormattedTextField();
         jPanel35 = new javax.swing.JPanel();
         jPanel58 = new javax.swing.JPanel();
         jLabel142 = new javax.swing.JLabel();
@@ -496,7 +499,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal04 = new javax.swing.JFormattedTextField();
         jPanel62 = new javax.swing.JPanel();
         jLabel145 = new javax.swing.JLabel();
-        jTotal9 = new javax.swing.JFormattedTextField();
+        jTotal09 = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -776,41 +779,54 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Data Up");
+        jLabel5.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Data Insert");
+        jLabel6.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Unidade Prisional");
+        jLabel7.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setText("Colaborador Responável");
+        jLabel8.setEnabled(false);
 
         jChave.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jChave.setEnabled(false);
 
         jStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jStatus.setForeground(new java.awt.Color(204, 0, 0));
         jStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jStatus.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jStatus.setEnabled(false);
 
         jUnidadePrisional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUnidadePrisional.setEnabled(false);
 
         jColaboradorResponsavel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jColaboradorResponsavel.setEnabled(false);
 
         jComboBoxMes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
         jComboBoxMes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMes.setEnabled(false);
 
         jComboBoxAno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060", "2061", "2062", "2063", "2064", "2065", "2066", "2067", "2068", "2069", "2070", "2071", "2072", "2073", "2074", "2075", "2076", "2077", "2078", "2079", "2080", "2081", "2082", "2083", "2084", "2085", "2086", "2087", "2088", "2089", "2090", "2091", "2092", "2093", "2094", "2095", "2096", "2097", "2098", "2099", "2100", "2101", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2113", "2114", "2115", "2116", "2117", "2118", "2119", "2120", "2121", "2122", "2123", "2124", "2125", "2126", "2127", "2128", "2129", "2130", "2131", "2132", "2133", "2134", "2135", "2136", "2137", "2138", "2139", "2140", "2141", "2142", "2143", "2144", "2145", "2146", "2147", "2148", "2149", "2150", "2151", "2152", "2153", "2154", "2155", "2156", "2157", "2158", "2159", "2160", "2161", "2162", "2163", "2164", "2165", "2166", "2167", "2168", "2169", "2170", "2171", "2172", "2173", "2174", "2175", "2176", "2177", "2178", "2179", "2180", "2181", "2182", "2183", "2184", "2185", "2186", "2187", "2188", "2189", "2190", "2191", "2192", "2193", "2194", "2195", "2196", "2197", "2198", "2199", "2200", "2201", "2202", "2203", "2204", "2205", "2206", "2207", "2208", "2209", "2210", "2211", "2212", "2213", "2214", "2215", "2216", "2217", "2218", "2219", "2220", "2221", "2222", "2223", "2224", "2225", "2226", "2227", "2228", "2229", "2230", "2231", "2232", "2233", "2234", "2235", "2236", "2237", "2238", "2239", "2240", "2241", "2242", "2243", "2244", "2245", "2246", "2247", "2248", "2249", "2250", "2251", "2252", "2253", "2254", "2255", "2256", "2257", "2258", "2259", "2260", "2261", "2262", "2263", "2264", "2265", "2266", "2267", "2268", "2269", "2270", "2271", "2272", "2273", "2274", "2275", "2276", "2277", "2278", "2279", "2280", "2281", "2282", "2283", "2284", "2285", "2286", "2287", "2288", "2289", "2290", "2291", "2292", "2293", "2294", "2295", "2296", "2297", "2298", "2299", "2300", "2301", "2302", "2303", "2304", "2305", "2306", "2307", "2308", "2309", "2310", "2311", "2312", "2313", "2314", "2315", "2316", "2317", "2318", "2319", "2320", "2321", "2322", "2323", "2324", "2325", "2326", "2327", "2328", "2329", "2330", "2331", "2332", "2333", "2334", "2335", "2336", "2337", "2338", "2339", "2340", "2341", "2342", "2343", "2344", "2345", "2346", "2347", "2348", "2349", "2350", "2351", "2352", "2353", " ", " ", " " }));
         jComboBoxAno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAno.setEnabled(false);
 
         jDataAtualizacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataAtualizacao.setEnabled(false);
 
         jDataCriacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataCriacao.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("População Atual");
+        jLabel9.setEnabled(false);
 
         jPopulacaoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPopulacaoAtual.setForeground(new java.awt.Color(204, 0, 0));
@@ -819,21 +835,28 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPopulacaoAtual.setToolTipText("");
         jPopulacaoAtual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPopulacaoAtual.setDisabledTextColor(new java.awt.Color(204, 0, 0));
+        jPopulacaoAtual.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel15.setText("Matricula");
+        jLabel15.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setText("Departamento");
+        jLabel16.setEnabled(false);
 
         jMatricula.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMatricula.setEnabled(false);
 
         jDepartamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDepartamento.setEnabled(false);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setText("Observação");
+        jLabel17.setEnabled(false);
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jScrollPane2.setEnabled(false);
 
         jObservacao.setColumns(20);
         jObservacao.setRows(5);
@@ -843,6 +866,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtPesquisarColaborador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesquisarColaborador.setText("Pesquisa");
         jBtPesquisarColaborador.setToolTipText("Pesquisar Colaborador");
+        jBtPesquisarColaborador.setEnabled(false);
         jBtPesquisarColaborador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarColaboradorActionPerformed(evt);
@@ -980,6 +1004,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterar.setToolTipText("Alterar");
         jBtAlterar.setContentAreaFilled(false);
+        jBtAlterar.setEnabled(false);
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -989,6 +1014,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluir.setToolTipText("Excluir");
         jBtExcluir.setContentAreaFilled(false);
+        jBtExcluir.setEnabled(false);
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -998,6 +1024,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvar.setToolTipText("Gravar");
         jBtSalvar.setContentAreaFilled(false);
+        jBtSalvar.setEnabled(false);
         jBtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSalvarActionPerformed(evt);
@@ -1007,6 +1034,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelar.setToolTipText("Cancelar");
         jBtCancelar.setContentAreaFilled(false);
+        jBtCancelar.setEnabled(false);
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -1034,6 +1062,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoria.setToolTipText("Auditoria");
         jBtAuditoria.setContentAreaFilled(false);
+        jBtAuditoria.setEnabled(false);
         jBtAuditoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAuditoriaActionPerformed(evt);
@@ -1155,13 +1184,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Atendimento psicossocial a família do preso");
 
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField1.setText("0");
+        jAtendimentoPsiPreso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoPsiPreso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoPsiPreso.setText("0");
+        jAtendimentoPsiPreso.setEnabled(false);
 
-        jFormattedTextField4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField4.setText("0");
+        jAtendimentoPsiFamilaPreso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoPsiFamilaPreso.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoPsiFamilaPreso.setText("0");
+        jAtendimentoPsiFamilaPreso.setEnabled(false);
 
         jLabel116.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel116.setText("Números de dias de visitas");
@@ -1172,35 +1203,40 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel117.setToolTipText("Número de visitantes de internos");
 
         jLabel118.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel118.setText("Número de visitantes por dia");
+        jLabel118.setText("Média de visitantes por dia");
         jLabel118.setToolTipText("Número de visitantes por dia");
 
         jLabel119.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel119.setText("Número Média de visitantes por interno");
+        jLabel119.setText("Média de visitantes por interno");
         jLabel119.setToolTipText("Número Média de visitantes por interno");
 
         jLabel120.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel120.setText("Número de crianças visitantes ");
 
-        jFormattedTextField91.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField91.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField91.setText("0");
+        jNumeroDiasVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroDiasVisitas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroDiasVisitas.setText("0");
+        jNumeroDiasVisitas.setEnabled(false);
 
-        jFormattedTextField92.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField92.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField92.setText("0");
+        jNumeroVistantesInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroVistantesInternos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroVistantesInternos.setText("0");
+        jNumeroVistantesInternos.setEnabled(false);
 
-        jFormattedTextField93.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField93.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField93.setText("0");
+        jMediaVisitasDia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMediaVisitasDia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jMediaVisitasDia.setText("0");
+        jMediaVisitasDia.setEnabled(false);
 
-        jFormattedTextField94.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField94.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField94.setText("0");
+        jMediaVisitasInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMediaVisitasInterno.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jMediaVisitasInterno.setText("0");
+        jMediaVisitasInterno.setEnabled(false);
 
-        jFormattedTextField95.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField95.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField95.setText("0");
+        jNumeroCriancasVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroCriancasVisitas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroCriancasVisitas.setText("0");
+        jNumeroCriancasVisitas.setEnabled(false);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -1218,17 +1254,17 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel119))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField95, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField94, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField93, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField92, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField91, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroCriancasVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMediaVisitasInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMediaVisitasDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroVistantesInternos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroDiasVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAtendimentoPsiFamilaPreso, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jAtendimentoPsiPreso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField1, jFormattedTextField4, jFormattedTextField91, jFormattedTextField92, jFormattedTextField93, jFormattedTextField94, jFormattedTextField95});
+        jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoPsiFamilaPreso, jAtendimentoPsiPreso, jMediaVisitasDia, jMediaVisitasInterno, jNumeroCriancasVisitas, jNumeroDiasVisitas, jNumeroVistantesInternos});
 
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1236,35 +1272,35 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel11)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAtendimentoPsiPreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel12)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAtendimentoPsiFamilaPreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel116)
-                    .addComponent(jFormattedTextField91, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroDiasVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel117)
-                    .addComponent(jFormattedTextField92, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroVistantesInternos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel118)
-                    .addComponent(jFormattedTextField93, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jMediaVisitasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel119)
-                    .addComponent(jFormattedTextField94, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jMediaVisitasInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField95, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroCriancasVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel120))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField1, jFormattedTextField4, jFormattedTextField91, jFormattedTextField92, jFormattedTextField93, jFormattedTextField94, jFormattedTextField95});
+        jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAtendimentoPsiFamilaPreso, jAtendimentoPsiPreso, jMediaVisitasDia, jMediaVisitasInterno, jNumeroCriancasVisitas, jNumeroDiasVisitas, jNumeroVistantesInternos});
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1276,13 +1312,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setText("Preso em atividade religiosa");
 
-        jFormattedTextField2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField2.setText("0");
+        jPresoIdentCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoIdentCivil.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoIdentCivil.setText("0");
+        jPresoIdentCivil.setEnabled(false);
 
-        jFormattedTextField3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField3.setText("0");
+        jPresoAtiviReligiosa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviReligiosa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviReligiosa.setText("0");
+        jPresoAtiviReligiosa.setEnabled(false);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1295,12 +1333,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField3))
+                    .addComponent(jPresoIdentCivil, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addComponent(jPresoAtiviReligiosa))
                 .addGap(8, 8, 8))
         );
 
-        jPanel14Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField2, jFormattedTextField3});
+        jPanel14Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPresoAtiviReligiosa, jPresoIdentCivil});
 
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1308,15 +1346,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel13)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoIdentCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel14)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoAtiviReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
-        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField2, jFormattedTextField3});
+        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPresoAtiviReligiosa, jPresoIdentCivil});
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1547,41 +1585,50 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel29.setForeground(new java.awt.Color(204, 0, 0));
         jLabel29.setText("Alimentação servida a servidores do CONTRATANTE (lanche)");
 
-        jFormattedTextField5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField5.setText("0");
+        jAlimentaServidaEmpContAlmoco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaEmpContAlmoco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaEmpContAlmoco.setText("0");
+        jAlimentaServidaEmpContAlmoco.setEnabled(false);
 
-        jFormattedTextField6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField6.setText("0");
+        jLanchesServidoVisita.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLanchesServidoVisita.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLanchesServidoVisita.setText("0");
+        jLanchesServidoVisita.setEnabled(false);
 
-        jFormattedTextField7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField7.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField7.setText("0");
+        jAlimentaServidaEmpContJantar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaEmpContJantar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaEmpContJantar.setText("0");
+        jAlimentaServidaEmpContJantar.setEnabled(false);
 
-        jFormattedTextField8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField8.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField8.setText("0");
+        jAlimentaServidaEmpContLanche.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaEmpContLanche.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaEmpContLanche.setText("0");
+        jAlimentaServidaEmpContLanche.setEnabled(false);
 
-        jFormattedTextField9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField9.setText("0");
+        jAlimentaServidaServContCafe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaServContCafe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaServContCafe.setText("0");
+        jAlimentaServidaServContCafe.setEnabled(false);
 
-        jFormattedTextField10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField10.setText("0");
+        jAlimentaServidaEmpContCafe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaEmpContCafe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaEmpContCafe.setText("0");
+        jAlimentaServidaEmpContCafe.setEnabled(false);
 
-        jFormattedTextField11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField11.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField11.setText("0");
+        jAlimentaServidaServContAlmoco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaServContAlmoco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaServContAlmoco.setText("0");
+        jAlimentaServidaServContAlmoco.setEnabled(false);
 
-        jFormattedTextField12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField12.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField12.setText("0");
+        jAlimentaServidaServContJantar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaServContJantar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaServContJantar.setText("0");
+        jAlimentaServidaServContJantar.setEnabled(false);
 
-        jFormattedTextField13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField13.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField13.setText("0");
+        jAlimentaServidaServContLanche.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaServContLanche.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaServContLanche.setText("0");
+        jAlimentaServidaServContLanche.setEnabled(false);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1593,43 +1640,43 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaServContLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaServContJantar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLanchesServidoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaEmpContCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaEmpContAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaEmpContJantar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaEmpContLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaServContCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jAlimentaServidaServContAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jPanel18Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField10, jFormattedTextField11, jFormattedTextField12, jFormattedTextField13, jFormattedTextField5, jFormattedTextField6, jFormattedTextField7, jFormattedTextField8, jFormattedTextField9});
+        jPanel18Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAlimentaServidaEmpContAlmoco, jAlimentaServidaEmpContCafe, jAlimentaServidaEmpContJantar, jAlimentaServidaEmpContLanche, jAlimentaServidaServContAlmoco, jAlimentaServidaServContCafe, jAlimentaServidaServContJantar, jAlimentaServidaServContLanche, jLanchesServidoVisita});
 
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1637,38 +1684,38 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel19)
-                    .addComponent(jFormattedTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLanchesServidoVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel21)
-                    .addComponent(jFormattedTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaEmpContCafe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel22)
-                    .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaEmpContAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel24)
-                    .addComponent(jFormattedTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaEmpContJantar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel25)
-                    .addComponent(jFormattedTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaEmpContLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel26)
-                    .addComponent(jFormattedTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaServContCafe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel27)
-                    .addComponent(jFormattedTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaServContAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAlimentaServidaServContJantar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAlimentaServidaServContLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
@@ -1828,7 +1875,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel36.setText("Atendimento enfermagem");
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel37.setText("Atendimento enfermagem");
+        jLabel37.setText("Procedimentos odontológicos");
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel38.setText("Atendimento psicológico");
@@ -1860,56 +1907,69 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel47.setText(" (Atendimentos odontológicos)");
 
-        jFormattedTextField17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField17.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField17.setText("0");
+        jAspectosSexual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAspectosSexual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAspectosSexual.setText("0");
+        jAspectosSexual.setEnabled(false);
 
-        jFormattedTextField18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField18.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField18.setText("0");
+        jAtendimentoMedClinico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoMedClinico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoMedClinico.setText("0");
+        jAtendimentoMedClinico.setEnabled(false);
 
-        jFormattedTextField19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField19.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField19.setText("0");
+        jAtendimentoMedPsi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoMedPsi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoMedPsi.setText("0");
+        jAtendimentoMedPsi.setEnabled(false);
 
-        jFormattedTextField20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField20.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField20.setText("0");
+        jAtendimentoEnfermagem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoEnfermagem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoEnfermagem.setText("0");
+        jAtendimentoEnfermagem.setEnabled(false);
 
-        jFormattedTextField21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField21.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField21.setText("0");
+        jProcedimentoOdontologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jProcedimentoOdontologico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jProcedimentoOdontologico.setText("0");
+        jProcedimentoOdontologico.setEnabled(false);
 
-        jFormattedTextField22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField22.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField22.setText("0");
+        jAtendimentoPsicologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoPsicologico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoPsicologico.setText("0");
+        jAtendimentoPsicologico.setEnabled(false);
 
-        jFormattedTextField23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField23.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField23.setText("0");
+        jTratamentoAgravDiaginostico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTratamentoAgravDiaginostico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTratamentoAgravDiaginostico.setText("0");
+        jTratamentoAgravDiaginostico.setEnabled(false);
 
-        jFormattedTextField24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField24.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField24.setText("0");
+        jPresoDoencaInfecto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoDoencaInfecto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoDoencaInfecto.setText("0");
+        jPresoDoencaInfecto.setEnabled(false);
 
-        jFormattedTextField25.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField25.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField25.setText("0");
+        jPresoSaudeBucal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoSaudeBucal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoSaudeBucal.setText("0");
+        jPresoSaudeBucal.setEnabled(false);
 
         jFormattedTextField26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jFormattedTextField26.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jFormattedTextField26.setEnabled(false);
 
-        jFormattedTextField27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField27.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField27.setText("0");
+        jPresosVacinados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresosVacinados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresosVacinados.setText("0");
+        jPresosVacinados.setEnabled(false);
 
-        jFormattedTextField28.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField28.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField28.setText("0");
+        jControleDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jControleDiabetes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jControleDiabetes.setText("0");
+        jControleDiabetes.setEnabled(false);
 
-        jFormattedTextField29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField29.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField29.setText("0");
+        jControlHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jControlHipertensao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jControlHipertensao.setText("0");
+        jControlHipertensao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -1921,38 +1981,38 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendimentoMedPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel36)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendimentoEnfermagem, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel37)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jProcedimentoOdontologico, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel38)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendimentoPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel39)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTratamentoAgravDiaginostico, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel47)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPresoSaudeBucal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel42)
                             .addComponent(jLabel43))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPresoDoencaInfecto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedTextField26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jAtendimentoMedClinico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jControleDiabetes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jControlHipertensao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel46)
@@ -1963,15 +2023,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel44)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel45)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPresosVacinados, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField17, jFormattedTextField18, jFormattedTextField19, jFormattedTextField20, jFormattedTextField21, jFormattedTextField22, jFormattedTextField23, jFormattedTextField24, jFormattedTextField25, jFormattedTextField27, jFormattedTextField28, jFormattedTextField29});
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAspectosSexual, jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresoSaudeBucal, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1985,52 +2045,52 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel35)
-                                    .addComponent(jFormattedTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jAtendimentoMedPsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFormattedTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jAtendimentoEnfermagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel37)
-                                    .addComponent(jFormattedTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jProcedimentoOdontologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel38)
-                                    .addComponent(jFormattedTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jAtendimentoPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel39)
-                                    .addComponent(jFormattedTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTratamentoAgravDiaginostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel40)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel47)
-                                    .addComponent(jFormattedTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPresoSaudeBucal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel41)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jLabel46)
-                                    .addComponent(jFormattedTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jPresoDoencaInfecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jFormattedTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jFormattedTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jControlHipertensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel42))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jFormattedTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jControleDiabetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel43)))
-                    .addComponent(jFormattedTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAtendimentoMedClinico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel44)
-                    .addComponent(jFormattedTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresosVacinados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -2164,13 +2224,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel132.setText("Preso sentenciado matriculado e frequentando o ensino formal ");
         jLabel132.setToolTipText("Preso sentenciado matriculado e frequentando o ensino formal ");
 
-        jFormattedTextField105.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField105.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField105.setText("0");
+        jPresoSentencaMatFreqEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoSentencaMatFreqEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoSentencaMatFreqEF.setText("0");
+        jPresoSentencaMatFreqEF.setEnabled(false);
 
-        jFormattedTextField106.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField106.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField106.setText("0");
+        jPresoSentenciadoEF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoSentenciadoEF.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoSentenciadoEF.setText("0");
+        jPresoSentenciadoEF.setEnabled(false);
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -2183,12 +2245,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel132))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField106, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField105, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoSentenciadoEF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresoSentencaMatFreqEF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField105, jFormattedTextField106});
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPresoSentencaMatFreqEF, jPresoSentenciadoEF});
 
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2196,15 +2258,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel131)
-                    .addComponent(jFormattedTextField106, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoSentenciadoEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel132)
-                    .addComponent(jFormattedTextField105, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoSentencaMatFreqEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jPanel25Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField105, jFormattedTextField106});
+        jPanel25Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPresoSentencaMatFreqEF, jPresoSentenciadoEF});
 
         jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true))));
 
@@ -2212,9 +2274,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel49.setForeground(new java.awt.Color(204, 0, 0));
         jLabel49.setText("Preso em atividade de prática de esportes");
 
-        jFormattedTextField30.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField30.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField30.setText("0");
+        jPresoAtiviPraticaEsportiva.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviPraticaEsportiva.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviPraticaEsportiva.setText("0");
+        jPresoAtiviPraticaEsportiva.setEnabled(false);
 
         javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
         jPanel48.setLayout(jPanel48Layout);
@@ -2224,7 +2287,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel49)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jFormattedTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPresoAtiviPraticaEsportiva, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel48Layout.setVerticalGroup(
@@ -2233,7 +2296,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel49)
-                    .addComponent(jFormattedTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoAtiviPraticaEsportiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(236, Short.MAX_VALUE))
         );
 
@@ -2414,84 +2477,103 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel70.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel70.setText("Papel higiênico (rolo c/ 30 metros)");
 
-        jFormattedTextField31.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField31.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField31.setText("0");
+        jDesodorante.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDesodorante.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jDesodorante.setText("0");
+        jDesodorante.setEnabled(false);
 
-        jFormattedTextField32.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField32.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField32.setText("0");
+        jSabaoPo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSabaoPo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jSabaoPo.setText("0");
+        jSabaoPo.setEnabled(false);
 
-        jFormattedTextField33.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField33.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField33.setText("0");
+        jSabonete.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSabonete.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jSabonete.setText("0");
+        jSabonete.setEnabled(false);
 
-        jFormattedTextField34.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField34.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField34.setText("0");
+        jBermuda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jBermuda.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jBermuda.setText("0");
+        jBermuda.setEnabled(false);
 
-        jFormattedTextField35.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField35.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField35.setText("0");
+        jCamisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCamisa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCamisa.setText("0");
+        jCamisa.setEnabled(false);
 
-        jFormattedTextField36.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField36.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField36.setText("0");
+        jAparelhoBarbear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAparelhoBarbear.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAparelhoBarbear.setText("0");
+        jAparelhoBarbear.setEnabled(false);
 
-        jFormattedTextField37.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField37.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField37.setText("0");
+        jCremeDental.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCremeDental.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCremeDental.setText("0");
+        jCremeDental.setEnabled(false);
 
-        jFormattedTextField38.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField38.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField38.setText("0");
+        jEscovaDente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEscovaDente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jEscovaDente.setText("0");
+        jEscovaDente.setEnabled(false);
 
-        jFormattedTextField39.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField39.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField39.setText("0");
+        jAbsorvente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAbsorvente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAbsorvente.setText("0");
+        jAbsorvente.setEnabled(false);
 
-        jFormattedTextField40.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField40.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField40.setText("0");
+        jPapelHigienico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPapelHigienico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPapelHigienico.setText("0");
+        jPapelHigienico.setEnabled(false);
 
-        jFormattedTextField41.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField41.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField41.setText("0");
+        jColchao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jColchao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jColchao.setText("0");
+        jColchao.setEnabled(false);
 
-        jFormattedTextField42.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField42.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField42.setText("0");
+        jLencol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLencol.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLencol.setText("0");
+        jLencol.setEnabled(false);
 
-        jFormattedTextField43.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField43.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField43.setText("0");
+        jToalha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jToalha.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jToalha.setText("0");
+        jToalha.setEnabled(false);
 
-        jFormattedTextField44.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField44.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField44.setText("0");
+        jPote.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPote.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPote.setText("0");
+        jPote.setEnabled(false);
 
-        jFormattedTextField45.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField45.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField45.setText("0");
+        jCaneca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCaneca.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCaneca.setText("0");
+        jCaneca.setEnabled(false);
 
-        jFormattedTextField46.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField46.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField46.setText("0");
+        jCobertor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCobertor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCobertor.setText("0");
+        jCobertor.setEnabled(false);
 
-        jFormattedTextField47.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField47.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField47.setText("0");
+        jChinelos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jChinelos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jChinelos.setText("0");
+        jChinelos.setEnabled(false);
 
-        jFormattedTextField48.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField48.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField48.setText("0");
+        jCuecas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCuecas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCuecas.setText("0");
+        jCuecas.setEnabled(false);
 
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel69.setText("Unif. especifico");
 
-        jFormattedTextField49.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField49.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField49.setText("0");
+        jUniformeCompleto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUniformeCompleto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jUniformeCompleto.setText("0");
+        jUniformeCompleto.setEnabled(false);
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -2509,11 +2591,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel65))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDesodorante, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel70)
@@ -2527,17 +2609,17 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel53))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField40, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField39, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField45, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField42, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField43, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField46, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPapelHigienico, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAbsorvente, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCremeDental, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jEscovaDente, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPote, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLencol, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jColchao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCobertor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel51)
                     .addComponent(jLabel52))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
@@ -2546,97 +2628,97 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addGroup(jPanel28Layout.createSequentialGroup()
                             .addComponent(jLabel68)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextField47, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jChinelos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel28Layout.createSequentialGroup()
                             .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextField49, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
                         .addComponent(jLabel66)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField48, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jCuecas, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField31, jFormattedTextField32, jFormattedTextField33, jFormattedTextField34, jFormattedTextField35, jFormattedTextField36, jFormattedTextField37, jFormattedTextField38, jFormattedTextField39, jFormattedTextField40, jFormattedTextField41, jFormattedTextField42, jFormattedTextField43, jFormattedTextField44, jFormattedTextField45, jFormattedTextField46, jFormattedTextField47, jFormattedTextField48, jFormattedTextField49});
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAbsorvente, jAparelhoBarbear, jBermuda, jCamisa, jCaneca, jChinelos, jCobertor, jColchao, jCremeDental, jCuecas, jDesodorante, jEscovaDente, jLencol, jPapelHigienico, jPote, jSabaoPo, jSabonete, jToalha, jUniformeCompleto});
 
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCuecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel66)
-                    .addComponent(jFormattedTextField46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCobertor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel51))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel52)
-                    .addComponent(jFormattedTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jColchao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel68)
-                    .addComponent(jFormattedTextField47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jChinelos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel69)
-                    .addComponent(jFormattedTextField42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLencol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel53))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel54)
-                    .addComponent(jFormattedTextField43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel55)
-                    .addComponent(jFormattedTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel56)
-                    .addComponent(jFormattedTextField45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel57)
-                    .addComponent(jFormattedTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel58)
-                    .addComponent(jFormattedTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCremeDental, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel59)
-                    .addComponent(jFormattedTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jEscovaDente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel60)
-                    .addComponent(jFormattedTextField39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAbsorvente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel70)
-                    .addComponent(jFormattedTextField40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPapelHigienico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel61)
-                    .addComponent(jFormattedTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel62))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel63)
-                    .addComponent(jFormattedTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDesodorante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel64)
-                    .addComponent(jFormattedTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel65))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField31, jFormattedTextField32, jFormattedTextField33, jFormattedTextField34, jFormattedTextField35, jFormattedTextField36, jFormattedTextField37, jFormattedTextField38, jFormattedTextField39, jFormattedTextField40, jFormattedTextField41, jFormattedTextField42, jFormattedTextField43, jFormattedTextField44, jFormattedTextField45, jFormattedTextField46, jFormattedTextField47, jFormattedTextField48, jFormattedTextField49});
+        jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAbsorvente, jAparelhoBarbear, jBermuda, jCamisa, jCaneca, jChinelos, jCobertor, jColchao, jCremeDental, jCuecas, jDesodorante, jEscovaDente, jLencol, jPapelHigienico, jPote, jSabaoPo, jSabonete, jToalha, jUniformeCompleto});
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -2670,8 +2752,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel72.setToolTipText("Nº de aparelho celular localizado na área de convivência dos internos");
 
         jLabel75.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel75.setText("Nº aparelho celular localizado na área convivência dos internos");
-        jLabel75.setToolTipText("Nº de aparelho celular localizado na área de convivência dos internos");
+        jLabel75.setText("Nº Objetos/materiais localizado na área convivência dos internos");
+        jLabel75.setToolTipText("Nº de objetos/materiais não autorizados localizados na área de convivência dos internos");
 
         jLabel76.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel76.setText("Nº procedimentos de revistas em cada cela");
@@ -2681,21 +2763,25 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel77.setText("Nº de ocorrência de indisciplinar");
         jLabel77.setToolTipText("Nº de ocorrência de indisciplinar");
 
-        jFormattedTextField50.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField50.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField50.setText("0");
+        jNumeroAparelhoConvive.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroAparelhoConvive.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroAparelhoConvive.setText("0");
+        jNumeroAparelhoConvive.setEnabled(false);
 
-        jFormattedTextField51.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField51.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField51.setText("0");
+        jObjetosMateriais.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jObjetosMateriais.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jObjetosMateriais.setText("0");
+        jObjetosMateriais.setEnabled(false);
 
-        jFormattedTextField52.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField52.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField52.setText("0");
+        jNumeroOcorrenciasInd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciasInd.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciasInd.setText("0");
+        jNumeroOcorrenciasInd.setEnabled(false);
 
-        jFormattedTextField53.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField53.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField53.setText("0");
+        jNumeroProcedRevista.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroProcedRevista.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroProcedRevista.setText("0");
+        jNumeroProcedRevista.setEnabled(false);
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
@@ -2710,14 +2796,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel75))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jFormattedTextField50, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField51, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField53, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jFormattedTextField52, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                    .addComponent(jNumeroAparelhoConvive, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jObjetosMateriais, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jNumeroProcedRevista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jNumeroOcorrenciasInd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel36Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField50, jFormattedTextField51, jFormattedTextField52, jFormattedTextField53});
+        jPanel36Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAparelhoConvive, jNumeroOcorrenciasInd, jNumeroProcedRevista, jObjetosMateriais});
 
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2725,23 +2811,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel72)
-                    .addComponent(jFormattedTextField50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroAparelhoConvive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel75)
-                    .addComponent(jFormattedTextField51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jObjetosMateriais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel76)
-                    .addComponent(jFormattedTextField53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroProcedRevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel77)
-                    .addComponent(jFormattedTextField52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciasInd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
-        jPanel36Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField50, jFormattedTextField51, jFormattedTextField52, jFormattedTextField53});
+        jPanel36Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jNumeroAparelhoConvive, jNumeroOcorrenciasInd, jNumeroProcedRevista, jObjetosMateriais});
 
         jPanel37.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -2837,22 +2923,25 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jPanel43.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jFormattedTextField64.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField64.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField64.setText("0");
+        jNumeroHorasTVCFTV.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroHorasTVCFTV.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroHorasTVCFTV.setText("0");
+        jNumeroHorasTVCFTV.setEnabled(false);
 
-        jFormattedTextField65.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField65.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField65.setText("0");
+        jNumeroOcorrenciaPessoasFerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaPessoasFerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaPessoasFerida.setText("0");
+        jNumeroOcorrenciaPessoasFerida.setEnabled(false);
 
         jLabel85.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel85.setForeground(new java.awt.Color(204, 0, 0));
         jLabel85.setText("Nº dias c/ interrup. serviços raios X, portal detector metais portátil");
         jLabel85.setToolTipText("Nº dias com interrupção dos serviços de raios X, portal detector de metais e portátil");
 
-        jFormattedTextField66.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField66.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField66.setText("0");
+        jNumeroFraldasEntreguePortaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroFraldasEntreguePortaria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroFraldasEntreguePortaria.setText("0");
+        jNumeroFraldasEntreguePortaria.setEnabled(false);
 
         jLabel86.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel86.setForeground(new java.awt.Color(204, 0, 0));
@@ -2879,70 +2968,80 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel90.setText("Nº fraldas Descartáveis entregues visitas procedimento portaria ");
         jLabel90.setToolTipText("Nº de fraldas Descartáveis e entregues as visitas em procedimento de portaria ");
 
-        jFormattedTextField54.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField54.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField54.setText("0");
+        jNumeroOcorrenciaPessoasRefem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaPessoasRefem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaPessoasRefem.setText("0");
+        jNumeroOcorrenciaPessoasRefem.setEnabled(false);
 
-        jFormattedTextField55.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField55.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField55.setText("0");
+        jNumeroOcorrenciaPessoaFerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaPessoaFerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaPessoaFerida.setText("0");
+        jNumeroOcorrenciaPessoaFerida.setEnabled(false);
 
-        jFormattedTextField56.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField56.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField56.setText("0");
+        jNumeroOcorrenciaRebeliao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaRebeliao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaRebeliao.setText("0");
+        jNumeroOcorrenciaRebeliao.setEnabled(false);
 
-        jFormattedTextField57.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField57.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField57.setText("0");
+        jNumeroOcorrenciaTentaFuga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaTentaFuga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaTentaFuga.setText("0");
+        jNumeroOcorrenciaTentaFuga.setEnabled(false);
 
-        jFormattedTextField58.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField58.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField58.setText("0");
+        jUmeroInterFuncVeiculosTP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jUmeroInterFuncVeiculosTP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jUmeroInterFuncVeiculosTP.setText("0");
+        jUmeroInterFuncVeiculosTP.setEnabled(false);
 
         jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(204, 0, 0));
         jLabel78.setText(" Nº de ocorrência de tentativa de fugas");
         jLabel78.setToolTipText(" Nº de ocorrência de tentativa de fugas");
 
-        jFormattedTextField59.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField59.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField59.setText("0");
+        jNumeroAbsorEntregueVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroAbsorEntregueVisitas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroAbsorEntregueVisitas.setText("0");
+        jNumeroAbsorEntregueVisitas.setEnabled(false);
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel79.setForeground(new java.awt.Color(204, 0, 0));
         jLabel79.setText("Nº de ocorrência de rebelião ");
         jLabel79.setToolTipText("Nº de ocorrência de rebelião ");
 
-        jFormattedTextField60.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField60.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField60.setText("0");
+        jNumeroFalhasGerador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroFalhasGerador.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroFalhasGerador.setText("0");
+        jNumeroFalhasGerador.setEnabled(false);
 
         jLabel80.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel80.setForeground(new java.awt.Color(204, 0, 0));
         jLabel80.setText("Nº de ocorrência pessoa ferida");
         jLabel80.setToolTipText("Nº de ocorrência pessoa ferida");
 
-        jFormattedTextField61.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField61.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField61.setText("0");
+        jNumeroHorasBloqueador.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroHorasBloqueador.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroHorasBloqueador.setText("0");
+        jNumeroHorasBloqueador.setEnabled(false);
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel81.setForeground(new java.awt.Color(204, 0, 0));
         jLabel81.setText("Nº de ocorrência de pessoas tomadas como refém");
         jLabel81.setToolTipText("Nº de ocorrência de pessoas tomadas como refém");
 
-        jFormattedTextField62.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField62.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField62.setText("0");
+        jNumeroDiasIntMetaPortatil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroDiasIntMetaPortatil.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroDiasIntMetaPortatil.setText("0");
+        jNumeroDiasIntMetaPortatil.setEnabled(false);
 
         jLabel82.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel82.setForeground(new java.awt.Color(204, 0, 0));
         jLabel82.setText("Nº de ocorrência de pessoas gravemente feridas ou mortas");
         jLabel82.setToolTipText("Nº de ocorrência de pessoas gravemente feridas ou mortas");
 
-        jFormattedTextField63.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField63.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField63.setText("0");
+        jNumeroDiasSemScannerCorpo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroDiasSemScannerCorpo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroDiasSemScannerCorpo.setText("0");
+        jNumeroDiasSemScannerCorpo.setEnabled(false);
 
         jLabel83.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel83.setForeground(new java.awt.Color(204, 0, 0));
@@ -2976,23 +3075,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel89))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField64, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField65, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField66, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField54, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField55, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField56, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField57, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField58, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField59, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField60, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField61, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField63, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField62, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroHorasTVCFTV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaPessoasFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroFraldasEntreguePortaria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaPessoasRefem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaPessoaFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaRebeliao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jUmeroInterFuncVeiculosTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroAbsorEntregueVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroFalhasGerador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroHorasBloqueador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroDiasSemScannerCorpo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroDiasIntMetaPortatil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField54, jFormattedTextField55, jFormattedTextField56, jFormattedTextField57, jFormattedTextField58, jFormattedTextField59, jFormattedTextField60, jFormattedTextField61, jFormattedTextField62, jFormattedTextField63, jFormattedTextField64, jFormattedTextField65, jFormattedTextField66});
+        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAbsorEntregueVisitas, jNumeroDiasIntMetaPortatil, jNumeroDiasSemScannerCorpo, jNumeroFalhasGerador, jNumeroFraldasEntreguePortaria, jNumeroHorasBloqueador, jNumeroHorasTVCFTV, jNumeroOcorrenciaPessoaFerida, jNumeroOcorrenciaPessoasFerida, jNumeroOcorrenciaPessoasRefem, jNumeroOcorrenciaRebeliao, jNumeroOcorrenciaTentaFuga, jUmeroInterFuncVeiculosTP});
 
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3000,54 +3099,54 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel78)
-                    .addComponent(jFormattedTextField57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel79)
-                    .addComponent(jFormattedTextField56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaRebeliao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel80)
-                    .addComponent(jFormattedTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaPessoaFerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel81)
-                    .addComponent(jFormattedTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaPessoasRefem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel82)
-                    .addComponent(jFormattedTextField65, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaPessoasFerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel83)
-                    .addComponent(jFormattedTextField64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroHorasTVCFTV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel84)
-                    .addComponent(jFormattedTextField63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroDiasSemScannerCorpo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel85)
-                    .addComponent(jFormattedTextField62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroDiasIntMetaPortatil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel86)
-                    .addComponent(jFormattedTextField58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jUmeroInterFuncVeiculosTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel87)
-                    .addComponent(jFormattedTextField60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroFalhasGerador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel88)
-                    .addComponent(jFormattedTextField61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroHorasBloqueador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel89)
-                    .addComponent(jFormattedTextField59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroAbsorEntregueVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField66, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroFraldasEntreguePortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel90)))
         );
 
@@ -3194,25 +3293,30 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel96.setText("Saída Temporárias Deferidas");
         jLabel96.setToolTipText("Saída Temporárias Deferidas");
 
-        jFormattedTextField86.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField86.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField86.setText("0");
+        jAtendInternoSAJ.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendInternoSAJ.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendInternoSAJ.setText("0");
+        jAtendInternoSAJ.setEnabled(false);
 
-        jFormattedTextField87.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField87.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField87.setText("0");
+        jAlvaraSolturaCumprido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlvaraSolturaCumprido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlvaraSolturaCumprido.setText("0");
+        jAlvaraSolturaCumprido.setEnabled(false);
 
-        jFormattedTextField88.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField88.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField88.setText("0");
+        jLivarmentoCondRequerido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLivarmentoCondRequerido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLivarmentoCondRequerido.setText("0");
+        jLivarmentoCondRequerido.setEnabled(false);
 
-        jFormattedTextField89.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField89.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField89.setText("0");
+        jProgressaoRegDeferido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jProgressaoRegDeferido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jProgressaoRegDeferido.setText("0");
+        jProgressaoRegDeferido.setEnabled(false);
 
-        jFormattedTextField90.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField90.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField90.setText("0");
+        jSaidasTempDeferida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSaidasTempDeferida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jSaidasTempDeferida.setText("0");
+        jSaidasTempDeferida.setEnabled(false);
 
         javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
         jPanel41.setLayout(jPanel41Layout);
@@ -3224,27 +3328,27 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel92)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField86, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendInternoSAJ, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel96)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField90, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSaidasTempDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel93)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField87, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlvaraSolturaCumprido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel94)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField88, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLivarmentoCondRequerido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel41Layout.createSequentialGroup()
                         .addComponent(jLabel95)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField89, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jProgressaoRegDeferido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        jPanel41Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField86, jFormattedTextField87, jFormattedTextField88, jFormattedTextField89, jFormattedTextField90});
+        jPanel41Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAlvaraSolturaCumprido, jAtendInternoSAJ, jLivarmentoCondRequerido, jProgressaoRegDeferido, jSaidasTempDeferida});
 
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3252,27 +3356,27 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel92)
-                    .addComponent(jFormattedTextField86, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAtendInternoSAJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel93)
-                    .addComponent(jFormattedTextField87, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlvaraSolturaCumprido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel94)
-                    .addComponent(jFormattedTextField88, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLivarmentoCondRequerido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel95)
-                    .addComponent(jFormattedTextField89, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressaoRegDeferido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel96)
-                    .addComponent(jFormattedTextField90, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSaidasTempDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel41Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField86, jFormattedTextField87, jFormattedTextField88, jFormattedTextField89, jFormattedTextField90});
+        jPanel41Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAlvaraSolturaCumprido, jAtendInternoSAJ, jLivarmentoCondRequerido, jProgressaoRegDeferido, jSaidasTempDeferida});
 
         jPanel42.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -3318,8 +3422,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jLabel98.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel98.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel98.setText("Alvara de soltura recebida na unidade");
-        jLabel98.setToolTipText("Alvara de soltura recebida na unidade");
+        jLabel98.setText("Audiências provocadas");
+        jLabel98.setToolTipText("Audiências provocadas");
 
         jLabel99.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel99.setForeground(new java.awt.Color(204, 0, 0));
@@ -3336,13 +3440,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel101.setText("Júri popular cumprido");
         jLabel101.setToolTipText("Júri popular cumprido");
 
-        jFormattedTextField67.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField67.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField67.setText("0");
+        jCondicionalRequerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCondicionalRequerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCondicionalRequerida.setText("0");
+        jCondicionalRequerida.setEnabled(false);
 
-        jFormattedTextField68.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField68.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField68.setText("0");
+        jAlvarSolRecebeUni.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlvarSolRecebeUni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlvarSolRecebeUni.setText("0");
+        jAlvarSolRecebeUni.setEnabled(false);
 
         jLabel109.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel109.setForeground(new java.awt.Color(204, 0, 0));
@@ -3378,73 +3484,90 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel115.setText("T.P. - (04/2017CGU)");
         jLabel115.setToolTipText("Transferências – provimento (04/2017CGU)");
 
-        jFormattedTextField69.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField69.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField69.setText("0");
+        jAudienciaProvocadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAudienciaProvocadas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAudienciaProvocadas.setText("0");
+        jAudienciaProvocadas.setEnabled(false);
 
-        jFormattedTextField70.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField70.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField70.setText("0");
+        jProgressaoRegRequerido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jProgressaoRegRequerido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jProgressaoRegRequerido.setText("0");
+        jProgressaoRegRequerido.setEnabled(false);
 
-        jFormattedTextField71.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField71.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField71.setText("0");
+        jJuriPopular.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jJuriPopular.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jJuriPopular.setText("0");
+        jJuriPopular.setEnabled(false);
 
-        jFormattedTextField72.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField72.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField72.setText("0");
+        jAudienciaCumpridas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAudienciaCumpridas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAudienciaCumpridas.setText("0");
+        jAudienciaCumpridas.setEnabled(false);
 
-        jFormattedTextField73.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField73.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField73.setText("0");
+        jLiberdadeProvRequerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLiberdadeProvRequerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLiberdadeProvRequerida.setText("0");
+        jLiberdadeProvRequerida.setEnabled(false);
 
-        jFormattedTextField74.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField74.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField74.setText("0");
+        jJuriPopularCumprido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jJuriPopularCumprido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jJuriPopularCumprido.setText("0");
+        jJuriPopularCumprido.setEnabled(false);
 
-        jFormattedTextField75.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField75.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField75.setText("0");
+        jIndultosRequeridos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIndultosRequeridos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIndultosRequeridos.setText("0");
+        jIndultosRequeridos.setEnabled(false);
 
-        jFormattedTextField76.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField76.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField76.setText("0");
+        jLiberdadeProvDeferida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLiberdadeProvDeferida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLiberdadeProvDeferida.setText("0");
+        jLiberdadeProvDeferida.setEnabled(false);
 
-        jFormattedTextField77.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField77.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField77.setText("0");
+        jRemissaoPenaRequerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRemissaoPenaRequerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jRemissaoPenaRequerida.setText("0");
+        jRemissaoPenaRequerida.setEnabled(false);
 
-        jFormattedTextField78.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField78.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField78.setText("0");
+        jIndultosDeferidos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIndultosDeferidos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIndultosDeferidos.setText("0");
+        jIndultosDeferidos.setEnabled(false);
 
-        jFormattedTextField79.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField79.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField79.setText("0");
+        jHabeasCorpusDeferido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHabeasCorpusDeferido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHabeasCorpusDeferido.setText("0");
+        jHabeasCorpusDeferido.setEnabled(false);
 
-        jFormattedTextField80.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField80.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField80.setText("0");
+        jLaudosPsiqEmitidos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLaudosPsiqEmitidos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLaudosPsiqEmitidos.setText("0");
+        jLaudosPsiqEmitidos.setEnabled(false);
 
-        jFormattedTextField81.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField81.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField81.setText("0");
+        jTP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTP.setText("0");
+        jTP.setEnabled(false);
 
-        jFormattedTextField82.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField82.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField82.setText("0");
+        jRemissaoPenaDeferida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jRemissaoPenaDeferida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jRemissaoPenaDeferida.setText("0");
+        jRemissaoPenaDeferida.setEnabled(false);
 
-        jFormattedTextField83.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField83.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField83.setText("0");
+        jLaudoPsicoEmitidos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLaudoPsicoEmitidos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jLaudoPsicoEmitidos.setText("0");
+        jLaudoPsicoEmitidos.setEnabled(false);
 
-        jFormattedTextField84.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField84.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField84.setText("0");
+        jHabeasCorpusImpetrados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHabeasCorpusImpetrados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jHabeasCorpusImpetrados.setText("0");
+        jHabeasCorpusImpetrados.setEnabled(false);
 
-        jFormattedTextField85.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField85.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField85.setText("0");
+        jSaidaTempRequerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jSaidaTempRequerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jSaidaTempRequerida.setText("0");
+        jSaidaTempRequerida.setEnabled(false);
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
@@ -3456,27 +3579,27 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel42Layout.createSequentialGroup()
                         .addComponent(jLabel97)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField68, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlvarSolRecebeUni, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel42Layout.createSequentialGroup()
                         .addComponent(jLabel98)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField69, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAudienciaProvocadas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel42Layout.createSequentialGroup()
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel99)
                             .addComponent(jLabel100))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField72, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField71, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jAudienciaCumpridas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jJuriPopular, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel42Layout.createSequentialGroup()
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel102)
                             .addComponent(jLabel101))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField74, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField73, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jJuriPopularCumprido, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLiberdadeProvRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel42Layout.createSequentialGroup()
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel103)
@@ -3486,11 +3609,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel107))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField78, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField77, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField76, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField75, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField82, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jIndultosDeferidos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRemissaoPenaRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLiberdadeProvDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jIndultosRequeridos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRemissaoPenaDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel42Layout.createSequentialGroup()
@@ -3506,18 +3629,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel113, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField79, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField80, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField81, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField67, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField83, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField84, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField85, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField70, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jHabeasCorpusDeferido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLaudosPsiqEmitidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCondicionalRequerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLaudoPsicoEmitidos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jHabeasCorpusImpetrados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSaidaTempRequerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressaoRegRequerido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
         );
 
-        jPanel42Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField67, jFormattedTextField68, jFormattedTextField69, jFormattedTextField70, jFormattedTextField71, jFormattedTextField72, jFormattedTextField73, jFormattedTextField74, jFormattedTextField75, jFormattedTextField76, jFormattedTextField77, jFormattedTextField78, jFormattedTextField79, jFormattedTextField80, jFormattedTextField81, jFormattedTextField82, jFormattedTextField83, jFormattedTextField84, jFormattedTextField85});
+        jPanel42Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAlvarSolRecebeUni, jAudienciaCumpridas, jAudienciaProvocadas, jCondicionalRequerida, jHabeasCorpusDeferido, jHabeasCorpusImpetrados, jIndultosDeferidos, jIndultosRequeridos, jJuriPopular, jJuriPopularCumprido, jLaudoPsicoEmitidos, jLaudosPsiqEmitidos, jLiberdadeProvDeferida, jLiberdadeProvRequerida, jProgressaoRegRequerido, jRemissaoPenaDeferida, jRemissaoPenaRequerida, jSaidaTempRequerida, jTP});
 
         jPanel42Layout.setVerticalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3527,20 +3650,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel42Layout.createSequentialGroup()
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel108)
-                            .addComponent(jFormattedTextField67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField68, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCondicionalRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAlvarSolRecebeUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel97))
                         .addGap(2, 2, 2)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jFormattedTextField70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jProgressaoRegRequerido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel109)
-                            .addComponent(jFormattedTextField69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAudienciaProvocadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel98))
                         .addGap(2, 2, 2)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jFormattedTextField85, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSaidaTempRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel110)
-                            .addComponent(jFormattedTextField72, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAudienciaCumpridas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel99))
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel42Layout.createSequentialGroup()
@@ -3549,8 +3672,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel100)
                                         .addComponent(jLabel111)
-                                        .addComponent(jFormattedTextField84, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jFormattedTextField71, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jHabeasCorpusImpetrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jJuriPopular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel101)
@@ -3559,26 +3682,26 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel102)
                                     .addComponent(jLabel113)
-                                    .addComponent(jFormattedTextField83, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLaudoPsicoEmitidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel42Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addComponent(jFormattedTextField79, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jHabeasCorpusDeferido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel42Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField74, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jJuriPopularCumprido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
-                        .addComponent(jFormattedTextField73, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLiberdadeProvRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFormattedTextField76, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLiberdadeProvDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel103)
                         .addComponent(jLabel114)
-                        .addComponent(jFormattedTextField80, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLaudosPsiqEmitidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField81, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel115)
-                    .addComponent(jFormattedTextField75, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIndultosRequeridos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel104))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3587,17 +3710,17 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel106))
                     .addGroup(jPanel42Layout.createSequentialGroup()
-                        .addComponent(jFormattedTextField78, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jIndultosDeferidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
-                        .addComponent(jFormattedTextField77, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jRemissaoPenaRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel107)
-                    .addComponent(jFormattedTextField82, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jRemissaoPenaDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel42Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField67, jFormattedTextField68, jFormattedTextField69, jFormattedTextField70, jFormattedTextField71, jFormattedTextField72, jFormattedTextField73, jFormattedTextField74, jFormattedTextField75, jFormattedTextField76, jFormattedTextField77, jFormattedTextField78, jFormattedTextField79, jFormattedTextField80, jFormattedTextField81, jFormattedTextField82, jFormattedTextField83, jFormattedTextField84, jFormattedTextField85});
+        jPanel42Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAlvarSolRecebeUni, jAudienciaCumpridas, jAudienciaProvocadas, jCondicionalRequerida, jHabeasCorpusDeferido, jHabeasCorpusImpetrados, jIndultosDeferidos, jIndultosRequeridos, jJuriPopular, jJuriPopularCumprido, jLaudoPsicoEmitidos, jLaudosPsiqEmitidos, jLiberdadeProvDeferida, jLiberdadeProvRequerida, jProgressaoRegRequerido, jRemissaoPenaDeferida, jRemissaoPenaRequerida, jSaidaTempRequerida, jTP});
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -3750,33 +3873,40 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel128.setText("Preso certificado em cursos profissionalizantes");
         jLabel128.setToolTipText("Preso certificado em cursos profissionalizantes");
 
-        jFormattedTextField96.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField96.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField96.setText("0");
+        jPresoMatProfissional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoMatProfissional.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoMatProfissional.setText("0");
+        jPresoMatProfissional.setEnabled(false);
 
-        jFormattedTextField97.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField97.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField97.setText("0");
+        jPresoCertificaCursoProf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoCertificaCursoProf.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoCertificaCursoProf.setText("0");
+        jPresoCertificaCursoProf.setEnabled(false);
 
-        jFormattedTextField98.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField98.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField98.setText("0");
+        jPresoAtiviCantoTeatro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviCantoTeatro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviCantoTeatro.setText("0");
+        jPresoAtiviCantoTeatro.setEnabled(false);
 
-        jFormattedTextField99.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField99.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField99.setText("0");
+        jPresoAtiviLiteraria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviLiteraria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviLiteraria.setText("0");
+        jPresoAtiviLiteraria.setEnabled(false);
 
-        jFormattedTextField100.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField100.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField100.setText("0");
+        PresoAtiviArtesPlasticas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        PresoAtiviArtesPlasticas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        PresoAtiviArtesPlasticas.setText("0");
+        PresoAtiviArtesPlasticas.setEnabled(false);
 
-        jFormattedTextField101.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField101.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField101.setText("0");
+        jOcupacaoAtiviRecreaReligiosa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jOcupacaoAtiviRecreaReligiosa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jOcupacaoAtiviRecreaReligiosa.setText("0");
+        jOcupacaoAtiviRecreaReligiosa.setEnabled(false);
 
-        jFormattedTextField102.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField102.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField102.setText("0");
+        jTriagemAtendInernos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTriagemAtendInernos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTriagemAtendInernos.setText("0");
+        jTriagemAtendInernos.setEnabled(false);
 
         javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
         jPanel46.setLayout(jPanel46Layout);
@@ -3785,38 +3915,26 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             .addGroup(jPanel46Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel127)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField96, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel122)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField102, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel128)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField97, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel126)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField98, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel125)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField99, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel124)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField100, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel46Layout.createSequentialGroup()
-                        .addComponent(jLabel123)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField101, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel127)
+                    .addComponent(jLabel122)
+                    .addComponent(jLabel128)
+                    .addComponent(jLabel126)
+                    .addComponent(jLabel125)
+                    .addComponent(jLabel124)
+                    .addComponent(jLabel123))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTriagemAtendInernos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel46Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField100, jFormattedTextField101, jFormattedTextField102, jFormattedTextField96, jFormattedTextField97, jFormattedTextField98, jFormattedTextField99});
+        jPanel46Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {PresoAtiviArtesPlasticas, jOcupacaoAtiviRecreaReligiosa, jPresoAtiviCantoTeatro, jPresoAtiviLiteraria, jPresoCertificaCursoProf, jPresoMatProfissional, jTriagemAtendInernos});
 
         jPanel46Layout.setVerticalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3824,35 +3942,35 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel122)
-                    .addComponent(jFormattedTextField102, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTriagemAtendInernos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel123)
-                    .addComponent(jFormattedTextField101, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel124)
-                    .addComponent(jFormattedTextField100, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel125)
-                    .addComponent(jFormattedTextField99, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel126)
-                    .addComponent(jFormattedTextField98, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel127)
-                    .addComponent(jFormattedTextField96, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel128)
-                    .addComponent(jFormattedTextField97, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jPanel46Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jFormattedTextField100, jFormattedTextField101, jFormattedTextField102, jFormattedTextField96, jFormattedTextField97, jFormattedTextField98, jFormattedTextField99});
+        jPanel46Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {PresoAtiviArtesPlasticas, jOcupacaoAtiviRecreaReligiosa, jPresoAtiviCantoTeatro, jPresoAtiviLiteraria, jPresoCertificaCursoProf, jPresoMatProfissional, jTriagemAtendInernos});
 
         jPanel47.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -3865,13 +3983,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel130.setForeground(new java.awt.Color(204, 0, 0));
         jLabel130.setText("Preso em atividade laboral não remunerada");
 
-        jFormattedTextField103.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField103.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField103.setText("0");
+        jPresoSentecaAtivLaboralRemun.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoSentecaAtivLaboralRemun.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoSentecaAtivLaboralRemun.setText("0");
+        jPresoSentecaAtivLaboralRemun.setEnabled(false);
 
-        jFormattedTextField104.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField104.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField104.setText("0");
+        jPresoAtiviLaboralNaoRemunera.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviLaboralNaoRemunera.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviLaboralNaoRemunera.setText("0");
+        jPresoAtiviLaboralNaoRemunera.setEnabled(false);
 
         javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
         jPanel47.setLayout(jPanel47Layout);
@@ -3883,11 +4003,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel47Layout.createSequentialGroup()
                         .addComponent(jLabel129)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField103, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPresoSentecaAtivLaboralRemun, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel47Layout.createSequentialGroup()
                         .addComponent(jLabel130)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField104, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPresoAtiviLaboralNaoRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel47Layout.setVerticalGroup(
@@ -3896,10 +4016,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel129)
-                    .addComponent(jFormattedTextField103, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPresoSentecaAtivLaboralRemun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField104, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPresoAtiviLaboralNaoRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel130))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
@@ -4034,21 +4154,24 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel31.setForeground(new java.awt.Color(204, 0, 0));
         jLabel31.setText("Alimentação servida a interno (almoço)");
 
-        jFormattedTextField14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField14.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField14.setText("0");
+        jAlimentaServidaInternoCafe.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaInternoCafe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaInternoCafe.setText("0");
+        jAlimentaServidaInternoCafe.setEnabled(false);
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(204, 0, 0));
         jLabel32.setText("Alimentação servida a interno (jantar)");
 
-        jFormattedTextField15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField15.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField15.setText("0");
+        jAlimentaServidaInternoAlmoco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaInternoAlmoco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaInternoAlmoco.setText("0");
+        jAlimentaServidaInternoAlmoco.setEnabled(false);
 
-        jFormattedTextField16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jFormattedTextField16.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jFormattedTextField16.setText("0");
+        jAlimentaServidaInternoJantar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAlimentaServidaInternoJantar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAlimentaServidaInternoJantar.setText("0");
+        jAlimentaServidaInternoJantar.setEnabled(false);
 
         javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
         jPanel54.setLayout(jPanel54Layout);
@@ -4060,34 +4183,31 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel54Layout.createSequentialGroup()
                         .addComponent(jLabel32)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaInternoJantar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel54Layout.createSequentialGroup()
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAlimentaServidaInternoCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel54Layout.createSequentialGroup()
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jAlimentaServidaInternoAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-
-        jPanel54Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jFormattedTextField14, jFormattedTextField15, jFormattedTextField16});
-
         jPanel54Layout.setVerticalGroup(
             jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel54Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel30)
-                    .addComponent(jFormattedTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaInternoCafe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel31)
-                    .addComponent(jFormattedTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAlimentaServidaInternoAlmoco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jFormattedTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAlimentaServidaInternoJantar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
                 .addContainerGap(284, Short.MAX_VALUE))
         );
@@ -4125,6 +4245,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal08.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal08.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal08.setText("0");
+        jTotal08.setEnabled(false);
         jTotal08.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
@@ -4179,6 +4300,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal05.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal05.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal05.setText("0");
+        jTotal05.setEnabled(false);
         jTotal05.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel55Layout = new javax.swing.GroupLayout(jPanel55);
@@ -4223,6 +4345,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal02.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal02.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal02.setText("0");
+        jTotal02.setEnabled(false);
         jTotal02.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
@@ -4254,6 +4377,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal06.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal06.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal06.setText("0");
+        jTotal06.setEnabled(false);
         jTotal06.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel56Layout = new javax.swing.GroupLayout(jPanel56);
@@ -4285,6 +4409,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal03.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal03.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal03.setText("0");
+        jTotal03.setEnabled(false);
         jTotal03.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
@@ -4316,6 +4441,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal07.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal07.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal07.setText("0");
+        jTotal07.setEnabled(false);
         jTotal07.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel57Layout = new javax.swing.GroupLayout(jPanel57);
@@ -4347,6 +4473,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal01.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal01.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal01.setText("0");
+        jTotal01.setEnabled(false);
         jTotal01.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
@@ -4378,6 +4505,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal04.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTotal04.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTotal04.setText("0");
+        jTotal04.setEnabled(false);
         jTotal04.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
@@ -4406,10 +4534,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel145.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel145.setText("09 - AFI - ALIMENTAÇÃO FORNECEDIDAS AOS INTERNOS");
 
-        jTotal9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTotal9.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTotal9.setText("0");
-        jTotal9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTotal09.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTotal09.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTotal09.setText("0");
+        jTotal09.setEnabled(false);
+        jTotal09.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel62Layout = new javax.swing.GroupLayout(jPanel62);
         jPanel62.setLayout(jPanel62Layout);
@@ -4419,7 +4548,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel145)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTotal9, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTotal09, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel62Layout.setVerticalGroup(
@@ -4428,7 +4557,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel145)
-                    .addComponent(jTotal9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTotal09, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5))
         );
 
@@ -4787,6 +4916,33 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField PresoAtiviArtesPlasticas;
+    private javax.swing.JFormattedTextField jAbsorvente;
+    private javax.swing.JFormattedTextField jAlimentaServidaEmpContAlmoco;
+    private javax.swing.JFormattedTextField jAlimentaServidaEmpContCafe;
+    private javax.swing.JFormattedTextField jAlimentaServidaEmpContJantar;
+    private javax.swing.JFormattedTextField jAlimentaServidaEmpContLanche;
+    private javax.swing.JFormattedTextField jAlimentaServidaInternoAlmoco;
+    private javax.swing.JFormattedTextField jAlimentaServidaInternoCafe;
+    private javax.swing.JFormattedTextField jAlimentaServidaInternoJantar;
+    private javax.swing.JFormattedTextField jAlimentaServidaServContAlmoco;
+    private javax.swing.JFormattedTextField jAlimentaServidaServContCafe;
+    private javax.swing.JFormattedTextField jAlimentaServidaServContJantar;
+    private javax.swing.JFormattedTextField jAlimentaServidaServContLanche;
+    private javax.swing.JFormattedTextField jAlvarSolRecebeUni;
+    private javax.swing.JFormattedTextField jAlvaraSolturaCumprido;
+    private javax.swing.JFormattedTextField jAparelhoBarbear;
+    private javax.swing.JFormattedTextField jAspectosSexual;
+    private javax.swing.JFormattedTextField jAtendInternoSAJ;
+    private javax.swing.JFormattedTextField jAtendimentoEnfermagem;
+    private javax.swing.JFormattedTextField jAtendimentoMedClinico;
+    private javax.swing.JFormattedTextField jAtendimentoMedPsi;
+    private javax.swing.JFormattedTextField jAtendimentoPsiFamilaPreso;
+    private javax.swing.JFormattedTextField jAtendimentoPsiPreso;
+    private javax.swing.JFormattedTextField jAtendimentoPsicologico;
+    private javax.swing.JFormattedTextField jAudienciaCumpridas;
+    private javax.swing.JFormattedTextField jAudienciaProvocadas;
+    private javax.swing.JFormattedTextField jBermuda;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterar1;
     private javax.swing.JButton jBtAlterar2;
@@ -4864,125 +5020,38 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtSalvar7;
     private javax.swing.JButton jBtSalvar8;
     private javax.swing.JButton jBtSalvar9;
+    private javax.swing.JFormattedTextField jCamisa;
+    private javax.swing.JFormattedTextField jCaneca;
     public static javax.swing.JTextField jChave;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JFormattedTextField jChinelos;
+    private javax.swing.JFormattedTextField jCobertor;
     private javax.swing.JTextField jCodigoPesqFunc;
     public static javax.swing.JTextField jColaboradorResponsavel;
+    private javax.swing.JFormattedTextField jColchao;
     private javax.swing.JComboBox<String> jComboBoxAno;
     private javax.swing.JComboBox<String> jComboBoxAno1;
     private javax.swing.JComboBox<String> jComboBoxMes;
     private javax.swing.JComboBox<String> jComboBoxMes1;
+    private javax.swing.JFormattedTextField jCondicionalRequerida;
+    private javax.swing.JFormattedTextField jControlHipertensao;
+    private javax.swing.JFormattedTextField jControleDiabetes;
+    private javax.swing.JFormattedTextField jCremeDental;
+    private javax.swing.JFormattedTextField jCuecas;
     private com.toedter.calendar.JDateChooser jDataAtualizacao;
     private com.toedter.calendar.JDateChooser jDataCriacao;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jDepartamento;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField10;
-    private javax.swing.JFormattedTextField jFormattedTextField100;
-    private javax.swing.JFormattedTextField jFormattedTextField101;
-    private javax.swing.JFormattedTextField jFormattedTextField102;
-    private javax.swing.JFormattedTextField jFormattedTextField103;
-    private javax.swing.JFormattedTextField jFormattedTextField104;
-    private javax.swing.JFormattedTextField jFormattedTextField105;
-    private javax.swing.JFormattedTextField jFormattedTextField106;
-    private javax.swing.JFormattedTextField jFormattedTextField11;
-    private javax.swing.JFormattedTextField jFormattedTextField12;
-    private javax.swing.JFormattedTextField jFormattedTextField13;
-    private javax.swing.JFormattedTextField jFormattedTextField14;
-    private javax.swing.JFormattedTextField jFormattedTextField15;
-    private javax.swing.JFormattedTextField jFormattedTextField16;
-    private javax.swing.JFormattedTextField jFormattedTextField17;
-    private javax.swing.JFormattedTextField jFormattedTextField18;
-    private javax.swing.JFormattedTextField jFormattedTextField19;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField20;
-    private javax.swing.JFormattedTextField jFormattedTextField21;
-    private javax.swing.JFormattedTextField jFormattedTextField22;
-    private javax.swing.JFormattedTextField jFormattedTextField23;
-    private javax.swing.JFormattedTextField jFormattedTextField24;
-    private javax.swing.JFormattedTextField jFormattedTextField25;
+    private javax.swing.JFormattedTextField jDesodorante;
+    private javax.swing.JFormattedTextField jEscovaDente;
     private javax.swing.JFormattedTextField jFormattedTextField26;
-    private javax.swing.JFormattedTextField jFormattedTextField27;
-    private javax.swing.JFormattedTextField jFormattedTextField28;
-    private javax.swing.JFormattedTextField jFormattedTextField29;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JFormattedTextField jFormattedTextField30;
-    private javax.swing.JFormattedTextField jFormattedTextField31;
-    private javax.swing.JFormattedTextField jFormattedTextField32;
-    private javax.swing.JFormattedTextField jFormattedTextField33;
-    private javax.swing.JFormattedTextField jFormattedTextField34;
-    private javax.swing.JFormattedTextField jFormattedTextField35;
-    private javax.swing.JFormattedTextField jFormattedTextField36;
-    private javax.swing.JFormattedTextField jFormattedTextField37;
-    private javax.swing.JFormattedTextField jFormattedTextField38;
-    private javax.swing.JFormattedTextField jFormattedTextField39;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JFormattedTextField jFormattedTextField40;
-    private javax.swing.JFormattedTextField jFormattedTextField41;
-    private javax.swing.JFormattedTextField jFormattedTextField42;
-    private javax.swing.JFormattedTextField jFormattedTextField43;
-    private javax.swing.JFormattedTextField jFormattedTextField44;
-    private javax.swing.JFormattedTextField jFormattedTextField45;
-    private javax.swing.JFormattedTextField jFormattedTextField46;
-    private javax.swing.JFormattedTextField jFormattedTextField47;
-    private javax.swing.JFormattedTextField jFormattedTextField48;
-    private javax.swing.JFormattedTextField jFormattedTextField49;
-    private javax.swing.JFormattedTextField jFormattedTextField5;
-    private javax.swing.JFormattedTextField jFormattedTextField50;
-    private javax.swing.JFormattedTextField jFormattedTextField51;
-    private javax.swing.JFormattedTextField jFormattedTextField52;
-    private javax.swing.JFormattedTextField jFormattedTextField53;
-    private javax.swing.JFormattedTextField jFormattedTextField54;
-    private javax.swing.JFormattedTextField jFormattedTextField55;
-    private javax.swing.JFormattedTextField jFormattedTextField56;
-    private javax.swing.JFormattedTextField jFormattedTextField57;
-    private javax.swing.JFormattedTextField jFormattedTextField58;
-    private javax.swing.JFormattedTextField jFormattedTextField59;
-    private javax.swing.JFormattedTextField jFormattedTextField6;
-    private javax.swing.JFormattedTextField jFormattedTextField60;
-    private javax.swing.JFormattedTextField jFormattedTextField61;
-    private javax.swing.JFormattedTextField jFormattedTextField62;
-    private javax.swing.JFormattedTextField jFormattedTextField63;
-    private javax.swing.JFormattedTextField jFormattedTextField64;
-    private javax.swing.JFormattedTextField jFormattedTextField65;
-    private javax.swing.JFormattedTextField jFormattedTextField66;
-    private javax.swing.JFormattedTextField jFormattedTextField67;
-    private javax.swing.JFormattedTextField jFormattedTextField68;
-    private javax.swing.JFormattedTextField jFormattedTextField69;
-    private javax.swing.JFormattedTextField jFormattedTextField7;
-    private javax.swing.JFormattedTextField jFormattedTextField70;
-    private javax.swing.JFormattedTextField jFormattedTextField71;
-    private javax.swing.JFormattedTextField jFormattedTextField72;
-    private javax.swing.JFormattedTextField jFormattedTextField73;
-    private javax.swing.JFormattedTextField jFormattedTextField74;
-    private javax.swing.JFormattedTextField jFormattedTextField75;
-    private javax.swing.JFormattedTextField jFormattedTextField76;
-    private javax.swing.JFormattedTextField jFormattedTextField77;
-    private javax.swing.JFormattedTextField jFormattedTextField78;
-    private javax.swing.JFormattedTextField jFormattedTextField79;
-    private javax.swing.JFormattedTextField jFormattedTextField8;
-    private javax.swing.JFormattedTextField jFormattedTextField80;
-    private javax.swing.JFormattedTextField jFormattedTextField81;
-    private javax.swing.JFormattedTextField jFormattedTextField82;
-    private javax.swing.JFormattedTextField jFormattedTextField83;
-    private javax.swing.JFormattedTextField jFormattedTextField84;
-    private javax.swing.JFormattedTextField jFormattedTextField85;
-    private javax.swing.JFormattedTextField jFormattedTextField86;
-    private javax.swing.JFormattedTextField jFormattedTextField87;
-    private javax.swing.JFormattedTextField jFormattedTextField88;
-    private javax.swing.JFormattedTextField jFormattedTextField89;
-    private javax.swing.JFormattedTextField jFormattedTextField9;
-    private javax.swing.JFormattedTextField jFormattedTextField90;
-    private javax.swing.JFormattedTextField jFormattedTextField91;
-    private javax.swing.JFormattedTextField jFormattedTextField92;
-    private javax.swing.JFormattedTextField jFormattedTextField93;
-    private javax.swing.JFormattedTextField jFormattedTextField94;
-    private javax.swing.JFormattedTextField jFormattedTextField95;
-    private javax.swing.JFormattedTextField jFormattedTextField96;
-    private javax.swing.JFormattedTextField jFormattedTextField97;
-    private javax.swing.JFormattedTextField jFormattedTextField98;
-    private javax.swing.JFormattedTextField jFormattedTextField99;
+    private javax.swing.JFormattedTextField jHabeasCorpusDeferido;
+    private javax.swing.JFormattedTextField jHabeasCorpusImpetrados;
+    private javax.swing.JFormattedTextField jIndultosDeferidos;
+    private javax.swing.JFormattedTextField jIndultosRequeridos;
+    private javax.swing.JFormattedTextField jJuriPopular;
+    private javax.swing.JFormattedTextField jJuriPopularCumprido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -5128,8 +5197,37 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel97;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
+    private javax.swing.JFormattedTextField jLanchesServidoVisita;
+    private javax.swing.JFormattedTextField jLaudoPsicoEmitidos;
+    private javax.swing.JFormattedTextField jLaudosPsiqEmitidos;
+    private javax.swing.JFormattedTextField jLencol;
+    private javax.swing.JFormattedTextField jLiberdadeProvDeferida;
+    private javax.swing.JFormattedTextField jLiberdadeProvRequerida;
+    private javax.swing.JFormattedTextField jLivarmentoCondRequerido;
     public static javax.swing.JTextField jMatricula;
+    private javax.swing.JFormattedTextField jMediaVisitasDia;
+    private javax.swing.JFormattedTextField jMediaVisitasInterno;
+    private javax.swing.JFormattedTextField jNumeroAbsorEntregueVisitas;
+    private javax.swing.JFormattedTextField jNumeroAparelhoConvive;
+    private javax.swing.JFormattedTextField jNumeroCriancasVisitas;
+    private javax.swing.JFormattedTextField jNumeroDiasIntMetaPortatil;
+    private javax.swing.JFormattedTextField jNumeroDiasSemScannerCorpo;
+    private javax.swing.JFormattedTextField jNumeroDiasVisitas;
+    private javax.swing.JFormattedTextField jNumeroFalhasGerador;
+    private javax.swing.JFormattedTextField jNumeroFraldasEntreguePortaria;
+    private javax.swing.JFormattedTextField jNumeroHorasBloqueador;
+    private javax.swing.JFormattedTextField jNumeroHorasTVCFTV;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoaFerida;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasFerida;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasRefem;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaRebeliao;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaTentaFuga;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciasInd;
+    private javax.swing.JFormattedTextField jNumeroProcedRevista;
+    private javax.swing.JFormattedTextField jNumeroVistantesInternos;
+    private javax.swing.JFormattedTextField jObjetosMateriais;
     private javax.swing.JTextArea jObservacao;
+    private javax.swing.JFormattedTextField jOcupacaoAtiviRecreaReligiosa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -5192,13 +5290,40 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JFormattedTextField jPapelHigienico;
     private javax.swing.JTextField jPesqNome;
     public static javax.swing.JTextField jPopulacaoAtual;
+    private javax.swing.JFormattedTextField jPote;
+    private javax.swing.JFormattedTextField jPresoAtiviCantoTeatro;
+    private javax.swing.JFormattedTextField jPresoAtiviLaboralNaoRemunera;
+    private javax.swing.JFormattedTextField jPresoAtiviLiteraria;
+    private javax.swing.JFormattedTextField jPresoAtiviPraticaEsportiva;
+    private javax.swing.JFormattedTextField jPresoAtiviReligiosa;
+    private javax.swing.JFormattedTextField jPresoCertificaCursoProf;
+    private javax.swing.JFormattedTextField jPresoDoencaInfecto;
+    private javax.swing.JFormattedTextField jPresoIdentCivil;
+    private javax.swing.JFormattedTextField jPresoMatProfissional;
+    private javax.swing.JFormattedTextField jPresoSaudeBucal;
+    private javax.swing.JFormattedTextField jPresoSentecaAtivLaboralRemun;
+    private javax.swing.JFormattedTextField jPresoSentencaMatFreqEF;
+    private javax.swing.JFormattedTextField jPresoSentenciadoEF;
+    private javax.swing.JFormattedTextField jPresosVacinados;
+    private javax.swing.JFormattedTextField jProcedimentoOdontologico;
+    private javax.swing.JFormattedTextField jProgressaoRegDeferido;
+    private javax.swing.JFormattedTextField jProgressaoRegRequerido;
+    private javax.swing.JFormattedTextField jRemissaoPenaDeferida;
+    private javax.swing.JFormattedTextField jRemissaoPenaRequerida;
+    private javax.swing.JFormattedTextField jSabaoPo;
+    private javax.swing.JFormattedTextField jSabonete;
+    private javax.swing.JFormattedTextField jSaidaTempRequerida;
+    private javax.swing.JFormattedTextField jSaidasTempDeferida;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jStatus;
+    private javax.swing.JFormattedTextField jTP;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTabelaFuncionario;
+    private javax.swing.JFormattedTextField jToalha;
     private javax.swing.JFormattedTextField jTotal01;
     private javax.swing.JFormattedTextField jTotal02;
     private javax.swing.JFormattedTextField jTotal03;
@@ -5207,12 +5332,153 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jTotal06;
     private javax.swing.JFormattedTextField jTotal07;
     private javax.swing.JFormattedTextField jTotal08;
-    private javax.swing.JFormattedTextField jTotal9;
+    private javax.swing.JFormattedTextField jTotal09;
+    private javax.swing.JFormattedTextField jTratamentoAgravDiaginostico;
+    private javax.swing.JFormattedTextField jTriagemAtendInernos;
+    private javax.swing.JFormattedTextField jUmeroInterFuncVeiculosTP;
     public static javax.swing.JTextField jUnidadePrisional;
+    private javax.swing.JFormattedTextField jUniformeCompleto;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
     public void corCampos() {
+        //ABA MANUTENÇÃO
+        jChave.setBackground(Color.white);
+        jStatus.setBackground(Color.white);
+        jComboBoxMes.setBackground(Color.white);
+        jComboBoxAno.setBackground(Color.white);
+        jUnidadePrisional.setBackground(Color.white);
+        jPopulacaoAtual.setBackground(Color.white);
+        jDataCriacao.setBackground(Color.white);
+        jDataAtualizacao.setBackground(Color.white);
+        jColaboradorResponsavel.setBackground(Color.white);
+        jMatricula.setBackground(Color.white);
+        jDepartamento.setBackground(Color.white);
+        jObservacao.setBackground(Color.white);
+        //ABA ASSI
+        jAtendimentoPsiPreso.setBackground(Color.white);
+        jAtendimentoPsiFamilaPreso.setBackground(Color.white);
+        jNumeroDiasVisitas.setBackground(Color.white);
+        jNumeroVistantesInternos.setBackground(Color.white);
+        jMediaVisitasDia.setBackground(Color.white);
+        jMediaVisitasInterno.setBackground(Color.white);
+        jNumeroCriancasVisitas.setBackground(Color.white);
+        jPresoIdentCivil.setBackground(Color.white);
+        jPresoAtiviReligiosa.setBackground(Color.white);
+        //ABA AFV
+        jLanchesServidoVisita.setBackground(Color.white);
+        jAlimentaServidaEmpContCafe.setBackground(Color.white);
+        jAlimentaServidaEmpContAlmoco.setBackground(Color.white);
+        jAlimentaServidaEmpContJantar.setBackground(Color.white);
+        jAlimentaServidaEmpContLanche.setBackground(Color.white);
+        jAlimentaServidaServContCafe.setBackground(Color.white);
+        jAlimentaServidaServContAlmoco.setBackground(Color.white);
+        jAlimentaServidaServContJantar.setBackground(Color.white);
+        jAlimentaServidaServContLanche.setBackground(Color.white);
+        //ASI
+        jAtendimentoMedClinico.setBackground(Color.white);
+        jAtendimentoMedPsi.setBackground(Color.white);
+        jAtendimentoEnfermagem.setBackground(Color.white);
+        jProcedimentoOdontologico.setBackground(Color.white);
+        jAtendimentoPsicologico.setBackground(Color.white);
+        jTratamentoAgravDiaginostico.setBackground(Color.white);
+        jPresoSaudeBucal.setBackground(Color.white);
+        jPresoDoencaInfecto.setBackground(Color.white);
+        jControlHipertensao.setBackground(Color.white);
+        jControleDiabetes.setBackground(Color.white);
+        jAspectosSexual.setBackground(Color.white);
+        jPresosVacinados.setBackground(Color.white);
+        //ABA AEI
+        jPresoSentenciadoEF.setBackground(Color.white);
+        jPresoSentencaMatFreqEF.setBackground(Color.white);
+        jPresoAtiviPraticaEsportiva.setBackground(Color.white);
+        //ABA AMI
+        jCobertor.setBackground(Color.white);
+        jColchao.setBackground(Color.white);
+        jLencol.setBackground(Color.white);
+        jToalha.setBackground(Color.white);
+        jPote.setBackground(Color.white);
+        jCaneca.setBackground(Color.white);
+        jAparelhoBarbear.setBackground(Color.white);
+        jCremeDental.setBackground(Color.white);
+        jEscovaDente.setBackground(Color.white);
+        jAbsorvente.setBackground(Color.white);
+        jPapelHigienico.setBackground(Color.white);
+        jSabaoPo.setBackground(Color.white);
+        jSabonete.setBackground(Color.white);
+        jDesodorante.setBackground(Color.white);
+        jBermuda.setBackground(Color.white);
+        jCamisa.setBackground(Color.white);
+        jCuecas.setBackground(Color.white);
+        jChinelos.setBackground(Color.white);
+        jUniformeCompleto.setBackground(Color.white);
+        //ABA SEG
+        jNumeroAparelhoConvive.setBackground(Color.white);
+        jObjetosMateriais.setBackground(Color.white);
+        jNumeroProcedRevista.setBackground(Color.white);
+        jNumeroOcorrenciasInd.setBackground(Color.white);
+        jNumeroOcorrenciaTentaFuga.setBackground(Color.white);
+        jNumeroOcorrenciaRebeliao.setBackground(Color.white);
+        jNumeroOcorrenciaPessoaFerida.setBackground(Color.white);
+        jNumeroOcorrenciaPessoasRefem.setBackground(Color.white);
+        jNumeroOcorrenciaPessoasFerida.setBackground(Color.white);
+        jNumeroHorasTVCFTV.setBackground(Color.white);
+        jNumeroDiasSemScannerCorpo.setBackground(Color.white);
+        jNumeroDiasIntMetaPortatil.setBackground(Color.white);
+        jUmeroInterFuncVeiculosTP.setBackground(Color.white);
+        jNumeroFalhasGerador.setBackground(Color.white);
+        jNumeroHorasBloqueador.setBackground(Color.white);
+        jNumeroAbsorEntregueVisitas.setBackground(Color.white);
+        jNumeroFraldasEntreguePortaria.setBackground(Color.white);
+        //ABA AJ
+        jAtendInternoSAJ.setBackground(Color.white);
+        jAlvaraSolturaCumprido.setBackground(Color.white);
+        jLivarmentoCondRequerido.setBackground(Color.white);
+        jProgressaoRegDeferido.setBackground(Color.white);
+        jSaidasTempDeferida.setBackground(Color.white);
+        jAlvarSolRecebeUni.setBackground(Color.white);
+        jAudienciaProvocadas.setBackground(Color.white);
+        jAudienciaCumpridas.setBackground(Color.white);
+        jJuriPopular.setBackground(Color.white);
+        jJuriPopularCumprido.setBackground(Color.white);
+        jLiberdadeProvRequerida.setBackground(Color.white);
+        jLiberdadeProvDeferida.setBackground(Color.white);
+        jIndultosRequeridos.setBackground(Color.white);
+        jIndultosDeferidos.setBackground(Color.white);
+        jRemissaoPenaRequerida.setBackground(Color.white);
+        jRemissaoPenaDeferida.setBackground(Color.white);
+        jCondicionalRequerida.setBackground(Color.white);
+        jProgressaoRegRequerido.setBackground(Color.white);
+        jSaidaTempRequerida.setBackground(Color.white);
+        jHabeasCorpusImpetrados.setBackground(Color.white);
+        jHabeasCorpusDeferido.setBackground(Color.white);
+        jLaudoPsicoEmitidos.setBackground(Color.white);
+        jLaudosPsiqEmitidos.setBackground(Color.white);
+        jTP.setBackground(Color.white);
+        //ABA AL
+        jTriagemAtendInernos.setBackground(Color.white);
+        jOcupacaoAtiviRecreaReligiosa.setBackground(Color.white);
+        PresoAtiviArtesPlasticas.setBackground(Color.white);
+        jPresoAtiviLiteraria.setBackground(Color.white);
+        jPresoAtiviCantoTeatro.setBackground(Color.white);
+        jPresoMatProfissional.setBackground(Color.white);
+        jPresoCertificaCursoProf.setBackground(Color.white);
+        jPresoSentecaAtivLaboralRemun.setBackground(Color.white);
+        jPresoAtiviLaboralNaoRemunera.setBackground(Color.white);
+        //ABA AFI
+        jAlimentaServidaInternoCafe.setBackground(Color.white);
+        jAlimentaServidaInternoAlmoco.setBackground(Color.white);
+        jAlimentaServidaInternoJantar.setBackground(Color.white);
+        //ABA TOT
+        jTotal01.setBackground(Color.white);
+        jTotal02.setBackground(Color.white);
+        jTotal03.setBackground(Color.white);
+        jTotal04.setBackground(Color.white);
+        jTotal05.setBackground(Color.white);
+        jTotal06.setBackground(Color.white);
+        jTotal07.setBackground(Color.white);
+        jTotal08.setBackground(Color.white);
+        jTotal09.setBackground(Color.white);
 
     }
 
