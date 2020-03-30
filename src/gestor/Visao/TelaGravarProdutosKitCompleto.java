@@ -556,6 +556,11 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                         pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
+                        if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS || i>= 99) {
+                            jBtSair.setEnabled(true);
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                            dispose();
+                        }
                     }
                     try {
                         Thread.sleep(10);
@@ -585,14 +590,14 @@ public class TelaGravarProdutosKitCompleto extends javax.swing.JDialog {
                             jTabelaProdutosKitCompletoSelecionado.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
                         }
+                        pTOTAL_REGISTROS = i + 1;
+                        jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                        jProgressBar1.setValue(i);
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
                         }
                     }
-                    jBtSair.setEnabled(true);
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
                     try {
                     } catch (Exception e) {
                     }
