@@ -13,7 +13,7 @@ import gestor.Controle.ControleMovServicoSocial;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendSocialPortaEntrada;
+import gestor.Controle.ControleAtendSocialPortaEntrada;
 import gestor.Dao.LimiteDigitosAlfa;
 import gestor.Dao.LimiteDigitosNum;
 import gestor.Dao.ModeloTabela;

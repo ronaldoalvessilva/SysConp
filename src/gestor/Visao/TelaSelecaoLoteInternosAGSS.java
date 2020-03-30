@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Dao.ControleListaInternosPavilhaoAG_SS_DAO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendimentoGrupoPsicologiaDAO;
+import gestor.Controle.ControleAtendimentoGrupoPsicologiaDAO;
 import gestor.Dao.ControleListaInternosCelasAG_SS_DAO;
 import gestor.Dao.ControleListaInternosGaleiraAG_SS_DAO;
 import gestor.Dao.ControleListaInternosPavilhaoAG_II_SS_DAO;

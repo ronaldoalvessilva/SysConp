@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendimentoGrupoPedagogiaDAO;
+import gestor.Controle.ControleAtendimentoGrupoPedagogiaDAO;
 import gestor.Dao.ControleListaInternosCelasAG_PE_DAO;
 import gestor.Dao.ControleListaInternosGaleiraAG_PE_DAO;
 import gestor.Dao.ControleListaInternosPavilhaoAG_II_PE_DAO;

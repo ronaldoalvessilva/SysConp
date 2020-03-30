@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
 import gestor.Controle.*;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtendimentoTerapeuta;
 import java.sql.PreparedStatement;

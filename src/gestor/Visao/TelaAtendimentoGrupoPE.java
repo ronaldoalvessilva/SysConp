@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendimentoGrupoPedagogiaDAO;
+import gestor.Controle.ControleAtendimentoGrupoPedagogiaDAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;

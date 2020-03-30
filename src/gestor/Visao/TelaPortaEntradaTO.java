@@ -11,7 +11,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovTerapiaOcupacional;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleAtendimentoTerapiaDAO;
+import gestor.Controle.ControleAtendimentoTerapiaDAO;
 import gestor.Dao.ControleAvaliacaoIDAO;
 import gestor.Dao.ControleAvaliacaoIIDAO;
 import gestor.Dao.ControleHistoricoEducacionalDAO;
