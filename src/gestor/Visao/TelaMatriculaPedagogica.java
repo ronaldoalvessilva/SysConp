@@ -544,9 +544,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel19)
                                     .addComponent(jEixo))))
                         .addGap(9, 9, 9)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -862,7 +860,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
         jLabel8.setText("Status do Aluno");
 
         jComboBoxStatusAluno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxStatusAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Cursando", "Concluído", "Desistente", "Não Concluído" }));
+        jComboBoxStatusAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Matriculado", "Cursando", "Concluído", "Desistente", "Não Concluído" }));
         jComboBoxStatusAluno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxStatusAluno.setEnabled(false);
         jComboBoxStatusAluno.addItemListener(new java.awt.event.ItemListener() {
@@ -1586,7 +1584,7 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 jDescricaoTurno.setText(conecta.rs.getString("DescricaoTurno"));
                 jDescricaoTempoFormativo.setText(conecta.rs.getString("DescricaoTempo"));
                 jEixo.setText(conecta.rs.getString("Eixo"));
-                jCargaHoraria.setText(conecta.rs.getString("DescricaoCarga"));                
+                jCargaHoraria.setText(conecta.rs.getString("DescricaoCarga"));
                 jDescricaoSala.setText(conecta.rs.getString("Descricao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1618,7 +1616,8 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 conecta.executaSQL("SELECT * FROM ITENSMATRICULA "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ITENSMATRICULA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + iditem + "'");
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND IdItem='" + iditem + "'");
                 conecta.rs.first();
                 idItem = conecta.rs.getInt("IdItem");
                 jIdInternoCrc.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
@@ -1627,10 +1626,11 @@ public class TelaMatriculaPedagogica extends javax.swing.JInternalFrame {
                 jMatriculaPenal.setText(conecta.rs.getString("MatriculaCrc"));
                 // Capturando foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoPedagogia.setIcon(i);
-                FotoInternoPedagogia.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoPedagogia.getWidth(), FotoInternoPedagogia.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoPedagogia.setIcon(i);
+                    FotoInternoPedagogia.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoPedagogia.getWidth(), FotoInternoPedagogia.getHeight(), Image.SCALE_DEFAULT)));
+                }
                 jComboBoxStatusAluno.setSelectedItem(conecta.rs.getString("StatusAluno"));
                 jComboBoxSituacaoAluno.setSelectedItem(conecta.rs.getString("SituacaoAluno"));
                 jDataConclusaoDesistencia.setDate(conecta.rs.getDate("DataConDes"));

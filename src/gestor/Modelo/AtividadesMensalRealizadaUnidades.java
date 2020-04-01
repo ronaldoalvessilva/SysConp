@@ -43,11 +43,13 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer numeroCriancasVisitas;
     private Integer presoIdentCivil;
     private Integer presoAtiviReligiosa;
+    private Date dataMatricula;
+    private Date dataFrequencia;
 
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -77,6 +79,8 @@ public class AtividadesMensalRealizadaUnidades {
         this.numeroCriancasVisitas = numeroCriancasVisitas;
         this.presoIdentCivil = presoIdentCivil;
         this.presoAtiviReligiosa = presoAtiviReligiosa;
+        this.dataMatricula = dataMatricula;
+        this.dataFrequencia = dataFrequencia;
     }
 
     /**
@@ -483,5 +487,33 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setPresoAtiviReligiosa(Integer presoAtiviReligiosa) {
         this.presoAtiviReligiosa = presoAtiviReligiosa;
+    }
+
+    /**
+     * @return the dataMatricula
+     */
+    public Date getDataMatricula() {
+        return dataMatricula;
+    }
+
+    /**
+     * @param dataMatricula the dataMatricula to set
+     */
+    public void setDataMatricula(Date dataMatricula) {
+        this.dataMatricula = dataMatricula;
+    }
+
+    /**
+     * @return the dataFrequencia
+     */
+    public Date getDataFrequencia() {
+        return dataFrequencia;
+    }
+
+    /**
+     * @param dataFrequencia the dataFrequencia to set
+     */
+    public void setDataFrequencia(Date dataFrequencia) {
+        this.dataFrequencia = dataFrequencia;
     }
 }

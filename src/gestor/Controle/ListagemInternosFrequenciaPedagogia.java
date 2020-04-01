@@ -10,11 +10,8 @@ import gestor.Dao.listarInternosPopulacaoNominal;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ADM_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ADM_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_GRUPO_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_LIGACOES;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pPRESENCA_INTERNO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_INTERNOS_PRESENTE;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -28,7 +25,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class ListagemAtendimentoADMServicoSocial {
+public class ListagemInternosFrequenciaPedagogia {
 
     //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
     ConexaoBancoDados conecta = new ConexaoBancoDados();
@@ -36,10 +33,13 @@ public class ListagemAtendimentoADMServicoSocial {
     //
     String pDATA_INICIAL;
     String pDATA_FINAL;
+    String pREGIME_INTERNO = "Provisório";
+    String pENTRADA_UNIDADE = "ENTRADA NA UNIDADE";
+    String pRETORNO_UNIDADE = "RETORNO A UNIDADE";
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
-        pQUANTIDADE_ADM_SOCIAL = 0;
-        List<AtividadesMensalRealizadaUnidades> listaAtendSS = new ArrayList<AtividadesMensalRealizadaUnidades>();
+        pQUANTIDADE_INTERNOS_PRESENTE = 0;
+        List<AtividadesMensalRealizadaUnidades> listaInternospIntFreq = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -53,28 +53,31 @@ public class ListagemAtendimentoADMServicoSocial {
         }
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT DataAtendimento,TipoAtendimento "
-                    + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
-                    + "WHERE CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+            conecta.executaSQL("SELECT DataFreq "
+                    + "FROM FREQUENCIA "
+                    + "INNER JOIN ITENSFREQUENCIA "
+                    + "ON FREQUENCIA.IdFreq=ITENSFREQUENCIA.IdFreq "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSFREQUENCIA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + pENTRADA_UNIDADE + "' "
+                    + "AND DADOSPENAISINTERNOS.Regime!='" + pREGIME_INTERNO + "' "
+                    + "AND Presenca='" + pPRESENCA_INTERNO + "' "
+                    + "AND CONVERT(DATE, DataFreq) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_ADM_SOCIAL + "' "
-                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_SOCIAL + "' "
-                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_GRUPO_SOCIAL + "' "
-                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_LIGACOES + "' ");
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + pRETORNO_UNIDADE + "' "
+                    + "AND DADOSPENAISINTERNOS.Regime!='" + pREGIME_INTERNO + "' "
+                    + "AND Presenca='" + pPRESENCA_INTERNO + "' "
+                    + "AND CONVERT(DATE, DataFreq) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "AND '" + pDATA_FINAL + "'");
             while (conecta.rs.next()) {
-                AtividadesMensalRealizadaUnidades pAtivaSS = new AtividadesMensalRealizadaUnidades();
-                pAtivaSS.setDataAtendimento(conecta.rs.getDate("DataAtendimento"));
-                pAtivaSS.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
-                listaAtendSS.add(pAtivaSS);
-                pQUANTIDADE_ADM_SOCIAL = pQUANTIDADE_ADM_SOCIAL + 1;
+                AtividadesMensalRealizadaUnidades pIntFreq = new AtividadesMensalRealizadaUnidades();
+                pIntFreq.setDataMatricula(conecta.rs.getDate("DataFreq"));
+                listaInternospIntFreq.add(pIntFreq);
+                pQUANTIDADE_INTERNOS_PRESENTE = pQUANTIDADE_INTERNOS_PRESENTE + 1;
             }
-            return listaAtendSS;
+            return listaInternospIntFreq;
         } catch (SQLException ex) {
             Logger.getLogger(listarInternosPopulacaoNominal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

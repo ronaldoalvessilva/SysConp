@@ -7,8 +7,16 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRefreshDataMovi;
+import gestor.Controle.ListagemAtendimentoADMEnfermeira;
+import gestor.Controle.ListagemAtendimentoADMMedica;
+import gestor.Controle.ListagemAtendimentoADMOdontologica;
+import gestor.Controle.ListagemAtendimentoPROCOdontologica;
+import gestor.Controle.ListagemAtendimentoADMPsicologico;
+import gestor.Controle.ListagemAtendimentoADMPsiquiatrica;
 import gestor.Controle.ListagemAtendimentoADMServicoSocial;
 import gestor.Controle.ListagemAtendimentoADMServicoSocialFamilia;
+import gestor.Controle.ListagemInternosFrequenciaPedagogia;
+import gestor.Controle.ListagemInternosMatriculadoPedagogia;
 import gestor.Controle.ListagemNumerosDiasVisitas;
 import gestor.Controle.ListagemNumerosDiasVisitasInterno;
 import gestor.Controle.ListagemNumerosVisitasInternoMenor;
@@ -36,7 +44,6 @@ import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,6 +70,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemNumerosDiasVisitasInterno listaDiasVIDao = new ListagemNumerosDiasVisitasInterno();
     ListagemNumerosVisitasInternoMenor listaVCDao = new ListagemNumerosVisitasInternoMenor();
     ListagemNumerosDiasVisitas listaNumDiasVDao = new ListagemNumerosDiasVisitas();
+    //ABA ASI
+    ListagemAtendimentoADMMedica listaQtdAtMedico = new ListagemAtendimentoADMMedica();
+    ListagemAtendimentoADMPsiquiatrica listaQtdAtPsiq = new ListagemAtendimentoADMPsiquiatrica();
+    ListagemAtendimentoADMEnfermeira listaQtdAtEnfer = new ListagemAtendimentoADMEnfermeira();
+
+    ListagemAtendimentoADMPsicologico listaAtdAtPsico = new ListagemAtendimentoADMPsicologico();
+    ListagemAtendimentoPROCOdontologica listaProcAtOdon = new ListagemAtendimentoPROCOdontologica();
+    ListagemAtendimentoADMOdontologica listaAtdAtOdon = new ListagemAtendimentoADMOdontologica();
+    //
+    ListagemInternosMatriculadoPedagogia listaMatInTPed = new ListagemInternosMatriculadoPedagogia();
+    ListagemInternosFrequenciaPedagogia listaFreqIntPed = new ListagemInternosFrequenciaPedagogia();
+    //
     ControleRefreshDataMovi converteDate = new ControleRefreshDataMovi();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
@@ -82,6 +101,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
     public static String pTIPO_ATENDIMENTO_EVO_SOCIAL = "Evolução Serviço Social";
+    public static String pTIPO_ATENDIMENTO_LIGACOES = "Ligações Telefonicas";
     public static String pTIPO_ATENDIMENTO_GRUPO_SOCIAL = "Atendimento em Grupo/SS";
     //QUANTIDADES CALCULADA
     public static int pQUANTIDADE_ADM_SOCIAL = 0;
@@ -89,9 +109,40 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_ATE_FAMILIA = 0;
     public static int pQUANTIDADE_DIAS_VISITADOS = 0;
     public static int pQUANTIDADE_VISITA_FAMILIA_INT = 0;
-    float pMEDIA_VISITAS_POR_DIA = 0;
+    int pMEDIA_VISITAS_POR_DIA = 0;
     public static int pQUANTIDADE_VISITA_CRIANCA_INT = 0;
     //ABA ASI - ENFERMARIA
+    public static String pTIPO_ATENDIMENTO_ATE_MEDICO = "Admissão Médica";
+    public static String pTIPO_ATENDIMENTO_EVO_MEDICA = "Evolução Médica";
+    public static String pTIPO_ATENDIMENTO_ATE_PSIQUIATRICO = "Admissão Psiquiatrica";
+    public static String pTIPO_ATENDIMENTO_EVO_PSIQUIATRICA = "Evolução Psiquiatrica";
+    public static String pTIPO_ATENDIMENTO_ATE_ENFERMAGEM = "Admissão Enfermagem";
+    public static String pTIPO_ATENDIMENTO_EVO_ENFERMAGEM = "Evolução Enfermagem";
+    public static String pTIPO_ATENDIMENTO_GRUPO_ENFERMAGEM = "Atendimento em Grupo/ENF";
+    public static String pTIPO_ATENDIMENTO_ATE_TECNICO_ENF = "Atendimento Técnico Enfermagem";
+    //ABA ASI - PSICOLOGIA
+    public static String pTIPO_ATENDIMENTO_ATE_PSICOLOGICO = "Admissão Psicologica";
+    public static String pTIPO_ATENDIMENTO_EVO_PSICOLOGICO = "Evolução Psicologica";
+    public static String pTIPO_ATENDIMENTO_GRUPO_PSICOLOGICO = "Atendimento em Grupo/PSI";
+    //PROCEDIMENTOS ODOTOLOGICO
+    public static String pTIPO_ATENDIMENTO_ATE_ODONTOLOGICO = "Admissão Odontologica";
+    public static String pTIPO_ATENDIMENTO_EVO_ODONTOLOGICO = "Evolução Odontologica";
+    //ABA AEI - PEDAGOGIA
+    public static String pTIPO_MATRICULA_PEDAGODIA = "Matriculado";
+    public static String pPRESENCA_INTERNO = "Presente";
+    //QUANTIDADES CALCULADA
+    public static int pQUANTIDADE_ATE_MEDICA = 0;
+    public static int pQUANDIDADE_ATE_PSIQUIATRICA = 0;
+    public static int pQUANTIDADE_EVO_MEDICA = 0;
+    public static int pQUANTIDADE_EVO_PSIQUIATRICA = 0;
+    public static int pQUANTIDADE_ATE_ENFERMAGEM = 0;
+    public static int pQUANTIDADE_EVO_ENFERMAGEM = 0;
+    public static int pQUANTIDADE_ATE_TECNICO_ENF = 0;
+    public static int pQUANTIDADE_ATE_PSICOLOGIA = 0;
+    public static int pQUANTIDADE_PROC_ODONTOLOGICO = 0;
+    public static int pQUANTIDADE_ATE_ODONTOLOGICO = 0;
+    public static int pQUANTIDADE_MATRICULADOS = 0;
+    public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;
 
     //ABA AEI - PEDAGOGIA
     //ABA AMI - ALMOXARIFADO
@@ -273,19 +324,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
-        jAspectosSexual = new javax.swing.JFormattedTextField();
         jAtendimentoMedClinico = new javax.swing.JFormattedTextField();
         jAtendimentoMedPsi = new javax.swing.JFormattedTextField();
         jAtendimentoEnfermagem = new javax.swing.JFormattedTextField();
         jProcedimentoOdontologico = new javax.swing.JFormattedTextField();
         jAtendimentoPsicologico = new javax.swing.JFormattedTextField();
         jTratamentoAgravDiaginostico = new javax.swing.JFormattedTextField();
+        jAtendimentoOdontologicos = new javax.swing.JFormattedTextField();
         jPresoDoencaInfecto = new javax.swing.JFormattedTextField();
-        jPresoSaudeBucal = new javax.swing.JFormattedTextField();
-        jAtendimentoMedClinco = new javax.swing.JFormattedTextField();
-        jPresosVacinados = new javax.swing.JFormattedTextField();
-        jControleDiabetes = new javax.swing.JFormattedTextField();
         jControlHipertensao = new javax.swing.JFormattedTextField();
+        jControleDiabetes = new javax.swing.JFormattedTextField();
+        jAspectosSexual = new javax.swing.JFormattedTextField();
+        jPresosVacinados = new javax.swing.JFormattedTextField();
         jPanel65 = new javax.swing.JPanel();
         jBtNovo12 = new javax.swing.JButton();
         jBtAlterar12 = new javax.swing.JButton();
@@ -1284,19 +1334,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 483, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3))
@@ -1354,6 +1403,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroVistantesInternos.setEnabled(false);
 
         jMediaVisitasDia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMediaVisitasDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jMediaVisitasDia.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jMediaVisitasDia.setText("0");
         jMediaVisitasDia.setEnabled(false);
@@ -2056,39 +2106,51 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel34.setText("Atendimento médico clínico");
+        jLabel34.setToolTipText("Atendimento médico clínico");
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel35.setText("Atendimento médico psiquiátrico");
+        jLabel35.setToolTipText("Atendimento médico psiquiátrico");
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Atendimento enfermagem");
+        jLabel36.setToolTipText("Atendimento enfermagem");
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel37.setText("Procedimentos odontológicos");
+        jLabel37.setToolTipText("Procedimentos odontológicos");
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel38.setText("Atendimento psicológico");
+        jLabel38.setToolTipText("Atendimento psicológico");
 
         jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel39.setText("Tratamento de agravos diagnosticados");
+        jLabel39.setToolTipText("Tratamento de agravos diagnosticados");
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel40.setText("Preso sensib. e capac. sobre cuidados com a saúde bucal  (Atendimentos ");
+        jLabel40.setToolTipText("Preso sensib. e capac. sobre cuidados com a saúde bucal  (Atendimentos odontológicos)");
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel41.setText("Preso sensib. e capac. sobre cuidados com a saúde e controle das doenças ");
+        jLabel41.setToolTipText("Preso sensib. e capac. sobre cuidados com a saúde e controle das doenças infectocontagiosas");
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Controle da hipertensão");
+        jLabel42.setToolTipText("Controle da hipertensão");
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel43.setText("Controle das diabetes");
+        jLabel43.setToolTipText("Controle das diabetes");
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel44.setText("Aspectos relacionados a sexualidades");
+        jLabel44.setToolTipText("Aspectos relacionados a sexualidades");
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel45.setText("Presos vacinados");
+        jLabel45.setToolTipText("Presos vacinados");
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel46.setText("infectocontagiosas");
@@ -2096,70 +2158,77 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel47.setText("odontológicos)");
 
-        jAspectosSexual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAspectosSexual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jAspectosSexual.setText("0");
-        jAspectosSexual.setEnabled(false);
-
         jAtendimentoMedClinico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAtendimentoMedClinico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jAtendimentoMedClinico.setText("0");
+        jAtendimentoMedClinico.setToolTipText("Atendimento médico clínico");
         jAtendimentoMedClinico.setEnabled(false);
 
         jAtendimentoMedPsi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAtendimentoMedPsi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jAtendimentoMedPsi.setText("0");
+        jAtendimentoMedPsi.setToolTipText("Atendimento médico psiquiátrico");
         jAtendimentoMedPsi.setEnabled(false);
 
         jAtendimentoEnfermagem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAtendimentoEnfermagem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jAtendimentoEnfermagem.setText("0");
+        jAtendimentoEnfermagem.setToolTipText("Atendimento enfermagem");
         jAtendimentoEnfermagem.setEnabled(false);
 
         jProcedimentoOdontologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jProcedimentoOdontologico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jProcedimentoOdontologico.setText("0");
+        jProcedimentoOdontologico.setToolTipText("Procedimentos odontológicos");
         jProcedimentoOdontologico.setEnabled(false);
 
         jAtendimentoPsicologico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAtendimentoPsicologico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jAtendimentoPsicologico.setText("0");
+        jAtendimentoPsicologico.setToolTipText("Atendimento psicológico");
         jAtendimentoPsicologico.setEnabled(false);
 
         jTratamentoAgravDiaginostico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTratamentoAgravDiaginostico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTratamentoAgravDiaginostico.setText("0");
+        jTratamentoAgravDiaginostico.setToolTipText("Tratamento de agravos diagnosticados");
         jTratamentoAgravDiaginostico.setEnabled(false);
+
+        jAtendimentoOdontologicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoOdontologicos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoOdontologicos.setText("0");
+        jAtendimentoOdontologicos.setToolTipText("Preso sensib. e capac. sobre cuidados com a saúde bucal  (Atendimentos odontológicos)");
+        jAtendimentoOdontologicos.setEnabled(false);
 
         jPresoDoencaInfecto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPresoDoencaInfecto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPresoDoencaInfecto.setText("0");
+        jPresoDoencaInfecto.setToolTipText("Preso sensib. e capac. sobre cuidados com a saúde e controle das doenças infectocontagiosas");
         jPresoDoencaInfecto.setEnabled(false);
-
-        jPresoSaudeBucal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoSaudeBucal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoSaudeBucal.setText("0");
-        jPresoSaudeBucal.setEnabled(false);
-
-        jAtendimentoMedClinco.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAtendimentoMedClinco.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jAtendimentoMedClinco.setText("0");
-        jAtendimentoMedClinco.setEnabled(false);
-
-        jPresosVacinados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresosVacinados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresosVacinados.setText("0");
-        jPresosVacinados.setEnabled(false);
-
-        jControleDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jControleDiabetes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jControleDiabetes.setText("0");
-        jControleDiabetes.setEnabled(false);
 
         jControlHipertensao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jControlHipertensao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jControlHipertensao.setText("0");
+        jControlHipertensao.setToolTipText("Controle da hipertensão");
         jControlHipertensao.setEnabled(false);
+
+        jControleDiabetes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jControleDiabetes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jControleDiabetes.setText("0");
+        jControleDiabetes.setToolTipText("Controle das diabetes");
+        jControleDiabetes.setEnabled(false);
+
+        jAspectosSexual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAspectosSexual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAspectosSexual.setText("0");
+        jAspectosSexual.setToolTipText("Aspectos relacionados a sexualidades");
+        jAspectosSexual.setEnabled(false);
+
+        jPresosVacinados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresosVacinados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresosVacinados.setText("0");
+        jPresosVacinados.setToolTipText("Presos vacinados");
+        jPresosVacinados.setEnabled(false);
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -2192,7 +2261,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel47)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPresoSaudeBucal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendimentoOdontologicos, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel42)
@@ -2200,7 +2269,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPresoDoencaInfecto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jAtendimentoMedClinco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jAtendimentoMedClinico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jControleDiabetes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jControlHipertensao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2217,11 +2285,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel46)
                             .addComponent(jLabel34)
                             .addComponent(jLabel41))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 41, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAspectosSexual, jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresoSaudeBucal, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAspectosSexual, jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoOdontologicos, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2250,14 +2318,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel39)
                             .addComponent(jTratamentoAgravDiaginostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jAtendimentoMedClinco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAtendimentoMedClinico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel40)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel47)
-                    .addComponent(jPresoSaudeBucal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jAtendimentoOdontologicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel41)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -6011,17 +6078,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         caluloVC();
         caluloQTVD();
         //CALCUAR AS MÉDIAS
-        //ME=S/N
-        // ME = MEDIA
-        // S = SOMA DOS DIAS
-        // N = NÚMERO DE DIAS
-        pMEDIA_VISITAS_POR_DIA = ((pQUANTIDADE_VISITA_FAMILIA_INT + pQUANTIDADE_VISITA_CRIANCA_INT) / pQUANTIDADE_DIAS_VISITADOS);
+        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
         jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-        try {
-            objAtividade.setMediaVisitasDia(valorReal.parse(jMediaVisitasDia.getText()).floatValue());
-        } catch (ParseException ex) {
-            Logger.getLogger(TelaInventarioProdutosAC.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //ABA ASI
+        calculoMED();
+        calculoPSIQ();
+        calculoENFER();
+
+        calculoPSI();
+        calculoProcODON();
+        calculoAtendODON();
+        calculoMatPED();
+        calculoFreqPED();
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -6045,9 +6113,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jAspectosSexual;
     private javax.swing.JFormattedTextField jAtendInternoSAJ;
     private javax.swing.JFormattedTextField jAtendimentoEnfermagem;
-    private javax.swing.JFormattedTextField jAtendimentoMedClinco;
     private javax.swing.JFormattedTextField jAtendimentoMedClinico;
     private javax.swing.JFormattedTextField jAtendimentoMedPsi;
+    private javax.swing.JFormattedTextField jAtendimentoOdontologicos;
     private javax.swing.JFormattedTextField jAtendimentoPsiFamilaPreso;
     private javax.swing.JFormattedTextField jAtendimentoPsiPreso;
     private javax.swing.JFormattedTextField jAtendimentoPsicologico;
@@ -6439,7 +6507,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jPresoDoencaInfecto;
     private javax.swing.JFormattedTextField jPresoIdentCivil;
     private javax.swing.JFormattedTextField jPresoMatProfissional;
-    private javax.swing.JFormattedTextField jPresoSaudeBucal;
     private javax.swing.JFormattedTextField jPresoSentecaAtivLaboralRemun;
     private javax.swing.JFormattedTextField jPresoSentencaMatFreqEF;
     private javax.swing.JFormattedTextField jPresoSentenciadoEF;
@@ -6519,7 +6586,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jProcedimentoOdontologico.setBackground(Color.white);
         jAtendimentoPsicologico.setBackground(Color.white);
         jTratamentoAgravDiaginostico.setBackground(Color.white);
-        jPresoSaudeBucal.setBackground(Color.white);
+        jAtendimentoOdontologicos.setBackground(Color.white);
         jPresoDoencaInfecto.setBackground(Color.white);
         jControlHipertensao.setBackground(Color.white);
         jControleDiabetes.setBackground(Color.white);
@@ -6675,7 +6742,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jProcedimentoOdontologico.setEnabled(opcaoF);
         jAtendimentoPsicologico.setEnabled(opcaoF);
         jTratamentoAgravDiaginostico.setEnabled(opcaoF);
-        jPresoSaudeBucal.setEnabled(opcaoF);
+        jAtendimentoOdontologicos.setEnabled(opcaoF);
         jPresoDoencaInfecto.setEnabled(opcaoF);
         jControlHipertensao.setEnabled(opcaoF);
         jControleDiabetes.setEnabled(opcaoF);
@@ -6706,10 +6773,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jChinelos.setEnabled(opcaoF);
         jUniformeCompleto.setEnabled(opcaoF);
         //ABA SEG
+        jNumeroOcorrenciasInd.setEnabled(opcaoF);
         jNumeroAparelhoConvive.setEnabled(opcaoF);
         jObjetosMateriais.setEnabled(opcaoF);
         jNumeroProcedRevista.setEnabled(opcaoF);
-        jNumeroOcorrenciasInd.setEnabled(opcaoV);
+        jNumeroOcorrenciasInd.setEnabled(opcaoF);
         jNumeroOcorrenciaTentaFuga.setEnabled(opcaoV);
         jNumeroOcorrenciaRebeliao.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoaFerida.setEnabled(opcaoV);
@@ -6749,13 +6817,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLaudosPsiqEmitidos.setEnabled(opcaoV);
         jTP.setEnabled(opcaoV);
         //ABA AL
-        jTriagemAtendInernos.setEnabled(opcaoV);
-        jOcupacaoAtiviRecreaReligiosa.setEnabled(opcaoV);
-        PresoAtiviArtesPlasticas.setEnabled(opcaoV);
-        jPresoAtiviLiteraria.setEnabled(opcaoV);
-        jPresoAtiviCantoTeatro.setEnabled(opcaoV);
-        jPresoMatProfissional.setEnabled(opcaoV);
-        jPresoCertificaCursoProf.setEnabled(opcaoV);
+        jTriagemAtendInernos.setEnabled(opcaoF);
+        jOcupacaoAtiviRecreaReligiosa.setEnabled(opcaoF);
+        PresoAtiviArtesPlasticas.setEnabled(opcaoF);
+        jPresoAtiviLiteraria.setEnabled(opcaoF);
+        jPresoAtiviCantoTeatro.setEnabled(opcaoF);
+        jPresoMatProfissional.setEnabled(opcaoF);
+        jPresoCertificaCursoProf.setEnabled(opcaoF);
         jPresoSentecaAtivLaboralRemun.setEnabled(opcaoF);
         jPresoAtiviLaboralNaoRemunera.setEnabled(opcaoF);
         //ABA AFI
@@ -6806,9 +6874,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         AtividadesMensalRealizadaUnidades d = new AtividadesMensalRealizadaUnidades();
         try {
-            for (AtividadesMensalRealizadaUnidades dd : listaSSDao.read()) {
-                dd.getTipoAtendimento();
-                dd.getDataAtendimento();
+            for (AtividadesMensalRealizadaUnidades dd0 : listaSSDao.read()) {
+                dd0.getTipoAtendimento();
+                dd0.getDataAtendimento();
                 jAtendimentoPsiPreso.setText(String.valueOf(pQUANTIDADE_ADM_SOCIAL));
             }
         } catch (Exception ex) {
@@ -6820,8 +6888,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public void calculoSSF() {
         AtividadesMensalRealizadaUnidades s1 = new AtividadesMensalRealizadaUnidades();
         try {
-            for (AtividadesMensalRealizadaUnidades dd : listaDaoFam.read()) {
-                dd.getTipoAtendimento();
+            for (AtividadesMensalRealizadaUnidades dd1 : listaDaoFam.read()) {
+                dd1.getTipoAtendimento();
                 jAtendimentoPsiFamilaPreso.setText(String.valueOf(pQUANTIDADE_ATE_FAMILIA));
             }
         } catch (Exception ex) {
@@ -6834,8 +6902,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         AtividadesMensalRealizadaUnidades s2 = new AtividadesMensalRealizadaUnidades();
         try {
-            for (AtividadesMensalRealizadaUnidades dd : listaDiasVIDao.read()) {
-                dd.getDataEntradaVisita();
+            for (AtividadesMensalRealizadaUnidades dd2 : listaDiasVIDao.read()) {
+                dd2.getDataEntradaVisita();
                 jNumeroVistantesInternos.setText(String.valueOf(pQUANTIDADE_VISITA_FAMILIA_INT));
             }
         } catch (Exception ex) {
@@ -6847,27 +6915,138 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public void caluloVC() {
         AtividadesMensalRealizadaUnidades s3 = new AtividadesMensalRealizadaUnidades();
         try {
-            for (AtividadesMensalRealizadaUnidades dd : listaVCDao.read()) {
-                dd.getDataEntradaVisita();
+            for (AtividadesMensalRealizadaUnidades dd3 : listaVCDao.read()) {
+                dd3.getDataEntradaVisita();
                 jNumeroCriancasVisitas.setText(String.valueOf(pQUANTIDADE_VISITA_CRIANCA_INT));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    //QUANTIDDADE DE VISITAS DIAS
+
+    //QUANTIDADE DE VISITAS DIAS
     public void caluloQTVD() {
         AtividadesMensalRealizadaUnidades s3 = new AtividadesMensalRealizadaUnidades();
         try {
-            for (AtividadesMensalRealizadaUnidades dd : listaNumDiasVDao.read()) {
-                dd.getDataEntradaVisita();
+            for (AtividadesMensalRealizadaUnidades dd4 : listaNumDiasVDao.read()) {
+                dd4.getDataEntradaVisita();
                 jNumeroDiasVisitas.setText(String.valueOf(pQUANTIDADE_DIAS_VISITADOS));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    //QUANTIDADE ATENDIMENTO MÉDICO
+    public void calculoMED() {
+        AtividadesMensalRealizadaUnidades s4 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd5 : listaQtdAtMedico.read()) {
+                dd5.getTipoAtendimento();
+                dd5.getDataAtendimento();
+                jAtendimentoMedClinico.setText(String.valueOf(pQUANTIDADE_ATE_MEDICA));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE ATENDIMENTO PSIQUIATRA
+    public void calculoPSIQ() {
+        AtividadesMensalRealizadaUnidades s5 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd6 : listaQtdAtPsiq.read()) {
+                dd6.getTipoAtendimento();
+                dd6.getDataAtendimento();
+                jAtendimentoMedPsi.setText(String.valueOf(pQUANDIDADE_ATE_PSIQUIATRICA));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE ATENDIMENTO ENFERMEIRA
+    public void calculoENFER() {
+        AtividadesMensalRealizadaUnidades s5 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd6 : listaQtdAtEnfer.read()) {
+                dd6.getTipoAtendimento();
+                dd6.getDataAtendimento();
+                jAtendimentoEnfermagem.setText(String.valueOf(pQUANTIDADE_ATE_ENFERMAGEM));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE ATENDIMENTO PSICOLOGICOS  
+    public void calculoPSI() {
+        AtividadesMensalRealizadaUnidades s6 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd7 : listaAtdAtPsico.read()) {
+                dd7.getDataAtendimento();
+                dd7.getTipoAtendimento();
+                jAtendimentoPsicologico.setText(String.valueOf(pQUANTIDADE_ATE_PSICOLOGIA));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE PROCEDIMENTO ODONTOLOGICO
+    public void calculoProcODON() {
+        AtividadesMensalRealizadaUnidades s7 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd8 : listaProcAtOdon.read()) {
+                dd8.getDataAtendimento();
+                dd8.getTipoAtendimento();
+                jProcedimentoOdontologico.setText(String.valueOf(pQUANTIDADE_PROC_ODONTOLOGICO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE ATENDIMENTOS ODONTOLOGICO
+    public void calculoAtendODON() {
+        AtividadesMensalRealizadaUnidades s8 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd9 : listaAtdAtOdon.read()) {
+                dd9.getDataAtendimento();
+                dd9.getTipoAtendimento();
+                jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //INTERNO SENTENCIADO MATRICULADOS CURSO FUNDAMENTAL
+    public void calculoMatPED() {     
+        AtividadesMensalRealizadaUnidades s9 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd10 : listaMatInTPed.read()) {
+                dd10.getDataMatricula();
+                jPresoSentenciadoEF.setText(String.valueOf(pQUANTIDADE_MATRICULADOS));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //INTERNO SENTENCIADO MATRICULADOS CURSO FUNDAMENTAL
+    public void calculoFreqPED() {     
+        AtividadesMensalRealizadaUnidades s10 = new AtividadesMensalRealizadaUnidades();
+        try {
+            for (AtividadesMensalRealizadaUnidades dd11 : listaFreqIntPed.read()) {
+                dd11.getDataFrequencia();
+                jPresoSentencaMatFreqEF.setText(String.valueOf(pQUANTIDADE_INTERNOS_PRESENTE));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     public void Novo() {
         jStatus.setText("ABERTO");

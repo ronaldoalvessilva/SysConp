@@ -11,10 +11,9 @@ import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ADM_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ADM_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_GRUPO_SOCIAL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_LIGACOES;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ATE_MEDICA;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ATE_MEDICO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_MEDICA;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -28,7 +27,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class ListagemAtendimentoADMServicoSocial {
+public class ListagemAtendimentoADMMedica {
 
     //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
     ConexaoBancoDados conecta = new ConexaoBancoDados();
@@ -39,7 +38,7 @@ public class ListagemAtendimentoADMServicoSocial {
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         pQUANTIDADE_ADM_SOCIAL = 0;
-        List<AtividadesMensalRealizadaUnidades> listaAtendSS = new ArrayList<AtividadesMensalRealizadaUnidades>();
+        List<AtividadesMensalRealizadaUnidades> listaAtendMedico = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -57,24 +56,18 @@ public class ListagemAtendimentoADMServicoSocial {
                     + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
                     + "WHERE CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_ADM_SOCIAL + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_ATE_MEDICO + "' "                              
                     + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_SOCIAL + "' "
-                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_GRUPO_SOCIAL + "' "
-                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_LIGACOES + "' ");
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_MEDICA + "' ");
             while (conecta.rs.next()) {
-                AtividadesMensalRealizadaUnidades pAtivaSS = new AtividadesMensalRealizadaUnidades();
-                pAtivaSS.setDataAtendimento(conecta.rs.getDate("DataAtendimento"));
-                pAtivaSS.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
-                listaAtendSS.add(pAtivaSS);
-                pQUANTIDADE_ADM_SOCIAL = pQUANTIDADE_ADM_SOCIAL + 1;
+                AtividadesMensalRealizadaUnidades pAtivaMed = new AtividadesMensalRealizadaUnidades();
+                pAtivaMed.setDataAtendimento(conecta.rs.getDate("DataAtendimento"));
+                pAtivaMed.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
+                listaAtendMedico.add(pAtivaMed);
+                pQUANTIDADE_ATE_MEDICA = pQUANTIDADE_ATE_MEDICA + 1;
             }
-            return listaAtendSS;
+            return listaAtendMedico;
         } catch (SQLException ex) {
             Logger.getLogger(listarInternosPopulacaoNominal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

@@ -578,10 +578,7 @@
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
+                                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                               <Component id="jEixo" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -1483,12 +1480,13 @@
                               <Font name="Tahoma" size="11" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="5">
+                              <StringArray count="6">
                                 <StringItem index="0" value="Selecione..."/>
-                                <StringItem index="1" value="Cursando"/>
-                                <StringItem index="2" value="Conclu&#xed;do"/>
-                                <StringItem index="3" value="Desistente"/>
-                                <StringItem index="4" value="N&#xe3;o Conclu&#xed;do"/>
+                                <StringItem index="1" value="Matriculado"/>
+                                <StringItem index="2" value="Cursando"/>
+                                <StringItem index="3" value="Conclu&#xed;do"/>
+                                <StringItem index="4" value="Desistente"/>
+                                <StringItem index="5" value="N&#xe3;o Conclu&#xed;do"/>
                               </StringArray>
                             </Property>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
