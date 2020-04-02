@@ -24,8 +24,13 @@ public class ObjetoProcedimento {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;    
+    private String marca;
+    private String modelo;
 
-    public ObjetoProcedimento(int idObjeto, String statusLanc, Date dataLanc, String descricaoObjeto, String fotoObjeto, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ObjetoProcedimento() {
+    }
+
+    public ObjetoProcedimento(int idObjeto, String statusLanc, Date dataLanc, String descricaoObjeto, String fotoObjeto, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, String marca, String modelo) {
         this.idObjeto = idObjeto;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -37,9 +42,8 @@ public class ObjetoProcedimento {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ObjetoProcedimento() {
+        this.marca = marca;
+        this.modelo = modelo;
     }
 
     /**
@@ -194,5 +198,33 @@ public class ObjetoProcedimento {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * @return the modelo
+     */
+    public String getModelo() {
+        return modelo;
+    }
+
+    /**
+     * @param modelo the modelo to set
+     */
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 }

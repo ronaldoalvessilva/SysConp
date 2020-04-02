@@ -24,7 +24,7 @@ public class ControleObjetosProcedimento {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO OBJETOSPROCEDIMENTOS (StatusLanc,DataLanc,DescricaoObjeto,FotoObjeto,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO OBJETOSPROCEDIMENTOS (StatusLanc,DataLanc,DescricaoObjeto,FotoObjeto,UsuarioInsert,DataInsert,HorarioInsert,Modelo,Marca) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setString(1, objProce.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objProce.getDataLanc().getTime()));
             pst.setString(3, objProce.getDescricaoObjeto());
@@ -32,6 +32,8 @@ public class ControleObjetosProcedimento {
             pst.setString(5, objProce.getUsuarioInsert());
             pst.setString(6, objProce.getDataInsert());
             pst.setString(7, objProce.getHorarioInsert());
+            pst.setString(8, objProce.getModelo());
+            pst.setString(9, objProce.getMarca());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -44,7 +46,7 @@ public class ControleObjetosProcedimento {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OBJETOSPROCEDIMENTOS SET StatusLanc=?,DataLanc=?,DescricaoObjeto=?,FotoObjeto=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdObjeto='" + objProce.getIdObjeto() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE OBJETOSPROCEDIMENTOS SET StatusLanc=?,DataLanc=?,DescricaoObjeto=?,FotoObjeto=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Modelo=?,Marca=? WHERE IdObjeto='" + objProce.getIdObjeto() + "'");
             pst.setString(1, objProce.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objProce.getDataLanc().getTime()));
             pst.setString(3, objProce.getDescricaoObjeto());
@@ -52,6 +54,8 @@ public class ControleObjetosProcedimento {
             pst.setString(5, objProce.getUsuarioUp());
             pst.setString(6, objProce.getDataUp());
             pst.setString(7, objProce.getHorarioUp());
+            pst.setString(8, objProce.getModelo());
+            pst.setString(9, objProce.getMarca());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);

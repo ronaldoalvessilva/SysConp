@@ -45,11 +45,16 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer presoAtiviReligiosa;
     private Date dataMatricula;
     private Date dataFrequencia;
+    //SEG
+    private Date DataProcedimento;
+    private Integer quantidadeCelular;
+    private Integer quantidadeObjetos;
+    private Integer quantidadeProcedCelas;
 
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -81,6 +86,10 @@ public class AtividadesMensalRealizadaUnidades {
         this.presoAtiviReligiosa = presoAtiviReligiosa;
         this.dataMatricula = dataMatricula;
         this.dataFrequencia = dataFrequencia;
+        this.DataProcedimento = DataProcedimento;
+        this.quantidadeCelular = quantidadeCelular;
+        this.quantidadeObjetos = quantidadeObjetos;
+        this.quantidadeProcedCelas = quantidadeProcedCelas;
     }
 
     /**
@@ -515,5 +524,61 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setDataFrequencia(Date dataFrequencia) {
         this.dataFrequencia = dataFrequencia;
+    }
+
+    /**
+     * @return the DataProcedimento
+     */
+    public Date getDataProcedimento() {
+        return DataProcedimento;
+    }
+
+    /**
+     * @param DataProcedimento the DataProcedimento to set
+     */
+    public void setDataProcedimento(Date DataProcedimento) {
+        this.DataProcedimento = DataProcedimento;
+    }
+
+    /**
+     * @return the quantidadeCelular
+     */
+    public Integer getQuantidadeCelular() {
+        return quantidadeCelular;
+    }
+
+    /**
+     * @param quantidadeCelular the quantidadeCelular to set
+     */
+    public void setQuantidadeCelular(Integer quantidadeCelular) {
+        this.quantidadeCelular = quantidadeCelular;
+    }
+
+    /**
+     * @return the quantidadeObjetos
+     */
+    public Integer getQuantidadeObjetos() {
+        return quantidadeObjetos;
+    }
+
+    /**
+     * @param quantidadeObjetos the quantidadeObjetos to set
+     */
+    public void setQuantidadeObjetos(Integer quantidadeObjetos) {
+        this.quantidadeObjetos = quantidadeObjetos;
+    }
+
+    /**
+     * @return the quantidadeProcedCelas
+     */
+    public Integer getQuantidadeProcedCelas() {
+        return quantidadeProcedCelas;
+    }
+
+    /**
+     * @param quantidadeProcedCelas the quantidadeProcedCelas to set
+     */
+    public void setQuantidadeProcedCelas(Integer quantidadeProcedCelas) {
+        this.quantidadeProcedCelas = quantidadeProcedCelas;
     }
 }

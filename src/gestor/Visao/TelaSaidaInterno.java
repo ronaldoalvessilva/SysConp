@@ -93,7 +93,7 @@ public class TelaSaidaInterno extends javax.swing.JInternalFrame {
     int codSai;
     String tipo = "Saídas";
     String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres
-    String pSITUACAO = "PRISAO DOMICILIAR HUMANITARIA COVID-19";
+    String pSITUACAO = "PRISAO DOMICILIAR - COVID-19";
     String saidaAudiencia = "SAIDA PARA AUDIENCIA";
     int flagItem;
     int codItem = 0;
