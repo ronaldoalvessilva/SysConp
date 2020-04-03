@@ -82,7 +82,7 @@ public class ListagemQuantidadeProdutosKit {
                 AtividadesMensalRealizadaUnidades pQuantRevista = new AtividadesMensalRealizadaUnidades();
                 pQuantRevista.setAparelhoBarbear("APARELHO DE BARBEAR DESCATAVEL");
                 pQuantRevista.setAbsorvente(Integer.parseInt("ABSORVENTE PAARA INTERNAS"));
-                pQuantRevista.setBermuda(Integer.parseInt("BERMUDA LARANJA G"));
+//                pQuantRevista.setBermuda(Integer.parseInt("BERMUDA LARANJA G"));
 //                pQuantRevista.setCamisa(Integer.parseInt("CAMISA LARANJA G"));
 //                pQuantRevista.setCaneca(Integer.parseInt("CANECA PLASTICA C ALCA 300ML"));
 //                pQuantRevista.setCobertor(Integer.parseInt("COBERTOR DORME BEM"));

@@ -6129,7 +6129,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoCelularSEG();
         calcularObjetos();
         calcularQtdRevistaCela();
-        calcularQtdRevistaCela();
+        calculoProdutosKit();
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -7047,9 +7047,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //QUANTIDADE PRODUTOS KIT HIGIÊNE
-    public void calcularPROKit(){
+    public void calcularPROKit() {
         try {
             for (AtividadesMensalRealizadaUnidades dd10 : listaAtdAtOdon.read()) {
                 dd10.getDataAtendimento();
@@ -7111,34 +7111,44 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
-    //QUANTIDADE DE REVISTA REALIZADO POR CELA 
     public void calcularQtdRevistaCela() {
         try {
-            for (AtividadesMensalRealizadaUnidades dd13 : listaProdutoKit.read()) {
-//                dd13.getDataProcedimento();
-//                dd13.getQuantidadeObjetos();
-                dd13.getAparelhoBarbear();
-                dd13.getAbsorvente();
-                dd13.getBermuda();
-                dd13.getCamisa();
-                dd13.getCaneca();
-                dd13.getCobertor();
-                dd13.getColchao();
-                dd13.getColher();
-                dd13.getCremeDental();
-                dd13.getCueca();
-                dd13.getDesodorante();
-                dd13.getEscova();
-                dd13.getLencol();
-                dd13.getPapelHigienico();
-                dd13.getPote();
-                dd13.getSabaoPo();
-                dd13.getSabonete();
-                dd13.getParChinelos();
-                dd13.getToalha();
-                jAparelhoBarbear.setText(dd13.getAparelhoBarbear());
-                jAbsorvente.setText(String.valueOf(dd13.getAbsorvente()));
-                jBermuda.setText(String.valueOf(dd13.getBermuda()));
+            for (AtividadesMensalRealizadaUnidades dd14 : listaRevistaCela.read()) {
+                dd14.getDataProcedimento();
+                dd14.getQuantidadeObjetos();
+                jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE DE PRODUTOS KIT HIGIENE 
+    public void calculoProdutosKit() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd15 : listaProdutoKit.read()) {
+                dd15.getAparelhoBarbear();
+                dd15.getAbsorvente();
+//                dd15.getBermuda();
+//                dd15.getCamisa();
+//                dd15.getCaneca();
+//                dd15.getCobertor();
+//                dd15.getColchao();
+//                dd15.getColher();
+//                dd15.getCremeDental();
+//                dd15.getCueca();
+//                dd15.getDesodorante();
+//                dd15.getEscova();
+//                dd15.getLencol();
+//                dd15.getPapelHigienico();
+//                dd15.getPote();
+//                dd15.getSabaoPo();
+//                dd15.getSabonete();
+//                dd15.getParChinelos();
+//                dd15.getToalha();
+                jAparelhoBarbear.setText(dd15.getAparelhoBarbear());
+                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
+//                jBermuda.setText(String.valueOf(dd15.getBermuda()));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
