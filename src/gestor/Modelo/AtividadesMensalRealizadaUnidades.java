@@ -45,6 +45,27 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer presoAtiviReligiosa;
     private Date dataMatricula;
     private Date dataFrequencia;
+    //AMI
+    private String aparelhoBarbear;
+    private Integer absorvente;
+    private Integer bermuda;
+    private Integer caneca;
+    private Integer camisa;
+    private Integer cobertor;
+    private Integer colchao;
+    private Integer colher;
+    private Integer cueca;
+    private Integer cremeDental;
+    private Integer desodorante;
+    private Integer escova;
+    private Integer lencol;
+    private Integer papelHigienico;
+    private Integer parChinelos;
+    private Integer pote;
+    private Integer sabaoPo;
+    private Integer sabonete;
+    private Integer toalha;
+    private Integer uniformeCompleto;
     //SEG
     private Date DataProcedimento;
     private Integer quantidadeCelular;
@@ -54,7 +75,7 @@ public class AtividadesMensalRealizadaUnidades {
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, String aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -86,6 +107,26 @@ public class AtividadesMensalRealizadaUnidades {
         this.presoAtiviReligiosa = presoAtiviReligiosa;
         this.dataMatricula = dataMatricula;
         this.dataFrequencia = dataFrequencia;
+        this.aparelhoBarbear = aparelhoBarbear;
+        this.absorvente = absorvente;
+        this.bermuda = bermuda;
+        this.caneca = caneca;
+        this.camisa = camisa;
+        this.cobertor = cobertor;
+        this.colchao = colchao;
+        this.colher = colher;
+        this.cueca = cueca;
+        this.cremeDental = cremeDental;
+        this.desodorante = desodorante;
+        this.escova = escova;
+        this.lencol = lencol;
+        this.papelHigienico = papelHigienico;
+        this.parChinelos = parChinelos;
+        this.pote = pote;
+        this.sabaoPo = sabaoPo;
+        this.sabonete = sabonete;
+        this.toalha = toalha;
+        this.uniformeCompleto = uniformeCompleto;
         this.DataProcedimento = DataProcedimento;
         this.quantidadeCelular = quantidadeCelular;
         this.quantidadeObjetos = quantidadeObjetos;
@@ -524,6 +565,286 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setDataFrequencia(Date dataFrequencia) {
         this.dataFrequencia = dataFrequencia;
+    }
+
+    /**
+     * @return the aparelhoBarbear
+     */
+    public String getAparelhoBarbear() {
+        return aparelhoBarbear;
+    }
+
+    /**
+     * @param aparelhoBarbear the aparelhoBarbear to set
+     */
+    public void setAparelhoBarbear(String aparelhoBarbear) {
+        this.aparelhoBarbear = aparelhoBarbear;
+    }
+
+    /**
+     * @return the absorvente
+     */
+    public Integer getAbsorvente() {
+        return absorvente;
+    }
+
+    /**
+     * @param absorvente the absorvente to set
+     */
+    public void setAbsorvente(Integer absorvente) {
+        this.absorvente = absorvente;
+    }
+
+    /**
+     * @return the bermuda
+     */
+    public Integer getBermuda() {
+        return bermuda;
+    }
+
+    /**
+     * @param bermuda the bermuda to set
+     */
+    public void setBermuda(Integer bermuda) {
+        this.bermuda = bermuda;
+    }
+
+    /**
+     * @return the caneca
+     */
+    public Integer getCaneca() {
+        return caneca;
+    }
+
+    /**
+     * @param caneca the caneca to set
+     */
+    public void setCaneca(Integer caneca) {
+        this.caneca = caneca;
+    }
+
+    /**
+     * @return the camisa
+     */
+    public Integer getCamisa() {
+        return camisa;
+    }
+
+    /**
+     * @param camisa the camisa to set
+     */
+    public void setCamisa(Integer camisa) {
+        this.camisa = camisa;
+    }
+
+    /**
+     * @return the cobertor
+     */
+    public Integer getCobertor() {
+        return cobertor;
+    }
+
+    /**
+     * @param cobertor the cobertor to set
+     */
+    public void setCobertor(Integer cobertor) {
+        this.cobertor = cobertor;
+    }
+
+    /**
+     * @return the colchao
+     */
+    public Integer getColchao() {
+        return colchao;
+    }
+
+    /**
+     * @param colchao the colchao to set
+     */
+    public void setColchao(Integer colchao) {
+        this.colchao = colchao;
+    }
+
+    /**
+     * @return the colher
+     */
+    public Integer getColher() {
+        return colher;
+    }
+
+    /**
+     * @param colher the colher to set
+     */
+    public void setColher(Integer colher) {
+        this.colher = colher;
+    }
+
+    /**
+     * @return the cueca
+     */
+    public Integer getCueca() {
+        return cueca;
+    }
+
+    /**
+     * @param cueca the cueca to set
+     */
+    public void setCueca(Integer cueca) {
+        this.cueca = cueca;
+    }
+
+    /**
+     * @return the cremeDental
+     */
+    public Integer getCremeDental() {
+        return cremeDental;
+    }
+
+    /**
+     * @param cremeDental the cremeDental to set
+     */
+    public void setCremeDental(Integer cremeDental) {
+        this.cremeDental = cremeDental;
+    }
+
+    /**
+     * @return the desodorante
+     */
+    public Integer getDesodorante() {
+        return desodorante;
+    }
+
+    /**
+     * @param desodorante the desodorante to set
+     */
+    public void setDesodorante(Integer desodorante) {
+        this.desodorante = desodorante;
+    }
+
+    /**
+     * @return the escova
+     */
+    public Integer getEscova() {
+        return escova;
+    }
+
+    /**
+     * @param escova the escova to set
+     */
+    public void setEscova(Integer escova) {
+        this.escova = escova;
+    }
+
+    /**
+     * @return the lencol
+     */
+    public Integer getLencol() {
+        return lencol;
+    }
+
+    /**
+     * @param lencol the lencol to set
+     */
+    public void setLencol(Integer lencol) {
+        this.lencol = lencol;
+    }
+
+    /**
+     * @return the papelHigienico
+     */
+    public Integer getPapelHigienico() {
+        return papelHigienico;
+    }
+
+    /**
+     * @param papelHigienico the papelHigienico to set
+     */
+    public void setPapelHigienico(Integer papelHigienico) {
+        this.papelHigienico = papelHigienico;
+    }
+
+    /**
+     * @return the parChinelos
+     */
+    public Integer getParChinelos() {
+        return parChinelos;
+    }
+
+    /**
+     * @param parChinelos the parChinelos to set
+     */
+    public void setParChinelos(Integer parChinelos) {
+        this.parChinelos = parChinelos;
+    }
+
+    /**
+     * @return the pote
+     */
+    public Integer getPote() {
+        return pote;
+    }
+
+    /**
+     * @param pote the pote to set
+     */
+    public void setPote(Integer pote) {
+        this.pote = pote;
+    }
+
+    /**
+     * @return the sabaoPo
+     */
+    public Integer getSabaoPo() {
+        return sabaoPo;
+    }
+
+    /**
+     * @param sabaoPo the sabaoPo to set
+     */
+    public void setSabaoPo(Integer sabaoPo) {
+        this.sabaoPo = sabaoPo;
+    }
+
+    /**
+     * @return the sabonete
+     */
+    public Integer getSabonete() {
+        return sabonete;
+    }
+
+    /**
+     * @param sabonete the sabonete to set
+     */
+    public void setSabonete(Integer sabonete) {
+        this.sabonete = sabonete;
+    }
+
+    /**
+     * @return the toalha
+     */
+    public Integer getToalha() {
+        return toalha;
+    }
+
+    /**
+     * @param toalha the toalha to set
+     */
+    public void setToalha(Integer toalha) {
+        this.toalha = toalha;
+    }
+
+    /**
+     * @return the uniformeCompleto
+     */
+    public Integer getUniformeCompleto() {
+        return uniformeCompleto;
+    }
+
+    /**
+     * @param uniformeCompleto the uniformeCompleto to set
+     */
+    public void setUniformeCompleto(Integer uniformeCompleto) {
+        this.uniformeCompleto = uniformeCompleto;
     }
 
     /**

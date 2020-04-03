@@ -29,7 +29,7 @@ public class ControleCelasInternosProcedimento {
         pesquisarCela(objItensProced.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSPCIP (DataProc,IdProc,IdPav,IdCela,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSPCIP (DataProc,IdProc,IdPav,IdCela,UsuarioInsert,DataInsert,HorarioInsert,Quantidade) VALUES(?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objItensProced.getDataProc().getTime()));
             pst.setInt(2, objItensProced.getIdProc());
             pst.setInt(3, codPavilhao);
@@ -37,6 +37,7 @@ public class ControleCelasInternosProcedimento {
             pst.setString(5, objItensProced.getUsuarioInsert());
             pst.setString(6, objItensProced.getDataInsert());
             pst.setString(7, objItensProced.getHorarioInsert());
+            pst.setInt(8, objItensProced.getQuantidade());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel gravar os Dados\nERRO: " + ex);
@@ -50,7 +51,7 @@ public class ControleCelasInternosProcedimento {
         pesquisarCela(objItensProced.getDescricaoCela());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSPCIP SET DataProc=?,IdProc=?,IdPav=?,IdCela=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItensPcip='" + objItensProced.getIdItensPcip() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSPCIP SET DataProc=?,IdProc=?,IdPav=?,IdCela=?,UsuarioUp=?,DataUp=?,HorarioUp=?,Quantidade WHERE IdItensPcip='" + objItensProced.getIdItensPcip() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objItensProced.getDataProc().getTime()));
             pst.setInt(2, objItensProced.getIdProc());
             pst.setInt(3, codPavilhao);
@@ -58,6 +59,7 @@ public class ControleCelasInternosProcedimento {
             pst.setString(5, objItensProced.getUsuarioUp());
             pst.setString(6, objItensProced.getDataUp());
             pst.setString(7, objItensProced.getHorarioUp());
+            pst.setInt(8, objItensProced.getQuantidade());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel gravar os Dados.\nERRO: " + ex);
@@ -113,7 +115,7 @@ public class ControleCelasInternosProcedimento {
         }
         conecta.desconecta();
         return objItensProced;
-    }   
+    }
 
     public ItensPavilhaoCelaInternosProcedimento excluirInternosCela(ItensPavilhaoCelaInternosProcedimento objItensProced) {
 

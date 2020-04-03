@@ -99,6 +99,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
     String codProcApoio;
     int codInterno, codItensPcicp;
     int count = 0;
+    //
+    int pQUANTIDADE_PROCEDIMENTO_CELA = 1;
 
     /**
      * Creates new form TelaRegistroObjetosProcedimentos
@@ -2131,6 +2133,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
                 objItensProced.setIdProc(Integer.valueOf(jIdLanc.getText()));
                 objItensProced.setDescricaoPavilhao(jDescricaoRaio.getText());
                 objItensProced.setDescricaoCela(jDescricaoCela.getText());
+                objItensProced.setQuantidade(pQUANTIDADE_PROCEDIMENTO_CELA);
                 if (acao == 3) {
                     objItensProced.setUsuarioInsert(nameUser);
                     objItensProced.setDataInsert(dataModFinal);
@@ -2472,6 +2475,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jTabelaAgentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAgentesMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String nomeCargo = "" + jTabelaAgentes.getValueAt(jTabelaAgentes.getSelectedRow(), 3);
             jCargoFunc.setText(nomeCargo);

@@ -96,7 +96,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jNomeColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -115,7 +115,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
         jTabelaPesqFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Colaborador", "Cargo", "Departamento"
@@ -130,8 +130,8 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
         if (jTabelaPesqFunc.getColumnModel().getColumnCount() > 0) {
             jTabelaPesqFunc.getColumnModel().getColumn(0).setMinWidth(50);
             jTabelaPesqFunc.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTabelaPesqFunc.getColumnModel().getColumn(1).setMinWidth(200);
-            jTabelaPesqFunc.getColumnModel().getColumn(1).setMaxWidth(200);
+            jTabelaPesqFunc.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaPesqFunc.getColumnModel().getColumn(1).setMaxWidth(300);
             jTabelaPesqFunc.getColumnModel().getColumn(2).setMinWidth(200);
             jTabelaPesqFunc.getColumnModel().getColumn(2).setMaxWidth(200);
             jTabelaPesqFunc.getColumnModel().getColumn(3).setMinWidth(150);
@@ -174,6 +174,9 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtEnviar, jBtSair});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -194,7 +197,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,7 +205,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 488, 277);
+        setBounds(250, 20, 624, 277);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -321,7 +324,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
         jTabelaPesqFunc.setModel(modelo);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaPesqFunc.getColumnModel().getColumn(2).setResizable(false);
@@ -341,7 +344,7 @@ public class TelaPesqColaboradorProcedimentoAgentes extends javax.swing.JInterna
         jTabelaPesqFunc.setModel(modelo);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setPreferredWidth(50);
         jTabelaPesqFunc.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTabelaPesqFunc.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqFunc.getColumnModel().getColumn(1).setResizable(false);
         jTabelaPesqFunc.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaPesqFunc.getColumnModel().getColumn(2).setResizable(false);

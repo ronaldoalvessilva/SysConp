@@ -22,6 +22,8 @@ import gestor.Controle.ListagemNumerosDiasVisitasInterno;
 import gestor.Controle.ListagemNumerosVisitasInternoMenor;
 import gestor.Controle.ListagemQuantidadeAparelhoCeluar;
 import gestor.Controle.ListagemQuantidadeObjetos;
+import gestor.Controle.ListagemQuantidadeProdutosKit;
+import gestor.Controle.ListagemQuantidadeRevistaPorCela;
 import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
@@ -83,10 +85,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemInternosMatriculadoPedagogia listaMatInTPed = new ListagemInternosMatriculadoPedagogia();
     ListagemInternosFrequenciaPedagogia listaFreqIntPed = new ListagemInternosFrequenciaPedagogia();
     //AMI
-
+    ListagemQuantidadeProdutosKit listaProdutoKit = new ListagemQuantidadeProdutosKit();
     //SEG
     ListagemQuantidadeAparelhoCeluar listaQdtCelular = new ListagemQuantidadeAparelhoCeluar();
     ListagemQuantidadeObjetos listaQtdObjetos = new ListagemQuantidadeObjetos();
+    ListagemQuantidadeRevistaPorCela listaRevistaCela = new ListagemQuantidadeRevistaPorCela();
     //
     ControleRefreshDataMovi converteDate = new ControleRefreshDataMovi();
     //
@@ -151,6 +154,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;
     public static int pQUANTIDADE_APARELHO_CELULAR = 0;
     public static int pQUANTIDADE_OBJETOS_PROC = 0;
+    public static int pQUANTIDADE_REVISTA_POR_CELA = 0;
 
     //ABA AMI - ALMOXARIFADO
     //ABA SEG - GERENCIA OPERACIONAL
@@ -3308,7 +3312,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel76.setToolTipText("Nº procedimentos de revistas em cada cela");
 
         jLabel77.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel77.setText("Nº de ocorrência indisciplinar");
+        jLabel77.setText("Nº de ocorrência de indisciplina");
         jLabel77.setToolTipText("Nº de ocorrência  indisciplinar");
 
         jNumeroAparelhoConvive.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -6124,6 +6128,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoFreqPED();
         calculoCelularSEG();
         calcularObjetos();
+        calcularQtdRevistaCela();
+        calcularQtdRevistaCela();
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -7041,6 +7047,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    //QUANTIDADE PRODUTOS KIT HIGIÊNE
+    public void calcularPROKit(){
+        try {
+            for (AtividadesMensalRealizadaUnidades dd10 : listaAtdAtOdon.read()) {
+                dd10.getDataAtendimento();
+                dd10.getTipoAtendimento();
+                jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     //INTERNO SENTENCIADO MATRICULADOS CURSO FUNDAMENTAL
     public void calculoMatPED() {
@@ -7067,7 +7086,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     //QUANTIDADE APARELHO CELULAR
-    public void calculoCelularSEG() {      
+    public void calculoCelularSEG() {
         try {
             for (AtividadesMensalRealizadaUnidades dd12 : listaQdtCelular.read()) {
                 dd12.getDataProcedimento();
@@ -7078,14 +7097,48 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //QUANTIDADE DE OBJETOS 
-    public void calcularObjetos(){
+    public void calcularObjetos() {
         try {
             for (AtividadesMensalRealizadaUnidades dd13 : listaQtdObjetos.read()) {
                 dd13.getDataProcedimento();
                 dd13.getQuantidadeObjetos();
                 jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE DE REVISTA REALIZADO POR CELA 
+    public void calcularQtdRevistaCela() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd13 : listaProdutoKit.read()) {
+//                dd13.getDataProcedimento();
+//                dd13.getQuantidadeObjetos();
+                dd13.getAparelhoBarbear();
+                dd13.getAbsorvente();
+                dd13.getBermuda();
+                dd13.getCamisa();
+                dd13.getCaneca();
+                dd13.getCobertor();
+                dd13.getColchao();
+                dd13.getColher();
+                dd13.getCremeDental();
+                dd13.getCueca();
+                dd13.getDesodorante();
+                dd13.getEscova();
+                dd13.getLencol();
+                dd13.getPapelHigienico();
+                dd13.getPote();
+                dd13.getSabaoPo();
+                dd13.getSabonete();
+                dd13.getParChinelos();
+                dd13.getToalha();
+                jAparelhoBarbear.setText(dd13.getAparelhoBarbear());
+                jAbsorvente.setText(String.valueOf(dd13.getAbsorvente()));
+                jBermuda.setText(String.valueOf(dd13.getBermuda()));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);

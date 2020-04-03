@@ -29,8 +29,12 @@ public class ItensPavilhaoCelaInternosProcedimento {
     private String dataUp;
     private String horarioInsert;
     private String horarioUp;     
+    private int quantidade;
 
-    public ItensPavilhaoCelaInternosProcedimento(int idItensPcip, int idItensIntProc, Date dataProc, int idProc, int idPav, String descricaoPavilhao, int idCela, String descricaoCela, int idInternoCrc, String nomeInternoCrc, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp) {
+    public ItensPavilhaoCelaInternosProcedimento() {
+    }
+
+    public ItensPavilhaoCelaInternosProcedimento(int idItensPcip, int idItensIntProc, Date dataProc, int idProc, int idPav, String descricaoPavilhao, int idCela, String descricaoCela, int idInternoCrc, String nomeInternoCrc, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, int quantidade) {
         this.idItensPcip = idItensPcip;
         this.idItensIntProc = idItensIntProc;
         this.dataProc = dataProc;
@@ -47,9 +51,7 @@ public class ItensPavilhaoCelaInternosProcedimento {
         this.dataUp = dataUp;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensPavilhaoCelaInternosProcedimento() {
+        this.quantidade = quantidade;
     }
 
     /**
@@ -274,5 +276,19 @@ public class ItensPavilhaoCelaInternosProcedimento {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the quantidade
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * @param quantidade the quantidade to set
+     */
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }

@@ -5206,7 +5206,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="N&#xba; de ocorr&#xea;ncia indisciplinar"/>
+                    <Property name="text" type="java.lang.String" value="N&#xba; de ocorr&#xea;ncia de indisciplina"/>
                     <Property name="toolTipText" type="java.lang.String" value="N&#xba; de ocorr&#xea;ncia  indisciplinar"/>
                   </Properties>
                 </Component>
