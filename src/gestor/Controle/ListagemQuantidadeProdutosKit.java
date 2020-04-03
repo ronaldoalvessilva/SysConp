@@ -30,10 +30,8 @@ public class ListagemQuantidadeProdutosKit {
     //
     String pDATA_INICIAL;
     String pDATA_FINAL;
-    String pTIPO_APARELHO = "Aparelho Celular";
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
-       // pQUANTIDADE_REVISTA_POR_CELA = 0;
         List<AtividadesMensalRealizadaUnidades> listaInternospIntFreq = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
@@ -81,7 +79,7 @@ public class ListagemQuantidadeProdutosKit {
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pQuantRevista = new AtividadesMensalRealizadaUnidades();
                 pQuantRevista.setAparelhoBarbear("APARELHO DE BARBEAR DESCATAVEL");
-                pQuantRevista.setAbsorvente(Integer.parseInt("ABSORVENTE PAARA INTERNAS"));
+//                pQuantRevista.setAbsorvente(Integer.parseInt("[ABSORVENTE PARA INTERNAS]"));
 //                pQuantRevista.setBermuda(Integer.parseInt("BERMUDA LARANJA G"));
 //                pQuantRevista.setCamisa(Integer.parseInt("CAMISA LARANJA G"));
 //                pQuantRevista.setCaneca(Integer.parseInt("CANECA PLASTICA C ALCA 300ML"));

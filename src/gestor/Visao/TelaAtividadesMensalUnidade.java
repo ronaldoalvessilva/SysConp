@@ -147,17 +147,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_ATE_ENFERMAGEM = 0;
     public static int pQUANTIDADE_EVO_ENFERMAGEM = 0;
     public static int pQUANTIDADE_ATE_TECNICO_ENF = 0;
+    //ATENDIMENTOS PSICOLOGICOS
     public static int pQUANTIDADE_ATE_PSICOLOGIA = 0;
+    //PROCEDIMENTOS ODOTOLOGICO
     public static int pQUANTIDADE_PROC_ODONTOLOGICO = 0;
     public static int pQUANTIDADE_ATE_ODONTOLOGICO = 0;
+    //ABA AEI - PEDAGOGIA
     public static int pQUANTIDADE_MATRICULADOS = 0;
-    public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;
+    public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;    
+    //ABA AMI - ALMOXARIFADO
+    //ABA SEG - GERENCIA OPERACIONAL
     public static int pQUANTIDADE_APARELHO_CELULAR = 0;
     public static int pQUANTIDADE_OBJETOS_PROC = 0;
     public static int pQUANTIDADE_REVISTA_POR_CELA = 0;
-
-    //ABA AMI - ALMOXARIFADO
-    //ABA SEG - GERENCIA OPERACIONAL
     //ABA AJ - JURÍDICO
     //ABA AL - TERAPIA OCUPACIONAL
     //ABA AFI - NUTRIÇÃO
@@ -7128,7 +7130,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd15 : listaProdutoKit.read()) {
                 dd15.getAparelhoBarbear();
-                dd15.getAbsorvente();
+//                dd15.getAbsorvente();
 //                dd15.getBermuda();
 //                dd15.getCamisa();
 //                dd15.getCaneca();
@@ -7147,7 +7149,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 //                dd15.getParChinelos();
 //                dd15.getToalha();
                 jAparelhoBarbear.setText(dd15.getAparelhoBarbear());
-                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
+//                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
 //                jBermuda.setText(String.valueOf(dd15.getBermuda()));
             }
         } catch (Exception ex) {
