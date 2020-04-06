@@ -1119,3 +1119,243 @@ ALTER TABLE ITENSPCIP ALTER COLUMN DataProc DATETIME
 
 IF NOT EXISTS(SELECT 1 FROM SYSCOLUMNS WHERE ID = OBJECT_ID('ITENSPCIP') AND NAME = 'Quantidade')
    ALTER TABLE ITENSPCIP ADD Quantidade INT NULL
+
+-- TABELAS PARA ATIVIDADES MENSAL DA UNIDADE
+-- SCRIPT DE TABELA ELABORADO POR GEI EM 06/04/2020
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE'))
+CREATE TABLE ATIVIDADES_UNIDADE
+	(
+	IdAtividade INT IDENTITY(1,1) NOT NULL,
+	StatusAtividade VARCHAR(7) CONSTRAINT CHK_Atividade CHECK (StatusAtividade in ('ABERTO', 'FECHADO')),
+	DataInsert DATETIME NOT NULL,
+	DataUp DATETIME,
+	IdUnidEmp INT NOT NULL,
+	--UnidadePrisional VARCHAR(150) NOT NULL,
+	Populacao INT,
+	IdFunc INT NOT NULL,
+	--NomeColaborador VARCHAR(150),
+	MatriculaColaborador VARCHAR(30),
+	DepartamentoColaborador VARCHAR(60),
+	Observacao VARCHAR(MAX),
+	--Observacao TEXT,
+	CONSTRAINT PK_Atividades_Unidade PRIMARY KEY (IdAtividade),
+	CONSTRAINT FK_Colaborador FOREIGN KEY(IdFunc)
+	REFERENCES COLABORADOR(IdFunc),
+	CONSTRAINT FK_Unidade_Penal_Empresa FOREIGN KEY (IdUnidEmp)
+	REFERENCES UNIDADE_PENAL_EMPRESA (IdUnidEmp)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_VISITA_INTERNO'))
+	CREATE TABLE ATIVIDADES_UNIDADE_VISITA_INTERNO
+	(
+	IdAtividadeVisita INT IDENTITY(1,1) NOT NULL,
+	NroDiasVisita INT,
+	NroVisitantes INT,
+	MediaVisitantesDia FLOAT,
+	MediaVisitantesInterno FLOAT,
+	NroCriancasVisitantes INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_visita_interno PRIMARY KEY (IdAtividadeVisita),
+	CONSTRAINT FK_Atividades_Unidade FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA
+	(
+	IdAtividadeAlimentacao INT IDENTITY(1,1) NOT NULL,
+	LanchesVisitantes INT,
+	CafeContratada INT,
+	AlmocoContratada INT,
+	JantarContratada INT,
+	LancheContratada INT,
+	CafeContratante INT,
+	AlmocoContratante INT,
+	JantarContratante INT,
+	LancheContratante INT,
+	TotalAlimentacao INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Alimentacao_Fornecida PRIMARY KEY (IdAtividadeAlimentacao),
+	CONSTRAINT FK_Atividades_Unidade_Alimentacao_Fornecida FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ATENDIMENTO_SAUDE'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ATENDIMENTO_SAUDE
+	(
+	IdAtividadeAtendimentoSaude INT IDENTITY(1,1) NOT NULL,
+	AtendimentoClinico INT,
+	AtendimentoPsiquiatrico INT,
+	AtendimentoEnfermagem INT,
+	ProcedimentoOdontologico INT,
+	AtendimentoPsicologico INT,
+	TratamentoAgravosPNAISP INT,
+	SensibilizadoSaudeBucal INT,
+	SensibilizadoInfectocontagiosas INT,
+	SensibilizadoHipertensao INT,
+	SensibilizadoDiabetes INT,
+	SensibilizadoSexualidade INT,
+	VacinadosPNI INT,
+	TotalSaude INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Atendimento_Saude PRIMARY KEY (IdAtividadeAtendimentoSaude),
+	CONSTRAINT FK_Atividades_Unidade_Atendimento_Saude FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL
+	(
+	IdAtividadeAtendimentoEducacional INT IDENTITY(1,1) NOT NULL,
+	MatriculadoEnsinoFormal INT,
+	FrequentandoEnsinoFormal INT,
+	MatriculadoCursoProfissionalizante INT,
+	CertificadoCursoProfissionalizante INT,
+	TotalEducacional INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Atendimento_Educacional PRIMARY KEY (IdAtividadeAtendimentoEducacional),
+	CONSTRAINT FK_Atividades_Unidade_Atendimento_Educacional FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SERVICO_SOCIAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_SERVICO_SOCIAL
+	(
+	IdAtividadeServicoSocial INT IDENTITY(1,1) NOT NULL,
+	AtendimentoPsicossocialPreso INT,
+	AtendimentoPsicossocialFamiliaPreso INT,
+	IdentificadoCivilmente INT,
+	TotalServicoSocial INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Servico_Social PRIMARY KEY (IdAtividadeServicoSocial),
+	CONSTRAINT FK_Atividades_Unidade_Servico_Social FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL
+	(
+	IdAtividadeLaboral INT IDENTITY(1,1) NOT NULL,
+	Triagem INT,
+	LaborativaRemunerada INT,
+	LaborativaNaoRemunerada INT,
+	TotalLaboral INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Assistencia_Laboral PRIMARY KEY (IdAtividadeLaboral),
+	CONSTRAINT FK_Atividades_Unidade_Assistencia_Laboral FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_RECREATIVA_RELIGIOSA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_RECREATIVA_RELIGIOSA
+	(
+	IdAtividadeRecreativa INT IDENTITY(1,1) NOT NULL,
+	ArtesPlasticas INT,
+	Literatura INT,
+	CantoTeatroCinema INT,
+	Esportes INT,
+	Religiosa INT,
+	TotalRecreativaReligiosa INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Recreativa_Religiosa PRIMARY KEY (IdAtividadeRecreativa),
+	CONSTRAINT FK_Atividades_Unidade_Recreativa_Religiosa FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_JURIDICA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_JURIDICA
+	(
+	IdAtividadeJuridica INT IDENTITY(1,1) NOT NULL,
+	InternoFamiliaSAJ INT,
+	AlvaraSolturaRecebido INT,
+	AlvaraSolturaCumprido INT,
+	AudienciaProvocada INT,
+	AudienciaCumprida INT,
+	JuriProvocado INT,
+	JuriCumprido INT,
+	LiberdadeProvisoriaRequerida INT,
+	LiberdadeProvisoriaDeferida INT,
+	IndultosRequeridos INT,
+	IndultosDeferidos INT,
+	RemicaoRequerida INT,
+	RemicaoDeferida INT,
+	CondicionalRequerida INT,
+	CondicionalDeferida INT,
+	ProgressaoRegimeRequerida INT,
+	ProgressaoRegimeDeferida INT,
+	SaidasTemporariasRequerida INT,
+	SaidasTemporariasDeferida INT,
+	HabeasCorpusRequerido INT,
+	HabeasCorpusDeferido INT,
+	LaudosPsicologicos INT,
+	LaudosPsiquiatricos INT,
+	TransferenciaProvimento INT,
+	TotalJuridico INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Unidade_Juridica PRIMARY KEY (IdAtividadeJuridica),
+	CONSTRAINT FK_Atividades_Unidade_Juridica FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL
+	(
+	IdAtividadeMaterial INT IDENTITY(1,1) NOT NULL,
+	CafeInterno INT,
+	AlmocoInterno INT,
+	JantarInterno INT,
+	AudienciaProvocada INT,
+	Cobertor INT,
+	Colchao INT,
+	Lencol INT,
+	Toalha INT,
+	Pote INT,
+	Caneca INT,
+	AparelhoBarbear INT,
+	CremeDental INT,
+	EscovaDente INT,
+	Absorvente INT,
+	PapelHigienico INT,
+	SabaoPo INT,
+	Sabonete INT,
+	Desodorante INT,
+	Bermuda INT,
+	CamisaCamiseta INT,
+	Cueca INT,
+	Chinelo INT,
+	UniformeEsportivo INT,
+	TotalMaterial INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Assistencia_Material PRIMARY KEY (IdAtividadeMaterial),
+	CONSTRAINT FK_Atividades_Assistencia_Material FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SEGURNACA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_SEGURNACA
+	(
+	IdAtividadeSeguranca INT IDENTITY(1,1) NOT NULL,
+	CelularLocalizadoConvivencia INT,
+	ObjetoNaoAutorizadoLocalizadoConvivencia INT,
+	TentativaFuga INT,
+	OcorrenciaFuga INT,
+	OcorrenciaRebeliao INT,
+	OcorrenciaFerido INT,
+	OcorrenciaIndisciplina INT,
+	OcorrenciaGravementeFeridoMorto INT,
+	HorasInterrupcaoCFTV INT,
+	DiasInterrupcaoScannerCorporal INT,
+	DiasInterrupcaoRaioXDetectorMetais INT,
+	DiasInterrupcaoVeiculoTransportePreso INT,
+	FalhaGeradorEnergia INT,
+	HorasMauFuncionamentoBRS INT,
+	AbsorventesEntreguesPortariaScanner INT,
+	FraldasEntreguesPortariaScanner INT,
+	TotalMaterial INT,
+	IdAtividade INT,
+	CONSTRAINT PK_Atividades_Seguranca PRIMARY KEY (IdAtividadeSeguranca),
+	CONSTRAINT FK_Atividades_Seguranca FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+

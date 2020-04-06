@@ -7,6 +7,8 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRefreshDataMovi;
+import gestor.Controle.ListagemAgravosDiagnosticados;
+import gestor.Controle.ListagemAgravosDiagnosticadosEVO;
 import gestor.Controle.ListagemAtendimentoADMEnfermeira;
 import gestor.Controle.ListagemAtendimentoADMMedica;
 import gestor.Controle.ListagemAtendimentoADMOdontologica;
@@ -15,6 +17,10 @@ import gestor.Controle.ListagemAtendimentoADMPsicologico;
 import gestor.Controle.ListagemAtendimentoADMPsiquiatrica;
 import gestor.Controle.ListagemAtendimentoADMServicoSocial;
 import gestor.Controle.ListagemAtendimentoADMServicoSocialFamilia;
+import gestor.Controle.ListagemControleDiabetes;
+import gestor.Controle.ListagemControleHipertensao;
+import gestor.Controle.ListagemDoencasInfectoconagiosasADM;
+import gestor.Controle.ListagemDoencasInfectoconagiosasEVO;
 import gestor.Controle.ListagemInternosFrequenciaPedagogia;
 import gestor.Controle.ListagemInternosMatriculadoPedagogia;
 import gestor.Controle.ListagemNumerosDiasVisitas;
@@ -81,6 +87,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemAtendimentoADMPsicologico listaAtdAtPsico = new ListagemAtendimentoADMPsicologico();
     ListagemAtendimentoPROCOdontologica listaProcAtOdon = new ListagemAtendimentoPROCOdontologica();
     ListagemAtendimentoADMOdontologica listaAtdAtOdon = new ListagemAtendimentoADMOdontologica();
+    //
+    ListagemDoencasInfectoconagiosasADM listaDoencaIntectoADM = new ListagemDoencasInfectoconagiosasADM();
+    ListagemDoencasInfectoconagiosasEVO listaDoencaInfectoEvol = new ListagemDoencasInfectoconagiosasEVO();
+    ListagemAgravosDiagnosticados listaAgravosDiag = new ListagemAgravosDiagnosticados();
+    ListagemAgravosDiagnosticadosEVO listaAgravosDiagEvo = new ListagemAgravosDiagnosticadosEVO();
+    ListagemControleHipertensao listaControleHiper = new ListagemControleHipertensao();
+    ListagemControleDiabetes listaControleDiabetes = new ListagemControleDiabetes();
     //ABA AEI
     ListagemInternosMatriculadoPedagogia listaMatInTPed = new ListagemInternosMatriculadoPedagogia();
     ListagemInternosFrequenciaPedagogia listaFreqIntPed = new ListagemInternosFrequenciaPedagogia();
@@ -129,6 +142,25 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_EVO_ENFERMAGEM = "Evolução Enfermagem";
     public static String pTIPO_ATENDIMENTO_GRUPO_ENFERMAGEM = "Atendimento em Grupo/ENF";
     public static String pTIPO_ATENDIMENTO_ATE_TECNICO_ENF = "Atendimento Técnico Enfermagem";
+    //AGRAVOS DIAGNOSTICADOS
+    public static int pQUANTIDADE_VDRL = 0;
+    public static int pQUANTIDADE_HEPATITE_B = 0;
+    public static int pQUANTIDADE_HEPATITE_C = 0;
+    public static int pQUANTIDADE_HIV = 0;
+    public static int pQUANTIDADE_SIFILIS = 0;
+    public static int pQUANTIDADE_HPV = 0;
+    public static int pQUANTIDADE_DIABETES = 0;
+    public static int pQUANTIDADE_HIPERTENSAO = 0;
+    public static int pQUANTIDADE_TUBERCULOSE = 0;
+    public static int pQUANTIDADE_HANSEINIASE = 0;
+    public static int pQUANTIDADE_ESCABIOSE = 0;
+    public static int pQUANTIDADE_DST = 0;
+    public static int pQUANTIDADE_TOTAL_AGRAVOS = 0;
+    public static int pQUANTIDADE_TOTAL_AGRAVOS_EVO = 0;
+    int pTOTAL_GERAL_AGRAVADOS = 0;
+    public static int pQUANTIDADE_TOTAL_INFECTO = 0;
+    public static int pQUANTIDADE_TOTAL_INFECTO_EVO = 0;
+    public static int pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
     //ABA ASI - PSICOLOGIA
     public static String pTIPO_ATENDIMENTO_ATE_PSICOLOGICO = "Admissão Psicologica";
     public static String pTIPO_ATENDIMENTO_EVO_PSICOLOGICO = "Evolução Psicologica";
@@ -154,12 +186,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_ATE_ODONTOLOGICO = 0;
     //ABA AEI - PEDAGOGIA
     public static int pQUANTIDADE_MATRICULADOS = 0;
-    public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;    
+    public static int pQUANTIDADE_INTERNOS_PRESENTE = 0;
     //ABA AMI - ALMOXARIFADO
     //ABA SEG - GERENCIA OPERACIONAL
     public static int pQUANTIDADE_APARELHO_CELULAR = 0;
     public static int pQUANTIDADE_OBJETOS_PROC = 0;
     public static int pQUANTIDADE_REVISTA_POR_CELA = 0;
+
     //ABA AJ - JURÍDICO
     //ABA AL - TERAPIA OCUPACIONAL
     //ABA AFI - NUTRIÇÃO
@@ -241,6 +274,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel152 = new javax.swing.JLabel();
         jLabel154 = new javax.swing.JLabel();
         jBtPesquisarDatas = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxMesReferencia = new javax.swing.JComboBox<>();
+        jComboBoxAnoReferencia = new javax.swing.JComboBox<>();
+        jLabel153 = new javax.swing.JLabel();
+        jLabel155 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -1026,6 +1065,30 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setText("Mês Referência");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Ano");
+
+        jComboBoxMesReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxMesReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setemrbo", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMesReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMesReferencia.setEnabled(false);
+
+        jComboBoxAnoReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAnoReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060", "2061", "2062", "2063", "2064", "2065", "2066", "2067", "2068", "2069", "2070", "2071", "2072", "2073", "2074", "2075", "2076", "2077", "2078", "2079", "2080", "2081", "2082", "2083", "2084", "2085", "2086", "2087", "2088", "2089", "2090", "2091", "2092", "2093", "2094", "2095", "2096", "2097", "2098", "2099", "2100", "2101", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2113", "2114", "2115", "2116", "2117", "2118", "2119", "2120", "2121", "2122", "2123", "2124", "2125", "2126", "2127", "2128", "2129", "2130", "2131", "2132", "2133", "2134", "2135", "2136", "2137", "2138", "2139", "2140", "2141", "2142", "2143", "2144", "2145", "2146", "2147", "2148", "2149", "2150", "2151", "2152", "2153", "2154", "2155", "2156", "2157", "2158", "2159", "2160", "2161", "2162", "2163", "2164", "2165", "2166", "2167", "2168", "2169", "2170", "2171", "2172", "2173", "2174", "2175", "2176", " " }));
+        jComboBoxAnoReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAnoReferencia.setEnabled(false);
+
+        jLabel153.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel153.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel153.setText("*");
+
+        jLabel155.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel155.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel155.setText("*");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -1035,26 +1098,46 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                            .addComponent(jChave, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jDataAtualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel146)
                                     .addComponent(jMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
                                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jIdFunc, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING))
                                         .addGap(3, 3, 3)
                                         .addComponent(jBtPesquisarColaborador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDepartamento)
-                                    .addComponent(jColaboradorResponsavel)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel151))
-                                    .addComponent(jLabel16)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel151))
+                                            .addComponent(jLabel16))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jDepartamento)
+                                    .addComponent(jColaboradorResponsavel)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
                                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1065,51 +1148,49 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jChave, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1))
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jDataAtualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(65, 65, 65))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel147)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel154)))
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jLabel148)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel152))
-                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel147)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel154)))
                                 .addGap(3, 3, 3)
-                                .addComponent(jBtPesquisarDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel148)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel152))
+                                    .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3)
+                                .addComponent(jBtPesquisarDatas)
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel153))
+                                    .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel9Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel155)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
@@ -1138,12 +1219,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addComponent(jLabel154))
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel148)
-                        .addComponent(jLabel152)))
+                        .addComponent(jLabel152))
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel153)
+                        .addComponent(jLabel155)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisarDatas)
                     .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarDatas))
+                    .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -6122,16 +6210,25 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoMED();
         calculoPSIQ();
         calculoENFER();
-
+        calculoAgravosDIAG();
+        calculoAgravadosEvo();
+        calculoControleHipertensao();
+        calculoControleDiabetes();
+        calculoDOENCA_INECTO_ADM();
+        calculoDOENCA_INFECTO_EVOL();
         calculoPSI();
         calculoProcODON();
         calculoAtendODON();
+        //ABA AEI
         calculoMatPED();
         calculoFreqPED();
+        //AEI
+        calculoProdutosKit();
+        //ABA SEG
         calculoCelularSEG();
         calcularObjetos();
         calcularQtdRevistaCela();
-        calculoProdutosKit();
+
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -6271,7 +6368,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jColaboradorResponsavel;
     private javax.swing.JFormattedTextField jColchao;
     private javax.swing.JComboBox<String> jComboBoxAno1;
+    private javax.swing.JComboBox<String> jComboBoxAnoReferencia;
     private javax.swing.JComboBox<String> jComboBoxMes1;
+    private javax.swing.JComboBox<String> jComboBoxMesReferencia;
     private javax.swing.JFormattedTextField jCondicionalRequerida;
     private javax.swing.JFormattedTextField jControlHipertensao;
     private javax.swing.JFormattedTextField jControleDiabetes;
@@ -6352,7 +6451,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel151;
     private javax.swing.JLabel jLabel152;
+    private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -6368,6 +6469,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -6378,6 +6480,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -6596,6 +6699,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPopulacaoAtual.setBackground(Color.white);
         jDataPeriodoInicial.setBackground(Color.white);
         jDataPeriodoFinal.setBackground(Color.white);
+        jComboBoxMesReferencia.setBackground(Color.white);
+        jComboBoxAnoReferencia.setBackground(Color.white);
         jIdFunc.setBackground(Color.white);
         jColaboradorResponsavel.setBackground(Color.white);
         jMatricula.setBackground(Color.white);
@@ -6752,6 +6857,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPopulacaoAtual.setEnabled(opcaoF);
         jDataPeriodoInicial.setEnabled(opcaoV);
         jDataPeriodoFinal.setEnabled(opcaoV);
+        jComboBoxMesReferencia.setEnabled(opcaoV);
+        jComboBoxAnoReferencia.setEnabled(opcaoV);
         jIdFunc.setEnabled(opcaoF);
         jColaboradorResponsavel.setEnabled(opcaoF);
         jMatricula.setEnabled(opcaoF);
@@ -7011,6 +7118,88 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
+    //AGRAVOS DIAGNOSTICADOS - ADMISSÃO
+    public void calculoAgravosDIAG() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd16 : listaAgravosDiag.read()) {
+                dd16.getTipoAtendimento();
+                dd16.getQuantidadeAgravosTotal();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //AGRAVOS DIAGNOSTICADOS - EVOLUÇÃO
+    public void calculoAgravadosEvo() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd19 : listaAgravosDiagEvo.read()) {
+                dd19.getTipoAtendimento();
+                dd19.getQuantidadeAgravosTotal();
+                pTOTAL_GERAL_AGRAVADOS = pQUANTIDADE_TOTAL_AGRAVOS + pQUANTIDADE_TOTAL_AGRAVOS_EVO;
+                jTratamentoAgravDiaginostico.setText(String.valueOf(pTOTAL_GERAL_AGRAVADOS));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //DOENÇAS INFECTOCONTAGIOSAS - ADMISSÃO
+    public void calculoDOENCA_INECTO_ADM() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd20 : listaDoencaIntectoADM.read()) {
+                dd20.getTipoAtendimento();
+                dd20.getQuantidadeAgravosTotal();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //DOENÇAS INFECTOCONTAGIOSAS - EVOLUÇÃO
+    public void calculoDOENCA_INFECTO_EVOL() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd21 : listaDoencaInfectoEvol.read()) {
+                dd21.getTipoAtendimento();
+                dd21.getQuantidadeAgravosTotal();
+                pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = pQUANTIDADE_TOTAL_INFECTO + pQUANTIDADE_TOTAL_INFECTO_EVO;
+                jPresoDoencaInfecto.setText(String.valueOf(pQUANTIDADE_TOTAL_INFECTO_EVO_ADM));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+//CONTROLE DE HIPERTNSÃO
+    public void calculoControleHipertensao() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd17 : listaControleHiper.read()) {
+                dd17.getTipoAtendimento();
+                dd17.getHipertensao();
+                jControlHipertensao.setText(String.valueOf(pQUANTIDADE_HIPERTENSAO));
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //CONTROLE DE DIABETES
+    public void calculoControleDiabetes() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd18 : listaControleDiabetes.read()) {
+                dd18.getTipoAtendimento();
+                dd18.getQuantidadeAgravosTotal();
+                jControleDiabetes.setText(String.valueOf(pQUANTIDADE_DIABETES));
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     //QUANTIDADE ATENDIMENTO PSICOLOGICOS  
     public void calculoPSI() {
         try {
@@ -7018,9 +7207,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd7.getDataAtendimento();
                 dd7.getTipoAtendimento();
                 jAtendimentoPsicologico.setText(String.valueOf(pQUANTIDADE_ATE_PSICOLOGIA));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7031,9 +7222,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd8.getDataAtendimento();
                 dd8.getTipoAtendimento();
                 jProcedimentoOdontologico.setText(String.valueOf(pQUANTIDADE_PROC_ODONTOLOGICO));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7044,9 +7237,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd9.getDataAtendimento();
                 dd9.getTipoAtendimento();
                 jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7057,9 +7252,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd10.getDataAtendimento();
                 dd10.getTipoAtendimento();
                 jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7069,9 +7266,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd10 : listaMatInTPed.read()) {
                 dd10.getDataMatricula();
                 jPresoSentenciadoEF.setText(String.valueOf(pQUANTIDADE_MATRICULADOS));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7081,9 +7280,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd11 : listaFreqIntPed.read()) {
                 dd11.getDataFrequencia();
                 jPresoSentencaMatFreqEF.setText(String.valueOf(pQUANTIDADE_INTERNOS_PRESENTE));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7094,9 +7295,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd12.getDataProcedimento();
                 dd12.getQuantidadeCelular();
                 jNumeroAparelhoConvive.setText(String.valueOf(pQUANTIDADE_APARELHO_CELULAR));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7107,9 +7310,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd13.getDataProcedimento();
                 dd13.getQuantidadeObjetos();
                 jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7119,9 +7324,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd14.getDataProcedimento();
                 dd14.getQuantidadeObjetos();
                 jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7151,9 +7358,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 jAparelhoBarbear.setText(dd15.getAparelhoBarbear());
 //                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
 //                jBermuda.setText(String.valueOf(dd15.getBermuda()));
+
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

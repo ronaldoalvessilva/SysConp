@@ -45,6 +45,21 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer presoAtiviReligiosa;
     private Date dataMatricula;
     private Date dataFrequencia;
+    //ASI
+    private Date dataAgravo;
+    private Integer vdrl;
+    private Integer hepatiteB;
+    private Integer hepatiteC;
+    private Integer hiv;
+    private Integer sifilis;
+    private Integer hpv;
+    private Integer diabetes;
+    private Integer hipertensao;
+    private Integer tuberculose;
+    private Integer hanseniase;
+    private Integer escabiose;
+    private Integer dst;
+    private Integer quantidadeAgravosTotal;
     //AMI
     private String aparelhoBarbear;
     private Integer absorvente;
@@ -75,7 +90,7 @@ public class AtividadesMensalRealizadaUnidades {
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, String aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, String aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -107,6 +122,20 @@ public class AtividadesMensalRealizadaUnidades {
         this.presoAtiviReligiosa = presoAtiviReligiosa;
         this.dataMatricula = dataMatricula;
         this.dataFrequencia = dataFrequencia;
+        this.dataAgravo = dataAgravo;
+        this.vdrl = vdrl;
+        this.hepatiteB = hepatiteB;
+        this.hepatiteC = hepatiteC;
+        this.hiv = hiv;
+        this.sifilis = sifilis;
+        this.hpv = hpv;
+        this.diabetes = diabetes;
+        this.hipertensao = hipertensao;
+        this.tuberculose = tuberculose;
+        this.hanseniase = hanseniase;
+        this.escabiose = escabiose;
+        this.dst = dst;
+        this.quantidadeAgravosTotal = quantidadeAgravosTotal;
         this.aparelhoBarbear = aparelhoBarbear;
         this.absorvente = absorvente;
         this.bermuda = bermuda;
@@ -565,6 +594,202 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setDataFrequencia(Date dataFrequencia) {
         this.dataFrequencia = dataFrequencia;
+    }
+
+    /**
+     * @return the dataAgravo
+     */
+    public Date getDataAgravo() {
+        return dataAgravo;
+    }
+
+    /**
+     * @param dataAgravo the dataAgravo to set
+     */
+    public void setDataAgravo(Date dataAgravo) {
+        this.dataAgravo = dataAgravo;
+    }
+
+    /**
+     * @return the vdrl
+     */
+    public Integer getVdrl() {
+        return vdrl;
+    }
+
+    /**
+     * @param vdrl the vdrl to set
+     */
+    public void setVdrl(Integer vdrl) {
+        this.vdrl = vdrl;
+    }
+
+    /**
+     * @return the hepatiteB
+     */
+    public Integer getHepatiteB() {
+        return hepatiteB;
+    }
+
+    /**
+     * @param hepatiteB the hepatiteB to set
+     */
+    public void setHepatiteB(Integer hepatiteB) {
+        this.hepatiteB = hepatiteB;
+    }
+
+    /**
+     * @return the hepatiteC
+     */
+    public Integer getHepatiteC() {
+        return hepatiteC;
+    }
+
+    /**
+     * @param hepatiteC the hepatiteC to set
+     */
+    public void setHepatiteC(Integer hepatiteC) {
+        this.hepatiteC = hepatiteC;
+    }
+
+    /**
+     * @return the hiv
+     */
+    public Integer getHiv() {
+        return hiv;
+    }
+
+    /**
+     * @param hiv the hiv to set
+     */
+    public void setHiv(Integer hiv) {
+        this.hiv = hiv;
+    }
+
+    /**
+     * @return the sifilis
+     */
+    public Integer getSifilis() {
+        return sifilis;
+    }
+
+    /**
+     * @param sifilis the sifilis to set
+     */
+    public void setSifilis(Integer sifilis) {
+        this.sifilis = sifilis;
+    }
+
+    /**
+     * @return the hpv
+     */
+    public Integer getHpv() {
+        return hpv;
+    }
+
+    /**
+     * @param hpv the hpv to set
+     */
+    public void setHpv(Integer hpv) {
+        this.hpv = hpv;
+    }
+
+    /**
+     * @return the diabetes
+     */
+    public Integer getDiabetes() {
+        return diabetes;
+    }
+
+    /**
+     * @param diabetes the diabetes to set
+     */
+    public void setDiabetes(Integer diabetes) {
+        this.diabetes = diabetes;
+    }
+
+    /**
+     * @return the hipertensao
+     */
+    public Integer getHipertensao() {
+        return hipertensao;
+    }
+
+    /**
+     * @param hipertensao the hipertensao to set
+     */
+    public void setHipertensao(Integer hipertensao) {
+        this.hipertensao = hipertensao;
+    }
+
+    /**
+     * @return the tuberculose
+     */
+    public Integer getTuberculose() {
+        return tuberculose;
+    }
+
+    /**
+     * @param tuberculose the tuberculose to set
+     */
+    public void setTuberculose(Integer tuberculose) {
+        this.tuberculose = tuberculose;
+    }
+
+    /**
+     * @return the hanseniase
+     */
+    public Integer getHanseniase() {
+        return hanseniase;
+    }
+
+    /**
+     * @param hanseniase the hanseniase to set
+     */
+    public void setHanseniase(Integer hanseniase) {
+        this.hanseniase = hanseniase;
+    }
+
+    /**
+     * @return the escabiose
+     */
+    public Integer getEscabiose() {
+        return escabiose;
+    }
+
+    /**
+     * @param escabiose the escabiose to set
+     */
+    public void setEscabiose(Integer escabiose) {
+        this.escabiose = escabiose;
+    }
+
+    /**
+     * @return the dst
+     */
+    public Integer getDst() {
+        return dst;
+    }
+
+    /**
+     * @param dst the dst to set
+     */
+    public void setDst(Integer dst) {
+        this.dst = dst;
+    }
+
+    /**
+     * @return the quantidadeAgravosTotal
+     */
+    public Integer getQuantidadeAgravosTotal() {
+        return quantidadeAgravosTotal;
+    }
+
+    /**
+     * @param quantidadeAgravosTotal the quantidadeAgravosTotal to set
+     */
+    public void setQuantidadeAgravosTotal(Integer quantidadeAgravosTotal) {
+        this.quantidadeAgravosTotal = quantidadeAgravosTotal;
     }
 
     /**
