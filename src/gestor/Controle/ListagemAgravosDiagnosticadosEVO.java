@@ -12,7 +12,6 @@ import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VDRL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_B;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_C;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HIV;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_SIFILIS;
@@ -31,6 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ESCABIOSE;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_TOTAL_AGRAVOS_EVO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VACINADOS;
 
 /**
  *
@@ -60,7 +60,7 @@ public class ListagemAgravosDiagnosticadosEVO {
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         pQUANTIDADE_VDRL = 0;
-        pQUANTIDADE_HEPATITE_B = 0;
+        pQUANTIDADE_VACINADOS = 0;
         pQUANTIDADE_HEPATITE_C = 0;
         pQUANTIDADE_HIV = 0;
         pQUANTIDADE_SIFILIS = 0;
@@ -130,8 +130,8 @@ public class ListagemAgravosDiagnosticadosEVO {
                 AtividadesMensalRealizadaUnidades pAgravoDiagEvo = new AtividadesMensalRealizadaUnidades();
                 pAgravoDiagEvo.setDataAtendimento(conecta.rs.getDate("DataReg"));
                 if (pHEPATITE_B.equals("Reagente")) {
-                    pQUANTIDADE_HEPATITE_B = pQUANTIDADE_HEPATITE_B + 1;
-                    pAgravoDiagEvo.setHepatiteB(pQUANTIDADE_HEPATITE_B);
+                    pQUANTIDADE_VACINADOS = pQUANTIDADE_VACINADOS + 1;
+                    pAgravoDiagEvo.setHepatiteB(pQUANTIDADE_VACINADOS);
                 } else if (pHEPATITE_C.equals("Reagente")) {
                     pQUANTIDADE_HEPATITE_C = pQUANTIDADE_HEPATITE_C + 1;
                     pAgravoDiagEvo.setHepatiteC(pQUANTIDADE_HEPATITE_C);
@@ -160,7 +160,7 @@ public class ListagemAgravosDiagnosticadosEVO {
                     pQUANTIDADE_DST = pQUANTIDADE_DST + 1;
                     pAgravoDiagEvo.setDst(pQUANTIDADE_DST);
                 }
-                pQUANTIDADE_TOTAL_AGRAVOS_EVO = pQUANTIDADE_HEPATITE_B + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_DIABETES + pQUANTIDADE_HIPERTENSAO + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
+                pQUANTIDADE_TOTAL_AGRAVOS_EVO = pQUANTIDADE_VACINADOS + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_DIABETES + pQUANTIDADE_HIPERTENSAO + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
                 pAgravoDiagEvo.setQuantidadeAgravosTotal(pQUANTIDADE_TOTAL_AGRAVOS_EVO);
                 listaAgravoDiagnosticadoEvo.add(pAgravoDiagEvo);
             }

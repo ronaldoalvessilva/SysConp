@@ -21,7 +21,8 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer ano;
     private Integer idUnidade;
     private String unidadePrisional;
-    private Integer populacaoAtual;
+    private Integer mediaPopulacao;
+    private Integer quantidadeTotalPopulacao;
     private Date dataPeriodoInicial;
     private Date dataPeriodoFinal;
     private Integer idFunc;
@@ -60,6 +61,8 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer escabiose;
     private Integer dst;
     private Integer quantidadeAgravosTotal;
+    private Integer quantidadeAdmInfectoTotal;
+    private Integer quantidadeEvoInfectoTotal;
     //AMI
     private String aparelhoBarbear;
     private Integer absorvente;
@@ -90,7 +93,7 @@ public class AtividadesMensalRealizadaUnidades {
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer populacaoAtual, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, String aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer mediaPopulacao, Integer quantidadeTotalPopulacao, Date dataPeriodoInicial, Date dataPeriodoFinal, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Integer numeroDiasVisitas, Integer numeroVistantesInternos, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, float mediaVisitasDia, float mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Date dataMatricula, Date dataFrequencia, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, Integer quantidadeAdmInfectoTotal, Integer quantidadeEvoInfectoTotal, String aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -99,7 +102,8 @@ public class AtividadesMensalRealizadaUnidades {
         this.ano = ano;
         this.idUnidade = idUnidade;
         this.unidadePrisional = unidadePrisional;
-        this.populacaoAtual = populacaoAtual;
+        this.mediaPopulacao = mediaPopulacao;
+        this.quantidadeTotalPopulacao = quantidadeTotalPopulacao;
         this.dataPeriodoInicial = dataPeriodoInicial;
         this.dataPeriodoFinal = dataPeriodoFinal;
         this.idFunc = idFunc;
@@ -136,6 +140,8 @@ public class AtividadesMensalRealizadaUnidades {
         this.escabiose = escabiose;
         this.dst = dst;
         this.quantidadeAgravosTotal = quantidadeAgravosTotal;
+        this.quantidadeAdmInfectoTotal = quantidadeAdmInfectoTotal;
+        this.quantidadeEvoInfectoTotal = quantidadeEvoInfectoTotal;
         this.aparelhoBarbear = aparelhoBarbear;
         this.absorvente = absorvente;
         this.bermuda = bermuda;
@@ -275,17 +281,31 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the populacaoAtual
+     * @return the mediaPopulacao
      */
-    public Integer getPopulacaoAtual() {
-        return populacaoAtual;
+    public Integer getMediaPopulacao() {
+        return mediaPopulacao;
     }
 
     /**
-     * @param populacaoAtual the populacaoAtual to set
+     * @param mediaPopulacao the mediaPopulacao to set
      */
-    public void setPopulacaoAtual(Integer populacaoAtual) {
-        this.populacaoAtual = populacaoAtual;
+    public void setMediaPopulacao(Integer mediaPopulacao) {
+        this.mediaPopulacao = mediaPopulacao;
+    }
+
+    /**
+     * @return the quantidadeTotalPopulacao
+     */
+    public Integer getQuantidadeTotalPopulacao() {
+        return quantidadeTotalPopulacao;
+    }
+
+    /**
+     * @param quantidadeTotalPopulacao the quantidadeTotalPopulacao to set
+     */
+    public void setQuantidadeTotalPopulacao(Integer quantidadeTotalPopulacao) {
+        this.quantidadeTotalPopulacao = quantidadeTotalPopulacao;
     }
 
     /**
@@ -790,6 +810,34 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setQuantidadeAgravosTotal(Integer quantidadeAgravosTotal) {
         this.quantidadeAgravosTotal = quantidadeAgravosTotal;
+    }
+
+    /**
+     * @return the quantidadeAdmInfectoTotal
+     */
+    public Integer getQuantidadeAdmInfectoTotal() {
+        return quantidadeAdmInfectoTotal;
+    }
+
+    /**
+     * @param quantidadeAdmInfectoTotal the quantidadeAdmInfectoTotal to set
+     */
+    public void setQuantidadeAdmInfectoTotal(Integer quantidadeAdmInfectoTotal) {
+        this.quantidadeAdmInfectoTotal = quantidadeAdmInfectoTotal;
+    }
+
+    /**
+     * @return the quantidadeEvoInfectoTotal
+     */
+    public Integer getQuantidadeEvoInfectoTotal() {
+        return quantidadeEvoInfectoTotal;
+    }
+
+    /**
+     * @param quantidadeEvoInfectoTotal the quantidadeEvoInfectoTotal to set
+     */
+    public void setQuantidadeEvoInfectoTotal(Integer quantidadeEvoInfectoTotal) {
+        this.quantidadeEvoInfectoTotal = quantidadeEvoInfectoTotal;
     }
 
     /**

@@ -12,7 +12,6 @@ import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VDRL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_B;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_C;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HIV;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_SIFILIS;
@@ -31,6 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ESCABIOSE;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_TOTAL_AGRAVOS;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VACINADOS;
 
 /**
  *
@@ -60,7 +60,7 @@ public class ListagemAgravosDiagnosticados {
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         pQUANTIDADE_VDRL = 0;
-        pQUANTIDADE_HEPATITE_B = 0;
+        pQUANTIDADE_VACINADOS = 0;
         pQUANTIDADE_HEPATITE_C = 0;
         pQUANTIDADE_HIV = 0;
         pQUANTIDADE_SIFILIS = 0;
@@ -135,8 +135,8 @@ public class ListagemAgravosDiagnosticados {
                     pQUANTIDADE_VDRL = pQUANTIDADE_VDRL + 1;
                     pAgravoDiag.setVdrl(pQUANTIDADE_VDRL);
                 } else if (pHEPATITE_B.equals("Reagente")) {
-                    pQUANTIDADE_HEPATITE_B = pQUANTIDADE_HEPATITE_B + 1;
-                    pAgravoDiag.setHepatiteB(pQUANTIDADE_HEPATITE_B);
+                    pQUANTIDADE_VACINADOS = pQUANTIDADE_VACINADOS + 1;
+                    pAgravoDiag.setHepatiteB(pQUANTIDADE_VACINADOS);
                 } else if (pHEPATITE_C.equals("Reagente")) {
                     pQUANTIDADE_HEPATITE_C = pQUANTIDADE_HEPATITE_C + 1;
                     pAgravoDiag.setHepatiteC(pQUANTIDADE_HEPATITE_C);
@@ -168,7 +168,7 @@ public class ListagemAgravosDiagnosticados {
                     pQUANTIDADE_DST = pQUANTIDADE_DST + 1;
                     pAgravoDiag.setDst(pQUANTIDADE_DST);
                 }
-                pQUANTIDADE_TOTAL_AGRAVOS = pQUANTIDADE_VDRL + pQUANTIDADE_HEPATITE_B + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_HPV + pQUANTIDADE_DIABETES + pQUANTIDADE_HIPERTENSAO + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
+                pQUANTIDADE_TOTAL_AGRAVOS = pQUANTIDADE_VDRL + pQUANTIDADE_VACINADOS + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_HPV + pQUANTIDADE_DIABETES + pQUANTIDADE_HIPERTENSAO + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
                 pAgravoDiag.setQuantidadeAgravosTotal(pQUANTIDADE_TOTAL_AGRAVOS);
                 listaAgravoDiagnosticado.add(pAgravoDiag);
             }

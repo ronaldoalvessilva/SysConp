@@ -17,12 +17,20 @@ import gestor.Controle.ListagemAtendimentoADMPsicologico;
 import gestor.Controle.ListagemAtendimentoADMPsiquiatrica;
 import gestor.Controle.ListagemAtendimentoADMServicoSocial;
 import gestor.Controle.ListagemAtendimentoADMServicoSocialFamilia;
+import gestor.Controle.ListagemAtendimentoFamiliaInternos;
 import gestor.Controle.ListagemControleDiabetes;
 import gestor.Controle.ListagemControleHipertensao;
 import gestor.Controle.ListagemDoencasInfectoconagiosasADM;
 import gestor.Controle.ListagemDoencasInfectoconagiosasEVO;
 import gestor.Controle.ListagemInternosFrequenciaPedagogia;
+import gestor.Controle.ListagemInternosLivramento;
 import gestor.Controle.ListagemInternosMatriculadoPedagogia;
+import gestor.Controle.ListagemInternosProgressao;
+import gestor.Controle.ListagemInternosSaidaAlvara;
+import gestor.Controle.ListagemInternosSaidaTMP;
+import gestor.Controle.ListagemInternosVacinados;
+import gestor.Controle.ListagemMediaInternoPorVisitas;
+import gestor.Controle.ListagemMediaPopulacao;
 import gestor.Controle.ListagemNumerosDiasVisitas;
 import gestor.Controle.ListagemNumerosDiasVisitasInterno;
 import gestor.Controle.ListagemNumerosVisitasInternoMenor;
@@ -74,11 +82,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
+    ListagemMediaPopulacao listaMediaPop = new ListagemMediaPopulacao();
     //ABA AF
     ListagemAtendimentoADMServicoSocial listaSSDao = new ListagemAtendimentoADMServicoSocial();
     ListagemAtendimentoADMServicoSocialFamilia listaDaoFam = new ListagemAtendimentoADMServicoSocialFamilia();
     ListagemNumerosDiasVisitasInterno listaDiasVIDao = new ListagemNumerosDiasVisitasInterno();
     ListagemNumerosVisitasInternoMenor listaVCDao = new ListagemNumerosVisitasInternoMenor();
+    ListagemMediaInternoPorVisitas listagemMediaVistas = new ListagemMediaInternoPorVisitas();
     ListagemNumerosDiasVisitas listaNumDiasVDao = new ListagemNumerosDiasVisitas();
     //ABA ASI
     ListagemAtendimentoADMMedica listaQtdAtMedico = new ListagemAtendimentoADMMedica();
@@ -94,15 +104,22 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemAgravosDiagnosticadosEVO listaAgravosDiagEvo = new ListagemAgravosDiagnosticadosEVO();
     ListagemControleHipertensao listaControleHiper = new ListagemControleHipertensao();
     ListagemControleDiabetes listaControleDiabetes = new ListagemControleDiabetes();
+    ListagemInternosVacinados listaInternosVacinados = new ListagemInternosVacinados();
     //ABA AEI
     ListagemInternosMatriculadoPedagogia listaMatInTPed = new ListagemInternosMatriculadoPedagogia();
     ListagemInternosFrequenciaPedagogia listaFreqIntPed = new ListagemInternosFrequenciaPedagogia();
     //AMI
     ListagemQuantidadeProdutosKit listaProdutoKit = new ListagemQuantidadeProdutosKit();
-    //SEG
+    //ABA SEG
     ListagemQuantidadeAparelhoCeluar listaQdtCelular = new ListagemQuantidadeAparelhoCeluar();
     ListagemQuantidadeObjetos listaQtdObjetos = new ListagemQuantidadeObjetos();
     ListagemQuantidadeRevistaPorCela listaRevistaCela = new ListagemQuantidadeRevistaPorCela();
+    //ABA AJ
+    ListagemAtendimentoFamiliaInternos listaAtendFam = new ListagemAtendimentoFamiliaInternos();
+    ListagemInternosSaidaAlvara listaSaidaAlvara = new ListagemInternosSaidaAlvara();
+    ListagemInternosLivramento listaLivramento = new ListagemInternosLivramento();
+    ListagemInternosProgressao listaProgressao = new ListagemInternosProgressao();
+    ListagemInternosSaidaTMP listaSaidaTMP = new ListagemInternosSaidaTMP();
     //
     ControleRefreshDataMovi converteDate = new ControleRefreshDataMovi();
     //
@@ -120,17 +137,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     int count = 0;
     String dataInicial, dataFinal;
     String dataCadastro;
+    //MANUTENÇÃO
+    public static int pQUANTIDADE_TOTAL_POPULACAO = 0;
+    public static int pQUANTIDADE_DIAS_POPULACAO = 0;
+    int pMEDIA_POPULCAO = 0;
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
     public static String pTIPO_ATENDIMENTO_EVO_SOCIAL = "Evolução Serviço Social";
     public static String pTIPO_ATENDIMENTO_LIGACOES = "Ligações Telefonicas";
     public static String pTIPO_ATENDIMENTO_GRUPO_SOCIAL = "Atendimento em Grupo/SS";
-    //QUANTIDADES CALCULADA
+    //ASSI - QUANTIDADES CALCULADA
     public static int pQUANTIDADE_ADM_SOCIAL = 0;
     public static int pQUANTIDADE_EVO_SOCIAL = 0;
     public static int pQUANTIDADE_ATE_FAMILIA = 0;
     public static int pQUANTIDADE_DIAS_VISITADOS = 0;
     public static int pQUANTIDADE_VISITA_FAMILIA_INT = 0;
+    public static int pQUANTIDADE_MEDIA_VISITAS = 0;
+    int pMEDIA_VISITAS_POR_INTERNOS = 0;
     int pMEDIA_VISITAS_POR_DIA = 0;
     public static int pQUANTIDADE_VISITA_CRIANCA_INT = 0;
     //ABA ASI - ENFERMARIA
@@ -144,7 +167,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_ATE_TECNICO_ENF = "Atendimento Técnico Enfermagem";
     //AGRAVOS DIAGNOSTICADOS
     public static int pQUANTIDADE_VDRL = 0;
-    public static int pQUANTIDADE_HEPATITE_B = 0;
+    public static int pQUANTIDADE_VACINADOS = 0;
     public static int pQUANTIDADE_HEPATITE_C = 0;
     public static int pQUANTIDADE_HIV = 0;
     public static int pQUANTIDADE_SIFILIS = 0;
@@ -161,6 +184,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_TOTAL_INFECTO = 0;
     public static int pQUANTIDADE_TOTAL_INFECTO_EVO = 0;
     public static int pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
+    public static int pQUANTIDADE_TOTAL_VACINAS = 0;
     //ABA ASI - PSICOLOGIA
     public static String pTIPO_ATENDIMENTO_ATE_PSICOLOGICO = "Admissão Psicologica";
     public static String pTIPO_ATENDIMENTO_EVO_PSICOLOGICO = "Evolução Psicologica";
@@ -192,8 +216,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_APARELHO_CELULAR = 0;
     public static int pQUANTIDADE_OBJETOS_PROC = 0;
     public static int pQUANTIDADE_REVISTA_POR_CELA = 0;
-
     //ABA AJ - JURÍDICO
+    public static int pQUANTIDADE_ATENDE_FAMILIA_JURI = 0;
+    public static int pQUANTIDADE_ALVARA = 0;
+    public static int pQUANTIDADE_LIVRAMENTO = 0;
+    public static int pQUANTIDADE_PROGRESSAO = 0;
+    public static int pQUANTIDADE_SAIDA_TMP = 0;
+
     //ABA AL - TERAPIA OCUPACIONAL
     //ABA AFI - NUTRIÇÃO
     /**
@@ -975,7 +1004,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jDataCriacao.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("População Atual");
+        jLabel9.setText("População Média");
 
         jPopulacaoAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jPopulacaoAtual.setForeground(new java.awt.Color(204, 0, 0));
@@ -2244,6 +2273,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel43.setToolTipText("Controle das diabetes");
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(204, 0, 0));
         jLabel44.setText("Aspectos relacionados a sexualidades");
         jLabel44.setToolTipText("Aspectos relacionados a sexualidades");
 
@@ -3402,6 +3432,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel76.setToolTipText("Nº procedimentos de revistas em cada cela");
 
         jLabel77.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel77.setForeground(new java.awt.Color(204, 0, 0));
         jLabel77.setText("Nº de ocorrência de indisciplina");
         jLabel77.setToolTipText("Nº de ocorrência  indisciplinar");
 
@@ -5794,7 +5825,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             objPesFunc.show();
             acao = 1;
             pesquisaUnidadePrisional();
-            pesquisarPopulacaoAtual();
+//            calculoMediaPopulacao();
             bloquearHabilitarTodosCampos(true, !true);
             Novo();
             statusMov = "Incluiu";
@@ -6197,10 +6228,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         DecimalFormat valorReal = new DecimalFormat("###,##00.0");
         valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
+         calculoMediaPopulacao();
         //ABA ASSI - SERVIÇO SOCIAL
         calculoSS();
         calculoSSF();
         calculoVI();
+        calcularMediaVisitasInterno();
         caluloVC();
         caluloQTVD();
         //CALCUAR AS MÉDIAS
@@ -6211,11 +6244,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoPSIQ();
         calculoENFER();
         calculoAgravosDIAG();
-        calculoAgravadosEvo();
         calculoControleHipertensao();
         calculoControleDiabetes();
-        calculoDOENCA_INECTO_ADM();
-        calculoDOENCA_INFECTO_EVOL();
+        calculoDOENCA_INFECTOCONTAGIOSAS();
+        calculoControleVacinas();
         calculoPSI();
         calculoProcODON();
         calculoAtendODON();
@@ -6228,7 +6260,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoCelularSEG();
         calcularObjetos();
         calcularQtdRevistaCela();
-
+        //ABA AJ
+        calculoATENJURI();
+        calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -6895,7 +6929,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPresoDoencaInfecto.setEnabled(opcaoF);
         jControlHipertensao.setEnabled(opcaoF);
         jControleDiabetes.setEnabled(opcaoF);
-        jAspectosSexual.setEnabled(opcaoF);
+        jAspectosSexual.setEnabled(opcaoV);
         jPresosVacinados.setEnabled(opcaoF);
         //ABA AEI
         jPresoSentenciadoEF.setEnabled(opcaoF);
@@ -6926,7 +6960,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroAparelhoConvive.setEnabled(opcaoF);
         jObjetosMateriais.setEnabled(opcaoF);
         jNumeroProcedRevista.setEnabled(opcaoF);
-        jNumeroOcorrenciasInd.setEnabled(opcaoF);
+        jNumeroOcorrenciasInd.setEnabled(opcaoV);
         jNumeroOcorrenciaTentaFuga.setEnabled(opcaoV);
         jNumeroOcorrenciaRebeliao.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoaFerida.setEnabled(opcaoV);
@@ -7006,15 +7040,26 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         conecta.desconecta();
     }
 
-    public void pesquisarPopulacaoAtual() {
-        conecta.abrirConexao();
+    public void calculoMediaPopulacao() {
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL("SELECT TotalGeralInternos FROM MOVPOPULACAO");
+//            conecta.rs.last();
+//            jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
+//        } catch (Exception e) {
+//        }
+//        conecta.desconecta();
+//
+
         try {
-            conecta.executaSQL("SELECT TotalGeralInternos FROM MOVPOPULACAO");
-            conecta.rs.last();
-            jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
-        } catch (Exception e) {
+            for (AtividadesMensalRealizadaUnidades pp : listaMediaPop.read()) {
+                pp.getQuantidadeTotalPopulacao();
+                pMEDIA_POPULCAO = pQUANTIDADE_TOTAL_POPULACAO / pQUANTIDADE_DIAS_POPULACAO;
+                jPopulacaoAtual.setText(String.valueOf(pMEDIA_POPULCAO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        conecta.desconecta();
     }
 
     //ABA AF - SERVIÇO SOCIAL
@@ -7049,6 +7094,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd2 : listaDiasVIDao.read()) {
                 dd2.getDataEntradaVisita();
                 jNumeroVistantesInternos.setText(String.valueOf(pQUANTIDADE_VISITA_FAMILIA_INT));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //MÉDIA DE VISITAS POR INTERNO
+    public void calcularMediaVisitasInterno() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd25 : listagemMediaVistas.read()) {
+                dd25.getDataEntradaVisita();
+                pMEDIA_VISITAS_POR_INTERNOS = pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_MEDIA_VISITAS;
+                jMediaVisitasInterno.setText(String.valueOf(pMEDIA_VISITAS_POR_INTERNOS));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
@@ -7125,19 +7183,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd16.getTipoAtendimento();
                 dd16.getQuantidadeAgravosTotal();
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    //AGRAVOS DIAGNOSTICADOS - EVOLUÇÃO
-    public void calculoAgravadosEvo() {
-        try {
-            for (AtividadesMensalRealizadaUnidades dd19 : listaAgravosDiagEvo.read()) {
-                dd19.getTipoAtendimento();
-                dd19.getQuantidadeAgravosTotal();
-                pTOTAL_GERAL_AGRAVADOS = pQUANTIDADE_TOTAL_AGRAVOS + pQUANTIDADE_TOTAL_AGRAVOS_EVO;
-                jTratamentoAgravDiaginostico.setText(String.valueOf(pTOTAL_GERAL_AGRAVADOS));
+            //AGRAVOS DIAGNOSTICADOS - EVOLUÇÃO
+            try {
+                for (AtividadesMensalRealizadaUnidades dd19 : listaAgravosDiagEvo.read()) {
+                    dd19.getTipoAtendimento();
+                    dd19.getQuantidadeAgravosTotal();
+                    pTOTAL_GERAL_AGRAVADOS = pQUANTIDADE_TOTAL_AGRAVOS + pQUANTIDADE_TOTAL_AGRAVOS_EVO;
+                    jTratamentoAgravDiaginostico.setText(String.valueOf(pTOTAL_GERAL_AGRAVADOS));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
@@ -7145,23 +7200,22 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     //DOENÇAS INFECTOCONTAGIOSAS - ADMISSÃO
-    public void calculoDOENCA_INECTO_ADM() {
+    public void calculoDOENCA_INFECTOCONTAGIOSAS() {
         try {
             for (AtividadesMensalRealizadaUnidades dd20 : listaDoencaIntectoADM.read()) {
                 dd20.getTipoAtendimento();
-                dd20.getQuantidadeAgravosTotal();
+                dd20.getQuantidadeAdmInfectoTotal();
+                jPresoDoencaInfecto.setText(String.valueOf(pQUANTIDADE_TOTAL_INFECTO));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    //DOENÇAS INFECTOCONTAGIOSAS - EVOLUÇÃO
-    public void calculoDOENCA_INFECTO_EVOL() {
+        //DOENÇAS INFECTOCONTAGIOSAS - EVOLUÇÃO
         try {
             for (AtividadesMensalRealizadaUnidades dd21 : listaDoencaInfectoEvol.read()) {
                 dd21.getTipoAtendimento();
-                dd21.getQuantidadeAgravosTotal();
+                dd21.getQuantidadeEvoInfectoTotal();
+                dd21.getQuantidadeAdmInfectoTotal();
                 pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = pQUANTIDADE_TOTAL_INFECTO + pQUANTIDADE_TOTAL_INFECTO_EVO;
                 jPresoDoencaInfecto.setText(String.valueOf(pQUANTIDADE_TOTAL_INFECTO_EVO_ADM));
             }
@@ -7170,18 +7224,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
-//CONTROLE DE HIPERTNSÃO
+    //CONTROLE DE HIPERTNSÃO
     public void calculoControleHipertensao() {
         try {
             for (AtividadesMensalRealizadaUnidades dd17 : listaControleHiper.read()) {
                 dd17.getTipoAtendimento();
                 dd17.getHipertensao();
                 jControlHipertensao.setText(String.valueOf(pQUANTIDADE_HIPERTENSAO));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7192,11 +7244,21 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd18.getTipoAtendimento();
                 dd18.getQuantidadeAgravosTotal();
                 jControleDiabetes.setText(String.valueOf(pQUANTIDADE_DIABETES));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //PRESOS VACINADOS
+    public void calculoControleVacinas() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd18 : listaInternosVacinados.read()) {
+                dd18.getTipoAtendimento();
+                jPresosVacinados.setText(String.valueOf(pQUANTIDADE_TOTAL_VACINAS));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7207,11 +7269,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd7.getDataAtendimento();
                 dd7.getTipoAtendimento();
                 jAtendimentoPsicologico.setText(String.valueOf(pQUANTIDADE_ATE_PSICOLOGIA));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7222,11 +7282,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd8.getDataAtendimento();
                 dd8.getTipoAtendimento();
                 jProcedimentoOdontologico.setText(String.valueOf(pQUANTIDADE_PROC_ODONTOLOGICO));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7237,11 +7295,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd9.getDataAtendimento();
                 dd9.getTipoAtendimento();
                 jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7252,11 +7308,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd10.getDataAtendimento();
                 dd10.getTipoAtendimento();
                 jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7266,11 +7320,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd10 : listaMatInTPed.read()) {
                 dd10.getDataMatricula();
                 jPresoSentenciadoEF.setText(String.valueOf(pQUANTIDADE_MATRICULADOS));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7280,11 +7332,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd11 : listaFreqIntPed.read()) {
                 dd11.getDataFrequencia();
                 jPresoSentencaMatFreqEF.setText(String.valueOf(pQUANTIDADE_INTERNOS_PRESENTE));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7295,11 +7345,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd12.getDataProcedimento();
                 dd12.getQuantidadeCelular();
                 jNumeroAparelhoConvive.setText(String.valueOf(pQUANTIDADE_APARELHO_CELULAR));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7310,11 +7358,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 dd13.getDataProcedimento();
                 dd13.getQuantidadeObjetos();
                 jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7323,12 +7369,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd14 : listaRevistaCela.read()) {
                 dd14.getDataProcedimento();
                 dd14.getQuantidadeObjetos();
-                jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
-
+                jNumeroProcedRevista.setText(String.valueOf(pQUANTIDADE_REVISTA_POR_CELA));
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -7358,11 +7402,60 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 jAparelhoBarbear.setText(dd15.getAparelhoBarbear());
 //                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
 //                jBermuda.setText(String.valueOf(dd15.getBermuda()));
-
             }
         } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //QUANTIDADE DE ATENDIMENTO FAMILIA - JURIDICO 
+    public void calculoATENJURI() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd22 : listaAtendFam.read()) {
+                dd22.getDataProcedimento();
+                jAtendInternoSAJ.setText(String.valueOf(pQUANTIDADE_ATENDE_FAMILIA_JURI));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //SAIDA ALVARÁ
+    public void calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd23 : listaSaidaAlvara.read()) {
+                dd23.getDataProcedimento();
+                jAlvaraSolturaCumprido.setText(String.valueOf(pQUANTIDADE_ALVARA));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //LIVRAMENTO CONDICIONAL
+        try {
+            for (AtividadesMensalRealizadaUnidades dd24 : listaLivramento.read()) {
+                dd24.getDataProcedimento();
+                jLivarmentoCondRequerido.setText(String.valueOf(pQUANTIDADE_LIVRAMENTO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //PROGRESSÃO DE REGIME
+        try {
+            for (AtividadesMensalRealizadaUnidades dd25 : listaProgressao.read()) {
+                dd25.getDataProcedimento();
+                jProgressaoRegDeferido.setText(String.valueOf(pQUANTIDADE_PROGRESSAO));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //SAÍDA TEMPORARIA
+        try {
+            for (AtividadesMensalRealizadaUnidades dd26 : listaSaidaTMP.read()) {
+                dd26.getDataProcedimento();
+                jSaidasTempDeferida.setText(String.valueOf(pQUANTIDADE_SAIDA_TMP));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

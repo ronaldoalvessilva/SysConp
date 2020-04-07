@@ -149,14 +149,13 @@ public class TelaPesqInternoAtendFamiliarJuridico extends javax.swing.JInternalF
                     .addComponent(jLabel2)
                     .addComponent(jPesqMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtMatricula)
-                    .addComponent(jCheckBox1))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jCheckBox1)))
         );
 
         jTabelaInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -226,7 +225,7 @@ public class TelaPesqInternoAtendFamiliarJuridico extends javax.swing.JInternalF
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtSair)
@@ -330,9 +329,20 @@ public class TelaPesqInternoAtendFamiliarJuridico extends javax.swing.JInternalF
                 jIDInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInterno.setIcon(i);
-                FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInterno.setIcon(i);
+                    FotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_SMOOTH)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes0 = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
+                if (imgBytes0 != null) {
+                    ImageIcon pic0 = null;
+                    pic0 = new ImageIcon(imgBytes0);
+                    Image scaled0 = pic0.getImage().getScaledInstance(FotoInterno.getWidth(), FotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon0 = new ImageIcon(scaled0);
+                    FotoInterno.setIcon(icon0);
+                }
                 jMaeInterno.setText(conecta.rs.getString("MaeInternoCrc"));
                 jPainInterno.setText(conecta.rs.getString("PaiInternoCrc"));
                 jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
@@ -541,6 +551,7 @@ public class TelaPesqInternoAtendFamiliarJuridico extends javax.swing.JInternalF
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         modelo.getLinhas().clear();
     }
+
     public void alinharCamposTabela() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();

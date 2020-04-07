@@ -12,7 +12,6 @@ import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VDRL;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_B;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HEPATITE_C;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_HIV;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_SIFILIS;
@@ -31,14 +30,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_ESCABIOSE;
 import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_TOTAL_INFECTO_EVO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_VACINADOS;
 
 /**
  *
  * @author ronal
  */
 public class ListagemDoencasInfectoconagiosasEVO {
-
-    //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
+    
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
     //
@@ -56,7 +55,7 @@ public class ListagemDoencasInfectoconagiosasEVO {
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         pQUANTIDADE_VDRL = 0;
-        pQUANTIDADE_HEPATITE_B = 0;
+        pQUANTIDADE_VACINADOS = 0;
         pQUANTIDADE_HEPATITE_C = 0;
         pQUANTIDADE_HIV = 0;
         pQUANTIDADE_SIFILIS = 0;
@@ -68,7 +67,7 @@ public class ListagemDoencasInfectoconagiosasEVO {
         pQUANTIDADE_ESCABIOSE = 0;
         pQUANTIDADE_DST = 0;
         pQUANTIDADE_TOTAL_INFECTO_EVO = 0;
-        List<AtividadesMensalRealizadaUnidades> listaAgravoDiagnosticado = new ArrayList<AtividadesMensalRealizadaUnidades>();
+        List<AtividadesMensalRealizadaUnidades> listaInfectoDiagnosticadoEVO = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -113,42 +112,41 @@ public class ListagemDoencasInfectoconagiosasEVO {
                     + "AND '" + pDATA_FINAL + "' "
                     + "AND Dst='" + pDST + "'");
             while (conecta.rs.next()) {
-                AtividadesMensalRealizadaUnidades pAgravoDiag = new AtividadesMensalRealizadaUnidades();
-                pAgravoDiag.setDataAtendimento(conecta.rs.getDate("DataReg"));
+                AtividadesMensalRealizadaUnidades pInfectoEvo = new AtividadesMensalRealizadaUnidades();
+                pInfectoEvo.setDataAtendimento(conecta.rs.getDate("DataReg"));
                 if (pHEPATITE_B.equals("Reagente")) {
-                    pQUANTIDADE_HEPATITE_B = pQUANTIDADE_HEPATITE_B + 1;
-                    pAgravoDiag.setHepatiteB(pQUANTIDADE_HEPATITE_B);
+                    pQUANTIDADE_VACINADOS = pQUANTIDADE_VACINADOS + 1;
+                    pInfectoEvo.setHepatiteB(pQUANTIDADE_VACINADOS);
                 } else if (pHEPATITE_C.equals("Reagente")) {
                     pQUANTIDADE_HEPATITE_C = pQUANTIDADE_HEPATITE_C + 1;
-                    pAgravoDiag.setHepatiteC(pQUANTIDADE_HEPATITE_C);
+                    pInfectoEvo.setHepatiteC(pQUANTIDADE_HEPATITE_C);
                 } else if (pHIV.equals("Reagente")) {
                     pQUANTIDADE_HIV = pQUANTIDADE_HIV + 1;
-                    pAgravoDiag.setHiv(pQUANTIDADE_HIV);
+                    pInfectoEvo.setHiv(pQUANTIDADE_HIV);
                 } else if (pSIFILIS.equals("Reagente")) {
                     pQUANTIDADE_SIFILIS = pQUANTIDADE_SIFILIS + 1;
-                    pAgravoDiag.setSifilis(pQUANTIDADE_SIFILIS);
+                    pInfectoEvo.setSifilis(pQUANTIDADE_SIFILIS);
                 } else if (pHPV.equals("Sim")) {
                     pQUANTIDADE_HPV = pQUANTIDADE_HPV + 1;
-                    pAgravoDiag.setHpv(pQUANTIDADE_HPV);
-                }
-                if (pTUBERCULOSE.equals("Positivo")) {
+                    pInfectoEvo.setHpv(pQUANTIDADE_HPV);
+                } else if (pTUBERCULOSE.equals("Positivo")) {
                     pQUANTIDADE_TUBERCULOSE = pQUANTIDADE_TUBERCULOSE + 1;
-                    pAgravoDiag.setTuberculose(pQUANTIDADE_TUBERCULOSE);
+                    pInfectoEvo.setTuberculose(pQUANTIDADE_TUBERCULOSE);
                 } else if (pHANSEINIASE.equals("Reagente")) {
                     pQUANTIDADE_HANSEINIASE = pQUANTIDADE_HANSEINIASE + 1;
-                    pAgravoDiag.setHanseniase(pQUANTIDADE_HANSEINIASE);
+                    pInfectoEvo.setHanseniase(pQUANTIDADE_HANSEINIASE);
                 } else if (pESCABIOSE.equals("Sim")) {
                     pQUANTIDADE_ESCABIOSE = pQUANTIDADE_ESCABIOSE + 1;
-                    pAgravoDiag.setEscabiose(pQUANTIDADE_ESCABIOSE);
+                    pInfectoEvo.setEscabiose(pQUANTIDADE_ESCABIOSE);
                 } else if (pDST.equals("Reagente")) {
                     pQUANTIDADE_DST = pQUANTIDADE_DST + 1;
-                    pAgravoDiag.setDst(pQUANTIDADE_DST);
+                    pInfectoEvo.setDst(pQUANTIDADE_DST);
                 }
-                pQUANTIDADE_TOTAL_INFECTO_EVO = pQUANTIDADE_HEPATITE_B + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_HPV + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
-                pAgravoDiag.setQuantidadeAgravosTotal(pQUANTIDADE_TOTAL_INFECTO_EVO);
-                listaAgravoDiagnosticado.add(pAgravoDiag);
+                pQUANTIDADE_TOTAL_INFECTO_EVO = pQUANTIDADE_VACINADOS + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_HPV + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
+                pInfectoEvo.setQuantidadeEvoInfectoTotal(pQUANTIDADE_TOTAL_INFECTO_EVO);
+                listaInfectoDiagnosticadoEVO.add(pInfectoEvo);
             }
-            return listaAgravoDiagnosticado;
+            return listaInfectoDiagnosticadoEVO;
         } catch (SQLException ex) {
             Logger.getLogger(listarInternosPopulacaoNominal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
