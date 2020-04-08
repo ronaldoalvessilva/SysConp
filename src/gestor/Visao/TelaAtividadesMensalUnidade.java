@@ -9,6 +9,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRefreshDataMovi;
 import gestor.Controle.ListagemAgravosDiagnosticados;
 import gestor.Controle.ListagemAgravosDiagnosticadosEVO;
+import gestor.Controle.ListagemAtendimentoADMEVOLTerapaia;
 import gestor.Controle.ListagemAtendimentoADMEnfermeira;
 import gestor.Controle.ListagemAtendimentoADMMedica;
 import gestor.Controle.ListagemAtendimentoADMOdontologica;
@@ -22,6 +23,7 @@ import gestor.Controle.ListagemControleDiabetes;
 import gestor.Controle.ListagemControleHipertensao;
 import gestor.Controle.ListagemDoencasInfectoconagiosasADM;
 import gestor.Controle.ListagemDoencasInfectoconagiosasEVO;
+import gestor.Controle.ListagemInternosCivilmente;
 import gestor.Controle.ListagemInternosFrequenciaPedagogia;
 import gestor.Controle.ListagemInternosLivramento;
 import gestor.Controle.ListagemInternosMatriculadoPedagogia;
@@ -90,6 +92,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemNumerosVisitasInternoMenor listaVCDao = new ListagemNumerosVisitasInternoMenor();
     ListagemMediaInternoPorVisitas listagemMediaVistas = new ListagemMediaInternoPorVisitas();
     ListagemNumerosDiasVisitas listaNumDiasVDao = new ListagemNumerosDiasVisitas();
+    ListagemInternosCivilmente listaInternosCivil = new ListagemInternosCivilmente();
     //ABA ASI
     ListagemAtendimentoADMMedica listaQtdAtMedico = new ListagemAtendimentoADMMedica();
     ListagemAtendimentoADMPsiquiatrica listaQtdAtPsiq = new ListagemAtendimentoADMPsiquiatrica();
@@ -120,6 +123,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemInternosLivramento listaLivramento = new ListagemInternosLivramento();
     ListagemInternosProgressao listaProgressao = new ListagemInternosProgressao();
     ListagemInternosSaidaTMP listaSaidaTMP = new ListagemInternosSaidaTMP();
+    ListagemAtendimentoADMEVOLTerapaia listaADMEVO = new ListagemAtendimentoADMEVOLTerapaia();
     //
     ControleRefreshDataMovi converteDate = new ControleRefreshDataMovi();
     //
@@ -146,6 +150,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_EVO_SOCIAL = "Evolução Serviço Social";
     public static String pTIPO_ATENDIMENTO_LIGACOES = "Ligações Telefonicas";
     public static String pTIPO_ATENDIMENTO_GRUPO_SOCIAL = "Atendimento em Grupo/SS";
+    public static int pQUANTIDADE_INTERNOS_CIVIL = 0;
     //ASSI - QUANTIDADES CALCULADA
     public static int pQUANTIDADE_ADM_SOCIAL = 0;
     public static int pQUANTIDADE_EVO_SOCIAL = 0;
@@ -222,8 +227,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_LIVRAMENTO = 0;
     public static int pQUANTIDADE_PROGRESSAO = 0;
     public static int pQUANTIDADE_SAIDA_TMP = 0;
-
     //ABA AL - TERAPIA OCUPACIONAL
+    public static String pTIPO_ATENDIMENTO_ADM_TO = "Admissão Terapia";
+    public static String pTIPO_ATENDIMENTO_EVO_TO = "Evolução Terapia";
+    public static String pTIPO_ATENDIMENTO_GRUPO_TO = "Atendimento em Grupo/TO";
+    public static int pQUANTIDADE_TOTAL_TO = 0;
     //ABA AFI - NUTRIÇÃO
     /**
      * Creates new form TelaAtividadesMensalUnidade
@@ -338,10 +346,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jMediaVisitasDia = new javax.swing.JFormattedTextField();
         jMediaVisitasInterno = new javax.swing.JFormattedTextField();
         jNumeroCriancasVisitas = new javax.swing.JFormattedTextField();
-        jPanel14 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jPresoIdentCivil = new javax.swing.JFormattedTextField();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         jPresoAtiviReligiosa = new javax.swing.JFormattedTextField();
         jPanel16 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -401,7 +409,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
@@ -415,7 +422,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPresoDoencaInfecto = new javax.swing.JFormattedTextField();
         jControlHipertensao = new javax.swing.JFormattedTextField();
         jControleDiabetes = new javax.swing.JFormattedTextField();
-        jAspectosSexual = new javax.swing.JFormattedTextField();
         jPresosVacinados = new javax.swing.JFormattedTextField();
         jPanel65 = new javax.swing.JPanel();
         jBtNovo12 = new javax.swing.JButton();
@@ -427,6 +433,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtSair12 = new javax.swing.JButton();
         jBtAuditoria12 = new javax.swing.JButton();
         jBtImpressao5 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jAspectosSexual = new javax.swing.JFormattedTextField();
         jPanel6 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
@@ -617,24 +626,24 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel121 = new javax.swing.JLabel();
         jPanel46 = new javax.swing.JPanel();
         jLabel122 = new javax.swing.JLabel();
-        jLabel123 = new javax.swing.JLabel();
-        jLabel124 = new javax.swing.JLabel();
-        jLabel125 = new javax.swing.JLabel();
-        jLabel126 = new javax.swing.JLabel();
-        jLabel127 = new javax.swing.JLabel();
-        jLabel128 = new javax.swing.JLabel();
-        jPresoMatProfissional = new javax.swing.JFormattedTextField();
-        jPresoCertificaCursoProf = new javax.swing.JFormattedTextField();
-        jPresoAtiviCantoTeatro = new javax.swing.JFormattedTextField();
-        jPresoAtiviLiteraria = new javax.swing.JFormattedTextField();
-        PresoAtiviArtesPlasticas = new javax.swing.JFormattedTextField();
-        jOcupacaoAtiviRecreaReligiosa = new javax.swing.JFormattedTextField();
         jTriagemAtendInernos = new javax.swing.JFormattedTextField();
         jPanel47 = new javax.swing.JPanel();
         jLabel129 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
         jPresoSentecaAtivLaboralRemun = new javax.swing.JFormattedTextField();
         jPresoAtiviLaboralNaoRemunera = new javax.swing.JFormattedTextField();
+        jLabel123 = new javax.swing.JLabel();
+        jOcupacaoAtiviRecreaReligiosa = new javax.swing.JFormattedTextField();
+        jLabel124 = new javax.swing.JLabel();
+        PresoAtiviArtesPlasticas = new javax.swing.JFormattedTextField();
+        jLabel125 = new javax.swing.JLabel();
+        jPresoAtiviLiteraria = new javax.swing.JFormattedTextField();
+        jLabel126 = new javax.swing.JLabel();
+        jPresoAtiviCantoTeatro = new javax.swing.JFormattedTextField();
+        jLabel127 = new javax.swing.JLabel();
+        jLabel128 = new javax.swing.JLabel();
+        jPresoMatProfissional = new javax.swing.JFormattedTextField();
+        jPresoCertificaCursoProf = new javax.swing.JFormattedTextField();
         jPanel70 = new javax.swing.JPanel();
         jBtNovo17 = new javax.swing.JButton();
         jBtAlterar17 = new javax.swing.JButton();
@@ -1101,7 +1110,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel4.setText("Ano");
 
         jComboBoxMesReferencia.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxMesReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setemrbo", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMesReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
         jComboBoxMesReferencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxMesReferencia.setEnabled(false);
 
@@ -1219,7 +1228,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
@@ -1282,7 +1291,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
@@ -1546,6 +1555,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroCriancasVisitas.setText("0");
         jNumeroCriancasVisitas.setEnabled(false);
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("Preso identificados civilmente");
+
+        jPresoIdentCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoIdentCivil.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoIdentCivil.setText("0");
+        jPresoIdentCivil.setEnabled(false);
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1559,20 +1576,22 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel116)
                     .addComponent(jLabel117)
                     .addComponent(jLabel118)
-                    .addComponent(jLabel119))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNumeroCriancasVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMediaVisitasInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMediaVisitasDia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroVistantesInternos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroDiasVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jAtendimentoPsiFamilaPreso, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jAtendimentoPsiPreso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel119)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPresoIdentCivil)
+                    .addComponent(jNumeroCriancasVisitas, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(jMediaVisitasInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(jMediaVisitasDia, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(jNumeroVistantesInternos, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(jNumeroDiasVisitas, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                    .addComponent(jAtendimentoPsiFamilaPreso)
+                    .addComponent(jAtendimentoPsiPreso, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoPsiFamilaPreso, jAtendimentoPsiPreso, jMediaVisitasDia, jMediaVisitasInterno, jNumeroCriancasVisitas, jNumeroDiasVisitas, jNumeroVistantesInternos});
+        jPanel13Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoPsiFamilaPreso, jAtendimentoPsiPreso, jMediaVisitasDia, jMediaVisitasInterno, jNumeroCriancasVisitas, jNumeroDiasVisitas, jNumeroVistantesInternos, jPresoIdentCivil});
 
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1605,25 +1624,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jNumeroCriancasVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel120))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel13)
+                    .addComponent(jPresoIdentCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel13Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAtendimentoPsiFamilaPreso, jAtendimentoPsiPreso, jMediaVisitasDia, jMediaVisitasInterno, jNumeroCriancasVisitas, jNumeroDiasVisitas, jNumeroVistantesInternos});
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel13.setText("Preso identificados civilmente");
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setText("Preso em atividade religiosa");
-
-        jPresoIdentCivil.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoIdentCivil.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoIdentCivil.setText("0");
-        jPresoIdentCivil.setEnabled(false);
 
         jPresoAtiviReligiosa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPresoAtiviReligiosa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1636,33 +1650,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPresoIdentCivil, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(jPresoAtiviReligiosa))
+                .addComponent(jPresoAtiviReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
-
-        jPanel14Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPresoAtiviReligiosa, jPresoIdentCivil});
-
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel13)
-                    .addComponent(jPresoIdentCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel14)
                     .addComponent(jPresoAtiviReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
-
-        jPanel14Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPresoAtiviReligiosa, jPresoIdentCivil});
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -1840,9 +1841,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("ASSI", jPanel3);
@@ -2272,11 +2273,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel43.setText("Controle das diabetes");
         jLabel43.setToolTipText("Controle das diabetes");
 
-        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel44.setText("Aspectos relacionados a sexualidades");
-        jLabel44.setToolTipText("Aspectos relacionados a sexualidades");
-
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel45.setText("Presos vacinados");
         jLabel45.setToolTipText("Presos vacinados");
@@ -2347,12 +2343,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jControleDiabetes.setToolTipText("Controle das diabetes");
         jControleDiabetes.setEnabled(false);
 
-        jAspectosSexual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAspectosSexual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jAspectosSexual.setText("0");
-        jAspectosSexual.setToolTipText("Aspectos relacionados a sexualidades");
-        jAspectosSexual.setEnabled(false);
-
         jPresosVacinados.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPresosVacinados.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPresosVacinados.setText("0");
@@ -2395,16 +2385,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel42)
                             .addComponent(jLabel43))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPresoDoencaInfecto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jAtendimentoMedClinico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jControleDiabetes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jControlHipertensao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jLabel44)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel45)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2418,12 +2404,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAspectosSexual, jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoOdontologicos, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoOdontologicos, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel34)
@@ -2470,13 +2456,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel43))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel44)
-                    .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPresosVacinados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel45))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel65.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -2612,6 +2594,40 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3))
         );
 
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel44.setText("Aspectos relacionados a sexualidades");
+        jLabel44.setToolTipText("Aspectos relacionados a sexualidades");
+
+        jAspectosSexual.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAspectosSexual.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAspectosSexual.setText("0");
+        jAspectosSexual.setToolTipText("Aspectos relacionados a sexualidades");
+        jAspectosSexual.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel44)
+                    .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -2621,7 +2637,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel65, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel65, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -2631,7 +2648,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("ASI", jPanel5);
@@ -2710,7 +2729,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel132)
                     .addComponent(jPresoSentencaMatFreqEF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel25Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPresoSentencaMatFreqEF, jPresoSentenciadoEF});
@@ -2734,7 +2753,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel49)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPresoAtiviPraticaEsportiva, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPresoAtiviPraticaEsportiva, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel48Layout.setVerticalGroup(
@@ -2744,7 +2763,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel49)
                     .addComponent(jPresoAtiviPraticaEsportiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         jPanel66.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -3957,11 +3976,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel94.setToolTipText("Livramento condicional deferido");
 
         jLabel95.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel95.setText("Progressão de Regime Deferido");
+        jLabel95.setText("Progressão de Regime deferido");
         jLabel95.setToolTipText("Progressão de Regime Deferido");
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel96.setText("Saída Temporárias Deferidas");
+        jLabel96.setText("Saída Temporárias deferidas");
         jLabel96.setToolTipText("Saída Temporárias Deferidas");
 
         jAtendInternoSAJ.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -4582,60 +4601,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel122.setText("Triagem e atendimentos internos");
         jLabel122.setToolTipText("Triagem e atendimentos internos");
 
-        jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel123.setText("Ocupação com atividade recreativa /religiosa do interno");
-        jLabel123.setToolTipText("Ocupação com atividade recreativa /religiosa do interno");
-
-        jLabel124.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel124.setText("Preso em atividade de artes plásticas");
-        jLabel124.setToolTipText("Preso em atividade de artes plásticas");
-
-        jLabel125.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel125.setText("Preso em atividade de literatura");
-        jLabel125.setToolTipText("Preso em atividade de literatura");
-
-        jLabel126.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel126.setText("Preso em atividade de canto, teatro e cinema");
-        jLabel126.setToolTipText("Preso em atividade de canto, teatro e cinema");
-
-        jLabel127.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel127.setText("Preso matriculado cursos profissionalizantes c/ cert. profissional");
-        jLabel127.setToolTipText("Preso matriculado nos cursos profissionalizantes com certificação profissional");
-
-        jLabel128.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel128.setText("Preso certificado em cursos profissionalizantes");
-        jLabel128.setToolTipText("Preso certificado em cursos profissionalizantes");
-
-        jPresoMatProfissional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoMatProfissional.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoMatProfissional.setText("0");
-        jPresoMatProfissional.setEnabled(false);
-
-        jPresoCertificaCursoProf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoCertificaCursoProf.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoCertificaCursoProf.setText("0");
-        jPresoCertificaCursoProf.setEnabled(false);
-
-        jPresoAtiviCantoTeatro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoAtiviCantoTeatro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoAtiviCantoTeatro.setText("0");
-        jPresoAtiviCantoTeatro.setEnabled(false);
-
-        jPresoAtiviLiteraria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPresoAtiviLiteraria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPresoAtiviLiteraria.setText("0");
-        jPresoAtiviLiteraria.setEnabled(false);
-
-        PresoAtiviArtesPlasticas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        PresoAtiviArtesPlasticas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        PresoAtiviArtesPlasticas.setText("0");
-        PresoAtiviArtesPlasticas.setEnabled(false);
-
-        jOcupacaoAtiviRecreaReligiosa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jOcupacaoAtiviRecreaReligiosa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jOcupacaoAtiviRecreaReligiosa.setText("0");
-        jOcupacaoAtiviRecreaReligiosa.setEnabled(false);
-
         jTriagemAtendInernos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTriagemAtendInernos.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTriagemAtendInernos.setText("0");
@@ -4647,28 +4612,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel127)
-                    .addComponent(jLabel122)
-                    .addComponent(jLabel128)
-                    .addComponent(jLabel126)
-                    .addComponent(jLabel125)
-                    .addComponent(jLabel124)
-                    .addComponent(jLabel123))
+                .addComponent(jLabel122)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTriagemAtendInernos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTriagemAtendInernos, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        jPanel46Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {PresoAtiviArtesPlasticas, jOcupacaoAtiviRecreaReligiosa, jPresoAtiviCantoTeatro, jPresoAtiviLiteraria, jPresoCertificaCursoProf, jPresoMatProfissional, jTriagemAtendInernos});
-
         jPanel46Layout.setVerticalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel46Layout.createSequentialGroup()
@@ -4676,34 +4624,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel122)
                     .addComponent(jTriagemAtendInernos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel123)
-                    .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel124)
-                    .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel125)
-                    .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel126)
-                    .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel127)
-                    .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel128)
-                    .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel46Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {PresoAtiviArtesPlasticas, jOcupacaoAtiviRecreaReligiosa, jPresoAtiviCantoTeatro, jPresoAtiviLiteraria, jPresoCertificaCursoProf, jPresoMatProfissional, jTriagemAtendInernos});
 
         jPanel47.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
@@ -4726,6 +4648,66 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jPresoAtiviLaboralNaoRemunera.setText("0");
         jPresoAtiviLaboralNaoRemunera.setEnabled(false);
 
+        jLabel123.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel123.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel123.setText("Ocupação com atividade recreativa/religiosa do interno");
+        jLabel123.setToolTipText("Ocupação com atividade recreativa /religiosa do interno");
+
+        jOcupacaoAtiviRecreaReligiosa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jOcupacaoAtiviRecreaReligiosa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jOcupacaoAtiviRecreaReligiosa.setText("0");
+        jOcupacaoAtiviRecreaReligiosa.setEnabled(false);
+
+        jLabel124.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel124.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel124.setText("Preso em atividade de artes plásticas");
+        jLabel124.setToolTipText("Preso em atividade de artes plásticas");
+
+        PresoAtiviArtesPlasticas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        PresoAtiviArtesPlasticas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        PresoAtiviArtesPlasticas.setText("0");
+        PresoAtiviArtesPlasticas.setEnabled(false);
+
+        jLabel125.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel125.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel125.setText("Preso em atividade de literatura");
+        jLabel125.setToolTipText("Preso em atividade de literatura");
+
+        jPresoAtiviLiteraria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviLiteraria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviLiteraria.setText("0");
+        jPresoAtiviLiteraria.setEnabled(false);
+
+        jLabel126.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel126.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel126.setText("Preso em atividade de canto, teatro e cinema");
+        jLabel126.setToolTipText("Preso em atividade de canto, teatro e cinema");
+
+        jPresoAtiviCantoTeatro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoAtiviCantoTeatro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoAtiviCantoTeatro.setText("0");
+        jPresoAtiviCantoTeatro.setEnabled(false);
+
+        jLabel127.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel127.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel127.setText("Preso matriculado cursos profissionalizantes c/ cert. profissional");
+        jLabel127.setToolTipText("Preso matriculado nos cursos profissionalizantes com certificação profissional");
+
+        jLabel128.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel128.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel128.setText("Preso certificado em cursos profissionalizantes");
+        jLabel128.setToolTipText("Preso certificado em cursos profissionalizantes");
+
+        jPresoMatProfissional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoMatProfissional.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoMatProfissional.setText("0");
+        jPresoMatProfissional.setEnabled(false);
+
+        jPresoCertificaCursoProf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPresoCertificaCursoProf.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPresoCertificaCursoProf.setText("0");
+        jPresoCertificaCursoProf.setEnabled(false);
+
         javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
         jPanel47.setLayout(jPanel47Layout);
         jPanel47Layout.setHorizontalGroup(
@@ -4740,13 +4722,61 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel47Layout.createSequentialGroup()
                         .addComponent(jLabel130)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPresoAtiviLaboralNaoRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPresoAtiviLaboralNaoRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel123)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel124)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel125)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel47Layout.createSequentialGroup()
+                        .addComponent(jLabel126)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel47Layout.createSequentialGroup()
+                        .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel127)
+                            .addComponent(jLabel128))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel47Layout.setVerticalGroup(
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel47Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel47Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel127)
+                    .addComponent(jPresoMatProfissional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel128)
+                    .addComponent(jPresoCertificaCursoProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel123)
+                    .addComponent(jOcupacaoAtiviRecreaReligiosa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel124)
+                    .addComponent(PresoAtiviArtesPlasticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel125)
+                    .addComponent(jPresoAtiviLiteraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel126)
+                    .addComponent(jPresoAtiviCantoTeatro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel129)
                     .addComponent(jPresoSentecaAtivLaboralRemun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -4754,7 +4784,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPresoAtiviLaboralNaoRemunera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel130))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jPanel70.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -6228,17 +6258,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         DecimalFormat valorReal = new DecimalFormat("###,##00.0");
         valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-         calculoMediaPopulacao();
+        calculoMediaPopulacao();
         //ABA ASSI - SERVIÇO SOCIAL
         calculoSS();
         calculoSSF();
-        calculoVI();
-        calcularMediaVisitasInterno();
+        calculoVI();        
         caluloVC();
+        calculoPresoCivil();
+        calculoMED();
         caluloQTVD();
         //CALCUAR AS MÉDIAS
         pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
         jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+        calcularMediaVisitasInterno();
         //ABA ASI
         calculoMED();
         calculoPSIQ();
@@ -6263,6 +6295,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         //ABA AJ
         calculoATENJURI();
         calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+        calculoATEN_TO();
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
 
@@ -6617,6 +6650,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
@@ -6906,7 +6940,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jMediaVisitasDia.setEnabled(opcaoF);
         jMediaVisitasInterno.setEnabled(opcaoF);
         jNumeroCriancasVisitas.setEnabled(opcaoF);
-        jPresoIdentCivil.setEnabled(opcaoV);
+        jPresoIdentCivil.setEnabled(opcaoF);
         jPresoAtiviReligiosa.setEnabled(opcaoV);
         //ABA AFV
         jLanchesServidoVisita.setEnabled(opcaoV);
@@ -7001,14 +7035,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTP.setEnabled(opcaoV);
         //ABA AL
         jTriagemAtendInernos.setEnabled(opcaoF);
-        jOcupacaoAtiviRecreaReligiosa.setEnabled(opcaoF);
-        PresoAtiviArtesPlasticas.setEnabled(opcaoF);
-        jPresoAtiviLiteraria.setEnabled(opcaoF);
-        jPresoAtiviCantoTeatro.setEnabled(opcaoF);
-        jPresoMatProfissional.setEnabled(opcaoF);
-        jPresoCertificaCursoProf.setEnabled(opcaoF);
-        jPresoSentecaAtivLaboralRemun.setEnabled(opcaoF);
-        jPresoAtiviLaboralNaoRemunera.setEnabled(opcaoF);
+        jOcupacaoAtiviRecreaReligiosa.setEnabled(opcaoV);
+        PresoAtiviArtesPlasticas.setEnabled(opcaoV);
+        jPresoAtiviLiteraria.setEnabled(opcaoV);
+        jPresoAtiviCantoTeatro.setEnabled(opcaoV);
+        jPresoMatProfissional.setEnabled(opcaoV);
+        jPresoCertificaCursoProf.setEnabled(opcaoV);
+        jPresoSentecaAtivLaboralRemun.setEnabled(opcaoV);
+        jPresoAtiviLaboralNaoRemunera.setEnabled(opcaoV);
         //ABA AFI
         jAlimentaServidaInternoCafe.setEnabled(opcaoV);
         jAlimentaServidaInternoAlmoco.setEnabled(opcaoV);
@@ -7131,6 +7165,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd4 : listaNumDiasVDao.read()) {
                 dd4.getDataEntradaVisita();
                 jNumeroDiasVisitas.setText(String.valueOf(pQUANTIDADE_DIAS_VISITADOS));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //PRESOS IDENTIFICADO CIVILMENTE
+    public void calculoPresoCivil() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd4 : listaInternosCivil.read()) {
+                dd4.getDataEntradaVisita();
+                jPresoIdentCivil.setText(String.valueOf(pQUANTIDADE_INTERNOS_CIVIL));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
@@ -7453,6 +7499,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd26 : listaSaidaTMP.read()) {
                 dd26.getDataProcedimento();
                 jSaidasTempDeferida.setText(String.valueOf(pQUANTIDADE_SAIDA_TMP));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //ATENDIMENTO TRIAGEM TO
+    public void calculoATEN_TO() {
+        try {
+            for (AtividadesMensalRealizadaUnidades dd31 : listaADMEVO.read()) {
+                dd31.getDataProcedimento();
+                jTriagemAtendInernos.setText(String.valueOf(pQUANTIDADE_TOTAL_TO));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);

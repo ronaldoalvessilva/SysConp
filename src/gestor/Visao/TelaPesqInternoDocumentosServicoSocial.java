@@ -155,7 +155,7 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         jTabelaInterno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"
@@ -168,8 +168,8 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         });
         jScrollPane1.setViewportView(jTabelaInterno);
         if (jTabelaInterno.getColumnModel().getColumnCount() > 0) {
-            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(50);
-            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(50);
+            jTabelaInterno.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(250);
             jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(250);
             jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(100);
@@ -417,7 +417,7 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
@@ -462,7 +462,7 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
@@ -507,7 +507,7 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
@@ -529,7 +529,7 @@ public class TelaPesqInternoDocumentosServicoSocial extends javax.swing.JInterna
         String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setModel(modelo);
-        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jTabelaInterno.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);

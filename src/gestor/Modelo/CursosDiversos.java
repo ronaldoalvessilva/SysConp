@@ -25,8 +25,12 @@ public class CursosDiversos {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;
+    private String tipoCurso;
 
-    public CursosDiversos(int idCurso, String statusCurso, Date dataCurso, String descricaoCurso, String usuarioInsert, String usuarioUp, String usuarioDelet, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public CursosDiversos() {
+    }
+
+    public CursosDiversos(int idCurso, String statusCurso, Date dataCurso, String descricaoCurso, String usuarioInsert, String usuarioUp, String usuarioDelet, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String tipoCurso) {
         this.idCurso = idCurso;
         this.statusCurso = statusCurso;
         this.dataCurso = dataCurso;
@@ -39,9 +43,7 @@ public class CursosDiversos {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public CursosDiversos() {
+        this.tipoCurso = tipoCurso;
     }
 
     /**
@@ -212,8 +214,17 @@ public class CursosDiversos {
         this.horarioUp = horarioUp;
     }
 
-    @Override
-    public String toString() {
-        return getDescricaoCurso(); //To change body of generated methods, choose Tools | Templates.
-    }    
+    /**
+     * @return the tipoCurso
+     */
+    public String getTipoCurso() {
+        return tipoCurso;
+    }
+
+    /**
+     * @param tipoCurso the tipoCurso to set
+     */
+    public void setTipoCurso(String tipoCurso) {
+        this.tipoCurso = tipoCurso;
+    }
 }

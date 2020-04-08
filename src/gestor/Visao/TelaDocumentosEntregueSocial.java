@@ -18,7 +18,6 @@ import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxCPF;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxCTPS;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxCertidaoCasa;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxCertidaoNasc;
-import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxOutrosDoc;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxRG;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxReservista;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxStatus;
@@ -38,6 +37,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxPassaporteDoc;
 
 /**
  *
@@ -488,7 +488,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -498,7 +498,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -508,7 +508,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -519,7 +519,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -529,7 +529,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -538,7 +538,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -559,7 +559,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -569,7 +569,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -605,7 +605,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -615,7 +615,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -625,7 +625,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -636,7 +636,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -646,7 +646,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -655,7 +655,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setRgDoc((String) jComboBoxRG.getSelectedItem());
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -676,7 +676,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcCasamentoDoc((String) jComboBoxCertidaoCasa.getSelectedItem());
@@ -686,7 +686,7 @@ public class TelaDocumentosEntregueSocial extends javax.swing.JDialog {
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());

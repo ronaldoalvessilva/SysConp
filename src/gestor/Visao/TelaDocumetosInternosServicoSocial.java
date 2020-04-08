@@ -126,7 +126,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jLabel14 = new javax.swing.JLabel();
         jComboBoxCertidaoCasaVia = new javax.swing.JComboBox();
         jComboBoxRG = new javax.swing.JComboBox();
-        jComboBoxOutrosDoc = new javax.swing.JComboBox();
+        jComboBoxPassaporteDoc = new javax.swing.JComboBox();
         jComboBoxCPF = new javax.swing.JComboBox();
         jLabel30 = new javax.swing.JLabel();
         jComboBoxRGVia = new javax.swing.JComboBox();
@@ -306,7 +306,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jTabelaInternosDocumentos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternosDocumentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Status", "Data Doc.", "Código", "Nome do Interno"
@@ -401,7 +401,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,7 +412,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
 
         jTabbedPane1.addTab("Listagem", jPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Cabeçalho", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(51, 51, 255))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código:");
@@ -448,7 +448,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxStatus, 0, 114, Short.MAX_VALUE)
+                .addComponent(jComboBoxStatus, 0, 122, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -457,7 +457,8 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -465,7 +466,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBoxStatus, jDataLanc, jIdLanc});
@@ -493,10 +494,10 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxRG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, java.awt.Color.white, null, null));
         jComboBoxRG.setEnabled(false);
 
-        jComboBoxOutrosDoc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxOutrosDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "Dev" }));
-        jComboBoxOutrosDoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jComboBoxOutrosDoc.setEnabled(false);
+        jComboBoxPassaporteDoc.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxPassaporteDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "Dev" }));
+        jComboBoxPassaporteDoc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxPassaporteDoc.setEnabled(false);
 
         jComboBoxCPF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxCPF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim", "Dev" }));
@@ -688,7 +689,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21)
-                            .addComponent(jComboBoxOutrosDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxPassaporteDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel32)
@@ -728,7 +729,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jComboBoxPassaporteVia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxOutrosDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPassaporteDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBoxCertidaoCasaVia, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
@@ -967,32 +968,32 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jMaeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addComponent(jNomeInterno)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jMatriculoPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jIdInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jMatriculoPenal, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBtPesqInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 167, Short.MAX_VALUE))
+                    .addComponent(jMaeInterno))
+                .addContainerGap())
         );
-
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jMaeInterno, jNomeInterno});
-
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8))
@@ -1039,9 +1040,9 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1076,11 +1077,11 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 169, Short.MAX_VALUE)
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -1101,10 +1102,10 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,18 +1124,18 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(jBtDevolucaoDocumentos, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBtDevolucaoDocumentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 11, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1144,12 +1145,10 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        setBounds(250, 20, 644, 504);
+        setBounds(250, 20, 653, 486);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1227,7 +1226,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                     objDocInternos.setCpfDoc((String) jComboBoxCPF.getSelectedItem());
                     objDocInternos.setCnhDoc((String) jComboBoxCNH.getSelectedItem());
                     objDocInternos.setTituloDoc((String) jComboBoxTitulo.getSelectedItem());
-                    objDocInternos.setOutrosDoc((String) jComboBoxOutrosDoc.getSelectedItem());
+                    objDocInternos.setOutrosDoc((String) jComboBoxPassaporteDoc.getSelectedItem());
                     objDocInternos.setReservistaDoc((String) jComboBoxReservista.getSelectedItem());
                     objDocInternos.setCtpsDoc((String) jComboBoxCTPS.getSelectedItem());
                     objDocInternos.setcNascimentoDoc((String) jComboBoxCertidaoNasc.getSelectedItem());
@@ -1433,15 +1432,25 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
                 jMatriculoPenal.setText(conecta.rs.getString("MatriculaCrc"));
                 // Foto
                 caminho = conecta.rs.getString("FotoInternoCrc");
-                javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                FotoInternoDoc.setIcon(i);
-                FotoInternoDoc.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoDoc.getWidth(), FotoInternoDoc.getHeight(), Image.SCALE_DEFAULT)));
-                //
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    FotoInternoDoc.setIcon(i);
+                    FotoInternoDoc.setIcon(new ImageIcon(i.getImage().getScaledInstance(FotoInternoDoc.getWidth(), FotoInternoDoc.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteVI"));
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(FotoInternoDoc.getWidth(), FotoInternoDoc.getHeight(), Image.SCALE_DEFAULT);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    FotoInternoDoc.setIcon(icon);
+                }
                 jComboBoxRG.setSelectedItem(conecta.rs.getString("RgDoc"));
                 jComboBoxCPF.setSelectedItem(conecta.rs.getString("CpfDoc"));
                 jComboBoxCNH.setSelectedItem(conecta.rs.getString("CnhDoc"));
                 jComboBoxTitulo.setSelectedItem(conecta.rs.getString("TituloDoc"));
-                jComboBoxOutrosDoc.setSelectedItem(conecta.rs.getString("OutrosDoc"));
+                jComboBoxPassaporteDoc.setSelectedItem(conecta.rs.getString("OutrosDoc"));
                 jComboBoxReservista.setSelectedItem(conecta.rs.getString("ReservistaDoc"));
                 jComboBoxCTPS.setSelectedItem(conecta.rs.getString("CtpsDoc"));
                 jComboBoxCertidaoNasc.setSelectedItem(conecta.rs.getString("CNascimentoDoc"));
@@ -1506,7 +1515,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
     public static javax.swing.JComboBox jComboBoxCertidaoNasc;
     private javax.swing.JComboBox jComboBoxCertidaoNascVia;
     private javax.swing.JComboBox jComboBoxEleitorVia;
-    public static javax.swing.JComboBox jComboBoxOutrosDoc;
+    public static javax.swing.JComboBox jComboBoxPassaporteDoc;
     private javax.swing.JComboBox jComboBoxPassaporteVia;
     public static javax.swing.JComboBox jComboBoxRG;
     private javax.swing.JComboBox jComboBoxRGVia;
@@ -1590,7 +1599,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setBackground(Color.white);
         jComboBoxCNH.setBackground(Color.white);
         jComboBoxTitulo.setBackground(Color.white);
-        jComboBoxOutrosDoc.setBackground(Color.white);
+        jComboBoxPassaporteDoc.setBackground(Color.white);
         jComboBoxReservista.setBackground(Color.white);
         jComboBoxCTPS.setBackground(Color.white);
         jComboBoxCertidaoNasc.setBackground(Color.white);
@@ -1612,7 +1621,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setSelectedItem("Não");
         jComboBoxCNH.setSelectedItem("Não");
         jComboBoxTitulo.setSelectedItem("Não");
-        jComboBoxOutrosDoc.setSelectedItem("Não");
+        jComboBoxPassaporteDoc.setSelectedItem("Não");
         jComboBoxReservista.setSelectedItem("Não");
         jComboBoxCTPS.setSelectedItem("Não");
         jComboBoxCertidaoNasc.setSelectedItem("Não");
@@ -1646,7 +1655,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setEnabled(true);
         jComboBoxCNH.setEnabled(true);
         jComboBoxTitulo.setEnabled(true);
-        jComboBoxOutrosDoc.setEnabled(true);
+        jComboBoxPassaporteDoc.setEnabled(true);
         jComboBoxReservista.setEnabled(true);
         jComboBoxCTPS.setEnabled(true);
         jComboBoxCertidaoNasc.setEnabled(true);
@@ -1671,7 +1680,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setEnabled(true);
         jComboBoxCNH.setEnabled(true);
         jComboBoxTitulo.setEnabled(true);
-        jComboBoxOutrosDoc.setEnabled(true);
+        jComboBoxPassaporteDoc.setEnabled(true);
         jComboBoxReservista.setEnabled(true);
         jComboBoxCTPS.setEnabled(true);
         jComboBoxCertidaoNasc.setEnabled(true);
@@ -1711,7 +1720,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setSelectedItem(null);
         jComboBoxCNH.setSelectedItem(null);
         jComboBoxTitulo.setSelectedItem(null);
-        jComboBoxOutrosDoc.setSelectedItem(null);
+        jComboBoxPassaporteDoc.setSelectedItem(null);
         jComboBoxReservista.setSelectedItem(null);
         jComboBoxCTPS.setSelectedItem(null);
         jComboBoxCertidaoNasc.setSelectedItem(null);
@@ -1725,7 +1734,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setEnabled(!true);
         jComboBoxCNH.setEnabled(!true);
         jComboBoxTitulo.setEnabled(!true);
-        jComboBoxOutrosDoc.setEnabled(!true);
+        jComboBoxPassaporteDoc.setEnabled(!true);
         jComboBoxReservista.setEnabled(!true);
         jComboBoxCTPS.setEnabled(!true);
         jComboBoxCertidaoNasc.setEnabled(!true);
@@ -1770,7 +1779,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
         jComboBoxCPF.setEnabled(!true);
         jComboBoxCNH.setEnabled(!true);
         jComboBoxTitulo.setEnabled(!true);
-        jComboBoxOutrosDoc.setEnabled(!true);
+        jComboBoxPassaporteDoc.setEnabled(!true);
         jComboBoxReservista.setEnabled(!true);
         jComboBoxCTPS.setEnabled(!true);
         jComboBoxCertidaoNasc.setEnabled(!true);
@@ -1810,7 +1819,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
             jComboBoxCPF.setSelectedItem(null);
             jComboBoxCNH.setSelectedItem(null);
             jComboBoxTitulo.setSelectedItem(null);
-            jComboBoxOutrosDoc.setSelectedItem(null);
+            jComboBoxPassaporteDoc.setSelectedItem(null);
             jComboBoxReservista.setSelectedItem(null);
             jComboBoxCTPS.setSelectedItem(null);
             jComboBoxCertidaoNasc.setSelectedItem(null);
@@ -1824,7 +1833,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
             jComboBoxCPF.setEnabled(!true);
             jComboBoxCNH.setEnabled(!true);
             jComboBoxTitulo.setEnabled(!true);
-            jComboBoxOutrosDoc.setEnabled(!true);
+            jComboBoxPassaporteDoc.setEnabled(!true);
             jComboBoxReservista.setEnabled(!true);
             jComboBoxCTPS.setEnabled(!true);
             jComboBoxCertidaoNasc.setEnabled(!true);
@@ -1866,7 +1875,7 @@ public class TelaDocumetosInternosServicoSocial extends javax.swing.JInternalFra
             jComboBoxCPF.setEnabled(!true);
             jComboBoxCNH.setEnabled(!true);
             jComboBoxTitulo.setEnabled(!true);
-            jComboBoxOutrosDoc.setEnabled(!true);
+            jComboBoxPassaporteDoc.setEnabled(!true);
             jComboBoxReservista.setEnabled(!true);
             jComboBoxCTPS.setEnabled(!true);
             jComboBoxCertidaoNasc.setEnabled(!true);

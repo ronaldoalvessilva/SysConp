@@ -10,7 +10,10 @@ import gestor.Dao.listarInternosPopulacaoNominal;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_MEDIA_VISITAS;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_TOTAL_TO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_ADM_TO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_EVO_TO;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pTIPO_ATENDIMENTO_GRUPO_TO;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,19 +27,17 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class ListagemMediaInternoPorVisitas {
+public class ListagemAtendimentoADMEVOLTerapaia {
 
-    //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
     //
     String pDATA_INICIAL;
     String pDATA_FINAL;
-    int pTOTAL_REGISTRO = 0;
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
-        pQUANTIDADE_MEDIA_VISITAS = 0;
-        List<AtividadesMensalRealizadaUnidades> listaMediaVisitas = new ArrayList<AtividadesMensalRealizadaUnidades>();
+        pQUANTIDADE_TOTAL_TO = 0;
+        List<AtividadesMensalRealizadaUnidades> listaAtendSS = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -50,29 +51,25 @@ public class ListagemMediaInternoPorVisitas {
         }
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT ITENSFAMILIAR.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "ITENSFAMILIAR.IdVisita, "
-                    + "VISITASINTERNO.NomeVisita, "
-                    + "SUM(ITENSFAMILIAR.Quantidade) AS QUANTIDADE "
-                    + "FROM VISITASINTERNO "
-                    + "INNER JOIN ITENSFAMILIAR "
-                    + "ON VISITASINTERNO.IdVisita=ITENSFAMILIAR.IdVisita "
-                    + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE CONVERT(DATE, ITENSFAMILIAR.DataEntrada) BETWEEN'" + pDATA_INICIAL + "' "
+            conecta.executaSQL("SELECT DataAtendimento,TipoAtendimento "
+                    + "FROM REGISTRO_ATENDIMENTO_INTERNO_PSP "
+                    + "WHERE CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' "
-                    + "GROUP BY ITENSFAMILIAR.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENSFAMILIAR.IdVisita, "
-                    + "VISITASINTERNO.NomeVisita");
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_ADM_TO + "' "
+                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "AND '" + pDATA_FINAL + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_EVO_TO + "' "
+                    + "OR CONVERT(DATE, DataAtendimento) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "AND '" + pDATA_FINAL + "' "
+                    + "AND TipoAtendimento='" + pTIPO_ATENDIMENTO_GRUPO_TO + "' ");
             while (conecta.rs.next()) {
-                AtividadesMensalRealizadaUnidades pListaMedia = new AtividadesMensalRealizadaUnidades();
-               // pListaMedia.setDataEntradaVisita(conecta.rs.getDate("DataEntrada"));
-                pListaMedia.setNumeroVistantesInternos(conecta.rs.getInt("Quantidade"));
-                listaMediaVisitas.add(pListaMedia);
-                pQUANTIDADE_MEDIA_VISITAS = pQUANTIDADE_MEDIA_VISITAS + pListaMedia.getNumeroVistantesInternos();
+                AtividadesMensalRealizadaUnidades pAtivaSS = new AtividadesMensalRealizadaUnidades();
+                pAtivaSS.setDataAtendimento(conecta.rs.getDate("DataAtendimento"));
+                pAtivaSS.setTipoAtendimento(conecta.rs.getString("TipoAtendimento"));
+                listaAtendSS.add(pAtivaSS);
+                pQUANTIDADE_TOTAL_TO = pQUANTIDADE_TOTAL_TO + 1;
             }
-            return listaMediaVisitas;
+            return listaAtendSS;
         } catch (SQLException ex) {
             Logger.getLogger(listarInternosPopulacaoNominal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

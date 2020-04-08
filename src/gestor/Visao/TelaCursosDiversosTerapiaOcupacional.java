@@ -94,6 +94,8 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jComboBoxStatus = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jDataCad = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBoxTipoCurso = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
@@ -200,7 +202,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -235,17 +237,22 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jDataCad.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataCad.setEnabled(false);
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("Tipo Curso");
+
+        jComboBoxTipoCurso.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxTipoCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Curso Profissionalizante", "Curso Livre" }));
+        jComboBoxTipoCurso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxTipoCurso.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +265,13 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
-                    .addComponent(jDescricaoCurso))
+                    .addComponent(jDescricaoCurso, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBoxTipoCurso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -278,7 +291,11 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDescricaoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxTipoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -415,17 +432,16 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -438,12 +454,10 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 30, 496, 254);
+        setBounds(300, 30, 496, 278);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -505,37 +519,40 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de cadastro.");
                 jDataCad.requestFocus();
                 jDataCad.setBackground(Color.red);
+            } else if (jDescricaoCurso.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do curso.");
+                jDescricaoCurso.requestFocus();
+                jDescricaoCurso.setBackground(Color.red);
+            } else if (jComboBoxTipoCurso.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de curso.");
+            } else if (jComboBoxTipoCurso.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o tipo de curso.");
             } else {
-                if (jDescricaoCurso.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe o nome do curso.");
-                    jDescricaoCurso.requestFocus();
-                    jDescricaoCurso.setBackground(Color.red);
-                } else {
-                    objCursos.setStatusCurso((String) jComboBoxStatus.getSelectedItem());
-                    objCursos.setDataCurso(jDataCad.getDate());
-                    objCursos.setDescricaoCurso(jDescricaoCurso.getText());
-                    if (acao == 1) {
-                        objCursos.setUsuarioInsert(nameUser);
-                        objCursos.setDataInsert(dataModFinal);
-                        objCursos.setHorarioInsert(horaMov);
-                        control.incluirCursos(objCursos);
-                        buscarCod();
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                      
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    }
-                    if (acao == 2) {
-                        objCursos.setUsuarioUp(nameUser);
-                        objCursos.setDataUp(dataModFinal);
-                        objCursos.setHorarioUp(horaMov);
-                        objCursos.setIdCurso(Integer.valueOf(jIdLanc.getText()));
-                        control.alterarCursos(objCursos);
-                        objLog();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
-                        Salvar();
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    }
+                objCursos.setStatusCurso((String) jComboBoxStatus.getSelectedItem());
+                objCursos.setDataCurso(jDataCad.getDate());
+                objCursos.setDescricaoCurso(jDescricaoCurso.getText());
+                objCursos.setTipoCurso((String) jComboBoxTipoCurso.getSelectedItem());
+                if (acao == 1) {
+                    objCursos.setUsuarioInsert(nameUser);
+                    objCursos.setDataInsert(dataModFinal);
+                    objCursos.setHorarioInsert(horaMov);
+                    control.incluirCursos(objCursos);
+                    buscarCod();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                      
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objCursos.setUsuarioUp(nameUser);
+                    objCursos.setDataUp(dataModFinal);
+                    objCursos.setHorarioUp(horaMov);
+                    objCursos.setIdCurso(Integer.valueOf(jIdLanc.getText()));
+                    control.alterarCursos(objCursos);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação  
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
             }
         } else {
@@ -593,6 +610,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
                 jComboBoxStatus.setSelectedItem(conecta.rs.getString("StatusCurso"));
                 jDataCad.setDate(conecta.rs.getDate("DataCurso"));
                 jDescricaoCurso.setText(conecta.rs.getString("DescricaoCurso"));
+                jComboBoxTipoCurso.setSelectedItem(conecta.rs.getString("TipoCurso"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Erro na pesquisa dos dados!!!" + ex);
@@ -619,6 +637,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JComboBox jComboBoxStatus;
+    private javax.swing.JComboBox<String> jComboBoxTipoCurso;
     private com.toedter.calendar.JDateChooser jDataCad;
     private javax.swing.JTextField jDescricaoCurso;
     public static javax.swing.JTextField jIdLanc;
@@ -627,6 +646,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -647,6 +667,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jComboBoxStatus.setBackground(Color.white);
         jDataCad.setBackground(Color.white);
         jDescricaoCurso.setBackground(Color.white);
+        jComboBoxTipoCurso.setBackground(Color.white);
     }
 
     public void Novo() {
@@ -657,6 +678,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jComboBoxStatus.setEnabled(true);
         jDataCad.setEnabled(true);
         jDescricaoCurso.setEnabled(true);
+        jComboBoxTipoCurso.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -671,6 +693,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jComboBoxStatus.setEnabled(true);
         jDataCad.setEnabled(true);
         jDescricaoCurso.setEnabled(true);
+        jComboBoxTipoCurso.setEnabled(true);
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -682,13 +705,15 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
 
     public void Excluir() {
         jIdLanc.setText("");
-        jComboBoxStatus.setSelectedItem(null);
+        jComboBoxStatus.setSelectedItem("Ativo");
         jDataCad.setDate(null);
         jDescricaoCurso.setText("");
+        jComboBoxTipoCurso.setSelectedItem("Selecione...");
         //
         jComboBoxStatus.setEnabled(!true);
         jDataCad.setEnabled(!true);
         jDescricaoCurso.setEnabled(!true);
+        jComboBoxTipoCurso.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -703,6 +728,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
         jComboBoxStatus.setEnabled(!true);
         jDataCad.setEnabled(!true);
         jDescricaoCurso.setEnabled(!true);
+        jComboBoxTipoCurso.setEnabled(!true);
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -715,12 +741,15 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
     public void Cancelar() {
         if (jIdLanc.getText().equals("")) {
             jIdLanc.setText("");
+            jComboBoxStatus.setSelectedItem("Ativo");
             jDataCad.setDate(null);
             jDescricaoCurso.setText("");
+            jComboBoxTipoCurso.setSelectedItem("Selecione...");
             //
             jComboBoxStatus.setEnabled(!true);
             jDataCad.setEnabled(!true);
             jDescricaoCurso.setEnabled(!true);
+            jComboBoxTipoCurso.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -732,6 +761,7 @@ public class TelaCursosDiversosTerapiaOcupacional extends javax.swing.JInternalF
             jComboBoxStatus.setEnabled(!true);
             jDataCad.setEnabled(!true);
             jDescricaoCurso.setEnabled(!true);
+            jComboBoxTipoCurso.setEnabled(!true);
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
