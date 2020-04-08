@@ -4650,7 +4650,7 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel27" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel28" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -4722,82 +4722,84 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jAbsorvente" linkSize="11" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                                      <Component id="jAparelhoBarbear" linkSize="11" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel65" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jCamisa" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                                      <Component id="jBermuda" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                                              <Component id="jCobertor" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel56" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jCaneca" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
-                                              <Component id="jBermuda" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel60" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel57" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jAbsorvente" linkSize="11" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <Component id="jAparelhoBarbear" linkSize="11" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel61" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel62" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jSabonete" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <Component id="jSabaoPo" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel66" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jCobertor" linkSize="11" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
-                                                  <Component id="jCuecas" linkSize="11" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel65" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                                              <Component id="jCamisa" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel69" min="-2" pref="85" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jUniformeCompleto" linkSize="11" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel69" min="-2" pref="85" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jUniformeCompleto" linkSize="11" min="-2" pref="53" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jToalha" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jToalha" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                          <Component id="jSabonete" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                                          <Component id="jColchao" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel61" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                              <Component id="jSabaoPo" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel66" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jCuecas" linkSize="11" min="-2" pref="69" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel70" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -4830,6 +4832,17 @@
                                               <Component id="jChinelos" linkSize="11" min="-2" pref="53" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel150" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jColchao" linkSize="11" pref="73" max="32767" attributes="0"/>
+                                              <Component id="jColherPlastica" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -4840,35 +4853,37 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel57" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSabonete" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jAparelhoBarbear" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel57" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel62" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel54" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jToalha" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAbsorvente" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel60" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel69" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jUniformeCompleto" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBermuda" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel64" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel60" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAbsorvente" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel69" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jUniformeCompleto" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel64" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBermuda" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel56" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCaneca" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel65" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jCamisa" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jCaneca" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel56" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -4876,14 +4891,19 @@
                               <Component id="jCobertor" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel150" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jColherPlastica" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel52" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jColchao" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel66" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCuecas" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jCuecas" linkSize="32" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -4925,12 +4945,7 @@
                               <Component id="jLabel61" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jSabaoPo" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel62" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSabonete" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -5029,7 +5044,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Sabonete (90 gramas)"/>
+                    <Property name="text" type="java.lang.String" value="Sabonete (90 Gr)"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel63">
@@ -5305,6 +5320,26 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jUniformeCompleto">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel150">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Colher pl&#xe1;stica"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jColherPlastica">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">

@@ -232,6 +232,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_EVO_TO = "Evolução Terapia";
     public static String pTIPO_ATENDIMENTO_GRUPO_TO = "Atendimento em Grupo/TO";
     public static int pQUANTIDADE_TOTAL_TO = 0;
+
     //ABA AFI - NUTRIÇÃO
     /**
      * Creates new form TelaAtividadesMensalUnidade
@@ -499,6 +500,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jCuecas = new javax.swing.JFormattedTextField();
         jLabel69 = new javax.swing.JLabel();
         jUniformeCompleto = new javax.swing.JFormattedTextField();
+        jLabel150 = new javax.swing.JLabel();
+        jColherPlastica = new javax.swing.JFormattedTextField();
         jPanel67 = new javax.swing.JPanel();
         jBtNovo14 = new javax.swing.JButton();
         jBtAlterar14 = new javax.swing.JButton();
@@ -2986,7 +2989,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel61.setText("Sabão em pó (200 gramas)");
 
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel62.setText("Sabonete (90 gramas)");
+        jLabel62.setText("Sabonete (90 Gr)");
 
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel63.setText("Desodo. antitranspirante em creme");
@@ -3104,6 +3107,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jUniformeCompleto.setText("0");
         jUniformeCompleto.setEnabled(false);
 
+        jLabel150.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel150.setText("Colher plástica");
+
+        jColherPlastica.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jColherPlastica.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jColherPlastica.setText("0");
+        jColherPlastica.setEnabled(false);
+
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
         jPanel28Layout.setHorizontalGroup(
@@ -3112,61 +3123,62 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel60)
+                                            .addComponent(jLabel57))
+                                        .addGap(19, 19, 19)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jAbsorvente, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel64)
+                                            .addComponent(jLabel65))
+                                        .addGap(92, 92, 92)
+                                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel28Layout.createSequentialGroup()
+                                    .addComponent(jLabel51)
+                                    .addGap(106, 106, 106)
+                                    .addComponent(jCobertor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel28Layout.createSequentialGroup()
                                 .addComponent(jLabel56)
-                                .addGap(117, 117, 117)
-                                .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel28Layout.createSequentialGroup()
-                                    .addComponent(jLabel64)
-                                    .addGap(154, 154, 154)
-                                    .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel28Layout.createSequentialGroup()
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel60)
-                                        .addComponent(jLabel57))
-                                    .addGap(19, 19, 19)
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jAbsorvente, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel28Layout.createSequentialGroup()
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel61)
-                                        .addComponent(jLabel62))
-                                    .addGap(52, 52, 52)
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel28Layout.createSequentialGroup()
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel51)
-                                        .addComponent(jLabel66))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCobertor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jCuecas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel28Layout.createSequentialGroup()
-                                    .addComponent(jLabel65)
-                                    .addGap(92, 92, 92)
-                                    .addComponent(jCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                                .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                                .addComponent(jLabel54)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addComponent(jLabel52)
-                                .addGap(136, 136, 136)
-                                .addComponent(jColchao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                        .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
+                                        .addComponent(jLabel54)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addComponent(jLabel62)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel28Layout.createSequentialGroup()
+                                    .addComponent(jLabel61)
+                                    .addGap(52, 52, 52)
+                                    .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel28Layout.createSequentialGroup()
+                                    .addComponent(jLabel66)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jCuecas, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel28Layout.createSequentialGroup()
                                     .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3191,7 +3203,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
                                     .addComponent(jLabel68)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jChinelos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jChinelos, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel28Layout.createSequentialGroup()
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel52)
+                                    .addComponent(jLabel150))
+                                .addGap(122, 122, 122)
+                                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jColchao, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                    .addComponent(jColherPlastica))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -3203,40 +3223,46 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel57)
+                    .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel57)
+                    .addComponent(jLabel62))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel54)
-                    .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel60)
+                    .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAbsorvente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel60))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel69)
-                    .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel64)
-                    .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel56)
-                    .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jUniformeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBermuda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel64))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel65)
                     .addComponent(jCamisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jCaneca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel56))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel51)
                     .addComponent(jCobertor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel150)
+                    .addComponent(jColherPlastica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel52)
                     .addComponent(jColchao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel66)
-                    .addComponent(jCuecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCuecas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel66))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel58)
@@ -3269,11 +3295,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel61)
                     .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel62)
-                    .addComponent(jSabonete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
 
         jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAbsorvente, jAparelhoBarbear, jBermuda, jCamisa, jCaneca, jChinelos, jCobertor, jColchao, jCremeDental, jCuecas, jDesodorante, jEscovaDente, jLencol, jPapelHigienico, jPote, jSabaoPo, jSabonete, jToalha, jUniformeCompleto});
@@ -3430,7 +3452,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -6262,7 +6284,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         //ABA ASSI - SERVIÇO SOCIAL
         calculoSS();
         calculoSSF();
-        calculoVI();        
+        calculoVI();
         caluloVC();
         calculoPresoCivil();
         calculoMED();
@@ -6287,7 +6309,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoMatPED();
         calculoFreqPED();
         //AEI
-        calculoProdutosKit();
+//        calculoProdutosKit();
         //ABA SEG
         calculoCelularSEG();
         calcularObjetos();
@@ -6434,6 +6456,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jCodigoPesqFunc;
     public static javax.swing.JTextField jColaboradorResponsavel;
     private javax.swing.JFormattedTextField jColchao;
+    private javax.swing.JFormattedTextField jColherPlastica;
     private javax.swing.JComboBox<String> jComboBoxAno1;
     private javax.swing.JComboBox<String> jComboBoxAnoReferencia;
     private javax.swing.JComboBox<String> jComboBoxMes1;
@@ -6516,6 +6539,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel148;
     private javax.swing.JLabel jLabel149;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel150;
     private javax.swing.JLabel jLabel151;
     private javax.swing.JLabel jLabel152;
     private javax.swing.JLabel jLabel153;
@@ -7427,27 +7451,45 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd15 : listaProdutoKit.read()) {
                 dd15.getAparelhoBarbear();
-//                dd15.getAbsorvente();
-//                dd15.getBermuda();
-//                dd15.getCamisa();
-//                dd15.getCaneca();
-//                dd15.getCobertor();
-//                dd15.getColchao();
-//                dd15.getColher();
-//                dd15.getCremeDental();
-//                dd15.getCueca();
-//                dd15.getDesodorante();
-//                dd15.getEscova();
-//                dd15.getLencol();
-//                dd15.getPapelHigienico();
-//                dd15.getPote();
-//                dd15.getSabaoPo();
-//                dd15.getSabonete();
-//                dd15.getParChinelos();
-//                dd15.getToalha();
-                jAparelhoBarbear.setText(dd15.getAparelhoBarbear());
-//                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
-//                jBermuda.setText(String.valueOf(dd15.getBermuda()));
+                dd15.getAbsorvente();
+                dd15.getBermuda();
+                dd15.getCamisa();
+                dd15.getCaneca();
+                dd15.getCobertor();
+                dd15.getColchao();
+                dd15.getColher();
+                dd15.getCremeDental();
+                dd15.getCueca();
+                dd15.getDesodorante();
+                dd15.getEscova();
+                dd15.getLencol();
+                dd15.getPapelHigienico();
+                dd15.getPote();
+                dd15.getSabaoPo();
+                dd15.getSabonete();
+                dd15.getParChinelos();
+                dd15.getToalha();
+                dd15.getUniformeCompleto();
+                jAparelhoBarbear.setText(String.valueOf(dd15.getAparelhoBarbear()));
+                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
+                jBermuda.setText(String.valueOf(dd15.getBermuda()));
+                jCamisa.setText(String.valueOf(dd15.getCamisa()));
+                jCaneca.setText(String.valueOf(dd15.getCaneca()));
+                jCobertor.setText(String.valueOf(dd15.getCobertor()));
+                jColchao.setText(String.valueOf(dd15.getColchao()));
+                jColherPlastica.setText(String.valueOf(dd15.getColher()));
+                jCuecas.setText(String.valueOf(dd15.getCueca()));
+                jCremeDental.setText(String.valueOf(dd15.getCremeDental()));
+                jDesodorante.setText(String.valueOf(dd15.getDesodorante()));
+                jEscovaDente.setText(String.valueOf(dd15.getEscova()));
+                jLencol.setText(String.valueOf(dd15.getLencol()));
+                jPapelHigienico.setText(String.valueOf(dd15.getPapelHigienico()));
+                jChinelos.setText(String.valueOf(dd15.getParChinelos()));
+                jPote.setText(String.valueOf(dd15.getPote()));
+                jSabaoPo.setText(String.valueOf(dd15.getSabaoPo()));
+                jSabonete.setText(String.valueOf(dd15.getSabonete()));
+                jToalha.setText(String.valueOf(dd15.getToalha()));
+                jUniformeCompleto.setText(String.valueOf(dd15.getUniformeCompleto()));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);

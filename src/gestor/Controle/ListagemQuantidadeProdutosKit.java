@@ -30,7 +30,7 @@ public class ListagemQuantidadeProdutosKit {
     //
     String pDATA_INICIAL;
     String pDATA_FINAL;
-
+    
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         List<AtividadesMensalRealizadaUnidades> listaInternospIntFreq = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
@@ -78,27 +78,27 @@ public class ListagemQuantidadeProdutosKit {
                     + "[TOALHA DE BANHO])) Colunas");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pQuantRevista = new AtividadesMensalRealizadaUnidades();
-                pQuantRevista.setAparelhoBarbear("APARELHO DE BARBEAR DESCATAVEL");
-//                pQuantRevista.setAbsorvente(Integer.parseInt("[ABSORVENTE PARA INTERNAS]"));
-//                pQuantRevista.setBermuda(Integer.parseInt("BERMUDA LARANJA G"));
-//                pQuantRevista.setCamisa(Integer.parseInt("CAMISA LARANJA G"));
-//                pQuantRevista.setCaneca(Integer.parseInt("CANECA PLASTICA C ALCA 300ML"));
-//                pQuantRevista.setCobertor(Integer.parseInt("COBERTOR DORME BEM"));
-//                pQuantRevista.setColchao(Integer.parseInt("COLCHAO DE SOLTEIRO"));
-//                pQuantRevista.setColher(Integer.parseInt("COLHER PLASTICA"));
-//                pQuantRevista.setCremeDental(Integer.parseInt("CREME DENTAL 90G"));
-//                pQuantRevista.setCueca(Integer.parseInt("CUECA DE MALHA"));
-//                pQuantRevista.setDesodorante(Integer.parseInt("DESODORANTE EM CREME"));
-//                pQuantRevista.setEscova(Integer.parseInt("ESCOVA DENTAL"));
-//                pQuantRevista.setLencol(Integer.parseInt("LENCOL DE SOLTEIRO"));
-//                pQuantRevista.setPapelHigienico(Integer.parseInt("PAPEL HIGIENICO 30MTS"));
-//                pQuantRevista.setPote(Integer.parseInt("POTE PLASTICO 1.200L"));
-//                pQuantRevista.setSabaoPo(Integer.parseInt("SABAO EM PO 200G"));
-//                pQuantRevista.setSabonete(Integer.parseInt("SABONETE 90G"));
-//                pQuantRevista.setParChinelos(Integer.parseInt("SANDALIA TAM. 37 - 43"));
-//                pQuantRevista.setToalha(Integer.parseInt("TOALHA DE BANHO"));
+                pQuantRevista.setAparelhoBarbear(Integer.parseInt("APARELHO DE BARBEAR DESCATAVEL"));
+                pQuantRevista.setAbsorvente(Integer.parseInt("[ABSORVENTE PARA INTERNAS]"));
+                pQuantRevista.setBermuda(Integer.parseInt("BERMUDA LARANJA G"));
+                pQuantRevista.setCamisa(Integer.parseInt("CAMISA LARANJA G"));
+                pQuantRevista.setCaneca(Integer.parseInt("CANECA PLASTICA C ALCA 300ML"));
+                pQuantRevista.setCobertor(Integer.parseInt("COBERTOR DORME BEM"));
+                pQuantRevista.setColchao(Integer.parseInt("COLCHAO DE SOLTEIRO"));
+                pQuantRevista.setColher(Integer.parseInt("COLHER PLASTICA"));
+                pQuantRevista.setCremeDental(Integer.parseInt("CREME DENTAL 90G"));
+                pQuantRevista.setCueca(Integer.parseInt("CUECA DE MALHA"));
+                pQuantRevista.setDesodorante(Integer.parseInt("DESODORANTE EM CREME"));
+                pQuantRevista.setEscova(Integer.parseInt("ESCOVA DENTAL"));
+                pQuantRevista.setLencol(Integer.parseInt("LENCOL DE SOLTEIRO"));
+                pQuantRevista.setPapelHigienico(Integer.parseInt("PAPEL HIGIENICO 30MTS"));
+                pQuantRevista.setPote(Integer.parseInt("POTE PLASTICO 1.200L"));
+                pQuantRevista.setSabaoPo(Integer.parseInt("SABAO EM PO 200G"));
+                pQuantRevista.setSabonete(Integer.parseInt("SABONETE 90G"));
+                pQuantRevista.setParChinelos(Integer.parseInt("SANDALIA TAM. 37 - 43"));
+                pQuantRevista.setToalha(Integer.parseInt("TOALHA DE BANHO"));
                 listaInternospIntFreq.add(pQuantRevista);
-              //  pQUANTIDADE_REVISTA_POR_CELA = pQUANTIDADE_REVISTA_POR_CELA + 1;
+//                pQUANTIDADE_REVISTA_POR_CELA = pQUANTIDADE_REVISTA_POR_CELA + 1;
             }
             return listaInternospIntFreq;
         } catch (SQLException ex) {
