@@ -2908,8 +2908,7 @@ public class TelaMontagemPagamentoKitInterno extends javax.swing.JInternalFrame 
 
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class
-                            .getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TelaMontagemPagamentoKitInterno.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
                 DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();

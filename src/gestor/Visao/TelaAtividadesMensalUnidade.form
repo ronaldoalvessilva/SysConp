@@ -123,16 +123,16 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jComboBoxMes1" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxMesPesquisa" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxAno1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxAnoPesquisa" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jCodigoPesqFunc" min="-2" pref="56" max="-2" attributes="0"/>
+                                          <Component id="jCodigoAtividade" min="-2" pref="56" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jBtPesqCodigoFunc" min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Component id="jBtPesqCodigoAtividade" min="-2" pref="29" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -165,8 +165,8 @@
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel23" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCodigoPesqFunc" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBtPesqCodigoFunc" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCodigoAtividade" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtPesqCodigoAtividade" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBox1" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -186,8 +186,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jBtPesqMesAno" alignment="2" min="-2" pref="16" max="-2" attributes="0"/>
-                              <Component id="jComboBoxAno1" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="jComboBoxMes1" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jComboBoxAnoPesquisa" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jComboBoxMesPesquisa" alignment="2" min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="jLabel138" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -237,6 +237,9 @@
                   <Events>
                     <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCheckBox1ItemStateChanged"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
                   <Properties>
@@ -246,7 +249,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jCodigoPesqFunc">
+                <Component class="javax.swing.JTextField" name="jCodigoAtividade">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -255,8 +258,11 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtPesqCodigoFunc">
+                <Component class="javax.swing.JButton" name="jBtPesqCodigoAtividade">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/gestor/Imagens/Lupas_1338_05.gif"/>
@@ -264,7 +270,7 @@
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesqCodigoFuncActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesqCodigoAtividadeActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtPesqDatas">
@@ -286,6 +292,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel73">
                   <Properties>
@@ -303,6 +312,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel74">
                   <Properties>
@@ -320,7 +332,7 @@
                     <Property name="text" type="java.lang.String" value="M&#xea;s/Ano:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBoxMes1">
+                <Component class="javax.swing.JComboBox" name="jComboBoxMesPesquisa">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -350,9 +362,10 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBoxAno1">
+                <Component class="javax.swing.JComboBox" name="jComboBoxAnoPesquisa">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
@@ -827,6 +840,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtPesqMesAno">
@@ -849,7 +863,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTabelaFuncionario">
+                <Component class="javax.swing.JTable" name="jTabelaAtividadesUnidade">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -906,7 +920,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaFuncionarioMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabelaAtividadesUnidadeMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -5810,13 +5824,13 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jNumeroHorasTVCFTV" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaPessoasFerida" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="jNumeroOcorrenciaPessoasFeridaMortas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroFraldasEntreguePortaria" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciaPessoasRefem" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciaPessoaFerida" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciaRebeliao" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciaTentaFuga" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jUmeroInterFuncVeiculosTP" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="jNumeroInterFuncVeiculosTP" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroAbsorEntregueVisitas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroFalhasGerador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroHorasBloqueador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
@@ -5853,7 +5867,7 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel82" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaPessoasFerida" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jNumeroOcorrenciaPessoasFeridaMortas" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -5873,7 +5887,7 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel86" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jUmeroInterFuncVeiculosTP" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jNumeroInterFuncVeiculosTP" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -5913,7 +5927,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jNumeroOcorrenciaPessoasFerida">
+                <Component class="javax.swing.JFormattedTextField" name="jNumeroOcorrenciaPessoasFeridaMortas">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -6057,7 +6071,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jUmeroInterFuncVeiculosTP">
+                <Component class="javax.swing.JFormattedTextField" name="jNumeroInterFuncVeiculosTP">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">

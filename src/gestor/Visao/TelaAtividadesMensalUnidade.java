@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleAtividadesUnidade;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRefreshDataMovi;
 import gestor.Controle.ListagemAgravosDiagnosticados;
@@ -19,6 +20,11 @@ import gestor.Controle.ListagemAtendimentoADMPsiquiatrica;
 import gestor.Controle.ListagemAtendimentoADMServicoSocial;
 import gestor.Controle.ListagemAtendimentoADMServicoSocialFamilia;
 import gestor.Controle.ListagemAtendimentoFamiliaInternos;
+import gestor.Controle.ListagemAtividadesUnidadePorCodigo;
+import gestor.Controle.ListagemAtividadesUnidadePorColaborador;
+import gestor.Controle.ListagemAtividadesUnidadePorData;
+import gestor.Controle.ListagemAtividadesUnidadePorMesAnoRef;
+import gestor.Controle.ListagemAtividadesUnidadeTodas;
 import gestor.Controle.ListagemControleDiabetes;
 import gestor.Controle.ListagemControleHipertensao;
 import gestor.Controle.ListagemDoencasInfectoconagiosasADM;
@@ -47,9 +53,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.codExcluirADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codGravarADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codigoGrupoADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
-import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -62,19 +66,17 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaAtividadeMensalManu_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -84,7 +86,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
+    ListagemAtividadesUnidadeTodas listaTodosReg = new ListagemAtividadesUnidadeTodas();
+    ListagemAtividadesUnidadePorData listaAtividadeData = new ListagemAtividadesUnidadePorData();
+    ListagemAtividadesUnidadePorCodigo listaAtividadeCodigo = new ListagemAtividadesUnidadePorCodigo();
+    ListagemAtividadesUnidadePorColaborador listaAtividadeCola = new ListagemAtividadesUnidadePorColaborador();
+    ListagemAtividadesUnidadePorMesAnoRef listaAtividadeMesAno = new ListagemAtividadesUnidadePorMesAnoRef();
     ListagemMediaPopulacao listaMediaPop = new ListagemMediaPopulacao();
+    ControleAtividadesUnidade control = new ControleAtividadesUnidade();
     //ABA AF
     ListagemAtendimentoADMServicoSocial listaSSDao = new ListagemAtendimentoADMServicoSocial();
     ListagemAtendimentoADMServicoSocialFamilia listaDaoFam = new ListagemAtendimentoADMServicoSocialFamilia();
@@ -142,8 +150,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     String dataInicial, dataFinal;
     String dataCadastro;
     //MANUTENÇÃO
+    int pID_UNIDADE = 0;
     public static int pQUANTIDADE_TOTAL_POPULACAO = 0;
     public static int pQUANTIDADE_DIAS_POPULACAO = 0;
+    public static int pTOTAL_REGISTROS_ATIVIDADES = 0;
     int pMEDIA_POPULCAO = 0;
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
@@ -260,19 +270,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel23 = new javax.swing.JLabel();
-        jCodigoPesqFunc = new javax.swing.JTextField();
-        jBtPesqCodigoFunc = new javax.swing.JButton();
+        jCodigoAtividade = new javax.swing.JTextField();
+        jBtPesqCodigoAtividade = new javax.swing.JButton();
         jBtPesqDatas = new javax.swing.JButton();
         jDataPesqInicial = new com.toedter.calendar.JDateChooser();
         jLabel73 = new javax.swing.JLabel();
         jDataPesFinal = new com.toedter.calendar.JDateChooser();
         jLabel74 = new javax.swing.JLabel();
         jLabel138 = new javax.swing.JLabel();
-        jComboBoxMes1 = new javax.swing.JComboBox<>();
-        jComboBoxAno1 = new javax.swing.JComboBox<>();
+        jComboBoxMesPesquisa = new javax.swing.JComboBox<>();
+        jComboBoxAnoPesquisa = new javax.swing.JComboBox<>();
         jBtPesqMesAno = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTabelaFuncionario = new javax.swing.JTable();
+        jTabelaAtividadesUnidade = new javax.swing.JTable();
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
         jPanel30 = new javax.swing.JPanel();
@@ -526,7 +536,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel71 = new javax.swing.JLabel();
         jPanel43 = new javax.swing.JPanel();
         jNumeroHorasTVCFTV = new javax.swing.JFormattedTextField();
-        jNumeroOcorrenciaPessoasFerida = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaPessoasFeridaMortas = new javax.swing.JFormattedTextField();
         jLabel85 = new javax.swing.JLabel();
         jNumeroFraldasEntreguePortaria = new javax.swing.JFormattedTextField();
         jLabel86 = new javax.swing.JLabel();
@@ -538,7 +548,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaPessoaFerida = new javax.swing.JFormattedTextField();
         jNumeroOcorrenciaRebeliao = new javax.swing.JFormattedTextField();
         jNumeroOcorrenciaTentaFuga = new javax.swing.JFormattedTextField();
-        jUmeroInterFuncVeiculosTP = new javax.swing.JFormattedTextField();
+        jNumeroInterFuncVeiculosTP = new javax.swing.JFormattedTextField();
         jLabel78 = new javax.swing.JLabel();
         jNumeroAbsorEntregueVisitas = new javax.swing.JFormattedTextField();
         jLabel79 = new javax.swing.JLabel();
@@ -744,14 +754,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Código:");
 
-        jCodigoPesqFunc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoPesqFunc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoAtividade.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoAtividade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jBtPesqCodigoFunc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
-        jBtPesqCodigoFunc.setContentAreaFilled(false);
-        jBtPesqCodigoFunc.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesqCodigoAtividade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
+        jBtPesqCodigoAtividade.setContentAreaFilled(false);
+        jBtPesqCodigoAtividade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesqCodigoFuncActionPerformed(evt);
+                jBtPesqCodigoAtividadeActionPerformed(evt);
             }
         });
 
@@ -776,13 +786,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel138.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel138.setText("Mês/Ano:");
 
-        jComboBoxMes1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxMes1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-        jComboBoxMes1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMesPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxMesPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMesPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jComboBoxAno1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxAno1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060", "2061", "2062", "2063", "2064", "2065", "2066", "2067", "2068", "2069", "2070", "2071", "2072", "2073", "2074", "2075", "2076", "2077", "2078", "2079", "2080", "2081", "2082", "2083", "2084", "2085", "2086", "2087", "2088", "2089", "2090", "2091", "2092", "2093", "2094", "2095", "2096", "2097", "2098", "2099", "2100", "2101", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2113", "2114", "2115", "2116", "2117", "2118", "2119", "2120", "2121", "2122", "2123", "2124", "2125", "2126", "2127", "2128", "2129", "2130", "2131", "2132", "2133", "2134", "2135", "2136", "2137", "2138", "2139", "2140", "2141", "2142", "2143", "2144", "2145", "2146", "2147", "2148", "2149", "2150", "2151", "2152", "2153", "2154", "2155", "2156", "2157", "2158", "2159", "2160", "2161", "2162", "2163", "2164", "2165", "2166", "2167", "2168", "2169", "2170", "2171", "2172", "2173", "2174", "2175", "2176", "2177", "2178", "2179", "2180", "2181", "2182", "2183", "2184", "2185", "2186", "2187", "2188", "2189", "2190", "2191", "2192", "2193", "2194", "2195", "2196", "2197", "2198", "2199", "2200", "2201", "2202", "2203", "2204", "2205", "2206", "2207", "2208", "2209", "2210", "2211", "2212", "2213", "2214", "2215", "2216", "2217", "2218", "2219", "2220", "2221", "2222", "2223", "2224", "2225", "2226", "2227", "2228", "2229", "2230", "2231", "2232", "2233", "2234", "2235", "2236", "2237", "2238", "2239", "2240", "2241", "2242", "2243", "2244", "2245", "2246", "2247", "2248", "2249", "2250", "2251", "2252", "2253", "2254", "2255", "2256", "2257", "2258", "2259", "2260", "2261", "2262", "2263", "2264", "2265", "2266", "2267", "2268", "2269", "2270", "2271", "2272", "2273", "2274", "2275", "2276", "2277", "2278", "2279", "2280", "2281", "2282", "2283", "2284", "2285", "2286", "2287", "2288", "2289", "2290", "2291", "2292", "2293", "2294", "2295", "2296", "2297", "2298", "2299", "2300", "2301", "2302", "2303", "2304", "2305", "2306", "2307", "2308", "2309", "2310", "2311", "2312", "2313", "2314", "2315", "2316", "2317", "2318", "2319", "2320", "2321", "2322", "2323", "2324", "2325", "2326", "2327", "2328", "2329", "2330", "2331", "2332", "2333", "2334", "2335", "2336", "2337", "2338", "2339", "2340", "2341", "2342", "2343", "2344", "2345", "2346", "2347", "2348", "2349", "2350", "2351", "2352", "2353", " ", " ", " " }));
-        jComboBoxAno1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAnoPesquisa.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxAnoPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "1900", "1901", "1902", "1903", "1904", "1905", "1906", "1907", "1908", "1909", "1910", "1911", "1912", "1913", "1914", "1915", "1916", "1917", "1918", "1919", "1920", "1921", "1922", "1923", "1924", "1925", "1926", "1927", "1928", "1929", "1930", "1931", "1932", "1933", "1934", "1935", "1936", "1937", "1938", "1939", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050", "2051", "2052", "2053", "2054", "2055", "2056", "2057", "2058", "2059", "2060", "2061", "2062", "2063", "2064", "2065", "2066", "2067", "2068", "2069", "2070", "2071", "2072", "2073", "2074", "2075", "2076", "2077", "2078", "2079", "2080", "2081", "2082", "2083", "2084", "2085", "2086", "2087", "2088", "2089", "2090", "2091", "2092", "2093", "2094", "2095", "2096", "2097", "2098", "2099", "2100", "2101", "2102", "2103", "2104", "2105", "2106", "2107", "2108", "2109", "2110", "2111", "2112", "2113", "2114", "2115", "2116", "2117", "2118", "2119", "2120", "2121", "2122", "2123", "2124", "2125", "2126", "2127", "2128", "2129", "2130", "2131", "2132", "2133", "2134", "2135", "2136", "2137", "2138", "2139", "2140", "2141", "2142", "2143", "2144", "2145", "2146", "2147", "2148", "2149", "2150", "2151", "2152", "2153", "2154", "2155", "2156", "2157", "2158", "2159", "2160", "2161", "2162", "2163", "2164", "2165", "2166", "2167", "2168", "2169", "2170", "2171", "2172", "2173", "2174", "2175", "2176", "2177", "2178", "2179", "2180", "2181", "2182", "2183", "2184", "2185", "2186", "2187", "2188", "2189", "2190", "2191", "2192", "2193", "2194", "2195", "2196", "2197", "2198", "2199", "2200", "2201", "2202", "2203", "2204", "2205", "2206", "2207", "2208", "2209", "2210", "2211", "2212", "2213", "2214", "2215", "2216", "2217", "2218", "2219", "2220", "2221", "2222", "2223", "2224", "2225", "2226", "2227", "2228", "2229", "2230", "2231", "2232", "2233", "2234", "2235", "2236", "2237", "2238", "2239", "2240", "2241", "2242", "2243", "2244", "2245", "2246", "2247", "2248", "2249", "2250", "2251", "2252", "2253", "2254", "2255", "2256", "2257", "2258", "2259", "2260", "2261", "2262", "2263", "2264", "2265", "2266", "2267", "2268", "2269", "2270", "2271", "2272", "2273", "2274", "2275", "2276", "2277", "2278", "2279", "2280", "2281", "2282", "2283", "2284", "2285", "2286", "2287", "2288", "2289", "2290", "2291", "2292", "2293", "2294", "2295", "2296", "2297", "2298", "2299", "2300", "2301", "2302", "2303", "2304", "2305", "2306", "2307", "2308", "2309", "2310", "2311", "2312", "2313", "2314", "2315", "2316", "2317", "2318", "2319", "2320", "2321", "2322", "2323", "2324", "2325", "2326", "2327", "2328", "2329", "2330", "2331", "2332", "2333", "2334", "2335", "2336", "2337", "2338", "2339", "2340", "2341", "2342", "2343", "2344", "2345", "2346", "2347", "2348", "2349", "2350", "2351", "2352", "2353", " ", " ", " " }));
+        jComboBoxAnoPesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqMesAno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqMesAno.setContentAreaFilled(false);
@@ -806,15 +816,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addComponent(jComboBoxMes1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxMesPesquisa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxAno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBoxAnoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addComponent(jCodigoPesqFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCodigoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtPesqCodigoFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtPesqCodigoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1))
                             .addGroup(jPanel12Layout.createSequentialGroup()
@@ -838,8 +848,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel23)
-                    .addComponent(jCodigoPesqFunc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesqCodigoFunc)
+                    .addComponent(jCodigoAtividade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesqCodigoAtividade)
                     .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -856,15 +866,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesqMesAno, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAno1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxMes1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAnoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxMesPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel138))
                 .addGap(7, 7, 7))
         );
 
-        jTabelaFuncionario.setAutoCreateRowSorter(true);
-        jTabelaFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaAtividadesUnidade.setAutoCreateRowSorter(true);
+        jTabelaAtividadesUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTabelaAtividadesUnidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -872,25 +882,25 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 "Código", "Data", "Status", "Mês", "Ano", "Unidade Prisional"
             }
         ));
-        jTabelaFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTabelaAtividadesUnidade.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabelaFuncionarioMouseClicked(evt);
+                jTabelaAtividadesUnidadeMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTabelaFuncionario);
-        if (jTabelaFuncionario.getColumnModel().getColumnCount() > 0) {
-            jTabelaFuncionario.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaFuncionario.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaFuncionario.getColumnModel().getColumn(1).setMinWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(1).setMaxWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(3).setMinWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(3).setMaxWidth(80);
-            jTabelaFuncionario.getColumnModel().getColumn(4).setMinWidth(70);
-            jTabelaFuncionario.getColumnModel().getColumn(4).setMaxWidth(70);
-            jTabelaFuncionario.getColumnModel().getColumn(5).setMinWidth(300);
-            jTabelaFuncionario.getColumnModel().getColumn(5).setMaxWidth(300);
+        jScrollPane1.setViewportView(jTabelaAtividadesUnidade);
+        if (jTabelaAtividadesUnidade.getColumnModel().getColumnCount() > 0) {
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setMinWidth(70);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setMinWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setMaxWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setMaxWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setMinWidth(70);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(5).setMinWidth(300);
+            jTabelaAtividadesUnidade.getColumnModel().getColumn(5).setMaxWidth(300);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -3572,10 +3582,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroHorasTVCFTV.setText("0");
         jNumeroHorasTVCFTV.setEnabled(false);
 
-        jNumeroOcorrenciaPessoasFerida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNumeroOcorrenciaPessoasFerida.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jNumeroOcorrenciaPessoasFerida.setText("0");
-        jNumeroOcorrenciaPessoasFerida.setEnabled(false);
+        jNumeroOcorrenciaPessoasFeridaMortas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaPessoasFeridaMortas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaPessoasFeridaMortas.setText("0");
+        jNumeroOcorrenciaPessoasFeridaMortas.setEnabled(false);
 
         jLabel85.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel85.setForeground(new java.awt.Color(204, 0, 0));
@@ -3632,10 +3642,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaTentaFuga.setText("0");
         jNumeroOcorrenciaTentaFuga.setEnabled(false);
 
-        jUmeroInterFuncVeiculosTP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jUmeroInterFuncVeiculosTP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jUmeroInterFuncVeiculosTP.setText("0");
-        jUmeroInterFuncVeiculosTP.setEnabled(false);
+        jNumeroInterFuncVeiculosTP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroInterFuncVeiculosTP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroInterFuncVeiculosTP.setText("0");
+        jNumeroInterFuncVeiculosTP.setEnabled(false);
 
         jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(204, 0, 0));
@@ -3720,13 +3730,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jNumeroHorasTVCFTV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaPessoasFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroOcorrenciaPessoasFeridaMortas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroFraldasEntreguePortaria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroOcorrenciaPessoasRefem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroOcorrenciaPessoaFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroOcorrenciaRebeliao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jUmeroInterFuncVeiculosTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNumeroInterFuncVeiculosTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroAbsorEntregueVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroFalhasGerador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNumeroHorasBloqueador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3735,7 +3745,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAbsorEntregueVisitas, jNumeroDiasIntMetaPortatil, jNumeroDiasSemScannerCorpo, jNumeroFalhasGerador, jNumeroFraldasEntreguePortaria, jNumeroHorasBloqueador, jNumeroHorasTVCFTV, jNumeroOcorrenciaPessoaFerida, jNumeroOcorrenciaPessoasFerida, jNumeroOcorrenciaPessoasRefem, jNumeroOcorrenciaRebeliao, jNumeroOcorrenciaTentaFuga, jUmeroInterFuncVeiculosTP});
+        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAbsorEntregueVisitas, jNumeroDiasIntMetaPortatil, jNumeroDiasSemScannerCorpo, jNumeroFalhasGerador, jNumeroFraldasEntreguePortaria, jNumeroHorasBloqueador, jNumeroHorasTVCFTV, jNumeroInterFuncVeiculosTP, jNumeroOcorrenciaPessoaFerida, jNumeroOcorrenciaPessoasFeridaMortas, jNumeroOcorrenciaPessoasRefem, jNumeroOcorrenciaRebeliao, jNumeroOcorrenciaTentaFuga});
 
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3759,7 +3769,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel82)
-                    .addComponent(jNumeroOcorrenciaPessoasFerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaPessoasFeridaMortas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel83)
@@ -3775,7 +3785,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel86)
-                    .addComponent(jUmeroInterFuncVeiculosTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroInterFuncVeiculosTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel87)
@@ -5627,109 +5637,149 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeActionPerformed
-        // TODO add your handling code here:
-//        count = 0;
-//        flag = 1;
-//        pesquisarFuncNome("SELECT * FROM COLABORADOR "
-//            + "INNER JOIN DEPARTAMENTOS "
-//            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//            + "INNER JOIN CARGOS "
-//            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//            + "WHERE NomeFunc LIKE'%" + jPesqNome.getText() + "%'");
+        // TODO add your handling code here:listaAtividadeCola
+        flag = 1;
+        Integer row0 = jTabelaAtividadesUnidade.getModel().getRowCount();
+        if (jPesqNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Infome o nome do colaborador para pesquisa.");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            try {
+                for (AtividadesMensalRealizadaUnidades dd : listaAtividadeCola.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
-//        count = 0;
-//        flag = 1;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            this.preencherTodasEntradas("SELECT * FROM COLABORADOR "
-//                + "INNER JOIN DEPARTAMENTOS "
-//                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//                + "INNER JOIN CARGOS "
-//                + "ON COLABORADOR.IdCargo=CARGOS.IdCargo WHERE StatusFunc='" + jComboBoxPesqFunc.getSelectedItem() + "'ORDER BY NomeFunc");
-//        } else {
-//            jtotalRegistros.setText("");
-//            limparTabela();
-//        }
-    }//GEN-LAST:event_jCheckBox1ItemStateChanged
-
-    private void jBtPesqCodigoFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoFuncActionPerformed
-        // TODO add your handling code here:
-//        count = 0;
-//        flag = 1;
-//        if (jCodigoPesqFunc.getText().equals("")) {
-//            JOptionPane.showMessageDialog(null, "Informe o código do colaborador para pesquisa.");
-//        } else {
-//            preencherTodasEntradas("SELECT * FROM COLABORADOR "
-//                + "INNER JOIN DEPARTAMENTOS "
-//                + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//                + "INNER JOIN CARGOS "
-//                + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//                + "WHERE NomeFunc='" + jCodigoPesqFunc.getText() + "'");
-//        }
-    }//GEN-LAST:event_jBtPesqCodigoFuncActionPerformed
-
-    private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
-        // TODO add your handling code here:
-        count = 0;
         flag = 1;
-        if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
-                } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-//                        preencherTodasEntradas("SELECT * FROM COLABORADOR "
-//                            + "INNER JOIN DEPARTAMENTOS "
-//                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//                            + "INNER JOIN CARGOS "
-//                            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//                            + "WHERE DataCadFunc BETWEEN'" + dataInicial + "' "
-//                            + "AND '" + dataFinal + "' ");
+        Integer row0 = jTabelaAtividadesUnidade.getModel().getRowCount();
+        if (evt.getStateChange() == evt.SELECTED) {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            try {
+                for (AtividadesMensalRealizadaUnidades dd : listaTodosReg.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+            DefaultTableModel tblRemove = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            if (tblRemove.getRowCount() > 0) {
+                for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                    if (tblRemove.getRowCount() < i) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
                     }
                 }
             }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
-                } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-//                        preencherTodasEntradas("SELECT * FROM COLABORADOR "
-//                            + "INNER JOIN DEPARTAMENTOS "
-//                            + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//                            + "INNER JOIN CARGOS "
-//                            + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//                            + "WHERE DataCadFunc BETWEEN'" + dataInicial + "' "
-//                            + "AND '" + dataFinal + "' ");
+            pTOTAL_REGISTROS_ATIVIDADES = 0;
+            jtotalRegistros.setText("");
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void jBtPesqCodigoAtividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoAtividadeActionPerformed
+        // TODO add your handling code here:
+        flag = 1;
+        Integer row0 = jTabelaAtividadesUnidade.getModel().getRowCount();
+        if (jCodigoAtividade.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informe o código do colaborador para pesquisa.");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            try {
+                for (AtividadesMensalRealizadaUnidades dd : listaAtividadeCodigo.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
+                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setCellRenderer(centralizado);
                 }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jBtPesqCodigoAtividadeActionPerformed
+
+    private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
+        // TODO add your handling code here:   listaAtividadeData    
+        flag = 1;
+        Integer row0 = jTabelaAtividadesUnidade.getModel().getRowCount();
+        if (jDataPesqInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataPesqInicial.requestFocus();
+        } else if (jDataPesFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+            jDataPesFinal.requestFocus();
+        } else if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            try {
+                for (AtividadesMensalRealizadaUnidades dd : listaTodosReg.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
-    private void jTabelaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaFuncionarioMouseClicked
+    private void jTabelaAtividadesUnidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAtividadesUnidadeMouseClicked
         // TODO add your handling code here:
 //        if (flag == 1) {
 //            String nomeFunc = "" + jTabelaFuncionario.getValueAt(jTabelaFuncionario.getSelectedRow(), 3);
@@ -5866,7 +5916,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 //            }
 //            conecta.desconecta();
 //        }
-    }//GEN-LAST:event_jTabelaFuncionarioMouseClicked
+    }//GEN-LAST:event_jTabelaAtividadesUnidadeMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:  
@@ -5877,7 +5927,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             objPesFunc.show();
             acao = 1;
             pesquisaUnidadePrisional();
-//            calculoMediaPopulacao();
             bloquearHabilitarTodosCampos(true, !true);
             Novo();
             statusMov = "Incluiu";
@@ -5890,14 +5939,96 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtividadeMensalManu_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAtividadeMensalManu_ADM) && codAlterarADM == 1) {
+            if (jStatus.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Registro não pode ser alterado, o mesmo encontra-se FINALIZADO.");
+            } else {
+                acao = 2;
+                pesquisaUnidadePrisional();
+                bloquearHabilitarTodosCampos(true, !true);
+                Alterar();
+                statusMov = "Alterar";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtividadeMensalManu_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAtividadeMensalManu_ADM) && codExcluirADM == 1) {
+            if (jStatus.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(null, "Registro não pode ser excluído, o mesmo encontra-se FINALIZADO.");
+            } else {
+                statusMov = "Excluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    control.excluirAtividade(objAtividade);
+                    bloquearHabilitarTodosCampos(!true, !true);
+                    Excluir();
+                    JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAtividadeMensalManu_ADM);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAtividadeMensalManu_ADM) && codGravarADM == 1) {
+            if (jUnidadePrisional.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a unidade prisional.");
+            } else if (jDataPeriodoInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data inicial para pesquisa.");
+            } else if (jDataPeriodoFinal.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Informe a data final para pesquisa.");
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(null, "Selecione o mês de referência.");
+            } else if (jComboBoxAnoReferencia.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(null, "Selecione o ano de referência.");
+            } else if (jIdFunc.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe o nome do colaborador.");
+            } else {
+                beans();
+                if (acao == 1) {
+                    objAtividade.setUsuarioInsert(nameUser);
+                    objAtividade.setDataInsert(dataModFinal);
+                    objAtividade.setHorarioInsert(horaMov);
+                    //
+                    control.incluirAtividade(objAtividade);
+                    buscarChave();
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearHabilitarTodosCampos(!true, !true);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 2) {
+                    objAtividade.setUsuarioUp(nameUser);
+                    objAtividade.setDataUp(dataModFinal);
+                    objAtividade.setHorarioUp(horaMov);
+                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    control.alterarAtividade(objAtividade);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearHabilitarTodosCampos(!true, !true);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -5907,10 +6038,22 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
-        if (jChave.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Não existe registro a ser finalizado.");
+        if (jStatus.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(null, "Registro não pode ser finalizado, o mesmo encontra-se FINALIZADO.");
         } else {
-
+            if (jChave.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Não existe registro a ser finalizado.");
+            } else {
+                int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o registro selecionado?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    control.finalizarAtividade(objAtividade);
+                    bloquearHabilitarTodosCampos(!true, !true);
+                    Finalizar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                }
+            }
         }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
@@ -5941,6 +6084,35 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtPesqMesAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqMesAnoActionPerformed
         // TODO add your handling code here:
+        flag = 1;
+        Integer row0 = jTabelaAtividadesUnidade.getModel().getRowCount();
+        if (jComboBoxMesPesquisa.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o mês para pesquisa.");
+        } else if (jComboBoxAnoPesquisa.getSelectedItem().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o ano para pesquisa.");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAtividadesUnidade.getModel();
+            try {
+                for (AtividadesMensalRealizadaUnidades dd : listaAtividadeMesAno.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                    jTabelaAtividadesUnidade.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jBtPesqMesAnoActionPerformed
 
     private void jBtNovo10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovo10ActionPerformed
@@ -6421,7 +6593,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtNovo16;
     private javax.swing.JButton jBtNovo17;
     private javax.swing.JButton jBtNovo18;
-    private javax.swing.JButton jBtPesqCodigoFunc;
+    private javax.swing.JButton jBtPesqCodigoAtividade;
     private javax.swing.JButton jBtPesqDatas;
     private javax.swing.JButton jBtPesqMesAno;
     private javax.swing.JButton jBtPesqNome;
@@ -6450,16 +6622,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jCamisa;
     private javax.swing.JFormattedTextField jCaneca;
     public static javax.swing.JTextField jChave;
-    private javax.swing.JCheckBox jCheckBox1;
+    public static javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JFormattedTextField jChinelos;
     private javax.swing.JFormattedTextField jCobertor;
-    private javax.swing.JTextField jCodigoPesqFunc;
+    public static javax.swing.JTextField jCodigoAtividade;
     public static javax.swing.JTextField jColaboradorResponsavel;
     private javax.swing.JFormattedTextField jColchao;
     private javax.swing.JFormattedTextField jColherPlastica;
-    private javax.swing.JComboBox<String> jComboBoxAno1;
+    public static javax.swing.JComboBox<String> jComboBoxAnoPesquisa;
     private javax.swing.JComboBox<String> jComboBoxAnoReferencia;
-    private javax.swing.JComboBox<String> jComboBoxMes1;
+    public static javax.swing.JComboBox<String> jComboBoxMesPesquisa;
     private javax.swing.JComboBox<String> jComboBoxMesReferencia;
     private javax.swing.JFormattedTextField jCondicionalRequerida;
     private javax.swing.JFormattedTextField jControlHipertensao;
@@ -6470,8 +6642,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataCriacao;
     public static com.toedter.calendar.JDateChooser jDataPeriodoFinal;
     public static com.toedter.calendar.JDateChooser jDataPeriodoInicial;
-    private com.toedter.calendar.JDateChooser jDataPesFinal;
-    private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    public static com.toedter.calendar.JDateChooser jDataPesFinal;
+    public static com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jDepartamento;
     private javax.swing.JFormattedTextField jDesodorante;
     private javax.swing.JFormattedTextField jEscovaDente;
@@ -6657,8 +6829,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jNumeroFraldasEntreguePortaria;
     private javax.swing.JFormattedTextField jNumeroHorasBloqueador;
     private javax.swing.JFormattedTextField jNumeroHorasTVCFTV;
+    private javax.swing.JFormattedTextField jNumeroInterFuncVeiculosTP;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoaFerida;
-    private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasFerida;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasFeridaMortas;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasRefem;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaRebeliao;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaTentaFuga;
@@ -6762,7 +6935,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jStatus;
     private javax.swing.JFormattedTextField jTP;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTabelaFuncionario;
+    private javax.swing.JTable jTabelaAtividadesUnidade;
     private javax.swing.JFormattedTextField jToalha;
     private javax.swing.JFormattedTextField jTotal01;
     private javax.swing.JFormattedTextField jTotal02;
@@ -6775,7 +6948,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jTotal09;
     private javax.swing.JFormattedTextField jTratamentoAgravDiaginostico;
     private javax.swing.JFormattedTextField jTriagemAtendInernos;
-    private javax.swing.JFormattedTextField jUmeroInterFuncVeiculosTP;
     public static javax.swing.JTextField jUnidadePrisional;
     private javax.swing.JFormattedTextField jUniformeCompleto;
     private javax.swing.JLabel jtotalRegistros;
@@ -6864,11 +7036,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaRebeliao.setBackground(Color.white);
         jNumeroOcorrenciaPessoaFerida.setBackground(Color.white);
         jNumeroOcorrenciaPessoasRefem.setBackground(Color.white);
-        jNumeroOcorrenciaPessoasFerida.setBackground(Color.white);
+        jNumeroOcorrenciaPessoasFeridaMortas.setBackground(Color.white);
         jNumeroHorasTVCFTV.setBackground(Color.white);
         jNumeroDiasSemScannerCorpo.setBackground(Color.white);
         jNumeroDiasIntMetaPortatil.setBackground(Color.white);
-        jUmeroInterFuncVeiculosTP.setBackground(Color.white);
+        jNumeroInterFuncVeiculosTP.setBackground(Color.white);
         jNumeroFalhasGerador.setBackground(Color.white);
         jNumeroHorasBloqueador.setBackground(Color.white);
         jNumeroAbsorEntregueVisitas.setBackground(Color.white);
@@ -7023,11 +7195,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaRebeliao.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoaFerida.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoasRefem.setEnabled(opcaoV);
-        jNumeroOcorrenciaPessoasFerida.setEnabled(opcaoV);
+        jNumeroOcorrenciaPessoasFeridaMortas.setEnabled(opcaoV);
         jNumeroHorasTVCFTV.setEnabled(opcaoV);
         jNumeroDiasSemScannerCorpo.setEnabled(opcaoV);
         jNumeroDiasIntMetaPortatil.setEnabled(opcaoV);
-        jUmeroInterFuncVeiculosTP.setEnabled(opcaoV);
+        jNumeroInterFuncVeiculosTP.setEnabled(opcaoV);
         jNumeroFalhasGerador.setEnabled(opcaoV);
         jNumeroHorasBloqueador.setEnabled(opcaoV);
         jNumeroAbsorEntregueVisitas.setEnabled(opcaoV);
@@ -7092,6 +7264,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
             conecta.rs.first();
+            pID_UNIDADE = conecta.rs.getInt("IdUnidEmp");
             jUnidadePrisional.setText(conecta.rs.getString("DescricaoUnidade"));
         } catch (Exception e) {
         }
@@ -7099,16 +7272,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void calculoMediaPopulacao() {
-//        conecta.abrirConexao();
-//        try {
-//            conecta.executaSQL("SELECT TotalGeralInternos FROM MOVPOPULACAO");
-//            conecta.rs.last();
-//            jPopulacaoAtual.setText(conecta.rs.getString("TotalGeralInternos"));
-//        } catch (Exception e) {
-//        }
-//        conecta.desconecta();
-//
-
         try {
             for (AtividadesMensalRealizadaUnidades pp : listaMediaPop.read()) {
                 pp.getQuantidadeTotalPopulacao();
@@ -7609,87 +7772,161 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void Finalizar() {
-
+        jBtNovo.setEnabled(true);
     }
 
     public void buscarChave() {
-
-    }
-
-    // Pesquisa de todos os lançamentos
-    public void pesquisarFuncNome(String sql) {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Mês", "Ano", "Unidade Prisional"};
         conecta.abrirConexao();
         try {
-            conecta.executaSQL(sql);
-            conecta.rs.first();
-            do {
-                count = count + 1;
-                // Formatar a data no formato Brasil
-                dataCadastro = conecta.rs.getString("DataCadFunc");
-                String dia = dataCadastro.substring(8, 10);
-                String mes = dataCadastro.substring(5, 7);
-                String ano = dataCadastro.substring(0, 4);
-                dataCadastro = dia + "/" + mes + "/" + ano;
-                jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdFunc"), dataCadastro, conecta.rs.getString("StatusFunc"), conecta.rs.getString("NomeFunc"), conecta.rs.getString("NomeDepartamento")});
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
+            conecta.executaSQL("SELECT IdAtividade "
+                    + "FROM ATIVIDADES_UNIDADE");
+            conecta.rs.last();
+            jChave.setText(conecta.rs.getString("IdAtividade"));
+        } catch (Exception e) {
         }
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaFuncionario.setModel(modelo);
-        jTabelaFuncionario.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaFuncionario.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaFuncionario.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(2).setPreferredWidth(50);
-        jTabelaFuncionario.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(3).setPreferredWidth(250);
-        jTabelaFuncionario.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(4).setPreferredWidth(200);
-        jTabelaFuncionario.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaFuncionario.getTableHeader().setReorderingAllowed(false);
-        jTabelaFuncionario.setAutoResizeMode(jTabelaFuncionario.AUTO_RESIZE_OFF);
-        jTabelaFuncionario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabela();
         conecta.desconecta();
     }
 
-    public void limparTabela() {
-        ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Mês", "Ano", "Unidade Prisional"};
-        ModeloTabela modelo = new ModeloTabela(dados, Colunas);
-        jTabelaFuncionario.setModel(modelo);
-        jTabelaFuncionario.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jTabelaFuncionario.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(1).setPreferredWidth(70);
-        jTabelaFuncionario.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(2).setPreferredWidth(50);
-        jTabelaFuncionario.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(3).setPreferredWidth(250);
-        jTabelaFuncionario.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaFuncionario.getColumnModel().getColumn(4).setPreferredWidth(200);
-        jTabelaFuncionario.getColumnModel().getColumn(4).setResizable(false);
-        jTabelaFuncionario.getTableHeader().setReorderingAllowed(false);
-        jTabelaFuncionario.setAutoResizeMode(jTabelaFuncionario.AUTO_RESIZE_OFF);
-        jTabelaFuncionario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        modelo.getLinhas().clear();
-    }
-
-    public void alinharCamposTabela() {
-        //
-        DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        DefaultTableCellRenderer direita = new DefaultTableCellRenderer();
-        esquerda.setHorizontalAlignment(SwingConstants.LEFT);
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        direita.setHorizontalAlignment(SwingConstants.RIGHT);
-        //
-        jTabelaFuncionario.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaFuncionario.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaFuncionario.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    public void beans() {
+        //MOVIMENTAÇÃO
+        objAtividade.setStatus(jStatus.getText());
+        objAtividade.setDataCriacao(jDataCriacao.getDate());
+        objAtividade.setDataAtualizacao(jDataAtualizacao.getDate());
+        objAtividade.setIdUnidade(pID_UNIDADE);
+        objAtividade.setUnidadePrisional(jUnidadePrisional.getText());
+        objAtividade.setMediaPopulacao(Integer.valueOf(jPopulacaoAtual.getText()));
+        objAtividade.setDataPeriodoInicial(jDataPeriodoInicial.getDate());
+        objAtividade.setDataPeriodoFinal(jDataPeriodoFinal.getDate());
+        objAtividade.setMesReferencia((String) jComboBoxMesReferencia.getSelectedItem());
+        objAtividade.setAnoReferencia((String) jComboBoxMesReferencia.getSelectedItem());
+        objAtividade.setIdFunc(Integer.valueOf(jIdFunc.getText()));
+        objAtividade.setColaboradorResponsavel(jColaboradorResponsavel.getText());
+        objAtividade.setObservacao(jObservacao.getText());
+        //ABA ASSI
+        objAtividade.setAtendimentoPsiPreso(Integer.valueOf(jAtendimentoPsiPreso.getText()));
+        objAtividade.setAtendimentoPsiFamilaPreso(Integer.valueOf(jAtendimentoPsiFamilaPreso.getText()));
+        objAtividade.setNumeroDiasVisitas(Integer.valueOf(jNumeroDiasVisitas.getText()));
+        objAtividade.setNumeroVistantesInternos(Integer.valueOf(jNumeroVistantesInternos.getText()));
+        objAtividade.setNumeroDiasVisitas(Integer.valueOf(jMediaVisitasDia.getText()));
+        objAtividade.setMediaVisitasInterno(Integer.valueOf(jMediaVisitasInterno.getText()));
+        objAtividade.setNumeroCriancasVisitas(Integer.valueOf(jNumeroCriancasVisitas.getText()));
+        objAtividade.setPresoIdentCivil(Integer.valueOf(jPresoIdentCivil.getText()));
+        objAtividade.setPresoAtiviReligiosa(Integer.valueOf(jPresoAtiviReligiosa.getText()));
+        //ABA AF
+        objAtividade.setLancheContratante(Integer.valueOf(jLanchesServidoVisita.getText()));
+        objAtividade.setCafeContratada(Integer.valueOf(jAlimentaServidaEmpContCafe.getText()));
+        objAtividade.setAlmocoContratada(Integer.valueOf(jAlimentaServidaEmpContAlmoco.getText()));
+        objAtividade.setJantarContratada(Integer.valueOf(jAlimentaServidaEmpContJantar.getText()));
+        objAtividade.setLancheContratada(Integer.valueOf(jAlimentaServidaEmpContLanche.getText()));
+        objAtividade.setCafeContratante(Integer.valueOf(jAlimentaServidaServContCafe.getText()));
+        objAtividade.setAlmocoContratante(Integer.valueOf(jAlimentaServidaServContAlmoco.getText()));
+        objAtividade.setJantarContratante(Integer.valueOf(jAlimentaServidaServContJantar.getText()));
+        objAtividade.setLancheContratante(Integer.valueOf(jAlimentaServidaServContLanche.getText()));
+        //ABA ASI
+        objAtividade.setAtendimentoClinico(Integer.valueOf(jAtendimentoMedClinico.getText()));
+        objAtividade.setAtendimentoPsiquiatrico(Integer.valueOf(jAtendimentoMedPsi.getText()));
+        objAtividade.setAtendimentoEnfermagem(Integer.valueOf(jAtendimentoEnfermagem.getText()));
+        objAtividade.setProcedimentoOdontologico(Integer.valueOf(jProcedimentoOdontologico.getText()));
+        objAtividade.setAtendimentoPsicologico(Integer.valueOf(jAtendimentoPsicologico.getText()));
+        objAtividade.setQuantidadeAgravosTotal(Integer.valueOf(jTratamentoAgravDiaginostico.getText()));
+        objAtividade.setAtendimentoOdontologico(Integer.valueOf(jAtendimentoOdontologicos.getText()));
+        objAtividade.setQuantidadeAdmInfectoTotal(Integer.valueOf(jPresoDoencaInfecto.getText()));
+        objAtividade.setHipertensao(Integer.valueOf(jControlHipertensao.getText()));
+        objAtividade.setDiabetes(Integer.valueOf(jControleDiabetes.getText()));
+        objAtividade.setVacinados(Integer.valueOf(jPresosVacinados.getText()));
+        objAtividade.setSexualidade(Integer.valueOf(jAspectosSexual.getText()));
+        //ABA AEI
+        objAtividade.setMatriculadoEnsinoFormal(Integer.valueOf(jPresoSentenciadoEF.getText()));
+        objAtividade.setFrequentandoEnsinoFormal(Integer.valueOf(jPresoSentencaMatFreqEF.getText()));
+        objAtividade.setEsportes(Integer.valueOf(jPresoAtiviPraticaEsportiva.getText()));
+        //ABA AMI
+        objAtividade.setAparelhoBarbear(Integer.valueOf(jAparelhoBarbear.getText()));
+        objAtividade.setAbsorvente(Integer.valueOf(jAbsorvente.getText()));
+        objAtividade.setBermuda(Integer.valueOf(jBermuda.getText()));
+        objAtividade.setCamisa(Integer.valueOf(jCamisa.getText()));
+        objAtividade.setCaneca(Integer.valueOf(jCaneca.getText()));
+        objAtividade.setCobertor(Integer.valueOf(jCobertor.getText()));
+        objAtividade.setColher(Integer.valueOf(jColherPlastica.getText()));
+        objAtividade.setColchao(Integer.valueOf(jColchao.getText()));
+        objAtividade.setCueca(Integer.valueOf(jCuecas.getText()));
+        objAtividade.setCremeDental(Integer.valueOf(jCremeDental.getText()));
+        objAtividade.setDesodorante(Integer.valueOf(jDesodorante.getText()));
+        objAtividade.setEscova(Integer.valueOf(jEscovaDente.getText()));
+        objAtividade.setLencol(Integer.valueOf(jLencol.getText()));
+        objAtividade.setPapelHigienico(Integer.valueOf(jPapelHigienico.getText()));
+        objAtividade.setParChinelos(Integer.valueOf(jChinelos.getText()));
+        objAtividade.setPote(Integer.valueOf(jPote.getText()));
+        objAtividade.setSabaoPo(Integer.valueOf(jSabaoPo.getText()));
+        objAtividade.setSabonete(Integer.valueOf(jSabonete.getText()));
+        objAtividade.setToalha(Integer.valueOf(jToalha.getText()));
+        objAtividade.setUniformeCompleto(Integer.valueOf(jUniformeCompleto.getText()));
+        //SEG                    
+        objAtividade.setQuantidadeCelular(Integer.valueOf(jNumeroAparelhoConvive.getText()));
+        objAtividade.setQuantidadeObjetos(Integer.valueOf(jObjetosMateriais.getText()));
+        objAtividade.setQuantidadeProcedCelas(Integer.valueOf(jNumeroProcedRevista.getText()));
+        objAtividade.setOcorrenciaIndisciplina(Integer.valueOf(jNumeroOcorrenciasInd.getText()));
+        objAtividade.setOcorrenciaFuga(Integer.valueOf(jNumeroOcorrenciaTentaFuga.getText()));
+        objAtividade.setOcorrenciaRebeliao(Integer.valueOf(jNumeroOcorrenciaRebeliao.getText()));
+        objAtividade.setOcorrenciaFerido(Integer.valueOf(jNumeroOcorrenciaPessoaFerida.getText()));
+        objAtividade.setPessoasRefem(Integer.valueOf(jNumeroOcorrenciaPessoasRefem.getText()));
+        objAtividade.setOcorrenciaGravementeFeridoMorto(Integer.valueOf(jNumeroOcorrenciaPessoasFeridaMortas.getText()));
+        objAtividade.setHorasInterrupcaoCFTV(Integer.valueOf(jNumeroHorasTVCFTV.getText()));
+        objAtividade.setDiasInterrupcaoScannerCorporal(Integer.valueOf(jNumeroDiasSemScannerCorpo.getText()));
+        objAtividade.setDiasInterrupcaoRaioXDetectorMetais(Integer.valueOf(jNumeroDiasIntMetaPortatil.getText()));
+        objAtividade.setDiasInterrupcaoVeiculoTransportePreso(Integer.valueOf(jNumeroInterFuncVeiculosTP.getText()));
+        objAtividade.setFalhaGeradorEnergia(Integer.valueOf(jNumeroFalhasGerador.getText()));
+        objAtividade.setHorasMauFuncionamentoBRS(Integer.valueOf(jNumeroHorasBloqueador.getText()));
+        objAtividade.setAbsorventesEntreguesPortariaScanner(Integer.valueOf(jNumeroAbsorEntregueVisitas.getText()));
+        objAtividade.setFraldasEntreguesPortariaScanner(Integer.valueOf(jNumeroFraldasEntreguePortaria.getText()));
+        //ABA AJ
+        objAtividade.setInternoFamiliaSAJ(Integer.valueOf(jAtendInternoSAJ.getText()));
+        objAtividade.setAlvaraSolturaCumprido(Integer.valueOf(jAlvaraSolturaCumprido.getText()));
+        objAtividade.setLiberdadeProvisoriaRequerida(Integer.valueOf(jLivarmentoCondRequerido.getText()));
+        objAtividade.setProgressaoRegimeDeferida(Integer.valueOf(jProgressaoRegDeferido.getText()));
+        objAtividade.setSaidasTemporariasDeferida(Integer.valueOf(jSaidasTempDeferida.getText()));
+        objAtividade.setAlvaraSolturaRecebido(Integer.valueOf(jAlvarSolRecebeUni.getText()));
+        objAtividade.setAudienciaProvocada(Integer.valueOf(jAudienciaProvocadas.getText()));
+        objAtividade.setAlvaraSolturaCumprido(Integer.valueOf(jAudienciaCumpridas.getText()));
+        objAtividade.setJuriProvocado(Integer.valueOf(jJuriPopular.getText()));
+        objAtividade.setJuriCumprido(Integer.valueOf(jJuriPopularCumprido.getText()));
+        objAtividade.setLiberdadeProvisoriaRequerida(Integer.valueOf(jLiberdadeProvRequerida.getText()));
+        objAtividade.setLiberdadeProvisoriaDeferida(Integer.valueOf(jLiberdadeProvDeferida.getText()));
+        objAtividade.setIndultosRequeridos(Integer.valueOf(jIndultosRequeridos.getText()));
+        objAtividade.setIndultosDeferidos(Integer.valueOf(jIndultosDeferidos.getText()));
+        objAtividade.setRemicaoRequerida(Integer.valueOf(jRemissaoPenaRequerida.getText()));
+        objAtividade.setRemicaoDeferida(Integer.valueOf(jRemissaoPenaDeferida.getText()));
+        objAtividade.setCondicionalRequerida(Integer.valueOf(jCondicionalRequerida.getText()));
+        objAtividade.setProgressaoRegimeRequerida(Integer.valueOf(jProgressaoRegRequerido.getText()));
+        objAtividade.setSaidasTemporariasRequerida(Integer.valueOf(jSaidaTempRequerida.getText()));
+        objAtividade.setHabeasCorpusRequerido(Integer.valueOf(jHabeasCorpusImpetrados.getText()));
+        objAtividade.setHabeasCorpusDeferido(Integer.valueOf(jHabeasCorpusDeferido.getText()));
+        objAtividade.setLaudosPsicologicos(Integer.valueOf(jLaudoPsicoEmitidos.getText()));
+        objAtividade.setLaudosPsiquiatricos(Integer.valueOf(jLaudosPsiqEmitidos.getText()));
+        objAtividade.setTransferenciaProvimento(Integer.valueOf(jTP.getText()));
+        //ABA AL
+        objAtividade.setTriagem(Integer.valueOf(jTriagemAtendInernos.getText()));
+        objAtividade.setMatriculadoEnsinoFormal(Integer.valueOf(jPresoMatProfissional.getText()));
+        objAtividade.setCertificadoCursoProfissionalizante(Integer.valueOf(jPresoCertificaCursoProf.getText()));
+        objAtividade.setReligiosa(Integer.valueOf(jOcupacaoAtiviRecreaReligiosa.getText()));
+        objAtividade.setArtesPlasticas(Integer.valueOf(PresoAtiviArtesPlasticas.getText()));
+        objAtividade.setLiteratura(Integer.valueOf(jPresoAtiviLiteraria.getText()));
+        objAtividade.setCantoTeatroCinema(Integer.valueOf(jPresoAtiviCantoTeatro.getText()));
+        objAtividade.setLaborativaRemunerada(Integer.valueOf(jPresoSentecaAtivLaboralRemun.getText()));
+        objAtividade.setLaborativaNaoRemunerada(Integer.valueOf(jPresoAtiviLaboralNaoRemunera.getText()));
+        //ABA AFI
+        objAtividade.setCafeInterno(Integer.valueOf(jAlimentaServidaInternoCafe.getText()));
+        objAtividade.setAlmocoInterno(Integer.valueOf(jAlimentaServidaInternoAlmoco.getText()));
+        objAtividade.setJantarInterno(Integer.valueOf(jAlimentaServidaInternoJantar.getText()));
+        //ABA TOT
+        objAtividade.setTotal01(Integer.valueOf(jTotal01.getText()));
+        objAtividade.setTotal02(Integer.valueOf(jTotal02.getText()));
+        objAtividade.setTotal03(Integer.valueOf(jTotal03.getText()));
+        objAtividade.setTotal04(Integer.valueOf(jTotal04.getText()));
+        objAtividade.setTotal05(Integer.valueOf(jTotal05.getText()));
+        objAtividade.setTotal06(Integer.valueOf(jTotal06.getText()));
+        objAtividade.setTotal07(Integer.valueOf(jTotal07.getText()));
+        objAtividade.setTotal08(Integer.valueOf(jTotal08.getText()));
+        objAtividade.setTotal09(Integer.valueOf(jTotal09.getText()));
     }
 
     public void objLog() {

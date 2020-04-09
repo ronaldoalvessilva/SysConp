@@ -33,6 +33,12 @@ public class AtividadesMensalRealizadaUnidades {
     private String matricula;
     private String departamento;
     private String observacao;
+    private String usuarioInsert;
+    private String usuarioUp;
+    private String dataInsert;
+    private String dataUp;
+    private String horarioInsert;
+    private String horarioUp;
     //ABA ASSI
     private Integer idAtividadeVisita;
     private Integer atendimentoPsiPreso;
@@ -65,6 +71,7 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer atendimentoClinico;
     private Integer atendimentoPsiquiatrico;
     private Integer atendimentoEnfermagem;
+    private Integer atendimentoOdontologico;
     private Integer procedimentoOdontologico;
     private Integer atendimentoPsicologico;
     private Integer saudeBucal;
@@ -125,7 +132,7 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer quantidadeObjetos;
     private Integer quantidadeProcedCelas;
     private Integer idAtividadeSeguranca;
-    private Integer tentativaFuga;
+    private Integer pessoasRefem;
     private Integer ocorrenciaFuga;
     private Integer ocorrenciaRebeliao;
     private Integer ocorrenciaFerido;
@@ -183,11 +190,21 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer cafeInterno;
     private Integer almocoInterno;
     private Integer jantarInterno;
+    //TOT
+    private Integer total01;
+    private Integer total02;
+    private Integer total03;
+    private Integer total04;
+    private Integer total05;
+    private Integer total06;
+    private Integer total07;
+    private Integer total08;
+    private Integer total09;
 
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer mediaPopulacao, Integer quantidadeTotalPopulacao, Date dataPeriodoInicial, Date dataPeriodoFinal, String mesReferencia, String anoReferencia, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, Integer idAtividadeVisita, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, Integer numeroVistantesInternos, Integer numeroDiasVisitas, Integer mediaVisitasDia, Integer mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Integer idAtividadeAlimentacao, Integer lanchesVisitantes, Integer cafeContratada, Integer almocoContratada, Integer jantarContratada, Integer lancheContratada, Integer cafeContratante, Integer almocoContratante, Integer jantarContratante, Integer lancheContratante, Integer totalAlimentacao, Integer idAtividadeAtendimentoSaude, Integer atendimentoClinico, Integer atendimentoPsiquiatrico, Integer atendimentoEnfermagem, Integer procedimentoOdontologico, Integer atendimentoPsicologico, Integer saudeBucal, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, Integer quantidadeAdmInfectoTotal, Integer quantidadeEvoInfectoTotal, Integer sexualidade, Integer vacinados, Integer totalSaude, Date dataMatricula, Date dataFrequencia, Integer idAtividadeAtendimentoEducacional, Integer matriculadoEnsinoFormal, Integer frequentandoEnsinoFormal, Integer matriculadoCursoProfissionalizante, Integer certificadoCursoProfissionalizante, Integer totalEducacional, Integer aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Integer idAtividadeMaterial, Integer totalMaterial, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas, Integer idAtividadeSeguranca, Integer tentativaFuga, Integer ocorrenciaFuga, Integer ocorrenciaRebeliao, Integer ocorrenciaFerido, Integer ocorrenciaIndisciplina, Integer ocorrenciaGravementeFeridoMorto, Integer horasInterrupcaoCFTV, Integer diasInterrupcaoScannerCorporal, Integer diasInterrupcaoRaioXDetectorMetais, Integer diasInterrupcaoVeiculoTransportePreso, Integer falhaGeradorEnergia, Integer horasMauFuncionamentoBRS, Integer absorventesEntreguesPortariaScanner, Integer fraldasEntreguesPortariaScanner, Integer totalMaterialSeg, Integer idAtividadeJuridica, Integer internoFamiliaSAJ, Integer alvaraSolturaRecebido, Integer alvaraSolturaCumprido, Integer audienciaProvocada, Integer audienciaCumprida, Integer juriProvocado, Integer juriCumprido, Integer liberdadeProvisoriaRequerida, Integer liberdadeProvisoriaDeferida, Integer indultosRequeridos, Integer indultosDeferidos, Integer remicaoRequerida, Integer remicaoDeferida, Integer condicionalRequerida, Integer condicionalDeferida, Integer progressaoRegimeRequerida, Integer progressaoRegimeDeferida, Integer saidasTemporariasRequerida, Integer saidasTemporariasDeferida, Integer habeasCorpusRequerido, Integer habeasCorpusDeferido, Integer laudosPsicologicos, Integer laudosPsiquiatricos, Integer transferenciaProvimento, Integer totalJuridico, Integer triagem, Integer laborativaRemunerada, Integer laborativaNaoRemunerada, Integer totalLaboral, Integer idAtividadeRecreativa, Integer artesPlasticas, Integer literatura, Integer cantoTeatroCinema, Integer esportes, Integer religiosa, Integer totalRecreativaReligiosa, Integer cafeInterno, Integer almocoInterno, Integer jantarInterno) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer mediaPopulacao, Integer quantidadeTotalPopulacao, Date dataPeriodoInicial, Date dataPeriodoFinal, String mesReferencia, String anoReferencia, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Integer idAtividadeVisita, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, Integer numeroVistantesInternos, Integer numeroDiasVisitas, Integer mediaVisitasDia, Integer mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Integer idAtividadeAlimentacao, Integer lanchesVisitantes, Integer cafeContratada, Integer almocoContratada, Integer jantarContratada, Integer lancheContratada, Integer cafeContratante, Integer almocoContratante, Integer jantarContratante, Integer lancheContratante, Integer totalAlimentacao, Integer idAtividadeAtendimentoSaude, Integer atendimentoClinico, Integer atendimentoPsiquiatrico, Integer atendimentoEnfermagem, Integer atendimentoOdontologico, Integer procedimentoOdontologico, Integer atendimentoPsicologico, Integer saudeBucal, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, Integer quantidadeAdmInfectoTotal, Integer quantidadeEvoInfectoTotal, Integer sexualidade, Integer vacinados, Integer totalSaude, Date dataMatricula, Date dataFrequencia, Integer idAtividadeAtendimentoEducacional, Integer matriculadoEnsinoFormal, Integer frequentandoEnsinoFormal, Integer matriculadoCursoProfissionalizante, Integer certificadoCursoProfissionalizante, Integer totalEducacional, Integer aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Integer idAtividadeMaterial, Integer totalMaterial, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas, Integer idAtividadeSeguranca, Integer pessoasRefem, Integer ocorrenciaFuga, Integer ocorrenciaRebeliao, Integer ocorrenciaFerido, Integer ocorrenciaIndisciplina, Integer ocorrenciaGravementeFeridoMorto, Integer horasInterrupcaoCFTV, Integer diasInterrupcaoScannerCorporal, Integer diasInterrupcaoRaioXDetectorMetais, Integer diasInterrupcaoVeiculoTransportePreso, Integer falhaGeradorEnergia, Integer horasMauFuncionamentoBRS, Integer absorventesEntreguesPortariaScanner, Integer fraldasEntreguesPortariaScanner, Integer totalMaterialSeg, Integer idAtividadeJuridica, Integer internoFamiliaSAJ, Integer alvaraSolturaRecebido, Integer alvaraSolturaCumprido, Integer audienciaProvocada, Integer audienciaCumprida, Integer juriProvocado, Integer juriCumprido, Integer liberdadeProvisoriaRequerida, Integer liberdadeProvisoriaDeferida, Integer indultosRequeridos, Integer indultosDeferidos, Integer remicaoRequerida, Integer remicaoDeferida, Integer condicionalRequerida, Integer condicionalDeferida, Integer progressaoRegimeRequerida, Integer progressaoRegimeDeferida, Integer saidasTemporariasRequerida, Integer saidasTemporariasDeferida, Integer habeasCorpusRequerido, Integer habeasCorpusDeferido, Integer laudosPsicologicos, Integer laudosPsiquiatricos, Integer transferenciaProvimento, Integer totalJuridico, Integer triagem, Integer laborativaRemunerada, Integer laborativaNaoRemunerada, Integer totalLaboral, Integer idAtividadeRecreativa, Integer artesPlasticas, Integer literatura, Integer cantoTeatroCinema, Integer esportes, Integer religiosa, Integer totalRecreativaReligiosa, Integer cafeInterno, Integer almocoInterno, Integer jantarInterno, Integer total01, Integer total02, Integer total03, Integer total04, Integer total05, Integer total06, Integer total07, Integer total08, Integer total09) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -207,6 +224,12 @@ public class AtividadesMensalRealizadaUnidades {
         this.matricula = matricula;
         this.departamento = departamento;
         this.observacao = observacao;
+        this.usuarioInsert = usuarioInsert;
+        this.usuarioUp = usuarioUp;
+        this.dataInsert = dataInsert;
+        this.dataUp = dataUp;
+        this.horarioInsert = horarioInsert;
+        this.horarioUp = horarioUp;
         this.idAtividadeVisita = idAtividadeVisita;
         this.atendimentoPsiPreso = atendimentoPsiPreso;
         this.atendimentoPsiFamilaPreso = atendimentoPsiFamilaPreso;
@@ -236,6 +259,7 @@ public class AtividadesMensalRealizadaUnidades {
         this.atendimentoClinico = atendimentoClinico;
         this.atendimentoPsiquiatrico = atendimentoPsiquiatrico;
         this.atendimentoEnfermagem = atendimentoEnfermagem;
+        this.atendimentoOdontologico = atendimentoOdontologico;
         this.procedimentoOdontologico = procedimentoOdontologico;
         this.atendimentoPsicologico = atendimentoPsicologico;
         this.saudeBucal = saudeBucal;
@@ -293,7 +317,7 @@ public class AtividadesMensalRealizadaUnidades {
         this.quantidadeObjetos = quantidadeObjetos;
         this.quantidadeProcedCelas = quantidadeProcedCelas;
         this.idAtividadeSeguranca = idAtividadeSeguranca;
-        this.tentativaFuga = tentativaFuga;
+        this.pessoasRefem = pessoasRefem;
         this.ocorrenciaFuga = ocorrenciaFuga;
         this.ocorrenciaRebeliao = ocorrenciaRebeliao;
         this.ocorrenciaFerido = ocorrenciaFerido;
@@ -348,6 +372,15 @@ public class AtividadesMensalRealizadaUnidades {
         this.cafeInterno = cafeInterno;
         this.almocoInterno = almocoInterno;
         this.jantarInterno = jantarInterno;
+        this.total01 = total01;
+        this.total02 = total02;
+        this.total03 = total03;
+        this.total04 = total04;
+        this.total05 = total05;
+        this.total06 = total06;
+        this.total07 = total07;
+        this.total08 = total08;
+        this.total09 = total09;
     }
 
     /**
@@ -614,6 +647,90 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    /**
+     * @return the usuarioInsert
+     */
+    public String getUsuarioInsert() {
+        return usuarioInsert;
+    }
+
+    /**
+     * @param usuarioInsert the usuarioInsert to set
+     */
+    public void setUsuarioInsert(String usuarioInsert) {
+        this.usuarioInsert = usuarioInsert;
+    }
+
+    /**
+     * @return the usuarioUp
+     */
+    public String getUsuarioUp() {
+        return usuarioUp;
+    }
+
+    /**
+     * @param usuarioUp the usuarioUp to set
+     */
+    public void setUsuarioUp(String usuarioUp) {
+        this.usuarioUp = usuarioUp;
+    }
+
+    /**
+     * @return the dataInsert
+     */
+    public String getDataInsert() {
+        return dataInsert;
+    }
+
+    /**
+     * @param dataInsert the dataInsert to set
+     */
+    public void setDataInsert(String dataInsert) {
+        this.dataInsert = dataInsert;
+    }
+
+    /**
+     * @return the dataUp
+     */
+    public String getDataUp() {
+        return dataUp;
+    }
+
+    /**
+     * @param dataUp the dataUp to set
+     */
+    public void setDataUp(String dataUp) {
+        this.dataUp = dataUp;
+    }
+
+    /**
+     * @return the horarioInsert
+     */
+    public String getHorarioInsert() {
+        return horarioInsert;
+    }
+
+    /**
+     * @param horarioInsert the horarioInsert to set
+     */
+    public void setHorarioInsert(String horarioInsert) {
+        this.horarioInsert = horarioInsert;
+    }
+
+    /**
+     * @return the horarioUp
+     */
+    public String getHorarioUp() {
+        return horarioUp;
+    }
+
+    /**
+     * @param horarioUp the horarioUp to set
+     */
+    public void setHorarioUp(String horarioUp) {
+        this.horarioUp = horarioUp;
     }
 
     /**
@@ -1020,6 +1137,20 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setAtendimentoEnfermagem(Integer atendimentoEnfermagem) {
         this.atendimentoEnfermagem = atendimentoEnfermagem;
+    }
+
+    /**
+     * @return the atendimentoOdontologico
+     */
+    public Integer getAtendimentoOdontologico() {
+        return atendimentoOdontologico;
+    }
+
+    /**
+     * @param atendimentoOdontologico the atendimentoOdontologico to set
+     */
+    public void setAtendimentoOdontologico(Integer atendimentoOdontologico) {
+        this.atendimentoOdontologico = atendimentoOdontologico;
     }
 
     /**
@@ -1821,17 +1952,17 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the tentativaFuga
+     * @return the pessoasRefem
      */
-    public Integer getTentativaFuga() {
-        return tentativaFuga;
+    public Integer getPessoasRefem() {
+        return pessoasRefem;
     }
 
     /**
-     * @param tentativaFuga the tentativaFuga to set
+     * @param pessoasRefem the pessoasRefem to set
      */
-    public void setTentativaFuga(Integer tentativaFuga) {
-        this.tentativaFuga = tentativaFuga;
+    public void setPessoasRefem(Integer pessoasRefem) {
+        this.pessoasRefem = pessoasRefem;
     }
 
     /**
@@ -2588,5 +2719,131 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setJantarInterno(Integer jantarInterno) {
         this.jantarInterno = jantarInterno;
+    }
+
+    /**
+     * @return the total01
+     */
+    public Integer getTotal01() {
+        return total01;
+    }
+
+    /**
+     * @param total01 the total01 to set
+     */
+    public void setTotal01(Integer total01) {
+        this.total01 = total01;
+    }
+
+    /**
+     * @return the total02
+     */
+    public Integer getTotal02() {
+        return total02;
+    }
+
+    /**
+     * @param total02 the total02 to set
+     */
+    public void setTotal02(Integer total02) {
+        this.total02 = total02;
+    }
+
+    /**
+     * @return the total03
+     */
+    public Integer getTotal03() {
+        return total03;
+    }
+
+    /**
+     * @param total03 the total03 to set
+     */
+    public void setTotal03(Integer total03) {
+        this.total03 = total03;
+    }
+
+    /**
+     * @return the total04
+     */
+    public Integer getTotal04() {
+        return total04;
+    }
+
+    /**
+     * @param total04 the total04 to set
+     */
+    public void setTotal04(Integer total04) {
+        this.total04 = total04;
+    }
+
+    /**
+     * @return the total05
+     */
+    public Integer getTotal05() {
+        return total05;
+    }
+
+    /**
+     * @param total05 the total05 to set
+     */
+    public void setTotal05(Integer total05) {
+        this.total05 = total05;
+    }
+
+    /**
+     * @return the total06
+     */
+    public Integer getTotal06() {
+        return total06;
+    }
+
+    /**
+     * @param total06 the total06 to set
+     */
+    public void setTotal06(Integer total06) {
+        this.total06 = total06;
+    }
+
+    /**
+     * @return the total07
+     */
+    public Integer getTotal07() {
+        return total07;
+    }
+
+    /**
+     * @param total07 the total07 to set
+     */
+    public void setTotal07(Integer total07) {
+        this.total07 = total07;
+    }
+
+    /**
+     * @return the total08
+     */
+    public Integer getTotal08() {
+        return total08;
+    }
+
+    /**
+     * @param total08 the total08 to set
+     */
+    public void setTotal08(Integer total08) {
+        this.total08 = total08;
+    }
+
+    /**
+     * @return the total09
+     */
+    public Integer getTotal09() {
+        return total09;
+    }
+
+    /**
+     * @param total09 the total09 to set
+     */
+    public void setTotal09(Integer total09) {
+        this.total09 = total09;
     }
 }

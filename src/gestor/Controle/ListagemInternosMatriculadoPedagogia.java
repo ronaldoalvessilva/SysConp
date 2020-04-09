@@ -27,7 +27,6 @@ import javax.swing.JOptionPane;
  */
 public class ListagemInternosMatriculadoPedagogia {
 
-    //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
     //
