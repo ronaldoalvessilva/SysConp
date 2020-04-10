@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaEmpresaLabor.FotoInternoAtiviLabor;
 import static gestor.Visao.TelaEntradaSaidaEmpresaLabor.jBtNovoInterno;

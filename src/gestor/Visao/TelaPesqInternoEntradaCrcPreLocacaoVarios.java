@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Dao.*;

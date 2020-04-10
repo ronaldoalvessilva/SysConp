@@ -11,7 +11,7 @@ import gestor.Controle.ControleItensEntSaiAdvInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasAdvogados;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.EntradaSaidaAdvogadosInternos;
 import gestor.Modelo.ItensEntradaSaidaAdvInternos;

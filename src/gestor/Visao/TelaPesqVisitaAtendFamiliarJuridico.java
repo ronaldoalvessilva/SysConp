@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaAtendimentoFamiliarJuridico.jIDInterno;
 import static gestor.Visao.TelaAtendimentoFamiliarJuridico.FotoVisita;

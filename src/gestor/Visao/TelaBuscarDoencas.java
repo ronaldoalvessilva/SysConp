@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAdmissaoMedica.jBtAdicionarPatologia;
 import static gestor.Visao.TelaAdmissaoMedica.jCid;
 import static gestor.Visao.TelaAdmissaoMedica.jDescricaoPatologia;

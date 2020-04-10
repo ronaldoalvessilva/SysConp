@@ -10,7 +10,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EvadidoIndividual;
 import gestor.Modelo.ItensEntradaSaidaLaborInterno;
 import gestor.Modelo.LogSistema;

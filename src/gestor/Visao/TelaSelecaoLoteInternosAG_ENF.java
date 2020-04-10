@@ -13,7 +13,7 @@ import gestor.Controle.ControleListaInternosPavilhaoAG_ENF;
 import gestor.Controle.ControleListaInternosPavilhaoAG_II_ENF;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;

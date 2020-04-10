@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.TurnosAula;
 import static gestor.Visao.TelaInventarioProdutosAC.jTabelaItensProdutoInvent;
 import static gestor.Visao.TelaTempoFormativo.jDescricaoTurno;

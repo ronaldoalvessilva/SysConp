@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitos;
-import gestor.Dao.LimiteDigitosAlfa;
+import Utilitarios.LimiteDigitos;
+import Utilitarios.LimiteDigitosAlfa;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.sql.SQLException;

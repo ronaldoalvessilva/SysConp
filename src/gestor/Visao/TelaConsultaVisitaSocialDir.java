@@ -7,9 +7,9 @@ package gestor.Visao;
 
 import gestor.Controle.ControleVisitaInterno;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitos;
-import gestor.Dao.LimiteDigitosSoNum;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.LimiteDigitos;
+import Utilitarios.LimiteDigitosSoNum;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.VisitaInterno;
 import java.awt.Color;
 import java.awt.Image;

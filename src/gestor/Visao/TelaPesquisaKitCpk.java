@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jIdRegistroComp;
 import static gestor.Visao.TelaPagamentoKitInternoCPK.jComboBoxPavilhao;

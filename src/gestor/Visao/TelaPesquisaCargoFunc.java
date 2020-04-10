@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import gestor.Dao.LimiteDigitosAlfa;
+import Utilitarios.LimiteDigitosAlfa;
 
 /**
  *

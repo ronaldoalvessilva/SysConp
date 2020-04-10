@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package gestor.Dao;
+package Utilitarios;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

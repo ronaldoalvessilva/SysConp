@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaTransCelasBGPA.jDescricaoCelaDestino;
 import static gestor.Visao.TelaTransCelasBGPA.jDescricaoRaioDestino;
 import static gestor.Visao.TelaTransCelasBGPA.jIdCelaDestino;

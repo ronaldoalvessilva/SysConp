@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.SaqueValores;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;

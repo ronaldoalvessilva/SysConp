@@ -9,7 +9,7 @@ import gestor.Controle.ControleItensTFDisciplina;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleTempoFormativo;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensTFDisciplina;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TempoFormativo;

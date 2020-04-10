@@ -15,7 +15,7 @@ import gestor.Controle.ControleAvaliacaoMedica;
 import gestor.Controle.ControleItensTratamentoInterno;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AvaliacaoMedica;
 import gestor.Modelo.ItensTratamentoInterno;
 import gestor.Modelo.LogSistema;

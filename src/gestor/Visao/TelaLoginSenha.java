@@ -8,7 +8,7 @@ package gestor.Visao;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosMin;
+import Utilitarios.LimiteDigitosMin;
 import gestor.Modelo.ControleVersao;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;

@@ -9,7 +9,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePatologiaEvolucaoMedica;
 import gestor.Controle.ControlePatologiaEvolucaoPsiquiatrica;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PatologiaEvolucaoPsiquiatrica;
 import static gestor.Visao.TelaAdmissaoMedica.jIdEvolucaoMedica;

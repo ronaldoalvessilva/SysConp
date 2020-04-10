@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRequisicaoAvulsaNUTRI.jMatriculaAutorizadorReq;
 import static gestor.Visao.TelaRequisicaoAvulsaNUTRI.jDepartamentoReqAutorizador;
 import static gestor.Visao.TelaRequisicaoAvulsaNUTRI.jIdFuncAutorizador;

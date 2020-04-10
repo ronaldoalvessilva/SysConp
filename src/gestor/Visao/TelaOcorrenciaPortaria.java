@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleOcorrenciasPortaria;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OcorrenciasPortaria;
 import static gestor.Visao.TelaLoginSenha.nameUser;

@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaControleDepositoSeguranca.idItem;
 import static gestor.Visao.TelaControleDepositoSeguranca.jBtNovoInterno;

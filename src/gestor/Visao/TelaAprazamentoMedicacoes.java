@@ -9,7 +9,7 @@ import gestor.Controle.ControleAprazamentoMedicacoes;
 import gestor.Controle.ControleItensAprazamentoMedicacoes;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AprazamentoMedicamentos;
 import gestor.Modelo.ItensAprazamentoMedicamento;
 import gestor.Modelo.LogSistema;

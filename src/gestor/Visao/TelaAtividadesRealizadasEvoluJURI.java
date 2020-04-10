@@ -12,7 +12,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovJuridico;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtendimentoJuridico;
 import gestor.Modelo.EvolucaoJuridico;
 import gestor.Modelo.ItensAtividadeJuridico;

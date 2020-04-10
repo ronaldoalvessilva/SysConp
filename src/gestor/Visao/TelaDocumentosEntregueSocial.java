@@ -10,7 +10,7 @@ import gestor.Controle.ControleDocumentosInternos;
 import gestor.Controle.ControleLogSistema;
 import static gestor.Controle.ControleVisitaInterno.count;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DocumentosInternos;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaDocumetosInternosServicoSocial.jComboBoxCNH;

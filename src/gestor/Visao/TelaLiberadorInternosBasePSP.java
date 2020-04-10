@@ -10,7 +10,7 @@ import gestor.Controle.ControleLiberadorBasePSP;
 import gestor.Controle.ControleLiberadorBasePSPLiberadores;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.Colaborador;
 import gestor.Modelo.LiberadoresInternoColaboradores;
 import gestor.Modelo.LogSistema;

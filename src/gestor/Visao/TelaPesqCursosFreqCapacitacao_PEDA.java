@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.pCODIGO_PROFESSOR_FRE;
 import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.jComboBoxProfessor;
 import static gestor.Visao.TelaControleFrequenciaCursosAC_PEDAGOGIA.codigoCurso;

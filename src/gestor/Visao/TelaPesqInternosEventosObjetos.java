@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEventoDisciplinar.jIdInternoPertence;
 import static gestor.Visao.TelaEventoDisciplinar.jIdLanc;

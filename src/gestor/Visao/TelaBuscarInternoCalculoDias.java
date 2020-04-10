@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaFrequenciaMensalInternosTO.jIdInternoCrcDemo;
 import static gestor.Visao.TelaFrequenciaMensalInternosTO.jNomeInternoCrcDemo;
 import java.sql.SQLException;

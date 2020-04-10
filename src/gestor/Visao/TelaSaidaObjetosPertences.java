@@ -10,7 +10,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSaidaObjetos;
 import gestor.Controle.ControleSaldoPertences;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensObjetosPertences;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SaidaObjetosPertences;

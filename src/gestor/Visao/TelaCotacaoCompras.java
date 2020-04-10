@@ -10,7 +10,7 @@ import gestor.Controle.ControleCotacaoFornecedor;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleProdutosCotacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.CotacaoCompras;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutosCotacaoCompras;

@@ -10,7 +10,7 @@ import gestor.Dao.ConexaoBancoDadosITB;
 import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;

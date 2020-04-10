@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAtualizarMatricula;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtualizarMatricula;
 import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;

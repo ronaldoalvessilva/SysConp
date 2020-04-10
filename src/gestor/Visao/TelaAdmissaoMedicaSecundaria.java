@@ -17,7 +17,7 @@ import gestor.Controle.ControleMovMedico;
 import gestor.Controle.ControlePortaEntrada;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AdmissaoMedica;
 import gestor.Modelo.EvolucaoMedica;
 import gestor.Modelo.EvolucaoPsiquiatrica;

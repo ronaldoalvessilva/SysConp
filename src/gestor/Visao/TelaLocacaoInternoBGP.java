@@ -11,7 +11,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Controle.ControleSaldoInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.ItensPreLocacao;
 import gestor.Modelo.LocacaoInternos;

@@ -10,7 +10,7 @@ import gestor.Controle.ControleEntradaSaidaVisitasReligiosasPortaria;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasReligiosas;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EntradaSaidaVisitasReligiosas;
 import gestor.Modelo.ItensEntradaSaidaReligiosaPortaria;
 import gestor.Modelo.LogSistema;

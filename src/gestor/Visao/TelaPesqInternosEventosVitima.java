@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEventoDisciplinar.jFotoInternoVitima;
 import static gestor.Visao.TelaEventoDisciplinar.jNomeMaeInternoVitima;

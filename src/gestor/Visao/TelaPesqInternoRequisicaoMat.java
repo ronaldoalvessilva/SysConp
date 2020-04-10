@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jCodInterno;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jMatriculaPenal;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jNomeInternoReq;

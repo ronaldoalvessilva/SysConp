@@ -15,7 +15,7 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloServicoSocial.codAbrirSS;
 import static gestor.Visao.TelaModuloServicoSocial.codAlterarSS;

@@ -11,7 +11,7 @@ import gestor.Controle.ControleItensEntradaSaidaVisitasInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasFamiliarInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.EntradaSaidaVisitasInternos;
 import gestor.Modelo.ItensEntradaSaidaVisitasInternos;

@@ -12,7 +12,7 @@ import gestor.Controle.ControleAtendimentoGrupoPsicologiaDAO;
 import gestor.Controle.ControleListaInternosCelasAG_SS_DAO;
 import gestor.Controle.ControleListaInternosGaleiraAG_SS_DAO;
 import gestor.Controle.ControleListaInternosPavilhaoAG_II_SS_DAO;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PavilhaoInternoMontaKit;

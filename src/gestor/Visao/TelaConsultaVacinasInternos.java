@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAdmissaoMedica.jIdInternoAdm;
 import static gestor.Visao.TelaConsultaExamesSolicitados.telaAdmissaoMedica;
 import java.sql.SQLException;

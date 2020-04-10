@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosAlfa;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.LimiteDigitosAlfa;
+import Utilitarios.ModeloTabela;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

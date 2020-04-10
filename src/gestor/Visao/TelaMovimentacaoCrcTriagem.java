@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleRefreshDataMovi;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensEntradaLote;
 import gestor.Modelo.ProntuarioCrc;
 import java.awt.Color;

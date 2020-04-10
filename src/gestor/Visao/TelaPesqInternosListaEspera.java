@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaListaEsperaTO.jDescricaoCela;
 import static gestor.Visao.TelaListaEsperaTO.jDescricaoPavilhao;
 import static gestor.Visao.TelaListaEsperaTO.idCela;

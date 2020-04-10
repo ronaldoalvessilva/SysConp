@@ -10,7 +10,7 @@ import gestor.Controle.ControleLocacaoInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSaldoInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.LocacaoInternos;
 import gestor.Modelo.LogSistema;

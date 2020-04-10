@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAgendaAtendimentoInternos;
 import gestor.Controle.ControleItensAgendaAtendimentoInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AgendamentoAtendimentoInterno;
 import gestor.Modelo.ItensAgendaAtendimentoInternos;
 import static gestor.Visao.TelaNovaAdmissaoPSI.departamentoAgenda;

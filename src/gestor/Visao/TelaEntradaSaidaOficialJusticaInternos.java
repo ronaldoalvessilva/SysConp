@@ -11,7 +11,7 @@ import gestor.Controle.ControleItensEntSaiOficialJusticaInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleVisitasOficialJustica;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.EntradaSaidaOficialJusticaInternos;
 import gestor.Modelo.ItensEntradaSaidaOJInternos;

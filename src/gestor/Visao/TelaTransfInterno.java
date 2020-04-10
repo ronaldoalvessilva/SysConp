@@ -12,7 +12,7 @@ import gestor.Controle.ControleMovSaidaEvasao;
 import gestor.Controle.ControleSituacao;
 import gestor.Controle.ControleTransfInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensMovSaidaRetorno;
 import gestor.Modelo.ItensTransInterno;
 import gestor.Modelo.LogSistema;

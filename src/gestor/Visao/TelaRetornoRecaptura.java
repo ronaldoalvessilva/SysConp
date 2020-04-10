@@ -15,7 +15,7 @@ import gestor.Controle.ControleRetornoPortariaCrc;
 import gestor.Controle.ControleRolVisitas;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ItensRecaptura;
 import gestor.Modelo.LogSistema;

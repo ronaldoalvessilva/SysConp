@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAgendamentoBeneficiosInterno.jBtAlterar;
 import static gestor.Visao.TelaAgendamentoBeneficiosInterno.jBtAuditoria;
 import static gestor.Visao.TelaAgendamentoBeneficiosInterno.jBtAuditoriaInternos;

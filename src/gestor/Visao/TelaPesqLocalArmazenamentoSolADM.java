@@ -5,9 +5,9 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.AlinharColunasTabelas;
+import Utilitarios.AlinharColunasTabelas;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisGerencia.jIdLocalSol;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisGerencia.jDescricaoLocalSol;
 import java.sql.SQLException;

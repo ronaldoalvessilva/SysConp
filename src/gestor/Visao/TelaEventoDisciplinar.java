@@ -15,7 +15,7 @@ import gestor.Controle.ControleInternosTestemunhas;
 import gestor.Controle.ControleInternosVitimas;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.Apreensoes;
 import gestor.Modelo.AutorEventos;
 import gestor.Modelo.ColaboradorTestemunha;

@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaSolicitacaoProdutosENFAR.jNomeFuncSol;
 import static gestor.Visao.TelaSolicitacaoProdutosENFAR.jMatriculaFuncSol;
 import static gestor.Visao.TelaSolicitacaoProdutosENFAR.jIdFuncSol;

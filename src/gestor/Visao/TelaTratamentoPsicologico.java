@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleTratamentoPsicologico;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TipoTratamentoPsicologico;
 import gestor.Modelo.TratamentoPsicologico;

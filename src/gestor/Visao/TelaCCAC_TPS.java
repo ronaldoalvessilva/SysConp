@@ -15,7 +15,7 @@ import gestor.Controle.ControleListalCursosIndividual;
 import gestor.Controle.ControleListarInstituicaoIndividual;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AssistenciaEducativa;
 import gestor.Modelo.AtividadesComplementarePedagogica;
 import gestor.Modelo.Instituicao;

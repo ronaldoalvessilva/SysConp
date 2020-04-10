@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Controle.ControleColaborador;
 import gestor.Modelo.Funcionarios;

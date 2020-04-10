@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jIdTurno;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jDescricaoTurno;
 import java.sql.SQLException;

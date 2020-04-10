@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaDevolucaoMedicamentosEnfermariaFarmacia.jIdLocalOrigem;
 import static gestor.Visao.TelaDevolucaoMedicamentosEnfermariaFarmacia.jDescricaoLocalOrigem;
 import java.sql.SQLException;

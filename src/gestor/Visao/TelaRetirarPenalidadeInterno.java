@@ -11,7 +11,7 @@ import gestor.Controle.ControleRetirarInternosDisciplina;
 import gestor.Controle.ControleSaldoInternos;
 import gestor.Controle.ControleTransferenciaLocalInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.InternosIsolamento;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RetirarIsolamento;

@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.caminho;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.caminho1;
 import static gestor.Visao.TelaRequisicaoMateriaisInternosAC.jCelaReq;

@@ -14,7 +14,7 @@ import gestor.Controle.ControleIndicadoresAcompanhaTO;
 import gestor.Controle.ControleIndicadoresAcompanhamento;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.IndicadoresAcompanhamento;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.nameUser;

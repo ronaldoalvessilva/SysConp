@@ -16,7 +16,7 @@ import gestor.Controle.ControleLogSistema;
 import static gestor.Controle.ControleItensEntSaiFunc.count;
 import static gestor.Controle.ControleItensEntSaiFunc.qtdColaboradores;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DigitalColaborador;
 import gestor.Modelo.ItensEntSaiFunc;
 import gestor.Modelo.LogSistema;

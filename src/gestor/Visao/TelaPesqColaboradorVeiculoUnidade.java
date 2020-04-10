@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaEntradaSaidaVeiculosUnidade.jFotoColaboradorMotorista;
 import static gestor.Visao.TelaEntradaSaidaVeiculosUnidade.jNomeDepto;
 import static gestor.Visao.TelaEntradaSaidaVeiculosUnidade.jIdFunc;

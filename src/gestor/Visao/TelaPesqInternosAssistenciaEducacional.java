@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.FotoInternoAssis;
 import static gestor.Visao.TelaAssistenciaEducacionalExterna.jIdInternoAssis;

@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleItensCalculado;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensReceitaCalculado;
 import static gestor.Visao.TelaFichaTecnica.jBtConfirmarCalculo;
 import static gestor.Visao.TelaFichaTecnica.jBtIniciarCalculos;

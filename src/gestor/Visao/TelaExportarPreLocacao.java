@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensPreLocacao;
 import gestor.Modelo.PreLocacao;
 import static gestor.Visao.TelaLoginSenha.nameUser;

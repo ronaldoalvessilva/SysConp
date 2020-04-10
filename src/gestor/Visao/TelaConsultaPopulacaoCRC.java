@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitosSoNum;
 import gestor.Dao.*;
 import gestor.Controle.ControleAgentes;
 import gestor.Controle.ControleMovPopulacao;

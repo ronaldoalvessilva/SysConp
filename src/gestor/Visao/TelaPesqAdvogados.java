@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaAdvogados.jAdvogadoNome;
 import static gestor.Visao.TelaEntradaSaidaAdvogados.jBtZoonAdvogadoDepartamento;

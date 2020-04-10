@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package Utilitarios;
 
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.GerarPopNominal;
 import static gestor.Visao.TelaGerarPopulacaoNominalCrc.qtdInternosPop;
 import java.sql.SQLException;

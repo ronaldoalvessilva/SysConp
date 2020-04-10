@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaLocacaoInternoBGP.idItem;
 import static gestor.Visao.TelaLocacaoInternoBGP.jBtNovoInterno;

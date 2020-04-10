@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRegistroObjetosProcedimentos.jDescricaoCela;
 import static gestor.Visao.TelaRegistroObjetosProcedimentos.jIdCela;
 import static gestor.Visao.TelaRegistroObjetosProcedimentos.jIdPav;

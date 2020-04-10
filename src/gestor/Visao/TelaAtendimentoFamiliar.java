@@ -9,7 +9,7 @@ import gestor.Controle.ControleAtendimentoFamiliar;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtendimentoFamiliar;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;

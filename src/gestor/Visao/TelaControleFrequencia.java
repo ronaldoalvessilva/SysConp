@@ -10,7 +10,7 @@ import gestor.Controle.ControleHistoricoInstituicaoInternosLocal;
 import gestor.Controle.ControleInternosFrequencia;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.Frequencia;
 import gestor.Modelo.HistoricoInternoEducacaoLocal;
 import gestor.Modelo.ItensFrequencia;

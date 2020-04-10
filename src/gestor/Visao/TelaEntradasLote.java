@@ -18,7 +18,7 @@ import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Controle.ControleRolVisitas;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.EntradaLote;
 import gestor.Modelo.ItensEntradaLote;

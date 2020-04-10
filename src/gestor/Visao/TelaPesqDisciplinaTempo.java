@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaTempoFormativo.jDescricaoDisciplina;
 import static gestor.Visao.TelaTempoFormativo.jIdDisc;
 import java.sql.SQLException;

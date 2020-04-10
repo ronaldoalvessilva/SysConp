@@ -9,7 +9,7 @@ import gestor.Controle.ContoleNovaEntrada;
 import gestor.Controle.ControleItensEntradaNova;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensNovaEntrada;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.NovaEntradaCrcP1;

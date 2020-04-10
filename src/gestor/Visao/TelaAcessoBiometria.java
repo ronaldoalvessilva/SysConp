@@ -20,7 +20,7 @@ import static gestor.Controle.ControleVisitaInterno.count;
 import static gestor.Controle.ControleVisitaInterno.qtdVisitas;
 import gestor.Controle.ControleVisitasFamiliarInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AlertaVisitasPortariaPavilhoes;
 import gestor.Modelo.Digital;
 import gestor.Modelo.EntradaSaidaVisitasInternos;

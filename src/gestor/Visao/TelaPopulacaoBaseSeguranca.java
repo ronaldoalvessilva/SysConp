@@ -13,7 +13,7 @@ import gestor.Controle.ControlePopBraMasc;
 import gestor.Controle.ControlePopEstFem;
 import gestor.Controle.ControlePopEstMasc;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosSoNum;
+import Utilitarios.LimiteDigitosSoNum;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.MovimentoPopulacao;
 import gestor.Modelo.PopAgentes;

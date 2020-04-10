@@ -7,10 +7,10 @@ package gestor.Visao;
 
 import gestor.Controle.ControleEmpresaLab;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitos;
-import gestor.Dao.LimiteDigitosAlfa;
-import gestor.Dao.LimiteDigitosNum;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.LimiteDigitos;
+import Utilitarios.LimiteDigitosAlfa;
+import Utilitarios.LimiteDigitosNum;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EmpresaLab;
 import java.awt.Color;
 import java.sql.SQLException;

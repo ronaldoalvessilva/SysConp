@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleAgendaBeneficiosInternos;
 import gestor.Controle.ControleItensAgendaBeneficiaria;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AgendaBeneficioInternos;
 import gestor.Modelo.ItensAgendaBeneficioInternos;
 import static gestor.Visao.TelaAtendimentoJuridico.jIDInternoJuridico;

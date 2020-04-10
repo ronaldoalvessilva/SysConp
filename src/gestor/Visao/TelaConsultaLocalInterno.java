@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitos;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import java.awt.Color;
 import java.awt.Image;
 import java.sql.SQLException;

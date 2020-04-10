@@ -6,6 +6,8 @@
 package gestor.Visao;
 
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaControleDepositoPortaria.idItem;
 import static gestor.Visao.TelaControleDepositoPortaria.jBtNovoInterno;

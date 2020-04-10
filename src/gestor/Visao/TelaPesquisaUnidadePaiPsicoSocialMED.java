@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.LimiteDigitosAlfa;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.LimiteDigitosAlfa;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaPaiMED.jAlcunha;
 import static gestor.Visao.TelaPaiMED.jArtigo;
 import static gestor.Visao.TelaPaiMED.jCela;

@@ -9,7 +9,7 @@ import gestor.Controle.ControleGerarPopulacao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.listarInternosPopulacaoNominal;
+import Utilitarios.listarInternosPopulacaoNominal;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;

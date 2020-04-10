@@ -18,7 +18,7 @@ import gestor.Controle.ControlePagamentoKitSemestralRealizado;
 import gestor.Controle.ControleProgramacaoKit;
 import gestor.Controle.ControleProximoKitDecendial;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.LogSistema;

@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAudienciaJustificativa.FotoInternoAudiencia;
 import static gestor.Visao.TelaAudienciaJustificativa.jIdInternoCrc;
 import static gestor.Visao.TelaAudienciaJustificativa.jNomeInternoCrc;

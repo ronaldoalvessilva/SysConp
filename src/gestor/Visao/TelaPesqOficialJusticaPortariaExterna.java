@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaAcessosPortariaInterna.jBtZoom;
 import static gestor.Visao.TelaAcessosPortariaInterna.jFotoTransiente;

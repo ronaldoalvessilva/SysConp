@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaAgendamentoAtendimentoInternos.jIdInternoCrcAg;
 import static gestor.Visao.TelaAgendamentoAtendimentoInternos.jNomeInternoCrcAgenda;

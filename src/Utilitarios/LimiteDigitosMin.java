@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package gestor.Dao;
+package Utilitarios;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -12,11 +12,11 @@ import javax.swing.text.PlainDocument;
 
 /**
  *
- * @author Ronaldo Alves da Silva
+ * @author CPLF
  */
-public class LimiteDigitosSoNumPonto extends PlainDocument{
-    private int quantidadeMax;
-    public LimiteDigitosSoNumPonto(int maxLen){
+public class LimiteDigitosMin extends PlainDocument{
+     private int quantidadeMax;
+    public LimiteDigitosMin(int maxLen){
         super();
         if(maxLen <= 0)
             throw new IllegalArgumentException("Especifique a quantidade!!!");
@@ -29,7 +29,7 @@ public class LimiteDigitosSoNumPonto extends PlainDocument{
             return;
         int totalquantia = (getLength()+ str.length());
         if(totalquantia <= quantidadeMax){
-            super.insertString(offset, str.toUpperCase().replaceAll("[^0-9|^.]",""), attr);
+            super.insertString(offset, str.replaceAll("[^a-z|^A-Z|^ |0-9|^&|^.|^+|^@|^_|^-|^%|^#|^$|^*|^! ]",""), attr);
             return;
         }
         String nova = str.substring(0,getLength()-quantidadeMax);

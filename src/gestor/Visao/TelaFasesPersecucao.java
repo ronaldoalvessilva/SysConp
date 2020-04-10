@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DadosPenaisCrc;
 import static gestor.Visao.TelaProntuarioCrc.jCNC;
 import static gestor.Visao.TelaProntuarioCrc.jDataEntrada;

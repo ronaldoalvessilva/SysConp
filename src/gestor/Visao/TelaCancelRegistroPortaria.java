@@ -10,7 +10,7 @@ import gestor.Controle.ControleItensRegistroCanceladoCrc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleRegCancelado;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensEntradaInternosPortaria;
 import gestor.Modelo.ItensRegistroCanceladoCrc;
 import gestor.Modelo.LogSistema;

@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisAC.jIdLocalSol;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisAC.jDescricaoLocalSol;
 import java.sql.SQLException;

@@ -16,7 +16,7 @@ import static gestor.Controle.ControleItensTransientes.count;
 import static gestor.Controle.ControleItensTransientes.qtdColaboradores;
 import gestor.Controle.ControleItensTransientes;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DigitalColaborador;
 import gestor.Modelo.ItensTransientes;
 import gestor.Modelo.LogSistema;

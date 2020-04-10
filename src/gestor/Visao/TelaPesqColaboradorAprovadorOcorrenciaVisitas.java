@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAprovadoresOcorrenciaVisitasInternosSeguranca.jCodigoColaborador;
 import static gestor.Visao.TelaAprovadoresOcorrenciaVisitasInternosSeguranca.jNomeAprovador;
 import static gestor.Visao.TelaAprovadoresOcorrenciaVisitasInternosSeguranca.jNomeGrupo;

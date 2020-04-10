@@ -13,7 +13,7 @@ import gestor.Dao.ConexaoBancoDadosITB;
 import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;

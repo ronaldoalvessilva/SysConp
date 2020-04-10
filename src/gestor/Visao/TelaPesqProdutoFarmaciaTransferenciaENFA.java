@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaTransferenciaEstoqueFarmacia.jQtdItem;
 import static gestor.Visao.TelaTransferenciaEstoqueFarmacia.jComboBoxUnidade;
 import static gestor.Visao.TelaTransferenciaEstoqueFarmacia.jDescricaoProduto;

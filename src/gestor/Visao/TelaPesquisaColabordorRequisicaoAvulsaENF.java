@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRequisicaoAvulsaMedicamentosENF.jMatriculaReq;
 import static gestor.Visao.TelaRequisicaoAvulsaMedicamentosENF.jDepartamentoReq;
 import static gestor.Visao.TelaRequisicaoAvulsaMedicamentosENF.jCodFuncReq;

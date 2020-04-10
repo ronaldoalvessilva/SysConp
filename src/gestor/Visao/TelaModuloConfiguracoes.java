@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import Util.SQL.TableExample;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaRecadosAdministrador.jIDLanc;
 import static gestor.Visao.TelaRecadosAdministrador.jDataLanc;

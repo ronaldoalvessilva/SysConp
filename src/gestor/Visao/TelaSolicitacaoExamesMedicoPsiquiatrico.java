@@ -9,7 +9,7 @@ import gestor.Controle.ControleItensExamesMedicoPsiquiatricoSolicitado;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSolicitacaoExamesMedicoPsiquiatrico;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensExameMedicoPsiquiatricoSolicitado;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.SolicitacaoExamesMedicoPsiquiatrico;

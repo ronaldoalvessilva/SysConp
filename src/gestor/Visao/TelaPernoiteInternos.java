@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Controle.PernoiteDao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PernoiteInternos;

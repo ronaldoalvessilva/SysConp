@@ -15,7 +15,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleNFeCompras;
 import gestor.Controle.ControleParcelasCompras;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.HistoricoCompraAcervo;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.HistoricoProdutoFornecedor;

@@ -10,7 +10,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSaldoDeposito;
 import gestor.Controle.ControleSaldoDepositoInativos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ConsultaSaldoInternos;
 import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.EstornoDepositoSaque;

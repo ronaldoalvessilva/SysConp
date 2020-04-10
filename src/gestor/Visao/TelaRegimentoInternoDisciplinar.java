@@ -12,7 +12,7 @@ import gestor.Controle.ControleRegimentoDisciplinarInterno;
 import gestor.Controle.ControleSaldoInternos;
 import gestor.Controle.ControleTransferenciaLocalInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AutoresRegimentoDisciplinar;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OcorrenciaRegimeDisciplinar;

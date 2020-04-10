@@ -9,7 +9,7 @@ import gestor.Controle.ControleAtestadoMedicoPsiquiatrico;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovAtestadoMedicoPsiquiatrico;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AdmissaoMedica;
 import gestor.Modelo.AtestadoMedicoPsiquiatrico;
 import gestor.Modelo.LogSistema;

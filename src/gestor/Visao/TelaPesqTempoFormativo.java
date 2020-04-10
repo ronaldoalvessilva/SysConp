@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaMatriculaPedagogica.codigoMatricula;
 import static gestor.Visao.TelaMatriculaPedagogica.jDescricaoTempoFormativo;
 import static gestor.Visao.TelaMatriculaPedagogica.jDescricaoTurno;

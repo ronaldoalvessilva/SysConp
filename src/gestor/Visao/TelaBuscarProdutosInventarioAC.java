@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaInventarioProdutosAC.idItem;
 import static gestor.Visao.TelaInventarioProdutosAC.jBtAlterarItem;

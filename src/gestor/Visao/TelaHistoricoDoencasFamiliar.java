@@ -9,7 +9,7 @@ import gestor.Controle.ControleHistoricoDoencaAtual;
 import gestor.Controle.ControleItensHistoricoDoencasFamiliar;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.HistoricoDoencaAtual;
 import gestor.Modelo.ItensHistoricoDoencaAtual;
 import gestor.Modelo.LogSistema;

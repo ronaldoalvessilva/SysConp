@@ -9,7 +9,7 @@ import gestor.Controle.ControleAgendaAtendimentoInternos;
 import gestor.Controle.ControleItensAgendaAtendimentoInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AgendamentoAtendimentoInterno;
 import gestor.Modelo.ItensAgendaAtendimentoInternos;
 import gestor.Modelo.LogSistema;

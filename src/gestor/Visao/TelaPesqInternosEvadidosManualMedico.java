@@ -9,7 +9,7 @@ import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert2;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDataSaida;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDocumentoSaida;
 import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdInternoEvadido;

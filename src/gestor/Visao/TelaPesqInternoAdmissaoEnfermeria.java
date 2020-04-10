@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jDataNascimento;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jEstadoCivilMedico;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jFotoInternoMedico;

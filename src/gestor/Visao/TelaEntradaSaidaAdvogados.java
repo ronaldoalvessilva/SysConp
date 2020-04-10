@@ -9,7 +9,7 @@ import gestor.Controle.ControleEntSaiAdvogados;
 import gestor.Controle.ControleItensEntAdvogados;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EntradaSaidaAdvogados;
 import gestor.Modelo.ItensEntradaAdvogados;
 import gestor.Modelo.LogSistema;

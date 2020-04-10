@@ -9,7 +9,7 @@ import gestor.Controle.ControleFrequenciaACC;
 import gestor.Controle.ControleListaProfessores;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.FrequenciaAtividadesComplementaresPedagogia;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.Professores;

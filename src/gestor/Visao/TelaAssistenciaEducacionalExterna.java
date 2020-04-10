@@ -10,7 +10,7 @@ import gestor.Controle.ControleInternosEducacional;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.listarInternosEE;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AssistenciaEducativa;
 import gestor.Modelo.CursosDiversos;
 import gestor.Modelo.InternosSaidaEducacional;

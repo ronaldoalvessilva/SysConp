@@ -6,7 +6,7 @@
 package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.listarInternosPopulacaoNominal;
+import Utilitarios.listarInternosPopulacaoNominal;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;

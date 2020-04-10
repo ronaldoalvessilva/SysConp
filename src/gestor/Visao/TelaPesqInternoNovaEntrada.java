@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Modelo.EntradaLote;
 import gestor.Modelo.ItensEntradaLote;

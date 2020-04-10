@@ -9,7 +9,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleTipoTraamentoPsicologia;
 import gestor.Modelo.LogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.TipoTratamentoPsicologico;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;

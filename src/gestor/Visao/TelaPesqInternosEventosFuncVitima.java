@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaEventoDisciplinar.jIdFuncVitima;
 import static gestor.Visao.TelaEventoDisciplinar.jRGVitima;
 import static gestor.Visao.TelaEventoDisciplinar.jDepartamantoVitima;

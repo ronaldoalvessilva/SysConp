@@ -10,7 +10,7 @@ import gestor.Controle.ControleItensBloqueioRolInternos;
 import gestor.Controle.ControleItensCanelVisitas;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.CancelamentoVisitasRol;
 import gestor.Modelo.ItensBloqueioRolInternos;
 import gestor.Modelo.ItensCancelamentoVisita;

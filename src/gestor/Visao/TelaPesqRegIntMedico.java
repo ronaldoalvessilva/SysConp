@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRetornoMedico.FotoInternoCrcRetEsp;
 import static gestor.Visao.TelaRetornoMedico.jDataRetorno;
 import static gestor.Visao.TelaRetornoMedico.jHorarioRetorno;

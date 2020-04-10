@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Controle.ControleConfirmacaoAtendimento;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;

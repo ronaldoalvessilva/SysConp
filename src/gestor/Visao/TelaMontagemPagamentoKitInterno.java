@@ -19,7 +19,7 @@ import gestor.Controle.ControlePavilhaoMontaKitSemestral;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Controle.ControleSelecaoKitsCompleto;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.ItensRequisicaoMateriaisInternos;

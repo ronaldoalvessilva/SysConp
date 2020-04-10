@@ -9,7 +9,7 @@ import gestor.Controle.ControleEntSaidFunc;
 import gestor.Controle.ControleItensEntSaiFunc;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EntradaSaidaFunc;
 import gestor.Modelo.ItensEntSaiFunc;
 import gestor.Modelo.LogSistema;

@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.ControleAtendimentoGrupoPsicologiaDAO;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;

@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaVisitasDiversasExterna.FotoVisitasDiversas;
 import static gestor.Visao.TelaEntradaSaidaVisitasDiversasExterna.jBtZoonVisitaDiversas;

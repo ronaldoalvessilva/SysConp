@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleHistoricoAvaliacaoServicoSocial;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.HistoricoAvaliacaoSocial;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;

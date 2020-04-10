@@ -11,7 +11,7 @@ import gestor.Controle.ControleIncidenciaPenal;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleProcessoJuridico;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DocumentosProcesso;
 import gestor.Modelo.FichaJuridica;
 import gestor.Modelo.IncidenciaPenal;

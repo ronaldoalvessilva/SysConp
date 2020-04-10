@@ -10,7 +10,7 @@ import gestor.Controle.ControlePagamentoKit;
 import gestor.Controle.PagamentoKit;
 import gestor.Controle.PagamentoKitInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ComposicaoKit;
 import gestor.Modelo.ItensPagamentoKitInterno;
 import gestor.Modelo.LogSistema;

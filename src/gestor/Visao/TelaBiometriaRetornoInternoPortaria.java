@@ -20,7 +20,7 @@ import gestor.Controle.ControleRetornoInternoPortaria;
 import gestor.Controle.ControleSituacao;
 import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensRegistroRetornoInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;

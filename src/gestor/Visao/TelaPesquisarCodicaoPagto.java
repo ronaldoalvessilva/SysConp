@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaCotacaoCompras.jBtAdicionarForn;
 import static gestor.Visao.TelaCotacaoCompras.jCondicaoPagamento;
 import java.sql.SQLException;

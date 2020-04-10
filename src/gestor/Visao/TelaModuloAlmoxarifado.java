@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleTelasSistema;
 import gestor.Controle.converterDataStringDataDate;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;

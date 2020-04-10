@@ -10,7 +10,7 @@ import gestor.Controle.ControleListaInternosKitCompleto;
 import gestor.Controle.ControleListaProdutosKitCompleto;
 import gestor.Controle.ControleProdutosKitLote;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.GravarInternosKitCompleto;
 import gestor.Modelo.PavilhaoInternosSelecionados;
 import gestor.Modelo.ProdutoInternosKitLote;

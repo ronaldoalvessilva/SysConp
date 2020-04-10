@@ -15,7 +15,7 @@ import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import static gestor.Controle.ControleRegistroAtendimentoInternoBio.qtdInternosReg;
 import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.RegistroAtendimentoInternos;

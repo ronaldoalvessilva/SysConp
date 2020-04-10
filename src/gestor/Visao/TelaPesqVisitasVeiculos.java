@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaVeiculosTerceiros.jFotoVisitaDiv;
 import static gestor.Visao.TelaEntradaSaidaVeiculosTerceiros.jCPF;

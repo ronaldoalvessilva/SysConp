@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaFichaJuridica.jDescricaoNaturezaPrisao;
 import static gestor.Visao.TelaFichaJuridica.jIdNatp;
 import java.sql.SQLException;

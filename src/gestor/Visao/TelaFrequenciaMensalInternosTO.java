@@ -9,7 +9,7 @@ import gestor.Controle.ControleFrequenciaLaborativaExterna;
 import gestor.Controle.ControleItensFrequenciaLaborativaExterna;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.FrequenciaLaborativaExterna;
 import gestor.Modelo.ItensFrequenciaLaborativaExterna;
 import gestor.Modelo.LogSistema;

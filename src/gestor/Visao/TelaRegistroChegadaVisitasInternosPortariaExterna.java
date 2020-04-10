@@ -17,7 +17,7 @@ import gestor.Controle.ControleVisitaInterno;
 import static gestor.Controle.ControleVisitaInterno.count;
 import static gestor.Controle.ControleVisitaInterno.qtdVisitas;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.Digital;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroChegadaVisitaPortariaExterna;

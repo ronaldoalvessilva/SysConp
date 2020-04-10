@@ -9,7 +9,7 @@ import gestor.Controle.ControleEncaminhaInternos;
 import gestor.Controle.ControleItensEncaminhamentoInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.EncaminhamentoCirurgiasEspecialistas;
 import gestor.Modelo.ItensEncaminhamentoInterno;
 import gestor.Modelo.LogSistema;

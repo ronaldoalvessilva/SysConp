@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
+import Utilitarios.LimiteDigitos;
 import gestor.Dao.*;
 import gestor.Modelo.EntradaSaidaFunc;
 import gestor.Modelo.ItensEntSaiFunc;

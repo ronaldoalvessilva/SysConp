@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package Utilitarios;
 
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.PrevisaoSaida;
 import static gestor.Visao.TelaBuscarPrevisaoSaidaInternos.jDescricaoOp;

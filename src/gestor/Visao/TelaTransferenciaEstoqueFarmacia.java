@@ -12,7 +12,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleLoteEnfermaria;
 import gestor.Controle.ControleTransferenciaProdutos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AtualizaLoteEnfermaria;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.ItensProdutoTransferenciaLocal;

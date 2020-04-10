@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.SolicitacaoExamesMedicoPsiquiatrico;
 import static gestor.Visao.TelaAdmissaoMedica.jIdInternoAdm;
 import java.awt.Color;

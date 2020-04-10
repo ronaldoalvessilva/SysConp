@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
+import Utilitarios.LimiteDigitos;
 import gestor.Dao.*;
 import java.awt.Color;
 import java.awt.Image;

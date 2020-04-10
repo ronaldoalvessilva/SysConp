@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaRetornoPorTransferencia.jUnidadePenal;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
-import gestor.Dao.LimiteDigitosAlfa;
+import Utilitarios.LimiteDigitosAlfa;
 
 /**
  *

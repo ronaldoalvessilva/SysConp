@@ -13,7 +13,7 @@ import gestor.Controle.ControleRetornoPortariaCrc;
 import gestor.Controle.ControleRolVisitas;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensRetornoEspontaneo;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;

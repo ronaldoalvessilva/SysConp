@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaControleFrequencia.jDataMatricula;
 import static gestor.Visao.TelaControleFrequencia.jDescricaoSala;
 import static gestor.Visao.TelaControleFrequencia.jDescricaoTurno;

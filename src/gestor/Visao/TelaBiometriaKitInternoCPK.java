@@ -18,7 +18,7 @@ import gestor.Controle.ControleProdutosKitLote;
 import gestor.Controle.DigitalInternos;
 import gestor.Controle.PagamentoKitInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensPagamentoKitInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProdutoInternosKitLote;

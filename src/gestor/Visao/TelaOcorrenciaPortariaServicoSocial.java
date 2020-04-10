@@ -12,7 +12,7 @@ import gestor.Controle.ControleOcorrenciaVisitas;
 import gestor.Controle.ControleOcorrenciaVisitasInternas;
 import gestor.Controle.ControleOcorrenciaVisitasInternasPortaria;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.OcorrenciaIndisciplinaPortaria;
 import gestor.Modelo.RegistroIndisciplinarPortaria;

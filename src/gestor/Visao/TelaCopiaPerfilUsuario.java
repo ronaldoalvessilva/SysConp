@@ -11,7 +11,7 @@ import gestor.Controle.ControleModulosUsuariosGrupos;
 import gestor.Controle.ControleTelaAcesso;
 import gestor.Controle.ControleUsuarios;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TelaAcessos;
 import gestor.Modelo.Usuarios;

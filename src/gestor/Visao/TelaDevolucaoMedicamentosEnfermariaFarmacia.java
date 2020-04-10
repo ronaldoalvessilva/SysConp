@@ -11,7 +11,7 @@ import gestor.Controle.ControleHistoricoMovimentacaoFAR;
 import gestor.Controle.ControleItensDevolucaoMedicamentosENFAR;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DevolucaoMedEnfermariaFarmacia;
 import gestor.Modelo.HistoricoMovimentacaoEstoque;
 import gestor.Modelo.ItensRequisicaoMateriaisInternos;

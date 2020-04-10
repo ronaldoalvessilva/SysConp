@@ -25,7 +25,7 @@ import gestor.Controle.ControleSELaborativaPortariaBio;
 import gestor.Controle.ControleSituacao;
 import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.DocumentosInternos;
 import gestor.Modelo.HistoricoInternosEmpresa;
 import gestor.Modelo.ItensEntradaSaidaLaborInterno;

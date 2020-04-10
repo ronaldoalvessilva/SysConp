@@ -9,7 +9,7 @@ import gestor.Controle.ControleInternosMatriculado;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMatriculaEscolar;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensInternosMatriculado;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.MatriculaEscolar;

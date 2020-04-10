@@ -10,7 +10,7 @@ import gestor.Controle.ControleItensSolicitacaoMateriaisADM;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleSolicitacaoComprasADM;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.AprovarSolicitacaoCompras;
 import gestor.Modelo.ItensAprovacaoSolicitacaoCompras;
 import gestor.Modelo.ItensSolicitacaoCompraADM;

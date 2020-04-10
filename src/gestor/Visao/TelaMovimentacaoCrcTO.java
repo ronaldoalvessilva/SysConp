@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.TelaPesquisaMovInterno.idInt;
 import java.awt.Color;

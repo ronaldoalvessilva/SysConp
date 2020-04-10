@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRequisicaoMateriaisCardapioNUTRI.jDescricaoProduto;
 import static gestor.Visao.TelaRequisicaoMateriaisCardapioNUTRI.jCodProduto;
 import static gestor.Visao.TelaRequisicaoMateriaisCardapioNUTRI.jCodigoBarras;

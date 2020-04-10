@@ -9,7 +9,7 @@ import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePreLocacao;
 import gestor.Controle.ControlePreLocacaoInternos;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensPreLocacao;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PreLocacao;

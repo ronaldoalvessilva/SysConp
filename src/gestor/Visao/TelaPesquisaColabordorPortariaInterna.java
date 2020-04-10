@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAcessosPortariaInterna.jBtZoom;
 import static gestor.Visao.TelaAcessosPortariaInterna.jFotoTransiente;
 import static gestor.Visao.TelaAcessosPortariaInterna.jIdTransiente;

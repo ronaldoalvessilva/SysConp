@@ -9,7 +9,7 @@ import gestor.Controle.ControleFichaAtividadeLaborativa;
 import gestor.Controle.ControleItensFichaAtivLaborativa;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.FichaAtividadeLaborativa;
 import gestor.Modelo.ItensFichaAtivLaborativa;
 import gestor.Modelo.LogSistema;

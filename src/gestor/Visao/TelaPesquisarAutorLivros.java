@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaLivrosRevistasJornais.jIdAutor;
 import static gestor.Visao.TelaLivrosRevistasJornais.jNomeAutor;
 import java.sql.SQLException;

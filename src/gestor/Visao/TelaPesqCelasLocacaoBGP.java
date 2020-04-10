@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaLocacaoInternoBGP.jDescricaoCela;
 import static gestor.Visao.TelaLocacaoInternoBGP.jDescricaoPavilhao;
 import static gestor.Visao.TelaLocacaoInternoBGP.jIdCela;

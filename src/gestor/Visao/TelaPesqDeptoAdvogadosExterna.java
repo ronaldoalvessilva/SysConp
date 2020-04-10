@@ -5,6 +5,8 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitos;
+import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosExterna.jIDDepto;
 import static gestor.Visao.TelaEntradaSaidaAdvogadosExterna.jDepartamento;

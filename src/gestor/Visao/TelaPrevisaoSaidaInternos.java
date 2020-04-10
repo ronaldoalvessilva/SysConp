@@ -9,7 +9,7 @@ import gestor.Controle.ControleItensPrevisaoSaida;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControlePrevisaoSaida;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PrevisaoSaida;

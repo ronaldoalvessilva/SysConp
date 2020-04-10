@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.pCodigoAlmxarifado;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.idKit;
 import static gestor.Visao.TelaMontagemPagamentoKitInterno.jCodigoProd;

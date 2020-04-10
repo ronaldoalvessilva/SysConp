@@ -8,7 +8,7 @@ package gestor.Visao;
 import gestor.Controle.ControleCapacitacaoInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.CapacitacaoInternoTO;
 import gestor.Modelo.LogSistema;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;

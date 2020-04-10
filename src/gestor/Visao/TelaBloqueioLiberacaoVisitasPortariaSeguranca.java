@@ -9,7 +9,7 @@ import gestor.Controle.ControleBloqueioOcorrenciaSeguranca;
 import gestor.Controle.ControleBloqueioOcorrenciaSegurancaVisitaInterna;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroIndisciplinarPortaria;
 import gestor.Modelo.VisitasOcorrenciaPortaria;

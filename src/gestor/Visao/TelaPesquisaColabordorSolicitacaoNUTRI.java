@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisNUTRI.jMatriculaFuncSol;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisNUTRI.jDepartamentoFuncSol;

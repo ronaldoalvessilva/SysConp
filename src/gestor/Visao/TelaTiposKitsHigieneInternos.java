@@ -9,7 +9,7 @@ import gestor.Controle.ControleItensTipoKit;
 import gestor.Controle.ControleKitHigiene;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ItensKitHigiene;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.TiposKit;

@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaAprazamentoMedicacoes.jCela;
 import static gestor.Visao.TelaAprazamentoMedicacoes.jIdInternoAbra;
 import static gestor.Visao.TelaAprazamentoMedicacoes.jNomeInternoAbra;

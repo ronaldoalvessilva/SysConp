@@ -17,7 +17,7 @@ import gestor.Controle.ControleSaldoSaque;
 import gestor.Controle.ControleSaque;
 import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.ConsultaSaldoInternos;
 import gestor.Modelo.DepositoInterno;
 import gestor.Modelo.EvadidoIndividual;

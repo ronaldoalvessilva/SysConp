@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaRequisicaoAvulsaFAR.jDescricaoProduto;
 import static gestor.Visao.TelaRequisicaoAvulsaFAR.jCodProduto;

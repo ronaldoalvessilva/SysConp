@@ -6,7 +6,7 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisFAR.jDepartamentoFuncLib;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisFAR.jIdFuncLib;
 import static gestor.Visao.TelaSolicitacaoComprasMateriaisFAR.jNomeFuncLib;

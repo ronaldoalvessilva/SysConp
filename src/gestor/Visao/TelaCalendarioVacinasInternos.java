@@ -9,7 +9,7 @@ import gestor.Controle.ControleCalendarioVacinasInterno;
 import gestor.Controle.ControleItensCartilhaVacinasInternos;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ModeloTabela;
+import Utilitarios.ModeloTabela;
 import gestor.Modelo.CalendarioVacinasInternos;
 import gestor.Modelo.ItensCartilhaVacinasInternos;
 import gestor.Modelo.LogSistema;
