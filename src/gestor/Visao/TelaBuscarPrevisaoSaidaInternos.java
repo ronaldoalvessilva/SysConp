@@ -13,7 +13,7 @@ import gestor.Controle.ControleMovInternos;
 import gestor.Controle.ControleMovSaidaEvasao;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import Utilitarios.listaPrevisaoSaidaCRC;
+import gestor.Controle.listaPrevisaoSaidaCRC;
 import gestor.Modelo.ItensMovSaidaRetorno;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.ItensSaidaInterno;

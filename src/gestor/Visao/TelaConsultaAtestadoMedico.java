@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jIdInternoConPSP;
 import static gestor.Visao.TelaConsultaProntuarioInternoCrc.jNomeInternoConPSP;
- 
+
 /**
  *
  * @author ronaldo
