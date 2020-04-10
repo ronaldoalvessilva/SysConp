@@ -12,7 +12,7 @@ import gestor.Controle.ControleMovTerapiaOcupacional;
 import gestor.Controle.ControleRegistroAtendimentoInternoBio;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.ControleAtendimentoTerapiaDAO;
-import gestor.Dao.ControleAvaliacaoIDAO;
+import gestor.Controle.ControleAvaliacaoIDAO;
 import gestor.Dao.ControleAvaliacaoIIDAO;
 import gestor.Dao.ControleHistoricoEducacionalDAO;
 import gestor.Dao.ControleHistoricoLaborativoDAO;
