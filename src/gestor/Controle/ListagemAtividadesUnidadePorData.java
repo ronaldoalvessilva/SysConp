@@ -48,7 +48,7 @@ public class ListagemAtividadesUnidadePorData {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdAtividade,StatusAtividade,"
-                    + "DataInsert,Populacao, "
+                    + "DataCadastro,Populacao, "
                     + "MesReferencia,AnoReferencia, "
                     + "DescricaoUnidade "
                     + "FROM ATIVIDADES_UNIDADE "
@@ -58,7 +58,8 @@ public class ListagemAtividadesUnidadePorData {
                     + "AND '" + pDATA_FINAL + "' ");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtividade = new AtividadesMensalRealizadaUnidades();
-                pAtividade.setDataCriacao(conecta.rs.getDate("DataInsert"));
+                pAtividade.setChave(conecta.rs.getInt("IdAtividade"));
+                pAtividade.setDataCriacao(conecta.rs.getDate("DataCadastro"));
                 pAtividade.setMediaPopulacao(conecta.rs.getInt("Populacao"));
                 pAtividade.setMesReferencia(conecta.rs.getString("MesReferencia"));
                 pAtividade.setAnoReferencia(conecta.rs.getString("AnoReferencia"));

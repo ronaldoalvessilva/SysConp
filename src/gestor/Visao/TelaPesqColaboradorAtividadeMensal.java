@@ -218,7 +218,9 @@ public class TelaPesqColaboradorAtividadeMensal extends javax.swing.JInternalFra
                 jIdFunc.setText(idFunc);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM COLABORADOR "
+                    conecta.executaSQL("SELECT COLABORADOR.IdFunc,COLABORADOR.NomeFunc, "
+                            + "COLABORADOR.MatriculaFunc, DEPARTAMENTOS.NomeDepartamento "
+                            + "FROM COLABORADOR "
                             + "INNER JOIN CARGOS "
                             + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
                             + "INNER JOIN DEPARTAMENTOS "

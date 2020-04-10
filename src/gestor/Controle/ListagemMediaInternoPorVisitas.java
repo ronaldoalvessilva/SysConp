@@ -67,7 +67,6 @@ public class ListagemMediaInternoPorVisitas {
                     + "VISITASINTERNO.NomeVisita");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pListaMedia = new AtividadesMensalRealizadaUnidades();
-               // pListaMedia.setDataEntradaVisita(conecta.rs.getDate("DataEntrada"));
                 pListaMedia.setNumeroVistantesInternos(conecta.rs.getInt("Quantidade"));
                 listaMediaVisitas.add(pListaMedia);
                 pQUANTIDADE_MEDIA_VISITAS = pQUANTIDADE_MEDIA_VISITAS + pListaMedia.getNumeroVistantesInternos();
