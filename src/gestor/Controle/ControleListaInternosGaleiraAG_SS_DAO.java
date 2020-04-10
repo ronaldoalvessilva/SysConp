@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
+import gestor.Controle.*;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaSelecaoLoteInternosAGPE.jComboBoxCelas;
-import static gestor.Visao.TelaSelecaoLoteInternosAGPE.qtdInternos;
+import static gestor.Visao.TelaSelecaoLoteInternosAGSS.jComboBoxGaleria;
+import static gestor.Visao.TelaSelecaoLoteInternosAGSS.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosCelasAG_PE_DAO {
+public class ControleListaInternosGaleiraAG_SS_DAO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
@@ -35,7 +37,7 @@ public class ControleListaInternosCelasAG_PE_DAO {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE CELAS.EndCelaPav='" + jComboBoxCelas.getSelectedItem() + "' "
+                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxGaleria.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
@@ -49,7 +51,7 @@ public class ControleListaInternosCelasAG_PE_DAO {
             }
             return listaInternosPavilhao;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleListaInternosCelasAG_PE_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleListaInternosCelasAG.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
-import gestor.Controle.*;
+import gestor.Controle.ControleListaInternosCelasAG;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaSelecaoLoteInternosAGPE.jComboBoxGaleria;
+import static gestor.Visao.TelaAtendimentoGrupoPE.jComboBoxNivelPavilhao;
 import static gestor.Visao.TelaSelecaoLoteInternosAGPE.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,11 +21,11 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosGaleiraAG_PE_DAO {
+public class ControleListaInternosPavilhaoAG_PE_DAO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
-
+    //    
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
@@ -36,7 +37,7 @@ public class ControleListaInternosGaleiraAG_PE_DAO {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE PAVILHAO.DescricaoPav='" + jComboBoxGaleria.getSelectedItem() + "' "
+                    + "WHERE PAVILHAO.NivelPav='" + jComboBoxNivelPavilhao.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();

@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
-import gestor.Dao.ControleRegistroAtendimentoInternoBioDAO;
+import gestor.Controle.ControleRegistroAtendimentoInternoBioDAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroAtendimentoInternos;

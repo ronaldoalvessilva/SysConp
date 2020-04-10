@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.Sql;
-import gestor.Dao.PdfDAO;
+import gestor.Controle.PdfDAO;
 import gestor.Modelo.PdfVO;
 //import static gestor.Visao.TelaProntuarioCrc.jIdInterno;
 import java.awt.Color;

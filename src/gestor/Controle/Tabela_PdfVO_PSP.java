@@ -5,8 +5,6 @@
  */
 package gestor.Controle;
 
-import gestor.Dao.PdfDAO;
-import gestor.Dao.PdfDAO_PSP;
 import gestor.Modelo.PdfVO;
 import java.awt.Image;
 import java.util.ArrayList;

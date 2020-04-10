@@ -5,13 +5,13 @@
  */
 package gestor.Visao;
 
-import gestor.Dao.ControleListaInternosPavilhaoAG_SS_DAO;
+import gestor.Controle.ControleListaInternosPavilhaoAG_SS_DAO;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.ControleAtendimentoGrupoPsicologiaDAO;
-import gestor.Dao.ControleListaInternosCelasAG_SS_DAO;
-import gestor.Dao.ControleListaInternosGaleiraAG_SS_DAO;
-import gestor.Dao.ControleListaInternosPavilhaoAG_II_SS_DAO;
+import gestor.Controle.ControleListaInternosCelasAG_SS_DAO;
+import gestor.Controle.ControleListaInternosGaleiraAG_SS_DAO;
+import gestor.Controle.ControleListaInternosPavilhaoAG_II_SS_DAO;
 import gestor.Dao.ModeloTabela;
 import gestor.Modelo.AtividadesGrupoPsicologia;
 import gestor.Modelo.LogSistema;

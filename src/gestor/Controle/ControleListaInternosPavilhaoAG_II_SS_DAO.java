@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
+import gestor.Controle.ControleListaInternosCelasAG;
+import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaSelecaoLoteInternosAGSS.jComboBoxCelas;
+import static gestor.Visao.TelaAtendimentoGrupoSS.jComboBoxNivelPavilhao;
 import static gestor.Visao.TelaSelecaoLoteInternosAGSS.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,11 +22,12 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosCelasAG_SS_DAO {
+public class ControleListaInternosPavilhaoAG_II_SS_DAO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
 
+    //
     public List<PavilhaoInternoMontaKit> read() throws Exception {
         conecta.abrirConexao();
         List<PavilhaoInternoMontaKit> listaInternosPavilhao = new ArrayList<PavilhaoInternoMontaKit>();
@@ -35,7 +39,7 @@ public class ControleListaInternosCelasAG_SS_DAO {
                     + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
                     + "INNER JOIN PAVILHAO "
                     + "ON CELAS.IdPav=PAVILHAO.IdPav "
-                    + "WHERE CELAS.EndCelaPav='" + jComboBoxCelas.getSelectedItem() + "' "
+                    + "WHERE PAVILHAO.NivelPav='" + jComboBoxNivelPavilhao.getSelectedItem() + "' "
                     + "ORDER BY PRONTUARIOSCRC.NomeInternoCrc");
             while (conecta.rs.next()) {
                 PavilhaoInternoMontaKit pDigi = new PavilhaoInternoMontaKit();
@@ -49,7 +53,7 @@ public class ControleListaInternosCelasAG_SS_DAO {
             }
             return listaInternosPavilhao;
         } catch (SQLException ex) {
-            Logger.getLogger(ControleListaInternosCelasAG_SS_DAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControleListaInternosCelasAG.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             conecta.desconecta();
         }

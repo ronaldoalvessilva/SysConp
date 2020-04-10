@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PdfVO;
 import gestor.Modelo.ProntuarioCrc;
 import static gestor.Visao.PdfView.jCodigoInternoPDF;

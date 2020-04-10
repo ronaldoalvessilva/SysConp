@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestor.Dao;
+package gestor.Controle;
 
 import gestor.Controle.ControleListaInternosCelasAG;
+import gestor.Dao.ConexaoBancoDados;
+import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.PavilhaoInternoMontaKit;
 import gestor.Modelo.PavilhaoInternosMontagemKit;
-import static gestor.Visao.TelaAtendimentoGrupoPE.jComboBoxNivelPavilhao;
-import static gestor.Visao.TelaSelecaoLoteInternosAGPE.qtdInternos;
+import static gestor.Visao.TelaAtendimentoGrupoSS.jComboBoxNivelPavilhao;
+import static gestor.Visao.TelaSelecaoLoteInternosAGSS.qtdInternos;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author Socializa TI 02
  */
-public class ControleListaInternosPavilhaoAG_PE_DAO {
+public class ControleListaInternosPavilhaoAG_SS_DAO {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PavilhaoInternosMontagemKit objPavInt = new PavilhaoInternosMontagemKit();
