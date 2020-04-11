@@ -4877,7 +4877,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
             jPesqNome.requestFocus();
         } else {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -4899,7 +4903,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesqMatricula.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -4919,7 +4927,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTodosInternos("SELECT * FROM PRONTUARIOSCRC "
+            this.preencherTodosInternos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -4944,7 +4956,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
         } else {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -4985,7 +5001,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
         count = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -4999,7 +5019,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -5015,7 +5039,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoCon + "' "
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoReg + "'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Evadidos")) {
-            preencherTabelaNome("SELECT * FROM PRONTUARIOSCRC "
+            preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
@@ -5029,10 +5057,6 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEva + "' ");
 
         }
-        //String situacaoTra = "TRANSFERENCIA";
-        //    String situacaoAlv = "SAIDA ALVARA";
-        //    String situacaoCon = "LIVRAMENTO CONDICIONAL";
-        //    String situacaoReg = "PROGRESSAO REGIME";
     }//GEN-LAST:event_jBtPesqSitucaoActionPerformed
 
     private void jBtCNCPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCNCPesquisaActionPerformed
@@ -5043,7 +5067,11 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
             jPesquisaCNC.requestFocus();
         } else {
-            buscarInternosMatricula("SELECT * FROM PRONTUARIOSCRC "
+            buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
+                    + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
+                    + "PRONTUARIOSCRC.Cnc "
+                    + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                     + "INNER JOIN PAISES "
