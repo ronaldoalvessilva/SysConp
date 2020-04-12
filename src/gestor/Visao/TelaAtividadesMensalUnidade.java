@@ -6533,7 +6533,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         calculoMatPED();
         calculoFreqPED();
         //AEI
-//        calculoProdutosKit();
+        calculoProdutosKit();
         //ABA SEG
         calculoCelularSEG();
         calcularObjetos();
@@ -7688,46 +7688,26 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public void calculoProdutosKit() {
         try {
             for (AtividadesMensalRealizadaUnidades dd15 : listaProdutoKit.read()) {
-                dd15.getAparelhoBarbear();
-//                dd15.getAbsorvente();
-//                dd15.getBermuda();
-//                dd15.getCamisa();
-//                dd15.getCaneca();
-//                dd15.getCobertor();
-//                dd15.getColchao();
-//                dd15.getColher();
-//                dd15.getCremeDental();
-//                dd15.getCueca();
-//                dd15.getDesodorante();
-//                dd15.getEscova();
-//                dd15.getLencol();
-//                dd15.getPapelHigienico();
-//                dd15.getPote();
-//                dd15.getSabaoPo();
-//                dd15.getSabonete();
-//                dd15.getParChinelos();
-//                dd15.getToalha();
-//                dd15.getUniformeCompleto();
                 jAparelhoBarbear.setText(String.valueOf(dd15.getAparelhoBarbear()));
-//                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
-//                jBermuda.setText(String.valueOf(dd15.getBermuda()));
-//                jCamisa.setText(String.valueOf(dd15.getCamisa()));
-//                jCaneca.setText(String.valueOf(dd15.getCaneca()));
-//                jCobertor.setText(String.valueOf(dd15.getCobertor()));
-//                jColchao.setText(String.valueOf(dd15.getColchao()));
-//                jColherPlastica.setText(String.valueOf(dd15.getColher()));
-//                jCuecas.setText(String.valueOf(dd15.getCueca()));
-//                jCremeDental.setText(String.valueOf(dd15.getCremeDental()));
-//                jDesodorante.setText(String.valueOf(dd15.getDesodorante()));
-//                jEscovaDente.setText(String.valueOf(dd15.getEscova()));
-//                jLencol.setText(String.valueOf(dd15.getLencol()));
-//                jPapelHigienico.setText(String.valueOf(dd15.getPapelHigienico()));
-//                jChinelos.setText(String.valueOf(dd15.getParChinelos()));
-//                jPote.setText(String.valueOf(dd15.getPote()));
-//                jSabaoPo.setText(String.valueOf(dd15.getSabaoPo()));
-//                jSabonete.setText(String.valueOf(dd15.getSabonete()));
-//                jToalha.setText(String.valueOf(dd15.getToalha()));
-//                jUniformeCompleto.setText(String.valueOf(dd15.getUniformeCompleto()));
+                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
+                jBermuda.setText(String.valueOf(dd15.getBermuda()));
+                jCamisa.setText(String.valueOf(dd15.getCamisa()));
+                jCaneca.setText(String.valueOf(dd15.getCaneca()));
+                jCobertor.setText(String.valueOf(dd15.getCobertor()));
+                jColchao.setText(String.valueOf(dd15.getColchao()));
+                jColherPlastica.setText(String.valueOf(dd15.getColher()));
+                jCuecas.setText(String.valueOf(dd15.getCueca()));
+                jCremeDental.setText(String.valueOf(dd15.getCremeDental()));
+                jDesodorante.setText(String.valueOf(dd15.getDesodorante()));
+                jEscovaDente.setText(String.valueOf(dd15.getEscova()));
+                jLencol.setText(String.valueOf(dd15.getLencol()));
+                jPapelHigienico.setText(String.valueOf(dd15.getPapelHigienico()));
+                jChinelos.setText(String.valueOf(dd15.getParChinelos()));
+                jPote.setText(String.valueOf(dd15.getPote()));
+                jSabaoPo.setText(String.valueOf(dd15.getSabaoPo()));
+                jSabonete.setText(String.valueOf(dd15.getSabonete()));
+                jToalha.setText(String.valueOf(dd15.getToalha()));
+                jUniformeCompleto.setText(String.valueOf(dd15.getUniformeCompleto()));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
