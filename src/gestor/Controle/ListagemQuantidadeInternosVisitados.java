@@ -9,7 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoFinal;
 import static gestor.Visao.TelaAtividadesMensalUnidade.jDataPeriodoInicial;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_MEDIA_VISITAS;
+import static gestor.Visao.TelaAtividadesMensalUnidade.pQUANTIDADE_INTERNOS;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class ListagemMediaInternoPorVisitas {
+public class ListagemQuantidadeInternosVisitados {
 
     //MODELO DA LISTAGEM PARA O SERVIÇO SOCIAL. AINDA NÃO FOI DEVIDAMENTE IMPLEMENTADA.
     ConexaoBancoDados conecta = new ConexaoBancoDados();
@@ -31,10 +31,10 @@ public class ListagemMediaInternoPorVisitas {
     //
     String pDATA_INICIAL;
     String pDATA_FINAL;
-    int pTOTAL_REGISTRO = 0;
+    int pQUANTIDADE_PRODUTO = 0;
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
-        pQUANTIDADE_MEDIA_VISITAS = 0;
+        pQUANTIDADE_INTERNOS = 0;
         List<AtividadesMensalRealizadaUnidades> listaMediaVisitas = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
@@ -51,24 +51,17 @@ public class ListagemMediaInternoPorVisitas {
         try {
             conecta.executaSQL("SELECT ITENSFAMILIAR.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc, "
-                    + "ITENSFAMILIAR.IdVisita, "
-                    + "VISITASINTERNO.NomeVisita, "
-                    + "SUM(ITENSFAMILIAR.Quantidade) AS QUANTIDADE "
-                    + "FROM VISITASINTERNO "
-                    + "INNER JOIN ITENSFAMILIAR "
-                    + "ON VISITASINTERNO.IdVisita=ITENSFAMILIAR.IdVisita "
+                    + "ITENSFAMILIAR.DataEntrada "
+                    + "FROM ITENSFAMILIAR "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITENSFAMILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON ITENSFAMILIAR.IdVisita=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE CONVERT(DATE, ITENSFAMILIAR.DataEntrada) BETWEEN'" + pDATA_INICIAL + "' "
-                    + "AND '" + pDATA_FINAL + "' "
-                    + "GROUP BY ITENSFAMILIAR.IdInternoCrc, "
-                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENSFAMILIAR.IdVisita, "
-                    + "VISITASINTERNO.NomeVisita");
+                    + "AND '" + pDATA_FINAL + "' ");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pListaMedia = new AtividadesMensalRealizadaUnidades();
-                pListaMedia.setNumeroVistantesInternos(conecta.rs.getInt("Quantidade"));
+                pListaMedia.setDataAtendimento(conecta.rs.getDate("DataEntrada"));
                 listaMediaVisitas.add(pListaMedia);
-                pQUANTIDADE_MEDIA_VISITAS = pQUANTIDADE_MEDIA_VISITAS + pListaMedia.getNumeroVistantesInternos();
+                pQUANTIDADE_INTERNOS = pQUANTIDADE_INTERNOS + 1;
             }
             return listaMediaVisitas;
         } catch (SQLException ex) {

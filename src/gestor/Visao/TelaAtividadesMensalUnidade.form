@@ -1717,6 +1717,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxAnoReferencia">
@@ -2016,6 +2017,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel153">
@@ -4688,8 +4690,8 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel27" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel28" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel28" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4899,7 +4901,7 @@
                               <Component id="jLabel57" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel62" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel54" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jToalha" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -4983,7 +4985,7 @@
                               <Component id="jLabel61" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jSabaoPo" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -8819,8 +8821,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="jBtCalcularTotais" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtCalcularTotais" linkSize="48" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBtAtualizarDatas" linkSize="48" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -8828,7 +8832,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace pref="28" max="32767" attributes="0"/>
-                          <Component id="jBtCalcularTotais" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jBtCalcularTotais" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtAtualizarDatas" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -8844,9 +8851,25 @@
                       <Image iconType="3" name="/gestor/Imagens/calculator_edit.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Calular Totais"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Atualizar das Atendimento"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCalcularTotaisActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtAtualizarDatas">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="66" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/gestor/Imagens/calendar_view_month.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Atualizar Datas"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Atualizar das Atendimento"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtualizarDatasActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

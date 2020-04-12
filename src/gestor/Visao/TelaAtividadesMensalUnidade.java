@@ -7,7 +7,7 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAtividadesUnidade;
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ControleRefreshDataMovi;
+import gestor.Controle.ConversaoDatasAtividadesUnidades;
 import gestor.Controle.ListagemAgravosDiagnosticados;
 import gestor.Controle.ListagemAgravosDiagnosticadosEVO;
 import gestor.Controle.ListagemAtendimentoADMEVOLTerapaia;
@@ -37,7 +37,7 @@ import gestor.Controle.ListagemInternosProgressao;
 import gestor.Controle.ListagemInternosSaidaAlvara;
 import gestor.Controle.ListagemInternosSaidaTMP;
 import gestor.Controle.ListagemInternosVacinados;
-import gestor.Controle.ListagemMediaInternoPorVisitas;
+import gestor.Controle.ListagemQuantidadeInternosVisitados;
 import gestor.Controle.ListagemMediaPopulacao;
 import gestor.Controle.ListagemNumerosDiasVisitas;
 import gestor.Controle.ListagemNumerosDiasVisitasInterno;
@@ -46,6 +46,8 @@ import gestor.Controle.ListagemQuantidadeAparelhoCeluar;
 import gestor.Controle.ListagemQuantidadeObjetos;
 import gestor.Controle.ListagemQuantidadeProdutosKit;
 import gestor.Controle.ListagemQuantidadeRevistaPorCela;
+import gestor.Controle.ListagemQuantidadeVistantes;
+import gestor.Controle.PesquisaMesAno;
 import static gestor.Visao.TelaModuloAdmPessoal.codAbrirADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codAlterarADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codConsultarADM;
@@ -85,6 +87,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    //MANUTENÇÃO
     AtividadesMensalRealizadaUnidades objAtividade = new AtividadesMensalRealizadaUnidades();
     ListagemAtividadesUnidadeTodas listaTodosReg = new ListagemAtividadesUnidadeTodas();
     ListagemAtividadesUnidadePorData listaAtividadeData = new ListagemAtividadesUnidadePorData();
@@ -93,12 +96,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemAtividadesUnidadePorMesAnoRef listaAtividadeMesAno = new ListagemAtividadesUnidadePorMesAnoRef();
     ListagemMediaPopulacao listaMediaPop = new ListagemMediaPopulacao();
     ControleAtividadesUnidade control = new ControleAtividadesUnidade();
+    PesquisaMesAno pesquisaMesAno = new PesquisaMesAno();
     //ABA AF
     ListagemAtendimentoADMServicoSocial listaSSDao = new ListagemAtendimentoADMServicoSocial();
     ListagemAtendimentoADMServicoSocialFamilia listaDaoFam = new ListagemAtendimentoADMServicoSocialFamilia();
     ListagemNumerosDiasVisitasInterno listaDiasVIDao = new ListagemNumerosDiasVisitasInterno();
     ListagemNumerosVisitasInternoMenor listaVCDao = new ListagemNumerosVisitasInternoMenor();
-    ListagemMediaInternoPorVisitas listagemMediaVistas = new ListagemMediaInternoPorVisitas();
+    ListagemQuantidadeInternosVisitados listagemInternosVistados = new ListagemQuantidadeInternosVisitados();
+    ListagemQuantidadeVistantes listagemQuantidadeVistantes = new ListagemQuantidadeVistantes();
     ListagemNumerosDiasVisitas listaNumDiasVDao = new ListagemNumerosDiasVisitas();
     ListagemInternosCivilmente listaInternosCivil = new ListagemInternosCivilmente();
     //ABA ASI
@@ -133,13 +138,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemInternosSaidaTMP listaSaidaTMP = new ListagemInternosSaidaTMP();
     ListagemAtendimentoADMEVOLTerapaia listaADMEVO = new ListagemAtendimentoADMEVOLTerapaia();
     //
-    ControleRefreshDataMovi converteDate = new ControleRefreshDataMovi();
+    ConversaoDatasAtividadesUnidades converteDate = new ConversaoDatasAtividadesUnidades();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
-    String nomeModuloTela = "AdmPessoal:Colaboradores:Ficha Cadastral:Manutenção";
-    String nomeModuloTela1 = "AdmPessoal:Colaboradores:Ficha Cadastral:Dependentes";
+    String nomeModuloTela = "AdmPessoal:Atividades Realizadas na Unidade:Manutenção";
     String statusMov;
     String horaMov;
     String dataModFinal;
@@ -167,7 +171,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_ATE_FAMILIA = 0;
     public static int pQUANTIDADE_DIAS_VISITADOS = 0;
     public static int pQUANTIDADE_VISITA_FAMILIA_INT = 0;
-    public static int pQUANTIDADE_MEDIA_VISITAS = 0;
+    public static int pQUANTIDADE_VISITAS = 0;
+    public static int pQUANTIDADE_INTERNOS = 0;
     int pMEDIA_VISITAS_POR_INTERNOS = 0;
     int pMEDIA_VISITAS_POR_DIA = 0;
     public static int pQUANTIDADE_VISITA_CRIANCA_INT = 0;
@@ -698,6 +703,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jTotal05 = new javax.swing.JFormattedTextField();
         jPanel59 = new javax.swing.JPanel();
         jBtCalcularTotais = new javax.swing.JButton();
+        jBtAtualizarDatas = new javax.swing.JButton();
         jPanel51 = new javax.swing.JPanel();
         jLabel135 = new javax.swing.JLabel();
         jTotal02 = new javax.swing.JFormattedTextField();
@@ -3245,7 +3251,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jAparelhoBarbear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel57)
                     .addComponent(jLabel62))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel54)
                     .addComponent(jToalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3313,7 +3319,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel61)
                     .addComponent(jSabaoPo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel28Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAbsorvente, jAparelhoBarbear, jBermuda, jCamisa, jCaneca, jChinelos, jCobertor, jColchao, jCremeDental, jCuecas, jDesodorante, jEscovaDente, jLencol, jPapelHigienico, jPote, jSabaoPo, jSabonete, jToalha, jUniformeCompleto});
@@ -3470,8 +3476,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8))
         );
 
         jTabbedPane1.addTab("AMI", jPanel7);
@@ -5332,9 +5338,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtCalcularTotais.setForeground(new java.awt.Color(204, 0, 0));
         jBtCalcularTotais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_edit.png"))); // NOI18N
         jBtCalcularTotais.setText("Calular Totais");
+        jBtCalcularTotais.setToolTipText("Atualizar das Atendimento");
         jBtCalcularTotais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCalcularTotaisActionPerformed(evt);
+            }
+        });
+
+        jBtAtualizarDatas.setForeground(new java.awt.Color(0, 102, 0));
+        jBtAtualizarDatas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calendar_view_month.png"))); // NOI18N
+        jBtAtualizarDatas.setText("Atualizar Datas");
+        jBtAtualizarDatas.setToolTipText("Atualizar das Atendimento");
+        jBtAtualizarDatas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtualizarDatasActionPerformed(evt);
             }
         });
 
@@ -5345,13 +5362,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             .addGroup(jPanel59Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jBtCalcularTotais)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtAtualizarDatas)
+                .addContainerGap())
         );
+
+        jPanel59Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAtualizarDatas, jBtCalcularTotais});
+
         jPanel59Layout.setVerticalGroup(
             jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel59Layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jBtCalcularTotais)
+                .addGroup(jPanel59Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtCalcularTotais)
+                    .addComponent(jBtAtualizarDatas))
                 .addGap(22, 22, 22))
         );
 
@@ -6015,17 +6039,31 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             } else {
                 beans();
                 if (acao == 1) {
-                    objAtividade.setUsuarioInsert(nameUser);
-                    objAtividade.setDataInsert(dataModFinal);
-                    objAtividade.setHorarioInsert(horaMov);
-                    //
-                    control.incluirAtividade(objAtividade);
-                    buscarChave();
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearHabilitarTodosCampos(!true, !true);
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                    try {
+                        for (AtividadesMensalRealizadaUnidades pp : pesquisaMesAno.read()) {
+                            pp.getAnoReferencia();
+                            pp.getMesReferencia();
+                            if (pp.getAnoReferencia().equals(jComboBoxMesReferencia.getSelectedItem())
+                                    && pp.getMesReferencia().equals(jComboBoxAnoReferencia.getSelectedItem())) {
+                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                            } else {
+                                objAtividade.setUsuarioInsert(nameUser);
+                                objAtividade.setDataInsert(dataModFinal);
+                                objAtividade.setHorarioInsert(horaMov);
+                                //
+                                control.incluirAtividade(objAtividade);
+                                buscarChave();
+                                objLog();
+                                controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                                bloquearHabilitarTodosCampos(!true, !true);
+                                Salvar();
+                                JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                            }
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 if (acao == 2) {
                     objAtividade.setUsuarioUp(nameUser);
@@ -6508,140 +6546,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtCalcularTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularTotaisActionPerformed
         // TODO add your handling code here:
-        //ABA ASSI
-        int pQUANT_TOTAL_T01 = 0;
-        pQUANT_TOTAL_T01 = Integer.parseInt(jAtendimentoPsiPreso.getText())
-                + Integer.parseInt(jAtendimentoPsiFamilaPreso.getText())
-                + Integer.parseInt(jNumeroDiasVisitas.getText())
-                + Integer.parseInt(jNumeroVistantesInternos.getText())
-                + Integer.parseInt(jMediaVisitasDia.getText())
-                + Integer.parseInt(jMediaVisitasInterno.getText())
-                + Integer.parseInt(jNumeroCriancasVisitas.getText())
-                + Integer.parseInt(jPresoIdentCivil.getText())
-                + Integer.parseInt(jPresoAtiviReligiosa.getText());
-        jTotal01.setText(String.valueOf(pQUANT_TOTAL_T01));
-        // ABA AFV
-        int pQUANT_TOTAL_T02 = 0;
-        pQUANT_TOTAL_T02 = Integer.parseInt(jLanchesServidoVisita.getText())
-                + Integer.parseInt(jAlimentaServidaEmpContCafe.getText())
-                + Integer.parseInt(jAlimentaServidaEmpContAlmoco.getText())
-                + Integer.parseInt(jAlimentaServidaEmpContJantar.getText())
-                + Integer.parseInt(jAlimentaServidaEmpContLanche.getText())
-                + Integer.parseInt(jAlimentaServidaServContCafe.getText())
-                + Integer.parseInt(jAlimentaServidaServContAlmoco.getText())
-                + Integer.parseInt(jAlimentaServidaServContJantar.getText())
-                + Integer.parseInt(jAlimentaServidaServContLanche.getText());
-        jTotal02.setText(String.valueOf(pQUANT_TOTAL_T02));
-        // ABA ASI
-        int pQUANT_TOTAL_T03 = 0;
-        pQUANT_TOTAL_T03 = Integer.parseInt(jAtendimentoMedClinico.getText())
-                + Integer.parseInt(jAtendimentoMedPsi.getText())
-                + Integer.parseInt(jAtendimentoEnfermagem.getText())
-                + Integer.parseInt(jProcedimentoOdontologico.getText())
-                + Integer.parseInt(jAtendimentoPsicologico.getText())
-                + Integer.parseInt(jTratamentoAgravDiaginostico.getText())
-                + Integer.parseInt(jAtendimentoOdontologicos.getText())
-                + Integer.parseInt(jPresoDoencaInfecto.getText())
-                + Integer.parseInt(jControlHipertensao.getText())
-                + Integer.parseInt(jControleDiabetes.getText())
-                + Integer.parseInt(jPresosVacinados.getText())
-                + Integer.parseInt(jAspectosSexual.getText());
-        jTotal03.setText(String.valueOf(pQUANT_TOTAL_T03));
-        //ABA AEI
-        int pQUANT_TOTAL_T04 = 0;
-        pQUANT_TOTAL_T04 = Integer.parseInt(jPresoSentenciadoEF.getText())
-                + Integer.parseInt(jPresoSentencaMatFreqEF.getText())
-                + Integer.parseInt(jPresoAtiviPraticaEsportiva.getText());
-        jTotal04.setText(String.valueOf(pQUANT_TOTAL_T04));
-        //ABA AMI
-        int pQUANT_TOTAL_T05 = 0;
-        pQUANT_TOTAL_T05 = Integer.parseInt(jAparelhoBarbear.getText())
-                + Integer.parseInt(jAbsorvente.getText())
-                + Integer.parseInt(jBermuda.getText())
-                + Integer.parseInt(jCamisa.getText())
-                + Integer.parseInt(jCaneca.getText())
-                + Integer.parseInt(jCobertor.getText())
-                + Integer.parseInt(jColherPlastica.getText())
-                + Integer.parseInt(jColchao.getText())
-                + Integer.parseInt(jCuecas.getText())
-                + Integer.parseInt(jCremeDental.getText())
-                + Integer.parseInt(jDesodorante.getText())
-                + Integer.parseInt(jEscovaDente.getText())
-                + Integer.parseInt(jLencol.getText())
-                + Integer.parseInt(jPapelHigienico.getText())
-                + Integer.parseInt(jChinelos.getText())
-                + Integer.parseInt(jPote.getText())
-                + Integer.parseInt(jSabaoPo.getText())
-                + Integer.parseInt(jSabonete.getText())
-                + Integer.parseInt(jToalha.getText())
-                + Integer.parseInt(jUniformeCompleto.getText());
-        jTotal05.setText(String.valueOf(pQUANT_TOTAL_T05));
-        //ABA SEG
-        int pQUANT_TOTAL_T06 = 0;
-        pQUANT_TOTAL_T06 = Integer.parseInt(jNumeroAparelhoConvive.getText())
-                + Integer.parseInt(jObjetosMateriais.getText())
-                + Integer.parseInt(jNumeroProcedRevista.getText())
-                + Integer.parseInt(jNumeroOcorrenciasInd.getText())
-                + Integer.parseInt(jNumeroOcorrenciaTentaFuga.getText())
-                + Integer.parseInt(jNumeroOcorrenciaRebeliao.getText())
-                + Integer.parseInt(jNumeroOcorrenciaPessoaFerida.getText())
-                + Integer.parseInt(jNumeroOcorrenciaPessoasRefem.getText())
-                + Integer.parseInt(jNumeroOcorrenciaPessoasFeridaMortas.getText())
-                + Integer.parseInt(jNumeroHorasTVCFTV.getText())
-                + Integer.parseInt(jNumeroDiasSemScannerCorpo.getText())
-                + Integer.parseInt(jNumeroDiasIntMetaPortatil.getText())
-                + Integer.parseInt(jNumeroInterFuncVeiculosTP.getText())
-                + Integer.parseInt(jNumeroFalhasGerador.getText())
-                + Integer.parseInt(jNumeroHorasBloqueador.getText())
-                + Integer.parseInt(jNumeroAbsorEntregueVisitas.getText())
-                + Integer.parseInt(jNumeroFraldasEntreguePortaria.getText());
-        jTotal06.setText(String.valueOf(pQUANT_TOTAL_T06));
-        //ABA AJ
-        int pQUANT_TOTAL_T07 = 0;
-        pQUANT_TOTAL_T07 = Integer.parseInt(jAtendInternoSAJ.getText())
-                + Integer.parseInt(jAlvaraSolturaCumprido.getText())
-                + Integer.parseInt(jLivarmentoCondRequerido.getText())
-                + Integer.parseInt(jProgressaoRegDeferido.getText())
-                + Integer.parseInt(jSaidasTempDeferida.getText())
-                + Integer.parseInt(jAlvarSolRecebeUni.getText())
-                + Integer.parseInt(jAudienciaProvocadas.getText())
-                + Integer.parseInt(jAudienciaCumpridas.getText())
-                + Integer.parseInt(jJuriPopular.getText())
-                + Integer.parseInt(jJuriPopularCumprido.getText())
-                + Integer.parseInt(jLiberdadeProvRequerida.getText())
-                + Integer.parseInt(jLiberdadeProvDeferida.getText())
-                + Integer.parseInt(jIndultosRequeridos.getText())
-                + Integer.parseInt(jIndultosDeferidos.getText())
-                + Integer.parseInt(jRemissaoPenaRequerida.getText())
-                + Integer.parseInt(jRemissaoPenaDeferida.getText())
-                + Integer.parseInt(jCondicionalRequerida.getText())
-                + Integer.parseInt(jProgressaoRegRequerido.getText())
-                + Integer.parseInt(jSaidaTempRequerida.getText())
-                + Integer.parseInt(jHabeasCorpusImpetrados.getText())
-                + Integer.parseInt(jHabeasCorpusDeferido.getText())
-                + Integer.parseInt(jLaudoPsicoEmitidos.getText())
-                + Integer.parseInt(jLaudosPsiqEmitidos.getText())
-                + Integer.parseInt(jTP.getText());
-        jTotal07.setText(String.valueOf(pQUANT_TOTAL_T07));
-        //ABA AL
-        int pQUANT_TOTAL_T08 = 0;
-        pQUANT_TOTAL_T08 = Integer.parseInt(jTriagemAtendInernos.getText())
-                + Integer.parseInt(jPresoMatProfissional.getText())
-                + Integer.parseInt(jPresoCertificaCursoProf.getText())
-                + Integer.parseInt(jOcupacaoAtiviRecreaReligiosa.getText())
-                + Integer.parseInt(PresoAtiviArtesPlasticas.getText())
-                + Integer.parseInt(jPresoAtiviLiteraria.getText())
-                + Integer.parseInt(jPresoAtiviCantoTeatro.getText())
-                + Integer.parseInt(jPresoSentecaAtivLaboralRemun.getText())
-                + Integer.parseInt(jPresoAtiviLaboralNaoRemunera.getText());
-        jTotal08.setText(String.valueOf(pQUANT_TOTAL_T08));
-        //ABA AFI
-        int pQUANT_TOTAL_T09 = 0;
-        pQUANT_TOTAL_T09 = Integer.parseInt(jAlimentaServidaInternoCafe.getText())
-                + Integer.parseInt(jAlimentaServidaInternoAlmoco.getText())
-                + Integer.parseInt(jAlimentaServidaInternoJantar.getText());
-        jTotal09.setText(String.valueOf(pQUANT_TOTAL_T09));
+        calculosTOTAIS();
     }//GEN-LAST:event_jBtCalcularTotaisActionPerformed
+
+    private void jBtAtualizarDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarDatasActionPerformed
+        // TODO add your handling code here:
+        atualizarDatasRegistrosTabelas();
+    }//GEN-LAST:event_jBtAtualizarDatasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -6683,6 +6594,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBtAlterar16;
     private javax.swing.JButton jBtAlterar17;
     private javax.swing.JButton jBtAlterar18;
+    private javax.swing.JButton jBtAtualizarDatas;
     private javax.swing.JButton jBtAuditoria;
     private javax.swing.JButton jBtAuditoria10;
     private javax.swing.JButton jBtAuditoria11;
@@ -6781,9 +6693,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jColchao;
     private javax.swing.JFormattedTextField jColherPlastica;
     public static javax.swing.JComboBox<String> jComboBoxAnoPesquisa;
-    private javax.swing.JComboBox<String> jComboBoxAnoReferencia;
+    public static javax.swing.JComboBox<String> jComboBoxAnoReferencia;
     public static javax.swing.JComboBox<String> jComboBoxMesPesquisa;
-    private javax.swing.JComboBox<String> jComboBoxMesReferencia;
+    public static javax.swing.JComboBox<String> jComboBoxMesReferencia;
     private javax.swing.JFormattedTextField jCondicionalRequerida;
     private javax.swing.JFormattedTextField jControlHipertensao;
     private javax.swing.JFormattedTextField jControleDiabetes;
@@ -7475,10 +7387,21 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //MÉDIA DE VISITAS POR INTERNO
     public void calcularMediaVisitasInterno() {
+        //FORMULA DA MÉDIDA
+        //MV=QV/QI
+        //LISTAGEM DE INTERNOS
         try {
-            for (AtividadesMensalRealizadaUnidades dd25 : listagemMediaVistas.read()) {
+            for (AtividadesMensalRealizadaUnidades dd25 : listagemInternosVistados.read()) {
                 dd25.getDataEntradaVisita();
-                pMEDIA_VISITAS_POR_INTERNOS = pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_MEDIA_VISITAS;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //LISTAGEM DE VISITAS
+        try {
+            for (AtividadesMensalRealizadaUnidades dd25 : listagemQuantidadeVistantes.read()) {
+                dd25.getDataEntradaVisita();
+                pMEDIA_VISITAS_POR_INTERNOS = pQUANTIDADE_VISITAS / pQUANTIDADE_INTERNOS;
                 jMediaVisitasInterno.setText(String.valueOf(pMEDIA_VISITAS_POR_INTERNOS));
             }
         } catch (Exception ex) {
@@ -7766,45 +7689,45 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd15 : listaProdutoKit.read()) {
                 dd15.getAparelhoBarbear();
-                dd15.getAbsorvente();
-                dd15.getBermuda();
-                dd15.getCamisa();
-                dd15.getCaneca();
-                dd15.getCobertor();
-                dd15.getColchao();
-                dd15.getColher();
-                dd15.getCremeDental();
-                dd15.getCueca();
-                dd15.getDesodorante();
-                dd15.getEscova();
-                dd15.getLencol();
-                dd15.getPapelHigienico();
-                dd15.getPote();
-                dd15.getSabaoPo();
-                dd15.getSabonete();
-                dd15.getParChinelos();
-                dd15.getToalha();
-                dd15.getUniformeCompleto();
+//                dd15.getAbsorvente();
+//                dd15.getBermuda();
+//                dd15.getCamisa();
+//                dd15.getCaneca();
+//                dd15.getCobertor();
+//                dd15.getColchao();
+//                dd15.getColher();
+//                dd15.getCremeDental();
+//                dd15.getCueca();
+//                dd15.getDesodorante();
+//                dd15.getEscova();
+//                dd15.getLencol();
+//                dd15.getPapelHigienico();
+//                dd15.getPote();
+//                dd15.getSabaoPo();
+//                dd15.getSabonete();
+//                dd15.getParChinelos();
+//                dd15.getToalha();
+//                dd15.getUniformeCompleto();
                 jAparelhoBarbear.setText(String.valueOf(dd15.getAparelhoBarbear()));
-                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
-                jBermuda.setText(String.valueOf(dd15.getBermuda()));
-                jCamisa.setText(String.valueOf(dd15.getCamisa()));
-                jCaneca.setText(String.valueOf(dd15.getCaneca()));
-                jCobertor.setText(String.valueOf(dd15.getCobertor()));
-                jColchao.setText(String.valueOf(dd15.getColchao()));
-                jColherPlastica.setText(String.valueOf(dd15.getColher()));
-                jCuecas.setText(String.valueOf(dd15.getCueca()));
-                jCremeDental.setText(String.valueOf(dd15.getCremeDental()));
-                jDesodorante.setText(String.valueOf(dd15.getDesodorante()));
-                jEscovaDente.setText(String.valueOf(dd15.getEscova()));
-                jLencol.setText(String.valueOf(dd15.getLencol()));
-                jPapelHigienico.setText(String.valueOf(dd15.getPapelHigienico()));
-                jChinelos.setText(String.valueOf(dd15.getParChinelos()));
-                jPote.setText(String.valueOf(dd15.getPote()));
-                jSabaoPo.setText(String.valueOf(dd15.getSabaoPo()));
-                jSabonete.setText(String.valueOf(dd15.getSabonete()));
-                jToalha.setText(String.valueOf(dd15.getToalha()));
-                jUniformeCompleto.setText(String.valueOf(dd15.getUniformeCompleto()));
+//                jAbsorvente.setText(String.valueOf(dd15.getAbsorvente()));
+//                jBermuda.setText(String.valueOf(dd15.getBermuda()));
+//                jCamisa.setText(String.valueOf(dd15.getCamisa()));
+//                jCaneca.setText(String.valueOf(dd15.getCaneca()));
+//                jCobertor.setText(String.valueOf(dd15.getCobertor()));
+//                jColchao.setText(String.valueOf(dd15.getColchao()));
+//                jColherPlastica.setText(String.valueOf(dd15.getColher()));
+//                jCuecas.setText(String.valueOf(dd15.getCueca()));
+//                jCremeDental.setText(String.valueOf(dd15.getCremeDental()));
+//                jDesodorante.setText(String.valueOf(dd15.getDesodorante()));
+//                jEscovaDente.setText(String.valueOf(dd15.getEscova()));
+//                jLencol.setText(String.valueOf(dd15.getLencol()));
+//                jPapelHigienico.setText(String.valueOf(dd15.getPapelHigienico()));
+//                jChinelos.setText(String.valueOf(dd15.getParChinelos()));
+//                jPote.setText(String.valueOf(dd15.getPote()));
+//                jSabaoPo.setText(String.valueOf(dd15.getSabaoPo()));
+//                jSabonete.setText(String.valueOf(dd15.getSabonete()));
+//                jToalha.setText(String.valueOf(dd15.getToalha()));
+//                jUniformeCompleto.setText(String.valueOf(dd15.getUniformeCompleto()));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
@@ -7872,6 +7795,155 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    //
+    public void calculosTOTAIS() {
+        //ABA ASSI
+        int pQUANT_TOTAL_T01 = 0;
+        pQUANT_TOTAL_T01 = Integer.parseInt(jAtendimentoPsiPreso.getText())
+                + Integer.parseInt(jAtendimentoPsiFamilaPreso.getText())
+                + Integer.parseInt(jNumeroDiasVisitas.getText())
+                + Integer.parseInt(jNumeroVistantesInternos.getText())
+                + Integer.parseInt(jMediaVisitasDia.getText())
+                + Integer.parseInt(jMediaVisitasInterno.getText())
+                + Integer.parseInt(jNumeroCriancasVisitas.getText())
+                + Integer.parseInt(jPresoIdentCivil.getText())
+                + Integer.parseInt(jPresoAtiviReligiosa.getText());
+        jTotal01.setText(String.valueOf(pQUANT_TOTAL_T01));
+        // ABA AFV
+        int pQUANT_TOTAL_T02 = 0;
+        pQUANT_TOTAL_T02 = Integer.parseInt(jLanchesServidoVisita.getText())
+                + Integer.parseInt(jAlimentaServidaEmpContCafe.getText())
+                + Integer.parseInt(jAlimentaServidaEmpContAlmoco.getText())
+                + Integer.parseInt(jAlimentaServidaEmpContJantar.getText())
+                + Integer.parseInt(jAlimentaServidaEmpContLanche.getText())
+                + Integer.parseInt(jAlimentaServidaServContCafe.getText())
+                + Integer.parseInt(jAlimentaServidaServContAlmoco.getText())
+                + Integer.parseInt(jAlimentaServidaServContJantar.getText())
+                + Integer.parseInt(jAlimentaServidaServContLanche.getText());
+        jTotal02.setText(String.valueOf(pQUANT_TOTAL_T02));
+        // ABA ASI
+        int pQUANT_TOTAL_T03 = 0;
+        pQUANT_TOTAL_T03 = Integer.parseInt(jAtendimentoMedClinico.getText())
+                + Integer.parseInt(jAtendimentoMedPsi.getText())
+                + Integer.parseInt(jAtendimentoEnfermagem.getText())
+                + Integer.parseInt(jProcedimentoOdontologico.getText())
+                + Integer.parseInt(jAtendimentoPsicologico.getText())
+                + Integer.parseInt(jTratamentoAgravDiaginostico.getText())
+                + Integer.parseInt(jAtendimentoOdontologicos.getText())
+                + Integer.parseInt(jPresoDoencaInfecto.getText())
+                + Integer.parseInt(jControlHipertensao.getText())
+                + Integer.parseInt(jControleDiabetes.getText())
+                + Integer.parseInt(jPresosVacinados.getText())
+                + Integer.parseInt(jAspectosSexual.getText());
+        jTotal03.setText(String.valueOf(pQUANT_TOTAL_T03));
+        //ABA AEI
+        int pQUANT_TOTAL_T04 = 0;
+        pQUANT_TOTAL_T04 = Integer.parseInt(jPresoSentenciadoEF.getText())
+                + Integer.parseInt(jPresoSentencaMatFreqEF.getText())
+                + Integer.parseInt(jPresoAtiviPraticaEsportiva.getText());
+        jTotal04.setText(String.valueOf(pQUANT_TOTAL_T04));
+        //ABA AMI
+        int pQUANT_TOTAL_T05 = 0;
+        pQUANT_TOTAL_T05 = Integer.parseInt(jAparelhoBarbear.getText())
+                + Integer.parseInt(jAbsorvente.getText())
+                + Integer.parseInt(jBermuda.getText())
+                + Integer.parseInt(jCamisa.getText())
+                + Integer.parseInt(jCaneca.getText())
+                + Integer.parseInt(jCobertor.getText())
+                + Integer.parseInt(jColherPlastica.getText())
+                + Integer.parseInt(jColchao.getText())
+                + Integer.parseInt(jCuecas.getText())
+                + Integer.parseInt(jCremeDental.getText())
+                + Integer.parseInt(jDesodorante.getText())
+                + Integer.parseInt(jEscovaDente.getText())
+                + Integer.parseInt(jLencol.getText())
+                + Integer.parseInt(jPapelHigienico.getText())
+                + Integer.parseInt(jChinelos.getText())
+                + Integer.parseInt(jPote.getText())
+                + Integer.parseInt(jSabaoPo.getText())
+                + Integer.parseInt(jSabonete.getText())
+                + Integer.parseInt(jToalha.getText())
+                + Integer.parseInt(jUniformeCompleto.getText());
+        jTotal05.setText(String.valueOf(pQUANT_TOTAL_T05));
+        //ABA SEG
+        int pQUANT_TOTAL_T06 = 0;
+        pQUANT_TOTAL_T06 = Integer.parseInt(jNumeroAparelhoConvive.getText())
+                + Integer.parseInt(jObjetosMateriais.getText())
+                + Integer.parseInt(jNumeroProcedRevista.getText())
+                + Integer.parseInt(jNumeroOcorrenciasInd.getText())
+                + Integer.parseInt(jNumeroOcorrenciaTentaFuga.getText())
+                + Integer.parseInt(jNumeroOcorrenciaRebeliao.getText())
+                + Integer.parseInt(jNumeroOcorrenciaPessoaFerida.getText())
+                + Integer.parseInt(jNumeroOcorrenciaPessoasRefem.getText())
+                + Integer.parseInt(jNumeroOcorrenciaPessoasFeridaMortas.getText())
+                + Integer.parseInt(jNumeroHorasTVCFTV.getText())
+                + Integer.parseInt(jNumeroDiasSemScannerCorpo.getText())
+                + Integer.parseInt(jNumeroDiasIntMetaPortatil.getText())
+                + Integer.parseInt(jNumeroInterFuncVeiculosTP.getText())
+                + Integer.parseInt(jNumeroFalhasGerador.getText())
+                + Integer.parseInt(jNumeroHorasBloqueador.getText())
+                + Integer.parseInt(jNumeroAbsorEntregueVisitas.getText())
+                + Integer.parseInt(jNumeroFraldasEntreguePortaria.getText());
+        jTotal06.setText(String.valueOf(pQUANT_TOTAL_T06));
+        //ABA AJ
+        int pQUANT_TOTAL_T07 = 0;
+        pQUANT_TOTAL_T07 = Integer.parseInt(jAtendInternoSAJ.getText())
+                + Integer.parseInt(jAlvaraSolturaCumprido.getText())
+                + Integer.parseInt(jLivarmentoCondRequerido.getText())
+                + Integer.parseInt(jProgressaoRegDeferido.getText())
+                + Integer.parseInt(jSaidasTempDeferida.getText())
+                + Integer.parseInt(jAlvarSolRecebeUni.getText())
+                + Integer.parseInt(jAudienciaProvocadas.getText())
+                + Integer.parseInt(jAudienciaCumpridas.getText())
+                + Integer.parseInt(jJuriPopular.getText())
+                + Integer.parseInt(jJuriPopularCumprido.getText())
+                + Integer.parseInt(jLiberdadeProvRequerida.getText())
+                + Integer.parseInt(jLiberdadeProvDeferida.getText())
+                + Integer.parseInt(jIndultosRequeridos.getText())
+                + Integer.parseInt(jIndultosDeferidos.getText())
+                + Integer.parseInt(jRemissaoPenaRequerida.getText())
+                + Integer.parseInt(jRemissaoPenaDeferida.getText())
+                + Integer.parseInt(jCondicionalRequerida.getText())
+                + Integer.parseInt(jProgressaoRegRequerido.getText())
+                + Integer.parseInt(jSaidaTempRequerida.getText())
+                + Integer.parseInt(jHabeasCorpusImpetrados.getText())
+                + Integer.parseInt(jHabeasCorpusDeferido.getText())
+                + Integer.parseInt(jLaudoPsicoEmitidos.getText())
+                + Integer.parseInt(jLaudosPsiqEmitidos.getText())
+                + Integer.parseInt(jTP.getText());
+        jTotal07.setText(String.valueOf(pQUANT_TOTAL_T07));
+        //ABA AL
+        int pQUANT_TOTAL_T08 = 0;
+        pQUANT_TOTAL_T08 = Integer.parseInt(jTriagemAtendInernos.getText())
+                + Integer.parseInt(jPresoMatProfissional.getText())
+                + Integer.parseInt(jPresoCertificaCursoProf.getText())
+                + Integer.parseInt(jOcupacaoAtiviRecreaReligiosa.getText())
+                + Integer.parseInt(PresoAtiviArtesPlasticas.getText())
+                + Integer.parseInt(jPresoAtiviLiteraria.getText())
+                + Integer.parseInt(jPresoAtiviCantoTeatro.getText())
+                + Integer.parseInt(jPresoSentecaAtivLaboralRemun.getText())
+                + Integer.parseInt(jPresoAtiviLaboralNaoRemunera.getText());
+        jTotal08.setText(String.valueOf(pQUANT_TOTAL_T08));
+        //ABA AFI
+        int pQUANT_TOTAL_T09 = 0;
+        pQUANT_TOTAL_T09 = Integer.parseInt(jAlimentaServidaInternoCafe.getText())
+                + Integer.parseInt(jAlimentaServidaInternoAlmoco.getText())
+                + Integer.parseInt(jAlimentaServidaInternoJantar.getText());
+        jTotal09.setText(String.valueOf(pQUANT_TOTAL_T09));
+    }
+
+    //ATUALIZAR DATAS DAS TABELAS REFERENTES AS ATIVIDADES DA UNIDADE
+    public void atualizarDatasRegistrosTabelas() {
+        converteDate.alterarDataAtividadeUnidade(objAtividade);
+        converteDate.alterarDataPopulacao(objAtividade);
+        converteDate.alterarDataItensKit(objAtividade);
+        converteDate.alterarDataMatriculaEscolar(objAtividade);
+        converteDate.alterarDataProcedimentoJURI(objAtividade);
+        converteDate.alterarDataProcedimentoREV(objAtividade);
+        converteDate.alterarDataRegAtendimentoPSP(objAtividade);
+        converteDate.alterarDataSaidaAlvara(objAtividade);
     }
 
     public void Novo() {
@@ -7965,7 +8037,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setPresoIdentCivil(Integer.valueOf(jPresoIdentCivil.getText()));
         objAtividade.setPresoAtiviReligiosa(Integer.valueOf(jPresoAtiviReligiosa.getText()));
         //ABA AF - 02
-        objAtividade.setLancheContratante(Integer.valueOf(jLanchesServidoVisita.getText()));
+        objAtividade.setLanchesVisitantes(Integer.valueOf(jLanchesServidoVisita.getText()));
         objAtividade.setCafeContratada(Integer.valueOf(jAlimentaServidaEmpContCafe.getText()));
         objAtividade.setAlmocoContratada(Integer.valueOf(jAlimentaServidaEmpContAlmoco.getText()));
         objAtividade.setJantarContratada(Integer.valueOf(jAlimentaServidaEmpContJantar.getText()));
