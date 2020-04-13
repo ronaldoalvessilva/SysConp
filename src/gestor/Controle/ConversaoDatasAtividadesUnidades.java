@@ -7,7 +7,6 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
-import gestor.Modelo.ItensEntradaLote;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;

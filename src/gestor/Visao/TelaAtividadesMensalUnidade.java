@@ -68,10 +68,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaAtividadeMensalManu_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
-import java.text.DecimalFormat;
 import java.util.Calendar;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -158,6 +155,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static int pQUANTIDADE_TOTAL_POPULACAO = 0;
     public static int pQUANTIDADE_DIAS_POPULACAO = 0;
     public static int pTOTAL_REGISTROS_ATIVIDADES = 0;
+    String pDATA_PESQUISA_INICIAL = "";
+    String pDATA_PESQUISA_FINAL = "";
+    String pDATA_PERIODO_INICIAL = "";
+    String pDATA_PERIODO_FINAL = "";
     int pMEDIA_POPULCAO = 0;
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
@@ -1024,8 +1025,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel154.setText("*");
 
         jBtPesquisarDatas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
-        jBtPesquisarDatas.setText("Refresh");
-        jBtPesquisarDatas.setToolTipText("Pesquisar Datas dos Registros");
+        jBtPesquisarDatas.setText("Buscar");
+        jBtPesquisarDatas.setToolTipText("Pesquisar dados cadastrados");
         jBtPesquisarDatas.setEnabled(false);
         jBtPesquisarDatas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1119,41 +1120,41 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(65, 65, 65))
                     .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
+                            .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel147)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel154)))
+                                .addComponent(jLabel147)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel154)))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel148)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel152))
+                            .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addComponent(jBtPesquisarDatas)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
                                 .addGap(3, 3, 3)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel148)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel152))
-                                    .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel153))
+                            .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
                                 .addGap(3, 3, 3)
-                                .addComponent(jBtPesquisarDatas)
+                                .addComponent(jLabel155))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel153))
-                                    .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel9Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel155)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(jComboBoxAnoReferencia, 0, 0, Short.MAX_VALUE)
+                                .addGap(65, 65, 65))))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3869,6 +3870,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtCalcularTotais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calculator_edit.png"))); // NOI18N
         jBtCalcularTotais.setText("Calcular Totais");
         jBtCalcularTotais.setToolTipText("Atualizar das Atendimento");
+        jBtCalcularTotais.setEnabled(false);
         jBtCalcularTotais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCalcularTotaisActionPerformed(evt);
@@ -3879,6 +3881,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtAtualizarDatas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/calendar_view_month.png"))); // NOI18N
         jBtAtualizarDatas.setText("Atualizar Datas");
         jBtAtualizarDatas.setToolTipText("Atualizar das Atendimento");
+        jBtAtualizarDatas.setEnabled(false);
         jBtAtualizarDatas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAtualizarDatasActionPerformed(evt);
@@ -4631,12 +4634,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         // TODO add your handling code here:  
         buscarAcessoUsuario(telaAtividadeMensalManu_ADM);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoADM.equals("ADMINISTRADORES") || codigoUserADM == codUserAcessoADM && nomeTelaADM.equals(telaAtividadeMensalManu_ADM) && codIncluirADM == 1) {
+            jTabbedPane1.setSelectedIndex(1);
             TelaPesqColaboradorAtividadeMensal objPesFunc = new TelaPesqColaboradorAtividadeMensal();
             TelaModuloAdmPessoal.jPainelAdmPessoal.add(objPesFunc);
             objPesFunc.show();
+            //ATUALIZAR DATAS DAS TABELAS
+//            atualizarDatasRegistrosTabelas();
             acao = 1;
             pesquisaUnidadePrisional();
             bloquearHabilitarTodosCampos(true, !true);
+            limparTodosCampos();
             Novo();
             statusMov = "Incluiu";
             horaMov = jHoraSistema.getText();
@@ -4654,6 +4661,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Registro não pode ser alterado, o mesmo encontra-se FINALIZADO.");
             } else {
                 acao = 2;
+                //ATUALIZAR DATA DAS TABELAS
+//                atualizarDatasRegistrosTabelas();
                 pesquisaUnidadePrisional();
                 bloquearHabilitarTodosCampos(true, !true);
                 Alterar();
@@ -4806,6 +4815,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaAtividadesUnidade objAudi = new TelaAuditoriaAtividadesUnidade();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objAudi);
+        objAudi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtPesquisarColaboradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarColaboradorActionPerformed
@@ -4849,47 +4861,53 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtPesqMesAnoActionPerformed
 
     private void jBtPesquisarDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarDatasActionPerformed
-        // TODO add your handling code here:
-        DecimalFormat valorReal = new DecimalFormat("###,##00.0");
-        valorReal.setCurrency(Currency.getInstance(new Locale("pt", "BR")));
-        calculoMediaPopulacao();
-        //ABA ASSI - SERVIÇO SOCIAL
-        calculoSS();
-        calculoSSF();
-        calculoVI();
-        caluloVC();
-        calculoPresoCivil();
-        calculoMED();
-        caluloQTVD();
-        //CALCUAR AS MÉDIAS
-        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-        calcularMediaVisitasInterno();
-        //ABA ASI
-        calculoMED();
-        calculoPSIQ();
-        calculoENFER();
-        calculoAgravosDIAG();
-        calculoControleHipertensao();
-        calculoControleDiabetes();
-        calculoDOENCA_INFECTOCONTAGIOSAS();
-        calculoControleVacinas();
-        calculoPSI();
-        calculoProcODON();
-        calculoAtendODON();
-        //ABA AEI
-        calculoMatPED();
-        calculoFreqPED();
-        //AEI
-        calculoProdutosKit();
-        //ABA SEG
-        calculoCelularSEG();
-        calcularObjetos();
-        calcularQtdRevistaCela();
-        //ABA AJ
-        calculoATENJURI();
-        calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
-        calculoATEN_TO();
+        // TODO add your handling code here:        
+        if (jDataPeriodoInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+        } else if (jDataPeriodoFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+        } else if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+        } else {
+            calculoMediaPopulacao();
+            //ABA ASSI - SERVIÇO SOCIAL
+            calculoSS();
+            calculoSSF();
+            calculoVI();
+            caluloVC();
+            calculoPresoCivil();
+            calculoMED();
+            caluloQTVD();
+            //CALCUAR AS MÉDIAS
+            pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+            jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+            calcularMediaVisitasInterno();
+            //ABA ASI
+            calculoMED();
+            calculoPSIQ();
+            calculoENFER();
+            calculoAgravosDIAG();
+            calculoControleHipertensao();
+            calculoControleDiabetes();
+            calculoDOENCA_INFECTOCONTAGIOSAS();
+            calculoControleVacinas();
+            calculoPSI();
+            calculoProcODON();
+            calculoAtendODON();
+            //ABA AEI
+            calculoMatPED();
+            calculoFreqPED();
+            //AEI
+            calculoProdutosKit();
+            //ABA SEG
+            calculoCelularSEG();
+            calcularObjetos();
+            calcularQtdRevistaCela();
+            //ABA AJ
+            calculoATENJURI();
+            calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+            calculoATEN_TO();
+        }
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
     private void jBtCalcularTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularTotaisActionPerformed
@@ -4901,7 +4919,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         atualizarDatasRegistrosTabelas();
         JOptionPane.showMessageDialog(rootPane, "Registros atualizados com sucesso.");
-        jBtCalcularTotais.setEnabled(true);
     }//GEN-LAST:event_jBtAtualizarDatasActionPerformed
 
 
@@ -5421,7 +5438,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void formatarCampos() {
-
+        jObservacao.setLineWrap(true);
+        jObservacao.setWrapStyleWord(true);
     }
 
     public void bloquearDesbloquearBotoes(boolean opcao) {
@@ -5433,6 +5451,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtAuditoria.setEnabled(opcao);
         jBtPesquisarDatas.setEnabled(opcao);
         jBtPesquisarColaborador.setEnabled(opcao);
+        jBtCalcularTotais.setEnabled(opcao);
+        jBtAtualizarDatas.setEnabled(opcao);
     }
 
     public void bloquearHabilitarTodosCampos(boolean opcaoV, boolean opcaoF) {
@@ -5580,7 +5600,147 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void limparTodosCampos() {
-
+        //ABA MANUTENÇÃO
+        jChave.setText("");
+        jStatus.setText("");
+        jDataCriacao.setDate(null);
+        jDataAtualizacao.setDate(null);
+        jUnidadePrisional.setText("");
+        jPopulacaoAtual.setText("0");
+        jDataPeriodoInicial.setDate(null);
+        jDataPeriodoFinal.setDate(null);
+        jComboBoxMesReferencia.setSelectedItem("Selecione...");
+        jComboBoxAnoReferencia.setSelectedItem("Selecione...");
+        jIdFunc.setText("");
+        jColaboradorResponsavel.setText("");
+        jMatricula.setText("");
+        jDepartamento.setText("");
+        jObservacao.setText("");
+        //ABA ASSI
+        jAtendimentoPsiPreso.setText("0");
+        jAtendimentoPsiFamilaPreso.setText("0");
+        jNumeroDiasVisitas.setText("0");
+        jNumeroVistantesInternos.setText("0");
+        jMediaVisitasDia.setText("0");
+        jMediaVisitasInterno.setText("0");
+        jNumeroCriancasVisitas.setText("0");
+        jPresoIdentCivil.setText("0");
+        jPresoAtiviReligiosa.setText("0");
+        //ABA AFV
+        jLanchesServidoVisita.setText("0");
+        jAlimentaServidaEmpContCafe.setText("0");
+        jAlimentaServidaEmpContAlmoco.setText("0");
+        jAlimentaServidaEmpContJantar.setText("0");
+        jAlimentaServidaEmpContLanche.setText("0");
+        jAlimentaServidaServContCafe.setText("0");
+        jAlimentaServidaServContAlmoco.setText("0");
+        jAlimentaServidaServContJantar.setText("0");
+        jAlimentaServidaServContLanche.setText("0");
+        //ASI
+        jAtendimentoMedClinico.setText("0");
+        jAtendimentoMedPsi.setText("0");
+        jAtendimentoEnfermagem.setText("0");
+        jProcedimentoOdontologico.setText("0");
+        jAtendimentoPsicologico.setText("0");
+        jTratamentoAgravDiaginostico.setText("0");
+        jAtendimentoOdontologicos.setText("0");
+        jPresoDoencaInfecto.setText("0");
+        jControlHipertensao.setText("0");
+        jControleDiabetes.setText("0");
+        jAspectosSexual.setText("0");
+        jPresosVacinados.setText("0");
+        //ABA AEI
+        jPresoSentenciadoEF.setText("0");
+        jPresoSentencaMatFreqEF.setText("0");
+        jPresoAtiviPraticaEsportiva.setText("0");
+        //ABA AMI
+        jCobertor.setText("0");
+        jColchao.setText("0");
+        jLencol.setText("0");
+        jToalha.setText("0");
+        jPote.setText("0");
+        jCaneca.setText("0");
+        jAparelhoBarbear.setText("0");
+        jCremeDental.setText("0");
+        jEscovaDente.setText("0");
+        jAbsorvente.setText("0");
+        jPapelHigienico.setText("0");
+        jSabaoPo.setText("0");
+        jSabonete.setText("0");
+        jDesodorante.setText("0");
+        jBermuda.setText("0");
+        jCamisa.setText("0");
+        jCuecas.setText("0");
+        jChinelos.setText("0");
+        jUniformeCompleto.setText("0");
+        //ABA SEG
+        jNumeroOcorrenciasInd.setText("0");
+        jNumeroAparelhoConvive.setText("0");
+        jObjetosMateriais.setText("0");
+        jNumeroProcedRevista.setText("0");
+        jNumeroOcorrenciasInd.setText("0");
+        jNumeroOcorrenciaTentaFuga.setText("0");
+        jNumeroOcorrenciaRebeliao.setText("0");
+        jNumeroOcorrenciaPessoaFerida.setText("0");
+        jNumeroOcorrenciaPessoasRefem.setText("0");
+        jNumeroOcorrenciaPessoasFeridaMortas.setText("0");
+        jNumeroHorasTVCFTV.setText("0");
+        jNumeroDiasSemScannerCorpo.setText("0");
+        jNumeroDiasIntMetaPortatil.setText("0");
+        jNumeroInterFuncVeiculosTP.setText("0");
+        jNumeroFalhasGerador.setText("0");
+        jNumeroHorasBloqueador.setText("0");
+        jNumeroAbsorEntregueVisitas.setText("0");
+        jNumeroFraldasEntreguePortaria.setText("0");
+        //ABA AJ
+        jAtendInternoSAJ.setText("0");
+        jAlvaraSolturaCumprido.setText("0");
+        jLivarmentoCondRequerido.setText("0");
+        jProgressaoRegDeferido.setText("0");
+        jSaidasTempDeferida.setText("0");
+        jAlvarSolRecebeUni.setText("0");
+        jAudienciaProvocadas.setText("0");
+        jAudienciaCumpridas.setText("0");
+        jJuriPopular.setText("0");
+        jJuriPopularCumprido.setText("0");
+        jLiberdadeProvRequerida.setText("0");
+        jLiberdadeProvDeferida.setText("0");
+        jIndultosRequeridos.setText("0");
+        jIndultosDeferidos.setText("0");
+        jRemissaoPenaRequerida.setText("0");
+        jRemissaoPenaDeferida.setText("0");
+        jCondicionalRequerida.setText("0");
+        jProgressaoRegRequerido.setText("0");
+        jSaidaTempRequerida.setText("0");
+        jHabeasCorpusImpetrados.setText("0");
+        jHabeasCorpusDeferido.setText("0");
+        jLaudoPsicoEmitidos.setText("0");
+        jLaudosPsiqEmitidos.setText("0");
+        jTP.setText("0");
+        //ABA AL
+        jTriagemAtendInernos.setText("0");
+        jOcupacaoAtiviRecreaReligiosa.setText("0");
+        PresoAtiviArtesPlasticas.setText("0");
+        jPresoAtiviLiteraria.setText("0");
+        jPresoAtiviCantoTeatro.setText("0");
+        jPresoMatProfissional.setText("0");
+        jPresoCertificaCursoProf.setText("0");
+        jPresoSentecaAtivLaboralRemun.setText("0");
+        jPresoAtiviLaboralNaoRemunera.setText("0");
+        //ABA AFI
+        jAlimentaServidaInternoCafe.setText("0");
+        jAlimentaServidaInternoAlmoco.setText("0");
+        jAlimentaServidaInternoJantar.setText("0");
+        //ABA TOT
+        jTotal01.setText("0");
+        jTotal02.setText("0");
+        jTotal03.setText("0");
+        jTotal04.setText("0");
+        jTotal05.setText("0");
+        jTotal06.setText("0");
+        jTotal07.setText("0");
+        jTotal08.setText("0");
+        jTotal09.setText("0");
     }
 
     public void pesquisaUnidadePrisional() {
@@ -6194,6 +6354,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtPesquisarColaborador.setEnabled(true);
         jBtPesquisarDatas.setEnabled(true);
+        jBtCalcularTotais.setEnabled(true);
+        jBtAtualizarDatas.setEnabled(true);
     }
 
     public void Alterar() {
@@ -6201,6 +6363,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtCancelar.setEnabled(true);
         jBtPesquisarColaborador.setEnabled(true);
         jBtPesquisarDatas.setEnabled(true);
+        jBtCalcularTotais.setEnabled(true);
+        jBtAtualizarDatas.setEnabled(true);
     }
 
     public void Excluir() {
@@ -6236,6 +6400,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void Finalizar() {
+        String pFINALIZAR = "FINALIZAR";
+        jStatus.setText(pFINALIZAR);
         jBtNovo.setEnabled(true);
     }
 
