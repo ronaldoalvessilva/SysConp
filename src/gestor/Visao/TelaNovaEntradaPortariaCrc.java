@@ -30,6 +30,7 @@ import static gestor.Visao.TelaModuloPortarias.telaNovaEntradaIntP1;
 import static gestor.Visao.TelaModuloPortarias.telaNovaEntradaManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -150,6 +151,10 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNrOficio = new javax.swing.JTextField();
         jComboBoxOrigem = new javax.swing.JComboBox();
         jLabel13 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jHorarioEntrada = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jDataEntrada = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabelaEntradaInternosP1 = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -373,13 +378,13 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addGap(4, 4, 4))
         );
 
         jTabbedPane1.addTab("Listagem", jPanel1);
@@ -506,7 +511,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtAlterar)
                     .addComponent(jBtExcluir)
@@ -516,7 +521,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addComponent(jBtNovo)
                     .addComponent(jBtAuditoria)
                     .addComponent(jBtFinalizar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane2.setForeground(new java.awt.Color(51, 51, 255));
@@ -593,7 +598,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -608,7 +613,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTipoOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane2.addTab("Documento", jPanel12);
@@ -632,8 +637,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Observação", jPanel13);
@@ -679,6 +683,20 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Origem do Interno");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("Horário Entrada");
+
+        jHorarioEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jHorarioEntrada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jHorarioEntrada.setText(" ");
+        jHorarioEntrada.setEnabled(false);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("Data Entrada");
+
+        jDataEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataEntrada.setEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -686,34 +704,43 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxOrigem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jNomeInternoPortaria))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxOrigem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jNomeInternoPortaria))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -722,15 +749,21 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addComponent(jIdInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNomeInternoPortaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisarInternos))
-                .addGap(9, 9, 9)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                    .addComponent(jHorarioEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNrOficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3))
         );
 
         jTabelaEntradaInternosP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -844,7 +877,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtAuditoriaItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCancelarItem)
@@ -852,7 +885,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                     .addComponent(jBtExcluirItem)
                     .addComponent(jBtAlterarItem)
                     .addComponent(jBtNovoItem))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jPanel9Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarItem, jBtCancelarItem, jBtExcluirItem, jBtNovoItem, jBtSalvarItem});
@@ -876,16 +909,15 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -900,32 +932,57 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
-        setBounds(300, 20, 536, 530);
+        setBounds(300, 20, 536, 529);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtDataLancActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataLancActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (jDataPesqInicial.getDate() == null) {
-            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-            jDataPesqInicial.requestFocus();
-        } else {
-            if (jDataPesFinal.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                jDataPesFinal.requestFocus();
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
             } else {
-                if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                    JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
                 } else {
-                    SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                    dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                    dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                    pesquisarLancCod("SELECT * FROM ENTRADANOVA "
-                            + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
-                            + "AND '" + dataFinal + "'");
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarLancCod("SELECT * FROM ENTRADANOVA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
+                }
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jDataPesqInicial.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+                jDataPesqInicial.requestFocus();
+            } else {
+                if (jDataPesFinal.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+                    jDataPesFinal.requestFocus();
+                } else {
+                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+                    } else {
+                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+                        pesquisarLancCod("SELECT * FROM ENTRADANOVA "
+                                + "WHERE DataLanc BETWEEN'" + dataInicial + "' "
+                                + "AND '" + dataFinal + "'");
+                    }
                 }
             }
         }
@@ -1184,14 +1241,21 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Informe o número do oficio do interno.");
             } else if (jComboBoxOrigem.getSelectedItem().equals("Selecione") || jComboBoxOrigem.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a origem do interno.");
+            } else if (jDataEntrada.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data de entrada do interno.");
+            } else if (jHorarioEntrada.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o horário de entrada do interno.");
+            } else if (jHorarioEntrada.getText().equals("0")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o horário de entrada do interno.");
             } else {
                 objItensNova.setIdEntrada(Integer.valueOf(jIdlanc.getText()));
                 objItensNova.setIdInternoCrc(Integer.valueOf(jIdInternoPortaria.getText()));
                 objItensNova.setNomeInternoCrc(jNomeInternoPortaria.getText());
-                objItensNova.setDataEntrada(jDataLanc.getDate());
+                objItensNova.setDataEntrada(jDataEntrada.getDate());
                 objItensNova.setUtilizacaoCrc(utilizadoCrc);
                 objItensNova.setNrOficio(jNrOficio.getText());
                 objItensNova.setOrigemInterno((String) jComboBoxOrigem.getSelectedItem());
+                objItensNova.setHorarioEntrada(jHorarioEntrada.getText());
                 if (acao == 3) {
                     // Criar rotina para verificar se já foi cadastrado
                     if (jIdInternoPortaria.getText().equals(codInterno) && jIdlanc.getText().equals(codEntrada)) {
@@ -1208,7 +1272,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                                 + "INNER JOIN PRONTUARIOSCRC "
                                 + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
-                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");                       
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
                     }
                 }
                 if (acao == 4) {
@@ -1225,7 +1289,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                             + "INNER JOIN PRONTUARIOSCRC "
                             + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                             + "WHERE IdEntrada='" + jIdlanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");                 
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso...");
                 }
             }
         } else {
@@ -1316,6 +1380,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 jNomeInternoPortaria.setText(conecta.rs.getString("NomeInternoCrc")); // Coluna 1
                 idItem = conecta.rs.getString("IdItem"); // Coluna 2                            
                 jNrOficio.setText(conecta.rs.getString("NrOficio"));
+                jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
+                jHorarioEntrada.setText(conecta.rs.getString("HoraioEntrada"));
                 jComboBoxOrigem.setSelectedItem(conecta.rs.getString("OrigemInterno"));
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -1351,9 +1417,11 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBthelp;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxOrigem;
+    private com.toedter.calendar.JDateChooser jDataEntrada;
     private com.toedter.calendar.JDateChooser jDataLanc;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JFormattedTextField jHorarioEntrada;
     private javax.swing.JTextField jIDPesqLan;
     public static javax.swing.JTextField jIdInternoPortaria;
     public static javax.swing.JTextField jIdlanc;
@@ -1369,6 +1437,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField jNomeInternoPortaria;
     private javax.swing.JTextField jNrOficio;
@@ -1434,6 +1504,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jIdInternoPortaria.setBackground(Color.white);
         jNomeInternoPortaria.setBackground(Color.white);
         jNrOficio.setBackground(Color.white);
+        jDataEntrada.setBackground(Color.white);
+        jHorarioEntrada.setBackground(Color.white);
     }
 
     public void Novo() {
@@ -1465,6 +1537,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNomeInternoPortaria.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
+        jDataEntrada.setDate(null);
+        jHorarioEntrada.setText("");
     }
 
     public void Alterar() {
@@ -1640,6 +1714,12 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNomeInternoPortaria.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
+        jDataEntrada.setCalendar(Calendar.getInstance());
+        jHorarioEntrada.setText(jHoraSistema.getText());
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            jDataEntrada.setEnabled(true);
+            jHorarioEntrada.setEnabled(true);
+        }
         //
         jBtPesquisarInternos.setEnabled(true);
         jComboBoxOrigem.setEnabled(true);
@@ -1666,6 +1746,10 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jBtPesquisarInternos.setEnabled(!true);
         jComboBoxOrigem.setEnabled(true);
         jNrOficio.setEnabled(true);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES")) {
+            jDataEntrada.setEnabled(true);
+            jHorarioEntrada.setEnabled(true);
+        }
         //
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -1688,6 +1772,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNomeInternoPortaria.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
+        jDataEntrada.setDate(null);
+        jHorarioEntrada.setText("");
         //
         jBtPesquisarInternos.setEnabled(!true);
         jComboBoxOrigem.setEnabled(!true);
@@ -1714,6 +1800,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNomeInternoPortaria.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
+        jDataEntrada.setDate(null);
+        jHorarioEntrada.setText("");
         //
         jBtPesquisarInternos.setEnabled(!true);
         jComboBoxOrigem.setEnabled(!true);
@@ -1740,6 +1828,8 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         jNomeInternoPortaria.setText("");
         jComboBoxOrigem.setSelectedItem(null);
         jNrOficio.setText("");
+        jDataEntrada.setDate(null);
+        jHorarioEntrada.setText("");
         //
         jBtPesquisarInternos.setEnabled(!true);
         jComboBoxOrigem.setEnabled(!true);

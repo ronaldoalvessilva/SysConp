@@ -26,8 +26,13 @@ public class NovaEntradaCrcP1 {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;
+    private String horarioEntrada;
+    private Date dataEntrada;
 
-    public NovaEntradaCrcP1(int idEntrada, String StatusLanc, Date dataLanc, String tipoOperacao, String observacao, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public NovaEntradaCrcP1() {
+    }
+
+    public NovaEntradaCrcP1(int idEntrada, String StatusLanc, Date dataLanc, String tipoOperacao, String observacao, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String horarioEntrada, Date dataEntrada) {
         this.idEntrada = idEntrada;
         this.StatusLanc = StatusLanc;
         this.dataLanc = dataLanc;
@@ -41,9 +46,8 @@ public class NovaEntradaCrcP1 {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public NovaEntradaCrcP1() {
+        this.horarioEntrada = horarioEntrada;
+        this.dataEntrada = dataEntrada;
     }
 
     /**
@@ -226,5 +230,33 @@ public class NovaEntradaCrcP1 {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the horarioEntrada
+     */
+    public String getHorarioEntrada() {
+        return horarioEntrada;
+    }
+
+    /**
+     * @param horarioEntrada the horarioEntrada to set
+     */
+    public void setHorarioEntrada(String horarioEntrada) {
+        this.horarioEntrada = horarioEntrada;
+    }
+
+    /**
+     * @return the dataEntrada
+     */
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    /**
+     * @param dataEntrada the dataEntrada to set
+     */
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 }

@@ -29,8 +29,12 @@ public class ItensNovaEntrada {
     private String dataDelete;
     private String horarioInsert;
     private String horarioUp;     
+    private String horarioEntrada;
 
-    public ItensNovaEntrada(int idItem, int idEntrada, int idInternoCrc, String nomeInternoCrc, String nrOficio, Date dataEntrada, String utilizacaoCrc, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp) {
+    public ItensNovaEntrada() {
+    }
+
+    public ItensNovaEntrada(int idItem, int idEntrada, int idInternoCrc, String nomeInternoCrc, String nrOficio, Date dataEntrada, String utilizacaoCrc, String origemInterno, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, String horarioEntrada) {
         this.idItem = idItem;
         this.idEntrada = idEntrada;
         this.idInternoCrc = idInternoCrc;
@@ -47,9 +51,7 @@ public class ItensNovaEntrada {
         this.dataDelete = dataDelete;
         this.horarioInsert = horarioInsert;
         this.horarioUp = horarioUp;
-    }
-
-    public ItensNovaEntrada() {
+        this.horarioEntrada = horarioEntrada;
     }
 
     /**
@@ -274,5 +276,19 @@ public class ItensNovaEntrada {
      */
     public void setHorarioUp(String horarioUp) {
         this.horarioUp = horarioUp;
+    }
+
+    /**
+     * @return the horarioEntrada
+     */
+    public String getHorarioEntrada() {
+        return horarioEntrada;
+    }
+
+    /**
+     * @param horarioEntrada the horarioEntrada to set
+     */
+    public void setHorarioEntrada(String horarioEntrada) {
+        this.horarioEntrada = horarioEntrada;
     }
 }

@@ -25,7 +25,7 @@ public class ControleItensEntradaNova {
         buscarInternoCrc(objItensNova.getNomeInternoCrc(), objItensNova.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSNOVAENTRADA (IdEntrada,IdInternoCrc,NrOficio,DataEntrada,OrigemInterno,UtilizadoCrc,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENSNOVAENTRADA (IdEntrada,IdInternoCrc,NrOficio,DataEntrada,OrigemInterno,UtilizadoCrc,UsuarioInsert,DataInsert,HorarioInsert,HorarioEntrada) VALUES(?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensNova.getIdEntrada());
             pst.setInt(2, codInt);
             pst.setString(3, objItensNova.getNrOficio());
@@ -35,6 +35,7 @@ public class ControleItensEntradaNova {
             pst.setString(7, objItensNova.getUsuarioInsert());
             pst.setString(8, objItensNova.getDataInsert());
             pst.setString(9, objItensNova.getHorarioInsert());
+            pst.setString(10, objItensNova.getHorarioEntrada());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
@@ -47,7 +48,7 @@ public class ControleItensEntradaNova {
         buscarInternoCrc(objItensNova.getNomeInternoCrc(), objItensNova.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET IdEntrada=?,IdInternoCrc=?,NrOficio=?,DataEntrada=?,OrigemInterno=?,UtilizadoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensNova.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET IdEntrada=?,IdInternoCrc=?,NrOficio=?,DataEntrada=?,OrigemInterno=?,UtilizadoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=?,HorarioEntrada=? WHERE IdItem='" + objItensNova.getIdItem() + "'");
             pst.setInt(1, objItensNova.getIdEntrada());
             pst.setInt(2, codInt);
             pst.setString(3, objItensNova.getNrOficio());
@@ -57,6 +58,7 @@ public class ControleItensEntradaNova {
             pst.setString(7, objItensNova.getUsuarioUp());
             pst.setString(8, objItensNova.getDataUp());
             pst.setString(9, objItensNova.getHorarioUp());
+            pst.setString(10, objItensNova.getHorarioEntrada());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
