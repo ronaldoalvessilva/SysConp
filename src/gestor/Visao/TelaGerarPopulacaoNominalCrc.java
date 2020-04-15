@@ -5,13 +5,17 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
 import gestor.Controle.ControleGerarPopulacao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.listarInternosPopulacaoNominal;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -40,6 +44,10 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     ControleGerarPopulacao control = new ControleGerarPopulacao();
     GerarPopNominal objPopNom = new GerarPopNominal();
     ControleMovInternos controlMov = new ControleMovInternos();  // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -63,9 +71,11 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     int count = 0;
     int count2 = 0;
     int qtdTotal = 0;
-    int pTOTAL_REGISTROS = 0;
+    int pTOTAL_REGISTROS_COPIADO = 0;
+    int pTOTAL_REGISTROS_GRAVADO = 0;
     public static int qtdInternosPop = 0;
     String idInterno = "";
+    String pTIPO_OPERCAO = "População";
 
     /**
      * Creates new form TelaGerarValeTransporte
@@ -597,12 +607,12 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         statusMov = "Incluiu";
         horaMov = jHoraSistema.getText();
-        dataModFinal = jDataSistema.getText();        
+        dataModFinal = jDataSistema.getText();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             verificarPopulacaoLinux(); // Verificar se a população já foi gerada pelo usuário.
-            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyy/MM/dd");
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
             dataGeracao = formatoAmerica.format(jDataLancamento.getDate().getTime());
             if (dataBanco != null) {
                 dataPopulacao = formatoAmerica.format(dataBanco);
@@ -930,6 +940,18 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jTOTAL_REG_GRAVADO.setBackground(Color.white);
     }
 
+    public void gravarDadosAliementacao() {
+        //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
+        objEntradaSaida.setDataMovimento(jDataLancamento.getDate());
+        objEntradaSaida.setHorarioMovimento(horaMov);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO);
+        objEntradaSaida.setPopulacao(Integer.valueOf(jtotalRegistrosDestino.getText()));
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        populacao.incluirEntradaSaidaPopulacao(objEntradaSaida);
+    }
+
     public void gravarDadosBanco() {
         try {
             Thread t0 = new Thread() {
@@ -941,17 +963,21 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                         objPopNom.setDataLanc(jDataLancamento.getDate());
                         objPopNom.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
                         control.incluirPopulacaoNominal(objPopNom);
-                        pTOTAL_REGISTROS = i + 1;
-                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS));
+                        pTOTAL_REGISTROS_GRAVADO = i + 1;
+                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_GRAVADO));
                         jProgressBar1.setValue(i);
+                        if (pTOTAL_REGISTROS_GRAVADO == pTOTAL_REGISTROS_COPIADO) {
+                            jProgressBar1.setValue(100);
+                            qtdInternosPop = 0;
+                            gravarDadosAliementacao();
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");                            
+                            dispose();
+                        }
                     }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                     }
-                    qtdInternosPop = 0;
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    dispose();
                 }
             };
             t0.start();
@@ -975,12 +1001,12 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                         } else if (i > 0) {
                             jTabelaDestinoInternos.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
-                            pTOTAL_REGISTROS = i + 1;
-                            jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
-                            jProgressBar1.setValue(i);
                         }
+                        pTOTAL_REGISTROS_COPIADO = i + 1;
+                        jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS_COPIADO));
+                        jProgressBar1.setValue(i);
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } catch (InterruptedException ex) {
                         }
                     }
@@ -993,7 +1019,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }
-
 
     public void alinharCamposTabelaPrevisao() {
         DefaultTableCellRenderer esquerda = new DefaultTableCellRenderer();
