@@ -14,9 +14,11 @@ import java.util.Date;
 public class EntradaSaidasPolucaoInternos {
 
     private int idRegistro;
+    private int idDocumento;
     private Date dataMovimento;
     private String horarioMovimento;
     private String tipoOperacao;
+    private int quantidade;
     private int populacao;
     private String usuarioInsert;
     private String dataInsert;
@@ -28,11 +30,13 @@ public class EntradaSaidasPolucaoInternos {
     public EntradaSaidasPolucaoInternos() {
     }
 
-    public EntradaSaidasPolucaoInternos(int idRegistro, Date dataMovimento, String horarioMovimento, String tipoOperacao, int populacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public EntradaSaidasPolucaoInternos(int idRegistro, int idDocumento, Date dataMovimento, String horarioMovimento, String tipoOperacao, int quantidade, int populacao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistro = idRegistro;
+        this.idDocumento = idDocumento;
         this.dataMovimento = dataMovimento;
         this.horarioMovimento = horarioMovimento;
         this.tipoOperacao = tipoOperacao;
+        this.quantidade = quantidade;
         this.populacao = populacao;
         this.usuarioInsert = usuarioInsert;
         this.dataInsert = dataInsert;
@@ -54,6 +58,20 @@ public class EntradaSaidasPolucaoInternos {
      */
     public void setIdRegistro(int idRegistro) {
         this.idRegistro = idRegistro;
+    }
+
+    /**
+     * @return the idDocumento
+     */
+    public int getIdDocumento() {
+        return idDocumento;
+    }
+
+    /**
+     * @param idDocumento the idDocumento to set
+     */
+    public void setIdDocumento(int idDocumento) {
+        this.idDocumento = idDocumento;
     }
 
     /**
@@ -96,6 +114,20 @@ public class EntradaSaidasPolucaoInternos {
      */
     public void setTipoOperacao(String tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
+    }
+
+    /**
+     * @return the quantidade
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * @param quantidade the quantidade to set
+     */
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     /**
