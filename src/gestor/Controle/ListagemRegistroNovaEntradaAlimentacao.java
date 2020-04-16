@@ -7,14 +7,14 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EntradaSaidasPolucaoInternos;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jIdLanc;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jIdlanc;
 import java.sql.SQLException;
 
 /**
  *
  * @author ronal
  */
-public class ListagemRegistroEntradaSaidaPopulcao {
+public class ListagemRegistroNovaEntradaAlimentacao {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
@@ -26,7 +26,7 @@ public class ListagemRegistroEntradaSaidaPopulcao {
             conecta.executaSQL("SELECT IdDocumento,Populacao, "
                     + "DataMovimento,HorarioMovimento,Quantidade "
                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
-                    + "WHERE IdDocumento='" + jIdLanc.getText() + "'");
+                    + "WHERE IdDocumento='" + jIdlanc.getText() + "'");
             conecta.rs.first();
             objEntradaSaida.setIdDocumento(conecta.rs.getInt("IdDocumento"));
             objEntradaSaida.setDataMovimento(conecta.rs.getDate("DataMovimento"));

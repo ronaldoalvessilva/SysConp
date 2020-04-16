@@ -109,7 +109,7 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         jTabelaPesqInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "Situação do Interno"
@@ -151,7 +151,7 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +167,8 @@ public class TelaLocalizarInternoCrcPortaria extends javax.swing.JInternalFrame 
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
             jTabelaPesqInternos.setVisible(true);
-            localizarProntuariosInternos("SELECT * FROM PRONTUARIOSCRC WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%'");
+            localizarProntuariosInternos("SELECT * FROM PRONTUARIOSCRC "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
         }
 
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed

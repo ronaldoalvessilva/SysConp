@@ -5,17 +5,13 @@
  */
 package gestor.Visao;
 
-import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
 import gestor.Controle.ControleGerarPopulacao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ControleMovInternos;
-import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Controle.listarInternosPopulacaoNominal;
-import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.GerarPopNominal;
 import gestor.Modelo.LogSistema;
-import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -44,10 +40,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     ControleGerarPopulacao control = new ControleGerarPopulacao();
     GerarPopNominal objPopNom = new GerarPopNominal();
     ControleMovInternos controlMov = new ControleMovInternos();  // HISTÓRICO DE MOVIMENTAÇÃO DE SAIDA NO CRC
-    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
-    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
-    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
-    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -940,18 +933,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         jTOTAL_REG_GRAVADO.setBackground(Color.white);
     }
 
-    public void gravarDadosAliementacao() {
-        //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
-        objEntradaSaida.setDataMovimento(jDataLancamento.getDate());
-        objEntradaSaida.setHorarioMovimento(horaMov);
-        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO);
-        objEntradaSaida.setPopulacao(Integer.valueOf(jtotalRegistrosDestino.getText()));
-        objEntradaSaida.setUsuarioInsert(nameUser);
-        objEntradaSaida.setDataInsert(jDataSistema.getText());
-        objEntradaSaida.setHorarioInsert(horaMov);
-        populacao.incluirEntradaSaidaPopulacao(objEntradaSaida);
-    }
-
     public void gravarDadosBanco() {
         try {
             Thread t0 = new Thread() {
@@ -968,8 +949,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                         jProgressBar1.setValue(i);
                         if (pTOTAL_REGISTROS_GRAVADO == pTOTAL_REGISTROS_COPIADO) {
                             jProgressBar1.setValue(100);
-                            qtdInternosPop = 0;
-                            gravarDadosAliementacao();
+                            qtdInternosPop = 0;                            
                             JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");                            
                             dispose();
                         }

@@ -17,7 +17,11 @@ import gestor.Controle.ControleSituacao;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Modelo.DocumentosInternos;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.ItensRegSaidaInternos;
@@ -89,6 +93,11 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     ItensPrevisaoSaida objItensPreSaida = new ItensPrevisaoSaida();
     ControleItensPrevisaoSaida controlePrevSaida = new ControleItensPrevisaoSaida();
     ControleSituacao mod = new ControleSituacao(); // MODIFICA A SITUAÇAO DO INTERNO NO PRONTUARIO.    
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    ListagemRegistroSaidaPopulcaoPortaria listaRegistroES = new ListagemRegistroSaidaPopulcaoPortaria();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -99,7 +108,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     String horaMov;
     String dataModFinal;
     //
-    int acao;
+    public static int acao;
     int flag;
     int codSai;
     String tipo = "Saídas";
@@ -176,12 +185,19 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     String codigoSaidaBio;
     String codigoSaidaInterno;
     byte[] pAssinaturaInterno;
+
+    String pTIPO_OPERCAO_ENTRADA = "Saida da Unidade";
+    public static String pREGISTRO_ENTRADA = "";
+    int pPOPULCAO_ATUAL = 0;
+    int pQUANTIDADE_SAIDA_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO = 0;
     /**
      * Creates new form TelaSaidaInterno
      */
     public static TelaFotoPortaria telafotoportaria;
     public static TelaBiometriaEntradaSaidaPortaria telaBioMov;
     public static TelaExportarInternosUnidades telaExpPor;
+    public static TelaQuantidadeSaidaInternosPortaria pQUANTIDADE_SAIDA;
 
     public TelaRegistroSaidaInternosPortaria() {
         super();
@@ -204,6 +220,11 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     public void mostrarImportarInternos() {
         telaExpPor = new TelaExportarInternosUnidades(this, true);
         telaExpPor.setVisible(true);
+    }
+
+    public void mostarQuantidadeSaida() {
+        pQUANTIDADE_SAIDA = new TelaQuantidadeSaidaInternosPortaria(this, true);
+        pQUANTIDADE_SAIDA.setVisible(true);
     }
 
     /**
@@ -663,7 +684,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtAudiSaida))
                     .addComponent(jBtSalvarlanc))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAlterarlanc, jBtAudiSaida, jBtCancelarlanc, jBtExcluirlanc, jBtFinalizar, jBtNovolanc, jBtSalvarlanc});
@@ -709,9 +730,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -1044,7 +1063,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 .addComponent(jBtBiometria)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtExportarRegistros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jBtSairItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtItensAudiSaidaInternos))
@@ -1098,24 +1117,23 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(42, 42, 42)
                                         .addComponent(jBtPesInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jBtZoon, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jScrollPane5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtPesInterno, jBtZoon});
@@ -1126,24 +1144,24 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                                     .addComponent(jBtPesInterno)
                                     .addComponent(jBtZoon)))
                             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtPesInterno, jBtZoon});
@@ -1159,8 +1177,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
 
         setBounds(300, 20, 726, 540);
@@ -1434,12 +1452,18 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
+//                Integer row = jTabelaItensInterno.getRowCount();
+//                if (row == 0) {
+//                    acao = 3;
+//                    mostarQuantidadeSaida();
+//                } else {
                 acao = 3;
                 NovoItem();
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
                 codItem = 0; // zera na memória o item
+//                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1522,7 +1546,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                             objItemSaida.setConfirmaSaida(confirmaRegSaida);
                             objItemSaida.setHorarioSaida(jHorarioSaida.getText());
                             controle.confirmaRegistroSaida(objItemSaida); // Modifica na tabela ITENSSAIDA (confirma a saida) do interno e horário para CRC                                             
-                            //
+                            //MÉTODO PARA EXCLUIR REGISTRO DA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS
+                            // excluirInternoAlimentacao();
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "
@@ -1616,6 +1641,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                             objItemSaida.setIdSaida((Integer.valueOf(jIDlanc.getText())));
                                                                             objItemSaida.setIdItemCrcPortaria(idItemCrcPort); // Item da tabela ITENSCRCPORTARIA                                                                                                                                        
                                                                             controle.incluirItensRegSaida(objItemSaida); // Gravar registro na tabela de itens ITENSREGSAIDA (PORTARIA INTERNA)                                                                                                            
+                                                                            buscarIdItem();
                                                                             // VERIFICAR O REGISTRO NA TABELA (ITENSREGSAIDA) 
                                                                             // DA PORTARIA PARA SABER SE REALMENTE FOI GRAVADO 
                                                                             // PARA RETIRAR O ERRO DE FICAR DESAPARECENDO O O REGISTRO NA TABELA ITENSREGSAIDA(22/11/2017) - CORREÇÃO
@@ -1672,6 +1698,8 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
                                                                                     mod.alterarSituacaoInterno(objProCrc);
                                                                                 }
+                                                                                //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                                                                                populacaoAlimentacao();
                                                                                 objLog2();
                                                                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                
                                                                                 preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "
@@ -1836,34 +1864,34 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel FotoInternoCrcSaida;
-    private javax.swing.JButton jBtAlterarItem;
-    private javax.swing.JButton jBtAlterarlanc;
-    private javax.swing.JButton jBtAudiSaida;
-    private javax.swing.JButton jBtBiometria;
-    private javax.swing.JButton jBtCancelarItem;
-    private javax.swing.JButton jBtCancelarlanc;
+    public static javax.swing.JButton jBtAlterarItem;
+    public static javax.swing.JButton jBtAlterarlanc;
+    public static javax.swing.JButton jBtAudiSaida;
+    public static javax.swing.JButton jBtBiometria;
+    public static javax.swing.JButton jBtCancelarItem;
+    public static javax.swing.JButton jBtCancelarlanc;
     private javax.swing.JButton jBtDataLanc;
-    private javax.swing.JButton jBtExcluirItem;
-    private javax.swing.JButton jBtExcluirlanc;
-    private javax.swing.JButton jBtExportarRegistros;
-    private javax.swing.JButton jBtFinalizar;
+    public static javax.swing.JButton jBtExcluirItem;
+    public static javax.swing.JButton jBtExcluirlanc;
+    public static javax.swing.JButton jBtExportarRegistros;
+    public static javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIdLanc;
-    private javax.swing.JButton jBtItensAudiSaidaInternos;
+    public static javax.swing.JButton jBtItensAudiSaidaInternos;
     private javax.swing.JButton jBtNomeInterno;
-    private javax.swing.JButton jBtNovoItem;
-    private javax.swing.JButton jBtNovolanc;
-    private javax.swing.JButton jBtPesInterno;
+    public static javax.swing.JButton jBtNovoItem;
+    public static javax.swing.JButton jBtNovolanc;
+    public static javax.swing.JButton jBtPesInterno;
     private javax.swing.JButton jBtSairItens;
-    private javax.swing.JButton jBtSalvarItem;
-    private javax.swing.JButton jBtSalvarlanc;
+    public static javax.swing.JButton jBtSalvarItem;
+    public static javax.swing.JButton jBtSalvarlanc;
     public static javax.swing.JButton jBtZoon;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JComboBox<String> jComboBoxUnidadeDestino;
-    private com.toedter.calendar.JDateChooser jDataLancamento;
+    public static com.toedter.calendar.JDateChooser jDataLancamento;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static com.toedter.calendar.JDateChooser jDataSaida;
-    private javax.swing.JFormattedTextField jHorarioSaida;
+    public static javax.swing.JFormattedTextField jHorarioSaida;
     public static javax.swing.JTextField jIDInterno;
     private javax.swing.JTextField jIDPesqLan;
     public static javax.swing.JTextField jIDlanc;
@@ -1884,10 +1912,10 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelEvadido;
+    public static javax.swing.JLabel jLabelEvadido;
     public static javax.swing.JTextField jNomeInterno;
     public static javax.swing.JTextField jNrDocumento;
-    private javax.swing.JTextArea jObservacao;
+    public static javax.swing.JTextArea jObservacao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -1913,8 +1941,44 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     public static javax.swing.JLabel totalRegistrosInternos;
     // End of variables declaration//GEN-END:variables
 
+    public void populacaoAlimentacao() {
+        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+        objEntradaSaida.setHorarioMovimento(jHorarioSaida.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_SAIDA_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
+
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() - pQUANTIDADE_SAIDA_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
+    //PEGAR O ID DO ITEM PARA GRAVAR NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS
+    public void buscarIdItem() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSREGSAIDA");
+            conecta.rs.last();
+            pID_ITEM_ALIMENTACAO = conecta.rs.getInt("IdItem");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar CÓDIGO DO ITEM \nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
+
+    //EXCLUIR O INTERNO DA POPULAÇAO DA ALIMENTAÇÃO
+    //AINDA NÃO ESTÁ SENDO UTILIZADO
+    public void excluirInternoAlimentacao() {
+        objEntradaSaida.setIdDocumento(Integer.parseInt(idItem));
+        populacao.excluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
     public void preencherComboBoxGrupo() {
-//        jComboBoxUnidadeDestino.removeAllItems();
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM UNIDADE");

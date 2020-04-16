@@ -255,7 +255,7 @@ public class TelaExportarInternosUnidades extends javax.swing.JDialog {
         jTabelaItensInterno.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTabelaItensInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "CNC", "Nome do Interno", "Data Transf.", "Unidade Destino", "Documento"

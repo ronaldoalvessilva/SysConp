@@ -129,7 +129,7 @@ public class TelaPesqInternoNovaEntrada extends javax.swing.JInternalFrame {
         jTabelaPesqInterno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaPesqInterno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Interno", "CNC"

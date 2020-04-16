@@ -8,33 +8,34 @@ package gestor.Visao;
 import Utilitarios.LimiteDigitosSoNum;
 import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
 import gestor.Controle.ControleLogSistema;
-import gestor.Controle.ListagemRegistroEntradaSaidaPopulcao;
+import gestor.Controle.ListagemRegistroNovaEntradaAlimentacao;
 import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.LogSistema;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.acao;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jDataLanc;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jObservacao;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtAlterarInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtAuditoria;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtAuditoriaInternos;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtCancelarInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtExcluir;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtExcluirInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtFinalizar;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtNovoInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jBtSalvarInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jComboBoxOrigemInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jDataChegada;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jHorario;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jIdInterno;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jIdLanc;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jNomeInternoPortaria;
-import static gestor.Visao.TelaEntradaUnidadeInternoPortaria.jOficio;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jDataLanc;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jObservacao;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtAlterarItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtAuditoria;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtAuditoriaItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtCancelarItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtExcluir;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtExcluirItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtFinalizar;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtNovoItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtSalvarItem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jComboBoxOrigem;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jDataEntrada;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jHorarioEntrada;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jIdInternoPortaria;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jIdlanc;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jNomeInternoPortaria;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jNrOficio;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.acao;
+import static gestor.Visao.TelaNovaEntradaPortariaCrc.jBtPesquisarInternos;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -44,14 +45,14 @@ import javax.swing.JOptionPane;
  *
  * @author ronal
  */
-public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
+public class TelaQuantidadeNovaEntradaInternos extends javax.swing.JDialog {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
     ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
     EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
     ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
-    ListagemRegistroEntradaSaidaPopulcao listaRegistroES = new ListagemRegistroEntradaSaidaPopulcao();
+    ListagemRegistroNovaEntradaAlimentacao listaRegistroES = new ListagemRegistroNovaEntradaAlimentacao();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     //
@@ -67,12 +68,12 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
     /**
      * Creates new form TelaQuantidadeEntradaSaidaInternos
      */
-    public static TelaEntradaUnidadeInternoPortaria pENTRADA_PORTARIA_PV;
+    public static TelaNovaEntradaPortariaCrc pNOVA_ENTRADA_PORTARIA_PV;
 
-    public TelaQuantidadeEntradaSaidaInternos(TelaEntradaUnidadeInternoPortaria parent, boolean modal) {
-        this.pENTRADA_PORTARIA_PV = parent;
+    public TelaQuantidadeNovaEntradaInternos(TelaNovaEntradaPortariaCrc parent, boolean modal) {
+        this.pNOVA_ENTRADA_PORTARIA_PV = parent;
         this.setModal(modal);
-        setLocationRelativeTo(pENTRADA_PORTARIA_PV);
+        setLocationRelativeTo(pNOVA_ENTRADA_PORTARIA_PV);
         initComponents();
         corCampos();
         formatarCampos();
@@ -333,7 +334,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Quandidade de internos informada não pode ser zero.");
         } else {
             //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
-            objEntradaSaida.setIdDocumento(Integer.valueOf(jIdLanc.getText()));
+            objEntradaSaida.setIdDocumento(Integer.valueOf(jIdlanc.getText()));
             objEntradaSaida.setDataMovimento(jDataMovimento.getDate());
             objEntradaSaida.setHorarioMovimento(jHorarioMovimento.getText());
             objEntradaSaida.setQuantidade(Integer.valueOf(jQuantidadeMovimento.getText()));
@@ -357,7 +358,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
                 objEntradaSaida.setUsuarioUp(nameUser);
                 objEntradaSaida.setDataUp(jDataSistema.getText());
                 objEntradaSaida.setHorarioUp(horaMov);
-                objEntradaSaida.setIdDocumento(Integer.valueOf(jIdLanc.getText()));
+                objEntradaSaida.setIdDocumento(Integer.valueOf(jIdlanc.getText()));
                 populacao.alterarEntradaSaidaPortaria(objEntradaSaida);
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -373,7 +374,8 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:
+       // acao = 0;
         dispose();
     }//GEN-LAST:event_jBtSairActionPerformed
 
@@ -394,20 +396,21 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaQuantidadeEntradaSaidaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaQuantidadeNovaEntradaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaQuantidadeEntradaSaidaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaQuantidadeNovaEntradaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaQuantidadeEntradaSaidaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaQuantidadeNovaEntradaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaQuantidadeEntradaSaidaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaQuantidadeNovaEntradaInternos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TelaQuantidadeEntradaSaidaInternos dialog = new TelaQuantidadeEntradaSaidaInternos(pENTRADA_PORTARIA_PV, true);
+                TelaQuantidadeNovaEntradaInternos dialog = new TelaQuantidadeNovaEntradaInternos(pNOVA_ENTRADA_PORTARIA_PV, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -450,7 +453,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
 
     public void pesquisarRegistro() {
         listaRegistroES.selecionarRegistroEntrada(objEntradaSaida);
-        if (objEntradaSaida.getIdDocumento() == Integer.parseInt(jIdLanc.getText())) {
+        if (objEntradaSaida.getIdDocumento() == Integer.parseInt(jIdlanc.getText())) {
             jDocumento.setText(String.valueOf(objEntradaSaida.getIdDocumento()));
             jDataMovimento.setDate(objEntradaSaida.getDataMovimento());
             jHorarioMovimento.setText(objEntradaSaida.getHorarioMovimento());
@@ -471,18 +474,18 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
             jDataLanc.setEnabled(!true);
             jObservacao.setEnabled(!true);
             //
-            jIdInterno.setText("");
+            jIdInternoPortaria.setText("");
             jNomeInternoPortaria.setText("");
-            jDataChegada.setCalendar(Calendar.getInstance());
-            jHorario.setText("");
-            jOficio.setText("");
-            jComboBoxOrigemInterno.setSelectedItem(null);
+            jDataEntrada.setCalendar(Calendar.getInstance());
+            jHorarioEntrada.setText("");
+            jNrOficio.setText("");
+            jComboBoxOrigem.setSelectedItem(null);
             //
             jNomeInternoPortaria.setEnabled(true);
-            jDataChegada.setEnabled(true);
-            jHorario.setEnabled(true);
-            jOficio.setEnabled(true);
-            jComboBoxOrigemInterno.setEnabled(true);
+            jDataEntrada.setEnabled(true);
+            jHorarioEntrada.setEnabled(true);
+            jNrOficio.setEnabled(true);
+            jComboBoxOrigem.setEnabled(true);
             //Habilitar/Desabilitar botões
             jBtNovo.setEnabled(!true);
             jBtAlterar.setEnabled(!true);
@@ -492,12 +495,13 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
             jBtAuditoria.setEnabled(!true);
             jBtFinalizar.setEnabled(!true);
             // Habilitar/Desabilitar botoes internos
-            jBtNovoInterno.setEnabled(!true);
-            jBtAlterarInterno.setEnabled(!true);
-            jBtExcluirInterno.setEnabled(!true);
-            jBtSalvarInterno.setEnabled(true);
-            jBtCancelarInterno.setEnabled(true);
-            jBtAuditoriaInternos.setEnabled(!true);
+            jBtNovoItem.setEnabled(!true);
+            jBtAlterarItem.setEnabled(!true);
+            jBtExcluirItem.setEnabled(!true);
+            jBtSalvarItem.setEnabled(true);
+            jBtCancelarItem.setEnabled(true);
+            jBtAuditoriaItem.setEnabled(!true);
+            jBtPesquisarInternos.setEnabled(true);
             preencherComboNovo();
         }
     }
@@ -508,7 +512,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM UNIDADE ORDER BY DescricaoUnid");
             conecta.rs.first();
             do {
-                jComboBoxOrigemInterno.addItem(conecta.rs.getString("DescricaoUnid"));
+                jComboBoxOrigem.addItem(conecta.rs.getString("DescricaoUnid"));
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Existe dados a serem exibidos !!!");
@@ -517,7 +521,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
     }
 
     public void Novo() {
-        jDocumento.setText(jIdLanc.getText());
+        jDocumento.setText(jIdlanc.getText());
         jDataMovimento.setCalendar(Calendar.getInstance());
         jHorarioMovimento.setText(jHoraSistema.getText());
         //
@@ -560,7 +564,7 @@ public class TelaQuantidadeEntradaSaidaInternos extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdlanc.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
