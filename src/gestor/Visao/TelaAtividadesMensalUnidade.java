@@ -4866,7 +4866,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
         } else if (jDataPeriodoFinal.getDate() == null) {
             JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-        } else if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+        } else if (jDataPeriodoInicial.getDate().after(jDataPeriodoFinal.getDate())) {
             JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
         } else {
             calculoMediaPopulacao();
