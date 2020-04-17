@@ -137,7 +137,7 @@ public class PernoiteDao {
     public PernoiteInternos alterarInternosPernoite(PernoiteInternos objPernoite) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PERNOITE_INTERNOS SET IdPer=?,NomeInterno=?,NomeMae=?,NomePai=?,DataEntrada=?,HoraEntrada=?,DataSaida=?,HoraSaida=?,TipoOperacaoSaida=?,ImagemInterno=?,UsuarioUp=?,DatauP=?,HorariouP=? WHERE IdItemPer='" + objPernoite.getIdRegistroInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PERNOITE_INTERNOS SET IdPer=?,NomeInterno=?,NomeMae=?,NomePai=?,DataEntrada=?,HoraEntrada=?,DataSaida=?,HoraSaida=?,TipoOperacaoSaida=?,ImagemInterno=?,UsuarioUp=?,DataUp=?,HorariouP=? WHERE IdItemPer='" + objPernoite.getIdRegistroInterno() + "'");
             pst.setInt(1, objPernoite.getIdRegistro());
             pst.setString(2, objPernoite.getNomeInterno());
             pst.setString(3, objPernoite.getNomeMae());

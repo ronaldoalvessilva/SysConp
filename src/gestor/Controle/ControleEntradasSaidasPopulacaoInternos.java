@@ -72,9 +72,9 @@ public class ControleEntradasSaidasPopulacaoInternos {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_POPULACAO_INTERNOS SET DataMovimento=?,HorarioMovimento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdDocumento='" + objEntradaSaida.getIdDocumento() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEntradaSaida.getDataMovimento().getTime()));
             pst.setString(2, objEntradaSaida.getHorarioMovimento());
-            pst.setString(6, objEntradaSaida.getUsuarioUp());
-            pst.setString(7, objEntradaSaida.getDataUp());
-            pst.setString(8, objEntradaSaida.getHorarioUp());
+            pst.setString(3, objEntradaSaida.getUsuarioUp());
+            pst.setString(4, objEntradaSaida.getDataUp());
+            pst.setString(5, objEntradaSaida.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
@@ -90,9 +90,9 @@ public class ControleEntradasSaidasPopulacaoInternos {
             PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_POPULACAO_INTERNOS SET DataMovimento=?,HorarioMovimento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdDocumento='" + objEntradaSaida.getIdDocumento() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEntradaSaida.getDataMovimento().getTime()));
             pst.setString(2, objEntradaSaida.getHorarioMovimento());
-            pst.setString(6, objEntradaSaida.getUsuarioUp());
-            pst.setString(7, objEntradaSaida.getDataUp());
-            pst.setString(8, objEntradaSaida.getHorarioUp());
+            pst.setString(3, objEntradaSaida.getUsuarioUp());
+            pst.setString(4, objEntradaSaida.getDataUp());
+            pst.setString(5, objEntradaSaida.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);

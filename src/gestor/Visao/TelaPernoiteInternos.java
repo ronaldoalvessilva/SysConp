@@ -1671,6 +1671,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 objPernoite.setHoraEntrada(jHoraEntrada.getText());
                 objPernoite.setDataSaida(jDataSaida.getDate());
                 objPernoite.setHoraSaida(jHoraSaida.getText());
+                objPernoite.setTipoOperacaoEntrada((String) jComboBoxOperacaoEntrada.getSelectedItem());
+                objPernoite.setTipoOperacaoSaida((String) jComboBoxOperacaoSaida.getSelectedItem());
                 if (jFotoInterno.getIcon() != null) {
                     objPernoite.setImgemInterno(persona_imagem);
                 }
@@ -1712,8 +1714,16 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         objEntradaSaida.setDataMovimento(jDataSaida.getDate());
                         objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
                         populacao.alterarEntradaPortaria(objEntradaSaida);
+                    } else if (jDataSaida.getDate() != null && jDataSaida.getDate() != null) {
+                        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
+                        objPernoite.setDataEntrada(jDataEntrada.getDate());
+                        objPernoite.setHoraEntrada(jHoraEntrada.getText());
+                        populacao.alterarEntradaPortaria(objEntradaSaida);
+                        //SAIDA
+                        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+                        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
+                        populacao.alterarSaidaPortaria(objEntradaSaida);
                     }
-                    populacao.alterarSaidaPortaria(objEntradaSaida);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
@@ -1733,6 +1743,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jBtCancelarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarInternoActionPerformed
         // TODO add your handling code here:
+        bloquearCampos();
+        bloquearBotoes();
         CancelarInterno();
     }//GEN-LAST:event_jBtCancelarInternoActionPerformed
 
@@ -1787,6 +1799,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
         // TODO add your handling code here:
+        flag = 1;
         if (flag == 1) {
             String nomeInterno = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 1);
             jNomeInterno.setText(nomeInterno);
@@ -1943,7 +1956,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
 
     public void populacaoAlimentacaoEntrada() {
         //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
-        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
         objEntradaSaida.setDataMovimento(jDataEntrada.getDate());
         objEntradaSaida.setHorarioMovimento(jHoraEntrada.getText());
         objEntradaSaida.setQuantidade(pQUANTIDADE_ENTRADA_INTERNO);
@@ -2241,7 +2254,6 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
-        jComboBoxOperacaoEntrada.setEnabled(true);
         jDataEntrada.setEnabled(true);
         jHoraEntrada.setEnabled(true);
         jComboBoxOperacaoSaida.setEnabled(true);
