@@ -14,8 +14,12 @@ import gestor.Dao.ConexaoBancoDadosLF;
 import gestor.Dao.ConexaoBancoDadosSSA;
 import gestor.Dao.ConexaoBancoDadosVC;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Modelo.DadosFisicosInternos;
 import gestor.Modelo.DadosPenaisCrc;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ProntuarioCrc;
 import gestor.Modelo.ProntuarioFisicosPenaisInternos;
 import gestor.Modelo.TransferenciaInternosPortaria;
@@ -68,9 +72,9 @@ public class TelaExportarInternosUnidades extends javax.swing.JDialog {
      * Creates new form TelaExportarInternosUnidades
      */
     public static TelaRegistroSaidaInternosPortaria telaTransInternoPort;
-    
+
     public TelaExportarInternosUnidades(TelaRegistroSaidaInternosPortaria parent, boolean modal) {
-         this.telaTransInternoPort = parent;
+        this.telaTransInternoPort = parent;
         this.setModal(modal);
         setLocationRelativeTo(telaTransInternoPort);
         initComponents();
@@ -502,27 +506,27 @@ public class TelaExportarInternosUnidades extends javax.swing.JDialog {
             try {
                 for (TransferenciaInternosPortaria dd : digiControlSaida.read()) {
                     if (jComboBoxUnidadeDestinoInterno.getSelectedItem().equals("Conjunto Penal de Lauro de Freitas - CPLF")) {
-                        dd.setNomeUnidade((String)jComboBoxUnidadeDestinoInterno.getSelectedItem());
+                        dd.setNomeUnidade((String) jComboBoxUnidadeDestinoInterno.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         dd.setConfirmaImp(repostaImport);
                         control.incluirInternoPortariaLF(dd);
                     } else if (jComboBoxUnidadeDestinoInterno.getSelectedItem().equals("Conjunto Penal de Itabuna - CPIT")) {
-                        dd.setNomeUnidade((String)jComboBoxUnidadeDestinoInterno.getSelectedItem());
+                        dd.setNomeUnidade((String) jComboBoxUnidadeDestinoInterno.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         dd.setConfirmaImp(repostaImport);
                         control.incluirInternoPortariaITB(dd);
                     } else if (jComboBoxUnidadeDestinoInterno.getSelectedItem().equals("Conjunto Penal de Vitória da Conquista - CPVC")) {
-                        dd.setNomeUnidade((String)jComboBoxUnidadeDestinoInterno.getSelectedItem());
+                        dd.setNomeUnidade((String) jComboBoxUnidadeDestinoInterno.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         dd.setConfirmaImp(repostaImport);
                         control.incluirInternoPortariaVC(dd);
                     } else if (jComboBoxUnidadeDestinoInterno.getSelectedItem().equals("Conjunto Penal Masculino de Salvador - CPMS")) {
-                        dd.setNomeUnidade((String)jComboBoxUnidadeDestinoInterno.getSelectedItem());
+                        dd.setNomeUnidade((String) jComboBoxUnidadeDestinoInterno.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         dd.setConfirmaImp(repostaImport);
                         control.incluirInternoPortariaSSA(dd);
                     } else if (jComboBoxUnidadeDestinoInterno.getSelectedItem().equals("Conjunto Penal de Barreiras - CPBA")) {
-                        dd.setNomeUnidade((String)jComboBoxUnidadeDestinoInterno.getSelectedItem());
+                        dd.setNomeUnidade((String) jComboBoxUnidadeDestinoInterno.getSelectedItem());
                         dd.setConfirmaExp(respostaTrans);
                         dd.setConfirmaImp(repostaImport);
                         control.incluirInternoPortariaBAR(dd);

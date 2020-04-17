@@ -197,7 +197,6 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     public static TelaFotoPortaria telafotoportaria;
     public static TelaBiometriaEntradaSaidaPortaria telaBioMov;
     public static TelaExportarInternosUnidades telaExpPor;
-    public static TelaQuantidadeSaidaInternosPortaria pQUANTIDADE_SAIDA;
 
     public TelaRegistroSaidaInternosPortaria() {
         super();
@@ -220,11 +219,6 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
     public void mostrarImportarInternos() {
         telaExpPor = new TelaExportarInternosUnidades(this, true);
         telaExpPor.setVisible(true);
-    }
-
-    public void mostarQuantidadeSaida() {
-        pQUANTIDADE_SAIDA = new TelaQuantidadeSaidaInternosPortaria(this, true);
-        pQUANTIDADE_SAIDA.setVisible(true);
     }
 
     /**
@@ -1662,7 +1656,7 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                 controle.confirmaRegSaidaItensCrcPort(objItemSaida); // CONFIRMA COM "Sim" PARA A PORTARIA NÃO FAZER SAIDA EM DUPLICIDADE
                                                                                 // Confirmar "Sim" na tabela de ITENSTRANSFERENCIA para para impedir exclusão ou alterarção do interno
                                                                                 objItensTrans.setIdItemTrans(idItemCrcPort); // Item do documento de saida (ITENSSAIDA)
-                                                                                objItensTrans.setConfirmaSaida(confirmaRegSaida);;
+                                                                                objItensTrans.setConfirmaSaida(confirmaRegSaida);
                                                                                 controle.confirmaRegistroTransferencia(objItensTrans); // Tabela ITENSTRANSFERENCIA - (SAIDA POR TRANSFERENCIA)
                                                                                 // Bloquear interno no Rol (FINALIZAR)
                                                                                 objItemSaida.setIdSaida((Integer.valueOf(jIDlanc.getText())));
@@ -1685,21 +1679,25 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
                                                                                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                                                                                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                                                                                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                                                                                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                                                                                    populacaoAlimentacao();
                                                                                 }
                                                                                 // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
                                                                                 if (jTipoSaida.getText().equals(saidaTemporaria)) {
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
                                                                                     mod.alterarSituacaoInterno(objProCrc);
+                                                                                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                                                                                    populacaoAlimentacao();
                                                                                 }
                                                                                 // SE FOR SAIDA PRISAO DOMICILIAR HUMANITARIA COVID-19, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (23/03/2020)
                                                                                 if (jTipoSaida.getText().equals(pPRISAO_DOMICILIAR_COVID)) {
                                                                                     objProCrc.setIdInterno(Integer.valueOf(jIDInterno.getText()));
                                                                                     objProCrc.setSituacao(jTipoSaida.getText());
                                                                                     mod.alterarSituacaoInterno(objProCrc);
+                                                                                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                                                                                    populacaoAlimentacao();
                                                                                 }
-                                                                                //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
-                                                                                populacaoAlimentacao();
                                                                                 objLog2();
                                                                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação                                                                                
                                                                                 preencherTabelaItens("SELECT * FROM ITENSREGSAIDA "

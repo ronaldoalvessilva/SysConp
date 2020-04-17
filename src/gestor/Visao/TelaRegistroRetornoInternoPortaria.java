@@ -13,6 +13,10 @@ import gestor.Controle.ControleRetornoInternoPortaria;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensRegistroRetornoInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
@@ -63,6 +67,11 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     ProntuarioCrc objProCrc = new ProntuarioCrc();
     //
     ControleRetornoInternoPortaria controleRetornoPortaria = new ControleRetornoInternoPortaria();
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    ListagemRegistroSaidaPopulcaoPortaria listaRegistroES = new ListagemRegistroSaidaPopulcaoPortaria();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -100,6 +109,12 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     byte[] retornoBiometria = null;
     String codigoRetorno = "";
     String codigoInternoRet = "";
+    //
+    String pTIPO_OPERCAO_ENTRADA = "Entrada na Unidade";
+    public static String pREGISTRO_ENTRADA = "";
+    int pPOPULCAO_ATUAL = 0;
+    int pQUANTIDADE_ENTRADA_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO = 0;
 
     /**
      * Creates new form TelaRetornoInterno
@@ -709,7 +724,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         jLabel11.setText("Tipo de Operação");
 
         jOrigemOperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão" }));
+        jOrigemOperacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar" }));
         jOrigemOperacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jOrigemOperacao.setEnabled(false);
 
@@ -1425,6 +1440,24 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                             objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
                             controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                    
                             buscarIdItem();
+                            //ADICIONAR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                            if (jOrigemOperacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Transferência")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Recaptura")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retono Espontâneo")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
+                                populacaoAlimentacao();
+                            } else if (jOrigemOperacao.getSelectedItem().equals("Retorno Prisão Domiciliar")) {
+                                populacaoAlimentacao();
+                            }
                             verificarGravacaoRegistro();
                             if (jIDLanc.getText().equals(codigoRetorno) && jIdInterno.getText().equals(codigoInternoRet)) {
                                 //Atualizar a tabela MOVISR pela portaria do retorno dos internos.
@@ -1667,6 +1700,23 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void populacaoAlimentacao() {
+        //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
+        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setDataMovimento(jDataRetorno.getDate());
+        objEntradaSaida.setHorarioMovimento(jHorarioRetorno.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_ENTRADA_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() + pQUANTIDADE_ENTRADA_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
 
     public void corCampos() {
         jIDLanc.setBackground(Color.white);
@@ -2373,6 +2423,8 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             conecta.executaSQL("SELECT * FROM ITENSREGISTRO ");
             conecta.rs.last();
             codItem = conecta.rs.getInt("IdItem");
+            // PARA A POLULAÇÃO DE ALIMENTAÇÃO
+            pID_ITEM_ALIMENTACAO = conecta.rs.getInt("IdItem");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do item.\nERRO: " + ex);
         }

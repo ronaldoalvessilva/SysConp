@@ -99,7 +99,7 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     /**
      * Creates new form TelaEntradaUnidadeInternoPortaria
      */
-    public static TelaQuantidadeEntradaSaidaInternos pQUANTIDADE_ENTRADA_PV;
+ 
 
     public TelaEntradaUnidadeInternoPortaria() {
         initComponents();
@@ -107,10 +107,6 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
         formatarCampos();
     }
 
-    public void mostrarTelaQuantidade() {
-        pQUANTIDADE_ENTRADA_PV = new TelaQuantidadeEntradaSaidaInternos(this, true);
-        pQUANTIDADE_ENTRADA_PV.setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

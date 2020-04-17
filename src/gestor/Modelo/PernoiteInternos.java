@@ -36,6 +36,8 @@ public class PernoiteInternos {
     private Date dataSaida;
     private String horaSaida;
     private byte[] ImgemInterno;
+    private String tipoOperacaoEntrada;
+    private String tipoOperacaoSaida;
     private String usuarioInsert;
     private String dataInsert;
     private String horaInsert;
@@ -47,7 +49,7 @@ public class PernoiteInternos {
     public PernoiteInternos() {
     }
 
-    public PernoiteInternos(int idRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String documento, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int idRegistroInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
+    public PernoiteInternos(int idRegistro, String statusRegistro, Date DataRegistro, String DescricaoPavilhao, String documento, String descricaoCela, String objetivo, String unidadeOrigem, String nomeCondutor, String rgCondutor, String cpfCondutor, String veiculo, String placa, String motivo, int idRegistroInterno, String nomeInterno, String nomeMae, String nomePai, Date dataEntrada, String horaEntrada, Date dataSaida, String horaSaida, byte[] ImgemInterno, String tipoOperacaoEntrada, String tipoOperacaoSaida, String usuarioInsert, String dataInsert, String horaInsert, String usuarioUp, String dataUp, String horaUp, String useuaroAdmin) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.DataRegistro = DataRegistro;
@@ -71,6 +73,8 @@ public class PernoiteInternos {
         this.dataSaida = dataSaida;
         this.horaSaida = horaSaida;
         this.ImgemInterno = ImgemInterno;
+        this.tipoOperacaoEntrada = tipoOperacaoEntrada;
+        this.tipoOperacaoSaida = tipoOperacaoSaida;
         this.usuarioInsert = usuarioInsert;
         this.dataInsert = dataInsert;
         this.horaInsert = horaInsert;
@@ -400,6 +404,34 @@ public class PernoiteInternos {
      */
     public void setImgemInterno(byte[] ImgemInterno) {
         this.ImgemInterno = ImgemInterno;
+    }
+
+    /**
+     * @return the tipoOperacaoEntrada
+     */
+    public String getTipoOperacaoEntrada() {
+        return tipoOperacaoEntrada;
+    }
+
+    /**
+     * @param tipoOperacaoEntrada the tipoOperacaoEntrada to set
+     */
+    public void setTipoOperacaoEntrada(String tipoOperacaoEntrada) {
+        this.tipoOperacaoEntrada = tipoOperacaoEntrada;
+    }
+
+    /**
+     * @return the tipoOperacaoSaida
+     */
+    public String getTipoOperacaoSaida() {
+        return tipoOperacaoSaida;
+    }
+
+    /**
+     * @param tipoOperacaoSaida the tipoOperacaoSaida to set
+     */
+    public void setTipoOperacaoSaida(String tipoOperacaoSaida) {
+        this.tipoOperacaoSaida = tipoOperacaoSaida;
     }
 
     /**

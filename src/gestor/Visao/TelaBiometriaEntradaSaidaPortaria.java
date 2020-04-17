@@ -24,7 +24,11 @@ import gestor.Controle.ControleSituacao;
 import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Modelo.DocumentosInternos;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensLocacaoInternos;
 import gestor.Modelo.ItensPrevisaoSaida;
 import gestor.Modelo.ItensRegSaidaInternos;
@@ -77,7 +81,12 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     // Confirma a saida do interno na portaria na tabela ITENSPREVSAIDA   
     ItensPrevisaoSaida objItensPreSaida = new ItensPrevisaoSaida();
     ControleItensPrevisaoSaida controlePrevSaida = new ControleItensPrevisaoSaida();
-    ControleSituacao mod = new ControleSituacao(); // MODIFICA A SITUAÇAO DO INTERNO NO PRONTUARIO.    
+    ControleSituacao mod = new ControleSituacao(); // MODIFICA A SITUAÇAO DO INTERNO NO PRONTUARIO.  
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    ListagemRegistroSaidaPopulcaoPortaria listaRegistroES = new ListagemRegistroSaidaPopulcaoPortaria();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -101,7 +110,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     String tipo = "Saídas";
     String situacao = "SAIDA TEMPORARIA"; // Máximo 19 caracteres    
     String saidaMedico = "SAIDA PARA MEDICO";
-    String saidaOutras = "OUTRAS SAIDAS";    
+    String saidaOutras = "OUTRAS SAIDAS";
     String saidaAudiencia = "SAIDA PARA AUDIENCIA";
     //SAIDAS ATRAVES DA BIOMETRIA QUE MODIFICA A SITUAÇÃO DO INTERNO
     //SEGUNDA ALTERAÇÃO EM ITABUNA 04/08/2019
@@ -122,6 +131,12 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     String idItem = "";
     public static String idItemSaidaPort = ""; // Item da tabela de ITENS DE SAIDA (ITENSSAIDA)
     public static int idItemCrcPortSai = 0; // Item da tabela ITENSCRCPORTARIA
+    //SAIDA 
+    String pTIPO_OPERCAO_ENTRADA = "Saida da Unidade";
+    public static String pREGISTRO_ENTRADA = "";
+    int pPOPULCAO_ATUAL = 0;
+    int pQUANTIDADE_SAIDA_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO = 0;
 
     /**
      * Creates new form TelaBiometriaKitInterno
@@ -483,7 +498,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                 objItemSaida.setConfirmaSaida(confirmaRegSaida);
                 objItemSaida.setIdSaida((Integer.valueOf(jIDlanc.getText())));
                 objItemSaida.setIdItemCrcPortaria(idItemCrcPortSai); // Item da tabela ITENSCRCPORTARIA                               
-                controle.incluirItensRegSaida(objItemSaida); // Gravar registro na tabela de itens ITENSREGSAIDA                                
+                controle.incluirItensRegSaida(objItemSaida); // Gravar registro na tabela de itens ITENSREGSAIDA 
+                buscarIdItem();
                 objItemSaida.setIdItemSaida(idItemSaidaPort); // Item do documento de saida (ITENSSAIDA)                                                                  
                 // Confirma "Sim" na tabela ITENSSAIDA para impedir a exclusão ou alteração do interno  
                 objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoKitBio.getText()));
@@ -514,6 +530,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
                     objProCrc.setSituacao(situacao);
                     mod.alterarSituacaoInterno(objProCrc);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
                 } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaAlvara)) {
                     situacao = "SAIDA ALVARA";
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
@@ -522,6 +540,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
                 } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaLivramento)) {
                     // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
                     situacao = "LIVRAMENTO CONDICIONAL";
@@ -531,6 +551,8 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
                 } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaProgressao)) {
                     // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
                     situacao = "PROGRESSAO DE REGIME";
@@ -540,6 +562,19 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
+                } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaProgressao)) {
+                    // RETIRAR DA POPULAÇÃO, MODIFICADO EM 11/07/2016
+                    situacao = "TRANSFERENCIA";
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objProCrc.setSituacao(situacao);
+                    mod.alterarSituacaoInterno(objProCrc);
+                    // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
+                    objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
+                    excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
                 }
                 objLog();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -717,6 +752,36 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
+
+    public void populacaoAlimentacao() {
+        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+        objEntradaSaida.setHorarioMovimento(jHorarioSaidaEntrada.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_SAIDA_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
+
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() - pQUANTIDADE_SAIDA_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
+    //PEGAR O ID DO ITEM PARA GRAVAR NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS
+    public void buscarIdItem() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSREGSAIDA");
+            conecta.rs.last();
+            pID_ITEM_ALIMENTACAO = conecta.rs.getInt("IdItem");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar CÓDIGO DO ITEM \nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
 
     private static Runnable LerDigital1 = new Runnable() {
         @Override

@@ -303,7 +303,7 @@ public class TelaAcessosPortariaInterna extends javax.swing.JInternalFrame {
         jTabelaEntradaSaidaVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaEntradaSaidaVisitasDiversas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Status", "Observação"
@@ -633,7 +633,7 @@ public class TelaAcessosPortariaInterna extends javax.swing.JInternalFrame {
         jTabelaVisitasDiversas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaVisitasDiversas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data Entrada", "Hora", "Data Saída", "Hora", "Destino", "Motivo"

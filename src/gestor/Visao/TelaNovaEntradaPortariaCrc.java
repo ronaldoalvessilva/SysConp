@@ -66,6 +66,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
     ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
     ListagemRegistroEntradaSaidaPopulcao listaRegistroES = new ListagemRegistroEntradaSaidaPopulcao();
+    //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -98,17 +99,11 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaNovaEntradaPortariaCrc
      */
-    public static TelaQuantidadeNovaEntradaInternos pQUANTIDADE_NOVA_ENTRADA;
-
+  
     public TelaNovaEntradaPortariaCrc() {
         initComponents();
         corCampos();
         formatarCampos();
-    }
-
-    public void mostrarQuantidade() {
-        pQUANTIDADE_NOVA_ENTRADA = new TelaQuantidadeNovaEntradaInternos(this, true);
-        pQUANTIDADE_NOVA_ENTRADA.setVisible(true);
     }
 
     /**
@@ -787,7 +782,7 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3))
+                .addGap(5, 5, 5))
         );
 
         jTabelaEntradaInternosP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -937,11 +932,11 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);

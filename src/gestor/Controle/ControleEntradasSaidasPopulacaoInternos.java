@@ -64,16 +64,32 @@ public class ControleEntradasSaidasPopulacaoInternos {
         return objEntradaSaida;
     }
 
-    public EntradaSaidasPolucaoInternos alterarEntradaSaidaPortaria(EntradaSaidasPolucaoInternos objEntradaSaida) {
+    //USADO SOMENTE NA TELA DE PERNOITE
+    public EntradaSaidasPolucaoInternos alterarEntradaPortaria(EntradaSaidasPolucaoInternos objEntradaSaida) {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_POPULACAO_INTERNOS SET DataMovimento=?,HorarioMovimento=?,TipoOperacao=?,Quantidade=?,Populacao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdDocumento='" + objEntradaSaida.getIdDocumento() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_POPULACAO_INTERNOS SET DataMovimento=?,HorarioMovimento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdDocumento='" + objEntradaSaida.getIdDocumento() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEntradaSaida.getDataMovimento().getTime()));
             pst.setString(2, objEntradaSaida.getHorarioMovimento());
-            pst.setString(3, objEntradaSaida.getTipoOperacao());
-            pst.setInt(4, objEntradaSaida.getQuantidade());
-            pst.setInt(5, objEntradaSaida.getPopulacao());
+            pst.setString(6, objEntradaSaida.getUsuarioUp());
+            pst.setString(7, objEntradaSaida.getDataUp());
+            pst.setString(8, objEntradaSaida.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEntradaSaida;
+    }
+
+    public EntradaSaidasPolucaoInternos alterarSaidaPortaria(EntradaSaidasPolucaoInternos objEntradaSaida) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ENTRADAS_SAIDAS_POPULACAO_INTERNOS SET DataMovimento=?,HorarioMovimento=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdDocumento='" + objEntradaSaida.getIdDocumento() + "'");
+            pst.setTimestamp(1, new java.sql.Timestamp(objEntradaSaida.getDataMovimento().getTime()));
+            pst.setString(2, objEntradaSaida.getHorarioMovimento());
             pst.setString(6, objEntradaSaida.getUsuarioUp());
             pst.setString(7, objEntradaSaida.getDataUp());
             pst.setString(8, objEntradaSaida.getHorarioUp());

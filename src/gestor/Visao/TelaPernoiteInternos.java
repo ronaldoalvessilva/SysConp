@@ -8,7 +8,11 @@ package gestor.Visao;
 import gestor.Controle.ControleLogSistema;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroEntradaSaidaPopulcao;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
 import gestor.Controle.PernoiteDao;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.PernoiteInternos;
 import java.awt.Color;
@@ -54,6 +58,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     PernoiteInternos objPernoite = new PernoiteInternos();
     PernoiteDao pDAO = new PernoiteDao();
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    ListagemRegistroEntradaSaidaPopulcao listaRegistroES = new ListagemRegistroEntradaSaidaPopulcao();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -75,6 +84,18 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     byte[] persona_imagem;
     String caminho = "";
     public static int pID_ITEM_PER = 0;
+    //
+    String pTIPO_OPERCAO_ENTRADA = "Entrada na Unidade";
+    public static String pREGISTRO_ENTRADA = "";
+    int pPOPULCAO_ATUAL = 0;
+    int pQUANTIDADE_ENTRADA_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO = 0;
+    //
+    String pTIPO_OPERCAO_SAIDA = "Saida da Unidade";
+    public static String pREGISTRO_SAIDA = "";
+    int pPOPULCAO_ATUAL_SAIDA = 0;
+    int pQUANTIDADE_SAIDA_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO_SAIDA = 0;
 
     /**
      * Creates new form TelaPernoiteInternos
@@ -179,11 +200,15 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jHoraSaida = new javax.swing.JFormattedTextField();
+        jLabel30 = new javax.swing.JLabel();
+        jComboBoxOperacaoSaida = new javax.swing.JComboBox<>();
         jPanel9 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jDataEntrada = new com.toedter.calendar.JDateChooser();
         jHoraEntrada = new javax.swing.JFormattedTextField();
+        jLabel31 = new javax.swing.JLabel();
+        jComboBoxOperacaoEntrada = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jFotoInterno = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -691,7 +716,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -820,7 +845,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -864,6 +889,14 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jHoraSaida.setText("00:00");
         jHoraSaida.setEnabled(false);
 
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setText("Operação:");
+
+        jComboBoxOperacaoSaida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxOperacaoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Saída" }));
+        jComboBoxOperacaoSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxOperacaoSaida.setEnabled(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -871,16 +904,20 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(0, 57, Short.MAX_VALUE))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(0, 47, Short.MAX_VALUE))
+                            .addComponent(jHoraSaida)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(jHoraSaida)
-                        .addGap(16, 16, 16)))
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxOperacaoSaida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -893,7 +930,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHoraSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(jComboBoxOperacaoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dados Entrada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
@@ -912,19 +953,33 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jHoraEntrada.setText("00:00");
         jHoraEntrada.setEnabled(false);
 
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel31.setText("Operação:");
+
+        jComboBoxOperacaoEntrada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxOperacaoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Entrada" }));
+        jComboBoxOperacaoEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxOperacaoEntrada.setEnabled(false);
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addComponent(jHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxOperacaoEntrada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -937,7 +992,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jHoraEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jComboBoxOperacaoEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -1015,13 +1074,6 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jNomeInterno)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1030,7 +1082,14 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel14)
                             .addComponent(jNomeMaeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                             .addComponent(jLabel13)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1056,11 +1115,11 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                         .addComponent(jNomePaiInterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2))
         );
 
         jPanel6Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel8, jPanel9});
@@ -1154,7 +1213,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jBtNovoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jBtAlterarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1175,8 +1234,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtNovoInterno)
                     .addComponent(jBtAlterarInterno)
@@ -1184,9 +1243,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     .addComponent(jBtSalvarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCancelarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtAuditoriaInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
@@ -1600,6 +1658,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Digite a data de entrada do interno.");
             } else if (jHoraEntrada.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Digite a hora de entrada do interno.");
+            } else if (jComboBoxOperacaoEntrada.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione operação de entrada");
+            } else if (jComboBoxOperacaoEntrada.getSelectedItem().equals("Selecione...")) {
+                JOptionPane.showMessageDialog(rootPane, "Selecione operação de entrada");
             } else {
                 objPernoite.setIdRegistro(Integer.valueOf(jCodigoRegistro.getText()));
                 objPernoite.setNomeInterno(jNomeInterno.getText());
@@ -1619,6 +1681,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     //
                     pDAO.incluirInternosPernoite(objPernoite);
                     buscarCodigoInterno();
+                    populacaoAlimentacaoEntrada();
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
@@ -1636,6 +1699,21 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     objPernoite.setHoraUp(horaMov);
                     objPernoite.setIdRegistroInterno(pID_ITEM_PER);
                     pDAO.alterarInternosPernoite(objPernoite);
+                    if (jDataSaida.getDate() != null) {
+                        populacaoAlimentacaoSaida();
+                        //SÓ MODIFICA A DATA E A HORA
+                        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
+                        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+                        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
+                        populacao.alterarEntradaPortaria(objEntradaSaida);
+                    } else if (jDataSaida.getDate() == null) {
+                        //SÓ MODIFICA A DATA E A HORA
+                        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
+                        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+                        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
+                        populacao.alterarEntradaPortaria(objEntradaSaida);
+                    }
+                    populacao.alterarSaidaPortaria(objEntradaSaida);
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
@@ -1745,8 +1823,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     ImageIcon icon2 = new ImageIcon(scaled2);
                     jFotoInterno.setIcon(icon2);
                 }
+                jComboBoxOperacaoEntrada.setSelectedItem(conecta.rs.getString("TipoOperacaoEntrada"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataEntrada"));
                 jHoraEntrada.setText(conecta.rs.getString("HoraEntrada"));
+                jComboBoxOperacaoSaida.setSelectedItem(conecta.rs.getString("TipoOperacaoSaida"));
                 jDataSaida.setDate(conecta.rs.getDate("DataSaida"));
                 jHoraSaida.setText(conecta.rs.getString("HoraSaida"));
                 conecta.desconecta();
@@ -1783,6 +1863,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jCodigoRegistro;
     private javax.swing.JComboBox<String> jComboBoxCela;
     private javax.swing.JComboBox<String> jComboBoxObjetivo;
+    private javax.swing.JComboBox<String> jComboBoxOperacaoEntrada;
+    private javax.swing.JComboBox<String> jComboBoxOperacaoSaida;
     private javax.swing.JComboBox<String> jComboBoxPavilhao;
     private javax.swing.JComboBox<String> jComboBoxUnidadeOrigem;
     private com.toedter.calendar.JDateChooser jDataEntrada;
@@ -1817,6 +1899,8 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1856,6 +1940,52 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jVeiculo;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void populacaoAlimentacaoEntrada() {
+        //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
+        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setDataMovimento(jDataEntrada.getDate());
+        objEntradaSaida.setHorarioMovimento(jHoraEntrada.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_ENTRADA_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() + pQUANTIDADE_ENTRADA_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
+    public void populacaoAlimentacaoSaida() {
+        //ADICIONAR POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULCAO_INTERNOS
+        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
+        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
+        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_SAIDA_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_SAIDA);
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL_SAIDA = objEntradaSaida.getPopulacao() - pQUANTIDADE_SAIDA_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL_SAIDA);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
+    public void buscarItem() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA");
+            conecta.rs.last();
+            pID_ITEM_ALIMENTACAO = conecta.rs.getInt("IdItem");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel encontrar CÓDIGO DO ITEM \nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jMotivo.setLineWrap(true);
@@ -1906,8 +2036,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setEnabled(!true);
         jNomeMaeInterno.setEnabled(!true);
         jNomePaiInterno.setEnabled(!true);
+        jComboBoxOperacaoEntrada.setEnabled(!true);
         jDataEntrada.setEnabled(!true);
         jHoraEntrada.setEnabled(!true);
+        jComboBoxOperacaoSaida.setEnabled(!true);
         jDataSaida.setEnabled(!true);
         jHoraSaida.setEnabled(!true);
     }
@@ -1931,8 +2063,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setText("");
         jNomeMaeInterno.setText("");
         jNomePaiInterno.setText("");
+        jComboBoxOperacaoEntrada.setSelectedItem("Selecione...");
         jDataEntrada.setDate(null);
         jHoraEntrada.setText("");
+        jComboBoxOperacaoSaida.setSelectedItem("Selecione...");
         jDataSaida.setDate(null);
         jHoraSaida.setText("");
         jFotoInterno.setIcon(null);
@@ -2089,13 +2223,13 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     }
 
     public void NovoInterno() {
+        jDataEntrada.setCalendar(Calendar.getInstance());
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
+        jComboBoxOperacaoEntrada.setEnabled(true);
         jDataEntrada.setEnabled(true);
         jHoraEntrada.setEnabled(true);
-        jDataSaida.setEnabled(true);
-        jHoraSaida.setEnabled(true);
         //
         jBtSalvarInterno.setEnabled(true);
         jBtCancelarInterno.setEnabled(true);
@@ -2107,8 +2241,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
+        jComboBoxOperacaoEntrada.setEnabled(true);
         jDataEntrada.setEnabled(true);
         jHoraEntrada.setEnabled(true);
+        jComboBoxOperacaoSaida.setEnabled(true);
         jDataSaida.setEnabled(true);
         jHoraSaida.setEnabled(true);
         //
@@ -2152,8 +2288,10 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jNomeInterno.setText("");
         jNomeMaeInterno.setText("");
         jNomePaiInterno.setText("");
+        jComboBoxOperacaoEntrada.setSelectedItem("Selecione...");
         jDataEntrada.setDate(null);
         jHoraEntrada.setText("");
+        jComboBoxOperacaoEntrada.setSelectedItem("Selecione...");
         jDataSaida.setDate(null);
         jHoraSaida.setText("");
         jFotoInterno.setIcon(null);

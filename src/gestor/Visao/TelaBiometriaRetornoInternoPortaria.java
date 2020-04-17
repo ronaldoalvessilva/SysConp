@@ -21,6 +21,10 @@ import gestor.Controle.ControleSituacao;
 import gestor.Controle.DigitalInternos;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleEntradasSaidasPopulacaoInternos;
+import gestor.Controle.ListagemRegistroSaidaPopulcaoPortaria;
+import gestor.Controle.ListagemUltimaPopulacaoCRC;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
 import gestor.Modelo.ItensRegistroRetornoInterno;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProntuarioCrc;
@@ -58,6 +62,11 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
     ControleSituacao mod = new ControleSituacao(); // MODIFICA A SITUAÇAO DO INTERNO NO PRONTUARIO.   
     //
     ControleRetornoInternoPortaria controleRetornoPortaria = new ControleRetornoInternoPortaria();
+    //ADICIONAR A POPULAÇÃO NA TABELA ENTRADAS_SAIDAS_POPULACAO_INTERNOS (CONTROLE ALIMENTAÇÃO)
+    ControleEntradasSaidasPopulacaoInternos populacao = new ControleEntradasSaidasPopulacaoInternos();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ListagemUltimaPopulacaoCRC listaUltimaPopulacao = new ListagemUltimaPopulacaoCRC();
+    ListagemRegistroSaidaPopulcaoPortaria listaRegistroES = new ListagemRegistroSaidaPopulcaoPortaria();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -100,6 +109,12 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
     String confirma = "Não";
     int codItem = 0;
     int acao = 3;
+    //RETORNO 
+    String pTIPO_OPERCAO_ENTRADA = "Saida da Unidade";
+    public static String pREGISTRO_ENTRADA = "";
+    int pPOPULCAO_ATUAL = 0;
+    int pQUANTIDADE_RETORNO_INTERNO = 1;
+    int pID_ITEM_ALIMENTACAO = 0;
 
     /**
      * Creates new form TelaBiometriaKitInterno
@@ -219,7 +234,7 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
         jLabel9.setText("Tipo Movimentação");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos" }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Retorno Audiência", "Retorno Médico", "Retorno Saída Temporaria", "Retorno Recaptura", "Retorno Transferência", "Retorno por Nova Condenação", "Retono Espontâneo", "Outros Retornos", "Retorno por Nova Prisão", "Retorno de Prisão Domiciliar - COVID-19", "Retorno Prisão Domiciliar", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -446,6 +461,25 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
                         //Inserir na tabela de movimentação (RETORNO) 
                         objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
                         controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                                           
+                        buscarIdItem();
+                        //ADICIONAR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                        if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno Transferência")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno Recaptura")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno por Nova Condenação")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retono Espontâneo")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno por Nova Prisão")) {
+                            populacaoAlimentacao();
+                        } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals("Retorno Prisão Domiciliar")) {
+                            populacaoAlimentacao();
+                        }
                         //Atualizar a tabela MOVISR pela portaria do retorno dos internos.
                         objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                         objItensRetorno.setDocumento(jDocumentoRetorno.getText());
@@ -640,6 +674,36 @@ public class TelaBiometriaRetornoInternoPortaria extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
 
+    public void populacaoAlimentacao() {
+        objEntradaSaida.setIdDocumento(pID_ITEM_ALIMENTACAO);
+        objEntradaSaida.setDataMovimento(jDataSaidaEntrada.getDate());
+        objEntradaSaida.setHorarioMovimento(jHorarioSaidaEntrada.getText());
+        objEntradaSaida.setQuantidade(pQUANTIDADE_RETORNO_INTERNO);
+        objEntradaSaida.setTipoOperacao(pTIPO_OPERCAO_ENTRADA);
+
+        objEntradaSaida.setUsuarioInsert(nameUser);
+        objEntradaSaida.setDataInsert(jDataSistema.getText());
+        objEntradaSaida.setHorarioInsert(horaMov);
+        //PEGAR ULTIMA POPUÇÃO PARA EFETUAR CALCULO ANTES DE GRAVAR
+        listaUltimaPopulacao.selecionarPopulacao(objEntradaSaida);
+        pPOPULCAO_ATUAL = objEntradaSaida.getPopulacao() + pQUANTIDADE_RETORNO_INTERNO;
+        objEntradaSaida.setPopulacao(pPOPULCAO_ATUAL);
+        populacao.incluirEntradaSaidaPortaria(objEntradaSaida);
+    }
+
+    public void buscarIdItem() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ITENSREGISTRO ");
+            conecta.rs.last();
+            codItem = conecta.rs.getInt("IdItem");
+            // PARA A POLULAÇÃO DE ALIMENTAÇÃO
+            pID_ITEM_ALIMENTACAO = conecta.rs.getInt("IdItem");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do item.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+    }
     private static Runnable LerDigital1 = new Runnable() {
         @Override
         public void run() {

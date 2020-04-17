@@ -105,7 +105,7 @@ public class PernoiteDao {
     public PernoiteInternos incluirInternosPernoite(PernoiteInternos objPernoite) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PERNOITE_INTERNOS (IdPer,NomeInterno,NomeMae,NomePai,DataEntrada,HoraEntrada,DataSaida,HoraSaida,ImagemInterno,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PERNOITE_INTERNOS (IdPer,NomeInterno,NomeMae,NomePai,DataEntrada,HoraEntrada,DataSaida,HoraSaida,TipoOperacaoEntrada,ImagemInterno,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objPernoite.getIdRegistro());
             pst.setString(2, objPernoite.getNomeInterno());
             pst.setString(3, objPernoite.getNomeMae());
@@ -122,10 +122,11 @@ public class PernoiteDao {
                 pst.setDate(7, null);
             }
             pst.setString(8, objPernoite.getHoraSaida());
-            pst.setBytes(9, objPernoite.getImgemInterno());
-            pst.setString(10, objPernoite.getUsuarioInsert());
-            pst.setString(11, objPernoite.getDataInsert());
-            pst.setString(12, objPernoite.getHoraInsert());
+            pst.setString(9, objPernoite.getTipoOperacaoEntrada());            
+            pst.setBytes(10, objPernoite.getImgemInterno());
+            pst.setString(11, objPernoite.getUsuarioInsert());
+            pst.setString(12, objPernoite.getDataInsert());
+            pst.setString(13, objPernoite.getHoraInsert());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO: " + ex);
@@ -136,7 +137,7 @@ public class PernoiteDao {
     public PernoiteInternos alterarInternosPernoite(PernoiteInternos objPernoite) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PERNOITE_INTERNOS SET IdPer=?,NomeInterno=?,NomeMae=?,NomePai=?,DataEntrada=?,HoraEntrada=?,DataSaida=?,HoraSaida=?,ImagemInterno=?,UsuarioUp=?,DatauP=?,HorariouP=? WHERE IdItemPer='" + objPernoite.getIdRegistroInterno() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PERNOITE_INTERNOS SET IdPer=?,NomeInterno=?,NomeMae=?,NomePai=?,DataEntrada=?,HoraEntrada=?,DataSaida=?,HoraSaida=?,TipoOperacaoSaida=?,ImagemInterno=?,UsuarioUp=?,DatauP=?,HorariouP=? WHERE IdItemPer='" + objPernoite.getIdRegistroInterno() + "'");
             pst.setInt(1, objPernoite.getIdRegistro());
             pst.setString(2, objPernoite.getNomeInterno());
             pst.setString(3, objPernoite.getNomeMae());
@@ -153,10 +154,11 @@ public class PernoiteDao {
                 pst.setDate(7, null);
             }
             pst.setString(8, objPernoite.getHoraSaida());
-            pst.setBytes(9, objPernoite.getImgemInterno());
-            pst.setString(10, objPernoite.getUsuarioUp());
-            pst.setString(11, objPernoite.getDataUp());
-            pst.setString(12, objPernoite.getHoraUp());
+            pst.setString(9, objPernoite.getTipoOperacaoSaida());            
+            pst.setBytes(10, objPernoite.getImgemInterno());
+            pst.setString(11, objPernoite.getUsuarioUp());
+            pst.setString(12, objPernoite.getDataUp());
+            pst.setString(13, objPernoite.getHoraUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\n\nERRO: " + ex);
