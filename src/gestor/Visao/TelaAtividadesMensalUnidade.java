@@ -24,6 +24,7 @@ import gestor.Controle.ListagemAtividadesUnidadePorCodigo;
 import gestor.Controle.ListagemAtividadesUnidadePorColaborador;
 import gestor.Controle.ListagemAtividadesUnidadePorData;
 import gestor.Controle.ListagemAtividadesUnidadePorMesAnoRef;
+import gestor.Controle.ListagemAtividadesUnidadeSelecionado;
 import gestor.Controle.ListagemAtividadesUnidadeTodas;
 import gestor.Controle.ListagemControleDiabetes;
 import gestor.Controle.ListagemControleHipertensao;
@@ -68,6 +69,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaAtividadeMensalManu_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,6 +96,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     ListagemMediaPopulacao listaMediaPop = new ListagemMediaPopulacao();
     ControleAtividadesUnidade control = new ControleAtividadesUnidade();
     PesquisaMesAno pesquisaMesAno = new PesquisaMesAno();
+    ListagemAtividadesUnidadeSelecionado listaSelecao = new ListagemAtividadesUnidadeSelecionado();
     //ABA AF
     ListagemAtendimentoADMServicoSocial listaSSDao = new ListagemAtendimentoADMServicoSocial();
     ListagemAtendimentoADMServicoSocialFamilia listaDaoFam = new ListagemAtendimentoADMServicoSocialFamilia();
@@ -160,6 +163,29 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     String pDATA_PERIODO_INICIAL = "";
     String pDATA_PERIODO_FINAL = "";
     int pMEDIA_POPULCAO = 0;
+    //
+    String pMES_REFERENCIA = "";
+    String pDIA = "";
+    String pMES = "";
+    String pANO = "";
+    //
+    String pDIA_ESCOLHIDO = "";
+    String pMES_ESCOLHIDO = "";
+    String pANO_ESCOLHIDO = "";
+    //
+    String pMES_01 = "01";
+    String pMES_02 = "02";
+    String pMES_03 = "Março";
+    String pMES_04 = "Abril";
+    String pMES_05 = "Maio";
+    String pMES_06 = "Junho";
+    String pMES_07 = "Julho";
+    String pMES_08 = "Agosto";
+    String pMES_09 = "Setembro";
+    String pMES_10 = "Outubro";
+    String pMES_11 = "Novembro";
+    String pMES_12 = "Dezembro";
+
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
     public static String pTIPO_ATENDIMENTO_EVO_SOCIAL = "Evolução Serviço Social";
@@ -248,8 +274,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_EVO_TO = "Evolução Terapia";
     public static String pTIPO_ATENDIMENTO_GRUPO_TO = "Atendimento em Grupo/TO";
     public static int pQUANTIDADE_TOTAL_TO = 0;
-
     //ABA AFI - NUTRIÇÃO
+
     /**
      * Creates new form TelaAtividadesMensalUnidade
      */
@@ -908,10 +934,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel2.setText("Status");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Data Up");
+        jLabel5.setText("Data Modificado");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Data Insert");
+        jLabel6.setText("Data Criação");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Unidade Prisional");
@@ -1028,6 +1054,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtPesquisarDatas.setText("Buscar");
         jBtPesquisarDatas.setToolTipText("Pesquisar dados cadastrados");
         jBtPesquisarDatas.setEnabled(false);
+        jBtPesquisarDatas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jBtPesquisarDatas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarDatasActionPerformed(evt);
@@ -1082,6 +1109,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5)
                             .addComponent(jDataAtualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
@@ -1119,26 +1149,21 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                     .addComponent(jPopulacaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(65, 65, 65))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel147)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel154)))
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel148)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel152))
                             .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
-                        .addComponent(jBtPesquisarDatas)
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -1152,9 +1177,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel155))
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jComboBoxAnoReferencia, 0, 0, Short.MAX_VALUE)
-                                .addGap(65, 65, 65))))))
+                                .addGap(2, 2, 2)
+                                .addComponent(jComboBoxAnoReferencia, 0, 0, Short.MAX_VALUE)))
+                        .addGap(2, 2, 2)
+                        .addComponent(jBtPesquisarDatas)
+                        .addGap(61, 61, 61))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1196,9 +1223,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addComponent(jLabel155)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jBtPesquisarDatas)
                     .addComponent(jComboBoxAnoReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxMesReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarDatas)
                     .addComponent(jDataPeriodoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataPeriodoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -4493,141 +4520,161 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jTabelaAtividadesUnidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAtividadesUnidadeMouseClicked
         // TODO add your handling code here:
-//        if (flag == 1) {
-//            String nomeFunc = "" + jTabelaFuncionario.getValueAt(jTabelaFuncionario.getSelectedRow(), 3);
-//            jPesqNome.setText(nomeFunc);
-//            // MANUTENÇÃO
-//            jBtNovo.setEnabled(true);
-//            jBtAlterar.setEnabled(true);
-//            jBtExcluir.setEnabled(true);
-//            jBtSalvar.setEnabled(!true);
-//            jBtCancelar.setEnabled(true);
-//            jBtAuditoria.setEnabled(true);
-//            jBtBiometria.setEnabled(true);
-//            // ENDEREÇO
-//            jBtNovoLogradouro.setEnabled(true);
-//            jBtAlterarLogradouro.setEnabled(true);
-//            jBtExcluirLogradouro.setEnabled(true);
-//            jBtSalvarLogradouro.setEnabled(!true);
-//            jBtCancelarLogradouro.setEnabled(true);
-//            jBtAuditoriaLogradouro.setEnabled(true);
-//            jBtImpressaoLogradouro.setEnabled(true);
-//            // DOCUMENTOS
-//            jBtNovoDocumentos.setEnabled(true);
-//            jBtAlterarDocumentos.setEnabled(true);
-//            jBtExcluirDocumentos.setEnabled(true);
-//            jBtSalvarDocumentos.setEnabled(!true);
-//            jBtCancelarDocumentos.setEnabled(true);
-//            jBtAuditoriaDocumentos.setEnabled(true);
-//            jBtImpressaoDocumentos.setEnabled(true);
-//            // DEPENDENTES
-//            jBtNovoDependente.setEnabled(true);
-//            //
-//            limparCamposRegistro();
-//            //
-//            conecta.abrirConexao();
-//            try {
-//                conecta.executaSQL("SELECT * FROM COLABORADOR "
-//                    + "INNER JOIN DEPARTAMENTOS "
-//                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
-//                    + "INNER JOIN CARGOS "
-//                    + "ON COLABORADOR.IdCargo=CARGOS.IdCargo "
-//                    + "INNER JOIN ENDERECOS "
-//                    + "ON COLABORADOR.IdFunc=ENDERECOS.IdFunc "
-//                    + "INNER JOIN DOCUMENTOS "
-//                    + "ON COLABORADOR.IdFunc=DOCUMENTOS.IdFunc "
-//                    + "WHERE NomeFunc='" + jPesqNome.getText() + "'");
-//                conecta.rs.first();
-//                jIDFunc.setText(String.valueOf(conecta.rs.getInt("IdFunc")));
-//                jComboBoxStatusFunc.setSelectedItem(conecta.rs.getString("StatusFunc"));
-//                jDataAdmissao.setDate(conecta.rs.getDate("DataCadFunc"));
-//                jNomeFuncionario.setText(conecta.rs.getString("NomeFunc"));
-//                jMatricula.setText(conecta.rs.getString("MatriculaFunc"));
-//                jComboBoxSexo.setSelectedItem(conecta.rs.getString("SexoFunc"));
-//                jComboBoxEscolaridade.setSelectedItem(conecta.rs.getString("EscolaFunc"));
-//                jComboBoxEstadoCivil.setSelectedItem(conecta.rs.getString("EstadoCivil"));
-//                jDataNascimento.setDate(conecta.rs.getDate("DataNascimento"));
-//                // Capturando foto
-//                caminhoFotoFunc = conecta.rs.getString("ImagemFunc");
-//                if (caminhoFotoFunc != null) {
-//                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminhoFotoFunc);
-//                    jFotoColaborador.setIcon(i);
-//                    jFotoColaborador.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH)));
-//                }
-//                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
-//                byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrenteCO"));
-//                if (imgBytes != null) {
-//                    ImageIcon pic = null;
-//                    pic = new ImageIcon(imgBytes);
-//                    Image scaled = pic.getImage().getScaledInstance(jFotoColaborador.getWidth(), jFotoColaborador.getHeight(), Image.SCALE_SMOOTH);
-//                    ImageIcon icon = new ImageIcon(scaled);
-//                    jFotoColaborador.setIcon(icon);
-//                }
-//                jNomeMae.setText(conecta.rs.getString("NomeMae"));
-//                jNomePai.setText(conecta.rs.getString("NomePai"));
-//                jReligiao.setText(conecta.rs.getString("Religiao"));
-//                jTipoSang.setText(conecta.rs.getString("TipoSangue"));
-//                jDepartamento.setText(conecta.rs.getString("NomeDepartamento"));
-//                jNomeCargo.setText(conecta.rs.getString("NomeCargo"));
-//                //
-//                jCargaHoraria.setText(conecta.rs.getString("CargaHoraria"));
-//                jComboBoxRegimeTrabalho.setSelectedItem(conecta.rs.getString("RegimeTrabalho"));
-//                jHorarioInicio.setText(conecta.rs.getString("HorarioInicio"));
-//                jHorarioFinal.setText(conecta.rs.getString("HorarioFinal"));
-//                jFuncao.setText(conecta.rs.getString("Funcao"));
-//                jComboBoxNacionalidade.setSelectedItem(conecta.rs.getString("Nacionalidade"));
-//                jPais.setText(conecta.rs.getString("Pais"));
-//                jNaturalidade.setText(conecta.rs.getString("Naturalidade"));
-//                jComboBoxEstadoNaturalidade.setSelectedItem(conecta.rs.getString("EstadoNaturalidade"));
-//                // ENDEREÇO
-//                codEnd = conecta.rs.getInt("IdEnd");
-//                jEndereco.setText(conecta.rs.getString("Endereco"));
-//                jBairro.setText(conecta.rs.getString("BairroEnd"));
-//                jComplemento.setText(conecta.rs.getString("CompEnd"));
-//                jCidade.setText(conecta.rs.getString("CidadeEnd"));
-//                jComboBoxEstado.setSelectedItem(conecta.rs.getString("UfEnd"));
-//                jCep.setText(conecta.rs.getString("CepEnd"));
-//                // CONTATO
-//                jEmail.setText(conecta.rs.getString("EmailEnd"));
-//                jTelefone.setText(conecta.rs.getString("FoneEnd"));
-//                jTelefoneEnd.setText(conecta.rs.getString("TelEnd"));
-//                jCelularEnd.setText(conecta.rs.getString("CelEnd"));
-//                jURL.setText(conecta.rs.getString("Url"));
-//                jObservacao.setText(conecta.rs.getString("Observacao"));
-//                // DOCUMENTOS
-//                codDoc = conecta.rs.getInt("IdDoc");
-//                jRG.setText(conecta.rs.getString("RgDoc"));
-//                jCPF.setText(conecta.rs.getString("CpfDoc"));
-//                jDataEmissaoRg.setDate(conecta.rs.getDate("DataEmissaoDoc"));
-//                jOrgaoEmissor.setText(conecta.rs.getString("OrgaoDoc"));
-//                jComboBoxEstadoOrgao.setSelectedItem(conecta.rs.getString("EstadoOrg"));
-//                jPis.setText(conecta.rs.getString("PisDoc"));
-//                jDataCadPis.setDate(conecta.rs.getDate("DataCadPisDoc"));
-//                jTitulo.setText(conecta.rs.getString("TituloDoc"));
-//                jZona.setText(conecta.rs.getString("ZonaDoc"));
-//                jSecao.setText(conecta.rs.getString("SecaoDoc"));
-//                jCTPS.setText(conecta.rs.getString("CtpsDoc"));
-//                jSerie.setText(conecta.rs.getString("SerieDoc"));
-//                jHabilita.setText(conecta.rs.getString("HabiliDoc"));
-//                jReservista.setText(conecta.rs.getString("ReservistaDoc"));
-//                jCategoria.setText(conecta.rs.getString("CateDoc"));
-//                jCartaoSaude.setText(conecta.rs.getString("CartSaudeDoc"));
-//                jProfissao.setText(conecta.rs.getString("ProfDoc"));
-//                jAltura.setText(conecta.rs.getString("AlturaDoc"));
-//                jCalca.setText(conecta.rs.getString("CalcaDoc"));
-//                jSapato.setText(conecta.rs.getString("SapatoDoc"));
-//                jPeso.setText(conecta.rs.getString("PesoDoc"));
-//                jCamisa.setText(conecta.rs.getString("CamisaDoc"));
-//                jCarteiraconselho.setText(conecta.rs.getString("CarteiraDoc"));
-//                // CONJUGUE
-//                jComboBoxTipoConjugue.setSelectedItem(conecta.rs.getString("TipoConjugue"));
-//                jDataNasConjugue.setDate(conecta.rs.getDate("DataNasConjugue"));
-//                jNomeConjugue.setText(conecta.rs.getString("NomeConjugue"));
-//            } catch (SQLException e) {
-//                JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa dos dados." + e);
-//            }
-//            conecta.desconecta();
-//        }
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        //
+        bloquearHabilitarTodosCampos(!true, !true);
+        limparTodosCampos();
+        //
+        try {
+            for (AtividadesMensalRealizadaUnidades dd : listaSelecao.read()) {
+
+                //ABA MANUTENÇÃO
+                jChave.setText(String.valueOf(dd.getChave()));
+                jStatus.setText(dd.getStatus());
+                jDataCriacao.setDate(dd.getDataCriacao());
+                jDataAtualizacao.setDate(dd.getDataAtualizacao());
+                jUnidadePrisional.setText(dd.getUnidadePrisional());
+                jPopulacaoAtual.setText(String.valueOf(dd.getMediaPopulacao()));
+                jDataPeriodoInicial.setDate(dd.getDataPeriodoInicial());
+                jDataPeriodoFinal.setDate(dd.getDataPeriodoFinal());
+                jComboBoxMesReferencia.setSelectedItem((String) dd.getMesReferencia());
+                jComboBoxAnoReferencia.setSelectedItem((String) dd.getAnoReferencia());
+                jIdFunc.setText(String.valueOf(dd.getIdFunc()));
+                jColaboradorResponsavel.setText(dd.getColaboradorResponsavel());
+                jMatricula.setText(dd.getMatricula());
+                jDepartamento.setText(dd.getDepartamento());
+                jObservacao.setText(dd.getObservacao());
+                //ABA ASSI
+                jAtendimentoPsiPreso.setText(String.valueOf(dd.getAtendimentoPsiPreso()));
+                jAtendimentoPsiFamilaPreso.setText(String.valueOf(dd.getAtendimentoPsiFamilaPreso()));
+                jNumeroVistantesInternos.setText(String.valueOf(dd.getNumeroVistantesInternos()));
+                jNumeroCriancasVisitas.setText(String.valueOf(dd.getNumeroCriancasVisitas()));
+                jPresoIdentCivil.setText(String.valueOf(dd.getPresoIdentCivil()));
+                //ABA AFV
+                jLanchesServidoVisita.setText(String.valueOf(dd.getLanchesVisitantes()));
+                jAlimentaServidaEmpContCafe.setText(String.valueOf(dd.getCafeContratada()));
+                jAlimentaServidaEmpContAlmoco.setText(String.valueOf(dd.getAlmocoContratada()));
+                jAlimentaServidaEmpContJantar.setText(String.valueOf(dd.getJantarContratada()));
+                jAlimentaServidaEmpContLanche.setText(String.valueOf(dd.getLancheContratada()));
+                jAlimentaServidaServContCafe.setText(String.valueOf(dd.getCafeContratante()));
+                jAlimentaServidaServContAlmoco.setText(String.valueOf(dd.getAlmocoContratante()));
+                jAlimentaServidaServContJantar.setText(String.valueOf(dd.getJantarContratante()));
+                jAlimentaServidaServContLanche.setText(String.valueOf(dd.getLancheContratante()));
+                //ASI
+                jAtendimentoMedClinico.setText(String.valueOf(dd.getAtendimentoClinico()));
+                jAtendimentoMedPsi.setText(String.valueOf(dd.getAtendimentoPsiquiatrico()));
+                jAtendimentoEnfermagem.setText(String.valueOf(dd.getAtendimentoEnfermagem()));
+                jProcedimentoOdontologico.setText(String.valueOf(dd.getProcedimentoOdontologico()));
+                jAtendimentoPsicologico.setText(String.valueOf(dd.getAtendimentoPsicologico()));
+                jTratamentoAgravDiaginostico.setText(String.valueOf(dd.getTratamentoAgravosPNAISP()));
+                jAtendimentoOdontologicos.setText(String.valueOf(dd.getAtendimentoOdontologico()));
+                jPresoDoencaInfecto.setText(String.valueOf(dd.getSensibilizadoInfectocontagiosas()));
+                jControlHipertensao.setText(String.valueOf(dd.getSensibilizadoHipertensao()));
+                jControleDiabetes.setText(String.valueOf(dd.getSensibilizadoDiabetes()));
+                jAspectosSexual.setText(String.valueOf(dd.getSensibilizadoSexualidade()));
+                jPresosVacinados.setText(String.valueOf(dd.getVacinadosPNI()));
+                //ABA AEI
+                jPresoSentenciadoEF.setText(String.valueOf(dd.getMatriculadoEnsinoFormal()));
+                jPresoSentencaMatFreqEF.setText(String.valueOf(dd.getFrequentandoEnsinoFormal()));
+                jPresoAtiviPraticaEsportiva.setText(String.valueOf(dd.getEsportes()));
+                //ABA AMI
+                jCobertor.setText(String.valueOf(dd.getCobertor()));
+                jColchao.setText(String.valueOf(dd.getColchao()));
+                jLencol.setText(String.valueOf(dd.getLencol()));
+                jToalha.setText(String.valueOf(dd.getToalha()));
+                jPote.setText(String.valueOf(dd.getPote()));
+                jCaneca.setText(String.valueOf(dd.getCaneca()));
+                jAparelhoBarbear.setText(String.valueOf(dd.getAparelhoBarbear()));
+                jCremeDental.setText(String.valueOf(dd.getCremeDental()));
+                jEscovaDente.setText(String.valueOf(dd.getEscova()));
+                jAbsorvente.setText(String.valueOf(dd.getAbsorvente()));
+                jPapelHigienico.setText(String.valueOf(dd.getPapelHigienico()));
+                jSabaoPo.setText(String.valueOf(dd.getSabaoPo()));
+                jSabonete.setText(String.valueOf(dd.getSabonete()));
+                jDesodorante.setText(String.valueOf(dd.getDesodorante()));
+                jBermuda.setText(String.valueOf(dd.getBermuda()));
+                jCamisa.setText(String.valueOf(dd.getCamisa()));
+                jCuecas.setText(String.valueOf(dd.getCueca()));
+                jChinelos.setText(String.valueOf(dd.getParChinelos()));
+                jUniformeCompleto.setText(String.valueOf(dd.getUniformeCompleto()));
+                //ABA SEG
+                jNumeroOcorrenciasInd.setText(String.valueOf(dd.getOcorrenciaIndisciplina()));
+                jNumeroAparelhoConvive.setText(String.valueOf(dd.getCelularLocalizadoConvivencia()));
+                jObjetosMateriais.setText(String.valueOf(dd.getObjetoNaoAutorizadoLocalizadoConvivencia()));
+                jNumeroProcedRevista.setText(String.valueOf(dd.getRevistaCela()));
+//                jNumeroOcorrenciasInd.setText("0");
+                jNumeroOcorrenciaTentaFuga.setText(String.valueOf(dd.getOcorrenciaFuga()));
+                jNumeroOcorrenciaRebeliao.setText(String.valueOf(dd.getOcorrenciaRebeliao()));
+                jNumeroOcorrenciaPessoaFerida.setText(String.valueOf(dd.getOcorrenciaFerido()));
+                jNumeroOcorrenciaPessoasRefem.setText(String.valueOf(dd.getOcorrenciaRefem()));
+                jNumeroOcorrenciaPessoasFeridaMortas.setText(String.valueOf(dd.getOcorrenciaGravementeFeridoMorto()));
+                jNumeroHorasTVCFTV.setText(String.valueOf(dd.getHorasInterrupcaoCFTV()));
+                jNumeroDiasSemScannerCorpo.setText(String.valueOf(dd.getDiasInterrupcaoScannerCorporal()));
+                jNumeroDiasIntMetaPortatil.setText(String.valueOf(dd.getDiasInterrupcaoRaioXDetectorMetais()));
+                jNumeroInterFuncVeiculosTP.setText(String.valueOf(dd.getDiasInterrupcaoVeiculoTransportePreso()));
+                jNumeroFalhasGerador.setText(String.valueOf(dd.getFalhaGeradorEnergia()));
+                jNumeroHorasBloqueador.setText(String.valueOf(dd.getHorasMauFuncionamentoBRS()));
+                jNumeroAbsorEntregueVisitas.setText(String.valueOf(dd.getAbsorventesEntreguesPortariaScanner()));
+                jNumeroFraldasEntreguePortaria.setText(String.valueOf(dd.getFraldasEntreguesPortariaScanner()));
+                //ABA AJ
+                jAtendInternoSAJ.setText(String.valueOf(dd.getInternoFamiliaSAJ()));
+                jAlvaraSolturaCumprido.setText(String.valueOf(dd.getAlvaraSolturaCumprido()));
+                jLivarmentoCondRequerido.setText(String.valueOf(dd.getLivramentoCondicionalRequerido()));
+                jProgressaoRegDeferido.setText(String.valueOf(dd.getProgressaoRegimeDeferida()));
+                jSaidasTempDeferida.setText(String.valueOf(dd.getSaidasTemporariasDeferida()));
+                jAlvarSolRecebeUni.setText(String.valueOf(dd.getAlvaraSolturaRecebido()));
+                jAudienciaProvocadas.setText(String.valueOf(dd.getAudienciaProvocada()));
+                jAudienciaCumpridas.setText(String.valueOf(dd.getAudienciaCumprida()));
+                jJuriPopular.setText(String.valueOf(dd.getJuriProvocado()));
+                jJuriPopularCumprido.setText(String.valueOf(dd.getJuriCumprido()));
+                jLiberdadeProvRequerida.setText(String.valueOf(dd.getLiberdadeProvisoriaRequerida()));
+                jLiberdadeProvDeferida.setText(String.valueOf(dd.getLiberdadeProvisoriaDeferida()));
+                jIndultosRequeridos.setText(String.valueOf(dd.getIndultosRequeridos()));
+                jIndultosDeferidos.setText(String.valueOf(dd.getIndultosDeferidos()));
+                jRemissaoPenaRequerida.setText(String.valueOf(dd.getRemicaoRequerida()));
+                jRemissaoPenaDeferida.setText(String.valueOf(dd.getRemicaoDeferida()));
+                jCondicionalRequerida.setText(String.valueOf(dd.getCondicionalRequerida()));
+                jProgressaoRegRequerido.setText(String.valueOf(dd.getProgressaoRegimeRequerida()));
+                jSaidaTempRequerida.setText(String.valueOf(dd.getSaidasTemporariasRequerida()));
+                jHabeasCorpusImpetrados.setText(String.valueOf(dd.getHabeasCorpusDeferido()));
+                jHabeasCorpusDeferido.setText(String.valueOf(dd.getHabeasCorpusDeferido()));
+                jLaudoPsicoEmitidos.setText(String.valueOf(dd.getLaudosPsicologicos()));
+                jLaudosPsiqEmitidos.setText(String.valueOf(dd.getLaudosPsiquiatricos()));
+                jTP.setText(String.valueOf(dd.getTransferenciaProvimento()));
+                //ABA AL
+                jTriagemAtendInernos.setText(String.valueOf(dd.getTriagem()));
+                jOcupacaoAtiviRecreaReligiosa.setText(String.valueOf(dd.getReligiosa()));
+                PresoAtiviArtesPlasticas.setText(String.valueOf(dd.getArtesPlasticas()));
+                jPresoAtiviLiteraria.setText(String.valueOf(dd.getLiteratura()));
+                jPresoAtiviCantoTeatro.setText(String.valueOf(dd.getCantoTeatroCinema()));
+                jPresoMatProfissional.setText(String.valueOf(dd.getMatriculadoCursoProfissionalizante()));
+                jPresoCertificaCursoProf.setText(String.valueOf(dd.getCertificadoCursoProfissionalizante()));
+                jPresoSentecaAtivLaboralRemun.setText(String.valueOf(dd.getLaborativaRemunerada()));
+                jPresoAtiviLaboralNaoRemunera.setText(String.valueOf(dd.getLaborativaNaoRemunerada()));
+                //ABA AFI
+                jAlimentaServidaInternoCafe.setText(String.valueOf(dd.getCafeInterno()));
+                jAlimentaServidaInternoAlmoco.setText(String.valueOf(dd.getAlmocoInterno()));
+                jAlimentaServidaInternoJantar.setText(String.valueOf(dd.getJantarInterno()));
+                //ABA TOT
+                jTotal01.setText(String.valueOf(dd.getTotal01()));
+                jTotal02.setText(String.valueOf(dd.getTotalAlimentacao()));
+                jTotal03.setText(String.valueOf(dd.getTotalSaude()));
+                jTotal04.setText(String.valueOf(dd.getTotalEducacional()));
+                jTotal05.setText(String.valueOf(dd.getTotalMaterial()));
+                jTotal06.setText(String.valueOf(dd.getTotalMaterialSeg()));
+                jTotal07.setText(String.valueOf(dd.getTotalJuridico()));
+                jTotal08.setText(String.valueOf(dd.getTotalLaboral()));
+                jTotal09.setText(String.valueOf(dd.getTotalRecreativaReligiosa()));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jTabelaAtividadesUnidadeMouseClicked
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -4639,7 +4686,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             TelaModuloAdmPessoal.jPainelAdmPessoal.add(objPesFunc);
             objPesFunc.show();
             //ATUALIZAR DATAS DAS TABELAS
-//            atualizarDatasRegistrosTabelas();
+            atualizarDatasRegistrosTabelas();
             acao = 1;
             pesquisaUnidadePrisional();
             bloquearHabilitarTodosCampos(true, !true);
@@ -4662,7 +4709,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             } else {
                 acao = 2;
                 //ATUALIZAR DATA DAS TABELAS
-//                atualizarDatasRegistrosTabelas();
+                atualizarDatasRegistrosTabelas();
                 pesquisaUnidadePrisional();
                 bloquearHabilitarTodosCampos(true, !true);
                 Alterar();
@@ -4691,6 +4738,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     objAtividade.setChave(Integer.valueOf(jChave.getText()));
                     control.excluirAtividade(objAtividade);
                     bloquearHabilitarTodosCampos(!true, !true);
+                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    control.excluirAtividade(objAtividade);
+                    control.excluirASSI(objAtividade);
+                    control.excluirAFV_AFI(objAtividade);
+                    control.excluirASI(objAtividade);
+                    control.excluirAEI(objAtividade);
+                    control.excluirAMI(objAtividade);
+                    control.excluirSEG(objAtividade);
+                    control.excluirAJ(objAtividade);
+                    control.excluirAL(objAtividade);
+                    control.excluirAF(objAtividade);
+                    control.excluirAVI(objAtividade);
                     Excluir();
                     JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 }
@@ -4728,6 +4787,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Antes de gravar é necessário calcular os totais.");
             } else {
                 beans();
+                //CRITICAR O RANGE DE DATAS INICIAL E FINAL COM O MÊS DE REFERÊNCIA
+                verificarRangeDatasMesAno();
                 if (acao == 1) {
                     //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
                     try {
@@ -4744,6 +4805,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                                 //
                                 control.incluirAtividade(objAtividade);
                                 buscarChave();
+                                control.incluirASSI(objAtividade);
+                                control.incluirAFV_AFI(objAtividade);
+                                control.incluirASI(objAtividade);
+                                control.incluirAEI(objAtividade);
+                                control.incluirAMI(objAtividade);
+                                control.incluirSEG(objAtividade);
+                                control.incluirAJ(objAtividade);
+                                control.incluirAL(objAtividade);
+                                control.incluirAF(objAtividade);
+                                control.incluirAVI(objAtividade);
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                 bloquearHabilitarTodosCampos(!true, !true);
@@ -4761,6 +4832,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     objAtividade.setHorarioUp(horaMov);
                     objAtividade.setChave(Integer.valueOf(jChave.getText()));
                     control.alterarAtividade(objAtividade);
+                    control.alterarASSI(objAtividade);
+                    control.alterarAFV_AFI(objAtividade);
+                    control.alterarASI(objAtividade);
+                    control.alterarAEI(objAtividade);
+                    control.alterarAMI(objAtividade);
+                    control.alterarSEG(objAtividade);
+                    control.alterarAJ(objAtividade);
+                    control.alterarAL(objAtividade);
+                    control.alterarAF(objAtividade);
+                    control.alterarAVI(objAtividade);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearHabilitarTodosCampos(!true, !true);
@@ -4789,7 +4870,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
+                    String pFINALIZAR = "FINALIZADO";
+                    jStatus.setText(pFINALIZAR);
                     objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    objAtividade.setStatus(jStatus.getText());
                     control.finalizarAtividade(objAtividade);
                     bloquearHabilitarTodosCampos(!true, !true);
                     Finalizar();
@@ -4869,44 +4953,586 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         } else if (jDataPeriodoInicial.getDate().after(jDataPeriodoFinal.getDate())) {
             JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
         } else {
-            calculoMediaPopulacao();
-            //ABA ASSI - SERVIÇO SOCIAL
-            calculoSS();
-            calculoSSF();
-            calculoVI();
-            caluloVC();
-            calculoPresoCivil();
-            calculoMED();
-            caluloQTVD();
-            //CALCUAR AS MÉDIAS
-            pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-            jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-            calcularMediaVisitasInterno();
-            //ABA ASI
-            calculoMED();
-            calculoPSIQ();
-            calculoENFER();
-            calculoAgravosDIAG();
-            calculoControleHipertensao();
-            calculoControleDiabetes();
-            calculoDOENCA_INFECTOCONTAGIOSAS();
-            calculoControleVacinas();
-            calculoPSI();
-            calculoProcODON();
-            calculoAtendODON();
-            //ABA AEI
-            calculoMatPED();
-            calculoFreqPED();
-            //AEI
-            calculoProdutosKit();
-            //ABA SEG
-            calculoCelularSEG();
-            calcularObjetos();
-            calcularQtdRevistaCela();
-            //ABA AJ
-            calculoATENJURI();
-            calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
-            calculoATEN_TO();
+            SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+            pMES_REFERENCIA = formatoAmerica.format(jDataPeriodoInicial.getDate().getTime());
+            if (jComboBoxMesReferencia.getSelectedItem().equals("Janeiro")) {
+                pMES_01 = "01";
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                pMES_REFERENCIA = pMES;
+                if (pMES_REFERENCIA.equals(pMES_01)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                    //MÊS DE FEVEREIRO
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Fevereiro")) {
+                pMES_02 = "02";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_02)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Março")) {
+                pMES_03 = "03";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_03)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Abril")) {
+                pMES_04 = "04";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_04)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Maio")) {
+                pMES_05 = "05";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_05)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Junho")) {
+                pMES_06 = "06";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_06)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Julho")) {
+                pMES_07 = "07";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_07)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Agosto")) {
+                pMES_08 = "08";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_08)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Setembro")) {
+                pMES_09 = "09";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_09)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Outubro")) {
+                pMES_10 = "10";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_10)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Novembro")) {
+                pMES_11 = "11";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_11)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            } else if (jComboBoxMesReferencia.getSelectedItem().equals("Dezembro")) {
+                pMES_12 = "12";
+                pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+                pDIA = pMES_REFERENCIA.substring(0, 1);
+                pMES = pMES_REFERENCIA.substring(3, 5);
+                pANO = pMES_REFERENCIA.substring(7, 10);
+                if (pMES_REFERENCIA.equals(pMES_12)) {
+                    calculoMediaPopulacao();
+                    //ABA ASSI - SERVIÇO SOCIAL
+                    calculoSS();
+                    calculoSSF();
+                    calculoVI();
+                    caluloVC();
+                    calculoPresoCivil();
+                    calculoMED();
+                    caluloQTVD();
+                    //CALCUAR AS MÉDIAS
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                    //ABA ASI
+                    calculoMED();
+                    calculoPSIQ();
+                    calculoENFER();
+                    calculoAgravosDIAG();
+                    calculoControleHipertensao();
+                    calculoControleDiabetes();
+                    calculoDOENCA_INFECTOCONTAGIOSAS();
+                    calculoControleVacinas();
+                    calculoPSI();
+                    calculoProcODON();
+                    calculoAtendODON();
+                    //ABA AEI
+                    calculoMatPED();
+                    calculoFreqPED();
+                    //AEI
+                    calculoProdutosKit();
+                    //ABA SEG
+                    calculoCelularSEG();
+                    calcularObjetos();
+                    calcularQtdRevistaCela();
+                    //ABA AJ
+                    calculoATENJURI();
+                    calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                    calculoATEN_TO();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                }
+            }
         }
     }//GEN-LAST:event_jBtPesquisarDatasActionPerformed
 
@@ -5909,13 +6535,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd16 : listaAgravosDiag.read()) {
                 dd16.getTipoAtendimento();
-                dd16.getQuantidadeAgravosTotal();
+                dd16.getTratamentoAgravosPNAISP();
             }
             //AGRAVOS DIAGNOSTICADOS - EVOLUÇÃO
             try {
                 for (AtividadesMensalRealizadaUnidades dd19 : listaAgravosDiagEvo.read()) {
                     dd19.getTipoAtendimento();
-                    dd19.getQuantidadeAgravosTotal();
+                    dd19.getTratamentoAgravosPNAISP();
                     pTOTAL_GERAL_AGRAVADOS = pQUANTIDADE_TOTAL_AGRAVOS + pQUANTIDADE_TOTAL_AGRAVOS_EVO;
                     jTratamentoAgravDiaginostico.setText(String.valueOf(pTOTAL_GERAL_AGRAVADOS));
                 }
@@ -5957,7 +6583,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd17 : listaControleHiper.read()) {
                 dd17.getTipoAtendimento();
-                dd17.getHipertensao();
+                dd17.getSensibilizadoHipertensao();
                 jControlHipertensao.setText(String.valueOf(pQUANTIDADE_HIPERTENSAO));
             }
         } catch (Exception ex) {
@@ -5970,7 +6596,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd18 : listaControleDiabetes.read()) {
                 dd18.getTipoAtendimento();
-                dd18.getQuantidadeAgravosTotal();
+                dd18.getSensibilizadoDiabetes();
                 jControleDiabetes.setText(String.valueOf(pQUANTIDADE_DIABETES));
             }
         } catch (Exception ex) {
@@ -6071,7 +6697,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd12 : listaQdtCelular.read()) {
                 dd12.getDataProcedimento();
-                dd12.getQuantidadeCelular();
+                dd12.getCelularLocalizadoConvivencia();
                 jNumeroAparelhoConvive.setText(String.valueOf(pQUANTIDADE_APARELHO_CELULAR));
             }
         } catch (Exception ex) {
@@ -6084,7 +6710,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd13 : listaQtdObjetos.read()) {
                 dd13.getDataProcedimento();
-                dd13.getQuantidadeObjetos();
+                dd13.getObjetoNaoAutorizadoLocalizadoConvivencia();
                 jObjetosMateriais.setText(String.valueOf(pQUANTIDADE_OBJETOS_PROC));
             }
         } catch (Exception ex) {
@@ -6096,7 +6722,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         try {
             for (AtividadesMensalRealizadaUnidades dd14 : listaRevistaCela.read()) {
                 dd14.getDataProcedimento();
-                dd14.getQuantidadeObjetos();
+                dd14.getObjetoNaoAutorizadoLocalizadoConvivencia();
                 jNumeroProcedRevista.setText(String.valueOf(pQUANTIDADE_REVISTA_POR_CELA));
             }
         } catch (Exception ex) {
@@ -6400,9 +7026,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void Finalizar() {
-        String pFINALIZAR = "FINALIZAR";
-        jStatus.setText(pFINALIZAR);
         jBtNovo.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtImpressao.setEnabled(true);
     }
 
     public void buscarChave() {
@@ -6458,13 +7084,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setAtendimentoEnfermagem(Integer.valueOf(jAtendimentoEnfermagem.getText()));
         objAtividade.setProcedimentoOdontologico(Integer.valueOf(jProcedimentoOdontologico.getText()));
         objAtividade.setAtendimentoPsicologico(Integer.valueOf(jAtendimentoPsicologico.getText()));
-        objAtividade.setQuantidadeAgravosTotal(Integer.valueOf(jTratamentoAgravDiaginostico.getText()));
+        objAtividade.setTratamentoAgravosPNAISP(Integer.valueOf(jTratamentoAgravDiaginostico.getText()));
         objAtividade.setAtendimentoOdontologico(Integer.valueOf(jAtendimentoOdontologicos.getText()));
         objAtividade.setQuantidadeAdmInfectoTotal(Integer.valueOf(jPresoDoencaInfecto.getText()));
-        objAtividade.setHipertensao(Integer.valueOf(jControlHipertensao.getText()));
-        objAtividade.setDiabetes(Integer.valueOf(jControleDiabetes.getText()));
-        objAtividade.setVacinados(Integer.valueOf(jPresosVacinados.getText()));
-        objAtividade.setSexualidade(Integer.valueOf(jAspectosSexual.getText()));
+        objAtividade.setSensibilizadoHipertensao(Integer.valueOf(jControlHipertensao.getText()));
+        objAtividade.setSensibilizadoDiabetes(Integer.valueOf(jControleDiabetes.getText()));
+        objAtividade.setVacinadosPNI(Integer.valueOf(jPresosVacinados.getText()));
+        objAtividade.setSensibilizadoSexualidade(Integer.valueOf(jAspectosSexual.getText()));
         //ABA AEI - 04
         objAtividade.setMatriculadoEnsinoFormal(Integer.valueOf(jPresoSentenciadoEF.getText()));
         objAtividade.setFrequentandoEnsinoFormal(Integer.valueOf(jPresoSentencaMatFreqEF.getText()));
@@ -6491,14 +7117,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setToalha(Integer.valueOf(jToalha.getText()));
         objAtividade.setUniformeCompleto(Integer.valueOf(jUniformeCompleto.getText()));
         //SEG - 06                   
-        objAtividade.setQuantidadeCelular(Integer.valueOf(jNumeroAparelhoConvive.getText()));
-        objAtividade.setQuantidadeObjetos(Integer.valueOf(jObjetosMateriais.getText()));
-        objAtividade.setQuantidadeProcedCelas(Integer.valueOf(jNumeroProcedRevista.getText()));
+        objAtividade.setCelularLocalizadoConvivencia(Integer.valueOf(jNumeroAparelhoConvive.getText()));
+        objAtividade.setObjetoNaoAutorizadoLocalizadoConvivencia(Integer.valueOf(jObjetosMateriais.getText()));
+        objAtividade.setRevistaCela(Integer.valueOf(jNumeroProcedRevista.getText()));
         objAtividade.setOcorrenciaIndisciplina(Integer.valueOf(jNumeroOcorrenciasInd.getText()));
         objAtividade.setOcorrenciaFuga(Integer.valueOf(jNumeroOcorrenciaTentaFuga.getText()));
         objAtividade.setOcorrenciaRebeliao(Integer.valueOf(jNumeroOcorrenciaRebeliao.getText()));
         objAtividade.setOcorrenciaFerido(Integer.valueOf(jNumeroOcorrenciaPessoaFerida.getText()));
-        objAtividade.setPessoasRefem(Integer.valueOf(jNumeroOcorrenciaPessoasRefem.getText()));
+        objAtividade.setOcorrenciaRefem(Integer.valueOf(jNumeroOcorrenciaPessoasRefem.getText()));
         objAtividade.setOcorrenciaGravementeFeridoMorto(Integer.valueOf(jNumeroOcorrenciaPessoasFeridaMortas.getText()));
         objAtividade.setHorasInterrupcaoCFTV(Integer.valueOf(jNumeroHorasTVCFTV.getText()));
         objAtividade.setDiasInterrupcaoScannerCorporal(Integer.valueOf(jNumeroDiasSemScannerCorpo.getText()));
@@ -6557,6 +7183,589 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setTotal07(Integer.valueOf(jTotal07.getText()));
         objAtividade.setTotal08(Integer.valueOf(jTotal08.getText()));
         objAtividade.setTotal09(Integer.valueOf(jTotal09.getText()));
+    }
+
+    public void verificarRangeDatasMesAno() {
+        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+        pMES_REFERENCIA = formatoAmerica.format(jDataPeriodoInicial.getDate().getTime());
+        if (jComboBoxMesReferencia.getSelectedItem().equals("Janeiro")) {
+            pMES_01 = "01";
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            pMES_REFERENCIA = pMES;
+            if (pMES_REFERENCIA.equals(pMES_01)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+                //MÊS DE FEVEREIRO
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Fevereiro")) {
+            pMES_02 = "02";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_02)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Março")) {
+            pMES_03 = "03";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_03)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Abril")) {
+            pMES_04 = "04";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_04)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Maio")) {
+            pMES_05 = "05";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_05)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Junho")) {
+            pMES_06 = "06";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_06)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Julho")) {
+            pMES_07 = "07";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_07)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Agosto")) {
+            pMES_08 = "08";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_08)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Setembro")) {
+            pMES_09 = "09";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_09)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Outubro")) {
+            pMES_10 = "10";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_10)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Novembro")) {
+            pMES_11 = "11";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_11)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        } else if (jComboBoxMesReferencia.getSelectedItem().equals("Dezembro")) {
+            pMES_12 = "12";
+            pMES_REFERENCIA = String.valueOf(jDataPeriodoInicial.getDate());
+            pDIA = pMES_REFERENCIA.substring(0, 1);
+            pMES = pMES_REFERENCIA.substring(3, 5);
+            pANO = pMES_REFERENCIA.substring(7, 10);
+            if (pMES_REFERENCIA.equals(pMES_12)) {
+                calculoMediaPopulacao();
+                //ABA ASSI - SERVIÇO SOCIAL
+                calculoSS();
+                calculoSSF();
+                calculoVI();
+                caluloVC();
+                calculoPresoCivil();
+                calculoMED();
+                caluloQTVD();
+                //CALCUAR AS MÉDIAS
+                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                calcularMediaVisitasInterno();
+                //ABA ASI
+                calculoMED();
+                calculoPSIQ();
+                calculoENFER();
+                calculoAgravosDIAG();
+                calculoControleHipertensao();
+                calculoControleDiabetes();
+                calculoDOENCA_INFECTOCONTAGIOSAS();
+                calculoControleVacinas();
+                calculoPSI();
+                calculoProcODON();
+                calculoAtendODON();
+                //ABA AEI
+                calculoMatPED();
+                calculoFreqPED();
+                //AEI
+                calculoProdutosKit();
+                //ABA SEG
+                calculoCelularSEG();
+                calcularObjetos();
+                calcularQtdRevistaCela();
+                //ABA AJ
+                calculoATENJURI();
+                calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
+                calculoATEN_TO();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+            }
+        }
     }
 
     public void objLog() {

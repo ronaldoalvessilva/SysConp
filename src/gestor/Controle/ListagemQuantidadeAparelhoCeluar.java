@@ -65,9 +65,9 @@ public class ListagemQuantidadeAparelhoCeluar {
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pQuantApa = new AtividadesMensalRealizadaUnidades();
                 pQuantApa.setDataProcedimento(conecta.rs.getDate("DataLanc"));
-                pQuantApa.setQuantidadeCelular(conecta.rs.getInt("Qtde"));
+                pQuantApa.setCelularLocalizadoConvivencia(conecta.rs.getInt("Qtde"));
                 listaInternospIntFreq.add(pQuantApa);
-                pQUANTIDADE_APARELHO_CELULAR = pQUANTIDADE_APARELHO_CELULAR + pQuantApa.getQuantidadeCelular();
+                pQUANTIDADE_APARELHO_CELULAR = pQUANTIDADE_APARELHO_CELULAR + pQuantApa.getCelularLocalizadoConvivencia();
             }
             return listaInternospIntFreq;
         } catch (SQLException ex) {

@@ -62,7 +62,7 @@ public class ListagemControleDiabetes {
                 pAgravoDiag.setDataAtendimento(conecta.rs.getDate("DataReg"));
                 if (pDIABETES > pDIABETES) {
                     pQUANTIDADE_DIABETES = pQUANTIDADE_DIABETES + 1;
-                    pAgravoDiag.setDiabetes(pQUANTIDADE_DIABETES);
+                    pAgravoDiag.setSensibilizadoDiabetes(pQUANTIDADE_DIABETES);
                 }
                 pQUANTIDADE_DIABETES = pQUANTIDADE_DIABETES + 1;
                 listaAgravoDiagnosticado.add(pAgravoDiag);

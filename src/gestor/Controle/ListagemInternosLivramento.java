@@ -34,7 +34,7 @@ public class ListagemInternosLivramento {
 
     public List<AtividadesMensalRealizadaUnidades> read() throws Exception {
         pQUANTIDADE_LIVRAMENTO = 0;        
-        List<AtividadesMensalRealizadaUnidades> listaInfectoDiagnosticadoEVO = new ArrayList<AtividadesMensalRealizadaUnidades>();
+        List<AtividadesMensalRealizadaUnidades> listaLivramentoRequerido = new ArrayList<AtividadesMensalRealizadaUnidades>();
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(null, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -54,12 +54,12 @@ public class ListagemInternosLivramento {
                     + "AND CONVERT(DATE, DataSaida) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "'");
             while (conecta.rs.next()) {
-                AtividadesMensalRealizadaUnidades pInfectoEvo = new AtividadesMensalRealizadaUnidades();
-                pInfectoEvo.setDataAtendimento(conecta.rs.getDate("DataSaida"));               
+                AtividadesMensalRealizadaUnidades pLivraReq = new AtividadesMensalRealizadaUnidades();
+                pLivraReq.setDataAtendimento(conecta.rs.getDate("DataSaida"));               
                 pQUANTIDADE_LIVRAMENTO = pQUANTIDADE_LIVRAMENTO + 1;
-                listaInfectoDiagnosticadoEVO.add(pInfectoEvo);
+                listaLivramentoRequerido.add(pLivraReq);
             }
-            return listaInfectoDiagnosticadoEVO;
+            return listaLivramentoRequerido;
         } catch (SQLException ex) {
             Logger.getLogger(listarInternosPopulacaoNominal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

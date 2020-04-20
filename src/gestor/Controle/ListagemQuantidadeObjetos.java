@@ -63,9 +63,9 @@ public class ListagemQuantidadeObjetos {
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pQuantApa = new AtividadesMensalRealizadaUnidades();
                 pQuantApa.setDataProcedimento(conecta.rs.getDate("DataLanc"));
-                pQuantApa.setQuantidadeObjetos(conecta.rs.getInt("Qtde"));
+                pQuantApa.setObjetoNaoAutorizadoLocalizadoConvivencia(conecta.rs.getInt("Qtde"));
                 listaInternospIntFreq.add(pQuantApa);
-                pQUANTIDADE_OBJETOS_PROC = pQUANTIDADE_OBJETOS_PROC + pQuantApa.getQuantidadeObjetos();
+                pQUANTIDADE_OBJETOS_PROC = pQUANTIDADE_OBJETOS_PROC + pQuantApa.getObjetoNaoAutorizadoLocalizadoConvivencia();
             }
             return listaInternospIntFreq;
         } catch (SQLException ex) {

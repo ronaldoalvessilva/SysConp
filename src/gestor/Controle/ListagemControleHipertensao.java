@@ -61,7 +61,7 @@ public class ListagemControleHipertensao {
                 pAgravoDiag.setDataAtendimento(conecta.rs.getDate("DataReg"));
                 if (pHIPERTENSAO > pHIPERTENSAO) {
                     pQUANTIDADE_HIPERTENSAO = pQUANTIDADE_HIPERTENSAO + 1;
-                    pAgravoDiag.setHipertensao(pQUANTIDADE_HIPERTENSAO);
+                    pAgravoDiag.setSensibilizadoHipertensao(pQUANTIDADE_HIPERTENSAO);
                 }
                 pQUANTIDADE_HIPERTENSAO = pQUANTIDADE_HIPERTENSAO + 1;
                 listaAgravoDiagnosticado.add(pAgravoDiag);

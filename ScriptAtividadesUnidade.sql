@@ -4,15 +4,19 @@
 -- TELA DE MANUTENÇÃO
 USE DB_SOCIALIZA_VC
 
+-- ABA MANUTENÇÃO
+
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE'))
 CREATE TABLE ATIVIDADES_UNIDADE
 	(
 	IdAtividade INT IDENTITY(1,1) NOT NULL,
 	StatusAtividade VARCHAR(7) CONSTRAINT CHK_Atividade CHECK (StatusAtividade in ('ABERTO', 'FECHADO')),
-	DataCadastro DATETIME NOT NULL,
+	DataCriacao DATETIME NOT NULL,
 	DataAtualizacao DATETIME,
 	IdUnidEmp INT NOT NULL,
 	Populacao INT,
+	DataInicial DATETIME NULL,
+	DataFinal DATETIME NULL,
 	IdFunc INT NOT NULL,
 	MatriculaColaborador VARCHAR(30),
 	DepartamentoColaborador VARCHAR(60),
@@ -29,6 +33,21 @@ CREATE TABLE ATIVIDADES_UNIDADE
 	REFERENCES UNIDADE_PENAL_EMPRESA (IdUnidEmp)
 	);
 
+--ABA ASSI
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SERVICO_SOCIAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_SERVICO_SOCIAL
+	(
+	IdAtividade INT NOT NULL,
+	AtendimentoPsicossocialPreso INT,
+	AtendimentoPsicossocialFamiliaPreso INT,
+	IdentificadoCivilmente INT,
+	TotalServicoSocial INT,	
+	CONSTRAINT PK_Atividades_Unidade_Servico_Social PRIMARY KEY (IdAtividade),
+	CONSTRAINT FK_Atividades_Unidade_Servico_Social FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_VISITA_INTERNO'))
 	CREATE TABLE ATIVIDADES_UNIDADE_VISITA_INTERNO
 	(
@@ -43,6 +62,7 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 
+-- AFV
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA'))
 	CREATE TABLE ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA
 	(
@@ -61,6 +81,8 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	CONSTRAINT FK_Atividades_Unidade_Alimentacao_Fornecida FOREIGN KEY (IdAtividade) 
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
+
+--ABA ASI
 
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ATENDIMENTO_SAUDE'))
 	CREATE TABLE ATIVIDADES_UNIDADE_ATENDIMENTO_SAUDE
@@ -84,6 +106,8 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 
+--AEI
+
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL'))
 	CREATE TABLE ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL
 	(
@@ -95,32 +119,6 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	TotalEducacional INT,	
 	CONSTRAINT PK_Atividades_Unidade_Atendimento_Educacional PRIMARY KEY (IdAtividade),
 	CONSTRAINT FK_Atividades_Unidade_Atendimento_Educacional FOREIGN KEY (IdAtividade) 
-	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
-	);
-
-IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SERVICO_SOCIAL'))
-	CREATE TABLE ATIVIDADES_UNIDADE_SERVICO_SOCIAL
-	(
-	IdAtividade INT NOT NULL,
-	AtendimentoPsicossocialPreso INT,
-	AtendimentoPsicossocialFamiliaPreso INT,
-	IdentificadoCivilmente INT,
-	TotalServicoSocial INT,	
-	CONSTRAINT PK_Atividades_Unidade_Servico_Social PRIMARY KEY (IdAtividade),
-	CONSTRAINT FK_Atividades_Unidade_Servico_Social FOREIGN KEY (IdAtividade) 
-	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
-	);
-
-IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL'))
-	CREATE TABLE ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL
-	(
-	IdAtividade INT NOT NULL,
-	Triagem INT,
-	LaborativaRemunerada INT,
-	LaborativaNaoRemunerada INT,
-	TotalLaboral INT,
-	CONSTRAINT PK_Atividades_Unidade_Assistencia_Laboral PRIMARY KEY (IdAtividade),
-	CONSTRAINT FK_Atividades_Unidade_Assistencia_Laboral FOREIGN KEY (IdAtividade) 
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 
@@ -139,39 +137,7 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 
-IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_JURIDICA'))
-	CREATE TABLE ATIVIDADES_UNIDADE_JURIDICA
-	(
-	IdAtividade INT NOT NULL,
-	InternoFamiliaSAJ INT,
-	AlvaraSolturaRecebido INT,
-	AlvaraSolturaCumprido INT,
-	AudienciaProvocada INT,
-	AudienciaCumprida INT,
-	JuriProvocado INT,
-	JuriCumprido INT,
-	LiberdadeProvisoriaRequerida INT,
-	LiberdadeProvisoriaDeferida INT,
-	IndultosRequeridos INT,
-	IndultosDeferidos INT,
-	RemicaoRequerida INT,
-	RemicaoDeferida INT,
-	CondicionalRequerida INT,
-	CondicionalDeferida INT,
-	ProgressaoRegimeRequerida INT,
-	ProgressaoRegimeDeferida INT,
-	SaidasTemporariasRequerida INT,
-	SaidasTemporariasDeferida INT,
-	HabeasCorpusRequerido INT,
-	HabeasCorpusDeferido INT,
-	LaudosPsicologicos INT,
-	LaudosPsiquiatricos INT,
-	TransferenciaProvimento INT,
-	TotalJuridico INT,	
-	CONSTRAINT PK_Atividades_Unidade_Juridica PRIMARY KEY (IdAtividade),
-	CONSTRAINT FK_Atividades_Unidade_Juridica FOREIGN KEY (IdAtividade) 
-	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
-	);
+
 
 IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL'))
 	CREATE TABLE ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL
@@ -202,8 +168,8 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 
-IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SEGURNACA'))
-	CREATE TABLE ATIVIDADES_UNIDADE_SEGURNACA
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_SEGURANCA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_SEGURANCA
 	(
 	IdAtividade INT NOT NULL,
 	CelularLocalizadoConvivencia INT,
@@ -226,6 +192,54 @@ IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNID
 	FraldasEntreguesPortariaScanner INT,
 	CONSTRAINT PK_Atividades_Seguranca PRIMARY KEY (IdAtividade),
 	CONSTRAINT FK_Atividades_Seguranca FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_JURIDICA'))
+	CREATE TABLE ATIVIDADES_UNIDADE_JURIDICA
+	(
+	IdAtividade INT NOT NULL,
+	InternoFamiliaSAJ INT,
+	AlvaraSolturaRecebido INT,
+	AlvaraSolturaCumprido INT,
+	LivramentoCondicionalRequerido INT,
+	AudienciaProvocada INT,
+	AudienciaCumprida INT,
+	JuriProvocado INT,
+	JuriCumprido INT,
+	LiberdadeProvisoriaRequerida INT,
+	LiberdadeProvisoriaDeferida INT,
+	IndultosRequeridos INT,
+	IndultosDeferidos INT,
+	RemicaoRequerida INT,
+	RemicaoDeferida INT,
+	CondicionalRequerida INT,
+	CondicionalDeferida INT,
+	ProgressaoRegimeRequerida INT,
+	ProgressaoRegimeDeferida INT,
+	SaidasTemporariasRequerida INT,
+	SaidasTemporariasDeferida INT,
+	HabeasCorpusRequerido INT,
+	HabeasCorpusDeferido INT,
+	LaudosPsicologicos INT,
+	LaudosPsiquiatricos INT,
+	TransferenciaProvimento INT,
+	TotalJuridico INT,	
+	CONSTRAINT PK_Atividades_Unidade_Juridica PRIMARY KEY (IdAtividade),
+	CONSTRAINT FK_Atividades_Unidade_Juridica FOREIGN KEY (IdAtividade) 
+	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
+	);
+
+IF NOT EXISTS (SELECT NULL FROM SYSOBJECTS WHERE ID = OBJECT_ID('ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL'))
+	CREATE TABLE ATIVIDADES_UNIDADE_ASSISTENCIA_LABORAL
+	(
+	IdAtividade INT NOT NULL,
+	Triagem INT,
+	LaborativaRemunerada INT,
+	LaborativaNaoRemunerada INT,
+	TotalLaboral INT,
+	CONSTRAINT PK_Atividades_Unidade_Assistencia_Laboral PRIMARY KEY (IdAtividade),
+	CONSTRAINT FK_Atividades_Unidade_Assistencia_Laboral FOREIGN KEY (IdAtividade) 
 	REFERENCES ATIVIDADES_UNIDADE (IdAtividade)
 	);
 

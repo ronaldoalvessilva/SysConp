@@ -142,10 +142,10 @@ public class ListagemAgravosDiagnosticadosEVO {
                     pAgravoDiagEvo.setSifilis(pQUANTIDADE_SIFILIS);
                 } else if (pDIABETES.equals("Sim")) {
                     pQUANTIDADE_DIABETES = pQUANTIDADE_DIABETES + 1;
-                    pAgravoDiagEvo.setDiabetes(pQUANTIDADE_DIABETES);
+                    pAgravoDiagEvo.setSensibilizadoDiabetes(pQUANTIDADE_DIABETES);
                 } else if (pHIPERTENSAO.equals("Sim")) {
                     pQUANTIDADE_HIPERTENSAO = pQUANTIDADE_HIPERTENSAO + 1;
-                    pAgravoDiagEvo.setHipertensao(pQUANTIDADE_HIPERTENSAO);
+                    pAgravoDiagEvo.setSensibilizadoHipertensao(pQUANTIDADE_HIPERTENSAO);
                 } else if (pTUBERCULOSE.equals("Positivo")) {
                     pQUANTIDADE_TUBERCULOSE = pQUANTIDADE_TUBERCULOSE + 1;
                     pAgravoDiagEvo.setTuberculose(pQUANTIDADE_TUBERCULOSE);
@@ -160,7 +160,7 @@ public class ListagemAgravosDiagnosticadosEVO {
                     pAgravoDiagEvo.setDst(pQUANTIDADE_DST);
                 }
                 pQUANTIDADE_TOTAL_AGRAVOS_EVO = pQUANTIDADE_VACINADOS + pQUANTIDADE_HEPATITE_C + pQUANTIDADE_HIV + pQUANTIDADE_SIFILIS + pQUANTIDADE_DIABETES + pQUANTIDADE_HIPERTENSAO + pQUANTIDADE_TUBERCULOSE + pQUANTIDADE_HANSEINIASE + pQUANTIDADE_ESCABIOSE + pQUANTIDADE_DST;
-                pAgravoDiagEvo.setQuantidadeAgravosTotal(pQUANTIDADE_TOTAL_AGRAVOS_EVO);
+                pAgravoDiagEvo.setTratamentoAgravosPNAISP(pQUANTIDADE_TOTAL_AGRAVOS_EVO);
                 listaAgravoDiagnosticadoEvo.add(pAgravoDiagEvo);
             }
             return listaAgravoDiagnosticadoEvo;

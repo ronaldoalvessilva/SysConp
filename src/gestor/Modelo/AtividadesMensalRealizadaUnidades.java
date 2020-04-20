@@ -74,7 +74,7 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer atendimentoOdontologico;
     private Integer procedimentoOdontologico;
     private Integer atendimentoPsicologico;
-    private Integer saudeBucal;
+    private Integer sensibilizadoSaudeBucal;
     private Date dataAgravo;
     private Integer vdrl;
     private Integer hepatiteB;
@@ -82,17 +82,18 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer hiv;
     private Integer sifilis;
     private Integer hpv;
-    private Integer diabetes;
-    private Integer hipertensao;
+    private Integer sensibilizadoDiabetes;
+    private Integer sensibilizadoHipertensao;
     private Integer tuberculose;
     private Integer hanseniase;
     private Integer escabiose;
     private Integer dst;
-    private Integer quantidadeAgravosTotal;
+    private Integer tratamentoAgravosPNAISP;
+    private Integer sensibilizadoInfectocontagiosas;
     private Integer quantidadeAdmInfectoTotal;
     private Integer quantidadeEvoInfectoTotal;
-    private Integer sexualidade;
-    private Integer vacinados;
+    private Integer sensibilizadoSexualidade;
+    private Integer vacinadosPNI;
     private Integer totalSaude;
     //AEI
     private Date dataMatricula;
@@ -128,14 +129,15 @@ public class AtividadesMensalRealizadaUnidades {
     private Integer totalMaterial;
     //SEG
     private Date DataProcedimento;
-    private Integer quantidadeCelular;
-    private Integer quantidadeObjetos;
-    private Integer quantidadeProcedCelas;
+    private Integer celularLocalizadoConvivencia;
+    private Integer objetoNaoAutorizadoLocalizadoConvivencia;
+    private Integer RevistaCela;
     private Integer idAtividadeSeguranca;
-    private Integer pessoasRefem;
-    private Integer ocorrenciaFuga;
+    private Integer ocorrenciaRefem;
+    private Integer tentativaFuga;
     private Integer ocorrenciaRebeliao;
     private Integer ocorrenciaFerido;
+    private Integer ocorrenciaFuga;
     private Integer ocorrenciaIndisciplina;
     private Integer ocorrenciaGravementeFeridoMorto;
     private Integer horasInterrupcaoCFTV;
@@ -150,6 +152,7 @@ public class AtividadesMensalRealizadaUnidades {
     //AJ
     private Integer idAtividadeJuridica;
     private Integer internoFamiliaSAJ;
+    private Integer LivramentoCondicionalRequerido;
     private Integer alvaraSolturaRecebido;
     private Integer alvaraSolturaCumprido;
     private Integer audienciaProvocada;
@@ -204,7 +207,7 @@ public class AtividadesMensalRealizadaUnidades {
     public AtividadesMensalRealizadaUnidades() {
     }
 
-    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer mediaPopulacao, Integer quantidadeTotalPopulacao, Date dataPeriodoInicial, Date dataPeriodoFinal, String mesReferencia, String anoReferencia, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Integer idAtividadeVisita, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, Integer numeroVistantesInternos, Integer numeroDiasVisitas, Integer mediaVisitasDia, Integer mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Integer idAtividadeAlimentacao, Integer lanchesVisitantes, Integer cafeContratada, Integer almocoContratada, Integer jantarContratada, Integer lancheContratada, Integer cafeContratante, Integer almocoContratante, Integer jantarContratante, Integer lancheContratante, Integer totalAlimentacao, Integer idAtividadeAtendimentoSaude, Integer atendimentoClinico, Integer atendimentoPsiquiatrico, Integer atendimentoEnfermagem, Integer atendimentoOdontologico, Integer procedimentoOdontologico, Integer atendimentoPsicologico, Integer saudeBucal, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer diabetes, Integer hipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer quantidadeAgravosTotal, Integer quantidadeAdmInfectoTotal, Integer quantidadeEvoInfectoTotal, Integer sexualidade, Integer vacinados, Integer totalSaude, Date dataMatricula, Date dataFrequencia, Integer idAtividadeAtendimentoEducacional, Integer matriculadoEnsinoFormal, Integer frequentandoEnsinoFormal, Integer matriculadoCursoProfissionalizante, Integer certificadoCursoProfissionalizante, Integer totalEducacional, Integer aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Integer idAtividadeMaterial, Integer totalMaterial, Date DataProcedimento, Integer quantidadeCelular, Integer quantidadeObjetos, Integer quantidadeProcedCelas, Integer idAtividadeSeguranca, Integer pessoasRefem, Integer ocorrenciaFuga, Integer ocorrenciaRebeliao, Integer ocorrenciaFerido, Integer ocorrenciaIndisciplina, Integer ocorrenciaGravementeFeridoMorto, Integer horasInterrupcaoCFTV, Integer diasInterrupcaoScannerCorporal, Integer diasInterrupcaoRaioXDetectorMetais, Integer diasInterrupcaoVeiculoTransportePreso, Integer falhaGeradorEnergia, Integer horasMauFuncionamentoBRS, Integer absorventesEntreguesPortariaScanner, Integer fraldasEntreguesPortariaScanner, Integer totalMaterialSeg, Integer idAtividadeJuridica, Integer internoFamiliaSAJ, Integer alvaraSolturaRecebido, Integer alvaraSolturaCumprido, Integer audienciaProvocada, Integer audienciaCumprida, Integer juriProvocado, Integer juriCumprido, Integer liberdadeProvisoriaRequerida, Integer liberdadeProvisoriaDeferida, Integer indultosRequeridos, Integer indultosDeferidos, Integer remicaoRequerida, Integer remicaoDeferida, Integer condicionalRequerida, Integer condicionalDeferida, Integer progressaoRegimeRequerida, Integer progressaoRegimeDeferida, Integer saidasTemporariasRequerida, Integer saidasTemporariasDeferida, Integer habeasCorpusRequerido, Integer habeasCorpusDeferido, Integer laudosPsicologicos, Integer laudosPsiquiatricos, Integer transferenciaProvimento, Integer totalJuridico, Integer triagem, Integer laborativaRemunerada, Integer laborativaNaoRemunerada, Integer totalLaboral, Integer idAtividadeRecreativa, Integer artesPlasticas, Integer literatura, Integer cantoTeatroCinema, Integer esportes, Integer religiosa, Integer totalRecreativaReligiosa, Integer cafeInterno, Integer almocoInterno, Integer jantarInterno, Integer total01, Integer total02, Integer total03, Integer total04, Integer total05, Integer total06, Integer total07, Integer total08, Integer total09) {
+    public AtividadesMensalRealizadaUnidades(Integer chave, String status, Date dataCriacao, Date dataAtualizacao, String mes, Integer ano, Integer idUnidade, String unidadePrisional, Integer mediaPopulacao, Integer quantidadeTotalPopulacao, Date dataPeriodoInicial, Date dataPeriodoFinal, String mesReferencia, String anoReferencia, Integer idFunc, String colaboradorResponsavel, String matricula, String departamento, String observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horarioInsert, String horarioUp, Integer idAtividadeVisita, Integer atendimentoPsiPreso, Integer atendimentoPsiFamilaPreso, Date dataAtendimento, Date dataEntradaVisita, Date dataSaidaVisita, String tipoAtendimento, Integer numeroVistantesInternos, Integer numeroDiasVisitas, Integer mediaVisitasDia, Integer mediaVisitasInterno, Integer numeroCriancasVisitas, Integer presoIdentCivil, Integer presoAtiviReligiosa, Integer idAtividadeAlimentacao, Integer lanchesVisitantes, Integer cafeContratada, Integer almocoContratada, Integer jantarContratada, Integer lancheContratada, Integer cafeContratante, Integer almocoContratante, Integer jantarContratante, Integer lancheContratante, Integer totalAlimentacao, Integer idAtividadeAtendimentoSaude, Integer atendimentoClinico, Integer atendimentoPsiquiatrico, Integer atendimentoEnfermagem, Integer atendimentoOdontologico, Integer procedimentoOdontologico, Integer atendimentoPsicologico, Integer sensibilizadoSaudeBucal, Date dataAgravo, Integer vdrl, Integer hepatiteB, Integer hepatiteC, Integer hiv, Integer sifilis, Integer hpv, Integer sensibilizadoDiabetes, Integer sensibilizadoHipertensao, Integer tuberculose, Integer hanseniase, Integer escabiose, Integer dst, Integer tratamentoAgravosPNAISP, Integer sensibilizadoInfectocontagiosas, Integer quantidadeAdmInfectoTotal, Integer quantidadeEvoInfectoTotal, Integer sensibilizadoSexualidade, Integer vacinadosPNI, Integer totalSaude, Date dataMatricula, Date dataFrequencia, Integer idAtividadeAtendimentoEducacional, Integer matriculadoEnsinoFormal, Integer frequentandoEnsinoFormal, Integer matriculadoCursoProfissionalizante, Integer certificadoCursoProfissionalizante, Integer totalEducacional, Integer aparelhoBarbear, Integer absorvente, Integer bermuda, Integer caneca, Integer camisa, Integer cobertor, Integer colchao, Integer colher, Integer cueca, Integer cremeDental, Integer desodorante, Integer escova, Integer lencol, Integer papelHigienico, Integer parChinelos, Integer pote, Integer sabaoPo, Integer sabonete, Integer toalha, Integer uniformeCompleto, Integer idAtividadeMaterial, Integer totalMaterial, Date DataProcedimento, Integer celularLocalizadoConvivencia, Integer objetoNaoAutorizadoLocalizadoConvivencia, Integer RevistaCela, Integer idAtividadeSeguranca, Integer ocorrenciaRefem, Integer tentativaFuga, Integer ocorrenciaRebeliao, Integer ocorrenciaFerido, Integer ocorrenciaFuga, Integer ocorrenciaIndisciplina, Integer ocorrenciaGravementeFeridoMorto, Integer horasInterrupcaoCFTV, Integer diasInterrupcaoScannerCorporal, Integer diasInterrupcaoRaioXDetectorMetais, Integer diasInterrupcaoVeiculoTransportePreso, Integer falhaGeradorEnergia, Integer horasMauFuncionamentoBRS, Integer absorventesEntreguesPortariaScanner, Integer fraldasEntreguesPortariaScanner, Integer totalMaterialSeg, Integer idAtividadeJuridica, Integer internoFamiliaSAJ, Integer LivramentoCondicionalRequerido, Integer alvaraSolturaRecebido, Integer alvaraSolturaCumprido, Integer audienciaProvocada, Integer audienciaCumprida, Integer juriProvocado, Integer juriCumprido, Integer liberdadeProvisoriaRequerida, Integer liberdadeProvisoriaDeferida, Integer indultosRequeridos, Integer indultosDeferidos, Integer remicaoRequerida, Integer remicaoDeferida, Integer condicionalRequerida, Integer condicionalDeferida, Integer progressaoRegimeRequerida, Integer progressaoRegimeDeferida, Integer saidasTemporariasRequerida, Integer saidasTemporariasDeferida, Integer habeasCorpusRequerido, Integer habeasCorpusDeferido, Integer laudosPsicologicos, Integer laudosPsiquiatricos, Integer transferenciaProvimento, Integer totalJuridico, Integer triagem, Integer laborativaRemunerada, Integer laborativaNaoRemunerada, Integer totalLaboral, Integer idAtividadeRecreativa, Integer artesPlasticas, Integer literatura, Integer cantoTeatroCinema, Integer esportes, Integer religiosa, Integer totalRecreativaReligiosa, Integer cafeInterno, Integer almocoInterno, Integer jantarInterno, Integer total01, Integer total02, Integer total03, Integer total04, Integer total05, Integer total06, Integer total07, Integer total08, Integer total09) {
         this.chave = chave;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -262,7 +265,7 @@ public class AtividadesMensalRealizadaUnidades {
         this.atendimentoOdontologico = atendimentoOdontologico;
         this.procedimentoOdontologico = procedimentoOdontologico;
         this.atendimentoPsicologico = atendimentoPsicologico;
-        this.saudeBucal = saudeBucal;
+        this.sensibilizadoSaudeBucal = sensibilizadoSaudeBucal;
         this.dataAgravo = dataAgravo;
         this.vdrl = vdrl;
         this.hepatiteB = hepatiteB;
@@ -270,17 +273,18 @@ public class AtividadesMensalRealizadaUnidades {
         this.hiv = hiv;
         this.sifilis = sifilis;
         this.hpv = hpv;
-        this.diabetes = diabetes;
-        this.hipertensao = hipertensao;
+        this.sensibilizadoDiabetes = sensibilizadoDiabetes;
+        this.sensibilizadoHipertensao = sensibilizadoHipertensao;
         this.tuberculose = tuberculose;
         this.hanseniase = hanseniase;
         this.escabiose = escabiose;
         this.dst = dst;
-        this.quantidadeAgravosTotal = quantidadeAgravosTotal;
+        this.tratamentoAgravosPNAISP = tratamentoAgravosPNAISP;
+        this.sensibilizadoInfectocontagiosas = sensibilizadoInfectocontagiosas;
         this.quantidadeAdmInfectoTotal = quantidadeAdmInfectoTotal;
         this.quantidadeEvoInfectoTotal = quantidadeEvoInfectoTotal;
-        this.sexualidade = sexualidade;
-        this.vacinados = vacinados;
+        this.sensibilizadoSexualidade = sensibilizadoSexualidade;
+        this.vacinadosPNI = vacinadosPNI;
         this.totalSaude = totalSaude;
         this.dataMatricula = dataMatricula;
         this.dataFrequencia = dataFrequencia;
@@ -313,14 +317,15 @@ public class AtividadesMensalRealizadaUnidades {
         this.idAtividadeMaterial = idAtividadeMaterial;
         this.totalMaterial = totalMaterial;
         this.DataProcedimento = DataProcedimento;
-        this.quantidadeCelular = quantidadeCelular;
-        this.quantidadeObjetos = quantidadeObjetos;
-        this.quantidadeProcedCelas = quantidadeProcedCelas;
+        this.celularLocalizadoConvivencia = celularLocalizadoConvivencia;
+        this.objetoNaoAutorizadoLocalizadoConvivencia = objetoNaoAutorizadoLocalizadoConvivencia;
+        this.RevistaCela = RevistaCela;
         this.idAtividadeSeguranca = idAtividadeSeguranca;
-        this.pessoasRefem = pessoasRefem;
-        this.ocorrenciaFuga = ocorrenciaFuga;
+        this.ocorrenciaRefem = ocorrenciaRefem;
+        this.tentativaFuga = tentativaFuga;
         this.ocorrenciaRebeliao = ocorrenciaRebeliao;
         this.ocorrenciaFerido = ocorrenciaFerido;
+        this.ocorrenciaFuga = ocorrenciaFuga;
         this.ocorrenciaIndisciplina = ocorrenciaIndisciplina;
         this.ocorrenciaGravementeFeridoMorto = ocorrenciaGravementeFeridoMorto;
         this.horasInterrupcaoCFTV = horasInterrupcaoCFTV;
@@ -334,6 +339,7 @@ public class AtividadesMensalRealizadaUnidades {
         this.totalMaterialSeg = totalMaterialSeg;
         this.idAtividadeJuridica = idAtividadeJuridica;
         this.internoFamiliaSAJ = internoFamiliaSAJ;
+        this.LivramentoCondicionalRequerido = LivramentoCondicionalRequerido;
         this.alvaraSolturaRecebido = alvaraSolturaRecebido;
         this.alvaraSolturaCumprido = alvaraSolturaCumprido;
         this.audienciaProvocada = audienciaProvocada;
@@ -1182,17 +1188,17 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the saudeBucal
+     * @return the sensibilizadoSaudeBucal
      */
-    public Integer getSaudeBucal() {
-        return saudeBucal;
+    public Integer getSensibilizadoSaudeBucal() {
+        return sensibilizadoSaudeBucal;
     }
 
     /**
-     * @param saudeBucal the saudeBucal to set
+     * @param sensibilizadoSaudeBucal the sensibilizadoSaudeBucal to set
      */
-    public void setSaudeBucal(Integer saudeBucal) {
-        this.saudeBucal = saudeBucal;
+    public void setSensibilizadoSaudeBucal(Integer sensibilizadoSaudeBucal) {
+        this.sensibilizadoSaudeBucal = sensibilizadoSaudeBucal;
     }
 
     /**
@@ -1294,31 +1300,31 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the diabetes
+     * @return the sensibilizadoDiabetes
      */
-    public Integer getDiabetes() {
-        return diabetes;
+    public Integer getSensibilizadoDiabetes() {
+        return sensibilizadoDiabetes;
     }
 
     /**
-     * @param diabetes the diabetes to set
+     * @param sensibilizadoDiabetes the sensibilizadoDiabetes to set
      */
-    public void setDiabetes(Integer diabetes) {
-        this.diabetes = diabetes;
+    public void setSensibilizadoDiabetes(Integer sensibilizadoDiabetes) {
+        this.sensibilizadoDiabetes = sensibilizadoDiabetes;
     }
 
     /**
-     * @return the hipertensao
+     * @return the sensibilizadoHipertensao
      */
-    public Integer getHipertensao() {
-        return hipertensao;
+    public Integer getSensibilizadoHipertensao() {
+        return sensibilizadoHipertensao;
     }
 
     /**
-     * @param hipertensao the hipertensao to set
+     * @param sensibilizadoHipertensao the sensibilizadoHipertensao to set
      */
-    public void setHipertensao(Integer hipertensao) {
-        this.hipertensao = hipertensao;
+    public void setSensibilizadoHipertensao(Integer sensibilizadoHipertensao) {
+        this.sensibilizadoHipertensao = sensibilizadoHipertensao;
     }
 
     /**
@@ -1378,17 +1384,31 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the quantidadeAgravosTotal
+     * @return the tratamentoAgravosPNAISP
      */
-    public Integer getQuantidadeAgravosTotal() {
-        return quantidadeAgravosTotal;
+    public Integer getTratamentoAgravosPNAISP() {
+        return tratamentoAgravosPNAISP;
     }
 
     /**
-     * @param quantidadeAgravosTotal the quantidadeAgravosTotal to set
+     * @param tratamentoAgravosPNAISP the tratamentoAgravosPNAISP to set
      */
-    public void setQuantidadeAgravosTotal(Integer quantidadeAgravosTotal) {
-        this.quantidadeAgravosTotal = quantidadeAgravosTotal;
+    public void setTratamentoAgravosPNAISP(Integer tratamentoAgravosPNAISP) {
+        this.tratamentoAgravosPNAISP = tratamentoAgravosPNAISP;
+    }
+
+    /**
+     * @return the sensibilizadoInfectocontagiosas
+     */
+    public Integer getSensibilizadoInfectocontagiosas() {
+        return sensibilizadoInfectocontagiosas;
+    }
+
+    /**
+     * @param sensibilizadoInfectocontagiosas the sensibilizadoInfectocontagiosas to set
+     */
+    public void setSensibilizadoInfectocontagiosas(Integer sensibilizadoInfectocontagiosas) {
+        this.sensibilizadoInfectocontagiosas = sensibilizadoInfectocontagiosas;
     }
 
     /**
@@ -1420,31 +1440,31 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the sexualidade
+     * @return the sensibilizadoSexualidade
      */
-    public Integer getSexualidade() {
-        return sexualidade;
+    public Integer getSensibilizadoSexualidade() {
+        return sensibilizadoSexualidade;
     }
 
     /**
-     * @param sexualidade the sexualidade to set
+     * @param sensibilizadoSexualidade the sensibilizadoSexualidade to set
      */
-    public void setSexualidade(Integer sexualidade) {
-        this.sexualidade = sexualidade;
+    public void setSensibilizadoSexualidade(Integer sensibilizadoSexualidade) {
+        this.sensibilizadoSexualidade = sensibilizadoSexualidade;
     }
 
     /**
-     * @return the vacinados
+     * @return the vacinadosPNI
      */
-    public Integer getVacinados() {
-        return vacinados;
+    public Integer getVacinadosPNI() {
+        return vacinadosPNI;
     }
 
     /**
-     * @param vacinados the vacinados to set
+     * @param vacinadosPNI the vacinadosPNI to set
      */
-    public void setVacinados(Integer vacinados) {
-        this.vacinados = vacinados;
+    public void setVacinadosPNI(Integer vacinadosPNI) {
+        this.vacinadosPNI = vacinadosPNI;
     }
 
     /**
@@ -1896,45 +1916,45 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the quantidadeCelular
+     * @return the celularLocalizadoConvivencia
      */
-    public Integer getQuantidadeCelular() {
-        return quantidadeCelular;
+    public Integer getCelularLocalizadoConvivencia() {
+        return celularLocalizadoConvivencia;
     }
 
     /**
-     * @param quantidadeCelular the quantidadeCelular to set
+     * @param celularLocalizadoConvivencia the celularLocalizadoConvivencia to set
      */
-    public void setQuantidadeCelular(Integer quantidadeCelular) {
-        this.quantidadeCelular = quantidadeCelular;
+    public void setCelularLocalizadoConvivencia(Integer celularLocalizadoConvivencia) {
+        this.celularLocalizadoConvivencia = celularLocalizadoConvivencia;
     }
 
     /**
-     * @return the quantidadeObjetos
+     * @return the objetoNaoAutorizadoLocalizadoConvivencia
      */
-    public Integer getQuantidadeObjetos() {
-        return quantidadeObjetos;
+    public Integer getObjetoNaoAutorizadoLocalizadoConvivencia() {
+        return objetoNaoAutorizadoLocalizadoConvivencia;
     }
 
     /**
-     * @param quantidadeObjetos the quantidadeObjetos to set
+     * @param objetoNaoAutorizadoLocalizadoConvivencia the objetoNaoAutorizadoLocalizadoConvivencia to set
      */
-    public void setQuantidadeObjetos(Integer quantidadeObjetos) {
-        this.quantidadeObjetos = quantidadeObjetos;
+    public void setObjetoNaoAutorizadoLocalizadoConvivencia(Integer objetoNaoAutorizadoLocalizadoConvivencia) {
+        this.objetoNaoAutorizadoLocalizadoConvivencia = objetoNaoAutorizadoLocalizadoConvivencia;
     }
 
     /**
-     * @return the quantidadeProcedCelas
+     * @return the RevistaCela
      */
-    public Integer getQuantidadeProcedCelas() {
-        return quantidadeProcedCelas;
+    public Integer getRevistaCela() {
+        return RevistaCela;
     }
 
     /**
-     * @param quantidadeProcedCelas the quantidadeProcedCelas to set
+     * @param RevistaCela the RevistaCela to set
      */
-    public void setQuantidadeProcedCelas(Integer quantidadeProcedCelas) {
-        this.quantidadeProcedCelas = quantidadeProcedCelas;
+    public void setRevistaCela(Integer RevistaCela) {
+        this.RevistaCela = RevistaCela;
     }
 
     /**
@@ -1952,31 +1972,31 @@ public class AtividadesMensalRealizadaUnidades {
     }
 
     /**
-     * @return the pessoasRefem
+     * @return the ocorrenciaRefem
      */
-    public Integer getPessoasRefem() {
-        return pessoasRefem;
+    public Integer getOcorrenciaRefem() {
+        return ocorrenciaRefem;
     }
 
     /**
-     * @param pessoasRefem the pessoasRefem to set
+     * @param ocorrenciaRefem the ocorrenciaRefem to set
      */
-    public void setPessoasRefem(Integer pessoasRefem) {
-        this.pessoasRefem = pessoasRefem;
+    public void setOcorrenciaRefem(Integer ocorrenciaRefem) {
+        this.ocorrenciaRefem = ocorrenciaRefem;
     }
 
     /**
-     * @return the ocorrenciaFuga
+     * @return the tentativaFuga
      */
-    public Integer getOcorrenciaFuga() {
-        return ocorrenciaFuga;
+    public Integer getTentativaFuga() {
+        return tentativaFuga;
     }
 
     /**
-     * @param ocorrenciaFuga the ocorrenciaFuga to set
+     * @param tentativaFuga the tentativaFuga to set
      */
-    public void setOcorrenciaFuga(Integer ocorrenciaFuga) {
-        this.ocorrenciaFuga = ocorrenciaFuga;
+    public void setTentativaFuga(Integer tentativaFuga) {
+        this.tentativaFuga = tentativaFuga;
     }
 
     /**
@@ -2005,6 +2025,20 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setOcorrenciaFerido(Integer ocorrenciaFerido) {
         this.ocorrenciaFerido = ocorrenciaFerido;
+    }
+
+    /**
+     * @return the ocorrenciaFuga
+     */
+    public Integer getOcorrenciaFuga() {
+        return ocorrenciaFuga;
+    }
+
+    /**
+     * @param ocorrenciaFuga the ocorrenciaFuga to set
+     */
+    public void setOcorrenciaFuga(Integer ocorrenciaFuga) {
+        this.ocorrenciaFuga = ocorrenciaFuga;
     }
 
     /**
@@ -2187,6 +2221,20 @@ public class AtividadesMensalRealizadaUnidades {
      */
     public void setInternoFamiliaSAJ(Integer internoFamiliaSAJ) {
         this.internoFamiliaSAJ = internoFamiliaSAJ;
+    }
+
+    /**
+     * @return the LivramentoCondicionalRequerido
+     */
+    public Integer getLivramentoCondicionalRequerido() {
+        return LivramentoCondicionalRequerido;
+    }
+
+    /**
+     * @param LivramentoCondicionalRequerido the LivramentoCondicionalRequerido to set
+     */
+    public void setLivramentoCondicionalRequerido(Integer LivramentoCondicionalRequerido) {
+        this.LivramentoCondicionalRequerido = LivramentoCondicionalRequerido;
     }
 
     /**
