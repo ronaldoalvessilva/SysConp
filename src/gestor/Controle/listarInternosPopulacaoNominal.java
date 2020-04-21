@@ -25,6 +25,8 @@ public class listarInternosPopulacaoNominal {
 
     String situacaoENT = "ENTRADA NA UNIDADE";
     String situacaoRET = "RETORNO A UNIDADE";
+    String situacaoTmp = "SAIDA TEMPORARIA";
+    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
 
     public List<GerarPopNominal> read() throws Exception {
         conecta.abrirConexao();
@@ -33,6 +35,8 @@ public class listarInternosPopulacaoNominal {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "WHERE SituacaoCrc='" + situacaoENT + "' "
                     + "OR SituacaoCrc='" + situacaoRET + "' "
+                    + "OR SituacaoCrc='" + situacaoTmp + "' "
+                    + "OR SituacaoCrc='" + pPRISAO_DOMICILIAR_COVID + "' "
                     + "ORDER BY NomeInternoCrc");
             while (conecta.rs.next()) {
                 GerarPopNominal pDigi = new GerarPopNominal();
