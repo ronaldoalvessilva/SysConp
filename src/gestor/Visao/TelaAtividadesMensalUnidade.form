@@ -7,7 +7,7 @@
     <Property name="title" type="java.lang.String" value="...::: Atividades Mensais Realizadas pela Unidade"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-8,0,0,2,15"/>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-8,0,0,2,13"/>
     <SyntheticProperty name="formPosition" type="java.awt.Point" value="-84,-19,0,5,115,114,0,14,106,97,118,97,46,97,119,116,46,80,111,105,110,116,-74,-60,-118,114,52,126,-56,38,2,0,2,73,0,1,120,73,0,1,121,120,112,0,0,1,44,0,0,0,30"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
     <SyntheticProperty name="generatePosition" type="boolean" value="true"/>
@@ -28,8 +28,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel10" alignment="0" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" pref="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -70,7 +70,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel12" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" pref="486" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="484" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jPanel30" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -880,12 +880,12 @@
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="0">
-                        <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
-                        <Column editable="true" title="Data" type="java.lang.Object"/>
-                        <Column editable="true" title="Status" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xea;s" type="java.lang.Object"/>
-                        <Column editable="true" title="Ano" type="java.lang.Object"/>
-                        <Column editable="true" title="Unidade Prisional" type="java.lang.Object"/>
+                        <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
+                        <Column editable="false" title="Data" type="java.lang.Object"/>
+                        <Column editable="false" title="Status" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xea;s" type="java.lang.Object"/>
+                        <Column editable="false" title="Ano" type="java.lang.Object"/>
+                        <Column editable="false" title="Unidade Prisional" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1041,14 +1041,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel9" max="32767" attributes="0"/>
                           <Component id="jPanel11" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel9" min="-2" pref="483" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1082,87 +1079,10 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jChave" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jStatus" min="-2" pref="210" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jDataCriacao" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jDataAtualizacao" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel146" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jMatricula" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="jIdFunc" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                                  <Component id="jBtPesquisarColaborador" min="-2" pref="25" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Component id="jDepartamento" max="32767" attributes="0"/>
-                                              <Component id="jColaboradorResponsavel" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel7" max="32767" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jUnidadePrisional" min="-2" pref="329" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jPopulacaoAtual" min="-2" pref="124" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="65" pref="65" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jDataPeriodoInicial" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
@@ -1189,23 +1109,92 @@
                                       </Group>
                                       <Component id="jComboBoxMesReferencia" min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                           <Component id="jLabel155" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jComboBoxAnoReferencia" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jComboBoxAnoReferencia" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jBtPesquisarDatas" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jBtPesquisarDatas" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jChave" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jStatus" min="-2" pref="210" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDataCriacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDataAtualizacao" linkSize="50" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel146" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jMatricula" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="jIdFunc" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                              <Component id="jBtPesquisarColaborador" min="-2" pref="25" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jDepartamento" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jColaboradorResponsavel" min="-2" pref="377" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="jLabel7" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jUnidadePrisional" min="-2" pref="362" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jPopulacaoAtual" linkSize="50" min="-2" pref="72" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1230,10 +1219,12 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jUnidadePrisional" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jPopulacaoAtual" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1289,9 +1280,9 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2065,7 +2056,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel143" pref="464" max="32767" attributes="0"/>
+                              <Component id="jLabel143" max="32767" attributes="0"/>
                               <Component id="jLabel149" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -2179,7 +2170,7 @@
                               <Component id="jLabel119" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="100" max="32767" attributes="0"/>
+                          <EmptySpace pref="98" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPresoIdentCivil" linkSize="7" max="32767" attributes="0"/>
                               <Component id="jNumeroCriancasVisitas" linkSize="7" alignment="0" pref="117" max="32767" attributes="0"/>
@@ -2449,56 +2440,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jPresoAtiviReligiosa" min="-2" pref="117" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="482" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPresoAtiviReligiosa" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="127" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="156" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel14">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Preso em atividade religiosa"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jPresoAtiviReligiosa">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1"/>
-                      </Border>
-                    </Property>
-                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                      <Format format="#0" subtype="-1" type="0"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel16">
               <Properties>
@@ -2910,7 +2860,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel20" pref="464" max="32767" attributes="0"/>
+                          <Component id="jLabel20" pref="462" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -3078,7 +3028,7 @@
                                       <Component id="jLabel42" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="251" max="32767" attributes="0"/>
+                                  <EmptySpace pref="249" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jPresoDoencaInfecto" linkSize="10" alignment="1" min="-2" pref="77" max="-2" attributes="0"/>
                                       <Component id="jAtendimentoMedClinico" linkSize="10" alignment="1" min="-2" pref="77" max="-2" attributes="0"/>
@@ -3097,7 +3047,7 @@
                                       <Component id="jLabel34" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -3609,12 +3559,12 @@
                               <Component id="jLabel131" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel132" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="5" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPresoSentenciadoEF" linkSize="30" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                               <Component id="jPresoSentencaMatFreqEF" linkSize="30" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -3701,53 +3651,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jPresoAtiviPraticaEsportiva" min="-2" pref="102" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jLabel49" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPresoAtiviPraticaEsportiva" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="274" max="32767" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="303" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel49">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="11" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="cc" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Preso em atividade de pr&#xe1;tica de esportes"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jPresoAtiviPraticaEsportiva">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                        <BevelBorder bevelType="1"/>
-                      </Border>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
             </Container>
           </SubComponents>
         </Container>
@@ -3887,30 +3799,19 @@
                                           <Component id="jCaneca" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel69" min="-2" pref="85" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jUniformeCompleto" linkSize="11" min="-2" pref="53" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jToalha" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jSabonete" linkSize="11" min="-2" pref="73" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel69" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="jLabel54" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel62" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jUniformeCompleto" linkSize="11" alignment="1" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Component id="jToalha" linkSize="11" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="jSabonete" linkSize="11" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="5" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -3983,24 +3884,24 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jSabonete" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAparelhoBarbear" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel57" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAparelhoBarbear" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel62" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSabonete" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel60" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAbsorvente" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel54" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jToalha" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jAbsorvente" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel60" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel64" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBermuda" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel69" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jUniformeCompleto" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jBermuda" linkSize="32" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel64" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -4757,7 +4658,7 @@
                               <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel89" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="6" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jNumeroHorasTVCFTV" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciaPessoasFeridaMortas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
@@ -5197,7 +5098,8 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel41" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel42" max="32767" attributes="0"/>
+                      <Component id="jPanel42" pref="252" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5454,15 +5356,15 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jAlvarSolRecebeUni" linkSize="14" min="-2" pref="39" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel98" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jAudienciaProvocadas" linkSize="14" min="-2" pref="39" max="-2" attributes="0"/>
@@ -5478,7 +5380,7 @@
                                       <Component id="jJuriPopular" linkSize="14" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel102" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel101" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -5508,132 +5410,142 @@
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel110" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel109" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel111" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel114" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel115" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jLabel112" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jLabel113" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jHabeasCorpusDeferido" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jLaudosPsiqEmitidos" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel111" alignment="1" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel112" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="jLabel113" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel114" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel115" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel109" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel110" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jTP" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jCondicionalRequerida" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="jLaudosPsiqEmitidos" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="jLaudoPsicoEmitidos" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="jHabeasCorpusDeferido" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="jHabeasCorpusImpetrados" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="jSaidaTempRequerida" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                               <Component id="jProgressaoRegRequerido" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="jCondicionalDeferida" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="jCondicionalRequerida" linkSize="14" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel156" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel97" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAlvarSolRecebeUni" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel108" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCondicionalRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel98" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAudienciaProvocadas" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel156" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCondicionalDeferida" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel99" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jAudienciaCumpridas" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel109" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jProgressaoRegRequerido" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel100" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jJuriPopular" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel110" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSaidaTempRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel101" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jJuriPopularCumprido" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel111" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jHabeasCorpusImpetrados" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jLabel108" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jCondicionalRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jAlvarSolRecebeUni" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel97" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jProgressaoRegRequerido" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel109" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jAudienciaProvocadas" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel98" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="2" attributes="0">
-                                      <Component id="jSaidaTempRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel110" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jAudienciaCumpridas" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel99" alignment="2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel111" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jHabeasCorpusImpetrados" linkSize="15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jJuriPopular" linkSize="15" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel112" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel102" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel113" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLaudoPsicoEmitidos" linkSize="15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                          <Component id="jHabeasCorpusDeferido" linkSize="15" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel102" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel112" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jHabeasCorpusDeferido" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jJuriPopularCumprido" linkSize="15" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Component id="jLiberdadeProvRequerida" linkSize="15" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLiberdadeProvDeferida" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel114" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLaudosPsiqEmitidos" linkSize="15" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jTP" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel115" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jIndultosRequeridos" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel104" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jIndultosDeferidos" linkSize="15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jRemissaoPenaRequerida" linkSize="15" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel103" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLiberdadeProvDeferida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel113" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLaudoPsicoEmitidos" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
-                              <Component id="jRemissaoPenaDeferida" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel104" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIndultosRequeridos" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel114" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLaudosPsiqEmitidos" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel105" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIndultosDeferidos" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel115" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTP" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel106" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRemissaoPenaRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="222" pref="222" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel107" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRemissaoPenaDeferida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -6094,6 +6006,29 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="jLabel156">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Condicional Deferida"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jCondicionalDeferida">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -6263,42 +6198,50 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPresoSentecaAtivLaboralRemun" min="-2" pref="95" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel130" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPresoAtiviLaboralNaoRemunera" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jPresoSentecaAtivLaboralRemun" linkSize="49" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel123" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jOcupacaoAtiviRecreaReligiosa" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jOcupacaoAtiviRecreaReligiosa" linkSize="49" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel124" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="PresoAtiviArtesPlasticas" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jPresoAtiviArtesPlasticas" linkSize="49" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel125" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPresoAtiviLiteraria" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jPresoAtiviLiteraria" linkSize="49" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel126" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jPresoAtiviCantoTeatro" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="jPresoAtiviCantoTeatro" linkSize="49" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel127" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel128" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="5" max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jPresoCertificaCursoProf" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
-                                      <Component id="jPresoMatProfissional" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jCertificadoCursoProfissionalizante" linkSize="49" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Component id="jMatriculadoCursoProfissionalizante" linkSize="49" alignment="1" min="-2" pref="95" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel130" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel49" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPresoAtiviPraticaEsportiva" linkSize="49" max="32767" attributes="0"/>
+                                      <Component id="jPresoAtiviReligiosa" linkSize="49" max="32767" attributes="0"/>
+                                      <Component id="jPresoAtiviLaboralNaoRemunera" linkSize="49" pref="95" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -6312,12 +6255,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel127" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPresoMatProfissional" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jMatriculadoCursoProfissionalizante" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel128" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPresoCertificaCursoProf" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCertificadoCursoProfissionalizante" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -6327,7 +6270,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel124" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="PresoAtiviArtesPlasticas" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPresoAtiviArtesPlasticas" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -6349,7 +6292,17 @@
                               <Component id="jPresoAtiviLaboralNaoRemunera" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel130" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="133" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel14" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPresoAtiviReligiosa" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jLabel49" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPresoAtiviPraticaEsportiva" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="85" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -6438,7 +6391,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Preso em atividade de artes pl&#xe1;sticas"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="PresoAtiviArtesPlasticas">
+                <Component class="javax.swing.JFormattedTextField" name="jPresoAtiviArtesPlasticas">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -6522,7 +6475,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Preso certificado em cursos profissionalizantes"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jPresoMatProfissional">
+                <Component class="javax.swing.JFormattedTextField" name="jMatriculadoCursoProfissionalizante">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -6534,7 +6487,56 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jPresoCertificaCursoProf">
+                <Component class="javax.swing.JFormattedTextField" name="jCertificadoCursoProfissionalizante">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel14">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Preso em atividade religiosa"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jPresoAtiviReligiosa">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                      <Format format="#0" subtype="-1" type="0"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel49">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Preso em atividade de pr&#xe1;tica de esportes"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jPresoAtiviPraticaEsportiva">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -6601,7 +6603,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel144" pref="464" max="32767" attributes="0"/>
+                          <Component id="jLabel144" pref="462" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -6659,7 +6661,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="140" max="32767" attributes="0"/>
+                                  <EmptySpace pref="138" max="32767" attributes="0"/>
                                   <Component id="jAlimentaServidaInternoAlmoco" linkSize="37" min="-2" pref="72" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -6845,7 +6847,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel142" min="-2" pref="259" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal08" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ASSIS_LABORAL" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -6856,7 +6858,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel142" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal08" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ASSIS_LABORAL" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -6872,7 +6874,7 @@
                     <Property name="text" type="java.lang.String" value="08 - AL - ASSIST&#xca;NCIA LABORAL"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal08">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ASSIS_LABORAL">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -6910,7 +6912,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel133" pref="464" max="32767" attributes="0"/>
+                          <Component id="jLabel133" pref="462" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -6957,7 +6959,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal05" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_MATERIAL_INTERNO" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -6968,7 +6970,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel139" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal05" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_MATERIAL_INTERNO" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -6984,7 +6986,7 @@
                     <Property name="text" type="java.lang.String" value="05 - AMI - ASSIST&#xca;NCIA MATERIAL AO INTERNO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal05">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_MATERIAL_INTERNO">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7097,7 +7099,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal02" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ALI_FOR_SERVIDORES" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7108,7 +7110,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel135" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal02" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ALI_FOR_SERVIDORES" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7124,7 +7126,7 @@
                     <Property name="text" type="java.lang.String" value="02 - AFV - ALIMENTA&#xc7;&#xc3;O FORNECIDAS AOS SERVIDORES"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal02">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ALI_FOR_SERVIDORES">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7162,9 +7164,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel140" min="-2" pref="259" max="-2" attributes="0"/>
+                          <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal06" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ATI_RECREATIVA_RELIGIOSA" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7175,7 +7177,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel140" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal06" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ATI_RECREATIVA_RELIGIOSA" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7188,10 +7190,10 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="11" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="06 - SEG - SEGURAN&#xc7;A DO INTERNO"/>
+                    <Property name="text" type="java.lang.String" value="06 - ARI - ATIVIDADES RELIGIOSAS AO INTERNO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal06">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ATI_RECREATIVA_RELIGIOSA">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7231,7 +7233,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel136" min="-2" pref="259" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal03" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ATE_SAUDE_INTERNO" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7242,7 +7244,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel136" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal03" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ATE_SAUDE_INTERNO" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7258,7 +7260,7 @@
                     <Property name="text" type="java.lang.String" value="03 - ASI - ATENDIMENTO A SA&#xda;DE DO INTERNO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal03">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ATE_SAUDE_INTERNO">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7298,7 +7300,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel141" min="-2" pref="259" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal07" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ATEND_JURIDICO" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7309,7 +7311,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel141" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal07" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ATEND_JURIDICO" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7325,7 +7327,7 @@
                     <Property name="text" type="java.lang.String" value="07 - AJ - ASSIST&#xca;NCIA JUR&#xcd;DICA"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal07">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ATEND_JURIDICO">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7365,7 +7367,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal01" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ATE_SOCIAL" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7376,7 +7378,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel134" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal01" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ATE_SOCIAL" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7392,7 +7394,7 @@
                     <Property name="text" type="java.lang.String" value="01 - ASSI - ATENDIMENTO SERVI&#xc7;O SOCIAL AO INTERNO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal01">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ATE_SOCIAL">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7435,7 +7437,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel137" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal04" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ATE_EDUCACIONAL" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7446,7 +7448,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel137" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal04" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ATE_EDUCACIONAL" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7462,7 +7464,7 @@
                     <Property name="text" type="java.lang.String" value="04 - AEI - ATENDIMENTO EDUCACIONAL AO INTERNO"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal04">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ATE_EDUCACIONAL">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7502,7 +7504,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel145" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jTotal09" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="jTotal_ALIM_FOR_INTERNOS" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -7513,7 +7515,7 @@
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel145" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTotal09" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTotal_ALIM_FOR_INTERNOS" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       </Group>
@@ -7529,7 +7531,7 @@
                     <Property name="text" type="java.lang.String" value="09 - AFI - ALIMENTA&#xc7;&#xc3;O FORNECEDIDAS AOS INTERNOS"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jTotal09">
+                <Component class="javax.swing.JFormattedTextField" name="jTotal_ALIM_FOR_INTERNOS">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -7585,7 +7587,7 @@
                   <Component id="jBtCancelar" linkSize="3" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Component id="jBtFinalizar" linkSize="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
                   <Component id="jBtImpressao" min="-2" pref="28" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jBtSair" linkSize="3" min="-2" pref="33" max="-2" attributes="0"/>

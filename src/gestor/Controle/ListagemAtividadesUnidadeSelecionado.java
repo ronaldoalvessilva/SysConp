@@ -33,8 +33,8 @@ public class ListagemAtividadesUnidadeSelecionado {
                     + "ON ATIVIDADES_UNIDADE.IdUnidEmp=UNIDADE_PENAL_EMPRESA.IdUnidEmp "
                     + "INNER JOIN COLABORADOR "
                     + "ON ATIVIDADES_UNIDADE.IdFunc=COLABORADOR.IdFunc "
-                    + "INNER JOIN DEPARTAMENTO "
-                    + "ON COLABORADOR.IdDepartamento=COLABORADOR.IdDepartamento "
+                    + "INNER JOIN DEPARTAMENTOS "
+                    + "ON COLABORADOR.IdDepartamento=DEPARTAMENTOS.IdDepartamento "
                     + "INNER JOIN ATIVIDADES_UNIDADE_SERVICO_SOCIAL "
                     + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_SERVICO_SOCIAL.IdAtividade "
                     + "INNER JOIN ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA "
@@ -44,7 +44,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                     + "INNER JOIN ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL "
                     + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_ATENDIMENTO_EDUCACIONAL.IdAtividade "
                     + "INNER JOIN ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL "
-                    + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL.IdAtividdade "
+                    + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL.IdAtividade "
                     + "INNER JOIN ATIVIDADES_UNIDADE_SEGURANCA "
                     + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_SEGURANCA.IdAtividade "
                     + "INNER JOIN ATIVIDADES_UNIDADE_JURIDICA "
@@ -55,12 +55,15 @@ public class ListagemAtividadesUnidadeSelecionado {
                     + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_ALIMENTACAO_INTERNO.IdAtividade "
                     + "INNER JOIN ATIVIDADES_UNIDADE_VISITA_INTERNO "
                     + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_VISITA_INTERNO.IdAtividade "
+                    + "INNER JOIN ATIVIDADES_UNIDADE_RECREATIVA_RELIGIOSA "
+                    + "ON ATIVIDADES_UNIDADE.IdAtividade=ATIVIDADES_UNIDADE_RECREATIVA_RELIGIOSA.IdAtividade "
                     + "WHERE ATIVIDADES_UNIDADE.IdAtividade='" + jCodigoAtividade.getText() + "' ");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtividade = new AtividadesMensalRealizadaUnidades();
                 //ABA MANUTENÇÃO
                 pAtividade.setChave(conecta.rs.getInt("IdAtividade"));
-                pAtividade.setDataCriacao(conecta.rs.getDate("DataCadastro"));
+                pAtividade.setStatus(conecta.rs.getString("StatusAtividade"));
+                pAtividade.setDataCriacao(conecta.rs.getDate("DataCriacao"));
                 pAtividade.setDataAtualizacao(conecta.rs.getDate("DataAtualizacao"));
                 pAtividade.setIdUnidade(conecta.rs.getInt("IdUnidEmp"));
                 pAtividade.setUnidadePrisional(conecta.rs.getString("DescricaoUnidade"));
@@ -82,8 +85,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                 pAtividade.setMediaVisitasInterno(conecta.rs.getInt("MediaVisitantesInterno"));
                 pAtividade.setNumeroCriancasVisitas(conecta.rs.getInt("NroCriancasVisitantes"));
                 pAtividade.setPresoIdentCivil(conecta.rs.getInt("IdentificadoCivilmente"));
-                pAtividade.setPresoAtiviReligiosa(conecta.rs.getInt("Religiosa"));
-//                pAtividade.setTotal01(conecta.rs.getInt(""));
+                pAtividade.setTotalServicoSocial(conecta.rs.getInt("TotalServicoSocial"));
                 //ABA AFV
                 pAtividade.setLanchesVisitantes(conecta.rs.getInt("LanchesVisitantes"));
                 pAtividade.setCafeContratada(conecta.rs.getInt("CafeContratada"));
@@ -94,7 +96,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                 pAtividade.setAlmocoContratante(conecta.rs.getInt("AlmocoContratante"));
                 pAtividade.setJantarContratante(conecta.rs.getInt("JantarContratante"));
                 pAtividade.setLancheContratante(conecta.rs.getInt("LancheContratante"));
-                pAtividade.setTotal02(conecta.rs.getInt("TotalAlimentacao"));
+                pAtividade.setTotalAlimentacao(conecta.rs.getInt("TotalAlimentacao"));
                 //ABA ASI
                 pAtividade.setAtendimentoClinico(conecta.rs.getInt("AtendimentoClinico"));
                 pAtividade.setAtendimentoPsiquiatrico(conecta.rs.getInt("AtendimentoPsiquiatrico"));
@@ -114,7 +116,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                 pAtividade.setFrequentandoEnsinoFormal(conecta.rs.getInt("FrequentandoEnsinoFormal"));
                 pAtividade.setMatriculadoCursoProfissionalizante(conecta.rs.getInt("MatriculadoCursoProfissionalizante"));
                 pAtividade.setCertificadoCursoProfissionalizante(conecta.rs.getInt("CertificadoCursoProfissionalizante"));
-                pAtividade.setTotal03(conecta.rs.getInt("TotalEducacional"));
+                pAtividade.setTotalEducacional(conecta.rs.getInt("TotalEducacional"));
                 //ABA AMI
                 pAtividade.setCobertor(conecta.rs.getInt("Cobertor"));
                 pAtividade.setColchao(conecta.rs.getInt("Colchao"));
@@ -135,7 +137,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                 pAtividade.setCueca(conecta.rs.getInt("Cueca"));
                 pAtividade.setParChinelos(conecta.rs.getInt("Chinelo"));
                 pAtividade.setUniformeCompleto(conecta.rs.getInt("UniformeEsportivo"));
-                pAtividade.setTotal05(conecta.rs.getInt("TotalMaterial"));
+                pAtividade.setTotalMaterial(conecta.rs.getInt("TotalMaterial"));
                 //SEG
                 pAtividade.setCelularLocalizadoConvivencia(conecta.rs.getInt("CelularLocalizadoConvivencia"));
                 pAtividade.setObjetoNaoAutorizadoLocalizadoConvivencia(conecta.rs.getInt("ObjetoNaoAutorizadoLocalizadoConvivencia"));
@@ -181,24 +183,24 @@ public class ListagemAtividadesUnidadeSelecionado {
                 pAtividade.setLaudosPsicologicos(conecta.rs.getInt("LaudosPsicologicos"));
                 pAtividade.setLaudosPsiquiatricos(conecta.rs.getInt("LaudosPsiquiatricos"));
                 pAtividade.setTransferenciaProvimento(conecta.rs.getInt("TransferenciaProvimento"));
-                pAtividade.setTotal07(conecta.rs.getInt("TotalJuridico"));
-                // ABA AL
+                pAtividade.setTotalJuridico(conecta.rs.getInt("TotalJuridico"));
+                // ABA AL/AR
                 pAtividade.setTriagem(conecta.rs.getInt("Triagem"));
                 pAtividade.setLaborativaRemunerada(conecta.rs.getInt("LaborativaRemunerada"));
                 pAtividade.setLaborativaNaoRemunerada(conecta.rs.getInt("LaborativaNaoRemunerada"));
-                pAtividade.setTotal08(conecta.rs.getInt("TotalLaboral"));
-                //ABA AL - COMPLEMENTO
+                pAtividade.setTotalLaboral(conecta.rs.getInt("TotalLaboral"));
+                //ABA AL - COMPLEMENTO (ATIVIDADE RELIGIOSA)
                 pAtividade.setArtesPlasticas(conecta.rs.getInt("ArtesPlasticas"));
                 pAtividade.setLiteratura(conecta.rs.getInt("Literatura"));
                 pAtividade.setCantoTeatroCinema(conecta.rs.getInt("CantoTeatroCinema"));
                 pAtividade.setEsportes(conecta.rs.getInt("Esportes"));
-                pAtividade.setReligiosa(conecta.rs.getInt("Religiosa"));
-                pAtividade.setTotal09(conecta.rs.getInt("TotalRecreativaReligiosa"));
+                pAtividade.setPresoAtiviReligiosa(conecta.rs.getInt("Religiosa"));
+                pAtividade.setTotalRecreativaReligiosa(conecta.rs.getInt("TotalRecreativaReligiosa"));
                 //ABA AFI
                 pAtividade.setCafeInterno(conecta.rs.getInt("CafeInterno"));
                 pAtividade.setAlmocoInterno(conecta.rs.getInt("AlmocoInterno"));
                 pAtividade.setJantarInterno(conecta.rs.getInt("JantarInterno"));
-                pAtividade.setTotal09(conecta.rs.getInt("TotalAlimentacaoInterno"));
+                pAtividade.setTotalAlimentacaoInterno(conecta.rs.getInt("TotalAlimentacaoInterno"));
                 listaTodasAtividades.add(pAtividade);
             }
             return listaTodasAtividades;

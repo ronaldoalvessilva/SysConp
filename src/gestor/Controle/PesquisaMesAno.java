@@ -31,7 +31,7 @@ public class PesquisaMesAno {
             conecta.executaSQL("SELECT IdAtividade,MesReferencia,AnoReferencia "
                     + "FROM ATIVIDADES_UNIDADE "
                     + "WHERE MesReferencia='" + jComboBoxMesReferencia.getSelectedItem() + "' "
-                    + "AnoReferencia='" + jComboBoxAnoReferencia.getSelectedItem() + "'");
+                    + "AND AnoReferencia='" + jComboBoxAnoReferencia.getSelectedItem() + "'");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtividadeMesAno = new AtividadesMensalRealizadaUnidades();
                 pAtividadeMesAno.setChave(conecta.rs.getInt("IdAtividade"));

@@ -25,7 +25,7 @@ public class ConversaoDatasAtividadesUnidades {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE SET DataCadastro=CONVERT(DATE, DataDataCadastro,103)");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE SET DataCriacao=CONVERT(DATE, DataCriacao,103)");
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATIVIDADES_UNIDADE) os Dados.\nERRO: " + ex);
