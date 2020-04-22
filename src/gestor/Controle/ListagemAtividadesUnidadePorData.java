@@ -54,7 +54,7 @@ public class ListagemAtividadesUnidadePorData {
                     + "FROM ATIVIDADES_UNIDADE "
                     + "INNER JOIN UNIDADE_PENAL_EMPRESA "
                     + "ON ATIVIDADES_UNIDADE.IdUnidEmp=UNIDADE_PENAL_EMPRESA.IdUnidEmp "
-                    + "WHERE CONVERT(DATE, DataInsert) BETWEEN'" + pDATA_INICIAL + "' "
+                    + "WHERE CONVERT(DATE, DataInsert,103) BETWEEN'" + pDATA_INICIAL + "' "
                     + "AND '" + pDATA_FINAL + "' ");
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtividade = new AtividadesMensalRealizadaUnidades();

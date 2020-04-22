@@ -1178,10 +1178,7 @@
                                   <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel7" max="32767" attributes="0"/>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="jLabel7" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="jUnidadePrisional" min="-2" pref="362" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
@@ -1217,7 +1214,6 @@
                               <Component id="jDataCriacao" linkSize="36" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                               <Component id="jDataAtualizacao" linkSize="36" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>

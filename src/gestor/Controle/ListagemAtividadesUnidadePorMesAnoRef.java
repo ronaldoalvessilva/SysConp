@@ -32,7 +32,7 @@ public class ListagemAtividadesUnidadePorMesAnoRef {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdAtividade,StatusAtividade,"
-                    + "DataCadastro,Populacao, "
+                    + "DataCriacao,Populacao, "
                     + "MesReferencia,AnoReferencia, "
                     + "DescricaoUnidade "
                     + "FROM ATIVIDADES_UNIDADE "
@@ -43,7 +43,7 @@ public class ListagemAtividadesUnidadePorMesAnoRef {
             while (conecta.rs.next()) {
                 AtividadesMensalRealizadaUnidades pAtividade = new AtividadesMensalRealizadaUnidades();
                 pAtividade.setChave(conecta.rs.getInt("IdAtividade"));
-                pAtividade.setDataCriacao(conecta.rs.getDate("DataCadastro"));
+                pAtividade.setDataCriacao(conecta.rs.getDate("DataCriacao"));
                 pAtividade.setMediaPopulacao(conecta.rs.getInt("Populacao"));
                 pAtividade.setMesReferencia(conecta.rs.getString("MesReferencia"));
                 pAtividade.setAnoReferencia(conecta.rs.getString("AnoReferencia"));

@@ -187,7 +187,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     String pMES_10 = "Outubro";
     String pMES_11 = "Novembro";
     String pMES_12 = "Dezembro";
-
+    String pEXISTE_ANO = "";
+    String pEXISTE_MES = "";
+    String pDATA_PESQUISA_TABELA = "";
     //ABA ASSI - SERVIÇO SOCIAL
     public static String pTIPO_ATENDIMENTO_ADM_SOCIAL = "Admissão Serviço Social";
     public static String pTIPO_ATENDIMENTO_EVO_SOCIAL = "Evolução Serviço Social";
@@ -4405,7 +4407,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     if (row0 == 0) {
                         jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
-                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataCriacao());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getChave(), pDATA_PESQUISA_TABELA, dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -4434,7 +4441,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     if (row0 == 0) {
                         jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
-                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataCriacao());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getChave(), pDATA_PESQUISA_TABELA, dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -4480,7 +4492,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     if (row0 == 0) {
                         jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
-                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataCriacao());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getChave(), pDATA_PESQUISA_TABELA, dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -4517,7 +4534,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     if (row0 == 0) {
                         jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
-                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataCriacao());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getChave(), pDATA_PESQUISA_TABELA, dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -4629,7 +4651,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     jNumeroAparelhoConvive.setText(String.valueOf(dd.getCelularLocalizadoConvivencia()));
                     jObjetosMateriais.setText(String.valueOf(dd.getObjetoNaoAutorizadoLocalizadoConvivencia()));
                     jNumeroProcedRevista.setText(String.valueOf(dd.getRevistaCela()));
-//                jNumeroOcorrenciasInd.setText("0");
                     jNumeroOcorrenciaTentaFuga.setText(String.valueOf(dd.getOcorrenciaFuga()));
                     jNumeroOcorrenciaRebeliao.setText(String.valueOf(dd.getOcorrenciaRebeliao()));
                     jNumeroOcorrenciaPessoaFerida.setText(String.valueOf(dd.getOcorrenciaFerido()));
@@ -4760,11 +4781,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
-                    control.excluirAtividade(objAtividade);
                     bloquearHabilitarTodosCampos(!true, !true);
                     objAtividade.setChave(Integer.valueOf(jChave.getText()));
-                    control.excluirAtividade(objAtividade);
                     control.excluirASSI(objAtividade);
                     control.excluirAFV_AFI(objAtividade);
                     control.excluirASI(objAtividade);
@@ -4775,6 +4793,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     control.excluirAL(objAtividade);
                     control.excluirAF(objAtividade);
                     control.excluirAVI(objAtividade);
+                    control.excluirARI(objAtividade);
+                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                    control.excluirAtividade(objAtividade);
                     Excluir();
                     JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 }
@@ -4818,41 +4839,42 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
                     try {
                         for (AtividadesMensalRealizadaUnidades pp : pesquisaMesAno.read()) {
-                            pp.getAnoReferencia();
-                            pp.getMesReferencia();
-                            if (pp.getAnoReferencia().equals(jComboBoxMesReferencia.getSelectedItem())
-                                    && pp.getMesReferencia().equals(jComboBoxAnoReferencia.getSelectedItem())) {
-                                JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
-                            }
+                            pEXISTE_ANO = pp.getAnoReferencia();
+                            pEXISTE_MES = pp.getMesReferencia();
                         }
                     } catch (Exception ex) {
                         Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    objAtividade.setUsuarioInsert(nameUser);
-                    objAtividade.setDataInsert(dataModFinal);
-                    objAtividade.setHorarioInsert(horaMov);
-                    //
-                    control.incluirAtividade(objAtividade);
-                    //CALCULAR TOTAIS
-                    calculosTOTAIS();
-                    buscarChave();
-                    objAtividade.setChave(Integer.valueOf(jChave.getText()));
-                    control.incluirASSI(objAtividade);
-                    control.incluirAFV_AFI(objAtividade);
-                    control.incluirASI(objAtividade);
-                    control.incluirAEI(objAtividade);
-                    control.incluirAMI(objAtividade);
-                    control.incluirSEG(objAtividade);
-                    control.incluirAJ(objAtividade);
-                    control.incluirAL(objAtividade);
-                    control.incluirAF(objAtividade);
-                    control.incluirAVI(objAtividade);
-                    control.incluirARI(objAtividade);
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearHabilitarTodosCampos(!true, !true);
-                    Salvar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    if (jComboBoxAnoReferencia.getSelectedItem().equals((pEXISTE_ANO))
+                            && jComboBoxMesReferencia.getSelectedItem().equals(pEXISTE_MES)) {
+                        JOptionPane.showMessageDialog(rootPane, "Já foi cadastrado o registro para o mês e ano de referência.");
+                    } else {
+                        objAtividade.setUsuarioInsert(nameUser);
+                        objAtividade.setDataInsert(dataModFinal);
+                        objAtividade.setHorarioInsert(horaMov);
+                        //
+                        control.incluirAtividade(objAtividade);
+                        //CALCULAR TOTAIS
+                        calculosTOTAIS();
+                        buscarChave();
+                        objAtividade.setChave(Integer.valueOf(jChave.getText()));
+                        control.incluirASSI(objAtividade);
+                        control.incluirAFV_AFI(objAtividade);
+                        control.incluirASI(objAtividade);
+                        control.incluirAEI(objAtividade);
+                        control.incluirAMI(objAtividade);
+                        control.incluirSEG(objAtividade);
+                        control.incluirAJ(objAtividade);
+                        control.incluirAL(objAtividade);
+                        control.incluirAF(objAtividade);
+                        control.incluirAVI(objAtividade);
+                        control.incluirARI(objAtividade);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearHabilitarTodosCampos(!true, !true);
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
                 if (acao == 2) {
                     objAtividade.setUsuarioUp(nameUser);
@@ -4957,7 +4979,12 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     if (row0 == 0) {
                         jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
                     }
-                    dadosDestino.addRow(new Object[]{dd.getChave(), dd.getDataCriacao(), dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataCriacao());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getChave(), pDATA_PESQUISA_TABELA, dd.getStatus(), dd.getMesReferencia(), dd.getAnoReferencia(), dd.getUnidadePrisional()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaAtividadesUnidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -6898,18 +6925,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
-    //
+    //CALCULAR OS TOTAIS PARA O RELATÓRIO
     public void calculosTOTAIS() {
         //ABA ASSI
-        int pQUANT_TOTAL_T01 = 0;
-        pQUANT_TOTAL_T01 = Integer.parseInt(jAtendimentoPsiPreso.getText())
+        int pQUANT_TOTAL_SOCIAL = 0;
+        pQUANT_TOTAL_SOCIAL = Integer.parseInt(jAtendimentoPsiPreso.getText())
                 + Integer.parseInt(jAtendimentoPsiFamilaPreso.getText())
                 + Integer.parseInt(jPresoIdentCivil.getText())
                 + Integer.parseInt(jPresoAtiviReligiosa.getText());
-        jTotal_ATE_SOCIAL.setText(String.valueOf(pQUANT_TOTAL_T01));
+        jTotal_ATE_SOCIAL.setText(String.valueOf(pQUANT_TOTAL_SOCIAL));
         // ABA AFV
-        int pQUANT_TOTAL_T02 = 0;
-        pQUANT_TOTAL_T02 = Integer.parseInt(jLanchesServidoVisita.getText())
+        int pQUANT_TOTAL_SERVIDORES = 0;
+        pQUANT_TOTAL_SERVIDORES = Integer.parseInt(jLanchesServidoVisita.getText())
                 + Integer.parseInt(jAlimentaServidaEmpContCafe.getText())
                 + Integer.parseInt(jAlimentaServidaEmpContAlmoco.getText())
                 + Integer.parseInt(jAlimentaServidaEmpContJantar.getText())
@@ -6918,10 +6945,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jAlimentaServidaServContAlmoco.getText())
                 + Integer.parseInt(jAlimentaServidaServContJantar.getText())
                 + Integer.parseInt(jAlimentaServidaServContLanche.getText());
-        jTotal_ALI_FOR_SERVIDORES.setText(String.valueOf(pQUANT_TOTAL_T02));
+        jTotal_ALI_FOR_SERVIDORES.setText(String.valueOf(pQUANT_TOTAL_SERVIDORES));
         // ABA ASI
-        int pQUANT_TOTAL_T03 = 0;
-        pQUANT_TOTAL_T03 = Integer.parseInt(jAtendimentoMedClinico.getText())
+        int pQUANT_TOTAL_SAUDE_INTERNO = 0;
+        pQUANT_TOTAL_SAUDE_INTERNO = Integer.parseInt(jAtendimentoMedClinico.getText())
                 + Integer.parseInt(jAtendimentoMedPsi.getText())
                 + Integer.parseInt(jAtendimentoEnfermagem.getText())
                 + Integer.parseInt(jProcedimentoOdontologico.getText())
@@ -6933,17 +6960,17 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jControleDiabetes.getText())
                 + Integer.parseInt(jPresosVacinados.getText())
                 + Integer.parseInt(jAspectosSexual.getText());
-        jTotal_ATE_SAUDE_INTERNO.setText(String.valueOf(pQUANT_TOTAL_T03));
+        jTotal_ATE_SAUDE_INTERNO.setText(String.valueOf(pQUANT_TOTAL_SAUDE_INTERNO));
         //ABA AEI
-        int pQUANT_TOTAL_T04 = 0;
-        pQUANT_TOTAL_T04 = Integer.parseInt(jPresoSentenciadoEF.getText())
+        int pQUANT_TOTAL_EDUCACIONAL = 0;
+        pQUANT_TOTAL_EDUCACIONAL = Integer.parseInt(jPresoSentenciadoEF.getText())
                 + Integer.parseInt(jPresoSentencaMatFreqEF.getText())
                 + Integer.parseInt(jMatriculadoCursoProfissionalizante.getText())
                 + Integer.parseInt(jCertificadoCursoProfissionalizante.getText());
-        jTotal_ATE_EDUCACIONAL.setText(String.valueOf(pQUANT_TOTAL_T04));
+        jTotal_ATE_EDUCACIONAL.setText(String.valueOf(pQUANT_TOTAL_EDUCACIONAL));
         //ABA AMI
-        int pQUANT_TOTAL_T05 = 0;
-        pQUANT_TOTAL_T05 = Integer.parseInt(jAparelhoBarbear.getText())
+        int pQUANT_TOTAL_MATERIAL_INTERNO = 0;
+        pQUANT_TOTAL_MATERIAL_INTERNO = Integer.parseInt(jAparelhoBarbear.getText())
                 + Integer.parseInt(jAbsorvente.getText())
                 + Integer.parseInt(jBermuda.getText())
                 + Integer.parseInt(jCamisa.getText())
@@ -6963,18 +6990,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jSabonete.getText())
                 + Integer.parseInt(jToalha.getText())
                 + Integer.parseInt(jUniformeCompleto.getText());
-        jTotal_MATERIAL_INTERNO.setText(String.valueOf(pQUANT_TOTAL_T05));
+        jTotal_MATERIAL_INTERNO.setText(String.valueOf(pQUANT_TOTAL_MATERIAL_INTERNO));
         //ABA ATIVIDADES RELIGIOSAS
-        int pQUANT_TOTAL_T06 = 0;
-        pQUANT_TOTAL_T06 = Integer.parseInt(jPresoAtiviArtesPlasticas.getText())
+        int pQUANT_TOTAL_RECREATIVA_RELIGIOSA = 0;
+        pQUANT_TOTAL_RECREATIVA_RELIGIOSA = Integer.parseInt(jPresoAtiviArtesPlasticas.getText())
                 + Integer.parseInt(jPresoAtiviLiteraria.getText())
                 + Integer.parseInt(jPresoAtiviCantoTeatro.getText())
                 + Integer.parseInt(jPresoAtiviPraticaEsportiva.getText())
                 + Integer.parseInt(jPresoAtiviReligiosa.getText());
-        jTotal_ATI_RECREATIVA_RELIGIOSA.setText(String.valueOf(pQUANT_TOTAL_T06));
+        jTotal_ATI_RECREATIVA_RELIGIOSA.setText(String.valueOf(pQUANT_TOTAL_RECREATIVA_RELIGIOSA));
         //ABA AJ
-        int pQUANT_TOTAL_T07 = 0;
-        pQUANT_TOTAL_T07 = Integer.parseInt(jAtendInternoSAJ.getText())
+        int pQUANT_TOTAL_JURIDICO = 0;
+        pQUANT_TOTAL_JURIDICO = Integer.parseInt(jAtendInternoSAJ.getText())
                 + Integer.parseInt(jAlvaraSolturaCumprido.getText())
                 + Integer.parseInt(jLivarmentoCondRequerido.getText())
                 + Integer.parseInt(jProgressaoRegDeferido.getText())
@@ -6999,19 +7026,19 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jLaudoPsicoEmitidos.getText())
                 + Integer.parseInt(jLaudosPsiqEmitidos.getText())
                 + Integer.parseInt(jTP.getText());
-        jTotal_ATEND_JURIDICO.setText(String.valueOf(pQUANT_TOTAL_T07));
+        jTotal_ATEND_JURIDICO.setText(String.valueOf(pQUANT_TOTAL_JURIDICO));
         //ABA AL
-        int pQUANT_TOTAL_T08 = 0;
-        pQUANT_TOTAL_T08 = Integer.parseInt(jTriagemAtendInernos.getText())
+        int pQUANT_TOTAL_LABORAL = 0;
+        pQUANT_TOTAL_LABORAL = Integer.parseInt(jTriagemAtendInernos.getText())
                 + Integer.parseInt(jPresoSentecaAtivLaboralRemun.getText())
                 + Integer.parseInt(jPresoAtiviLaboralNaoRemunera.getText());
-        jTotal_ASSIS_LABORAL.setText(String.valueOf(pQUANT_TOTAL_T08));
+        jTotal_ASSIS_LABORAL.setText(String.valueOf(pQUANT_TOTAL_LABORAL));
         //ABA AFI
-        int pQUANT_TOTAL_T09 = 0;
-        pQUANT_TOTAL_T09 = Integer.parseInt(jAlimentaServidaInternoCafe.getText())
+        int pQUANT_TOTAL_FOR_INTERNOS = 0;
+        pQUANT_TOTAL_FOR_INTERNOS = Integer.parseInt(jAlimentaServidaInternoCafe.getText())
                 + Integer.parseInt(jAlimentaServidaInternoAlmoco.getText())
                 + Integer.parseInt(jAlimentaServidaInternoJantar.getText());
-        jTotal_ALIM_FOR_INTERNOS.setText(String.valueOf(pQUANT_TOTAL_T09));
+        jTotal_ALIM_FOR_INTERNOS.setText(String.valueOf(pQUANT_TOTAL_FOR_INTERNOS));
     }
 
     //ATUALIZAR DATAS DAS TABELAS REFERENTES AS ATIVIDADES DA UNIDADE
