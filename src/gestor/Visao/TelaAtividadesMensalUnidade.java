@@ -4834,16 +4834,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Selecione o ano de referência.");
             } else if (jIdFunc.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Informe o nome do colaborador.");
-            } else if (jTotal_ATE_SOCIAL.getText().equals("0")
-                    || jTotal_ALI_FOR_SERVIDORES.getText().equals("0")
-                    || jTotal_ATE_SAUDE_INTERNO.getText().equals("0")
-                    || jTotal_ATE_EDUCACIONAL.getText().equals("0")
-                    || jTotal_MATERIAL_INTERNO.getText().equals("0")
-                    || jTotal_ATI_RECREATIVA_RELIGIOSA.getText().equals("0")
-                    || jTotal_ATEND_JURIDICO.getText().equals("0")
-                    || jTotal_ASSIS_LABORAL.getText().equals("0")
-                    || jTotal_ALIM_FOR_INTERNOS.getText().equals("0")) {
-                JOptionPane.showMessageDialog(null, "Antes de gravar é necessário calcular os totais.");
             } else {
                 //CRITICAR O RANGE DE DATAS INICIAL E FINAL COM O MÊS DE REFERÊNCIA
                 verificarRangeDatasMesAno();
@@ -5030,9 +5020,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 pMES_01 = "01";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_01)) {
+                if (pMES_REFERENCIA.equals(pMES_01) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5073,15 +5063,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoATEN_TO();
                     //MÊS DE FEVEREIRO
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Fevereiro")) {
                 pMES_02 = "02";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_02)) {
+                if (pMES_REFERENCIA.equals(pMES_02) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5121,15 +5111,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Março")) {
                 pMES_03 = "03";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_03)) {
+                if (pMES_REFERENCIA.equals(pMES_03) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5169,15 +5159,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Abril")) {
                 pMES_04 = "04";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_04)) {
+                if (pMES_REFERENCIA.equals(pMES_04) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5188,8 +5178,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    } else if (pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     calcularMediaVisitasInterno();
                     //ABA ASI
                     calculoMED();
@@ -5217,15 +5214,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Maio")) {
                 pMES_05 = "05";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_05)) {
+                if (pMES_REFERENCIA.equals(pMES_05) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5265,15 +5262,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Junho")) {
                 pMES_06 = "06";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_06)) {
+                if (pMES_REFERENCIA.equals(pMES_06) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5313,15 +5310,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Julho")) {
                 pMES_07 = "07";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_07)) {
+                if (pMES_REFERENCIA.equals(pMES_07) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5361,15 +5358,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Agosto")) {
                 pMES_08 = "08";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_08)) {
+                if (pMES_REFERENCIA.equals(pMES_08) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5409,15 +5406,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Setembro")) {
                 pMES_09 = "09";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_09)) {
+                if (pMES_REFERENCIA.equals(pMES_09) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5457,15 +5454,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Outubro")) {
                 pMES_10 = "10";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_10)) {
+                if (pMES_REFERENCIA.equals(pMES_10) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5505,15 +5502,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Novembro")) {
                 pMES_11 = "11";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_11)) {
+                if (pMES_REFERENCIA.equals(pMES_11) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5553,15 +5550,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             } else if (jComboBoxMesReferencia.getSelectedItem().equals("Dezembro")) {
                 pMES_12 = "12";
                 pDIA = pMES_REFERENCIA.substring(0, 1);
                 pMES = pMES_REFERENCIA.substring(3, 5);
-                pANO = pMES_REFERENCIA.substring(7, 10);
+                pANO = pMES_REFERENCIA.substring(6, 10);
                 pMES_REFERENCIA = pMES;
-                if (pMES_REFERENCIA.equals(pMES_12)) {
+                if (pMES_REFERENCIA.equals(pMES_12) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                     calculoMediaPopulacao();
                     //ABA ASSI - SERVIÇO SOCIAL
                     calculoSS();
@@ -5601,7 +5598,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                     calculoATEN_TO();
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                    JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
                 }
             }
         }
@@ -6141,8 +6138,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
     }
-    
-    public void validarCampos(){
+
+    public void validarCampos() {
         //ABA ASSI        
         jAtendimentoPsiPreso.setDocument(new LimiteDigitosSoNum(8));
         jAtendimentoPsiFamilaPreso.setDocument(new LimiteDigitosSoNum(8));
@@ -6341,6 +6338,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         //ABA AMI
         jCobertor.setEnabled(opcaoF);
         jColchao.setEnabled(opcaoF);
+        jColherPlastica.setEnabled(opcaoF);
         jLencol.setEnabled(opcaoF);
         jToalha.setEnabled(opcaoF);
         jPote.setEnabled(opcaoF);
@@ -6433,6 +6431,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         //ABA AMI
         jCobertor.setEnabled(opcaoF);
         jColchao.setEnabled(opcaoF);
+        jColherPlastica.setEnabled(opcaoF);
         jLencol.setEnabled(opcaoF);
         jToalha.setEnabled(opcaoF);
         jPote.setEnabled(opcaoF);
@@ -6509,6 +6508,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         //ABA AMI
         jCobertor.setText("0");
         jColchao.setText("0");
+        jColherPlastica.setText("0");
         jLencol.setText("0");
         jToalha.setText("0");
         jPote.setText("0");
@@ -7417,9 +7417,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             pMES_01 = "01";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_01)) {
+            if (pMES_REFERENCIA.equals(pMES_01) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7460,15 +7460,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoATEN_TO();
                 //MÊS DE FEVEREIRO
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Fevereiro")) {
             pMES_02 = "02";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_02)) {
+            if (pMES_REFERENCIA.equals(pMES_02) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7508,15 +7508,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Março")) {
             pMES_03 = "03";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_03)) {
+            if (pMES_REFERENCIA.equals(pMES_03) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7556,15 +7556,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Abril")) {
             pMES_04 = "04";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_04)) {
+            if (pMES_REFERENCIA.equals(pMES_04) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7575,8 +7575,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                } else if (pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 calcularMediaVisitasInterno();
                 //ABA ASI
                 calculoMED();
@@ -7604,15 +7611,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Maio")) {
             pMES_05 = "05";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_05)) {
+            if (pMES_REFERENCIA.equals(pMES_05) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7652,15 +7659,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Junho")) {
             pMES_06 = "06";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_06)) {
+            if (pMES_REFERENCIA.equals(pMES_06) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7700,15 +7707,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Julho")) {
             pMES_07 = "07";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_07)) {
+            if (pMES_REFERENCIA.equals(pMES_07) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7748,15 +7755,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Agosto")) {
             pMES_08 = "08";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_08)) {
+            if (pMES_REFERENCIA.equals(pMES_08) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7796,15 +7803,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Setembro")) {
             pMES_09 = "09";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_09)) {
+            if (pMES_REFERENCIA.equals(pMES_09) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7844,15 +7851,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Outubro")) {
             pMES_10 = "10";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_10)) {
+            if (pMES_REFERENCIA.equals(pMES_10) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7892,15 +7899,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Novembro")) {
             pMES_11 = "11";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_11)) {
+            if (pMES_REFERENCIA.equals(pMES_11) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7940,15 +7947,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         } else if (jComboBoxMesReferencia.getSelectedItem().equals("Dezembro")) {
             pMES_12 = "12";
             pDIA = pMES_REFERENCIA.substring(0, 1);
             pMES = pMES_REFERENCIA.substring(3, 5);
-            pANO = pMES_REFERENCIA.substring(7, 10);
+            pANO = pMES_REFERENCIA.substring(6, 10);
             pMES_REFERENCIA = pMES;
-            if (pMES_REFERENCIA.equals(pMES_12)) {
+            if (pMES_REFERENCIA.equals(pMES_12) && jComboBoxAnoReferencia.getSelectedItem().equals(pANO)) {
                 calculoMediaPopulacao();
                 //ABA ASSI - SERVIÇO SOCIAL
                 calculoSS();
@@ -7988,7 +7995,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO();
                 calculoATEN_TO();
             } else {
-                JOptionPane.showMessageDialog(rootPane, "O mês selecionado não está de acordo com a data inicial.");
+                JOptionPane.showMessageDialog(rootPane, "Dados incorreto, verifique se mês e o ano selecionado estão de acordo com a data inicial.");
             }
         }
     }
