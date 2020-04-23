@@ -440,7 +440,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel46 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         jAtendimentoMedClinico = new javax.swing.JFormattedTextField();
-        jAtendimentoMedPsi = new javax.swing.JFormattedTextField();
+        jAtendimentoMedicoPsiquiatrico = new javax.swing.JFormattedTextField();
         jAtendimentoEnfermagem = new javax.swing.JFormattedTextField();
         jProcedimentoOdontologico = new javax.swing.JFormattedTextField();
         jAtendimentoPsicologico = new javax.swing.JFormattedTextField();
@@ -1192,9 +1192,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel9Layout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel9Layout.createSequentialGroup()
                                     .addComponent(jUnidadePrisional, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1222,7 +1220,6 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAtualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
@@ -1828,11 +1825,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jAtendimentoMedClinico.setToolTipText("Atendimento médico clínico");
         jAtendimentoMedClinico.setEnabled(false);
 
-        jAtendimentoMedPsi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jAtendimentoMedPsi.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jAtendimentoMedPsi.setText("0");
-        jAtendimentoMedPsi.setToolTipText("Atendimento médico psiquiátrico");
-        jAtendimentoMedPsi.setEnabled(false);
+        jAtendimentoMedicoPsiquiatrico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jAtendimentoMedicoPsiquiatrico.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jAtendimentoMedicoPsiquiatrico.setText("0");
+        jAtendimentoMedicoPsiquiatrico.setToolTipText("Atendimento médico psiquiátrico");
+        jAtendimentoMedicoPsiquiatrico.setEnabled(false);
 
         jAtendimentoEnfermagem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jAtendimentoEnfermagem.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -1899,7 +1896,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel35)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jAtendimentoMedPsi, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jAtendimentoMedicoPsiquiatrico, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addComponent(jLabel36)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1943,7 +1940,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedPsi, jAtendimentoOdontologicos, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
+        jPanel22Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAtendimentoEnfermagem, jAtendimentoMedClinico, jAtendimentoMedicoPsiquiatrico, jAtendimentoOdontologicos, jAtendimentoPsicologico, jControlHipertensao, jControleDiabetes, jPresoDoencaInfecto, jPresosVacinados, jProcedimentoOdontologico, jTratamentoAgravDiaginostico});
 
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1955,20 +1952,20 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel35)
-                            .addComponent(jAtendimentoMedPsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jAtendimentoMedicoPsiquiatrico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jAtendimentoEnfermagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel37)
                             .addComponent(jProcedimentoOdontologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel38)
                             .addComponent(jAtendimentoPsicologico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel39)
                             .addComponent(jTratamentoAgravDiaginostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2031,7 +2028,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel44)
                     .addComponent(jAspectosSexual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -3292,8 +3289,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                             .addComponent(jLabel103)
                             .addComponent(jLabel104)
                             .addComponent(jLabel105)
-                            .addComponent(jLabel106)
-                            .addComponent(jLabel107))
+                            .addComponent(jLabel106))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIndultosDeferidos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3338,6 +3334,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel156)
                 .addGap(64, 64, 64))
+            .addGroup(jPanel42Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel107)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel42Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jAlvarSolRecebeUni, jAudienciaCumpridas, jAudienciaProvocadas, jCondicionalRequerida, jHabeasCorpusDeferido, jHabeasCorpusImpetrados, jIndultosDeferidos, jIndultosRequeridos, jJuriPopular, jJuriPopularCumprido, jLaudoPsicoEmitidos, jLaudosPsiqEmitidos, jLiberdadeProvDeferida, jLiberdadeProvRequerida, jProgressaoRegRequerido, jRemissaoPenaDeferida, jRemissaoPenaRequerida, jSaidaTempRequerida, jTP});
@@ -3403,17 +3403,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jIndultosDeferidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel115)
                     .addComponent(jTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel106)
                     .addComponent(jRemissaoPenaRequerida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
-            .addGroup(jPanel42Layout.createSequentialGroup()
-                .addGap(222, 222, 222)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel107)
                     .addComponent(jRemissaoPenaDeferida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel42Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jAlvarSolRecebeUni, jAudienciaCumpridas, jAudienciaProvocadas, jCondicionalRequerida, jHabeasCorpusDeferido, jHabeasCorpusImpetrados, jIndultosDeferidos, jIndultosRequeridos, jJuriPopular, jJuriPopularCumprido, jLaudoPsicoEmitidos, jLaudosPsiqEmitidos, jLiberdadeProvDeferida, jLiberdadeProvRequerida, jProgressaoRegRequerido, jRemissaoPenaDeferida, jRemissaoPenaRequerida, jSaidaTempRequerida, jTP});
@@ -3437,8 +3435,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, 252, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("AJ", jPanel29);
@@ -4623,7 +4620,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     jAlimentaServidaServContLanche.setText(String.valueOf(dd.getLancheContratante()));
                     //ASI
                     jAtendimentoMedClinico.setText(String.valueOf(dd.getAtendimentoClinico()));
-                    jAtendimentoMedPsi.setText(String.valueOf(dd.getAtendimentoPsiquiatrico()));
+                    jAtendimentoMedicoPsiquiatrico.setText(String.valueOf(dd.getAtendimentoPsiquiatrico()));
                     jAtendimentoEnfermagem.setText(String.valueOf(dd.getAtendimentoEnfermagem()));
                     jProcedimentoOdontologico.setText(String.valueOf(dd.getProcedimentoOdontologico()));
                     jAtendimentoPsicologico.setText(String.valueOf(dd.getAtendimentoPsicologico()));
@@ -4858,6 +4855,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                         //
                         control.incluirAtividade(objAtividade);
                         //CALCULAR TOTAIS
+                        zerarTotais();
                         calculosTOTAIS();
                         buscarChave();
                         objAtividade.setChave(Integer.valueOf(jChave.getText()));
@@ -4884,6 +4882,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     objAtividade.setDataUp(dataModFinal);
                     objAtividade.setHorarioUp(horaMov);
                     //CALCULAR TOTAIS
+                    zerarTotais();
                     calculosTOTAIS();
                     objAtividade.setChave(Integer.valueOf(jChave.getText()));
                     control.alterarAtividade(objAtividade);
@@ -5033,9 +5032,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5082,9 +5085,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5130,9 +5137,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5178,16 +5189,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0) {
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
                         pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
                         jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    } else if (pQUANTIDADE_DIAS_VISITADOS != 0) {
-                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
                     } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
                         jMediaVisitasDia.setText("0");
                     }
-                    calcularMediaVisitasInterno();
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5233,9 +5241,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5281,9 +5293,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5329,9 +5345,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5377,9 +5397,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5425,9 +5449,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5473,9 +5501,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5521,9 +5553,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5569,9 +5605,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     calculoMED();
                     caluloQTVD();
                     //CALCUAR AS MÉDIAS
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                    calcularMediaVisitasInterno();
+                    if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                        pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                        jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                        calcularMediaVisitasInterno();
+                    } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                        jMediaVisitasDia.setText("0");
+                    }
                     //ABA ASI
                     calculoMED();
                     calculoPSIQ();
@@ -5606,6 +5646,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     private void jBtCalcularTotaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularTotaisActionPerformed
         // TODO add your handling code here:
+        zerarTotais();
         calculosTOTAIS();
     }//GEN-LAST:event_jBtCalcularTotaisActionPerformed
 
@@ -5636,7 +5677,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jAtendInternoSAJ;
     private javax.swing.JFormattedTextField jAtendimentoEnfermagem;
     private javax.swing.JFormattedTextField jAtendimentoMedClinico;
-    private javax.swing.JFormattedTextField jAtendimentoMedPsi;
+    private javax.swing.JFormattedTextField jAtendimentoMedicoPsiquiatrico;
     private javax.swing.JFormattedTextField jAtendimentoOdontologicos;
     private javax.swing.JFormattedTextField jAtendimentoPsiFamilaPreso;
     private javax.swing.JFormattedTextField jAtendimentoPsiPreso;
@@ -6028,7 +6069,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jAlimentaServidaServContLanche.setBackground(Color.white);
         //ASI
         jAtendimentoMedClinico.setBackground(Color.white);
-        jAtendimentoMedPsi.setBackground(Color.white);
+        jAtendimentoMedicoPsiquiatrico.setBackground(Color.white);
         jAtendimentoEnfermagem.setBackground(Color.white);
         jProcedimentoOdontologico.setBackground(Color.white);
         jAtendimentoPsicologico.setBackground(Color.white);
@@ -6162,7 +6203,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jAlimentaServidaServContLanche.setDocument(new LimiteDigitosSoNum(8));
         //ASI
         jAtendimentoMedClinico.setDocument(new LimiteDigitosSoNum(8));
-        jAtendimentoMedPsi.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoMedicoPsiquiatrico.setDocument(new LimiteDigitosSoNum(8));
         jAtendimentoEnfermagem.setDocument(new LimiteDigitosSoNum(8));
         jProcedimentoOdontologico.setDocument(new LimiteDigitosSoNum(8));
         jAtendimentoPsicologico.setDocument(new LimiteDigitosSoNum(8));
@@ -6320,7 +6361,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jAlimentaServidaServContLanche.setEnabled(opcaoV);
         //ASI
         jAtendimentoMedClinico.setEnabled(opcaoF);
-        jAtendimentoMedPsi.setEnabled(opcaoF);
+        jAtendimentoMedicoPsiquiatrico.setEnabled(opcaoF);
         jAtendimentoEnfermagem.setEnabled(opcaoF);
         jProcedimentoOdontologico.setEnabled(opcaoF);
         jAtendimentoPsicologico.setEnabled(opcaoF);
@@ -6490,7 +6531,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jAlimentaServidaServContLanche.setText("0");
         //ASI
         jAtendimentoMedClinico.setText("0");
-        jAtendimentoMedPsi.setText("0");
+        jAtendimentoMedicoPsiquiatrico.setText("0");
         jAtendimentoEnfermagem.setText("0");
         jProcedimentoOdontologico.setText("0");
         jAtendimentoPsicologico.setText("0");
@@ -6754,7 +6795,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             for (AtividadesMensalRealizadaUnidades dd6 : listaQtdAtPsiq.read()) {
                 dd6.getTipoAtendimento();
                 dd6.getDataAtendimento();
-                jAtendimentoMedPsi.setText(String.valueOf(pQUANDIDADE_ATE_PSIQUIATRICA));
+                jAtendimentoMedicoPsiquiatrico.setText(String.valueOf(pQUANDIDADE_ATE_PSIQUIATRICA));
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
@@ -7091,7 +7132,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         // ABA ASI
         pQUANT_TOTAL_SAUDE_INTERNO = 0;
         pQUANT_TOTAL_SAUDE_INTERNO = Integer.parseInt(jAtendimentoMedClinico.getText())
-                + Integer.parseInt(jAtendimentoMedPsi.getText())
+                + Integer.parseInt(jAtendimentoMedicoPsiquiatrico.getText())
                 + Integer.parseInt(jAtendimentoEnfermagem.getText())
                 + Integer.parseInt(jProcedimentoOdontologico.getText())
                 + Integer.parseInt(jAtendimentoPsicologico.getText())
@@ -7181,6 +7222,18 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jAlimentaServidaInternoAlmoco.getText())
                 + Integer.parseInt(jAlimentaServidaInternoJantar.getText());
         jTotal_ALIM_FOR_INTERNOS.setText(String.valueOf(pQUANT_TOTAL_FOR_INTERNOS));
+    }
+
+    public void zerarTotais() {
+        pQUANT_TOTAL_SOCIAL = 0;
+        pQUANT_TOTAL_SERVIDORES = 0;
+        pQUANT_TOTAL_SAUDE_INTERNO = 0;
+        pQUANT_TOTAL_EDUCACIONAL = 0;
+        pQUANT_TOTAL_MATERIAL_INTERNO = 0;
+        pQUANT_TOTAL_RECREATIVA_RELIGIOSA = 0;
+        pQUANT_TOTAL_JURIDICO = 0;
+        pQUANT_TOTAL_LABORAL = 0;
+        pQUANT_TOTAL_FOR_INTERNOS = 0;
     }
 
     //ATUALIZAR DATAS DAS TABELAS REFERENTES AS ATIVIDADES DA UNIDADE
@@ -7304,7 +7357,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setLancheContratante(Integer.valueOf(jAlimentaServidaServContLanche.getText()));
         //ABA ASI - 03
         objAtividade.setAtendimentoClinico(Integer.valueOf(jAtendimentoMedClinico.getText()));
-        objAtividade.setAtendimentoPsiquiatrico(Integer.valueOf(jAtendimentoMedPsi.getText()));
+        objAtividade.setAtendimentoPsiquiatrico(Integer.valueOf(jAtendimentoMedicoPsiquiatrico.getText()));
         objAtividade.setAtendimentoEnfermagem(Integer.valueOf(jAtendimentoEnfermagem.getText()));
         objAtividade.setProcedimentoOdontologico(Integer.valueOf(jProcedimentoOdontologico.getText()));
         objAtividade.setAtendimentoPsicologico(Integer.valueOf(jAtendimentoPsicologico.getText()));
@@ -7430,9 +7483,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7479,9 +7536,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7527,9 +7588,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7575,12 +7640,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0) {
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
                     pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
                     jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                } else if (pQUANTIDADE_DIAS_VISITADOS != 0) {
-                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
                 } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
                     jMediaVisitasDia.setText("0");
                 }
@@ -7630,9 +7693,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7678,9 +7745,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7726,9 +7797,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7774,9 +7849,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7822,9 +7901,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7870,9 +7953,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7918,9 +8005,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();
@@ -7966,9 +8057,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 calculoMED();
                 caluloQTVD();
                 //CALCUAR AS MÉDIAS
-                pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
-                jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
-                calcularMediaVisitasInterno();
+                if (pQUANTIDADE_VISITA_FAMILIA_INT != 0 && pQUANTIDADE_DIAS_VISITADOS != 0) {
+                    pMEDIA_VISITAS_POR_DIA = (pQUANTIDADE_VISITA_FAMILIA_INT / pQUANTIDADE_DIAS_VISITADOS);
+                    jMediaVisitasDia.setText(String.valueOf(pMEDIA_VISITAS_POR_DIA));
+                    calcularMediaVisitasInterno();
+                } else if (pQUANTIDADE_VISITA_FAMILIA_INT == 0 || pQUANTIDADE_DIAS_VISITADOS == 0) {
+                    jMediaVisitasDia.setText("0");
+                }
                 //ABA ASI
                 calculoMED();
                 calculoPSIQ();

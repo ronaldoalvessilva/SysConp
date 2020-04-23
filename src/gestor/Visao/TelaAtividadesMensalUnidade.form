@@ -2992,7 +2992,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jAtendimentoMedPsi" linkSize="10" min="-2" pref="77" max="-2" attributes="0"/>
+                                  <Component id="jAtendimentoMedicoPsiquiatrico" linkSize="10" min="-2" pref="77" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
@@ -3060,24 +3060,24 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel35" alignment="2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jAtendimentoMedPsi" alignment="2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jAtendimentoMedicoPsiquiatrico" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel36" alignment="2" min="-2" pref="14" max="-2" attributes="0"/>
                                       <Component id="jAtendimentoEnfermagem" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel37" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jProcedimentoOdontologico" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel38" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jAtendimentoPsicologico" alignment="2" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="jLabel39" alignment="2" min="-2" max="-2" attributes="0"/>
                                       <Component id="jTratamentoAgravDiaginostico" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -3248,7 +3248,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jAtendimentoMedPsi">
+                <Component class="javax.swing.JFormattedTextField" name="jAtendimentoMedicoPsiquiatrico">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -3413,7 +3413,7 @@
                               <Component id="jLabel44" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jAspectosSexual" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="30" max="32767" attributes="0"/>
+                          <EmptySpace pref="42" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -5094,8 +5094,7 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel41" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel42" pref="252" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel42" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5393,7 +5392,6 @@
                                       <Component id="jLabel104" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel105" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel106" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel107" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -5401,7 +5399,7 @@
                                       <Component id="jRemissaoPenaRequerida" linkSize="14" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                                       <Component id="jLiberdadeProvDeferida" linkSize="14" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                                       <Component id="jIndultosRequeridos" linkSize="14" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                                      <Component id="jRemissaoPenaDeferida" linkSize="14" min="-2" pref="39" max="-2" attributes="0"/>
+                                      <Component id="jRemissaoPenaDeferida" linkSize="14" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -5452,6 +5450,11 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel156" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -5528,20 +5531,17 @@
                               <Component id="jLabel115" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jTP" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel106" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jRemissaoPenaRequerida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="222" pref="222" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel107" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jRemissaoPenaDeferida" linkSize="15" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace pref="19" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
