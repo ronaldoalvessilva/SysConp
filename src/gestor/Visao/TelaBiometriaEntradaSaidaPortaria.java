@@ -118,6 +118,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
     String saidaLivramento = "LIVRAMENTO CONDICIONAL";
     String saidaProgressao = "PROGRESSAO DE REGIME";
     String saidaTemporaria = "SAIDA TEMPORARIA"; // MODIFICADO EM 08/07/2016 TORNOU-SE PADRÃO DA SECRETARIA
+    String pPRISAO_DOMICILIAR_COVID_19 = "PRISAO DOMICILIAR - COVID-19";
     //
     String confirmaRegSaida; // Variavel Confirma a saida nas tabelas ITENSSAIDA E ITENSREGSAIDA
     String statusRol = "ABERTO"; // Se o Rol estiver ABERTO, irá ser FINALIZADO para não ser mostrado na lista do Rol na portaria
@@ -271,7 +272,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
         jLabel9.setText("Tipo Movimentação");
 
         jComboBoxTipoMovimentacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "SAIDA TEMPORARIA", "SAIDA ALVARA", "LIVRAMENTO CONDICIONAL", "PROGRESSAO DE REGIME", " ", " " }));
+        jComboBoxTipoMovimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "SAIDA TEMPORARIA", "SAIDA ALVARA", "LIVRAMENTO CONDICIONAL", "PROGRESSAO DE REGIME", "PRISAO DOMICILIAR - COVID-19", "TRANSFERENCIA", " ", " " }));
         jComboBoxTipoMovimentacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoMovimentacao.setEnabled(false);
 
@@ -526,6 +527,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                 verificarInternoCela(); //              
                 // SE FOR SAIDA TEMPORARIA, MODIFICAR "SituacaoCrc" E NÃO RETIRAR DA CELA (09/08/2016)
                 if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaTemporaria)) {
+                    //NÃO RETIRA DA POPULAÇÃO
                     situacao = "SAIDA TEMPORARIA";
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
                     objProCrc.setSituacao(situacao);
@@ -533,6 +535,7 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
                     populacaoAlimentacao();
                 } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(saidaAlvara)) {
+                    //RETIRA DA POPULAÇÃO
                     situacao = "SAIDA ALVARA";
                     objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
                     objProCrc.setSituacao(situacao);
@@ -573,6 +576,14 @@ public class TelaBiometriaEntradaSaidaPortaria extends javax.swing.JDialog {
                     // EXCLUIR O INTERNO DA CELA NO MOMENTO DA SAIDA NA PORTARIA.
                     objItensLoca.setIdInternoCrc(Integer.valueOf(jIdInternoKitBio.getText()));
                     excluirInternoCela.deletarInternoLocacaoSaida(objItensLoca);
+                    //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
+                    populacaoAlimentacao();
+                } else if (jComboBoxTipoMovimentacao.getSelectedItem().equals(pPRISAO_DOMICILIAR_COVID_19)) {
+                    //NÃO RETIRAR DA POPULAÇÃO, SOMENTE ALTERA O PRONTUÁRIO DO INTERNO (23/04/2020)
+                    situacao = "PRISAO DOMICILIAR - COVID-19";
+                    objProCrc.setIdInterno(Integer.valueOf(jIdInternoKitBio.getText()));
+                    objProCrc.setSituacao(situacao);
+                    mod.alterarSituacaoInterno(objProCrc);
                     //MODIFICAR A POPULAÇÃO DE ALIMENTAÇÃO
                     populacaoAlimentacao();
                 }
