@@ -5382,11 +5382,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 try {
                     conecta.abrirConexao();
                     String path = "reports/ProntuariosInternosCrcCodigo.jasper";
-                    conecta.executaSQL("SELECT PRONTUARIOSCRC.IdInternoCrc, "
-                            + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
-                            + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                            + "PRONTUARIOSCRC.Cnc "
-                            + "FROM PRONTUARIOSCRC "
+                    conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                             + "INNER JOIN DADOSFISICOSINTERNOS "
                             + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
                             + "INNER JOIN PAISES "
