@@ -120,6 +120,7 @@ public class ListagemAtividadesUnidadeSelecionado {
                 //ABA AMI
                 pAtividade.setCobertor(conecta.rs.getInt("Cobertor"));
                 pAtividade.setColchao(conecta.rs.getInt("Colchao"));
+                pAtividade.setColher(conecta.rs.getInt("Colher"));
                 pAtividade.setLencol(conecta.rs.getInt("Lencol"));
                 pAtividade.setToalha(conecta.rs.getInt("Toalha"));
                 pAtividade.setPote(conecta.rs.getInt("Pote"));

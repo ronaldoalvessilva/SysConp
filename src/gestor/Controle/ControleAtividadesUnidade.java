@@ -364,12 +364,49 @@ public class ControleAtividadesUnidade {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL (IdAtividade,"
-                    + "Cobertor,Colchao,Lencol,Toalha,Pote,Caneca,AparelhoBarbear,CremeDental,EscovaDente,Absorvente,PapelHigienico,"
+                    + "Cobertor,Colchao,Colher,Lencol,Toalha,Pote,Caneca,AparelhoBarbear,CremeDental,EscovaDente,Absorvente,PapelHigienico,"
                     + "SabaoPo,Sabonete,Desodorante,Bermuda,CamisaCamiseta,Cueca,Chinelo,UniformeEsportivo,"
-                    + "TotalMaterial) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "TotalMaterial) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAtividade.getChave());
             pst.setInt(2, objAtividade.getCobertor());
             pst.setInt(3, objAtividade.getColchao());
+            pst.setInt(4, objAtividade.getColher());
+            pst.setInt(5, objAtividade.getLencol());
+            pst.setInt(6, objAtividade.getToalha());
+            pst.setInt(7, objAtividade.getPote());
+            pst.setInt(8, objAtividade.getCaneca());
+            pst.setInt(9, objAtividade.getAparelhoBarbear());
+            pst.setInt(10, objAtividade.getCremeDental());
+            pst.setInt(11, objAtividade.getEscova());
+            pst.setInt(12, objAtividade.getAbsorvente());
+            pst.setInt(13, objAtividade.getPapelHigienico());
+            pst.setInt(14, objAtividade.getSabaoPo());
+            pst.setInt(15, objAtividade.getSabonete());
+            pst.setInt(16, objAtividade.getDesodorante());
+            pst.setInt(17, objAtividade.getBermuda());
+            pst.setInt(18, objAtividade.getCamisa());
+            pst.setInt(19, objAtividade.getCueca());
+            pst.setInt(20, objAtividade.getParChinelos());
+            pst.setInt(21, objAtividade.getUniformeCompleto());
+            pst.setInt(22, objAtividade.getTotalMaterial());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAtividade;
+    }
+
+    public AtividadesMensalRealizadaUnidades alterarAMI(AtividadesMensalRealizadaUnidades objAtividade) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL SET Cobertor=?,"
+                    + "Colchao=?,Colher=?,Lencol=?,Toalha=?,Pote=?,Caneca=?,AparelhoBarbear=?,CremeDental=?,EscovaDente=?,Absorvente=?,PapelHigienico=?,"
+                    + "SabaoPo=?,Sabonete=?,Desodorante=?,Bermuda=?,CamisaCamiseta=?,Cueca=?,Chinelo=?,UniformeEsportivo=?,"
+                    + "TotalMaterial=? WHERE IdAtividade='" + objAtividade.getChave() + "'");
+            pst.setInt(1, objAtividade.getCobertor());
+            pst.setInt(2, objAtividade.getColchao());
+            pst.setInt(3, objAtividade.getColher());
             pst.setInt(4, objAtividade.getLencol());
             pst.setInt(5, objAtividade.getToalha());
             pst.setInt(6, objAtividade.getPote());
@@ -388,41 +425,6 @@ public class ControleAtividadesUnidade {
             pst.setInt(19, objAtividade.getParChinelos());
             pst.setInt(20, objAtividade.getUniformeCompleto());
             pst.setInt(21, objAtividade.getTotalMaterial());
-            pst.execute();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL) os Dados.\n\nERRO: " + ex);
-        }
-        conecta.desconecta();
-        return objAtividade;
-    }
-
-    public AtividadesMensalRealizadaUnidades alterarAMI(AtividadesMensalRealizadaUnidades objAtividade) {
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL SET Cobertor=?,"
-                    + "Colchao=?,Lencol=?,Toalha=?,Pote=?,Caneca=?,AparelhoBarbear=?,CremeDental=?,EscovaDente=?,Absorvente=?,PapelHigienico=?,"
-                    + "SabaoPo=?,Sabonete=?,Desodorante=?,Bermuda=?,CamisaCamiseta=?,Cueca=?,Chinelo=?,UniformeEsportivo=?,"
-                    + "TotalMaterial=? WHERE IdAtividade='" + objAtividade.getChave() + "'");
-            pst.setInt(1, objAtividade.getCobertor());
-            pst.setInt(2, objAtividade.getColchao());
-            pst.setInt(3, objAtividade.getLencol());
-            pst.setInt(4, objAtividade.getToalha());
-            pst.setInt(5, objAtividade.getPote());
-            pst.setInt(6, objAtividade.getCaneca());
-            pst.setInt(7, objAtividade.getAparelhoBarbear());
-            pst.setInt(8, objAtividade.getCremeDental());
-            pst.setInt(9, objAtividade.getEscova());
-            pst.setInt(10, objAtividade.getAbsorvente());
-            pst.setInt(11, objAtividade.getPapelHigienico());
-            pst.setInt(12, objAtividade.getSabaoPo());
-            pst.setInt(13, objAtividade.getSabonete());
-            pst.setInt(14, objAtividade.getDesodorante());
-            pst.setInt(15, objAtividade.getBermuda());
-            pst.setInt(16, objAtividade.getCamisa());
-            pst.setInt(17, objAtividade.getCueca());
-            pst.setInt(18, objAtividade.getParChinelos());
-            pst.setInt(19, objAtividade.getUniformeCompleto());
-            pst.setInt(20, objAtividade.getTotalMaterial());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATIVIDADES_UNIDADE_ASSISTENCIA_MATERIAL) os Dados.\n\nERRO: " + ex);

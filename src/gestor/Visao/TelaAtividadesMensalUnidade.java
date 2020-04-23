@@ -5,6 +5,7 @@
  */
 package gestor.Visao;
 
+import Utilitarios.LimiteDigitosSoNum;
 import gestor.Controle.ControleAtividadesUnidade;
 import gestor.Controle.ControleLogSistema;
 import gestor.Controle.ConversaoDatasAtividadesUnidades;
@@ -279,6 +280,16 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public static String pTIPO_ATENDIMENTO_GRUPO_TO = "Atendimento em Grupo/TO";
     public static int pQUANTIDADE_TOTAL_TO = 0;
     //ABA AFI - NUTRIÇÃO
+    // TOTAIS
+    int pQUANT_TOTAL_SOCIAL = 0;
+    int pQUANT_TOTAL_SERVIDORES = 0;
+    int pQUANT_TOTAL_SAUDE_INTERNO = 0;
+    int pQUANT_TOTAL_EDUCACIONAL = 0;
+    int pQUANT_TOTAL_MATERIAL_INTERNO = 0;
+    int pQUANT_TOTAL_RECREATIVA_RELIGIOSA = 0;
+    int pQUANT_TOTAL_JURIDICO = 0;
+    int pQUANT_TOTAL_LABORAL = 0;
+    int pQUANT_TOTAL_FOR_INTERNOS = 0;
 
     /**
      * Creates new form TelaAtividadesMensalUnidade
@@ -287,6 +298,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         initComponents();
         formatarCampos();
         corCampos();
+        validarCampos();
     }
 
     /**
@@ -4629,6 +4641,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     //ABA AMI
                     jCobertor.setText(String.valueOf(dd.getCobertor()));
                     jColchao.setText(String.valueOf(dd.getColchao()));
+                    jColherPlastica.setText(String.valueOf(dd.getColher()));
                     jLencol.setText(String.valueOf(dd.getLencol()));
                     jToalha.setText(String.valueOf(dd.getToalha()));
                     jPote.setText(String.valueOf(dd.getPote()));
@@ -6128,6 +6141,135 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jObservacao.setLineWrap(true);
         jObservacao.setWrapStyleWord(true);
     }
+    
+    public void validarCampos(){
+        //ABA ASSI        
+        jAtendimentoPsiPreso.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoPsiFamilaPreso.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroDiasVisitas.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroVistantesInternos.setDocument(new LimiteDigitosSoNum(8));
+        jMediaVisitasDia.setDocument(new LimiteDigitosSoNum(8));
+        jMediaVisitasInterno.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroCriancasVisitas.setDocument(new LimiteDigitosSoNum(8));
+        jPresoIdentCivil.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviReligiosa.setDocument(new LimiteDigitosSoNum(8));
+        //ABA AFV
+        jLanchesServidoVisita.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaEmpContCafe.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaEmpContAlmoco.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaEmpContJantar.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaEmpContLanche.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaServContCafe.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaServContAlmoco.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaServContJantar.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaServContLanche.setDocument(new LimiteDigitosSoNum(8));
+        //ASI
+        jAtendimentoMedClinico.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoMedPsi.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoEnfermagem.setDocument(new LimiteDigitosSoNum(8));
+        jProcedimentoOdontologico.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoPsicologico.setDocument(new LimiteDigitosSoNum(8));
+        jTratamentoAgravDiaginostico.setDocument(new LimiteDigitosSoNum(8));
+        jAtendimentoOdontologicos.setDocument(new LimiteDigitosSoNum(8));
+        jPresoDoencaInfecto.setDocument(new LimiteDigitosSoNum(8));
+        jControlHipertensao.setDocument(new LimiteDigitosSoNum(8));
+        jControleDiabetes.setDocument(new LimiteDigitosSoNum(8));
+        jAspectosSexual.setDocument(new LimiteDigitosSoNum(8));
+        jPresosVacinados.setDocument(new LimiteDigitosSoNum(8));
+        //ABA AEI
+        jPresoSentenciadoEF.setDocument(new LimiteDigitosSoNum(8));
+        jPresoSentencaMatFreqEF.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviPraticaEsportiva.setDocument(new LimiteDigitosSoNum(8));
+        //ABA AMI
+        jCobertor.setDocument(new LimiteDigitosSoNum(8));
+        jColchao.setDocument(new LimiteDigitosSoNum(8));
+        jColherPlastica.setDocument(new LimiteDigitosSoNum(8));
+        jLencol.setDocument(new LimiteDigitosSoNum(8));
+        jToalha.setDocument(new LimiteDigitosSoNum(8));
+        jPote.setDocument(new LimiteDigitosSoNum(8));
+        jCaneca.setDocument(new LimiteDigitosSoNum(8));
+        jAparelhoBarbear.setDocument(new LimiteDigitosSoNum(8));
+        jCremeDental.setDocument(new LimiteDigitosSoNum(8));
+        jEscovaDente.setDocument(new LimiteDigitosSoNum(8));
+        jAbsorvente.setDocument(new LimiteDigitosSoNum(8));
+        jPapelHigienico.setDocument(new LimiteDigitosSoNum(8));
+        jSabaoPo.setDocument(new LimiteDigitosSoNum(8));
+        jSabonete.setDocument(new LimiteDigitosSoNum(8));
+        jDesodorante.setDocument(new LimiteDigitosSoNum(8));
+        jBermuda.setDocument(new LimiteDigitosSoNum(8));
+        jCamisa.setDocument(new LimiteDigitosSoNum(8));
+        jCuecas.setDocument(new LimiteDigitosSoNum(8));
+        jChinelos.setDocument(new LimiteDigitosSoNum(8));
+        jUniformeCompleto.setDocument(new LimiteDigitosSoNum(8));
+        //ABA SEG
+        jNumeroAparelhoConvive.setDocument(new LimiteDigitosSoNum(8));
+        jObjetosMateriais.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroProcedRevista.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciasInd.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaTentaFuga.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaRebeliao.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaPessoaFerida.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaPessoasRefem.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaPessoasFeridaMortas.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroHorasTVCFTV.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroDiasSemScannerCorpo.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroDiasIntMetaPortatil.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroInterFuncVeiculosTP.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroFalhasGerador.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroHorasBloqueador.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroAbsorEntregueVisitas.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroFraldasEntreguePortaria.setDocument(new LimiteDigitosSoNum(8));
+        //ABA AJ
+        jAtendInternoSAJ.setDocument(new LimiteDigitosSoNum(8));
+        jAlvaraSolturaCumprido.setDocument(new LimiteDigitosSoNum(8));
+        jLivarmentoCondRequerido.setDocument(new LimiteDigitosSoNum(8));
+        jProgressaoRegDeferido.setDocument(new LimiteDigitosSoNum(8));
+        jSaidasTempDeferida.setDocument(new LimiteDigitosSoNum(8));
+        jAlvarSolRecebeUni.setDocument(new LimiteDigitosSoNum(8));
+        jAudienciaProvocadas.setDocument(new LimiteDigitosSoNum(8));
+        jAudienciaCumpridas.setDocument(new LimiteDigitosSoNum(8));
+        jJuriPopular.setDocument(new LimiteDigitosSoNum(8));
+        jJuriPopularCumprido.setDocument(new LimiteDigitosSoNum(8));
+        jLiberdadeProvRequerida.setDocument(new LimiteDigitosSoNum(8));
+        jLiberdadeProvDeferida.setDocument(new LimiteDigitosSoNum(8));
+        jIndultosRequeridos.setDocument(new LimiteDigitosSoNum(8));
+        jIndultosDeferidos.setDocument(new LimiteDigitosSoNum(8));
+        jRemissaoPenaRequerida.setDocument(new LimiteDigitosSoNum(8));
+        jRemissaoPenaDeferida.setDocument(new LimiteDigitosSoNum(8));
+        jCondicionalRequerida.setDocument(new LimiteDigitosSoNum(8));
+        jCondicionalDeferida.setDocument(new LimiteDigitosSoNum(8));
+        jProgressaoRegRequerido.setDocument(new LimiteDigitosSoNum(8));
+        jSaidaTempRequerida.setDocument(new LimiteDigitosSoNum(8));
+        jHabeasCorpusImpetrados.setDocument(new LimiteDigitosSoNum(8));
+        jHabeasCorpusDeferido.setDocument(new LimiteDigitosSoNum(8));
+        jLaudoPsicoEmitidos.setDocument(new LimiteDigitosSoNum(8));
+        jLaudosPsiqEmitidos.setDocument(new LimiteDigitosSoNum(8));
+        jTP.setDocument(new LimiteDigitosSoNum(4));
+        //ABA AL
+        jTriagemAtendInernos.setDocument(new LimiteDigitosSoNum(8));
+        jOcupacaoAtiviRecreaReligiosa.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviArtesPlasticas.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviLiteraria.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviCantoTeatro.setDocument(new LimiteDigitosSoNum(8));
+        jMatriculadoCursoProfissionalizante.setDocument(new LimiteDigitosSoNum(8));
+        jCertificadoCursoProfissionalizante.setDocument(new LimiteDigitosSoNum(8));
+        jPresoSentecaAtivLaboralRemun.setDocument(new LimiteDigitosSoNum(8));
+        jPresoAtiviLaboralNaoRemunera.setDocument(new LimiteDigitosSoNum(8));
+        //ABA AFI
+        jAlimentaServidaInternoCafe.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaInternoAlmoco.setDocument(new LimiteDigitosSoNum(8));
+        jAlimentaServidaInternoJantar.setDocument(new LimiteDigitosSoNum(8));
+        //ABA TOT
+        jTotal_ATE_SOCIAL.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ALI_FOR_SERVIDORES.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ATE_SAUDE_INTERNO.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ATE_EDUCACIONAL.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_MATERIAL_INTERNO.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ATI_RECREATIVA_RELIGIOSA.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ATEND_JURIDICO.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ASSIS_LABORAL.setDocument(new LimiteDigitosSoNum(8));
+        jTotal_ALIM_FOR_INTERNOS.setDocument(new LimiteDigitosSoNum(8));
+    }
 
     public void bloquearDesbloquearBotoes(boolean opcao) {
         jBtNovo.setEnabled(opcao);
@@ -6928,14 +7070,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     //CALCULAR OS TOTAIS PARA O RELATÓRIO
     public void calculosTOTAIS() {
         //ABA ASSI
-        int pQUANT_TOTAL_SOCIAL = 0;
+        pQUANT_TOTAL_SOCIAL = 0;
         pQUANT_TOTAL_SOCIAL = Integer.parseInt(jAtendimentoPsiPreso.getText())
                 + Integer.parseInt(jAtendimentoPsiFamilaPreso.getText())
                 + Integer.parseInt(jPresoIdentCivil.getText())
                 + Integer.parseInt(jPresoAtiviReligiosa.getText());
         jTotal_ATE_SOCIAL.setText(String.valueOf(pQUANT_TOTAL_SOCIAL));
         // ABA AFV
-        int pQUANT_TOTAL_SERVIDORES = 0;
+        pQUANT_TOTAL_SERVIDORES = 0;
         pQUANT_TOTAL_SERVIDORES = Integer.parseInt(jLanchesServidoVisita.getText())
                 + Integer.parseInt(jAlimentaServidaEmpContCafe.getText())
                 + Integer.parseInt(jAlimentaServidaEmpContAlmoco.getText())
@@ -6947,7 +7089,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jAlimentaServidaServContLanche.getText());
         jTotal_ALI_FOR_SERVIDORES.setText(String.valueOf(pQUANT_TOTAL_SERVIDORES));
         // ABA ASI
-        int pQUANT_TOTAL_SAUDE_INTERNO = 0;
+        pQUANT_TOTAL_SAUDE_INTERNO = 0;
         pQUANT_TOTAL_SAUDE_INTERNO = Integer.parseInt(jAtendimentoMedClinico.getText())
                 + Integer.parseInt(jAtendimentoMedPsi.getText())
                 + Integer.parseInt(jAtendimentoEnfermagem.getText())
@@ -6962,14 +7104,14 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jAspectosSexual.getText());
         jTotal_ATE_SAUDE_INTERNO.setText(String.valueOf(pQUANT_TOTAL_SAUDE_INTERNO));
         //ABA AEI
-        int pQUANT_TOTAL_EDUCACIONAL = 0;
+        pQUANT_TOTAL_EDUCACIONAL = 0;
         pQUANT_TOTAL_EDUCACIONAL = Integer.parseInt(jPresoSentenciadoEF.getText())
                 + Integer.parseInt(jPresoSentencaMatFreqEF.getText())
                 + Integer.parseInt(jMatriculadoCursoProfissionalizante.getText())
                 + Integer.parseInt(jCertificadoCursoProfissionalizante.getText());
         jTotal_ATE_EDUCACIONAL.setText(String.valueOf(pQUANT_TOTAL_EDUCACIONAL));
         //ABA AMI
-        int pQUANT_TOTAL_MATERIAL_INTERNO = 0;
+        pQUANT_TOTAL_MATERIAL_INTERNO = 0;
         pQUANT_TOTAL_MATERIAL_INTERNO = Integer.parseInt(jAparelhoBarbear.getText())
                 + Integer.parseInt(jAbsorvente.getText())
                 + Integer.parseInt(jBermuda.getText())
@@ -6992,7 +7134,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jUniformeCompleto.getText());
         jTotal_MATERIAL_INTERNO.setText(String.valueOf(pQUANT_TOTAL_MATERIAL_INTERNO));
         //ABA ATIVIDADES RELIGIOSAS
-        int pQUANT_TOTAL_RECREATIVA_RELIGIOSA = 0;
+        pQUANT_TOTAL_RECREATIVA_RELIGIOSA = 0;
         pQUANT_TOTAL_RECREATIVA_RELIGIOSA = Integer.parseInt(jPresoAtiviArtesPlasticas.getText())
                 + Integer.parseInt(jPresoAtiviLiteraria.getText())
                 + Integer.parseInt(jPresoAtiviCantoTeatro.getText())
@@ -7000,7 +7142,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jPresoAtiviReligiosa.getText());
         jTotal_ATI_RECREATIVA_RELIGIOSA.setText(String.valueOf(pQUANT_TOTAL_RECREATIVA_RELIGIOSA));
         //ABA AJ
-        int pQUANT_TOTAL_JURIDICO = 0;
+        pQUANT_TOTAL_JURIDICO = 0;
         pQUANT_TOTAL_JURIDICO = Integer.parseInt(jAtendInternoSAJ.getText())
                 + Integer.parseInt(jAlvaraSolturaCumprido.getText())
                 + Integer.parseInt(jLivarmentoCondRequerido.getText())
@@ -7028,13 +7170,13 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 + Integer.parseInt(jTP.getText());
         jTotal_ATEND_JURIDICO.setText(String.valueOf(pQUANT_TOTAL_JURIDICO));
         //ABA AL
-        int pQUANT_TOTAL_LABORAL = 0;
+        pQUANT_TOTAL_LABORAL = 0;
         pQUANT_TOTAL_LABORAL = Integer.parseInt(jTriagemAtendInernos.getText())
                 + Integer.parseInt(jPresoSentecaAtivLaboralRemun.getText())
                 + Integer.parseInt(jPresoAtiviLaboralNaoRemunera.getText());
         jTotal_ASSIS_LABORAL.setText(String.valueOf(pQUANT_TOTAL_LABORAL));
         //ABA AFI
-        int pQUANT_TOTAL_FOR_INTERNOS = 0;
+        pQUANT_TOTAL_FOR_INTERNOS = 0;
         pQUANT_TOTAL_FOR_INTERNOS = Integer.parseInt(jAlimentaServidaInternoCafe.getText())
                 + Integer.parseInt(jAlimentaServidaInternoAlmoco.getText())
                 + Integer.parseInt(jAlimentaServidaInternoJantar.getText());
