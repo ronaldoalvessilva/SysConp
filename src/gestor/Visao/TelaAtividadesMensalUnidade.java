@@ -6851,6 +6851,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
         //DOENÇAS INFECTOCONTAGIOSAS - EVOLUÇÃO
         try {
+            pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
             for (AtividadesMensalRealizadaUnidades dd21 : listaDoencaInfectoEvol.read()) {
                 dd21.getTipoAtendimento();
                 dd21.getQuantidadeEvoInfectoTotal();
@@ -7114,8 +7115,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         pQUANT_TOTAL_SOCIAL = 0;
         pQUANT_TOTAL_SOCIAL = Integer.parseInt(jAtendimentoPsiPreso.getText())
                 + Integer.parseInt(jAtendimentoPsiFamilaPreso.getText())
-                + Integer.parseInt(jPresoIdentCivil.getText())
-                + Integer.parseInt(jPresoAtiviReligiosa.getText());
+                + Integer.parseInt(jPresoIdentCivil.getText());
         jTotal_ATE_SOCIAL.setText(String.valueOf(pQUANT_TOTAL_SOCIAL));
         // ABA AFV
         pQUANT_TOTAL_SERVIDORES = 0;
