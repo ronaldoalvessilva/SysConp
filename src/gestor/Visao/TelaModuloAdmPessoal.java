@@ -272,6 +272,9 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jRelatorioTotaisProdutividadePorTecnico = new javax.swing.JMenuItem();
         jMenuPRORES = new javax.swing.JMenu();
         jMenuItemPRORES = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
+        jRelatorioAtividadesMensalUnidade = new javax.swing.JMenuItem();
+        jRelatorioPopulacaoAlimenticia = new javax.swing.JMenuItem();
 
         setClosable(true);
         setIconifiable(true);
@@ -612,6 +615,23 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         jMenuPRORES.add(jMenuItemPRORES);
 
         Relatorios.add(jMenuPRORES);
+        Relatorios.add(jSeparator15);
+
+        jRelatorioAtividadesMensalUnidade.setText("Relatório de Atividades Mensal Realizadas na Unidade");
+        jRelatorioAtividadesMensalUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtividadesMensalUnidadeActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioAtividadesMensalUnidade);
+
+        jRelatorioPopulacaoAlimenticia.setText("Relatório de População Alimentícia");
+        jRelatorioPopulacaoAlimenticia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioPopulacaoAlimenticiaActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioPopulacaoAlimenticia);
 
         jMenuBar1.add(Relatorios);
 
@@ -1324,6 +1344,20 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jRelatorioAtividadesMensalUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtividadesMensalUnidadeActionPerformed
+        // TODO add your handling code here:
+        RelatorioAtividadesMensalRealizadaUnidade objRelAtividade = new RelatorioAtividadesMensalRealizadaUnidade();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelAtividade);
+        objRelAtividade.show();
+    }//GEN-LAST:event_jRelatorioAtividadesMensalUnidadeActionPerformed
+
+    private void jRelatorioPopulacaoAlimenticiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPopulacaoAlimenticiaActionPerformed
+        // TODO add your handling code here:RelatorioPopulacaoAlimenticia
+        RelatorioPopulacaoAlimenticia objRelPopAlimenta = new RelatorioPopulacaoAlimenticia();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelPopAlimenta);
+        objRelPopAlimenta.show();
+    }//GEN-LAST:event_jRelatorioPopulacaoAlimenticiaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -1369,6 +1403,8 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jMenuItemPais;
     private javax.swing.JMenu jMenuPRORES;
     public static javax.swing.JDesktopPane jPainelAdmPessoal;
+    private javax.swing.JMenuItem jRelatorioAtividadesMensalUnidade;
+    private javax.swing.JMenuItem jRelatorioPopulacaoAlimenticia;
     private javax.swing.JMenuItem jRelatorioTotaisProdutividade;
     private javax.swing.JMenuItem jRelatorioTotaisProdutividadePorTecnico;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -1377,6 +1413,7 @@ public class TelaModuloAdmPessoal extends javax.swing.JInternalFrame {
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
