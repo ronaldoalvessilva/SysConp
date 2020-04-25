@@ -5,7 +5,10 @@
  */
 package gestor.Visao;
 
+import gestor.Controle.ConversaoDatasEntradasSaidaPopulacaoAlimento;
 import gestor.Dao.ConexaoBancoDados;
+import gestor.Modelo.EntradaSaidasPolucaoInternos;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.text.SimpleDateFormat;
@@ -24,6 +27,8 @@ import net.sf.jasperreports.view.JasperViewer;
 public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    EntradaSaidasPolucaoInternos objEntradaSaida = new EntradaSaidasPolucaoInternos();
+    ConversaoDatasEntradasSaidaPopulacaoAlimento convertData = new ConversaoDatasEntradasSaidaPopulacaoAlimento();
 
     String dataInicial = "";
     String dataFinal = "";
@@ -150,6 +155,8 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
+        //ZERAR O HORÁRIOS DAS DATAS PARA NÃO TER ERRO NO MOMENTO DE LISTAR O RELATÓRIO
+        convertData.alterarDataEntradaSaidaInternosPop(objEntradaSaida);
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
@@ -175,8 +182,9 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
                                     + "WHERE DataMovimento BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
-                                    + "ORDER BY DataMovimento");
+                                    + "ORDER BY DataMovimento,HorarioMovimento");
                             HashMap parametros = new HashMap();
+                            parametros.put("pUNIDADE", descricaoUnidade);
                             parametros.put("pDATA_INICIAL", dataInicial);
                             parametros.put("pDATA_FINAL", dataFinal);
                             parametros.put("pUSUARIO", nameUser);
@@ -217,8 +225,9 @@ public class RelatorioPopulacaoAlimenticia extends javax.swing.JInternalFrame {
                                     + "FROM ENTRADAS_SAIDAS_POPULACAO_INTERNOS "
                                     + "WHERE DataMovimento BETWEEN'" + dataInicial + "' "
                                     + "AND '" + dataFinal + "' "
-                                    + "ORDER BY DataMovimento");
+                                    + "ORDER BY DataMovimento,HorarioMovimento");
                             HashMap parametros = new HashMap();
+                            parametros.put("pUNIDADE", descricaoUnidade);
                             parametros.put("pDATA_INICIAL", dataInicial);
                             parametros.put("pDATA_FINAL", dataFinal);
                             parametros.put("pUSUARIO", nameUser);

@@ -1541,9 +1541,8 @@
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="2">
-                            <StringItem index="0" value="Selecione..."/>
-                            <StringItem index="1" value="Sa&#xed;da"/>
+                          <StringArray count="1">
+                            <StringItem index="0" value="Sa&#xed;da"/>
                           </StringArray>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1678,9 +1677,8 @@
                           <Font name="Tahoma" size="11" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="2">
-                            <StringItem index="0" value="Selecione..."/>
-                            <StringItem index="1" value="Entrada"/>
+                          <StringArray count="1">
+                            <StringItem index="0" value="Entrada"/>
                           </StringArray>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

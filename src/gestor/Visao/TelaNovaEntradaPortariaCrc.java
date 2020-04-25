@@ -99,7 +99,6 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaNovaEntradaPortariaCrc
      */
-  
     public TelaNovaEntradaPortariaCrc() {
         initComponents();
         corCampos();
@@ -1181,12 +1180,16 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 3;
-                NovoItem();
-                preencherComboNovo();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que o lançamento desse interno está correto?, pois, uma vez incluído\no registro, não poderá ser excluir. Caso seja realizado a inclusão, você só poderá\nfazer a saída do interno. Deseja continuar?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    acao = 3;
+                    NovoItem();
+                    preencherComboNovo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1386,7 +1389,9 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
             // Habilitar os botões
             jBtNovoItem.setEnabled(!true);
             jBtAlterarItem.setEnabled(true);
-            jBtExcluirItem.setEnabled(true);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                jBtExcluirItem.setEnabled(true);
+            }
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtAuditoriaItem.setEnabled(true);
@@ -1868,7 +1873,9 @@ public class TelaNovaEntradaPortariaCrc extends javax.swing.JInternalFrame {
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            jBtExcluir.setEnabled(true);
+        }
         jBtSalvar.setEnabled(!true);
         jBtCancelar.setEnabled(!true);
         jBtFinalizar.setEnabled(true);

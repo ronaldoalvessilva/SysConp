@@ -1385,7 +1385,9 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             jBtZoon.setEnabled(true);
             jBtNovoItem.setEnabled(!true);
             jBtAlterarItem.setEnabled(true);
-            jBtExcluirItem.setEnabled(true);
+            if(nameUser.equals("ADMINISTRADOR DO SISTEMA")){
+                jBtExcluirItem.setEnabled(true);
+            }            
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtItensAudiSaidaInternos.setEnabled(true);
@@ -1446,18 +1448,16 @@ public class TelaRegistroSaidaInternosPortaria extends javax.swing.JInternalFram
             if (jStatusSaida.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa saida de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-//                Integer row = jTabelaItensInterno.getRowCount();
-//                if (row == 0) {
-//                    acao = 3;
-//                    mostarQuantidadeSaida();
-//                } else {
-                acao = 3;
-                NovoItem();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                codItem = 0; // zera na memória o item
-//                }
+                int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que o lançamento desse interno está correto?, pois, uma vez incluído\no registro, não poderá ser excluir. Caso seja realizado a inclusão, você só poderá\nfazer a saída do interno. Deseja continuar?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    acao = 3;
+                    NovoItem();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    codItem = 0; // zera na memória o item
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");

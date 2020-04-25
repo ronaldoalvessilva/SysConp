@@ -893,7 +893,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel30.setText("Operação:");
 
         jComboBoxOperacaoSaida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxOperacaoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Saída" }));
+        jComboBoxOperacaoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Saída" }));
         jComboBoxOperacaoSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxOperacaoSaida.setEnabled(false);
 
@@ -957,7 +957,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         jLabel31.setText("Operação:");
 
         jComboBoxOperacaoEntrada.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxOperacaoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Entrada" }));
+        jComboBoxOperacaoEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrada" }));
         jComboBoxOperacaoEntrada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxOperacaoEntrada.setEnabled(false);
 
@@ -1350,7 +1350,6 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             //
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
-            jBtExcluir.setEnabled(true);
             jBtAuditoria.setEnabled(true);
             jBtFinalizar.setEnabled(true);
             //
@@ -1577,13 +1576,17 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
             if (jStatusRegistro.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 3;
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-                bloquearBotoes();
-                limparCamposInternos();
-                NovoInterno();
+                int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que o lançamento desse interno está correto?, pois, uma vez incluído\no registro, não poderá ser excluir. Caso seja realizado a inclusão, você só poderá\nfazer a saída do interno. Deseja continuar?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    acao = 3;
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                    bloquearBotoes();
+                    limparCamposInternos();
+                    NovoInterno();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1703,18 +1706,13 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
                     pDAO.alterarInternosPernoite(objPernoite);
                     if (jDataSaida.getDate() != null) {
                         populacaoAlimentacaoSaida();
-                        //SÓ MODIFICA A DATA E A HORA
-                        objEntradaSaida.setIdDocumento(pID_ITEM_PER);
-                        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
-                        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
-                        populacao.alterarEntradaPortaria(objEntradaSaida);
                     } else if (jDataSaida.getDate() == null) {
                         //SÓ MODIFICA A DATA E A HORA
                         objEntradaSaida.setIdDocumento(pID_ITEM_PER);
-                        objEntradaSaida.setDataMovimento(jDataSaida.getDate());
-                        objEntradaSaida.setHorarioMovimento(jHoraSaida.getText());
+                        objEntradaSaida.setDataMovimento(jDataEntrada.getDate());
+                        objEntradaSaida.setHorarioMovimento(jHoraEntrada.getText());
                         populacao.alterarEntradaPortaria(objEntradaSaida);
-                    } else if (jDataSaida.getDate() != null && jDataSaida.getDate() != null) {
+                    } else if (jDataSaida.getDate() != null && jDataEntrada.getDate() != null) {
                         objEntradaSaida.setIdDocumento(pID_ITEM_PER);
                         objPernoite.setDataEntrada(jDataEntrada.getDate());
                         objPernoite.setHoraEntrada(jHoraEntrada.getText());
@@ -2251,6 +2249,7 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
     }
 
     public void AlterarInterno() {
+        jComboBoxOperacaoSaida.setSelectedItem("Saída");
         jNomeInterno.setEnabled(true);
         jNomeMaeInterno.setEnabled(true);
         jNomePaiInterno.setEnabled(true);
@@ -2281,7 +2280,9 @@ public class TelaPernoiteInternos extends javax.swing.JInternalFrame {
         //
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
-        jBtExcluir.setEnabled(true);
+        //RETIRADO POIS, CASO O USUÁRIO EXCLUA O REGISTRO, VAI CONTAR NA POPULAÇÃO DA ALIMENTAÇÃO
+        // O IDEAL E FAZER A SAÍDA, CASO O INTERNO NÃO VÁ FICAR.
+//        jBtExcluir.setEnabled(true);
         jBtAuditoria.setEnabled(true);
         jBtFinalizar.setEnabled(true);
     }

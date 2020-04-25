@@ -1256,7 +1256,9 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             jBtZoon.setEnabled(true);
             jBtNovoItem.setEnabled(!true);
             jBtAlterarItem.setEnabled(true);
-            jBtExcluirItem.setEnabled(true);
+            if (nameUser.equals("ADMINISTTRADOR DO SISTEMA")) {
+                jBtExcluirItem.setEnabled(true);
+            }
             jBtSalvarItem.setEnabled(!true);
             jBtCancelarItem.setEnabled(true);
             jBtAudRetInternos.setEnabled(true);
@@ -1316,11 +1318,15 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             if (jStatusRetorno.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-                acao = 3;
-                NovoItem();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
+                int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que o lançamento desse interno está correto?, pois, uma vez incluído\no registro, não poderá ser excluir. Caso seja realizado a inclusão, você só poderá\nfazer a saída do interno. Deseja continuar?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    acao = 3;
+                    NovoItem();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");

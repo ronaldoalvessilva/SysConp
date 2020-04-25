@@ -99,14 +99,11 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
     /**
      * Creates new form TelaEntradaUnidadeInternoPortaria
      */
- 
-
     public TelaEntradaUnidadeInternoPortaria() {
         initComponents();
         corCampos();
         formatarCampos();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1069,18 +1066,16 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Essa entrada de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
             } else {
-//                Integer row = jTabelaItensEntradaInterno.getRowCount();
-//                if (row == 0) {
-//                    acao = 3;
-//                    mostrarTelaQuantidade();
-//                } else {
-                acao = 3;
-                NovoInterno();
-                preencherComboNovo();
-                statusMov = "Incluiu";
-                horaMov = jHoraSistema.getText();
-                dataModFinal = jDataSistema.getText();
-//                }
+                int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que o lançamento desse interno está correto?, pois, uma vez incluído\no registro, não poderá ser excluir. Caso seja realizado a inclusão, você só poderá\nfazer a saída do interno. Deseja continuar?", "Confirmação",
+                        JOptionPane.YES_NO_OPTION);
+                if (resposta == JOptionPane.YES_OPTION) {
+                    acao = 3;
+                    NovoInterno();
+                    preencherComboNovo();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
@@ -1358,7 +1353,9 @@ public class TelaEntradaUnidadeInternoPortaria extends javax.swing.JInternalFram
             // Habilitar os botões
             jBtNovoInterno.setEnabled(!true);
             jBtAlterarInterno.setEnabled(true);
-            jBtExcluirInterno.setEnabled(true);
+            if (nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+                jBtExcluirInterno.setEnabled(true);
+            }
             jBtSalvarInterno.setEnabled(!true);
             jBtCancelarInterno.setEnabled(true);
             jBtAuditoriaInternos.setEnabled(true);
