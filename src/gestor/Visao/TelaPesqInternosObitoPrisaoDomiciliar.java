@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
+public class TelaPesqInternosObitoPrisaoDomiciliar extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
@@ -36,17 +36,18 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
     String dataRetorno, dataPrevRetorno;
     String dataBrasil;
     String dataEvasao = ""; // Variavel que controla a saida temporaria junto com a evasão
+    String dataEvasaoMed = null;
     String NrDocRetorno = "";
     String NrDocRetornoNull = null;
     int flag;
     String nomeInterno;
     String idInt;
-    String pTIPO_SAIDA = "SAIDA TEMPORARIA";
+    String pTIPO_SAIDA = "PRISAO DOMICILIAR";
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
      */
-    public TelaPesqInternosObitoManual() {
+    public TelaPesqInternosObitoPrisaoDomiciliar() {
         initComponents();
     }
 
@@ -70,7 +71,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaTemporaria = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída Temporária {Óbito} :::..");
+        setTitle("...::: Pesquisa de Internos Prisão Domiciliar {Óbito} :::..");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -149,7 +150,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão"
+                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão", "Tipo de Saída"
             }
         ));
         jTabelaIntEvadidosSaidaTemporaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,6 +170,8 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMinWidth(70);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMinWidth(200);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,12 +181,14 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtSelecionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtSair)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBtSelecionar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBtSair))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -196,7 +201,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
@@ -206,7 +211,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 537, 284);
+        setBounds(300, 20, 536, 276);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
@@ -264,7 +269,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "AND DataPrevRetorno <'" + dataSisConvert + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
                 preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
@@ -279,7 +284,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
@@ -314,7 +319,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + dataSisConvert + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
                 this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
@@ -328,7 +333,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             }
         } else {
             limparTabela();
@@ -358,16 +363,20 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             do {
                 // Formatar a data Saida
                 dataSaidaTemp = conecta.rs.getString("DataSaida");
-                String diap = dataSaidaTemp.substring(8, 10);
-                String mesp = dataSaidaTemp.substring(5, 7);
-                String anop = dataSaidaTemp.substring(0, 4);
-                dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                if (dataSaidaTemp != null) {
+                    String diap = dataSaidaTemp.substring(8, 10);
+                    String mesp = dataSaidaTemp.substring(5, 7);
+                    String anop = dataSaidaTemp.substring(0, 4);
+                    dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                }
                 // Formatar a data Entrada
                 dataPrevRetorno = conecta.rs.getString("DataPrevRetorno");
-                String diar = dataPrevRetorno.substring(8, 10);
-                String mesr = dataPrevRetorno.substring(5, 7);
-                String anor = dataPrevRetorno.substring(0, 4);
-                dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                if (dataPrevRetorno != null) {
+                    String diar = dataPrevRetorno.substring(8, 10);
+                    String mesr = dataPrevRetorno.substring(5, 7);
+                    String anor = dataPrevRetorno.substring(0, 4);
+                    dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                }
                 dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaidaTemp, dataPrevRetorno, conecta.rs.getString("DestinoSaida")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {

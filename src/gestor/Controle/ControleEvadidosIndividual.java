@@ -242,4 +242,23 @@ public class ControleEvadidosIndividual {
         conecta.desconecta();
         return objItenLabor;
     }
+
+    public ItensSaidaInterno confirmaEvasaoInternoSaidaPD(ItensSaidaInterno objItemSaida) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE MOVISR SET ConfirmaEvasao=?,DataEvasao=? WHERE IdInternoCrc='" + objItemSaida.getIdInternoSaida() + "'AND NrDocSaida='" + objItemSaida.getDocumento() + "'");
+            pst.setString(1, objItemSaida.getConfirmaEvasao());
+            if (objItemSaida.getDataEvasaoTmp() == null) {
+                pst.setTimestamp(2, null);
+            } else {
+                pst.setTimestamp(2, new java.sql.Timestamp(objItemSaida.getDataEvasaoTmp().getTime()));
+            }
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR Evasão do Interno\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItemSaida;
+    }
 }

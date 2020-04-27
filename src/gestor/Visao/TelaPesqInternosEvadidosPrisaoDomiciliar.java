@@ -7,15 +7,16 @@ package gestor.Visao;
 
 import gestor.Controle.converterDataStringDataDate;
 import static gestor.Controle.converterDataStringDataDate.dataSisConvert;
+import static gestor.Controle.converterDataStringDataDate.dataSisConvert2;
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDataSaida;
+import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jDocumentoSaida;
+import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdInternoEvadido;
+import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jIdSaida;
+import static gestor.Visao.TelaEvadidosSaidaTemporariaManual.jNomeInternoEvadido;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import static gestor.Visao.TelaObitoInternoExterna.jDataSaida;
-import static gestor.Visao.TelaObitoInternoExterna.jDocumentoSaida;
-import static gestor.Visao.TelaObitoInternoExterna.jIdInternoEvadido;
-import static gestor.Visao.TelaObitoInternoExterna.jIdSaida;
-import static gestor.Visao.TelaObitoInternoExterna.jNomeInternoEvadido;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -27,26 +28,27 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
+public class TelaPesqInternosEvadidosPrisaoDomiciliar extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     converterDataStringDataDate convertedata = new converterDataStringDataDate();
-    //
+
     String dataEntrada, dataSaida, dataSaidaTemp;
     String dataRetorno, dataPrevRetorno;
     String dataBrasil;
     String dataEvasao = ""; // Variavel que controla a saida temporaria junto com a evasão
+    String dataEvasaoMed = null;
     String NrDocRetorno = "";
     String NrDocRetornoNull = null;
     int flag;
     String nomeInterno;
     String idInt;
-    String pTIPO_SAIDA = "SAIDA TEMPORARIA";
+    String pTIPO_SAIDA = "PRISAO DOMICILIAR";
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
      */
-    public TelaPesqInternosObitoManual() {
+    public TelaPesqInternosEvadidosPrisaoDomiciliar() {
         initComponents();
     }
 
@@ -70,7 +72,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
         jTabelaIntEvadidosSaidaTemporaria = new javax.swing.JTable();
 
         setClosable(true);
-        setTitle("...::: Pesquisa de Internos Saída Temporária {Óbito} :::..");
+        setTitle("...::: Pesquisa de Internos Saída Domiciliar {Evadido} :::..");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -149,7 +151,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão"
+                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão", "Tipo de Saída"
             }
         ));
         jTabelaIntEvadidosSaidaTemporaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,6 +171,8 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMinWidth(70);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMinWidth(200);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +182,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtSelecionar)
@@ -196,7 +200,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtSelecionar)
@@ -206,7 +210,7 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtSair, jBtSelecionar});
 
-        setBounds(300, 20, 537, 284);
+        setBounds(300, 20, 536, 280);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSelecionarActionPerformed
@@ -244,13 +248,13 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
 
     private void jBtPesqNomeInternoEvadidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoEvadidoActionPerformed
         // TODO add your handling code here:
-        if (jPesqNomeInternoEvadido.getText().equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-        } else {
-            convertedata.converter(jDataSistema.getText());
-            if (tipoServidor == null || tipoServidor.equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+        convertedata.converter(jDataSistema.getText());
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {
                 preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
@@ -261,11 +265,14 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "INNER JOIN ITENSREGSAIDA "
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataPrevRetorno <'" + dataSisConvert + "' "
-                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND DataEvasao='" + dataSisConvert + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
-            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            if (jPesqNomeInternoEvadido.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
+            } else {
                 preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
@@ -276,10 +283,9 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "INNER JOIN ITENSREGSAIDA "
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
-                        + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
                         + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
             }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
@@ -295,13 +301,13 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTabelaIntEvadidosSaidaTemporariaMouseClicked
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:
-        flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {
-            convertedata.converter(jDataSistema.getText());
-            if (tipoServidor == null || tipoServidor.equals("")) {
-                JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-            } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+        // TODO add your handling code here:    
+        if (tipoServidor == null || tipoServidor.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+            flag = 1;
+            convertedata.converter2(dataEvasao);
+            if (evt.getStateChange() == evt.SELECTED) {
                 this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
@@ -313,9 +319,15 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + dataSisConvert + "' "
-                        + "AND DataEvasao='" + dataEvasao + "' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
-            } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+                        + "AND DataEvasao='" + dataSisConvert2 + "' "
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
+            } else {
+                limparTabela();
+            }
+        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+            flag = 1;
+            convertedata.converter(jDataSistema.getText());
+            if (evt.getStateChange() == evt.SELECTED) {
                 this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
@@ -328,10 +340,10 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
-                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
+                        + "AND DestinoSaida LIKE'%" + pTIPO_SAIDA + "%'");
+            } else {
+                limparTabela();
             }
-        } else {
-            limparTabela();
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
@@ -358,16 +370,20 @@ public class TelaPesqInternosObitoManual extends javax.swing.JInternalFrame {
             do {
                 // Formatar a data Saida
                 dataSaidaTemp = conecta.rs.getString("DataSaida");
-                String diap = dataSaidaTemp.substring(8, 10);
-                String mesp = dataSaidaTemp.substring(5, 7);
-                String anop = dataSaidaTemp.substring(0, 4);
-                dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                if (dataSaidaTemp != null) {
+                    String diap = dataSaidaTemp.substring(8, 10);
+                    String mesp = dataSaidaTemp.substring(5, 7);
+                    String anop = dataSaidaTemp.substring(0, 4);
+                    dataSaidaTemp = diap + "/" + mesp + "/" + anop;
+                }
                 // Formatar a data Entrada
                 dataPrevRetorno = conecta.rs.getString("DataPrevRetorno");
-                String diar = dataPrevRetorno.substring(8, 10);
-                String mesr = dataPrevRetorno.substring(5, 7);
-                String anor = dataPrevRetorno.substring(0, 4);
-                dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                if (dataPrevRetorno != null) {
+                    String diar = dataPrevRetorno.substring(8, 10);
+                    String mesr = dataPrevRetorno.substring(5, 7);
+                    String anor = dataPrevRetorno.substring(0, 4);
+                    dataPrevRetorno = diar + "/" + mesr + "/" + anor;
+                }
                 dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaidaTemp, dataPrevRetorno, conecta.rs.getString("DestinoSaida")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {

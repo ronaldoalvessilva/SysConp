@@ -101,6 +101,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     String tipoOperacao = "EVASAO - SAIDA TEMPORARIA";
     String tipoOperacao1 = "EVASÃO - SAIDA LABORATIVA";
     String tipoOperacao2 = "EVASÃO - SAIDA ESTUDOS";
+    String tipoOperacao3 = "EVASÃO - SAIDA PRISÃO DOMICILIAR";
     String statusEva = "ABERTO";
     String evadidoInd = "EVADIDO";
     String situacao = "EVADIDO DA UNIDADE"; // Máximo 19 caracteres   
@@ -187,6 +188,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jRBtSaidaLaborativa = new javax.swing.JRadioButton();
         jRBtSaidaEstudos = new javax.swing.JRadioButton();
         jRBtSaidaMedico = new javax.swing.JRadioButton();
+        jRBtSaidaDomiciliar = new javax.swing.JRadioButton();
         jOperacao = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -512,28 +514,45 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             }
         });
 
+        buttonGroupEvasao.add(jRBtSaidaDomiciliar);
+        jRBtSaidaDomiciliar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtSaidaDomiciliar.setText("S. Prisão Domiciliar");
+        jRBtSaidaDomiciliar.setToolTipText("Saída de Prisão Domiciliar");
+        jRBtSaidaDomiciliar.setEnabled(false);
+        jRBtSaidaDomiciliar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBtSaidaDomiciliarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRBtSaidaTemporaria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaLaborativa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaEstudos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaMedico)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jRBtSaidaTemporaria)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaLaborativa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaEstudos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaMedico))
+                    .addComponent(jRBtSaidaDomiciliar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jRBtSaidaTemporaria)
-                .addComponent(jRBtSaidaLaborativa)
-                .addComponent(jRBtSaidaEstudos)
-                .addComponent(jRBtSaidaMedico))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRBtSaidaTemporaria)
+                    .addComponent(jRBtSaidaLaborativa)
+                    .addComponent(jRBtSaidaEstudos)
+                    .addComponent(jRBtSaidaMedico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRBtSaidaDomiciliar))
         );
 
         jOperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -574,7 +593,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel1)
@@ -586,12 +605,12 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataLanc, jIdLanc, jStatusLanc});
@@ -654,7 +673,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -663,8 +682,8 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jBtFinalizar)
                             .addComponent(jBtAuditoria))
-                        .addGap(0, 13, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 30, Short.MAX_VALUE)))
+                .addGap(3, 3, 3))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -751,13 +770,13 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair)
@@ -858,7 +877,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -899,13 +918,13 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(23, 23, 23))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -936,6 +955,18 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                 jDataLanc.setBackground(Color.red);
             } else if (jNomeInternoEvadido.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jDocumentoSaida.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("0")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("00")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("0000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("00000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
             } else {
                 objEvadidoInd.setStatusLanc(statusEva);
                 objEvadidoInd.setTipoOperacao(jOperacao.getText());
@@ -953,6 +984,8 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
                     tipoEvasao = 2;
                 } else if (jRBtSaidaMedico.isSelected()) {
                     tipoEvasao = 3;
+                } else if (jRBtSaidaDomiciliar.isSelected()) {
+                    tipoEvasao = 4;
                 }
                 objEvadidoInd.setTipoEvasao(tipoEvasao);
                 if (acao == 1) {
@@ -1030,6 +1063,10 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             TelaPesqInternosEvadidosManualMedico objPesqIntEvaMedico = new TelaPesqInternosEvadidosManualMedico();
             TelaModuloCRC.jPainelCRC.add(objPesqIntEvaMedico);
             objPesqIntEvaMedico.show();
+        }else if(jRBtSaidaDomiciliar.isSelected()){
+            TelaPesqInternosEvadidosPrisaoDomiciliar objPesqIntEvaDomiciliar = new TelaPesqInternosEvadidosPrisaoDomiciliar();
+            TelaModuloCRC.jPainelCRC.add(objPesqIntEvaDomiciliar);
+            objPesqIntEvaDomiciliar.show();
         }
     }//GEN-LAST:event_jBtPesquisarInternosActionPerformed
 
@@ -1327,6 +1364,20 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         }
     }//GEN-LAST:event_jRBtSaidaMedicoMouseClicked
 
+    private void jRBtSaidaDomiciliarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBtSaidaDomiciliarMouseClicked
+        // TODO add your handling code here:
+        if (acao == 1 && jRBtSaidaDomiciliar.isSelected() && jIdLanc.getText().equals("") || acao == 2 && jRBtSaidaDomiciliar.isSelected() && jIdLanc.getText().equals("")) {
+            jOperacao.setText("EVASÃO - SAIDA DOMICILIAR");
+            jIdInternoEvadido.setText("");
+            jNomeInternoEvadido.setText("");
+            jIdSaida.setText("");
+            jDataSaida.setDate(null);
+            jDocumentoSaida.setText("");
+            jIdSaida.setEnabled(true);
+            jDataSaida.setEnabled(true);
+        }
+    }//GEN-LAST:event_jRBtSaidaDomiciliarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupEvasao;
@@ -1382,6 +1433,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRBtSaidaDomiciliar;
     private javax.swing.JRadioButton jRBtSaidaEstudos;
     private javax.swing.JRadioButton jRBtSaidaLaborativa;
     private javax.swing.JRadioButton jRBtSaidaMedico;
@@ -1431,6 +1483,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jRBtSaidaLaborativa.setEnabled(true);
         jRBtSaidaEstudos.setEnabled(true);
         jRBtSaidaMedico.setEnabled(true);
+        jRBtSaidaDomiciliar.setEnabled(true);
         //
         jIdSaida.setEnabled(true);
         jDataSaida.setEnabled(true);
@@ -1456,6 +1509,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaLaborativa.setEnabled(true);
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1475,6 +1529,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaLaborativa.setEnabled(true);
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1494,6 +1549,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaLaborativa.setEnabled(true);
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1513,6 +1569,27 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaLaborativa.setEnabled(true);
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
+            //
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(true);
+            jDocumentoSaida.setEnabled(true);
+            jObservacao.setEnabled(true);
+            //
+            jBtNovo.setEnabled(!true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(!true);
+        } else if (tipoEvasao == 4) {
+            jBtPesquisarInternos.setEnabled(true);
+            jDataLanc.setEnabled(true);
+            jRBtSaidaTemporaria.setEnabled(true);
+            jRBtSaidaLaborativa.setEnabled(true);
+            jRBtSaidaEstudos.setEnabled(true);
+            jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1543,6 +1620,11 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         //
         jBtPesquisarInternos.setEnabled(!true);
         jDataLanc.setEnabled(!true);
+        jRBtSaidaTemporaria.setEnabled(!true);
+        jRBtSaidaLaborativa.setEnabled(!true);
+        jRBtSaidaEstudos.setEnabled(!true);
+        jRBtSaidaMedico.setEnabled(!true);
+        jRBtSaidaDomiciliar.setEnabled(!true);
         //
         jIdSaida.setEnabled(!true);
         jDataSaida.setEnabled(!true);
@@ -1566,6 +1648,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
         jRBtSaidaLaborativa.setEnabled(!true);
         jRBtSaidaEstudos.setEnabled(!true);
         jRBtSaidaMedico.setEnabled(!true);
+        jRBtSaidaDomiciliar.setEnabled(!true);
         //
         jIdSaida.setEnabled(!true);
         jDataSaida.setEnabled(!true);
@@ -1601,6 +1684,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaTemporaria.setEnabled(!true);
             jRBtSaidaLaborativa.setEnabled(!true);
             jRBtSaidaEstudos.setEnabled(!true);
+            jRBtSaidaDomiciliar.setEnabled(!true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1621,6 +1705,7 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             jRBtSaidaTemporaria.setEnabled(!true);
             jRBtSaidaLaborativa.setEnabled(!true);
             jRBtSaidaEstudos.setEnabled(!true);
+            jRBtSaidaDomiciliar.setEnabled(!true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1805,6 +1890,22 @@ public class TelaEvadidosSaidaTemporariaManual extends javax.swing.JInternalFram
             objItemSaida.setConfirmaEvasao(confirmaEvasao);
             objItemSaida.setDataEvasaoTmp(jDataLanc.getDate());
             control.incluirEvasaoInternoSaidaLaborativa(objItemSaida);
+            //PRISÃO DOMICILIAR
+        } else if (tipoEvasao == 4) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+            controlMov.incluirMovEvasaoSaidaTmp(objEvadidoInd);
+            // Atualiza tabela de Itens de saida temporaria, quando interno está evadido. TESTADO EM 06/06/2015 FUNCIONANDO                        
+            objItemSaida.setInternoEvadido(evadidoInd); // Quando interno EVADE
+            objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objItemSaida.setDocumento(jDocumentoSaida.getText());
+            objItemSaida.setConfirmaEvasao(confirmaEvasao);
+            control.alterarEvasaoInternoSaidaTmp(objItemSaida); // tabela ITENSSAIDA quando evadidos. TESTADO EM 06/06/2015 FUNCIONANDO                              
+            // CONFIRMA A EVASÃO DO INTERNO DA TABELA (MOVISR). TESTADO EM 06/06/2015 - FUNCIONANDO
+            objItemSaida.setDataEvasaoTmp(jDataLanc.getDate()); // Data da Evasão 
+            objItemSaida.setDocumento(jDocumentoSaida.getText());
+            objItemSaida.setConfirmaEvasao(confirmaEvasao);
+            control.confirmaEvasaoInternoSaidaPD(objItemSaida);
         }
         // MODIFICA A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
         objProCrc.setIdInterno(Integer.parseInt(jIdInternoEvadido.getText()));

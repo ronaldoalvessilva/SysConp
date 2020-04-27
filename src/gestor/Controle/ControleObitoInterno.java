@@ -242,10 +242,9 @@ public class ControleObitoInterno {
         conecta.desconecta();
         return objItenLabor;
     }
-    
-   
-   //----- SAIDA AUDIENCIA - OBITO
-     public ItensSaidaInterno alterarObitoInternoSaidaAudiencia(ItensSaidaInterno objItemSaida) {
+
+    //----- SAIDA AUDIENCIA - OBITO
+    public ItensSaidaInterno alterarObitoInternoSaidaAudiencia(ItensSaidaInterno objItemSaida) {
 
         conecta.abrirConexao();
         try {
@@ -255,6 +254,21 @@ public class ControleObitoInterno {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR óbito do Interno\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objItemSaida;
+    }
+
+    public ItensSaidaInterno alterarObitoInternoSaidaPD(ItensSaidaInterno objItemSaida) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET Obito=?,ConfirmaObito=? WHERE IdInternoCrc='" + objItemSaida.getIdInternoSaida() + "'AND DocumentoSaida='" + objItemSaida.getDocumento() + "'");
+            pst.setString(1, objItemSaida.getInternoEvadido());
+            pst.setString(2, objItemSaida.getConfirmaEvasao());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR Óbito do Interno\nERRO: " + ex);
         }
         conecta.desconecta();
         return objItemSaida;

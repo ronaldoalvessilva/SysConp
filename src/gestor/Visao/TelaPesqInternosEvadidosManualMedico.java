@@ -43,6 +43,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
     int flag;
     String nomeInterno;
     String idInt;
+    String pTIPO_SAIDA = "SAIDA PARA MEDICO";
 
     /**
      * Creates new form TelaPesqInternosEvadidosManual
@@ -150,7 +151,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
 
             },
             new String [] {
-                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão"
+                "Item", "Código", "Nome do Interno", "Data Saída", "Dt. Previsão", "Tipo de Saída"
             }
         ));
         jTabelaIntEvadidosSaidaTemporaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -170,6 +171,8 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(3).setMaxWidth(80);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMinWidth(70);
             jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMinWidth(200);
+            jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,23 +255,37 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
             if (jPesqNomeInternoEvadido.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             } else {
-                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+                        + "MOVISR.DataSaida,DataPrevRetorno "
+                        + "FROM MOVISR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ITENSREGSAIDA "
+                        + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataEvasao='" + dataSisConvert + "' "
-                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' ");
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             if (jPesqNomeInternoEvadido.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
             } else {
-                preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+                        + "MOVISR.DataSaida,DataPrevRetorno "
+                        + "FROM MOVISR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ITENSREGSAIDA "
+                        + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataEvasao='" + dataEvasao + "' "
-                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' ");
+                        + "AND NomeInternoCrc LIKE'%" + jPesqNomeInternoEvadido.getText() + "%' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             }
         }
     }//GEN-LAST:event_jBtPesqNomeInternoEvadidoActionPerformed
@@ -284,32 +301,46 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
     }//GEN-LAST:event_jTabelaIntEvadidosSaidaTemporariaMouseClicked
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:
-        convertedata.converter(jDataSistema.getText());
-        convertedata.converter2(dataEvasao);
+        // TODO add your handling code here:                
         if (tipoServidor == null || tipoServidor.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
         } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
             flag = 1;
+            convertedata.converter(jDataSistema.getText());
+            convertedata.converter2(dataEvasao);
             if (evt.getStateChange() == evt.SELECTED) {
-                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+                        + "MOVISR.DataSaida,DataPrevRetorno "
+                        + "FROM MOVISR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ITENSREGSAIDA "
+                        + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + dataSisConvert + "' "
-                        + "AND DataEvasao='" + dataSisConvert2 + "'");
+                        + "AND DataEvasao='" + dataSisConvert2 + "' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             } else {
                 limparTabela();
             }
         } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
             flag = 1;
             if (evt.getStateChange() == evt.SELECTED) {
-                this.preencherTabelaEvadidoSaidaTemporaria("SELECT * FROM MOVISR "
+                this.preencherTabelaEvadidoSaidaTemporaria("SELECT MOVISR.IdItem,MOVISR.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "NrDocRetorno,DataPrevRetorno,DataEvasao,DestinoSaida, "
+                        + "MOVISR.DataSaida,DataPrevRetorno "
+                        + "FROM MOVISR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON MOVISR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ITENSREGSAIDA "
+                        + "ON MOVISR.IdInternoCrc=ITENSREGSAIDA.IdInternoCrc "
                         + "WHERE NrDocRetorno='" + NrDocRetorno + "' "
                         + "AND DataPrevRetorno <'" + jDataSistema.getText() + "' "
-                        + "AND DataEvasao='" + dataEvasao + "'");
+                        + "AND DataEvasao='" + dataEvasao + "' "
+                        + "AND DestinoSaida='" + pTIPO_SAIDA + "'");
             } else {
                 limparTabela();
             }
@@ -331,7 +362,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
 
     public void preencherTabelaEvadidoSaidaTemporaria(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Data Saída", "Dt.Previsão"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Data Saída", "Dt.Previsão", "Tipo de Saída"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -353,7 +384,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
                     String anor = dataPrevRetorno.substring(0, 4);
                     dataPrevRetorno = diar + "/" + mesr + "/" + anor;
                 }
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaidaTemp, dataPrevRetorno});
+                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaidaTemp, dataPrevRetorno, conecta.rs.getString("DestinoSaida")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
@@ -369,6 +400,8 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(3).setResizable(false);
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setPreferredWidth(70);
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setPreferredWidth(200);
+        jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setResizable(false);
         jTabelaIntEvadidosSaidaTemporaria.getTableHeader().setReorderingAllowed(false);
         jTabelaIntEvadidosSaidaTemporaria.setAutoResizeMode(jTabelaIntEvadidosSaidaTemporaria.AUTO_RESIZE_OFF);
         jTabelaIntEvadidosSaidaTemporaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -378,7 +411,7 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Data Saída", "Dt.Previsão"};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno ", "Data Saída", "Dt.Previsão", "Tipo de Saída"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaIntEvadidosSaidaTemporaria.setModel(modelo);
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -391,6 +424,8 @@ public class TelaPesqInternosEvadidosManualMedico extends javax.swing.JInternalF
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(3).setResizable(false);
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setPreferredWidth(70);
         jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setPreferredWidth(200);
+        jTabelaIntEvadidosSaidaTemporaria.getColumnModel().getColumn(5).setResizable(false);
         jTabelaIntEvadidosSaidaTemporaria.getTableHeader().setReorderingAllowed(false);
         jTabelaIntEvadidosSaidaTemporaria.setAutoResizeMode(jTabelaIntEvadidosSaidaTemporaria.AUTO_RESIZE_OFF);
         jTabelaIntEvadidosSaidaTemporaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

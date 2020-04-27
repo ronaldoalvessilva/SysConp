@@ -83,6 +83,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     String tipoOperacao = "EVASAO - SAIDA TEMPORARIA";
     String tipoOperacao1 = "EVASÃO - SAIDA LABORATIVA";
     String tipoOperacao2 = "EVASÃO - SAIDA ESTUDOS";
+    String tipoOperacao3 = "EVASÃO - SAIDA PRISÃO DOMICILIAR";
     String statusEva = "ABERTO";
     String evadidoInd = "OBITO";
     String situacao = "OBITO FORA UNIDADE"; // Máximo 19 caracteres   
@@ -159,6 +160,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jRBtSaidaEstudos = new javax.swing.JRadioButton();
         jRBtSaidaMedico = new javax.swing.JRadioButton();
         jRBtSaidaAudiencia = new javax.swing.JRadioButton();
+        jRBtSaidaDomiciliar = new javax.swing.JRadioButton();
         jOperacao = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -496,31 +498,49 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonGroupEvasao.add(jRBtSaidaDomiciliar);
+        jRBtSaidaDomiciliar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRBtSaidaDomiciliar.setText("S. Prisão Domiciliar");
+        jRBtSaidaDomiciliar.setToolTipText("Saída de Prisão Domiciliar");
+        jRBtSaidaDomiciliar.setEnabled(false);
+        jRBtSaidaDomiciliar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRBtSaidaDomiciliarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jRBtSaidaTemporaria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaLaborativa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaEstudos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaMedico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRBtSaidaAudiencia)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jRBtSaidaTemporaria)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaLaborativa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaEstudos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRBtSaidaAudiencia))
+                    .addComponent(jRBtSaidaDomiciliar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(jRBtSaidaTemporaria)
-                .addComponent(jRBtSaidaLaborativa)
-                .addComponent(jRBtSaidaEstudos)
-                .addComponent(jRBtSaidaMedico)
-                .addComponent(jRBtSaidaAudiencia))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jRBtSaidaTemporaria)
+                    .addComponent(jRBtSaidaLaborativa)
+                    .addComponent(jRBtSaidaEstudos)
+                    .addComponent(jRBtSaidaMedico)
+                    .addComponent(jRBtSaidaAudiencia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRBtSaidaDomiciliar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jOperacao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -561,7 +581,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(jLabel1)
@@ -573,12 +593,12 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jDataLanc, jIdLanc, jStatusLanc});
@@ -641,7 +661,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -651,7 +671,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                             .addComponent(jBtFinalizar)
                             .addComponent(jBtAuditoria))
                         .addGap(0, 13, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -738,13 +758,13 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair)
@@ -882,14 +902,14 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addGap(20, 20, 20))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel2);
@@ -920,6 +940,18 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                 jDataLanc.setBackground(Color.red);
             } else if (jNomeInternoEvadido.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jDocumentoSaida.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("0")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("00")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("0000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
+            } else if (jDocumentoSaida.getText().equals("00000")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o número do documento.");
             } else {
                 objEvadidoInd.setStatusLanc(statusEva);
                 objEvadidoInd.setTipoOperacao(jOperacao.getText());
@@ -939,6 +971,8 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
                     tipoObito = 3;
                 } else if (jRBtSaidaAudiencia.isSelected()) {
                     tipoObito = 4;
+                } else if (jRBtSaidaDomiciliar.isSelected()) {
+                    tipoObito = 5;
                 }
                 objEvadidoInd.setTipoEvasao(tipoObito);
                 if (acao == 1) {
@@ -1020,6 +1054,10 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             TelaPesqInternosObitoAudiencia objPesqIntObi = new TelaPesqInternosObitoAudiencia();
             TelaModuloCRC.jPainelCRC.add(objPesqIntObi);
             objPesqIntObi.show();
+        } else if (jRBtSaidaDomiciliar.isSelected()) {
+            TelaPesqInternosObitoPrisaoDomiciliar objPesqIntObiPD = new TelaPesqInternosObitoPrisaoDomiciliar();
+            TelaModuloCRC.jPainelCRC.add(objPesqIntObiPD);
+            objPesqIntObiPD.show();
         }
     }//GEN-LAST:event_jBtPesquisarInternosActionPerformed
 
@@ -1287,8 +1325,8 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(!true);
         }
     }//GEN-LAST:event_jRBtSaidaLaborativaMouseClicked
 
@@ -1301,8 +1339,8 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(!true);
         }
     }//GEN-LAST:event_jRBtSaidaEstudosMouseClicked
 
@@ -1315,8 +1353,8 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jIdSaida.setText("");
             jDataSaida.setDate(null);
             jDocumentoSaida.setText("");
-            jIdSaida.setEnabled(true);
-            jDataSaida.setEnabled(true);
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(!true);
         }
     }//GEN-LAST:event_jRBtSaidaMedicoMouseClicked
 
@@ -1333,6 +1371,20 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jDataSaida.setEnabled(!true);
         }
     }//GEN-LAST:event_jRBtSaidaAudienciaMouseClicked
+
+    private void jRBtSaidaDomiciliarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRBtSaidaDomiciliarMouseClicked
+        // TODO add your handling code here:
+        if (acao == 1 && jRBtSaidaDomiciliar.isSelected() && jIdLanc.getText().equals("") || acao == 2 && jRBtSaidaDomiciliar.isSelected() && jIdLanc.getText().equals("")) {
+            jOperacao.setText("ÓBITO - PRISÃO DOMICILIAR");
+            jIdInternoEvadido.setText("");
+            jNomeInternoEvadido.setText("");
+            jIdSaida.setText("");
+            jDataSaida.setDate(null);
+            jDocumentoSaida.setText("");
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(!true);
+        }
+    }//GEN-LAST:event_jRBtSaidaDomiciliarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1390,6 +1442,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRBtSaidaAudiencia;
+    private javax.swing.JRadioButton jRBtSaidaDomiciliar;
     private javax.swing.JRadioButton jRBtSaidaEstudos;
     private javax.swing.JRadioButton jRBtSaidaLaborativa;
     private javax.swing.JRadioButton jRBtSaidaMedico;
@@ -1442,9 +1495,10 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jRBtSaidaEstudos.setEnabled(true);
         jRBtSaidaMedico.setEnabled(true);
         jRBtSaidaAudiencia.setEnabled(true);
+        jRBtSaidaDomiciliar.setEnabled(true);
         //
-        jIdSaida.setEnabled(true);
-        jDataSaida.setEnabled(true);
+        jIdSaida.setEnabled(!true);
+        jDataSaida.setEnabled(!true);
         jDocumentoSaida.setEnabled(true);
         jDataLanc.setEnabled(true);
         jObservacao.setEnabled(true);
@@ -1468,6 +1522,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
             jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1488,6 +1543,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
             jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1508,6 +1564,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
             jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1528,6 +1585,49 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(true);
             jRBtSaidaMedico.setEnabled(true);
             jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
+            //
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(true);
+            jDocumentoSaida.setEnabled(true);
+            jObservacao.setEnabled(true);
+            //
+            jBtNovo.setEnabled(!true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(!true);
+        } else if (tipoObito == 4) {
+            jBtPesquisarInternos.setEnabled(true);
+            jDataLanc.setEnabled(true);
+            jRBtSaidaTemporaria.setEnabled(true);
+            jRBtSaidaLaborativa.setEnabled(true);
+            jRBtSaidaEstudos.setEnabled(true);
+            jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
+            //
+            jIdSaida.setEnabled(!true);
+            jDataSaida.setEnabled(true);
+            jDocumentoSaida.setEnabled(true);
+            jObservacao.setEnabled(true);
+            //
+            jBtNovo.setEnabled(!true);
+            jBtAlterar.setEnabled(!true);
+            jBtExcluir.setEnabled(!true);
+            jBtSalvar.setEnabled(true);
+            jBtCancelar.setEnabled(true);
+            jBtAuditoria.setEnabled(!true);
+        } else if (tipoObito == 5) {
+            jBtPesquisarInternos.setEnabled(true);
+            jDataLanc.setEnabled(true);
+            jRBtSaidaTemporaria.setEnabled(true);
+            jRBtSaidaLaborativa.setEnabled(true);
+            jRBtSaidaEstudos.setEnabled(true);
+            jRBtSaidaMedico.setEnabled(true);
+            jRBtSaidaAudiencia.setEnabled(true);
+            jRBtSaidaDomiciliar.setEnabled(true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(true);
@@ -1565,6 +1665,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jRBtSaidaEstudos.setEnabled(!true);
         jRBtSaidaMedico.setEnabled(!true);
         jRBtSaidaAudiencia.setEnabled(!true);
+        jRBtSaidaDomiciliar.setEnabled(!true);
         //
         jIdSaida.setEnabled(!true);
         jDataSaida.setEnabled(!true);
@@ -1589,6 +1690,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
         jRBtSaidaEstudos.setEnabled(!true);
         jRBtSaidaMedico.setEnabled(!true);
         jRBtSaidaAudiencia.setEnabled(!true);
+        jRBtSaidaDomiciliar.setEnabled(!true);
         //
         jIdSaida.setEnabled(!true);
         jDataSaida.setEnabled(!true);
@@ -1626,6 +1728,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(!true);
             jRBtSaidaMedico.setEnabled(!true);
             jRBtSaidaAudiencia.setEnabled(!true);
+            jRBtSaidaDomiciliar.setEnabled(!true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1648,6 +1751,7 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             jRBtSaidaEstudos.setEnabled(!true);
             jRBtSaidaMedico.setEnabled(!true);
             jRBtSaidaAudiencia.setEnabled(!true);
+            jRBtSaidaDomiciliar.setEnabled(!true);
             //
             jIdSaida.setEnabled(!true);
             jDataSaida.setEnabled(!true);
@@ -1774,6 +1878,17 @@ public class TelaObitoInternoExterna extends javax.swing.JInternalFrame {
             objItemSaida.setObito(pObito);
             objItemSaida.setConfirmaObito(confirmaEvasao);
             control.alterarObitoInternoSaidaAudiencia(objItemSaida);
+            //PRISÃO DOMICILIAR
+        } else if (tipoObito == 5) {
+            // INCLUIR NA TABELA (MOVIMENTOCRC)
+            objEvadidoInd.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+            controlMov.incluirMovEvasaoSaidaTmp(objEvadidoInd);
+            // Atualiza tabela de Itens de saida temporaria, quando interno está evadido. TESTADO EM 06/06/2015 FUNCIONANDO                        
+            objItemSaida.setInternoEvadido(evadidoInd); // Quando interno vai a ÓBITO
+            objItemSaida.setIdInternoSaida(Integer.valueOf(jIdInternoEvadido.getText()));
+            objItemSaida.setDocumento(jDocumentoSaida.getText());
+            objItemSaida.setConfirmaEvasao(confirmaEvasao);
+            control.alterarObitoInternoSaidaPD(objItemSaida);
         }
         // MODIFICA A SITUAÇÃO DO INTERNO NA TABELA PRONTUARIOSCRC
         objProCrc.setIdInterno(Integer.parseInt(jIdInternoEvadido.getText()));
