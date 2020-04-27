@@ -853,7 +853,8 @@ public class TelaVisitasDiversasExterna extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM VISITASDIVERSAS "
-                        + "WHERE NomeVisita='" + nomeVisita + "'");
+                        + "WHERE NomeVisita='" + nomeVisita + "' "
+                        + "AND IdVisita='" + idVisita + "'");
                 conecta.rs.first();
                 jIdVisita.setText(String.valueOf(conecta.rs.getInt("IdVisita")));
                 jComboBoxTipoVisita.setSelectedItem(conecta.rs.getString("TipoVisita"));

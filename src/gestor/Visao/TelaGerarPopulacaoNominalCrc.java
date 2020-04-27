@@ -65,8 +65,8 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     int count = 0;
     int count2 = 0;
     int qtdTotal = 0;
-    int pTOTAL_REGISTROS_COPIADO = 0;
-    int pTOTAL_REGISTROS_GRAVADO = 0;
+    int pTOTAL_REGISTROS = 0;
+    int pTOTAL_REGISTROS_PRO = 0;
     public static int qtdInternosPop = 0;
     String idInterno = "";
     String pTIPO_OPERCAO = "População";
@@ -945,13 +945,13 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                         objPopNom.setDataLanc(jDataLancamento.getDate());
                         objPopNom.setIdInternoCrc((int) jTabelaDestinoInternos.getValueAt(i, 0));
                         control.incluirPopulacaoNominal(objPopNom);
-                        pTOTAL_REGISTROS_GRAVADO = i + 1;
-                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_GRAVADO));
+                        //
+                        pTOTAL_REGISTROS_PRO = i + 1;
+                        jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
-                        if (pTOTAL_REGISTROS_GRAVADO == pTOTAL_REGISTROS_COPIADO) {
-                            jProgressBar1.setValue(100);
-                            qtdInternosPop = 0;                            
-                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");                            
+                        if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                            jBtSair.setEnabled(true);
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
                             dispose();
                         }
                     }
@@ -966,7 +966,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         }
         // THREAD DA BARRA DE EXECUÇÃO
         try {
-            Thread t = new Thread() {
+            Thread t1 = new Thread() {
                 public void run() {
                     jProgressBar1.setMaximum(jTabelaDestinoInternos.getRowCount());
                     Rectangle rect;
@@ -983,20 +983,17 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
                             jTabelaDestinoInternos.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
                         }
-                        pTOTAL_REGISTROS_COPIADO = i + 1;
-                        jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS_COPIADO));
+                        pTOTAL_REGISTROS = i + 1;
+                        jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
                         jProgressBar1.setValue(i);
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException ex) {
-                        }
                     }
                     try {
-                    } catch (Exception e) {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
                     }
                 }
             };
-            t.start();
+            t1.start();
         } catch (Exception e) {
         }
     }
