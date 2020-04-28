@@ -450,15 +450,49 @@ public class ControleAtividadesUnidade {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ATIVIDADES_UNIDADE_SEGURANCA (IdAtividade,"
-                    + "CelularLocalizadoConvivencia,ObjetoNaoAutorizadoLocalizadoConvivencia,RevistaCela,OcorrenciaFuga,"
+                    + "CelularLocalizadoConvivencia,ObjetoNaoAutorizadoLocalizadoConvivencia,RevistaCela,TentativaFuga,OcorrenciaFuga,"
                     + "OcorrenciaRebeliao,OcorrenciaFerido,OcorrenciaIndisciplina,OcorrenciaRefem,OcorrenciaGravementeFeridoMorto,"
                     + "HorasInterrupcaoCFTV,DiasInterrupcaoScannerCorporal,DiasInterrupcaoRaioXDetectorMetais,DiasInterrupcaoVeiculoTransportePreso,"
-                    + "FalhaGeradorEnergia,HorasMauFuncionamentoBRS,AbsorventesEntreguesPortariaScanner,FraldasEntreguesPortariaScanner) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "FalhaGeradorEnergia,HorasMauFuncionamentoBRS,AbsorventesEntreguesPortariaScanner,FraldasEntreguesPortariaScanner) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAtividade.getChave());
             pst.setInt(2, objAtividade.getCelularLocalizadoConvivencia());
             pst.setInt(3, objAtividade.getObjetoNaoAutorizadoLocalizadoConvivencia());
             pst.setInt(4, objAtividade.getRevistaCela());
-//            pst.setInt(5, objAtividade.getTentativaFuga());
+            pst.setInt(5, objAtividade.getTentativaFuga());
+            pst.setInt(6, objAtividade.getOcorrenciaFuga());
+            pst.setInt(7, objAtividade.getOcorrenciaRebeliao());
+            pst.setInt(8, objAtividade.getOcorrenciaFerido());
+            pst.setInt(9, objAtividade.getOcorrenciaIndisciplina());
+            pst.setInt(10, objAtividade.getOcorrenciaRefem());
+            pst.setInt(11, objAtividade.getOcorrenciaGravementeFeridoMorto());
+            pst.setInt(12, objAtividade.getHorasInterrupcaoCFTV());
+            pst.setInt(13, objAtividade.getDiasInterrupcaoScannerCorporal());
+            pst.setInt(14, objAtividade.getDiasInterrupcaoRaioXDetectorMetais());
+            pst.setInt(15, objAtividade.getDiasInterrupcaoVeiculoTransportePreso());
+            pst.setInt(16, objAtividade.getFalhaGeradorEnergia());
+            pst.setInt(17, objAtividade.getHorasMauFuncionamentoBRS());
+            pst.setInt(18, objAtividade.getAbsorventesEntreguesPortariaScanner());
+            pst.setInt(19, objAtividade.getFraldasEntreguesPortariaScanner());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (ATIVIDADES_UNIDADE_SEGURANCA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAtividade;
+    }
+
+    public AtividadesMensalRealizadaUnidades alterarSEG(AtividadesMensalRealizadaUnidades objAtividade) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE_SEGURANCA SET CelularLocalizadoConvivencia=?,"
+                    + "ObjetoNaoAutorizadoLocalizadoConvivencia=?,RevistaCela=?,TentativaFuga=?,OcorrenciaFuga=?,OcorrenciaRebeliao=?,OcorrenciaFerido=?,"
+                    + "OcorrenciaIndisciplina=?,OcorrenciaRefem=?,OcorrenciaGravementeFeridoMorto=?,HorasInterrupcaoCFTV=?,DiasInterrupcaoScannerCorporal=?,"
+                    + "DiasInterrupcaoRaioXDetectorMetais=?,DiasInterrupcaoVeiculoTransportePreso=?,FalhaGeradorEnergia=?,HorasMauFuncionamentoBRS=?,"
+                    + "AbsorventesEntreguesPortariaScanner=?,FraldasEntreguesPortariaScanner=? WHERE IdAtividade='" + objAtividade.getChave() + "'");
+            pst.setInt(1, objAtividade.getCelularLocalizadoConvivencia());
+            pst.setInt(2, objAtividade.getObjetoNaoAutorizadoLocalizadoConvivencia());
+            pst.setInt(3, objAtividade.getRevistaCela());
+            pst.setInt(4, objAtividade.getTentativaFuga());
             pst.setInt(5, objAtividade.getOcorrenciaFuga());
             pst.setInt(6, objAtividade.getOcorrenciaRebeliao());
             pst.setInt(7, objAtividade.getOcorrenciaFerido());
@@ -473,40 +507,6 @@ public class ControleAtividadesUnidade {
             pst.setInt(16, objAtividade.getHorasMauFuncionamentoBRS());
             pst.setInt(17, objAtividade.getAbsorventesEntreguesPortariaScanner());
             pst.setInt(18, objAtividade.getFraldasEntreguesPortariaScanner());
-            pst.execute();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (ATIVIDADES_UNIDADE_SEGURANCA) os Dados.\n\nERRO: " + ex);
-        }
-        conecta.desconecta();
-        return objAtividade;
-    }
-
-    public AtividadesMensalRealizadaUnidades alterarSEG(AtividadesMensalRealizadaUnidades objAtividade) {
-        conecta.abrirConexao();
-        try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ATIVIDADES_UNIDADE_SEGURANCA SET CelularLocalizadoConvivencia=?,"
-                    + "OcorrenciaFuga=?,OcorrenciaRebeliao=?,OcorrenciaFerido=?,ObjetoNaoAutorizadoLocalizadoConvivencia=?,RevistaCela=?,"
-                    + "OcorrenciaIndisciplina=?,OcorrenciaRefem=?,OcorrenciaGravementeFeridoMorto=?,HorasInterrupcaoCFTV=?,DiasInterrupcaoScannerCorporal=?,"
-                    + "DiasInterrupcaoRaioXDetectorMetais=?,DiasInterrupcaoVeiculoTransportePreso=?,FalhaGeradorEnergia=?,HorasMauFuncionamentoBRS=?,"
-                    + "AbsorventesEntreguesPortariaScanner=?,FraldasEntreguesPortariaScanner=? WHERE IdAtividade='" + objAtividade.getChave() + "'");
-            pst.setInt(1, objAtividade.getCelularLocalizadoConvivencia());
-            pst.setInt(2, objAtividade.getObjetoNaoAutorizadoLocalizadoConvivencia());
-            pst.setInt(3, objAtividade.getRevistaCela());
-//            pst.setInt(4, objAtividade.getTentativaFuga());
-            pst.setInt(4, objAtividade.getOcorrenciaFuga());
-            pst.setInt(5, objAtividade.getOcorrenciaRebeliao());
-            pst.setInt(6, objAtividade.getOcorrenciaFerido());
-            pst.setInt(7, objAtividade.getOcorrenciaIndisciplina());
-            pst.setInt(8, objAtividade.getOcorrenciaRefem());
-            pst.setInt(9, objAtividade.getOcorrenciaGravementeFeridoMorto());
-            pst.setInt(10, objAtividade.getHorasInterrupcaoCFTV());
-            pst.setInt(11, objAtividade.getDiasInterrupcaoScannerCorporal());
-            pst.setInt(12, objAtividade.getDiasInterrupcaoRaioXDetectorMetais());
-            pst.setInt(13, objAtividade.getDiasInterrupcaoVeiculoTransportePreso());
-            pst.setInt(14, objAtividade.getFalhaGeradorEnergia());
-            pst.setInt(15, objAtividade.getHorasMauFuncionamentoBRS());
-            pst.setInt(16, objAtividade.getAbsorventesEntreguesPortariaScanner());
-            pst.setInt(17, objAtividade.getFraldasEntreguesPortariaScanner());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (ATIVIDADES_UNIDADE_SEGURANCA) os Dados.\n\nERRO: " + ex);

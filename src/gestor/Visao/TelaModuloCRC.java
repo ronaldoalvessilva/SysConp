@@ -128,6 +128,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaRevalidacaoAtestadoReclusao objAtestadoValidaAtestado = null;
     private TelaSolicitacaoAuxilioReclusaoCRC objSolicitaAtestaRec = null;
     private TelaEmissaoAtestadoReclusaoCRC objEmissaoARC = null;
+    private TelaProrrogracaoSaidaTemporariaDomiciliar objProrroga = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -285,6 +286,9 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static String impressaoAtestado_CRC = "Movimentação:Emissão Atestado de Reclusão - CRC:Impressão";
     public static String validadorAtestado_CRC = "Movimentação:Validar Atestado de Reclusão - CRC";
     //
+    public static String telaProrrogracaoSaidaTMPPDManu_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Manutenção";
+    public static String telaProrrogracaoSaidaTMPPDInt_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Internos";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -373,6 +377,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String pNomeIARC = "";
     String pNomeVARC = "";
     //
+    String pNomePSTPM = "";
+    String pNomePSTPI = "";
 
     /**
      * Creates new form TelaCRC
@@ -438,6 +444,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         PrevisaoSaida = new javax.swing.JMenuItem();
         jSaidaInternos = new javax.swing.JMenuItem();
         jTransferenciaInternos = new javax.swing.JMenuItem();
+        jProrrogacaoSaidaTemporaria = new javax.swing.JMenuItem();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         ListaPassagemInternosAlbergados = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -794,6 +801,14 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             }
         });
         jMenuMovimentacao.add(jTransferenciaInternos);
+
+        jProrrogacaoSaidaTemporaria.setText("Prorrogação de Prazo para Saída Temporaria/Prisão Domiciliar");
+        jProrrogacaoSaidaTemporaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jProrrogacaoSaidaTemporariaActionPerformed(evt);
+            }
+        });
+        jMenuMovimentacao.add(jProrrogacaoSaidaTemporaria);
         jMenuMovimentacao.add(jSeparator20);
 
         ListaPassagemInternosAlbergados.setText("Lista de Passagem Internos Albergados");
@@ -3415,6 +3430,40 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRel.show();
     }//GEN-LAST:event_jInternosTornozeleirasActionPerformed
 
+    private void jProrrogacaoSaidaTemporariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProrrogacaoSaidaTemporariaActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaProrrogracaoSaidaTMPPDManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaProrrogracaoSaidaTMPPDManu_CRC) && codAbrirCRC == 1) {
+            if (objProrroga == null || objProrroga.isClosed()) {
+                objProrroga = new TelaProrrogracaoSaidaTemporariaDomiciliar();
+                jPainelCRC.add(objProrroga);
+                objProrroga.setVisible(true);
+            } else {
+                if (objProrroga.isVisible()) {
+                    if (objProrroga.isIcon()) { // Se esta minimizado
+                        try {
+                            objProrroga.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objProrroga.toFront(); // traz para frente
+                        objProrroga.pack();//volta frame 
+                    }
+                } else {
+                    objProrroga = new TelaProrrogracaoSaidaTemporariaDomiciliar();
+                    TelaModuloCRC.jPainelCRC.add(objProrroga);//adicona frame ao JDesktopPane  
+                    objProrroga.setVisible(true);
+                }
+            }
+            try {
+                objProrroga.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jProrrogacaoSaidaTemporariaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3516,6 +3565,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jPopulacaoCarceraria;
     private javax.swing.JMenuItem jProntuarioInternosUnidade;
     private javax.swing.JMenuItem jProntuariosIntrernos;
+    private javax.swing.JMenuItem jProrrogacaoSaidaTemporaria;
     private javax.swing.JMenuItem jRelatorioDocumentacaoCompleta;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRelatorioVisitasAdvogadosInternosGeral;
@@ -4768,6 +4818,20 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomeVARC = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaProrrogracaoSaidaTMPPDManu_CRC + "'");
+            conecta.rs.first();
+            pNomePSTPM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaProrrogracaoSaidaTMPPDInt_CRC + "'");
+            conecta.rs.first();
+            pNomePSTPI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         // TIPO DE OPERAÇÃO
         if (!pNomeOP.equals(telaTipoOPCRC) || pNomeOP == null || pNomeOP.equals("")) {
@@ -5154,6 +5218,18 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(validadorAtestado_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePSTPM.equals(telaProrrogracaoSaidaTMPPDManu_CRC) || pNomePSTPM == null || pNomePSTPM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaProrrogracaoSaidaTMPPDManu_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePSTPI.equals(telaProrrogracaoSaidaTMPPDInt_CRC) || pNomePSTPI == null || pNomePSTPI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaProrrogracaoSaidaTMPPDInt_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

@@ -531,7 +531,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaPessoasRefem = new javax.swing.JFormattedTextField();
         jNumeroOcorrenciaPessoaFerida = new javax.swing.JFormattedTextField();
         jNumeroOcorrenciaRebeliao = new javax.swing.JFormattedTextField();
-        jNumeroOcorrenciaTentaFuga = new javax.swing.JFormattedTextField();
+        jNumeroOcorrenciaFuga = new javax.swing.JFormattedTextField();
         jNumeroInterFuncVeiculosTP = new javax.swing.JFormattedTextField();
         jLabel78 = new javax.swing.JLabel();
         jNumeroAbsorEntregueVisitas = new javax.swing.JFormattedTextField();
@@ -545,6 +545,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroDiasSemScannerCorpo = new javax.swing.JFormattedTextField();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
+        jLabel157 = new javax.swing.JLabel();
+        jNumeroOcorrenciaTentaFuga = new javax.swing.JFormattedTextField();
         jPanel29 = new javax.swing.JPanel();
         jPanel40 = new javax.swing.JPanel();
         jLabel91 = new javax.swing.JLabel();
@@ -2636,7 +2638,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel77)
                     .addComponent(jNumeroOcorrenciasInd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+                .addGap(3, 3, 3))
         );
 
         jPanel36Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jNumeroAparelhoConvive, jNumeroOcorrenciasInd, jNumeroProcedRevista, jObjetosMateriais});
@@ -2725,10 +2727,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroOcorrenciaRebeliao.setText("0");
         jNumeroOcorrenciaRebeliao.setEnabled(false);
 
-        jNumeroOcorrenciaTentaFuga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jNumeroOcorrenciaTentaFuga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jNumeroOcorrenciaTentaFuga.setText("0");
-        jNumeroOcorrenciaTentaFuga.setEnabled(false);
+        jNumeroOcorrenciaFuga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaFuga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaFuga.setText("0");
+        jNumeroOcorrenciaFuga.setEnabled(false);
 
         jNumeroInterFuncVeiculosTP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNumeroInterFuncVeiculosTP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -2737,8 +2739,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel78.setText(" Nº de ocorrência de tentativa de fugas");
-        jLabel78.setToolTipText(" Nº de ocorrência de tentativa de fugas");
+        jLabel78.setText(" Nº de ocorrência de  fugas");
+        jLabel78.setToolTipText(" Nº de ocorrência de  fugas");
 
         jNumeroAbsorEntregueVisitas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jNumeroAbsorEntregueVisitas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -2795,13 +2797,23 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jLabel84.setText(" Nº dias com interrupção dos serviços de scanner corporal");
         jLabel84.setToolTipText(" Nº dias com interrupção dos serviços de scanner corporal");
 
+        jLabel157.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel157.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel157.setText("Nº de ocorrência de tentativa de fugas");
+
+        jNumeroOcorrenciaTentaFuga.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jNumeroOcorrenciaTentaFuga.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jNumeroOcorrenciaTentaFuga.setText("0");
+        jNumeroOcorrenciaTentaFuga.setToolTipText("Nº Ocorrência Tentavia Fuga");
+        jNumeroOcorrenciaTentaFuga.setEnabled(false);
+
         javax.swing.GroupLayout jPanel43Layout = new javax.swing.GroupLayout(jPanel43);
         jPanel43.setLayout(jPanel43Layout);
         jPanel43Layout.setHorizontalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel43Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel90)
                     .addComponent(jLabel88)
                     .addComponent(jLabel87)
@@ -2813,35 +2825,42 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     .addComponent(jLabel81)
                     .addComponent(jLabel80)
                     .addComponent(jLabel79)
+                    .addComponent(jLabel89)
                     .addComponent(jLabel78)
-                    .addComponent(jLabel89))
+                    .addComponent(jLabel157))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jNumeroHorasTVCFTV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaPessoasFeridaMortas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroFraldasEntreguePortaria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaPessoasRefem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaPessoaFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaRebeliao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroInterFuncVeiculosTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroAbsorEntregueVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroFalhasGerador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroHorasBloqueador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroDiasSemScannerCorpo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jNumeroDiasIntMetaPortatil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jNumeroHorasTVCFTV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroOcorrenciaPessoasFeridaMortas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroFraldasEntreguePortaria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroOcorrenciaPessoasRefem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroOcorrenciaPessoaFerida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroOcorrenciaRebeliao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroInterFuncVeiculosTP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroAbsorEntregueVisitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroFalhasGerador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroHorasBloqueador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroDiasSemScannerCorpo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroDiasIntMetaPortatil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jNumeroOcorrenciaFuga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAbsorEntregueVisitas, jNumeroDiasIntMetaPortatil, jNumeroDiasSemScannerCorpo, jNumeroFalhasGerador, jNumeroFraldasEntreguePortaria, jNumeroHorasBloqueador, jNumeroHorasTVCFTV, jNumeroInterFuncVeiculosTP, jNumeroOcorrenciaPessoaFerida, jNumeroOcorrenciaPessoasFeridaMortas, jNumeroOcorrenciaPessoasRefem, jNumeroOcorrenciaRebeliao, jNumeroOcorrenciaTentaFuga});
+        jPanel43Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jNumeroAbsorEntregueVisitas, jNumeroDiasIntMetaPortatil, jNumeroDiasSemScannerCorpo, jNumeroFalhasGerador, jNumeroFraldasEntreguePortaria, jNumeroHorasBloqueador, jNumeroHorasTVCFTV, jNumeroInterFuncVeiculosTP, jNumeroOcorrenciaFuga, jNumeroOcorrenciaPessoaFerida, jNumeroOcorrenciaPessoasFeridaMortas, jNumeroOcorrenciaPessoasRefem, jNumeroOcorrenciaRebeliao});
 
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel43Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addGap(3, 3, 3)
+                .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel157))
+                .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel78)
-                    .addComponent(jNumeroOcorrenciaTentaFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNumeroOcorrenciaFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel79)
@@ -2917,8 +2936,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3))
+                .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, 288, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("SEG", jPanel8);
@@ -4396,8 +4414,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         setBounds(300, 30, 525, 504);
@@ -4661,7 +4679,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
                     jNumeroAparelhoConvive.setText(String.valueOf(dd.getCelularLocalizadoConvivencia()));
                     jObjetosMateriais.setText(String.valueOf(dd.getObjetoNaoAutorizadoLocalizadoConvivencia()));
                     jNumeroProcedRevista.setText(String.valueOf(dd.getRevistaCela()));
-                    jNumeroOcorrenciaTentaFuga.setText(String.valueOf(dd.getOcorrenciaFuga()));
+                    jNumeroOcorrenciaTentaFuga.setText(String.valueOf(dd.getTentativaFuga()));
+                    jNumeroOcorrenciaFuga.setText(String.valueOf(dd.getOcorrenciaFuga()));
                     jNumeroOcorrenciaRebeliao.setText(String.valueOf(dd.getOcorrenciaRebeliao()));
                     jNumeroOcorrenciaPessoaFerida.setText(String.valueOf(dd.getOcorrenciaFerido()));
                     jNumeroOcorrenciaPessoasRefem.setText(String.valueOf(dd.getOcorrenciaRefem()));
@@ -5803,6 +5822,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -5917,6 +5937,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jNumeroHorasBloqueador;
     private javax.swing.JFormattedTextField jNumeroHorasTVCFTV;
     private javax.swing.JFormattedTextField jNumeroInterFuncVeiculosTP;
+    private javax.swing.JFormattedTextField jNumeroOcorrenciaFuga;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoaFerida;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasFeridaMortas;
     private javax.swing.JFormattedTextField jNumeroOcorrenciaPessoasRefem;
@@ -6111,6 +6132,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroProcedRevista.setBackground(Color.white);
         jNumeroOcorrenciasInd.setBackground(Color.white);
         jNumeroOcorrenciaTentaFuga.setBackground(Color.white);
+        jNumeroOcorrenciaFuga.setBackground(Color.white);
         jNumeroOcorrenciaRebeliao.setBackground(Color.white);
         jNumeroOcorrenciaPessoaFerida.setBackground(Color.white);
         jNumeroOcorrenciaPessoasRefem.setBackground(Color.white);
@@ -6245,6 +6267,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroProcedRevista.setDocument(new LimiteDigitosSoNum(8));
         jNumeroOcorrenciasInd.setDocument(new LimiteDigitosSoNum(8));
         jNumeroOcorrenciaTentaFuga.setDocument(new LimiteDigitosSoNum(8));
+        jNumeroOcorrenciaFuga.setDocument(new LimiteDigitosSoNum(8));
         jNumeroOcorrenciaRebeliao.setDocument(new LimiteDigitosSoNum(8));
         jNumeroOcorrenciaPessoaFerida.setDocument(new LimiteDigitosSoNum(8));
         jNumeroOcorrenciaPessoasRefem.setDocument(new LimiteDigitosSoNum(8));
@@ -6404,6 +6427,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroProcedRevista.setEnabled(opcaoF);
         jNumeroOcorrenciasInd.setEnabled(opcaoV);
         jNumeroOcorrenciaTentaFuga.setEnabled(opcaoV);
+        jNumeroOcorrenciaFuga.setEnabled(opcaoV);
         jNumeroOcorrenciaRebeliao.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoaFerida.setEnabled(opcaoV);
         jNumeroOcorrenciaPessoasRefem.setEnabled(opcaoV);
@@ -6574,6 +6598,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jNumeroProcedRevista.setText("0");
         jNumeroOcorrenciasInd.setText("0");
         jNumeroOcorrenciaTentaFuga.setText("0");
+        jNumeroOcorrenciaFuga.setText("0");
         jNumeroOcorrenciaRebeliao.setText("0");
         jNumeroOcorrenciaPessoaFerida.setText("0");
         jNumeroOcorrenciaPessoasRefem.setText("0");
@@ -7398,7 +7423,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         objAtividade.setObjetoNaoAutorizadoLocalizadoConvivencia(Integer.valueOf(jObjetosMateriais.getText()));
         objAtividade.setRevistaCela(Integer.valueOf(jNumeroProcedRevista.getText()));
         objAtividade.setOcorrenciaIndisciplina(Integer.valueOf(jNumeroOcorrenciasInd.getText()));
-        objAtividade.setOcorrenciaFuga(Integer.valueOf(jNumeroOcorrenciaTentaFuga.getText()));
+        objAtividade.setTentativaFuga(Integer.valueOf(jNumeroOcorrenciaTentaFuga.getText()));
+        objAtividade.setOcorrenciaFuga(Integer.valueOf(jNumeroOcorrenciaFuga.getText()));
         objAtividade.setOcorrenciaRebeliao(Integer.valueOf(jNumeroOcorrenciaRebeliao.getText()));
         objAtividade.setOcorrenciaFerido(Integer.valueOf(jNumeroOcorrenciaPessoaFerida.getText()));
         objAtividade.setOcorrenciaRefem(Integer.valueOf(jNumeroOcorrenciaPessoasRefem.getText()));

@@ -37,8 +37,8 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" min="-2" pref="437" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -4417,8 +4417,7 @@
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="jPanel36" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                      <Component id="jPanel43" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Component id="jPanel43" pref="288" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4482,7 +4481,7 @@
                               <Component id="jLabel77" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jNumeroOcorrenciasInd" linkSize="13" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -4637,9 +4636,9 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jLabel90" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
@@ -4651,24 +4650,28 @@
                               <Component id="jLabel81" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel80" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel79" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel89" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel157" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jNumeroHorasTVCFTV" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaPessoasFeridaMortas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroFraldasEntreguePortaria" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaPessoasRefem" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaPessoaFerida" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaRebeliao" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaTentaFuga" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroInterFuncVeiculosTP" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroAbsorEntregueVisitas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroFalhasGerador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroHorasBloqueador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroDiasSemScannerCorpo" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="jNumeroDiasIntMetaPortatil" linkSize="33" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jNumeroHorasTVCFTV" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroOcorrenciaPessoasFeridaMortas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroFraldasEntreguePortaria" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroOcorrenciaPessoasRefem" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroOcorrenciaPessoaFerida" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroOcorrenciaRebeliao" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroInterFuncVeiculosTP" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroAbsorEntregueVisitas" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroFalhasGerador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroHorasBloqueador" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroDiasSemScannerCorpo" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="jNumeroDiasIntMetaPortatil" linkSize="33" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="jNumeroOcorrenciaFuga" linkSize="33" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jNumeroOcorrenciaTentaFuga" alignment="1" min="-2" pref="83" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -4677,10 +4680,15 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jNumeroOcorrenciaTentaFuga" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel157" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel78" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jNumeroOcorrenciaTentaFuga" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jNumeroOcorrenciaFuga" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
@@ -4892,7 +4900,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jNumeroOcorrenciaTentaFuga">
+                <Component class="javax.swing.JFormattedTextField" name="jNumeroOcorrenciaFuga">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -4924,8 +4932,8 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="cc" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value=" N&#xba; de ocorr&#xea;ncia de tentativa de fugas"/>
-                    <Property name="toolTipText" type="java.lang.String" value=" N&#xba; de ocorr&#xea;ncia de tentativa de fugas"/>
+                    <Property name="text" type="java.lang.String" value=" N&#xba; de ocorr&#xea;ncia de  fugas"/>
+                    <Property name="toolTipText" type="java.lang.String" value=" N&#xba; de ocorr&#xea;ncia de  fugas"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="jNumeroAbsorEntregueVisitas">
@@ -5058,6 +5066,30 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value=" N&#xba; dias com interrup&#xe7;&#xe3;o dos servi&#xe7;os de scanner corporal"/>
                     <Property name="toolTipText" type="java.lang.String" value=" N&#xba; dias com interrup&#xe7;&#xe3;o dos servi&#xe7;os de scanner corporal"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel157">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="cc" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="N&#xba; de ocorr&#xea;ncia de tentativa de fugas"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JFormattedTextField" name="jNumeroOcorrenciaTentaFuga">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                        <BevelBorder bevelType="1"/>
+                      </Border>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="toolTipText" type="java.lang.String" value="N&#xba; Ocorr&#xea;ncia Tentavia Fuga"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>

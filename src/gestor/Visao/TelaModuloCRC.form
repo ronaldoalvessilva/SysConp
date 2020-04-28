@@ -248,6 +248,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTransferenciaInternosActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jProrrogacaoSaidaTemporaria">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Prorroga&#xe7;&#xe3;o de Prazo para Sa&#xed;da Temporaria/Pris&#xe3;o Domiciliar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jProrrogacaoSaidaTemporariaActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator20">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ListaPassagemInternosAlbergados">
