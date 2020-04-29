@@ -28,8 +28,11 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
     private Integer idSaida;
     private String nomeInternoPro;
     private Date dataSaida;
-    private Date dataPrevisaoRetorno;
+    private String dataPrevisaoRetorno;
     private Date dataNova;
+    private Integer idRetorno;
+    private String nrDocRetorno;
+    private String dataEvasao;
     private String usuarioInsert;
     private String dataInsert;
     private String horarioInsert;
@@ -40,7 +43,7 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
     public ProrrogarSaidaTemporariaPrisaoDomicilicar() {
     }
 
-    public ProrrogarSaidaTemporariaPrisaoDomicilicar(Integer idRegistro, String statusRegistro, Date dataRegistro, String responsavel, String tipoSaida, String documento, Date dataDocumento, String observacao, Integer idItem, Integer idInternoPro, String situacaoPro, Integer idSaida, String nomeInternoPro, Date dataSaida, Date dataPrevisaoRetorno, Date dataNova, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public ProrrogarSaidaTemporariaPrisaoDomicilicar(Integer idRegistro, String statusRegistro, Date dataRegistro, String responsavel, String tipoSaida, String documento, Date dataDocumento, String observacao, Integer idItem, Integer idInternoPro, String situacaoPro, Integer idSaida, String nomeInternoPro, Date dataSaida, String dataPrevisaoRetorno, Date dataNova, Integer idRetorno, String nrDocRetorno, String dataEvasao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -57,6 +60,9 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
         this.dataSaida = dataSaida;
         this.dataPrevisaoRetorno = dataPrevisaoRetorno;
         this.dataNova = dataNova;
+        this.idRetorno = idRetorno;
+        this.nrDocRetorno = nrDocRetorno;
+        this.dataEvasao = dataEvasao;
         this.usuarioInsert = usuarioInsert;
         this.dataInsert = dataInsert;
         this.horarioInsert = horarioInsert;
@@ -264,14 +270,14 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
     /**
      * @return the dataPrevisaoRetorno
      */
-    public Date getDataPrevisaoRetorno() {
+    public String getDataPrevisaoRetorno() {
         return dataPrevisaoRetorno;
     }
 
     /**
      * @param dataPrevisaoRetorno the dataPrevisaoRetorno to set
      */
-    public void setDataPrevisaoRetorno(Date dataPrevisaoRetorno) {
+    public void setDataPrevisaoRetorno(String dataPrevisaoRetorno) {
         this.dataPrevisaoRetorno = dataPrevisaoRetorno;
     }
 
@@ -287,6 +293,48 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
      */
     public void setDataNova(Date dataNova) {
         this.dataNova = dataNova;
+    }
+
+    /**
+     * @return the idRetorno
+     */
+    public Integer getIdRetorno() {
+        return idRetorno;
+    }
+
+    /**
+     * @param idRetorno the idRetorno to set
+     */
+    public void setIdRetorno(Integer idRetorno) {
+        this.idRetorno = idRetorno;
+    }
+
+    /**
+     * @return the nrDocRetorno
+     */
+    public String getNrDocRetorno() {
+        return nrDocRetorno;
+    }
+
+    /**
+     * @param nrDocRetorno the nrDocRetorno to set
+     */
+    public void setNrDocRetorno(String nrDocRetorno) {
+        this.nrDocRetorno = nrDocRetorno;
+    }
+
+    /**
+     * @return the dataEvasao
+     */
+    public String getDataEvasao() {
+        return dataEvasao;
+    }
+
+    /**
+     * @param dataEvasao the dataEvasao to set
+     */
+    public void setDataEvasao(String dataEvasao) {
+        this.dataEvasao = dataEvasao;
     }
 
     /**

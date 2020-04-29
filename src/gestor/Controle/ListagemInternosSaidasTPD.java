@@ -8,7 +8,6 @@ package gestor.Controle;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ProrrogarSaidaTemporariaPrisaoDomicilicar;
 import static gestor.Visao.TelaProrrogracaoSaidaTemporariaDomiciliar.IdRegistro;
-import static gestor.Visao.TelaProrrogracaoSaidaTemporariaDomiciliar.jCodigo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +27,22 @@ public class ListagemInternosSaidasTPD {
         List<ProrrogarSaidaTemporariaPrisaoDomicilicar> listaTodosInternosCodigo = new ArrayList<ProrrogarSaidaTemporariaPrisaoDomicilicar>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdItem,IdProrroga,IdInternoCrc, "
-                    + "NomeInternoCrc,DataPrevRetorno,IdSaida "
-                    + "FROM ITEM_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR "
+            conecta.executaSQL("SELECT IdItem,IdProrroga, "
+                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc,ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdSaida, "
+                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataNova "
+                    + "FROM ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR "
                     + "INNER JOIN PRONTUARIOSCRC "
-                    + "ON ITEM_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "ON ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE IdProrroga='" + IdRegistro.getText() + "'");
             while (conecta.rs.next()) {
                 ProrrogarSaidaTemporariaPrisaoDomicilicar pProrroga = new ProrrogarSaidaTemporariaPrisaoDomicilicar();
                 pProrroga.setIdItem(conecta.rs.getInt("IdItem"));
                 pProrroga.setIdRegistro(conecta.rs.getInt("IdProrroga"));
-                pProrroga.setStatusRegistro(conecta.rs.getString("IdInternoCrc"));                
-                pProrroga.setResponsavel(conecta.rs.getString("NomeInternoCrc"));
-                pProrroga.setDataRegistro(conecta.rs.getDate("DataPrevRetorno"));
-                pProrroga.setIdItem(conecta.rs.getInt("IdSaida"));
+                pProrroga.setIdInternoPro(conecta.rs.getInt("IdInternoCrc"));                
+                pProrroga.setNomeInternoPro(conecta.rs.getString("NomeInternoCrc"));
+                pProrroga.setIdSaida(conecta.rs.getInt("IdSaida"));
+                pProrroga.setDataNova(conecta.rs.getDate("DaTaNova"));
                 listaTodosInternosCodigo.add(pProrroga);
             }
             return listaTodosInternosCodigo;

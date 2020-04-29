@@ -13,10 +13,10 @@ import gestor.Controle.ListagemProrrogacaoSaidaTMPPD;
 import gestor.Controle.ListagemProrrogacaoSaidaTMPPD_CODIGO;
 import gestor.Controle.ListagemProrrogacaoSelecionada;
 import gestor.Controle.ListagemSaidasTMP_PD_Data;
+import gestor.Controle.PesquisaExistenciaInterno;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.ProrrogarSaidaTemporariaPrisaoDomicilicar;
-import static gestor.Visao.TelaAtividadesMensalUnidade.pTOTAL_REGISTROS_ATIVIDADES;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
 import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
@@ -36,7 +36,9 @@ import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -60,6 +62,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     ControleProrrogarSaidaTmpPD control = new ControleProrrogarSaidaTmpPD();
     ListagemInternosSaidasTPD listaInternos = new ListagemInternosSaidasTPD();
     ListagemProrrogacaoInternosSelecionados listaInternosSelec = new ListagemProrrogacaoInternosSelecionados();
+    PesquisaExistenciaInterno pesquisaInternoExiste = new PesquisaExistenciaInterno();
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
     // Variáveis para gravar o log
@@ -72,8 +75,12 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     int acao;
     String pDATA_PESQUISA_TABELA = "";
     String pDATA_PREVISAO_PESQUISA_TABELA = "";
-    Integer ID_ITEM = 0;
+    public static Integer ID_ITEM = 0;
     public static String IdItem = "";
+    Integer pID_INTERNO = 0;
+    Integer pID_ITEM = 0;
+    Integer pID_REGISTRO = 0;
+    public static int pTOTAL_REGISTROS_ATIVIDADES = 0;
 
     /**
      * Creates new form TelaProrrogracaoSaidaTemporariaDomiciliar
@@ -150,9 +157,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jDataSaida = new com.toedter.calendar.JDateChooser();
-        jDataPrevisaoRetorno = new com.toedter.calendar.JDateChooser();
         jIdInternoPro = new javax.swing.JTextField();
         jSituacaoPro = new javax.swing.JTextField();
         jIdSaida = new javax.swing.JTextField();
@@ -291,6 +296,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTabelaProrrogacaoSaida.setAutoCreateRowSorter(true);
         jTabelaProrrogacaoSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaProrrogacaoSaida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -299,7 +305,15 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             new String [] {
                 "Código", "Data Registro", "Status", "Tipo de Saída", "Responsável"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTabelaProrrogacaoSaida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabelaProrrogacaoSaidaMouseClicked(evt);
@@ -372,7 +386,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -448,7 +462,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jLabel7.setText("Tipo de Saída");
 
         jComboBoxTipoSaida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBoxTipoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Saída Temporária", "Saida Prisão Domiciliar" }));
+        jComboBoxTipoSaida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "SAIDA TEMPORARIA", "PRISAO DOMICILIAR" }));
         jComboBoxTipoSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxTipoSaida.setEnabled(false);
 
@@ -466,7 +480,22 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(jResponsavel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jDataDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jComboBoxTipoSaida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jResponsavel)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -474,27 +503,12 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jStatusRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jComboBoxTipoSaida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDocumento)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel5))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jDataDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jDataRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -529,7 +543,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addGap(3, 3, 3))
         );
 
@@ -616,7 +630,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -632,11 +646,10 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtSair)
                     .addComponent(jBtAuditoria)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtNovo)
-                        .addComponent(jBtAlterar)
-                        .addComponent(jBtExcluir)
-                        .addComponent(jBtSalvar))
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtSalvar)
+                    .addComponent(jBtNovo)
                     .addComponent(jBtCancelar)
                     .addComponent(jBtFinalizar))
                 .addGap(4, 4, 4))
@@ -651,9 +664,9 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,14 +696,8 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Data Saída");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Data Prev. Ret.");
-
         jDataSaida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDataSaida.setEnabled(false);
-
-        jDataPrevisaoRetorno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jDataPrevisaoRetorno.setEnabled(false);
 
         jIdInternoPro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jIdInternoPro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -733,11 +740,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jDataPrevisaoRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
@@ -745,7 +748,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                             .addComponent(jDataNova, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 86, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -754,7 +757,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 195, Short.MAX_VALUE))
                             .addComponent(jSituacaoPro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -765,7 +768,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     .addComponent(jNomeInternoPro)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(75, 75, 75)))
+                        .addGap(75, 296, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -788,28 +791,27 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14)
                     .addComponent(jLabel15))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jBtPesquisarInterno)
                     .addComponent(jDataNova, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataPrevisaoRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4))
         );
 
+        jTabelaInternos.setAutoCreateRowSorter(true);
         jTabelaInternos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaInternos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IdItem", "Código", "Nome do Interno", "Data Previsão", "ID Saida"
+                "IdItem", "Código", "Nome do Interno", "ID Saida", "Nova Data"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -829,10 +831,10 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             jTabelaInternos.getColumnModel().getColumn(1).setMaxWidth(70);
             jTabelaInternos.getColumnModel().getColumn(2).setMinWidth(250);
             jTabelaInternos.getColumnModel().getColumn(2).setMaxWidth(250);
-            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(90);
-            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(90);
-            jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(70);
-            jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(3).setMinWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(80);
         }
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -912,11 +914,11 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jBtAuditoriaInterno)
                     .addComponent(jBtCancelarInterno)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtNovoInterno)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBtAlterarInterno)
                         .addComponent(jBtExcluirInterno)
-                        .addComponent(jBtSalvarInterno)))
+                        .addComponent(jBtSalvarInterno)
+                        .addComponent(jBtNovoInterno)))
                 .addGap(3, 3, 3))
         );
 
@@ -949,18 +951,21 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
         );
 
-        pack();
+        setBounds(350, 60, 455, 447);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesquisaCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaCodigoActionPerformed
         // TODO add your handling code here:
+        limparTabelaProrrogacao();
         flag = 1;
         Integer row0 = jTabelaProrrogacaoSaida.getModel().getRowCount();
         if (jCodigo.getText().equals("")) {
@@ -996,6 +1001,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
 
     private void jBtDataLancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDataLancamentoActionPerformed
         // TODO add your handling code here:
+        limparTabelaProrrogacao();
         flag = 1;
         Integer row0 = jTabelaProrrogacaoSaida.getModel().getRowCount();
         if (jDataPesqInicial.getDate() == null) {
@@ -1051,6 +1057,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
+        limparTabelaProrrogacao();
         flag = 1;
         Integer row0 = jTabelaProrrogacaoSaida.getModel().getRowCount();
         if (evt.getStateChange() == evt.SELECTED) {
@@ -1128,6 +1135,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 Logger.getLogger(TelaProrrogracaoSaidaTemporariaDomiciliar.class.getName()).log(Level.SEVERE, null, ex);
             }
             //ABA INTERNOS
+            limparTabelaInternos();
             preencherTabela();
         }
     }//GEN-LAST:event_jTabelaProrrogacaoSaidaMouseClicked
@@ -1143,6 +1151,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             limparCampos();
             bloquearCampos();
             bloquearBotoes();
+            limparTabelaInternos();
             Novo();
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
@@ -1266,15 +1275,9 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente finalizar o registro selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    String pFINALIZAR = "FINALIZADO";
-                    jStatusRegistro.setText(pFINALIZAR);
-                    objProrroga.setIdRegistro(Integer.valueOf(IdRegistro.getText()));
-                    objProrroga.setStatusRegistro(jStatusRegistro.getText());
-                    control.finalizarProrrogacao(objProrroga);
                     bloquearCampos();
                     bloquearBotoes();
-                    Finalizar();
-                    JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+                    Finalizar();                    
                 }
             }
         }
@@ -1287,10 +1290,16 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaProrrogracao objAudi = new TelaAuditoriaProrrogracao();
+        TelaModuloCRC.jPainelCRC.add(objAudi);
+        objAudi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // TODO add your handling code here:
+        TelaPesquisaSaidaInternoMOVISR objMOVISR = new TelaPesquisaSaidaInternoMOVISR();
+        TelaModuloCRC.jPainelCRC.add(objMOVISR);
+        objMOVISR.show();
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
@@ -1304,7 +1313,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 statusMov = "Incluiu";
                 horaMov = jHoraSistema.getText();
                 dataModFinal = jDataSistema.getText();
-                limparCampos();
+                limparCamposAbaInternos();
                 bloquearCampos();
                 bloquearBotoes();
                 NovoInterno();
@@ -1350,9 +1359,11 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     dataModFinal = jDataSistema.getText();
                     bloquearCampos();
                     bloquearBotoes();
-                    limparCampos();
-                    objProrroga.setIdItem(Integer.valueOf(IdRegistro.getText()));
-//                    control.excluirInternosProrrogacao(objProrroga);
+                    limparCamposAbaInternos();
+                    objProrroga.setIdItem(ID_ITEM);
+                    control.excluirInternosProrrogacao(objProrroga);
+                    limparTabelaInternos();
+                    preencherTabela();
                     ExcluirInterno();
                     JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
                 }
@@ -1373,25 +1384,42 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             } else if (jDataNova.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a nova data.");
             } else {
+                objProrroga.setIdRegistro(Integer.valueOf(IdRegistro.getText()));
                 objProrroga.setIdInternoPro(Integer.valueOf(jIdInternoPro.getText()));
                 objProrroga.setNomeInternoPro(jNomeInternoPro.getText());
                 objProrroga.setIdSaida(Integer.valueOf(jIdSaida.getText()));
                 objProrroga.setDataSaida(jDataSaida.getDate());
-                objProrroga.setDataPrevisaoRetorno(jDataPrevisaoRetorno.getDate());
                 objProrroga.setDataNova(jDataNova.getDate());
                 if (acao == 3) {
-                    objProrroga.setUsuarioInsert(nameUser);
-                    objProrroga.setDataInsert(dataModFinal);
-                    objProrroga.setHorarioInsert(horaMov);
-                    control.incluirInternosProrrogacao(objProrroga);
-                    buscarCodigoItem();
-                    objLog1();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    bloquearBotoes();
-                    bloquearCampos();
-                    SalvarInterno();
-                    preencherTabela();
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
+                    try {
+                        for (ProrrogarSaidaTemporariaPrisaoDomicilicar pp : pesquisaInternoExiste.read()) {
+                            pID_REGISTRO = pp.getIdRegistro();
+                            pID_ITEM = pp.getIdItem();
+                            pID_INTERNO = pp.getIdInternoPro();
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+//                  //CRISITCAR SE JÁ EXISTE UM INTERNO CADASTRADO NESSE REGISTRO
+                    if (objProrroga.getIdInternoPro().equals(pID_INTERNO) && objProrroga.getIdRegistro().equals(pID_REGISTRO)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído nesse registro.");
+                    } else {
+                        objProrroga.setUsuarioInsert(nameUser);
+                        objProrroga.setDataInsert(dataModFinal);
+                        objProrroga.setHorarioInsert(horaMov);
+                        control.incluirInternosProrrogacao(objProrroga);
+                        buscarCodigoItem();
+                        objLog1();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearBotoes();
+                        bloquearCampos();
+                        limparCamposAbaInternos();
+                        limparTabelaInternos();
+                        SalvarInterno();
+                        preencherTabela();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
                 }
                 if (acao == 4) {
                     objProrroga.setUsuarioUp(nameUser);
@@ -1403,7 +1431,9 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
                     bloquearCampos();
+                    limparCamposAbaInternos();
                     SalvarInterno();
+                    limparTabelaInternos();
                     preencherTabela();
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                 }
@@ -1420,6 +1450,9 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaInternosPro objAudiInt  = new TelaAuditoriaInternosPro();
+        TelaModuloCRC.jPainelCRC.add(objAudiInt);
+        objAudiInt.show();
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jTabelaInternosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaInternosMouseClicked
@@ -1427,7 +1460,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         flag = 1;
         if (flag == 1) {
             IdItem = "" + jTabelaInternos.getValueAt(jTabelaInternos.getSelectedRow(), 0);
-            limparCampos();
+            limparCamposAbaInternos();
             bloquearBotoes();
             bloquearCampos();
             jBtNovo.setEnabled(true);
@@ -1442,12 +1475,12 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             jBtAuditoriaInterno.setEnabled(true);
             try {
                 for (ProrrogarSaidaTemporariaPrisaoDomicilicar pp : listaInternosSelec.read()) {
+                    ID_ITEM = pp.getIdItem();
                     jIdInternoPro.setText(String.valueOf(pp.getIdInternoPro()));
                     jSituacaoPro.setText(pp.getSituacaoPro());
                     jIdSaida.setText(String.valueOf(pp.getIdSaida()));
                     jNomeInternoPro.setText(pp.getNomeInternoPro());
                     jDataSaida.setDate(pp.getDataSaida());
-                    jDataPrevisaoRetorno.setDate(pp.getDataPrevisaoRetorno());
                     jDataNova.setDate(pp.getDataNova());
                 }
             } catch (Exception ex) {
@@ -1479,12 +1512,11 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     private javax.swing.JButton jBtSalvarInterno;
     private javax.swing.JCheckBox jCheckBox1;
     public static javax.swing.JTextField jCodigo;
-    private javax.swing.JComboBox<String> jComboBoxTipoSaida;
+    public static javax.swing.JComboBox<String> jComboBoxTipoSaida;
     private com.toedter.calendar.JDateChooser jDataDocumento;
     private com.toedter.calendar.JDateChooser jDataNova;
     private com.toedter.calendar.JDateChooser jDataPesFinal;
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
-    public static com.toedter.calendar.JDateChooser jDataPrevisaoRetorno;
     private com.toedter.calendar.JDateChooser jDataRegistro;
     public static com.toedter.calendar.JDateChooser jDataSaida;
     private javax.swing.JTextField jDocumento;
@@ -1495,7 +1527,6 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -1557,7 +1588,6 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jIdSaida.setBackground(Color.white);
         jNomeInternoPro.setBackground(Color.white);
         jDataSaida.setBackground(Color.white);
-        jDataPrevisaoRetorno.setBackground(Color.white);
         jDataNova.setBackground(Color.white);
     }
 
@@ -1576,7 +1606,6 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jIdSaida.setEnabled(!true);
         jNomeInternoPro.setEnabled(!true);
         jDataSaida.setEnabled(!true);
-        jDataPrevisaoRetorno.setEnabled(!true);
         jDataNova.setEnabled(!true);
     }
 
@@ -1613,8 +1642,48 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         jIdSaida.setText("");
         jNomeInternoPro.setText("");
         jDataSaida.setDate(null);
-        jDataPrevisaoRetorno.setDate(null);
         jDataNova.setDate(null);
+    }
+
+    public void limparCamposAbaInternos() {
+        jIdInternoPro.setText("");
+        jSituacaoPro.setText("");
+        jIdSaida.setText("");
+        jNomeInternoPro.setText("");
+        jDataSaida.setDate(null);
+        jDataNova.setDate(null);
+    }
+
+    public void limparTabelaProrrogacao() {
+        // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaProrrogacaoSaida.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(i);
+                tblRemove.setRowCount(0);
+                if (tblRemove.getRowCount() < i) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                }
+            }
+        }
+        pTOTAL_REGISTROS_ATIVIDADES = 0;
+        jtotalRegistros.setText("");
+    }
+
+    public void limparTabelaInternos() {
+        // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaInternos.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(i);
+                tblRemove.setRowCount(0);
+                if (tblRemove.getRowCount() < i) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                }
+            }
+        }
     }
 
     public void Novo() {
@@ -1677,7 +1746,30 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     }
 
     public void Finalizar() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
+        Integer rows = jTabelaInternos.getRowCount();
+        if (rows != 0) {
+            for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
+                objProrroga.setIdRegistro(Integer.valueOf(IdRegistro.getText()));
+                objProrroga.setIdRetorno(null);
+                objProrroga.setDataRegistro(null);
+                objProrroga.setNrDocRetorno("");
+                objProrroga.setDataEvasao("");
+                objProrroga.setIdInternoPro((int) jTabelaInternos.getValueAt(i, 1));
+                objProrroga.setIdSaida((int) jTabelaInternos.getValueAt(i, 3));
+                objProrroga.setDataPrevisaoRetorno((String) jTabelaInternos.getValueAt(i, 4)); 
+                control.atualizarDataProrrogacao(objProrroga);
+            }
+            String pFINALIZAR = "FINALIZADO";
+            jStatusRegistro.setText(pFINALIZAR);
+            objProrroga.setIdRegistro(Integer.valueOf(IdRegistro.getText()));
+            objProrroga.setStatusRegistro(jStatusRegistro.getText());
+            control.finalizarProrrogacao(objProrroga);
+            JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+            jBtNovo.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+        }
     }
 
     public void buscarCodigo() {
@@ -1685,7 +1777,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         try {
             conecta.executaSQL("SELECT * FROM PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR");
             conecta.rs.last();
-            IdRegistro.setText(conecta.rs.getString("IdPro"));
+            IdRegistro.setText(conecta.rs.getString("IdProrroga"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do lançamento.");
         }
@@ -1693,23 +1785,49 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     }
 
     public void NovoInterno() {
-
+        jDataNova.setEnabled(true);
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+        jBtPesquisarInterno.setEnabled(true);
     }
 
     public void AlterarInterno() {
-
+        jDataNova.setEnabled(true);
+        jBtSalvarInterno.setEnabled(true);
+        jBtCancelarInterno.setEnabled(true);
+        jBtPesquisarInterno.setEnabled(true);
     }
 
     public void ExcluirInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void SalvarInterno() {
-
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void CancelarInterno() {
-
+        bloquearBotoes();
+        limparCamposAbaInternos();
+        jBtNovoInterno.setEnabled(true);
+        //
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
     }
 
     public void buscarCodigoItem() {
@@ -1733,12 +1851,12 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaInternos.getModel();
             try {
                 for (ProrrogarSaidaTemporariaPrisaoDomicilicar dd : listaInternos.read()) {
-                    pDATA_PREVISAO_PESQUISA_TABELA = String.valueOf(dd.getDataPrevisaoRetorno());
-                    String dia = pDATA_PREVISAO_PESQUISA_TABELA.substring(8, 10);
-                    String mes = pDATA_PREVISAO_PESQUISA_TABELA.substring(5, 7);
-                    String ano = pDATA_PREVISAO_PESQUISA_TABELA.substring(0, 4);
-                    pDATA_PREVISAO_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
-                    dadosDestino.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoPro(), dd.getNomeInternoPro(), pDATA_PREVISAO_PESQUISA_TABELA, dd.getIdSaida()});
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataNova());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoPro(), dd.getNomeInternoPro(), dd.getIdSaida(), pDATA_PESQUISA_TABELA});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
@@ -1746,7 +1864,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     centralizado.setHorizontalAlignment(SwingConstants.CENTER);
                     //
                     jTabelaInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-                    jTabelaInternos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaInternos.getColumnModel().getColumn(3).setCellRenderer(centralizado);
                     jTabelaInternos.getColumnModel().getColumn(4).setCellRenderer(centralizado);
                 }
             } catch (Exception ex) {

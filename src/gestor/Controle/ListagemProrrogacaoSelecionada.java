@@ -29,7 +29,7 @@ public class ListagemProrrogacaoSelecionada {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT IdProrroga,StatusRegistro,"
-                    + "DataRegistro,Responsavel,TipoSaida,Observacao "
+                    + "DataRegistro,Responsavel,TipoSaida,Documento,DataDocumento,Observacao "
                     + "FROM PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR "
                     + "WHERE IdProrroga='" + jCodigo.getText() + "' ");
             while (conecta.rs.next()) {
@@ -39,6 +39,8 @@ public class ListagemProrrogacaoSelecionada {
                 pProrroga.setDataRegistro(conecta.rs.getDate("DataRegistro"));
                 pProrroga.setResponsavel(conecta.rs.getString("Responsavel"));
                 pProrroga.setTipoSaida(conecta.rs.getString("TipoSaida"));
+                pProrroga.setDocumento(conecta.rs.getString("Documento"));
+                pProrroga.setDataDocumento(conecta.rs.getDate("DataDocumento"));
                 pProrroga.setObservacao(conecta.rs.getString("Observacao"));
                 listaTodasAtividades.add(pProrroga);
             }

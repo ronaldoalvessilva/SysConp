@@ -32,7 +32,7 @@ public class ListagemProrrogacaoInternosSelecionados {
             conecta.executaSQL("SELECT ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdItem, "
                     + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdProrroga, "
                     + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc, "
-                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataPrevRetorno, "
+                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataNova, "
                     + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdSaida, "
                     + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataSaida, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,ITENSREGSAIDA.DestinoSaida "
@@ -48,13 +48,12 @@ public class ListagemProrrogacaoInternosSelecionados {
                 ProrrogarSaidaTemporariaPrisaoDomicilicar pProrroga = new ProrrogarSaidaTemporariaPrisaoDomicilicar();
                 pProrroga.setIdItem(conecta.rs.getInt("IdItem"));
                 pProrroga.setIdRegistro(conecta.rs.getInt("IdProrroga"));
-                pProrroga.setStatusRegistro(conecta.rs.getString("IdInternoCrc"));
-                pProrroga.setResponsavel(conecta.rs.getString("NomeInternoCrc"));
-                pProrroga.setResponsavel(conecta.rs.getString("DestinoSaida"));
-                pProrroga.setIdItem(conecta.rs.getInt("IdSaida"));
-                pProrroga.setDataRegistro(conecta.rs.getDate("DataSaida"));
-                pProrroga.setDataRegistro(conecta.rs.getDate("DataPrevRetorno"));                
-                pProrroga.setDataRegistro(conecta.rs.getDate("DataNova"));
+                pProrroga.setIdInternoPro(conecta.rs.getInt("IdInternoCrc"));
+                pProrroga.setNomeInternoPro(conecta.rs.getString("NomeInternoCrc"));
+                pProrroga.setSituacaoPro(conecta.rs.getString("DestinoSaida"));
+                pProrroga.setIdSaida(conecta.rs.getInt("IdSaida"));
+                pProrroga.setDataSaida(conecta.rs.getDate("DataSaida"));               
+                pProrroga.setDataNova(conecta.rs.getDate("DataNova"));
                 listaTodasAtividades.add(pProrroga);
             }
             return listaTodasAtividades;

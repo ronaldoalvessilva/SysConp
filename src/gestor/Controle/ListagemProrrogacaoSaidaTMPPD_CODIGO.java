@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.ProrrogarSaidaTemporariaPrisaoDomicilicar;
+import static gestor.Visao.TelaProrrogracaoSaidaTemporariaDomiciliar.pTOTAL_REGISTROS_ATIVIDADES;
 import static gestor.Visao.TelaProrrogracaoSaidaTemporariaDomiciliar.jCodigo;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ListagemProrrogacaoSaidaTMPPD_CODIGO {
     ProrrogarSaidaTemporariaPrisaoDomicilicar objProrroga = new ProrrogarSaidaTemporariaPrisaoDomicilicar();
 
     public List<ProrrogarSaidaTemporariaPrisaoDomicilicar> read() throws Exception {
+        pTOTAL_REGISTROS_ATIVIDADES = 0;
         List<ProrrogarSaidaTemporariaPrisaoDomicilicar> listaTodosInternosCodigo = new ArrayList<ProrrogarSaidaTemporariaPrisaoDomicilicar>();
         conecta.abrirConexao();
         try {
@@ -39,6 +41,7 @@ public class ListagemProrrogacaoSaidaTMPPD_CODIGO {
                 pProrroga.setResponsavel(conecta.rs.getString("Responsavel"));
                 pProrroga.setTipoSaida(conecta.rs.getString("TipoSaida"));
                 listaTodosInternosCodigo.add(pProrroga);
+                 pTOTAL_REGISTROS_ATIVIDADES = pTOTAL_REGISTROS_ATIVIDADES + 1;
             }
             return listaTodosInternosCodigo;
         } catch (SQLException ex) {
