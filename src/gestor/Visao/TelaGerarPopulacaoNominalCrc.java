@@ -57,7 +57,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     String situacaoEnt = "ENTRADA NA UNIDADE";
     String situacaoRet = "RETORNO A UNIDADE";
     String situacaoTmp = "SAIDA TEMPORARIA";
-    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
+    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR";
     String situacaoLimpa = "";
     //
     String nrDocumentoRetorno = ""; //Número documeto vazio para gerar o aviso de evasão
@@ -779,7 +779,6 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
         GerarPopNominal p = new GerarPopNominal();
         try {
             for (GerarPopNominal pp : listaDAO.read()) {
-//                jtotalRegistros.setText(Integer.toString(qtdInternosPop));
                 jtotalRegistrosDestino.setText(jtotalRegistrosOrigem.getText().toString()); // Converter inteiro em string para exibir na tela                                                             
                 dadosDestino.addRow(new Object[]{pp.getIdInternoCrc(), pp.getCnc(), pp.getNomeInterno()});
                 // BARRA DE ROLAGEM HORIZONTAL
