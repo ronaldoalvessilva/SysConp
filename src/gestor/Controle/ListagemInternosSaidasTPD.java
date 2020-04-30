@@ -30,7 +30,8 @@ public class ListagemInternosSaidasTPD {
             conecta.executaSQL("SELECT IdItem,IdProrroga, "
                     + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdSaida, "
-                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataNova "
+                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.DataNova, "
+                    + "ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdSaidaTmp "
                     + "FROM ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -43,6 +44,7 @@ public class ListagemInternosSaidasTPD {
                 pProrroga.setNomeInternoPro(conecta.rs.getString("NomeInternoCrc"));
                 pProrroga.setIdSaida(conecta.rs.getInt("IdSaida"));
                 pProrroga.setDataNova(conecta.rs.getDate("DaTaNova"));
+                pProrroga.setIdSaidaTmp(conecta.rs.getInt("IdSaidaTmp"));
                 listaTodosInternosCodigo.add(pProrroga);
             }
             return listaTodosInternosCodigo;

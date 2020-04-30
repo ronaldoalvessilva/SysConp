@@ -26,6 +26,7 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
     private Integer idInternoPro;
     private String situacaoPro;
     private Integer idSaida;
+    private Integer idSaidaTmp;
     private String nomeInternoPro;
     private Date dataSaida;
     private String dataPrevisaoRetorno;
@@ -43,7 +44,7 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
     public ProrrogarSaidaTemporariaPrisaoDomicilicar() {
     }
 
-    public ProrrogarSaidaTemporariaPrisaoDomicilicar(Integer idRegistro, String statusRegistro, Date dataRegistro, String responsavel, String tipoSaida, String documento, Date dataDocumento, String observacao, Integer idItem, Integer idInternoPro, String situacaoPro, Integer idSaida, String nomeInternoPro, Date dataSaida, String dataPrevisaoRetorno, Date dataNova, Integer idRetorno, String nrDocRetorno, String dataEvasao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public ProrrogarSaidaTemporariaPrisaoDomicilicar(Integer idRegistro, String statusRegistro, Date dataRegistro, String responsavel, String tipoSaida, String documento, Date dataDocumento, String observacao, Integer idItem, Integer idInternoPro, String situacaoPro, Integer idSaida, Integer idSaidaTmp, String nomeInternoPro, Date dataSaida, String dataPrevisaoRetorno, Date dataNova, Integer idRetorno, String nrDocRetorno, String dataEvasao, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistro = idRegistro;
         this.statusRegistro = statusRegistro;
         this.dataRegistro = dataRegistro;
@@ -56,6 +57,7 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
         this.idInternoPro = idInternoPro;
         this.situacaoPro = situacaoPro;
         this.idSaida = idSaida;
+        this.idSaidaTmp = idSaidaTmp;
         this.nomeInternoPro = nomeInternoPro;
         this.dataSaida = dataSaida;
         this.dataPrevisaoRetorno = dataPrevisaoRetorno;
@@ -237,6 +239,20 @@ public class ProrrogarSaidaTemporariaPrisaoDomicilicar {
      */
     public void setIdSaida(Integer idSaida) {
         this.idSaida = idSaida;
+    }
+
+    /**
+     * @return the idSaidaTmp
+     */
+    public Integer getIdSaidaTmp() {
+        return idSaidaTmp;
+    }
+
+    /**
+     * @param idSaidaTmp the idSaidaTmp to set
+     */
+    public void setIdSaidaTmp(Integer idSaidaTmp) {
+        this.idSaidaTmp = idSaidaTmp;
     }
 
     /**

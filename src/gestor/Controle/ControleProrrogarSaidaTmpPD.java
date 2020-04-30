@@ -45,7 +45,7 @@ public class ControleProrrogarSaidaTmpPD {
             pst.setString(10, objProrroga.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -89,7 +89,7 @@ public class ControleProrrogarSaidaTmpPD {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR WHERE IdProrroga='" + objProrroga.getIdRegistro() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -103,7 +103,7 @@ public class ControleProrrogarSaidaTmpPD {
             pst.setString(1, objProrroga.getStatusRegistro());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível FINALIZAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -114,7 +114,7 @@ public class ControleProrrogarSaidaTmpPD {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR (IdProrroga,IdInternoCrc,IdSaida,DataSaida,DataNova,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR (IdProrroga,IdInternoCrc,IdSaida,DataSaida,DataNova,IdSaidaTmp,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objProrroga.getIdRegistro());
             pst.setInt(2, objProrroga.getIdInternoPro());
             pst.setInt(3, objProrroga.getIdSaida());
@@ -128,12 +128,13 @@ public class ControleProrrogarSaidaTmpPD {
             } else {
                 pst.setDate(5, null);
             }
-            pst.setString(6, objProrroga.getUsuarioInsert());
-            pst.setString(7, objProrroga.getDataInsert());
-            pst.setString(8, objProrroga.getHorarioInsert());
+            pst.setInt(6, objProrroga.getIdSaidaTmp());
+            pst.setString(7, objProrroga.getUsuarioInsert());
+            pst.setString(8, objProrroga.getDataInsert());
+            pst.setString(9, objProrroga.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível INSERIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -143,7 +144,7 @@ public class ControleProrrogarSaidaTmpPD {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR SET IdInternoCrc=?,IdSaida=?,DataSaida=?,DataNova=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objProrroga.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR SET IdInternoCrc=?,IdSaida=?,DataSaida=?,DataNova=?,IdSaidaTmp=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objProrroga.getIdItem() + "'");
             pst.setInt(1, objProrroga.getIdInternoPro());
             pst.setInt(2, objProrroga.getIdSaida());
             if (objProrroga.getDataSaida() != null) {
@@ -156,12 +157,13 @@ public class ControleProrrogarSaidaTmpPD {
             } else {
                 pst.setDate(4, null);
             }
-            pst.setString(5, objProrroga.getUsuarioUp());
-            pst.setString(6, objProrroga.getDataUp());
-            pst.setString(7, objProrroga.getHorarioUp());
+            pst.setInt(5, objProrroga.getIdSaidaTmp());
+            pst.setString(6, objProrroga.getUsuarioUp());
+            pst.setString(7, objProrroga.getDataUp());
+            pst.setString(8, objProrroga.getHorarioUp());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -174,7 +176,7 @@ public class ControleProrrogarSaidaTmpPD {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR  WHERE IdItem='" + objProrroga.getIdItem() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -187,7 +189,7 @@ public class ControleProrrogarSaidaTmpPD {
             PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM ITENS_PRORROGAR_SAIDA_TEMPORARIA_PRISAO_DOMICILIAR  WHERE IdRegistro='" + objProrroga.getIdRegistro() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR TODOS os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível EXCLUIR TODOS os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;
@@ -204,7 +206,21 @@ public class ControleProrrogarSaidaTmpPD {
             pst.setString(4, objProrroga.getDataEvasao());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (MOVISR) os Dados.\nERRO: " + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR (MOVISR) os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objProrroga;
+    }
+    
+    public ProrrogarSaidaTemporariaPrisaoDomicilicar atualizarDataProrrogacaoCRC(ProrrogarSaidaTemporariaPrisaoDomicilicar objProrroga) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSSAIDA SET DataRetorno=? WHERE IdInternoCrc='" + objProrroga.getIdInternoPro() + "'AND IdSaida='" + objProrroga.getIdSaidaTmp() + "'");
+            pst.setString(1, objProrroga.getDataPrevisaoRetorno());           
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possível ALTERAR (ITENSSAIDA) os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objProrroga;

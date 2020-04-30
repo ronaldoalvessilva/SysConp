@@ -81,6 +81,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     Integer pID_ITEM = 0;
     Integer pID_REGISTRO = 0;
     public static int pTOTAL_REGISTROS_ATIVIDADES = 0;
+    public static int pID_SAIDA_ORIGEM = 0;
 
     /**
      * Creates new form TelaProrrogracaoSaidaTemporariaDomiciliar
@@ -807,11 +808,11 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
 
             },
             new String [] {
-                "IdItem", "Código", "Nome do Interno", "ID Saida", "Nova Data"
+                "IdItem", "Código", "Nome do Interno", "ID Saida", "Nova Data", "Origem"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -835,6 +836,8 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
             jTabelaInternos.getColumnModel().getColumn(3).setMaxWidth(70);
             jTabelaInternos.getColumnModel().getColumn(4).setMinWidth(80);
             jTabelaInternos.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaInternos.getColumnModel().getColumn(5).setMinWidth(70);
+            jTabelaInternos.getColumnModel().getColumn(5).setMaxWidth(70);
         }
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
@@ -952,7 +955,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1390,6 +1393,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 objProrroga.setIdSaida(Integer.valueOf(jIdSaida.getText()));
                 objProrroga.setDataSaida(jDataSaida.getDate());
                 objProrroga.setDataNova(jDataNova.getDate());
+                objProrroga.setIdSaidaTmp(pID_SAIDA_ORIGEM);
                 if (acao == 3) {
                     //CRITICAR CASO O REGISTRO PARA O MÊS E ANO DE REFERÊNCIA JÁ FOI INCLUÍDO
                     try {
@@ -1401,7 +1405,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     } catch (Exception ex) {
                         Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
                     }
-//                  //CRISITCAR SE JÁ EXISTE UM INTERNO CADASTRADO NESSE REGISTRO
+                    //CRISITCAR SE JÁ EXISTE UM INTERNO CADASTRADO NESSE REGISTRO
                     if (objProrroga.getIdInternoPro().equals(pID_INTERNO) && objProrroga.getIdRegistro().equals(pID_REGISTRO)) {
                         JOptionPane.showMessageDialog(rootPane, "Esse interno já foi incluído nesse registro.");
                     } else {
@@ -1746,8 +1750,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
     }
 
     public void Finalizar() {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
+        //ATUALIZAR AS TABELAS MOVISR E ITENSSAIDA - CRC
         Integer rows = jTabelaInternos.getRowCount();
         if (rows != 0) {
             for (int i = 0; i < jTabelaInternos.getRowCount(); i++) {
@@ -1759,7 +1762,10 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                 objProrroga.setIdInternoPro((int) jTabelaInternos.getValueAt(i, 1));
                 objProrroga.setIdSaida((int) jTabelaInternos.getValueAt(i, 3));
                 objProrroga.setDataPrevisaoRetorno((String) jTabelaInternos.getValueAt(i, 4)); 
+                objProrroga.setIdSaidaTmp((int) jTabelaInternos.getValueAt(i, 5));
                 control.atualizarDataProrrogacao(objProrroga);
+                //ATUALIZAR TABELA DE ITENSSAIDA - CRC
+                control.atualizarDataProrrogacaoCRC(objProrroga);
             }
             String pFINALIZAR = "FINALIZADO";
             jStatusRegistro.setText(pFINALIZAR);
@@ -1856,7 +1862,7 @@ public class TelaProrrogracaoSaidaTemporariaDomiciliar extends javax.swing.JInte
                     String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
                     String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
                     pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
-                    dadosDestino.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoPro(), dd.getNomeInternoPro(), dd.getIdSaida(), pDATA_PESQUISA_TABELA});
+                    dadosDestino.addRow(new Object[]{dd.getIdItem(), dd.getIdInternoPro(), dd.getNomeInternoPro(), dd.getIdSaida(), pDATA_PESQUISA_TABELA, dd.getIdSaidaTmp()});
                     // BARRA DE ROLAGEM HORIZONTAL
                     jTabelaInternos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                     // ALINHAR TEXTO DA TABELA CENTRALIZADO
