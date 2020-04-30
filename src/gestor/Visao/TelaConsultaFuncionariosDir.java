@@ -85,7 +85,7 @@ public class TelaConsultaFuncionariosDir extends javax.swing.JInternalFrame {
      */
     public TelaConsultaFuncionariosDir() {
         initComponents();
-        formatarCampos();
+//        formatarCampos();
         corCampo();
     }
 
@@ -468,7 +468,7 @@ public class TelaConsultaFuncionariosDir extends javax.swing.JInternalFrame {
         jTabelaFuncionario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Data", "Nome do Colaborador", "Departamento"
@@ -2285,7 +2285,7 @@ public class TelaConsultaFuncionariosDir extends javax.swing.JInternalFrame {
         jTabelaDependentes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTabelaDependentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome do Dependente", "Nascimento", "Parentesco"
