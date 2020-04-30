@@ -139,6 +139,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     String situacaoTran = "TRANSFERENCIA"; // Todas as Transferencias
     String situacaoNull = ""; // Cadastrado mas não foi feito entrada
     String situacaoSai = "SAIDA TEMPORARIA";
+    String pPRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
     //
     int idInterno = 0;
     String horarioEntrada = "00:00";
@@ -2113,12 +2114,16 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             conecta.executaSQL("SELECT * FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSPENAISINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
-                    + "WHERE SituacaoCrc='" + situacaoEnt + "'OR SituacaoCrc='" + situacaoRet + "' "
-                    + "OR SituacaoCrc='" + situacaoSai + "'ORDER BY NomeInternoCrc");
+                    + "WHERE SituacaoCrc='" + situacaoEnt + "' "
+                    + "OR SituacaoCrc='" + situacaoRet + "' "
+                    + "OR SituacaoCrc='" + situacaoSai + "' "
+                    + "OR SituacaoCrc LIKE'%" + pPRISAO_DOMICILIAR + "%' "
+                    + "ORDER BY NomeInternoCrc");
             HashMap parametros = new HashMap();
             parametros.put("situacaoEntrada", situacaoEnt);
             parametros.put("situacaoRetorno", situacaoRet);
             parametros.put("situacaoSaida", situacaoSai);
+            parametros.put("situacaoDomi", pPRISAO_DOMICILIAR);
             parametros.put("nomeUsuario", nameUser);
             parametros.put("descricaoUnidade", descricaoUnidade);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   

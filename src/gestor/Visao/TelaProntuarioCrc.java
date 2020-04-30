@@ -46,15 +46,12 @@ import static gestor.Visao.TelaModuloCRC.telaCadastroProntuarioPrintCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,6 +140,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String situacaoCon = "LIVRAMENTO CONDICIONAL";
     String situacaoReg = "PROGRESSAO REGIME";
     String situacaoEva = "EVADIDO DA UNIDADE";
+    String pSAIDA_TEMPORARIA = "SAIDA TEMPORARIA";
+    String pSAIDA_PRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
     // CAMINHO DAS IMAGENS DA MÃO DIREITA
     String caminhoBiometria1 = "";
     String caminhoBiometria2 = "";
@@ -5939,7 +5938,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + pSAIDA_TEMPORARIA + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc LIKE'%" + pSAIDA_PRISAO_DOMICILIAR + "%'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "

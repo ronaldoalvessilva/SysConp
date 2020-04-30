@@ -140,6 +140,8 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
     String situacaoCon = "LIVRAMENTO CONDICIONAL";
     String situacaoReg = "PROGRESSAO REGIME";
     String situacaoEva = "EVADIDO DA UNIDADE";
+    String pSAIDA_TEMPORARIA = "SAIDA TEMPORARIA";
+    String pSAIDA_PRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
     // CAMINHO DAS IMAGENS DA MÃO DIREITA
     String caminhoBiometria1 = "";
     String caminhoBiometria2 = "";
@@ -5017,7 +5019,9 @@ public final class TelaProntuarioTriagem extends javax.swing.JInternalFrame {
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
                     + "WHERE PRONTUARIOSCRC.SituacaoCrc='" + situacaoEnt + "' "
-                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "'");
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + situacaoRet + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc='" + pSAIDA_TEMPORARIA + "' "
+                    + "OR PRONTUARIOSCRC.SituacaoCrc LIKE'%" + pSAIDA_PRISAO_DOMICILIAR + "%'");
         } else if (jComboBoxPesqSituacao.getSelectedItem().equals("Inativos")) {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
