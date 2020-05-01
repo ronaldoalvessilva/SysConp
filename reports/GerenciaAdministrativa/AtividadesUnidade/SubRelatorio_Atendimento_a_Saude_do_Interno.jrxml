@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Atendimento_a_Saude_do_Interno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_ATENDIMENTO_SAUDE A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="AtendimentoClinico" class="java.lang.Integer"/>
+	<field name="AtendimentoPsiquiatrico" class="java.lang.Integer"/>
+	<field name="AtendimentoEnfermagem" class="java.lang.Integer"/>
+	<field name="ProcedimentoOdontologico" class="java.lang.Integer"/>
+	<field name="AtendimentoPsicologico" class="java.lang.Integer"/>
+	<field name="TratamentoAgravosPNAISP" class="java.lang.Integer"/>
+	<field name="SensibilizadoSaudeBucal" class="java.lang.Integer"/>
+	<field name="SensibilizadoInfectocontagiosas" class="java.lang.Integer"/>
+	<field name="SensibilizadoHipertensao" class="java.lang.Integer"/>
+	<field name="SensibilizadoDiabetes" class="java.lang.Integer"/>
+	<field name="SensibilizadoSexualidade" class="java.lang.Integer"/>
+	<field name="VacinadosPNI" class="java.lang.Integer"/>
+	<field name="TotalSaude" class="java.lang.Integer"/>
+	<variable name="TOTAL_SAUDE" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{AtendimentoClinico}+$F{AtendimentoPsiquiatrico}+$F{AtendimentoEnfermagem}+$F{ProcedimentoOdontologico}+$F{AtendimentoPsicologico}+$F{TratamentoAgravosPNAISP}+$F{SensibilizadoSaudeBucal}+$F{SensibilizadoInfectocontagiosas}+$F{SensibilizadoHipertensao}+$F{SensibilizadoDiabetes}+$F{SensibilizadoSexualidade}+$F{VacinadosPNI}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="211" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="185" width="475" height="13" uuid="18ea6fc6-d052-4591-ae31-d741bc3c3ba0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="172" width="475" height="13" uuid="67ba5e0d-b98d-485e-9286-9e66612fd51e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="29" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="16" width="553" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.3.1 - ATENDIMENTO À SAÚDE DO INTERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="29" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="29" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="42" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="68" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="55" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="94" width="475" height="13" uuid="1eb6954e-41ad-4b9f-a4fa-1b844be659bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="81" width="475" height="13" uuid="d5e14735-96dd-4c86-9f9a-ff95c8512026"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="42" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento médico clínico]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="42" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="55" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="68" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="81" width="80" height="13" uuid="5d14bef5-09d6-44cd-b0f7-bb807a50c2c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="94" width="80" height="13" uuid="172d7903-20aa-45bc-b578-4e42ae110911"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="55" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento médico psiquiátrico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="68" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento de enfermagem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="81" width="473" height="13" uuid="13337d53-3800-4a93-beec-5a0744755f6c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Procedimentos odontológicos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="94" width="473" height="13" uuid="dc7ca2a4-3354-4c96-ae84-976a4bac285f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento psicológico]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="198" width="80" height="13" uuid="3fab538b-2741-42a1-9036-59a32ad02fc1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="198" width="475" height="13" uuid="74405c5d-2e70-45f1-a0e2-814c35695c79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="159" width="80" height="13" uuid="dff76bc0-fc95-4bde-855c-9d8b036fdb3b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="120" width="80" height="13" uuid="31f1c9b0-8b8b-4868-8a00-d5d798b08dc5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="159" width="475" height="13" uuid="a938116a-e884-4f3d-837c-844475f26b13"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="198" width="473" height="13" uuid="5f1a8432-b050-46fb-b20e-c426dd105663"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="107" width="80" height="13" uuid="ca1d6785-461a-4cfe-9153-c52554b6f8f6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="107" width="475" height="13" uuid="da211d31-e70b-4bc9-a23f-6420af2cf82d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="133" width="475" height="13" uuid="3f2d885d-cb76-4397-853d-52034756cc5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="107" width="473" height="13" uuid="339952c9-26d5-444a-8384-2f20e3faea58"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Tratamento dos agrávos diagnosticádos, previstos no PNAISP]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="133" width="80" height="13" uuid="11cb43c5-cdde-4cd3-81e7-4afed1c69aec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="120" width="475" height="13" uuid="60a03ecf-40b4-4429-bf65-8a85fa88e43f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="120" width="473" height="13" uuid="1cea95a9-0546-4c9e-8ea2-601e8a3db933"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Preso sensibilizado e capacitado sobre os cuidados com a saúde bucal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="133" width="473" height="13" uuid="283b747f-00a1-499d-a339-a68094beefe3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Preso sensibilizado e capacitado sobre os cuidados com a saúde e controle das doenças infectocontagiosas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="159" width="473" height="13" uuid="58323e9c-c780-4f4a-abe4-1c29ecdd8866"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Preso sensibilizado e capacitado sobre os cuidados com a saúde e controle das diabetes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="553" height="13" uuid="ff9291a4-8de4-41bf-ba40-f264dcb0bebd"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.3 - ATENDIMENTO DO CORPO TÉCNICO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="185" width="80" height="13" uuid="d84f5d76-20ed-4ca9-8878-a8abd7ef352a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="172" width="80" height="13" uuid="e04691e5-9a19-45cc-94c3-216d747edfd1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="172" width="473" height="13" uuid="430c9da9-9b7a-4d1c-b70f-412e690b9eee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Preso sensibilizado e capacitado sobre os aspectos relacionados à sexualidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="186" width="473" height="13" uuid="736a7863-a0dd-413a-b8d0-fad7a459c77b"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Presos vacinados obedecendo ao PNI - Programa Nacional de Imunização]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="146" width="475" height="13" uuid="7f0c05e0-d32d-477c-8650-b36464de27a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="146" width="80" height="13" uuid="3f2b3a71-c40f-431c-9f26-21d500184d4e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="146" width="473" height="13" uuid="420ef110-695b-4651-99e1-77fd33d22c55"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Preso sensibilizado e capacitado sobre os cuidados com a saúde e controle da hipertensão]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="42" width="80" height="13" uuid="31934921-756f-4ef1-88aa-afed7113438a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoClinico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="55" width="80" height="13" uuid="3bda3030-e7d6-4344-96b9-e03e0920546c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoPsiquiatrico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="68" width="80" height="13" uuid="58841046-c920-4c8b-a354-d881c3d21a17"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoEnfermagem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="81" width="80" height="13" uuid="99e8deb1-9ae7-45f1-887d-c916b0f9d746"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ProcedimentoOdontologico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="94" width="80" height="13" uuid="8eafc0b0-ba1b-4f08-bddb-576e0d62e4e8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoPsicologico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="107" width="80" height="13" uuid="797e4c66-ad6d-42e2-9c61-accdfa1ae599"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TratamentoAgravosPNAISP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="120" width="80" height="13" uuid="2af1fed1-68fd-4c81-bb7c-2c45c9e4c994"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SensibilizadoSaudeBucal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="133" width="80" height="13" uuid="09432d3b-c31b-4cc7-b2b8-60736734841d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SensibilizadoInfectocontagiosas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="146" width="80" height="13" uuid="6e3e5c9b-6263-4837-90d5-21167128af33"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SensibilizadoHipertensao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="159" width="80" height="13" uuid="269ec37b-76a5-4d0f-9b84-065c35b47d3a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SensibilizadoDiabetes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="172" width="80" height="13" uuid="ee37a03c-1fab-4fed-b297-389b6c7911a4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SensibilizadoSexualidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="185" width="80" height="13" uuid="40401ba5-0a3d-45f4-b3d5-63ab982daba2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{VacinadosPNI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="198" width="80" height="13" uuid="d6e34fe7-1904-427a-b916-d8e6c080e78f"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_SAUDE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

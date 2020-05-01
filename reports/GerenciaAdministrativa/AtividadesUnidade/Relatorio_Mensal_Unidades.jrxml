@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatorio_Mensal_Unidades" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="92afd3b8-c185-4bb4-ae47-d7f1eeb4e196">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="315"/>
+	<style name="Cabecalho" forecolor="#000000" hAlign="Center" vAlign="Middle" fontName="Serif" fontSize="12" isBold="true"/>
+	<parameter name="pNOME_UNIDADE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\geiba\\OneDrive\\Área de Trabalho\\Temp\\Relatórios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pMes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOP 1 * FROM ATIVIDADES_UNIDADE
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="StatusAtividade" class="java.lang.String"/>
+	<field name="DataCriacao" class="java.sql.Timestamp"/>
+	<field name="DataAtualizacao" class="java.sql.Timestamp"/>
+	<field name="IdUnidEmp" class="java.lang.Integer"/>
+	<field name="Populacao" class="java.lang.Integer"/>
+	<field name="DataInicial" class="java.sql.Timestamp"/>
+	<field name="DataFinal" class="java.sql.Timestamp"/>
+	<field name="MesReferencia" class="java.lang.String"/>
+	<field name="AnoReferencia" class="java.lang.String"/>
+	<field name="IdFunc" class="java.lang.Integer"/>
+	<field name="Observacao" class="java.sql.Clob"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="157" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="16" uuid="c511e1ad-91d7-41db-9f84-ee7008850e36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pNOME_UNIDADE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Cabecalho" x="0" y="36" width="555" height="16" uuid="1f3b3ebb-bc5f-4d32-b428-c0aedfcd6c44"/>
+				<text><![CDATA[RELATÓRIO MENSAL DE INFORMAÇÕES E ATIVIDADES NA UNIDADE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="74" width="359" height="15" uuid="68ca25d5-b293-4590-97c4-f87317964846"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="359" y="74" width="196" height="15" uuid="2528831c-89a2-4a05-a592-6be8054f1101"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="74" width="357" height="15" uuid="d05ca2db-bbf1-45fe-a9d6-57f83619c38b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÉDIA QTDe DE INTERNOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="108" width="555" height="15" uuid="6b88e4db-7a9e-4788-99ab-3d3529e8e1b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1 - ROTINA OPERACIONAL E ADMINISTRATIVA DA UNIDADE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="52" width="279" height="24" uuid="66faed75-a76e-4d22-8e75-c01bb379b070"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pMes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="52" width="263" height="24" uuid="d43cab56-f120-46e8-90b9-565ef3c99fe8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pAno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="279" y="52" width="13" height="24" uuid="fffb4ff0-8b9c-466a-91f3-4925565e55b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="359" y="74" width="196" height="15" uuid="bf1d4e3e-1103-4810-9a8b-817751dec68c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Populacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<subreport>
+				<reportElement key="" x="-20" y="-39" width="555" height="80" uuid="745b8e1b-5eb8-4e85-9b05-11236c452ca2"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Visita_de_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-32" width="555" height="50" uuid="e0939d6d-6b23-4548-a4db-296eeaa20fbb"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Alimentacao_fornecida.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-53" width="555" height="50" uuid="fb85c913-cd8d-457f-a0bc-847a3f7e4c93"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pNOME_UNIDADE">
+					<subreportParameterExpression><![CDATA[$P{pNOME_UNIDADE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Atendimento_a_Saude_do_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-63" width="555" height="50" uuid="6e8c499a-940b-44cc-89ac-bc8ff44dbc53"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Atendimento_Educacional_ao_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-1" width="555" height="50" uuid="2e49f942-de9f-4f99-90f7-35b02978f4ac"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Atendimento_Servico_Social_ao_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-25" width="555" height="50" uuid="46df77b4-7a3e-42e6-b118-86d1eccc113f"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Assistencia_Laboral_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-50" width="555" height="50" uuid="0680ebe7-0f51-4a03-99bf-4dce302d821c"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Ocupacao_com_Atividade_Recreativa_Religiosa.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-71" width="555" height="50" uuid="b72edba6-1fde-4451-92d2-aa8cf86b0777"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Assitencia_Juridica_ao_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-189" width="555" height="50" uuid="694d01a9-ab4d-4cb2-a572-65e84789801a"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Assitencia_Material_ao_Interno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="-20" y="-209" width="555" height="50" uuid="71c623ea-0787-4d0b-b276-70bc42042e07"/>
+				<subreportParameter name="pMes">
+					<subreportParameterExpression><![CDATA[$P{pMes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pAno">
+					<subreportParameterExpression><![CDATA[$P{pAno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubRelatorio_Seguranca_da_Unidade.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="3" width="138" height="20" uuid="d7f95c3d-37f1-4da9-ae49-b2e595f3c9fe"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="3" width="80" height="20" uuid="d269ecf9-621e-4a49-b821-ac2b2144d262"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="3" width="40" height="20" uuid="2d0d64e7-1367-4b9a-a413-13315bdc4af6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1" uuid="3d38e60f-61a4-42f0-84a3-a775e67224aa"/>
+			</line>
+			<textField>
+				<reportElement x="138" y="3" width="297" height="20" uuid="20d18cef-0df2-47da-b308-e236e0aba383"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{pUsuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

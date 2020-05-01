@@ -6,9 +6,20 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
-import java.text.SimpleDateFormat;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
+import static gestor.Visao.TelaLoginSenha.nameUser;
+//import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+//import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -17,15 +28,18 @@ import javax.swing.JOptionPane;
 public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
-    
-    String dataInicial = "";
-    String dataFinal = "";
-
+    Calendar calendario = Calendar.getInstance();
+       
+//    String dataInicial = "";
+//  String dataFinal = "";  
+  
     /**
      * Creates new form RelatorioAtividadesMensalRealizadaUnidade
      */
     public RelatorioAtividadesMensalRealizadaUnidade() {
         initComponents();
+         jComboBoxMes.setSelectedIndex(calendario.get(Calendar.MONTH));
+         jComboBoxAno.setSelectedIndex(12 );
     }
 
     /**
@@ -40,8 +54,8 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jDataPesqInicial = new com.toedter.calendar.JDateChooser();
-        jDataPesFinal = new com.toedter.calendar.JDateChooser();
+        jComboBoxMes = new javax.swing.JComboBox<>();
+        jComboBoxAno = new javax.swing.JComboBox<>();
         jBtConfirmar = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
 
@@ -53,41 +67,44 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Data Inicial");
+        jLabel1.setText("Mês");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Data Final");
+        jLabel2.setText("Ano");
 
-        jDataPesqInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
-        jDataPesFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(104, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel1)
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -121,7 +138,7 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
                 .addComponent(jBtConfirmar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtConfirmar, jBtSair});
@@ -143,47 +160,75 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-        if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
-                } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                       
-                    }
-                }
+
+        conecta.abrirConexao();
+        String path = "reports/GerenciaAdministrativa/AtividadesUnidade/Relatorio_Mensal_Unidades.jasper"; 
+        try {
+            conecta.executaSQL("SELECT TOP 1 * FROM ATIVIDADES_UNIDADE\n "
+                    + "WHERE MesReferencia LIKE '" + jComboBoxMes.getSelectedItem() + "'  AND AnoReferencia LIKE '" + jComboBoxAno.getSelectedItem()  + "'  ");
+            HashMap parametros = new HashMap();
+            parametros.put("pUsuario", nameUser);
+            parametros.put("pNOME_UNIDADE", descricaoUnidade);
+            parametros.put("pMes", jComboBoxMes.getSelectedItem());
+            parametros.put("pAno", jComboBoxAno.getSelectedItem());
+            // Sub Relatório
+            try {
+                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+            } catch (SQLException ex) {
             }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-            if (jDataPesqInicial.getDate() == null) {
-                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-                jDataPesqInicial.requestFocus();
-            } else {
-                if (jDataPesFinal.getDate() == null) {
-                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-                    jDataPesFinal.requestFocus();
-                } else {
-                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-                    } else {
-                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-                        
-                    }
-                }
-            }
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório Quantitativo Total Atendimento PSP");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado             
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
         }
+        
+//        if (tipoServidor == null || tipoServidor.equals("")) {
+//            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
+//        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
+//            if (jDataPesqInicial.getDate() == null) {
+//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+//                jDataPesqInicial.requestFocus();
+//            } else {
+//                if (jDataPesFinal.getDate() == null) {
+//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+//                    jDataPesFinal.requestFocus();
+//                } else {
+//                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+//                    } else {
+//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
+//                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+//                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+//                       
+//                    }
+//                }
+//            }
+//        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
+//            if (jDataPesqInicial.getDate() == null) {
+//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+//                jDataPesqInicial.requestFocus();
+//            } else {
+//                if (jDataPesFinal.getDate() == null) {
+//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+//                    jDataPesFinal.requestFocus();
+//                } else {
+//                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+//                    } else {
+//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
+//                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
+//                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
+//                        
+//                    }
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -195,8 +240,8 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtConfirmar;
     private javax.swing.JButton jBtSair;
-    private com.toedter.calendar.JDateChooser jDataPesFinal;
-    private com.toedter.calendar.JDateChooser jDataPesqInicial;
+    private javax.swing.JComboBox<String> jComboBoxAno;
+    private javax.swing.JComboBox<String> jComboBoxMes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

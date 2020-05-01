@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Alimentacao_fornecida" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String"/>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_ALIMENTACAO_FORNECIDA A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="LanchesVisitantes" class="java.lang.Integer"/>
+	<field name="CafeContratada" class="java.lang.Integer"/>
+	<field name="AlmocoContratada" class="java.lang.Integer"/>
+	<field name="JantarContratada" class="java.lang.Integer"/>
+	<field name="LancheContratada" class="java.lang.Integer"/>
+	<field name="CafeContratante" class="java.lang.Integer"/>
+	<field name="AlmocoContratante" class="java.lang.Integer"/>
+	<field name="JantarContratante" class="java.lang.Integer"/>
+	<field name="LancheContratante" class="java.lang.Integer"/>
+	<field name="TotalAlimentacao" class="java.lang.Integer"/>
+	<variable name="TOTAL_ALIMENTACAO" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{LanchesVisitantes}+$F{CafeContratada}+$F{AlmocoContratada}+
+$F{JantarContratada}+$F{LancheContratada}+$F{CafeContratante}+
+$F{AlmocoContratante}+$F{JantarContratante}+$F{LancheContratante}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="156" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="13" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.2 - ALIMENTAÇÃO FORNECIDA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="13" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="13" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="26" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="52" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="39" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="78" width="475" height="13" uuid="1eb6954e-41ad-4b9f-a4fa-1b844be659bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="65" width="475" height="13" uuid="d5e14735-96dd-4c86-9f9a-ff95c8512026"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="26" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Lanches Servidos a Visitantes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="26" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="39" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="52" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="65" width="80" height="13" uuid="5d14bef5-09d6-44cd-b0f7-bb807a50c2c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="78" width="80" height="13" uuid="172d7903-20aa-45bc-b578-4e42ae110911"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="39" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a empregados da CONTRATADA (café)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="52" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a empregados da CONTRATADA (almoço)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="65" width="473" height="13" uuid="13337d53-3800-4a93-beec-5a0744755f6c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a empregados da CONTRATADA (jantar)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="78" width="473" height="13" uuid="dc7ca2a4-3354-4c96-ae84-976a4bac285f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a empregados da CONTRATADA (lanche)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="143" width="80" height="13" uuid="3fab538b-2741-42a1-9036-59a32ad02fc1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="143" width="475" height="13" uuid="74405c5d-2e70-45f1-a0e2-814c35695c79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="130" width="80" height="13" uuid="dff76bc0-fc95-4bde-855c-9d8b036fdb3b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="104" width="80" height="13" uuid="31f1c9b0-8b8b-4868-8a00-d5d798b08dc5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="130" width="475" height="13" uuid="a938116a-e884-4f3d-837c-844475f26b13"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="143" width="473" height="13" uuid="5f1a8432-b050-46fb-b20e-c426dd105663"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="91" width="80" height="13" uuid="ca1d6785-461a-4cfe-9153-c52554b6f8f6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="91" width="475" height="13" uuid="da211d31-e70b-4bc9-a23f-6420af2cf82d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="117" width="475" height="13" uuid="3f2d885d-cb76-4397-853d-52034756cc5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="91" width="473" height="13" uuid="339952c9-26d5-444a-8384-2f20e3faea58"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a servidores do CONTRATANTE (café)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="117" width="80" height="13" uuid="11cb43c5-cdde-4cd3-81e7-4afed1c69aec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="104" width="475" height="13" uuid="60a03ecf-40b4-4429-bf65-8a85fa88e43f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="104" width="473" height="13" uuid="1cea95a9-0546-4c9e-8ea2-601e8a3db933"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a servidores do CONTRATANTE (almoço)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="117" width="473" height="13" uuid="283b747f-00a1-499d-a339-a68094beefe3"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a servidores do CONTRATANTE (jantar)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="130" width="473" height="13" uuid="58323e9c-c780-4f4a-abe4-1c29ecdd8866"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alimentação Servida a servidores do CONTRATANTE (lanche)]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="39" width="80" height="13" uuid="dda7d6ae-92c6-4ca1-87ed-f20c4586deab"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CafeContratada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="52" width="80" height="13" uuid="d66c71cc-4059-45a5-8e09-c384d103ed0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AlmocoContratada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="65" width="80" height="13" uuid="e8cd8501-64ab-40c3-861f-66e866bd30a8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{JantarContratada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="78" width="80" height="13" uuid="3bb69c3c-7cc9-4820-8e10-b36ca146d187"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LancheContratada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="91" width="80" height="13" uuid="a9f9d71e-3d43-4044-a245-b7704e38f11a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CafeContratante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="104" width="80" height="13" uuid="5a31a42c-e282-450b-919f-66bb130bed27"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AlmocoContratante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="117" width="80" height="13" uuid="e5b582a5-ea13-4ef1-8fe2-798185cc008e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{JantarContratante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="130" width="80" height="13" uuid="85b821bd-d192-44fe-b1a7-e90e63af37f1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LancheContratante}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="26" width="80" height="13" uuid="ee6aca64-e541-4bff-b632-e9a360a27595"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LanchesVisitantes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="143" width="80" height="13" uuid="1aff9fc6-fed8-4b8f-853b-d3e18b8344d1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_ALIMENTACAO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

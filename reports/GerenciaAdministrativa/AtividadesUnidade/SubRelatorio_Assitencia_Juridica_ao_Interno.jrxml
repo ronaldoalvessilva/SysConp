@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Assitencia_Juridica_ao_Interno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOP 1 A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_JURIDICA A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="InternoFamiliaSAJ" class="java.lang.Integer"/>
+	<field name="AlvaraSolturaRecebido" class="java.lang.Integer"/>
+	<field name="AlvaraSolturaCumprido" class="java.lang.Integer"/>
+	<field name="LivramentoCondicionalRequerido" class="java.lang.Integer"/>
+	<field name="AudienciaProvocada" class="java.lang.Integer"/>
+	<field name="AudienciaCumprida" class="java.lang.Integer"/>
+	<field name="JuriProvocado" class="java.lang.Integer"/>
+	<field name="JuriCumprido" class="java.lang.Integer"/>
+	<field name="LiberdadeProvisoriaRequerida" class="java.lang.Integer"/>
+	<field name="LiberdadeProvisoriaDeferida" class="java.lang.Integer"/>
+	<field name="IndultosRequeridos" class="java.lang.Integer"/>
+	<field name="IndultosDeferidos" class="java.lang.Integer"/>
+	<field name="RemicaoRequerida" class="java.lang.Integer"/>
+	<field name="RemicaoDeferida" class="java.lang.Integer"/>
+	<field name="CondicionalRequerida" class="java.lang.Integer"/>
+	<field name="CondicionalDeferida" class="java.lang.Integer"/>
+	<field name="ProgressaoRegimeRequerida" class="java.lang.Integer"/>
+	<field name="ProgressaoRegimeDeferida" class="java.lang.Integer"/>
+	<field name="SaidasTemporariasRequerida" class="java.lang.Integer"/>
+	<field name="SaidasTemporariasDeferida" class="java.lang.Integer"/>
+	<field name="HabeasCorpusRequerido" class="java.lang.Integer"/>
+	<field name="HabeasCorpusDeferido" class="java.lang.Integer"/>
+	<field name="LaudosPsicologicos" class="java.lang.Integer"/>
+	<field name="LaudosPsiquiatricos" class="java.lang.Integer"/>
+	<field name="TransferenciaProvimento" class="java.lang.Integer"/>
+	<field name="TotalJuridico" class="java.lang.Integer"/>
+	<variable name="TOTAL_JURIDICO" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{InternoFamiliaSAJ}+$F{AlvaraSolturaRecebido}+$F{AlvaraSolturaCumprido}+$F{LivramentoCondicionalRequerido}+$F{AudienciaProvocada}+$F{AudienciaCumprida}+$F{JuriProvocado}+$F{JuriCumprido}+$F{LiberdadeProvisoriaRequerida}+$F{LiberdadeProvisoriaDeferida}+$F{IndultosRequeridos}+$F{IndultosDeferidos}+$F{RemicaoRequerida}+$F{RemicaoDeferida}+$F{CondicionalRequerida}+$F{CondicionalDeferida}+$F{ProgressaoRegimeRequerida}+$F{ProgressaoRegimeDeferida}+$F{SaidasTemporariasRequerida}+$F{SaidasTemporariasDeferida}+$F{HabeasCorpusRequerido}+$F{HabeasCorpusDeferido}+$F{LaudosPsicologicos}+$F{LaudosPsiquiatricos}+$F{TransferenciaProvimento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="350" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="310" width="475" height="13" uuid="b2b17d9c-2011-4158-b9ad-cfcd15e9a9b0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="284" width="475" height="13" uuid="5999b549-6f71-45d8-9902-45ca0b7513b9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="271" width="475" height="13" uuid="a3d98891-980c-48da-b42c-d83261cfbd02"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="258" width="475" height="13" uuid="f6226d92-bf09-4d18-87b9-af960221cb74"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="245" width="475" height="13" uuid="15c6b168-84b9-418b-96cd-fb5d9f64fdc6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="232" width="475" height="13" uuid="a373f85a-b91e-4458-8a9b-cd37eb052ede"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="219" width="475" height="13" uuid="9a74d80d-e9eb-4689-907e-ca0359d8d27d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="193" width="475" height="13" uuid="0744c0b5-9cfb-417d-ad61-3015c25b1286"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="181" width="475" height="13" uuid="1b49b7b8-c081-4819-b384-caf93c287a0e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="168" width="475" height="13" uuid="18ea6fc6-d052-4591-ae31-d741bc3c3ba0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="155" width="475" height="13" uuid="67ba5e0d-b98d-485e-9286-9e66612fd51e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="13" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="0" width="553" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.3.6 - ASSISTÊNCIA JURÍDICA AO INTERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="13" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="13" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="25" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="51" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="38" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="77" width="475" height="13" uuid="1eb6954e-41ad-4b9f-a4fa-1b844be659bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="64" width="475" height="13" uuid="d5e14735-96dd-4c86-9f9a-ff95c8512026"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="25" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento ao interno, família ou emissão de SAJ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="25" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="38" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="51" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="64" width="80" height="13" uuid="5d14bef5-09d6-44cd-b0f7-bb807a50c2c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="77" width="80" height="13" uuid="172d7903-20aa-45bc-b578-4e42ae110911"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="38" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alvará de soltura recebida na unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="51" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Alvará de soltura cumprido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="64" width="473" height="13" uuid="13337d53-3800-4a93-beec-5a0744755f6c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Audiências provocadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="77" width="473" height="13" uuid="dc7ca2a4-3354-4c96-ae84-976a4bac285f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Audiências cumpridas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="77" width="80" height="13" uuid="3fab538b-2741-42a1-9036-59a32ad02fc1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="106" width="475" height="13" uuid="74405c5d-2e70-45f1-a0e2-814c35695c79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="142" width="80" height="13" uuid="dff76bc0-fc95-4bde-855c-9d8b036fdb3b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="103" width="80" height="13" uuid="31f1c9b0-8b8b-4868-8a00-d5d798b08dc5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="142" width="475" height="13" uuid="a938116a-e884-4f3d-837c-844475f26b13"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="106" width="473" height="13" uuid="5f1a8432-b050-46fb-b20e-c426dd105663"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="90" width="80" height="13" uuid="ca1d6785-461a-4cfe-9153-c52554b6f8f6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="90" width="475" height="13" uuid="da211d31-e70b-4bc9-a23f-6420af2cf82d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="116" width="475" height="13" uuid="3f2d885d-cb76-4397-853d-52034756cc5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="90" width="473" height="13" uuid="339952c9-26d5-444a-8384-2f20e3faea58"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Júri popular provocado]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="116" width="80" height="13" uuid="11cb43c5-cdde-4cd3-81e7-4afed1c69aec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="103" width="475" height="13" uuid="60a03ecf-40b4-4429-bf65-8a85fa88e43f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="103" width="473" height="13" uuid="1cea95a9-0546-4c9e-8ea2-601e8a3db933"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Júri popular cumprido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="116" width="473" height="13" uuid="283b747f-00a1-499d-a339-a68094beefe3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Liberdade provisória requerida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="142" width="473" height="13" uuid="58323e9c-c780-4f4a-abe4-1c29ecdd8866"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Indultos requerídos]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="168" width="80" height="13" uuid="d84f5d76-20ed-4ca9-8878-a8abd7ef352a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="155" width="80" height="13" uuid="e04691e5-9a19-45cc-94c3-216d747edfd1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="155" width="473" height="13" uuid="430c9da9-9b7a-4d1c-b70f-412e690b9eee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Indultos Deferidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="169" width="473" height="13" uuid="736a7863-a0dd-413a-b8d0-fad7a459c77b"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Remissão de pena requerida]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="129" width="475" height="13" uuid="7f0c05e0-d32d-477c-8650-b36464de27a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="129" width="80" height="13" uuid="3f2b3a71-c40f-431c-9f26-21d500184d4e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="129" width="473" height="13" uuid="420ef110-695b-4651-99e1-77fd33d22c55"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Liberdade provisória deferida]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="323" width="475" height="13" uuid="4f2f7404-a1bc-44bc-9c1b-f9da18371821"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="181" width="473" height="13" uuid="5df654f5-643f-49d7-b127-5b0731177c04"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Remissão de pena Deferida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="194" width="473" height="13" uuid="d26c6b14-0765-41b4-8fc1-3ffc9416e536"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Condicional requerida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="310" width="473" height="13" uuid="db367650-6611-4c58-9b16-8c697b0e80d5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Laudos psiquiátricos emitidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="271" width="473" height="13" uuid="4d3f57d8-2378-475c-9bb7-37b80c683818"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Habeas corpus Impetrados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="258" width="473" height="13" uuid="5ee1a7b8-2970-42d1-810e-b4bafa54840f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Saídas temporárias deferidas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="219" width="473" height="13" uuid="b6bf0f60-68b3-4f71-a944-8dc7c1bac860"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Progressão de regime requerido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="284" width="473" height="13" uuid="caf48752-30ed-4558-a3eb-748cefc4d295"/>
+				<textElement verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Habeas corpus deferidos]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="206" width="475" height="13" uuid="d1ddcab9-71ef-47ab-a926-a9f30ed82618"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="297" width="475" height="13" uuid="8d5ebc40-7f9b-4691-b9e8-ab3336645c4e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="336" width="475" height="13" uuid="d2e905ec-c46e-4688-8b9a-f14a6a285b94"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="206" width="473" height="13" uuid="cb723470-643c-4bb1-b298-a8a6b0d9f1a5"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Livramento condicional deferido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="337" width="473" height="13" uuid="20339d42-2746-4241-8c28-04ba3053833c"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="232" width="473" height="13" uuid="779b05c5-457a-49b1-b0f0-a666b127178a"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Progressão de regime deferido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="298" width="473" height="13" uuid="4ecb59a4-6b25-4b1f-ba4a-57db55b95298"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Laudos psicológicos emitidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="324" width="473" height="13" uuid="720b5f29-d690-4b37-8846-d082941a30f7"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Transferências - Provimento 04/2017 CGJ]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="271" width="80" height="13" uuid="8382bec6-0bd5-4182-b961-b620cb6965d7"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="245" width="80" height="13" uuid="1291b610-20b3-46e4-9d5a-a1d71a1732ff"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="310" width="80" height="13" uuid="4b4a3d95-240f-46b1-b27f-5087b750ef70"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="181" width="80" height="13" uuid="22692523-a80b-4ac4-a949-51259d4324bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="206" width="80" height="13" uuid="19263803-f00e-48bb-bc2c-694478b0a24f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="193" width="80" height="13" uuid="a8a1ec86-dae8-4830-b3ef-ba1f277f652a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="258" width="80" height="13" uuid="a70e8f87-fc2e-4e84-8780-97ae564517a0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="232" width="80" height="13" uuid="4a70882c-71f3-444b-a774-93cce304daf6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="297" width="80" height="13" uuid="c4a4e54c-52cb-4fdb-b9cb-9db8b9ac8596"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="245" width="80" height="13" uuid="65a462f1-101f-484a-85b2-5dafcfe94a2c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="219" width="80" height="13" uuid="14c376a4-ea04-4a1a-8a07-52da68f01c1c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="323" width="80" height="13" uuid="a6e1a09c-3c5c-4f01-9431-8cda9010fbd6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="284" width="80" height="13" uuid="ed03ccbd-dec5-4b02-a21b-12fd2436f902"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="245" width="473" height="13" uuid="ebdf85a4-e7dd-4f49-9b83-db34f7aa94dc"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Saídas temporárias requeridas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="336" width="80" height="13" uuid="617f7e6e-2182-4ef8-bb4b-ad27de819edd"/>
+			</rectangle>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="26" width="80" height="13" uuid="19781cdb-450b-4b4e-8afe-88ca0c0656bc"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{InternoFamiliaSAJ}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="39" width="80" height="13" uuid="56c33769-6075-446c-8b63-9692982e83a5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AlvaraSolturaRecebido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="51" width="80" height="13" uuid="db70e7a4-db75-4aa2-b35b-ba6417c5b2de"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AlvaraSolturaCumprido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="64" width="80" height="13" uuid="5461b587-e6ce-487c-9c6a-c9b67249f4e3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AudienciaProvocada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="77" width="80" height="13" uuid="d3462e34-6430-410a-b4cb-75e363ebbd03"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AudienciaCumprida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="90" width="80" height="13" uuid="4b608f9b-a40e-4153-aa63-662f7dd1ab8a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{JuriProvocado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="103" width="80" height="13" uuid="12055b8e-753f-4f62-a474-127a3ee31e90"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{JuriCumprido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="116" width="80" height="13" uuid="457001af-68ec-4f14-ab0d-fdd9a8e7c943"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LiberdadeProvisoriaRequerida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="129" width="80" height="13" uuid="0f9ff601-867b-4810-b17f-d828e78e6f0b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LiberdadeProvisoriaDeferida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="142" width="80" height="13" uuid="5fc3c049-47aa-4963-972a-68517de886d4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IndultosRequeridos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="155" width="80" height="13" uuid="cb51bf54-3444-44b4-a70e-2cd7074202b9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IndultosDeferidos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="168" width="80" height="13" uuid="bc54440f-d898-4b1b-8368-8a43e6cedad6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{RemicaoRequerida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="181" width="80" height="13" uuid="34f7bdfe-6c75-4218-8574-152ef9010102"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{RemicaoDeferida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="194" width="80" height="13" uuid="4a26db88-a246-4c79-b216-608adbea36dc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CondicionalRequerida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="206" width="80" height="13" uuid="5287ebac-2789-49cc-9f9c-743556e3df39"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CondicionalDeferida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="219" width="80" height="13" uuid="86c563bb-26e8-4e8f-9d70-d827b40b37e7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ProgressaoRegimeRequerida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="232" width="80" height="13" uuid="2e5bef15-8e5d-453a-8591-932e1981d043"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ProgressaoRegimeDeferida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="245" width="80" height="13" uuid="3914de44-6f6a-4797-8d0e-4a061564a44d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SaidasTemporariasRequerida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="258" width="80" height="13" uuid="cd0b24ad-36be-4d57-8f74-1f997e6d57fc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SaidasTemporariasDeferida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="271" width="80" height="13" uuid="45e507ce-9d10-4009-8080-e9f4a76c4fd3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HabeasCorpusRequerido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="284" width="80" height="13" uuid="8a30442d-5905-495e-9fbe-52245b83e89a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HabeasCorpusDeferido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="297" width="80" height="13" uuid="2ce97aed-2049-436a-9162-521b98e50001"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LaudosPsicologicos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="310" width="80" height="13" uuid="2790147f-9bf0-400f-9a95-a0465c6c2009"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{LaudosPsiquiatricos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="323" width="80" height="13" uuid="91adc57a-4647-40da-a176-1d5bbe8c2401"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TransferenciaProvimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="337" width="80" height="13" uuid="1c368bc8-5fb2-47a1-9182-eee817b1642d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_JURIDICO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

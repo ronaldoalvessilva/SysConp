@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Seguranca_da_Unidade" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOP 1 A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_SEGURANCA A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="CelularLocalizadoConvivencia" class="java.lang.Integer"/>
+	<field name="ObjetoNaoAutorizadoLocalizadoConvivencia" class="java.lang.Integer"/>
+	<field name="RevistaCela" class="java.lang.Integer"/>
+	<field name="TentativaFuga" class="java.lang.Integer"/>
+	<field name="OcorrenciaFuga" class="java.lang.Integer"/>
+	<field name="OcorrenciaRebeliao" class="java.lang.Integer"/>
+	<field name="OcorrenciaFerido" class="java.lang.Integer"/>
+	<field name="OcorrenciaIndisciplina" class="java.lang.Integer"/>
+	<field name="OcorrenciaRefem" class="java.lang.Integer"/>
+	<field name="OcorrenciaGravementeFeridoMorto" class="java.lang.Integer"/>
+	<field name="HorasInterrupcaoCFTV" class="java.lang.Integer"/>
+	<field name="DiasInterrupcaoScannerCorporal" class="java.lang.Integer"/>
+	<field name="DiasInterrupcaoRaioXDetectorMetais" class="java.lang.Integer"/>
+	<field name="DiasInterrupcaoVeiculoTransportePreso" class="java.lang.Integer"/>
+	<field name="FalhaGeradorEnergia" class="java.lang.Integer"/>
+	<field name="HorasMauFuncionamentoBRS" class="java.lang.Integer"/>
+	<field name="AbsorventesEntreguesPortariaScanner" class="java.lang.Integer"/>
+	<field name="FraldasEntreguesPortariaScanner" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="258" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="245" width="475" height="13" uuid="15c6b168-84b9-418b-96cd-fb5d9f64fdc6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="232" width="475" height="13" uuid="a373f85a-b91e-4458-8a9b-cd37eb052ede"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="219" width="475" height="13" uuid="9a74d80d-e9eb-4689-907e-ca0359d8d27d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="194" width="475" height="13" uuid="0744c0b5-9cfb-417d-ad61-3015c25b1286"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="181" width="475" height="13" uuid="1b49b7b8-c081-4819-b384-caf93c287a0e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="168" width="475" height="13" uuid="18ea6fc6-d052-4591-ae31-d741bc3c3ba0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="155" width="475" height="13" uuid="67ba5e0d-b98d-485e-9286-9e66612fd51e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="13" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="0" width="553" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.4 - SEGURANÇA DA UNIDADE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="13" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="13" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="25" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="51" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="38" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="77" width="475" height="13" uuid="1eb6954e-41ad-4b9f-a4fa-1b844be659bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="64" width="475" height="13" uuid="d5e14735-96dd-4c86-9f9a-ff95c8512026"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="25" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de aparelho celular localizado na área de convivência dos internos]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="25" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="38" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="51" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="64" width="80" height="13" uuid="5d14bef5-09d6-44cd-b0f7-bb807a50c2c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="77" width="80" height="13" uuid="172d7903-20aa-45bc-b578-4e42ae110911"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="3" y="38" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de objetos/materiais não autorizados localizados na área de convivência dos internos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="51" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº procedimentos de revistas em cada cela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="64" width="473" height="13" uuid="13337d53-3800-4a93-beec-5a0744755f6c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de ocorrência de tentativa de fuga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="77" width="473" height="13" uuid="dc7ca2a4-3354-4c96-ae84-976a4bac285f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de ocorrência de fugas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="77" width="80" height="13" uuid="3fab538b-2741-42a1-9036-59a32ad02fc1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="106" width="475" height="13" uuid="74405c5d-2e70-45f1-a0e2-814c35695c79"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="142" width="80" height="13" uuid="dff76bc0-fc95-4bde-855c-9d8b036fdb3b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="103" width="80" height="13" uuid="31f1c9b0-8b8b-4868-8a00-d5d798b08dc5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="142" width="475" height="13" uuid="a938116a-e884-4f3d-837c-844475f26b13"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="106" width="473" height="13" uuid="5f1a8432-b050-46fb-b20e-c426dd105663"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="90" width="80" height="13" uuid="ca1d6785-461a-4cfe-9153-c52554b6f8f6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="90" width="475" height="13" uuid="da211d31-e70b-4bc9-a23f-6420af2cf82d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="116" width="475" height="13" uuid="3f2d885d-cb76-4397-853d-52034756cc5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="90" width="473" height="13" uuid="339952c9-26d5-444a-8384-2f20e3faea58"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de ocorrência de rebelião]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="116" width="80" height="13" uuid="11cb43c5-cdde-4cd3-81e7-4afed1c69aec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="103" width="475" height="13" uuid="60a03ecf-40b4-4429-bf65-8a85fa88e43f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="103" width="473" height="13" uuid="1cea95a9-0546-4c9e-8ea2-601e8a3db933"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de ocorrência de pessoa ferida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="116" width="473" height="13" uuid="283b747f-00a1-499d-a339-a68094beefe3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Nº de ocorrência de indisciplina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="142" width="473" height="13" uuid="58323e9c-c780-4f4a-abe4-1c29ecdd8866"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de ocorrência de pessoas gravemente feridas ou mortas]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="168" width="80" height="13" uuid="d84f5d76-20ed-4ca9-8878-a8abd7ef352a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="155" width="80" height="13" uuid="e04691e5-9a19-45cc-94c3-216d747edfd1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="155" width="473" height="13" uuid="430c9da9-9b7a-4d1c-b70f-412e690b9eee"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nº de horas com interrupção dos serviços circuito fechado de TV - CFTV]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="169" width="473" height="13" uuid="736a7863-a0dd-413a-b8d0-fad7a459c77b"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº dias com interrupção dos serviços de scanner corporal]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="129" width="475" height="13" uuid="7f0c05e0-d32d-477c-8650-b36464de27a1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="129" width="80" height="13" uuid="3f2b3a71-c40f-431c-9f26-21d500184d4e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="129" width="473" height="13" uuid="420ef110-695b-4651-99e1-77fd33d22c55"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Nº de ocorrência de pessoa tomada como refém]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="181" width="473" height="13" uuid="5df654f5-643f-49d7-b127-5b0731177c04"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº dias com interrupção dos serviços de raio X, portal detector de metais e portátil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="194" width="473" height="13" uuid="d26c6b14-0765-41b4-8fc1-3ffc9416e536"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº dias com interrupção dos serviços de funcionamento dos veículos de transporte de presos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="219" width="473" height="13" uuid="b6bf0f60-68b3-4f71-a944-8dc7c1bac860"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº horas com mau funcionamento de serviço BRS - Bloqueador de Sinal de Radiocomunicação]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="207" width="475" height="13" uuid="d1ddcab9-71ef-47ab-a926-a9f30ed82618"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="207" width="473" height="13" uuid="cb723470-643c-4bb1-b298-a8a6b0d9f1a5"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de falhas ocorridas no funcionamento gerador de energia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="232" width="473" height="13" uuid="779b05c5-457a-49b1-b0f0-a666b127178a"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de absorventes entregues as visitas em procedimento de portaria interna - SCANNER]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="245" width="80" height="13" uuid="1291b610-20b3-46e4-9d5a-a1d71a1732ff"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="181" width="80" height="13" uuid="22692523-a80b-4ac4-a949-51259d4324bb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="207" width="80" height="13" uuid="19263803-f00e-48bb-bc2c-694478b0a24f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="194" width="80" height="13" uuid="a8a1ec86-dae8-4830-b3ef-ba1f277f652a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="232" width="80" height="13" uuid="4a70882c-71f3-444b-a774-93cce304daf6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="245" width="80" height="13" uuid="65a462f1-101f-484a-85b2-5dafcfe94a2c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="219" width="80" height="13" uuid="14c376a4-ea04-4a1a-8a07-52da68f01c1c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="245" width="473" height="13" uuid="ebdf85a4-e7dd-4f49-9b83-db34f7aa94dc"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Nº de fraldas descartáveis entregues as visitas em procedimento de portaria interna - SCANNER]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="26" width="79" height="13" uuid="66bcde7d-87f2-45f1-abdb-f478b1df9507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{CelularLocalizadoConvivencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="38" width="79" height="13" uuid="f91a7526-97b6-4de8-90fa-2617a63e2788"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ObjetoNaoAutorizadoLocalizadoConvivencia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="51" width="79" height="13" uuid="08d56cab-6dbf-4a33-b32a-e95ec7253188"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{RevistaCela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="64" width="79" height="13" uuid="3dcc4224-8daa-4abd-bad8-f635d8f9b226"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TentativaFuga}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="77" width="79" height="13" uuid="6e47db64-1fa0-47c9-856d-1639cc0323b9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaFuga}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="90" width="79" height="13" uuid="c5927584-ad66-4744-b1fa-2cc8897aef55"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaRebeliao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="103" width="79" height="13" uuid="dd24b5ba-eba2-4e49-8a7d-4eb266117e41"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaFerido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="116" width="79" height="13" uuid="4c675f40-f5b3-4f77-93b5-9a31f063dbc7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaIndisciplina}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="129" width="79" height="13" uuid="6c540cb8-c83e-4966-9917-583bf9376ce0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaRefem}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="142" width="79" height="13" uuid="b4c74ddc-d08d-4517-a4f1-7417f821e264"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{OcorrenciaGravementeFeridoMorto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="155" width="79" height="14" uuid="f3f72dce-74f1-4f16-9faa-21c7adbcaff2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HorasInterrupcaoCFTV}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="169" width="79" height="13" uuid="843da240-f830-4ff6-a51e-fdec9f1905b2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DiasInterrupcaoScannerCorporal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="182" width="80" height="13" uuid="f0f0dc84-7c36-4409-86f6-73472fc67d7a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DiasInterrupcaoRaioXDetectorMetais}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="195" width="79" height="13" uuid="63884e77-473d-422c-b48b-425ad6783492"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DiasInterrupcaoVeiculoTransportePreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="208" width="79" height="13" uuid="5654bc61-b6b2-4270-9803-38986a3bbc42"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{FalhaGeradorEnergia}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="220" width="80" height="13" uuid="e6bc2e77-26f3-4cc4-b9e9-8d4d07f714a6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{HorasMauFuncionamentoBRS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="232" width="79" height="13" uuid="2f8759f5-af9c-432f-bf51-80120463f0e8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AbsorventesEntreguesPortariaScanner}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="476" y="245" width="79" height="13" uuid="7972f314-70ee-41aa-a1ea-66639c154090"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{FraldasEntreguesPortariaScanner}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

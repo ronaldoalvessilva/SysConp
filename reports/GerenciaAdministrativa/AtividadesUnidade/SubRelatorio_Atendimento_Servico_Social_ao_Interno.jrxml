@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Atendimento_Servico_Social_ao_Interno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pAno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT TOP 1 A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_SERVICO_SOCIAL A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="AtendimentoPsicossocialPreso" class="java.lang.Integer"/>
+	<field name="AtendimentoPsicossocialFamiliaPreso" class="java.lang.Integer"/>
+	<field name="IdentificadoCivilmente" class="java.lang.Integer"/>
+	<field name="TotalServicoSocial" class="java.lang.Integer"/>
+	<variable name="TOTAL_S_SOCIAL" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{AtendimentoPsicossocialPreso}+$F{AtendimentoPsicossocialFamiliaPreso}+$F{IdentificadoCivilmente}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="78" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="13" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="0" width="553" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.3.3 - ATENDIMENTO SERVIÇO SOCIAL AO INTERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="13" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="13" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="26" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="52" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="39" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="26" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento psicossocial ao preso]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="26" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="39" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="52" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="39" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Atendimento psicossocial a família do preso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="52" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Presos identificados civilmente]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="65" width="80" height="13" uuid="3fab538b-2741-42a1-9036-59a32ad02fc1"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="65" width="475" height="13" uuid="74405c5d-2e70-45f1-a0e2-814c35695c79"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="65" width="473" height="13" uuid="5f1a8432-b050-46fb-b20e-c426dd105663"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL NO MÊS]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="26" width="80" height="13" uuid="54cbe9de-28d9-4367-9193-f7209e902d31"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoPsicossocialPreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="39" width="80" height="13" uuid="d7f411e0-8ca4-4a7e-9eba-ae4220894e40"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{AtendimentoPsicossocialFamiliaPreso}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="52" width="80" height="13" uuid="6ab3be53-eab2-47ab-bc2b-45d43343e425"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdentificadoCivilmente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="65" width="80" height="13" uuid="ad914823-018e-4c11-be4c-be5a37794e4b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL_S_SOCIAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

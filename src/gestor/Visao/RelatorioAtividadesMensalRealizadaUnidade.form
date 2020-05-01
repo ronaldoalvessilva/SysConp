@@ -41,7 +41,7 @@
               <Component id="jBtConfirmar" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jBtSair" linkSize="1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="112" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -78,17 +78,21 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jDataPesqInicial" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="jComboBoxMes" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jComboBoxAno" min="-2" pref="99" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jDataPesFinal" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="104" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,14 +100,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jDataPesqInicial" min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="jDataPesFinal" min="-2" pref="19" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jComboBoxMes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxAno" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -116,7 +120,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data Inicial"/>
+            <Property name="text" type="java.lang.String" value="M&#xea;s"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -124,26 +128,85 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data Final"/>
+            <Property name="text" type="java.lang.String" value="Ano"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDataPesqInicial">
+        <Component class="javax.swing.JComboBox" name="jComboBoxMes">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                <BevelBorder bevelType="1"/>
-              </Border>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="12">
+                <StringItem index="0" value="Janeiro"/>
+                <StringItem index="1" value="Fevereiro"/>
+                <StringItem index="2" value="Mar&#xe7;o"/>
+                <StringItem index="3" value="Abril"/>
+                <StringItem index="4" value="Maio"/>
+                <StringItem index="5" value="Junho"/>
+                <StringItem index="6" value="Julho"/>
+                <StringItem index="7" value="Agosto"/>
+                <StringItem index="8" value="Setembro"/>
+                <StringItem index="9" value="Outubro"/>
+                <StringItem index="10" value="Novembro"/>
+                <StringItem index="11" value="Dezembro"/>
+              </StringArray>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDataPesFinal">
+        <Component class="javax.swing.JComboBox" name="jComboBoxAno">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                <BevelBorder bevelType="1"/>
-              </Border>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="43">
+                <StringItem index="0" value="2007"/>
+                <StringItem index="1" value="2008"/>
+                <StringItem index="2" value="2009"/>
+                <StringItem index="3" value="2010"/>
+                <StringItem index="4" value="2011"/>
+                <StringItem index="5" value="2012"/>
+                <StringItem index="6" value="2013"/>
+                <StringItem index="7" value="2014"/>
+                <StringItem index="8" value="2015"/>
+                <StringItem index="9" value="2016"/>
+                <StringItem index="10" value="2018"/>
+                <StringItem index="11" value="2019"/>
+                <StringItem index="12" value="2020"/>
+                <StringItem index="13" value="2021"/>
+                <StringItem index="14" value="2022"/>
+                <StringItem index="15" value="2023"/>
+                <StringItem index="16" value="2024"/>
+                <StringItem index="17" value="2025"/>
+                <StringItem index="18" value="2026"/>
+                <StringItem index="19" value="2027"/>
+                <StringItem index="20" value="2028"/>
+                <StringItem index="21" value="2029"/>
+                <StringItem index="22" value="2030"/>
+                <StringItem index="23" value="2031"/>
+                <StringItem index="24" value="2032"/>
+                <StringItem index="25" value="2033"/>
+                <StringItem index="26" value="2034"/>
+                <StringItem index="27" value="2035"/>
+                <StringItem index="28" value="2036"/>
+                <StringItem index="29" value="2037"/>
+                <StringItem index="30" value="2038"/>
+                <StringItem index="31" value="2039"/>
+                <StringItem index="32" value="2040"/>
+                <StringItem index="33" value="2041"/>
+                <StringItem index="34" value="2042"/>
+                <StringItem index="35" value="2043"/>
+                <StringItem index="36" value="2044"/>
+                <StringItem index="37" value="2045"/>
+                <StringItem index="38" value="2046"/>
+                <StringItem index="39" value="2047"/>
+                <StringItem index="40" value="2048"/>
+                <StringItem index="41" value="2049"/>
+                <StringItem index="42" value="2050"/>
+              </StringArray>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

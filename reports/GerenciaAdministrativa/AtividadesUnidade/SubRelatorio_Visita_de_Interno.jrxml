@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorio_Visita_de_Interno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8888c1d2-f374-4a92-8895-d4167b4b8dc4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pMes" class="java.lang.String"/>
+	<parameter name="pAno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT A.*,B.IdAtividade FROM ATIVIDADES_UNIDADE_VISITA_INTERNO A
+INNER JOIN ATIVIDADES_UNIDADE B ON A.IdAtividade=B.IdAtividade
+WHERE MesReferencia LIKE $P{pMes} AND AnoReferencia LIKE $P{pAno}]]>
+	</queryString>
+	<field name="IdAtividade" class="java.lang.Integer"/>
+	<field name="NroDiasVisita" class="java.lang.Integer"/>
+	<field name="NroVisitantes" class="java.lang.Integer"/>
+	<field name="MediaVisitantesDia" class="java.lang.Double"/>
+	<field name="MediaVisitantesInterno" class="java.lang.Double"/>
+	<field name="NroCriancasVisitantes" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="91" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="13" width="475" height="13" uuid="5625e428-219d-459b-8f07-0bab07346102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="13" uuid="8b163164-a7aa-4ff1-8b61-7c191749a772"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[1.1 - VISITA DE INTERNO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="13" width="80" height="13" uuid="6eedf400-085c-485b-9ef6-6d84d3040e55"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="475" y="13" width="80" height="13" uuid="177d635c-8fc5-44b9-8393-26ce799564e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTDe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="475" height="13" uuid="4b27b02f-aef9-4ba3-ac86-3d692a512651"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="26" width="475" height="13" uuid="8c511a47-441a-494a-bf71-af665b562c58"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="52" width="475" height="13" uuid="54831d85-af19-4b0b-aabf-90feecc164b6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="39" width="475" height="13" uuid="fe263ee2-0ac4-4dfc-84e3-9fde368d9f77"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="78" width="475" height="13" uuid="1eb6954e-41ad-4b9f-a4fa-1b844be659bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="65" width="475" height="13" uuid="d5e14735-96dd-4c86-9f9a-ff95c8512026"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="26" width="473" height="13" uuid="e9c8eeaf-2dac-48e5-8aa1-5e4ffc782712"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Número de Dias de  Visita]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="475" y="26" width="80" height="13" uuid="dc4bcfb0-11e3-4625-aaad-ac968f5857a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="39" width="80" height="13" uuid="02d907a1-e768-4ff1-a5ee-1a394763b427"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="52" width="80" height="13" uuid="6befc7b2-dc81-47ef-b5f1-57a270a3836b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="65" width="80" height="13" uuid="5d14bef5-09d6-44cd-b0f7-bb807a50c2c9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="475" y="78" width="80" height="13" uuid="172d7903-20aa-45bc-b578-4e42ae110911"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="39" width="473" height="13" uuid="a5dc6ee6-b104-4cab-bf65-acb2e49bc16c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Número de Visitantes de Internos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="52" width="473" height="13" uuid="713925ae-cc05-46c4-9caa-49d1a8ffba4c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Média de Visitantes por Dia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="65" width="473" height="13" uuid="13337d53-3800-4a93-beec-5a0744755f6c"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Média de Visitantes por Interno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="78" width="473" height="13" uuid="dc7ca2a4-3354-4c96-ae84-976a4bac285f"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Número de Crianças Visitantes]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="26" width="80" height="13" uuid="4ea789d1-8978-4af1-a558-667e37e58bb2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NroDiasVisita}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="39" width="80" height="13" uuid="4f7341f8-e127-4e38-920b-d959d3244312"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NroVisitantes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="475" y="78" width="80" height="13" uuid="f057647b-bcf6-4099-b22e-b5132f37375c"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NroCriancasVisitantes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="52" width="80" height="13" uuid="80031fa0-56ed-4ce1-98ed-8717744ec377"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MediaVisitantesDia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="65" width="80" height="13" uuid="db6554c0-6f09-44de-837a-a74a1ec6c3a4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MediaVisitantesInterno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
