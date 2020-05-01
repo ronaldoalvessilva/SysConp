@@ -8,7 +8,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\geiba\\OneDrive\\Área de Trabalho\\Temp\\Relatórios\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\SysConp\\reports\\GerenciaAdministrativa\\AtividadesUnidade\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="pMes" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>

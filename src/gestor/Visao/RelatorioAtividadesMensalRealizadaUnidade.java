@@ -11,7 +11,6 @@ import static gestor.Visao.TelaLoginSenha.nameUser;
 //import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 //import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -29,17 +28,14 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     Calendar calendario = Calendar.getInstance();
-       
-//    String dataInicial = "";
-//  String dataFinal = "";  
-  
+
     /**
      * Creates new form RelatorioAtividadesMensalRealizadaUnidade
      */
     public RelatorioAtividadesMensalRealizadaUnidade() {
         initComponents();
-         jComboBoxMes.setSelectedIndex(calendario.get(Calendar.MONTH));
-         jComboBoxAno.setSelectedIndex(12 );
+        jComboBoxMes.setSelectedIndex(calendario.get(Calendar.MONTH));
+        jComboBoxAno.setSelectedIndex(12);
     }
 
     /**
@@ -67,32 +63,33 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Mês");
+        jLabel1.setText("Mês Referência");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Ano");
+        jLabel2.setText("Ano Referência");
 
+        jComboBoxMes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        jComboBoxMes.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        jComboBoxAno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050" }));
+        jComboBoxAno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel1)
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,8 +100,8 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxAno, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,10 +159,11 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
         // TODO add your handling code here:
 
         conecta.abrirConexao();
-        String path = "reports/GerenciaAdministrativa/AtividadesUnidade/Relatorio_Mensal_Unidades.jasper"; 
+        String path = "reports/GerenciaAdministrativa/AtividadesUnidade/Relatorio_Mensal_Unidades.jasper";
         try {
-            conecta.executaSQL("SELECT TOP 1 * FROM ATIVIDADES_UNIDADE\n "
-                    + "WHERE MesReferencia LIKE '" + jComboBoxMes.getSelectedItem() + "'  AND AnoReferencia LIKE '" + jComboBoxAno.getSelectedItem()  + "'  ");
+            conecta.executaSQL("SELECT TOP 1 * FROM ATIVIDADES_UNIDADE "
+                    + "WHERE MesReferencia LIKE '" + jComboBoxMes.getSelectedItem() + "'  "
+                    + "AND AnoReferencia LIKE '" + jComboBoxAno.getSelectedItem() + "'  ");
             HashMap parametros = new HashMap();
             parametros.put("pUsuario", nameUser);
             parametros.put("pNOME_UNIDADE", descricaoUnidade);
@@ -187,48 +185,6 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
         } catch (JRException e) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
         }
-        
-//        if (tipoServidor == null || tipoServidor.equals("")) {
-//            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-//        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-//            if (jDataPesqInicial.getDate() == null) {
-//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-//                jDataPesqInicial.requestFocus();
-//            } else {
-//                if (jDataPesFinal.getDate() == null) {
-//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-//                    jDataPesFinal.requestFocus();
-//                } else {
-//                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-//                    } else {
-//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-//                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-//                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-//                       
-//                    }
-//                }
-//            }
-//        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-//            if (jDataPesqInicial.getDate() == null) {
-//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-//                jDataPesqInicial.requestFocus();
-//            } else {
-//                if (jDataPesFinal.getDate() == null) {
-//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-//                    jDataPesFinal.requestFocus();
-//                } else {
-//                    if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
-//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-//                    } else {
-//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-//                        dataInicial = formatoAmerica.format(jDataPesqInicial.getDate().getTime());
-//                        dataFinal = formatoAmerica.format(jDataPesFinal.getDate().getTime());
-//                        
-//                    }
-//                }
-//            }
-//        }
     }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
