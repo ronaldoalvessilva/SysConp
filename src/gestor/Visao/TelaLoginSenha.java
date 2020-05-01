@@ -52,6 +52,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
     String caminhoExecutavel = "";
     String caminhoExecutavelAntigo = "";
     String dataVersao;
+    String pSISTEMA_MANUTENCAO = "";
     //
     public static String hostNameSRV;
     public static String ipHostSRV;
@@ -108,7 +109,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         buscarEmpresa();
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
-                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                            JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executável antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -125,7 +128,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -190,6 +192,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
                             JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -206,7 +210,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -271,6 +274,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
                             JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -287,7 +292,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -352,6 +356,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
                             JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -368,7 +374,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -433,6 +438,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
                             JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -449,7 +456,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -514,6 +520,8 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                         // COMPARAR O ARQUIVO EXECUTAVEL PARA REALIZAR ATUALIZAÇÃO
                         if (caminhoExecutavelAntigo == null) {
                             JOptionPane.showMessageDialog(rootPane, "O caminho do arquivo executavel antigo não existe, solicite ajuda ao Administrador do Sistema.");
+                        } else if (pSISTEMA_MANUTENCAO.equals("Sim") && !jUsuario.getText().equals("admin")) {
+                            JOptionPane.showMessageDialog(rootPane, "Acesso não autorizado, o sistema está temporariamente em manutenção, favor aguardar...");
                         } else {
                             File origem = new File(caminhoExecutavelAntigo);
                             dataOrigem = origem.lastModified(); // Data do arquivo de origem
@@ -530,7 +538,6 @@ public class TelaLoginSenha extends javax.swing.JDialog {
                                         Install_Sisconp();
                                         // UPDATE NO BANCO PARA ATUALIZAR A VERSÃO.
                                         versao.setVersao(Double.parseDouble(jNumeroVersao.getText()));
-//                                java.util.Date data = new java.util.Date();
                                         versao.setDataVersao(dataVersao);
                                         PreparedStatement pst = conecta.con.prepareStatement("UPDATE EMPRESA SET VersaoAtual=?,DataVersao=? "
                                                 + "WHERE IdEmpresa='" + codigoEmpresa + "'");
@@ -627,7 +634,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
 
         jNumeroVersao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jNumeroVersao.setForeground(new java.awt.Color(255, 0, 0));
-        jNumeroVersao.setText("6.1.0");
+        jNumeroVersao.setText("6.1.1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -650,9 +657,9 @@ public class TelaLoginSenha extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jNumeroVersao))
+                    .addComponent(jNumeroVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -984,6 +991,7 @@ public class TelaLoginSenha extends javax.swing.JDialog {
             caminhoExecutavel = conecta.rs.getString("CaminhoExecutavel");
             caminhoExecutavelAntigo = conecta.rs.getString("CaminhoExecutavelAntigo");
             dataVersao = conecta.rs.getString("DataVersao");
+            pSISTEMA_MANUTENCAO = conecta.rs.getString("SistemaManutencao");
         } catch (Exception e) {
         }
         conecta.desconecta();

@@ -157,7 +157,6 @@ public class RelatorioAtividadesMensalRealizadaUnidade extends javax.swing.JInte
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         // TODO add your handling code here:
-
         conecta.abrirConexao();
         String path = "reports/GerenciaAdministrativa/AtividadesUnidade/Relatorio_Mensal_Unidades.jasper";
         try {

@@ -61,6 +61,7 @@ import static gestor.Visao.TelaModuloAdmPessoal.codigoUserGroupADM;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtividadesMensalRealizadaUnidades;
 import gestor.Modelo.LogSistema;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloAdmPessoal.codIncluirADM;
 import static gestor.Visao.TelaModuloAdmPessoal.codUserAcessoADM;
@@ -71,8 +72,10 @@ import static gestor.Visao.TelaModuloAdmPessoal.telaAtividadeMensalManu_ADM;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -80,6 +83,11 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -4962,7 +4970,33 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         if (jChave.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Não existe registro a ser impresso..");
         } else {
-
+            conecta.abrirConexao();
+            String path = "reports/GerenciaAdministrativa/AtividadesUnidade/Relatorio_Mensal_Unidades.jasper";
+            try {
+                conecta.executaSQL("SELECT TOP 1 * FROM ATIVIDADES_UNIDADE "
+                        + "WHERE MesReferencia LIKE '" + jComboBoxMesReferencia.getSelectedItem() + "'  "
+                        + "AND AnoReferencia LIKE '" + jComboBoxAnoReferencia.getSelectedItem() + "'  ");
+                HashMap parametros = new HashMap();
+                parametros.put("pUsuario", nameUser);
+                parametros.put("pNOME_UNIDADE", descricaoUnidade);
+                parametros.put("pMes", jComboBoxMesReferencia.getSelectedItem());
+                parametros.put("pAno", jComboBoxAnoReferencia.getSelectedItem());
+                // Sub Relatório
+                try {
+                    parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+                } catch (SQLException ex) {
+                }
+                JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+                JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+                JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao  
+                jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+                jv.setTitle("Relatório Quantitativo Total Atendimento PSP");
+                jv.setVisible(true); // Chama o relatorio para ser visualizado             
+                jv.toFront(); // Traz o relatorio para frente da aplicação            
+                conecta.desconecta();
+            } catch (JRException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+            }
         }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 

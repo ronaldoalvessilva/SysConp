@@ -202,6 +202,8 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxTipoBancoDados = new javax.swing.JComboBox();
         jPanel48 = new javax.swing.JPanel();
         jPanel49 = new javax.swing.JPanel();
+        jLabel70 = new javax.swing.JLabel();
+        jComboBoxSistemaManutencao = new javax.swing.JComboBox<>();
         jPanel26 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
@@ -1544,7 +1546,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel69)
                     .addComponent(jComboBoxKitHigene, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
@@ -1670,15 +1672,33 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
 
         jPanel49.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true)));
 
+        jLabel70.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel70.setText("Sistema em Manutenção:");
+
+        jComboBoxSistemaManutencao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jComboBoxSistemaManutencao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxSistemaManutencao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jComboBoxSistemaManutencao.setEnabled(false);
+
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
         jPanel49.setLayout(jPanel49Layout);
         jPanel49Layout.setHorizontalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel70)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxSistemaManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel49Layout.setVerticalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(jPanel49Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel70)
+                    .addComponent(jComboBoxSistemaManutencao, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -2714,11 +2734,14 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setNomeLiberadorAG1(jNomeColaboradorLiberaDois.getText());
         objParCrc.setNomeEncerradorAG0(jNomeColaboradorEncerraUm.getText());
         objParCrc.setNomeEncerradorAG1(jNomeColaboradorEncerraDois.getText());
-        objParCrc.setPagamentoKit((String)jComboBoxKitHigene.getSelectedItem());
+        objParCrc.setPagamentoKit((String) jComboBoxKitHigene.getSelectedItem());
+        objParCrc.setSistemaManutencao((String) jComboBoxSistemaManutencao.getSelectedItem());
         if (jNomeUsuarioParametros.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do Usuario Autorizado.");
         } else if (jDataVersao.getDate() == null && !jNumeroVersao.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "É necessário preencher a data da versão.");
+        } else if (jComboBoxSistemaManutencao.getSelectedItem().equals("Sim") && !nameUser.equals("ADMINISTRADOR DO SISTEMA")) {
+            JOptionPane.showMessageDialog(rootPane, "Usuário logado '" + nameUser + "' não tem acesso para modificar o parâmetro (SISTEMA EM MANUTENÇÃO).\nSomente o usuário ADMINISTRADOR DO SISTEMA poderá modificar esse parâmetro.");
         } else {
             control.alterarParametrosCrc(objParCrc);
             objLog();
@@ -2931,6 +2954,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jComboBoxRegRetornoPortaria;
     private javax.swing.JComboBox<String> jComboBoxSSAdm;
     private javax.swing.JComboBox<String> jComboBoxSSAva;
+    private javax.swing.JComboBox<String> jComboBoxSistemaManutencao;
     private javax.swing.JComboBox<String> jComboBoxTO;
     private javax.swing.JComboBox jComboBoxTecnicos;
     private javax.swing.JComboBox jComboBoxTipoBancoDados;
@@ -3017,6 +3041,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jLocalPDF_B1;
@@ -3148,6 +3173,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jComboBoxPesquisaColaEncerraDois.setBackground(Color.white);
         //
         jComboBoxKitHigene.setBackground(Color.white);
+        jComboBoxSistemaManutencao.setBackground(Color.white);
     }
 
     public void formatarCampos() {
@@ -3246,6 +3272,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
             jNomeColaboradorEncerraDois.setText(conecta.rs.getString("NomeColaboradorEncerraDois"));
             //
             jComboBoxKitHigene.setSelectedItem(conecta.rs.getString("PagamentoKit"));
+            jComboBoxSistemaManutencao.setSelectedItem(conecta.rs.getString("SistemaManutencao"));
         } catch (SQLException ex) {
         }
         conecta.desconecta();
@@ -3356,6 +3383,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraUm.setEnabled(true);
         jBtPesqColaboradorEncerraDois.setEnabled(true);
         jComboBoxKitHigene.setEnabled(true);
+        jComboBoxSistemaManutencao.setEnabled(true);
         //
         jBtAlterar.setEnabled(!true);
         jBtSalvar.setEnabled(true);
@@ -3467,6 +3495,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraUm.setEnabled(!true);
         jBtPesqColaboradorEncerraDois.setEnabled(!true);
         jComboBoxKitHigene.setEnabled(!true);
+        jComboBoxSistemaManutencao.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
@@ -3578,6 +3607,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         jBtPesqColaboradorEncerraUm.setEnabled(!true);
         jBtPesqColaboradorEncerraDois.setEnabled(!true);
         jComboBoxKitHigene.setEnabled(!true);
+        jComboBoxSistemaManutencao.setEnabled(!true);
         //
         jBtAlterar.setEnabled(true);
         jBtSalvar.setEnabled(!true);
