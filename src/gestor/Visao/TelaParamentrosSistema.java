@@ -2707,7 +2707,7 @@ public class TelaParamentrosSistema extends javax.swing.JInternalFrame {
         objParCrc.setLocalPDF_B2(jLocalPDF_B2.getText());
         objParCrc.setCaminhoAtualizaSis(jCaminhoExecutavelAtualizacaoSis.getText());
         objParCrc.setDataVersao(jDataVersao.getDate());
-        objParCrc.setNumeroVersao(Double.parseDouble(jNumeroVersao.getText()));
+        objParCrc.setNumeroVersao(jNumeroVersao.getText());
         objParCrc.setCaminhoExecAntigo(jCaminhoExecutavelAntigo.getText());
         objParCrc.setPreLocacaoB1((String) jComboBoxHabilitarPreLocaB1.getSelectedItem());
         objParCrc.setPreLocacaoB2((String) jComboBoxHabilitarPreLocaB2.getSelectedItem());

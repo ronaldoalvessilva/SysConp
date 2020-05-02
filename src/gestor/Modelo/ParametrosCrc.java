@@ -63,7 +63,7 @@ public class ParametrosCrc {
     private String localPDF_B2;
     private String caminhoAtualizaSis;
     private Date dataVersao;
-    private Double numeroVersao;
+    private String numeroVersao;
     private String caminhoExecAntigo;
     private String preLocacaoB1;
     private String preLocacaoB2;
@@ -96,7 +96,7 @@ public class ParametrosCrc {
     public ParametrosCrc() {
     }
 
-    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, Double numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao) {
+    public ParametrosCrc(int idPar, int qtdDias, String qtdHoras, String usuarioAutorizado, String regRetornoPortaria, String regEntradaPortaria, String docAudiencia, String docTrans, String docSaidaTmp, String docLivraPro, String valAudiencia, String valTrans, String valSaidaTmp, String valLivraPro, String docPro, String docAlvara, String valPro, String valAlvara, String usuarioInsert, String usuariosUp, String dataInsert, String dataUp, String horarioUp, String populacaoBgp, String locacaoBgp, String transferenciaBgp, String pavilhaoCelas, String populacaoBpa, String locacaoBpa, String transferenciaBpa, String pavilhaoCelasBpa, String caminhoImagemCrc, String caminhoImagemSS, String caminhoImagemFunc, String localFotoAdvogado, String localFotoVisitasDiversas, String localFotoOficial, String localFotoVisitasInternos, String localFotoColaboradores, String localFotoInternos, String biometriaMedicos, String biometriaEnfermerios, String biometriaTecnicos, String carcereFem, String localPDF_PI, String localPDF_PE, String localPDF_B1, String localPDF_B2, String caminhoAtualizaSis, Date dataVersao, String numeroVersao, String caminhoExecAntigo, String preLocacaoB1, String preLocacaoB2, String pHabilitaBaseI, String pHabilitaBaseII, String nomeColaboradorPRI, String nomeColaboradorSEG, String pHabilitaAtendSS, String pHabilitaTele, String atendimentoBioPSI, String avaliacaoBioPSI, String adimissaoJuridico, String admissaoTO, String admissaoOdonto, String nomeColaboradorCRC, String nomeColaboradorCRCSEG, String pHabilitaPEDA, String nomeColaboradorTER, String nomeColaboradorQUA, String nomeColaboradorQUI, String tipoServidor, String tipoBanco, String nomeLiberadorAG0, String nomeLiberadorAG1, String nomeEncerradorAG0, String nomeEncerradorAG1, String pagamentoKit, String sistemaManutencao) {
         this.idPar = idPar;
         this.qtdDias = qtdDias;
         this.qtdHoras = qtdHoras;
@@ -881,14 +881,14 @@ public class ParametrosCrc {
     /**
      * @return the numeroVersao
      */
-    public Double getNumeroVersao() {
+    public String getNumeroVersao() {
         return numeroVersao;
     }
 
     /**
      * @param numeroVersao the numeroVersao to set
      */
-    public void setNumeroVersao(Double numeroVersao) {
+    public void setNumeroVersao(String numeroVersao) {
         this.numeroVersao = numeroVersao;
     }
 

@@ -85,7 +85,7 @@ public class ControleParamentrosCrc {
             } else {
                 pst.setTimestamp(47, null);
             }
-            pst.setDouble(48, objParCrc.getNumeroVersao());
+            pst.setString(48, objParCrc.getNumeroVersao());
             pst.setString(49, objParCrc.getPreLocacaoB1());
             pst.setString(50, objParCrc.getPreLocacaoB2());
             pst.setString(51, objParCrc.getpHabilitaBaseI());
