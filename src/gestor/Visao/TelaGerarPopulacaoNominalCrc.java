@@ -680,6 +680,7 @@ public class TelaGerarPopulacaoNominalCrc extends javax.swing.JInternalFrame {
     private void jCheckBoxBuscarTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxBuscarTodosItemStateChanged
         // TODO add your handling code here:
         count = 0;
+        qtdInternosPop = 0;
         flag = 1;
         jCheckBoxBuscarTodos.setEnabled(!true);
         jDataLancamento.setEnabled(true);

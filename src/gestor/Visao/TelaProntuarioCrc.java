@@ -46,6 +46,7 @@ import static gestor.Visao.TelaModuloCRC.telaCadastroProntuarioPrintCRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -142,6 +143,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     String situacaoEva = "EVADIDO DA UNIDADE";
     String pSAIDA_TEMPORARIA = "SAIDA TEMPORARIA";
     String pSAIDA_PRISAO_DOMICILIAR = "PRISAO DOMICILIAR";
+    String pPRISAO_DOMICILIAR_COVID = "PRISAO DOMICILIAR - COVID-19";
     // CAMINHO DAS IMAGENS DA MÃO DIREITA
     String caminhoBiometria1 = "";
     String caminhoBiometria2 = "";
@@ -185,8 +187,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     int pSAIDA_COVID = 0;
     String pSAIDA_temporaria = "";
     String pSAIDA_covid = "";
-    
-    
+    //
+//    String psaida_TMP = "";
+
     /**
      * Creates new form TelaTriagem
      */
@@ -898,7 +901,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"
+                "Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"
             }
         ));
         jTabelaInterno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -912,14 +915,16 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             jTabelaInterno.getColumnModel().getColumn(0).setMaxWidth(50);
             jTabelaInterno.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaInterno.getColumnModel().getColumn(1).setMaxWidth(300);
-            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(100);
-            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(100);
-            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(80);
-            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(2).setMinWidth(200);
+            jTabelaInterno.getColumnModel().getColumn(2).setMaxWidth(200);
+            jTabelaInterno.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(3).setMaxWidth(100);
             jTabelaInterno.getColumnModel().getColumn(4).setMinWidth(80);
             jTabelaInterno.getColumnModel().getColumn(4).setMaxWidth(80);
-            jTabelaInterno.getColumnModel().getColumn(5).setMinWidth(100);
-            jTabelaInterno.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(5).setMaxWidth(80);
+            jTabelaInterno.getColumnModel().getColumn(6).setMinWidth(100);
+            jTabelaInterno.getColumnModel().getColumn(6).setMaxWidth(100);
         }
 
         jPanel30.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -4955,6 +4960,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNomeActionPerformed
         // Pesquisa de Interno por NOME 
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jPesqNome.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe NOME para pesquisa!!!");
@@ -4963,7 +4970,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -4981,6 +4989,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMatriculaActionPerformed
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jPesqMatricula.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
@@ -4989,7 +4999,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5445,12 +5456,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
             this.preencherTodosInternos("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5947,6 +5961,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtPesqAlcunhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqAlcunhaActionPerformed
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jPesqAlcunha.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe a alcunha para pesquisa.");
@@ -5954,7 +5970,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5992,6 +6009,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqCodigoActionPerformed
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jPesqCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o código do interno para pesquisa.");
@@ -5999,7 +6018,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -6088,6 +6108,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtCNCPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCNCPesquisaActionPerformed
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jPesquisaCNC.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe MATRICULA para pesquisa!!!");
@@ -6096,7 +6118,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             buscarInternosMatricula("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -8094,19 +8117,19 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     // Método de pesquisa pela Descrição
     public void preencherTabelaNome(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
             do {
-                count = count + 1;                               
+                count = count + 1;
                 pSAIDA_temporaria = conecta.rs.getString("SituacaoCrc");
-                if(pSAIDA_temporaria.equals("SAIDA TEMPORARIA")){
-                     pSAIDA_TEMP = pSAIDA_TEMP + 1;
+                if (pSAIDA_temporaria.equals("SAIDA TEMPORARIA")) {
+                    pSAIDA_TEMP = pSAIDA_TEMP + 1;
                 }
                 pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
-                if(pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")){
+                if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
                     pSAIDA_COVID = pSAIDA_COVID + 1;
                 }
                 // Formatar a data Entrada
@@ -8124,7 +8147,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 jtotalRegistros.setText(Integer.toString(count));
                 jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
                 jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -8136,7 +8159,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
@@ -8144,23 +8167,58 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaProntuario();
+        corNaLinha();
         conecta.desconecta();
+    }
+
+    public void corNaLinha() {
+        DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
+                    Object psituacao_TMP = table.getValueAt(row, 2);
+                    Object psaida_PDC = table.getValueAt(row, 2);
+                    if (psituacao_TMP != null && pSAIDA_TEMPORARIA.equals(psituacao_TMP.toString())) {
+                        comp.setForeground(Color.RED);
+                        comp.setBackground(Color.WHITE);
+                    } else if (psaida_PDC != null && pPRISAO_DOMICILIAR_COVID.equals(psaida_PDC.toString())) {
+                        comp.setForeground(Color.BLUE);
+                        comp.setBackground(Color.WHITE);
+                    } else {
+                        comp.setForeground(Color.BLACK);
+                        comp.setBackground(Color.WHITE);
+                    }
+                }
+                return comp;
+            }
+        };
+        jTabelaInterno.setDefaultRenderer(Object.class, tableCellRenderer);
     }
 
     //Preencher tabela com todos os INTERNOS
     public void preencherTodosInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
                 count = count + 1; // Contador de registros
+                pSAIDA_temporaria = conecta.rs.getString("SituacaoCrc");
+                if (pSAIDA_temporaria.equals("SAIDA TEMPORARIA")) {
+                    pSAIDA_TEMP = pSAIDA_TEMP + 1;
+                }
+                pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
+                if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
+                    pSAIDA_COVID = pSAIDA_COVID + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8175,7 +8233,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 dataCadastro = day + "/" + mesc + "/" + anoc;
                 //                        
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
+                jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
+                jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -8187,7 +8247,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
@@ -8195,23 +8255,34 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaProntuario();
+//        alinharCamposTabelaProntuario();
+        corNaLinha();
         conecta.desconecta();
     }
 
     // Método de pesquisa pela Matricula
     public void buscarInternosMatricula(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         conecta.abrirConexao();
         conecta.executaSQL(sql);
         try {
             conecta.rs.first();
             do {
                 count = count + 1;
+                pSAIDA_temporaria = conecta.rs.getString("SituacaoCrc");
+                if (pSAIDA_temporaria.equals("SAIDA TEMPORARIA")) {
+                    pSAIDA_TEMP = pSAIDA_TEMP + 1;
+                }
+                pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
+                if (pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")) {
+                    pSAIDA_COVID = pSAIDA_COVID + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8225,7 +8296,9 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 String anoc = dataCadastro.substring(0, 4);
                 dataCadastro = day + "/" + mesc + "/" + anoc;
                 jtotalRegistros.setText(Integer.toString(count));
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
+                jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
+                jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("SituacaoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Dados não encontrado, use o botão TODOS \nPara pesquisar TODOS OS REGISTROS");
@@ -8237,7 +8310,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
@@ -8245,16 +8318,19 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        alinharCamposTabelaProntuario();
+        corNaLinha();
+//        alinharCamposTabelaProntuario();
         conecta.desconecta();
     }
 
     public void limparTabelaProntuario() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Situação", "Matricula Penal", "Data Entrada", "Data Cadastro", "CNC"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaInterno.setRowSorter(new TableRowSorter(modelo)); //FAZER ORDENAMENTO NA TABLEA  
         jTabelaInterno.setModel(modelo);
@@ -8262,7 +8338,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(0).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaInterno.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTabelaInterno.getColumnModel().getColumn(2).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaInterno.getColumnModel().getColumn(3).setResizable(false);
@@ -8270,6 +8346,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(4).setResizable(false);
         jTabelaInterno.getColumnModel().getColumn(5).setPreferredWidth(100);
         jTabelaInterno.getColumnModel().getColumn(5).setResizable(false);
+        jTabelaInterno.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTabelaInterno.getColumnModel().getColumn(6).setResizable(false);
         jTabelaInterno.getTableHeader().setReorderingAllowed(false);
         jTabelaInterno.setAutoResizeMode(jTabelaInterno.AUTO_RESIZE_OFF);
         jTabelaInterno.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -8288,7 +8366,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jTabelaInterno.getColumnModel().getColumn(2).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(3).setCellRenderer(centralizado);
         jTabelaInterno.getColumnModel().getColumn(4).setCellRenderer(centralizado);
-        jTabelaInterno.getColumnModel().getColumn(5).setCellRenderer(centralizado);
+        jTabelaInterno.getColumnModel().getColumn(6).setCellRenderer(centralizado);
     }
 
     public void objLog() {
