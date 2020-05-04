@@ -7097,26 +7097,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
-//        buscarAcessoUsuario(tela_PRODUTIVIDADE);
-//        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoPRIN.equals("ADMINISTRADORES") || codigoUserPRIN == codUserAcessoPRIN && nomeTelaPRIN.equals(tela_PRODUTIVIDADE) && codAbrirPRIN == 1) {
             Produtividade pPSP = new Produtividade();
-//        // this.jPanielPrincipal.add(pPSP);
             pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             pPSP.setExtendedState(MAXIMIZED_BOTH);
             pPSP.setVisible(true);
-
-//        TelaPeriodoProdutividade tpPSP = new TelaPeriodoProdutividade();
-//        this.jPanielPrincipal.add(tpPSP);
-//        tpPSP.show();
-//        try {
-//            tpPSP.setMaximum(!true);
-//        } catch (PropertyVetoException ex) {
-//            Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        private TelaPeriodoProdutividade objPeriodoProdPSP = null;
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
-//        }
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
 
     private void jPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPRORESActionPerformed

@@ -94,7 +94,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private TelaOcorrenciaBaseUmDir objOcorBaseI = null;
     private TelaOcorrenciaPortariaExternaDir objOcrPortExtDir = null;
     private TelaPRORES objPRORES = null;
-    private ConsultaGerencialInternosUnidade objConsultaGIU = null;   
+    private ConsultaGerencialInternosUnidade objConsultaGIU = null;
     private TelaRelatorioProgramacaoKits objRelProgKit = null;
     // 
     String pathFoto;
@@ -264,6 +264,8 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         RelatorioCadastroColaboradores = new javax.swing.JMenuItem();
+        jRelatorioAtividadesUnidade = new javax.swing.JMenuItem();
+        jRelatorioPopulacao = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         ListaPassagemInterna = new javax.swing.JMenuItem();
@@ -988,6 +990,22 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
             }
         });
         jMenu5.add(RelatorioCadastroColaboradores);
+
+        jRelatorioAtividadesUnidade.setText("Relatório de Atividades Mensal Realizadas na Unidade");
+        jRelatorioAtividadesUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioAtividadesUnidadeActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jRelatorioAtividadesUnidade);
+
+        jRelatorioPopulacao.setText("Relatório de População Alimentícia");
+        jRelatorioPopulacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioPopulacaoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jRelatorioPopulacao);
 
         RelatoriosSeguranca.add(jMenu5);
         RelatoriosSeguranca.add(jSeparator7);
@@ -3144,6 +3162,20 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
         objRelVAINome.show();
     }//GEN-LAST:event_jRelatorioVisitasAdvogadosInternosPorNomeActionPerformed
 
+    private void jRelatorioAtividadesUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioAtividadesUnidadeActionPerformed
+        // TODO add your handling code here:
+        RelatorioAtividadesMensalRealizadaUnidade objRelAtividade = new RelatorioAtividadesMensalRealizadaUnidade();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelAtividade);
+        objRelAtividade.show();
+    }//GEN-LAST:event_jRelatorioAtividadesUnidadeActionPerformed
+
+    private void jRelatorioPopulacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPopulacaoActionPerformed
+        // TODO add your handling code here:
+        RelatorioPopulacaoAlimenticia objRelPopAlimenta = new RelatorioPopulacaoAlimenticia();
+        TelaModuloAdmPessoal.jPainelAdmPessoal.add(objRelPopAlimenta);
+        objRelPopAlimenta.show();
+    }//GEN-LAST:event_jRelatorioPopulacaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
@@ -3281,6 +3313,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioAtendimentoPsicologia;
     private javax.swing.JMenu jRelatorioAtendimentoPsiscologia;
     private javax.swing.JMenuItem jRelatorioAtendimentoServicoSocial;
+    private javax.swing.JMenuItem jRelatorioAtividadesUnidade;
     private javax.swing.JMenuItem jRelatorioDocumentacaoInternos;
     private javax.swing.JMenuItem jRelatorioEvadidos;
     private javax.swing.JMenuItem jRelatorioGeralProgramacaoKit;
@@ -3288,6 +3321,7 @@ public class TelaModuloPRORES extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jRelatorioInternosCursoTO;
     private javax.swing.JMenuItem jRelatorioJuridico;
     private javax.swing.JMenuItem jRelatorioPedagogia;
+    private javax.swing.JMenuItem jRelatorioPopulacao;
     private javax.swing.JMenuItem jRelatorioProdEnfermagem;
     private javax.swing.JMenuItem jRelatorioProdMedicoClinico;
     private javax.swing.JMenuItem jRelatorioProdPsiquiatra;

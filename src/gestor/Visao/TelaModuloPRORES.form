@@ -716,6 +716,22 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioCadastroColaboradoresActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioAtividadesUnidade">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Atividades Mensal Realizadas na Unidade"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioAtividadesUnidadeActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPopulacao">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Popula&#xe7;&#xe3;o Aliment&#xed;cia"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPopulacaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator7">
