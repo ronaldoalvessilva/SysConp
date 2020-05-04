@@ -180,6 +180,13 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     byte[] persona_imagem2 = null;
     byte[] persona_imagem3 = null;
     byte[] persona_imagem4 = null;
+    //
+    int pSAIDA_TEMP = 0;
+    int pSAIDA_COVID = 0;
+    String pSAIDA_temporaria = "";
+    String pSAIDA_covid = "";
+    
+    
     /**
      * Creates new form TelaTriagem
      */
@@ -277,6 +284,14 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         jPanel31 = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jtotalRegistros = new javax.swing.JLabel();
+        jPanel51 = new javax.swing.JPanel();
+        jLabel194 = new javax.swing.JLabel();
+        jPanel52 = new javax.swing.JPanel();
+        jtotalRegistrosTMP = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        jLabel195 = new javax.swing.JLabel();
+        jPanel54 = new javax.swing.JPanel();
+        jtotalRegistrosPDC = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -792,7 +807,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(537, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -822,7 +837,7 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                                         .addComponent(jPesquisaCNC, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jBtCNCPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 60, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -952,23 +967,102 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             .addComponent(jtotalRegistros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
         );
 
+        jPanel51.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel194.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel194.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel194.setText("Total de Saída Temp:");
+
+        javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
+        jPanel51.setLayout(jPanel51Layout);
+        jPanel51Layout.setHorizontalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel194, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+        );
+        jPanel51Layout.setVerticalGroup(
+            jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel194)
+        );
+
+        jPanel52.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistrosTMP.setForeground(new java.awt.Color(204, 0, 0));
+        jtotalRegistrosTMP.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel52Layout = new javax.swing.GroupLayout(jPanel52);
+        jPanel52.setLayout(jPanel52Layout);
+        jPanel52Layout.setHorizontalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel52Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(jtotalRegistrosTMP, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel52Layout.setVerticalGroup(
+            jPanel52Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistrosTMP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
+        jPanel53.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jLabel195.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel195.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel195.setText("Total de Saída PDC:");
+
+        javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
+        jPanel53.setLayout(jPanel53Layout);
+        jPanel53Layout.setHorizontalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel195, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+        );
+        jPanel53Layout.setVerticalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel195)
+        );
+
+        jPanel54.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+
+        jtotalRegistrosPDC.setForeground(new java.awt.Color(0, 0, 204));
+        jtotalRegistrosPDC.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        javax.swing.GroupLayout jPanel54Layout = new javax.swing.GroupLayout(jPanel54);
+        jPanel54.setLayout(jPanel54Layout);
+        jPanel54Layout.setHorizontalGroup(
+            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistrosPDC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+        jPanel54Layout.setVerticalGroup(
+            jPanel54Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jtotalRegistrosPDC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(10, 10, 10))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel32, jPanel52, jPanel54});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -978,9 +1072,13 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -5920,12 +6018,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private void jBtPesqSitucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqSitucaoActionPerformed
         // TODO add your handling code here:
         count = 0;
+        pSAIDA_TEMP = 0;
+        pSAIDA_COVID = 0;
         flag = 1;
         if (jComboBoxPesqSituacao.getSelectedItem().equals("Ativos")) {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5945,7 +6046,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -5965,7 +6067,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
             preencherTabelaNome("SELECT PRONTUARIOSCRC.IdInternoCrc, "
                     + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc, "
                     + "PRONTUARIOSCRC.DataCadastCrc,DADOSPENAISINTERNOS.DataEntrada, "
-                    + "PRONTUARIOSCRC.Cnc "
+                    + "PRONTUARIOSCRC.Cnc, "
+                    + "PRONTUARIOSCRC.SituacaoCrc "
                     + "FROM PRONTUARIOSCRC "
                     + "INNER JOIN DADOSFISICOSINTERNOS "
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSFISICOSINTERNOS.IdInternoCrc "
@@ -6500,6 +6603,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel191;
     private javax.swing.JLabel jLabel192;
     private javax.swing.JLabel jLabel193;
+    private javax.swing.JLabel jLabel194;
+    private javax.swing.JLabel jLabel195;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -6643,6 +6748,10 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel50;
+    private javax.swing.JPanel jPanel51;
+    private javax.swing.JPanel jPanel52;
+    private javax.swing.JPanel jPanel53;
+    private javax.swing.JPanel jPanel54;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -6689,6 +6798,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTotalDias;
     public static javax.swing.JTextField jVaraCondenacao;
     private javax.swing.JLabel jtotalRegistros;
+    private javax.swing.JLabel jtotalRegistrosPDC;
+    private javax.swing.JLabel jtotalRegistrosTMP;
     // End of variables declaration//GEN-END:variables
 
     public void verificarGravacaoInterno() {
@@ -7989,7 +8100,15 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
         try {
             conecta.rs.first();
             do {
-                count = count + 1;
+                count = count + 1;                               
+                pSAIDA_temporaria = conecta.rs.getString("SituacaoCrc");
+                if(pSAIDA_temporaria.equals("SAIDA TEMPORARIA")){
+                     pSAIDA_TEMP = pSAIDA_TEMP + 1;
+                }
+                pSAIDA_covid = conecta.rs.getString("SituacaoCrc");
+                if(pSAIDA_covid.equals("PRISAO DOMICILIAR - COVID-19")){
+                    pSAIDA_COVID = pSAIDA_COVID + 1;
+                }
                 // Formatar a data Entrada
                 dataEntrada = conecta.rs.getString("DataEntrada");
                 String dia = dataEntrada.substring(8, 10);
@@ -8003,6 +8122,8 @@ public final class TelaProntuarioCrc extends javax.swing.JInternalFrame {
                 String anoc = dataCadastro.substring(0, 4);
                 dataCadastro = day + "/" + mesc + "/" + anoc;
                 jtotalRegistros.setText(Integer.toString(count));
+                jtotalRegistrosTMP.setText(Integer.toString(pSAIDA_TEMP = pSAIDA_TEMP));
+                jtotalRegistrosPDC.setText(Integer.toString(pSAIDA_COVID = pSAIDA_COVID));
                 dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("MatriculaCrc"), dataEntrada, dataCadastro, conecta.rs.getString("Cnc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
