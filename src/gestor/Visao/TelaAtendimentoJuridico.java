@@ -121,6 +121,8 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     //ATENDIMENTO MOSTRADO NA TV
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
+    //
+    String pCODIGO_INTERNO = "";
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -128,6 +130,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public static AgendaBeneficiosInternos agendabeneficios;
     public static TelaAtividadesRealizadasADM atividadesADM;
     public static TelaAtividadesRealizadasEvoluJURI ativiadadesEVOL;
+    public static TelaNovaAdmissaoJuridico pADMISSAO_ADICIONAL;
 
     public TelaAtendimentoJuridico() {
         super();
@@ -152,6 +155,11 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public void mostrarAtividadeRealizadaEvolucao() {
         ativiadadesEVOL = new TelaAtividadesRealizadasEvoluJURI(this, true);
         ativiadadesEVOL.setVisible(true);
+    }
+
+    public void mostrarNovaAdmissao() {
+        pADMISSAO_ADICIONAL = new TelaNovaAdmissaoJuridico(this, true);
+        pADMISSAO_ADICIONAL.setVisible(true);
     }
 
     /**
@@ -215,6 +223,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jBtAuditoria = new javax.swing.JButton();
         jBtSair = new javax.swing.JButton();
         jBtAdividadesRealizadasADM = new javax.swing.JButton();
+        jBtNovaAdmissao = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jEvolucaoAdmissao = new javax.swing.JTextArea();
@@ -380,7 +389,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                                 .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                         .addComponent(jCheckBoxTodos)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel37Layout.createSequentialGroup()
@@ -509,7 +518,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ListagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -589,53 +598,44 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jNomeInternoJuridico)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jIDInternoJuridico, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel1)
                             .addComponent(jIDLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jBtPesqInternoJuridico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jMatriculaPenaJuridico, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jDataCondIntJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6)))
+                                .addComponent(jStatusLanc)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9)
-                                .addGap(64, 64, 64))
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel5)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jStatusLanc)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jBtPesqInternoJuridico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jMatriculaPenaJuridico, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(14, 14, 14)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jDataCondIntJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6))))
+                                .addGap(1, 1, 1)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(11, 11, 11)
-                                                .addComponent(jDataNascInternoJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel5)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addComponent(jNomeInternoJuridico)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(jDataLanc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDataNascInternoJuri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel2))
+                .addGap(6, 6, 6))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIDInternoJuridico, jIDLanc});
@@ -784,30 +784,42 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             }
         });
 
+        jBtNovaAdmissao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/290718163923_16.png"))); // NOI18N
+        jBtNovaAdmissao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaAdmissaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jBtFinalizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtSair)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtNovaAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtAdividadesRealizadasADM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jBtAdividadesRealizadasADM, jBtNovaAdmissao});
+
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -823,11 +835,14 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtAuditoria)
-                            .addComponent(jBtAdividadesRealizadasADM))))
+                            .addComponent(jBtAdividadesRealizadasADM)
+                            .addComponent(jBtNovaAdmissao))))
                 .addContainerGap())
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterar, jBtCancelar, jBtExcluir, jBtFinalizar, jBtNovo, jBtSair, jBtSalvar});
+
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAdividadesRealizadasADM, jBtNovaAdmissao});
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Evolução da Admissão", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -848,7 +863,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addGap(4, 4, 4))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -971,31 +988,32 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         Manutencao.setLayout(ManutencaoLayout);
         ManutencaoLayout.setHorizontalGroup(
             ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ManutencaoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ManutencaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ManutencaoLayout.createSequentialGroup()
+                .addGroup(ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ManutencaoLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(22, 22, 22))
         );
         ManutencaoLayout.setVerticalGroup(
             ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManutencaoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addGroup(ManutencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Admissão", Manutencao);
@@ -1255,7 +1273,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addGroup(AtividadesRealizadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE))
                 .addContainerGap())
         );
         AtividadesRealizadasLayout.setVerticalGroup(
@@ -1264,7 +1282,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1431,7 +1449,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel26)
-                                .addGap(0, 271, Short.MAX_VALUE))
+                                .addGap(0, 240, Short.MAX_VALUE))
                             .addComponent(jComboBoxEncaminharSetorEvo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1446,7 +1464,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                             .addGroup(jPanel13Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jComboBoxTipoAdvogadoEvo, 0, 282, Short.MAX_VALUE))
+                            .addComponent(jComboBoxTipoAdvogadoEvo, 0, 251, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel13Layout.createSequentialGroup()
@@ -1593,12 +1611,13 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     .addComponent(jBtAuditoriaEvolucao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
 
         EvolucaoLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarEvolucao, jBtAuditoriaEvolucao, jBtCancelarEvolucao, jBtExcluirEvolucao, jBtNovaEvolucao, jBtSalvarEvolucao});
@@ -1609,14 +1628,18 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 607, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 518, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setBounds(300, 10, 654, 559);
+        setBounds(300, 10, 621, 548);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
@@ -1775,6 +1798,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaAtendimentoJuridicoManuJURI);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoJURI.equals("ADMINISTRADORES") || codigoUserJURI == codUserAcessoJURI && nomeTelaJURI.equals(telaAtendimentoJuridicoManuJURI) && codGravarJURI == 1) {
+            verificarAdmissao();
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de atendimento.");
                 jDataLanc.requestFocus();
@@ -1789,72 +1813,82 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                 objAtendJuri.setHoraEnvio(jHoraEnvio.getText());
                 objAtendJuri.setResposta((String) jComboBoxResposta.getSelectedItem());
                 if (pAcao == 1) {
-                    // log de usuario
-                    objAtendJuri.setUsuarioInsert(nameUser);
-                    objAtendJuri.setDataInsert(dataModFinal);
-                    objAtendJuri.setHoraInsert(horaMov);
-                    objAtendJuri.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                    control.incluirAtendJuridico(objAtendJuri);
-                    buscarID();
-                    objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
-                    objAtendJuri.setDeptoJuridico(deptoTecnico);
-                    controle.incluirMovTec(objAtendJuri);
-                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
-                    atendido = "Sim";
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());//
-                    objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
-                    objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    objRegAtend.setAtendido(atendido);
-                    objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
-                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
-                    //
-                    objRegAtend.setUsuarioUp(nameUser);
-                    objRegAtend.setDataUp(dataModFinal);
-                    objRegAtend.setHorarioUp(horaMov);
-                    controlRegAtend.alterarRegAtend(objRegAtend);
-                    // PRIMEIRA EVOLUÇÃO EM CONJUNTO COM A ADMISSÃO
-                    objEvolu.setDataEvo(jDataLanc.getDate());
-                    objEvolu.setDataEnca(jDataEncaminhamento.getDate());
-                    objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
-                    objEvolu.setResposta((String) jComboBoxResposta.getSelectedItem());
-                    objEvolu.setHoraEnvio(jHoraEnvio.getText());
-                    objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetor.getSelectedItem());
-                    objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
-                    objEvolu.setAdmEvo(admEvolucao);
-                    // log de usuario
-                    objEvolu.setUsuarioInsert(nameUser);
-                    objEvolu.setDataInsert(jDataSistema.getText());
-                    objEvolu.setHorarioInsert(jHoraSistema.getText());
-                    //
-                    objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
-                    controleJuri.incluirEvolucaoJuridico(objEvolu);
-                    // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
-                    buscarIdEvolucao();
-                    //
-                    objLog();
-                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
-                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
-                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
-                    objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                    objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
-                    objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
-                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
-                    objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
-                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
-                    control_ATENDE.confirmarAtendimento(objRegAtend);
-                    //
-                    preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
-                            + "WHERE IdLanc='" + jIDLanc.getText() + "'");
-                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
-                    Salvar();
+                    if (jIDInternoJuridico.getText().equals(pCODIGO_INTERNO)) {
+                        JOptionPane.showMessageDialog(rootPane, "Não é possível cadastrar a admissão para esse interno, já foi realizado admissão nessa tela.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            pesquisarAdmInterno();
+                            mostrarNovaAdmissao();
+                        }
+                    } else {
+                        // log de usuario
+                        objAtendJuri.setUsuarioInsert(nameUser);
+                        objAtendJuri.setDataInsert(dataModFinal);
+                        objAtendJuri.setHoraInsert(horaMov);
+                        objAtendJuri.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                        control.incluirAtendJuridico(objAtendJuri);
+                        buscarID();
+                        objAtendJuri.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objAtendJuri.setNomeInterno(jNomeInternoJuridico.getText());
+                        objAtendJuri.setDeptoJuridico(deptoTecnico);
+                        controle.incluirMovTec(objAtendJuri);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());//
+                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        // PRIMEIRA EVOLUÇÃO EM CONJUNTO COM A ADMISSÃO
+                        objEvolu.setDataEvo(jDataLanc.getDate());
+                        objEvolu.setDataEnca(jDataEncaminhamento.getDate());
+                        objEvolu.setTipoAdvogado((String) jComboBoxTipoAdvogado.getSelectedItem());
+                        objEvolu.setResposta((String) jComboBoxResposta.getSelectedItem());
+                        objEvolu.setHoraEnvio(jHoraEnvio.getText());
+                        objEvolu.setSetorEncaminhamento((String) jComboBoxEncaminharSetor.getSelectedItem());
+                        objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
+                        objEvolu.setAdmEvo(admEvolucao);
+                        // log de usuario
+                        objEvolu.setUsuarioInsert(nameUser);
+                        objEvolu.setDataInsert(jDataSistema.getText());
+                        objEvolu.setHorarioInsert(jHoraSistema.getText());
+                        //
+                        objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        controleJuri.incluirEvolucaoJuridico(objEvolu);
+                        // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
+                        buscarIdEvolucao();
+                        //
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoJuridico.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoJURI);
+                        objRegAtend.setNomeDepartamento(nomeModuloJURIDICO);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIDLanc.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //
+                        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                                + "WHERE IdLanc='" + jIDLanc.getText() + "'");
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                        Salvar();
+                    }
                 }
                 if (pAcao == 2) {
                     // log de usuario
@@ -2637,6 +2671,15 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBtAtividadesRealizadasEvolActionPerformed
 
+    private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
+        // TODO add your handling code here:
+        if (jIDLanc.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível realizar uma nova admissão sem ter realizado uma admissão principal do interno.");
+        } else {
+            mostrarNovaAdmissao();
+        }
+    }//GEN-LAST:event_jBtNovaAdmissaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AtividadesRealizadas;
@@ -2661,6 +2704,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public static javax.swing.JButton jBtExcluirEvolucao;
     private javax.swing.JButton jBtFinalizar;
     private javax.swing.JButton jBtIDPesq;
+    private javax.swing.JButton jBtNovaAdmissao;
     private javax.swing.JButton jBtNovaAtividade;
     public static javax.swing.JButton jBtNovaEvolucao;
     private javax.swing.JButton jBtNovo;
@@ -2762,6 +2806,89 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     public static javax.swing.JTable jTabelaEvolucaoJuridica;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void pesquisarAdmInterno() {        
+        jBtNovo.setEnabled(true);
+        jBtAlterar.setEnabled(true);
+        jBtExcluir.setEnabled(true);
+        jBtSalvar.setEnabled(!true);
+        jBtCancelar.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+        //jBtNovaEvolucao.setEnabled(true);
+        jBtNovaAtividade.setEnabled(true);
+        jBtAgendarBeneficio.setEnabled(true);
+        //
+        jIdInterno.setText("");
+        jNomeInternoAtividade.setText("");
+        jDataAtividade.setDate(null);
+        jIdAtiv.setText("");
+        jAtividadeRealizada.setText("");
+        jIdEvolucao.setText("");
+        jNomeInternoEvolucao.setText("");
+        jDataEvolucao.setDate(null);
+        //
+        jDataLanc.setEnabled(!true);
+        jIdInterno.setEnabled(!true);
+        jNomeInternoAtividade.setEnabled(!true);
+        jDataAtividade.setEnabled(!true);
+        jIdAtiv.setEnabled(!true);
+        jAtividadeRealizada.setEnabled(!true);
+        jIdEvolucao.setEnabled(!true);
+        jNomeInternoEvolucao.setEnabled(!true);
+        jDataEvolucao.setEnabled(!true);
+        jBtPesqInternoJuridico.setEnabled(!true);
+        jComboBoxTipoAdvogado.setEnabled(!true);
+        jComboBoxResposta.setEnabled(!true);
+        jComboBoxEncaminharSetor.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
+        //
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOJURIDICO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ATENDIMENTOJURIDICO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN DADOSPENAISINTERNOS "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
+                    + "WHERE ATENDIMENTOJURIDICO.IdLanc='" + jIDInternoJuridico.getText() + "'");
+            conecta.rs.first();
+            jIDLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
+            jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
+            jIDInternoJuridico.setText(conecta.rs.getString("IdInternoCrc"));
+            jNomeInternoJuridico.setText(conecta.rs.getString("NomeInternoCrc"));
+            caminho = conecta.rs.getString("FotoInternoCrc");
+            javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+            jFotoInternoJuridico.setIcon(i);
+            jFotoInternoJuridico.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoJuridico.getWidth(), jFotoInternoJuridico.getHeight(), Image.SCALE_DEFAULT)));
+            jMatriculaPenaJuridico.setText(conecta.rs.getString("MatriculaCrc"));
+            jDataNascInternoJuri.setDate(conecta.rs.getDate("DataNasciCrc"));
+            jDataCondIntJuri.setDate(conecta.rs.getDate("DataCondenacao"));
+            jComboBoxTipoAdvogado.setSelectedItem(conecta.rs.getString("TipoAdvogado"));
+            jComboBoxResposta.setSelectedItem(conecta.rs.getString("Resposta"));
+            jDataEncaminhamento.setDate(conecta.rs.getDate("DataEnca"));
+            jHoraEnvio.setText(conecta.rs.getString("HoraEnvio"));
+            jEvolucaoAdmissao.setText(conecta.rs.getString("Observacao"));
+            if (jComboBoxEncaminharSetor.getSelectedItem() != null || jComboBoxEncaminharSetor.getSelectedItem().equals("")) {
+                jComboBoxEncaminharSetor.setSelectedItem(conecta.rs.getString("SetorEncaminhamento"));
+            }
+        } catch (SQLException e) {
+        }
+        preencherAtividadeJuri("SELECT * FROM ITENSATENDIMENTOJURI "
+                + "INNER JOIN ATIVIDADESJURIDICOS "
+                + "ON ITENSATENDIMENTOJURI.IdAtiv=ATIVIDADESJURIDICOS.IdAtiv "
+                + "INNER JOIN ATENDIMENTOJURIDICO "
+                + "ON ITENSATENDIMENTOJURI.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                + "WHERE ITENSATENDIMENTOJURI.IdLanc='" + jIDLanc.getText() + "' "
+                + "AND ITENSATENDIMENTOJURI.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+        preencherEvolucaoPsicologia("SELECT * FROM EVOLUCAOJURIDICO "
+                + "INNER JOIN ATENDIMENTOJURIDICO "
+                + "ON EVOLUCAOJURIDICO.IdLanc=ATENDIMENTOJURIDICO.IdLanc "
+                + "WHERE EVOLUCAOJURIDICO.IdLanc='" + jIDLanc.getText() + "' "
+                + "AND EVOLUCAOJURIDICO.IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+        conecta.desconecta();
+    }
 
     public void formatarCampos() {
         jEvolucao.setLineWrap(true);
@@ -3072,6 +3199,18 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
             jBtPesqDatas.setEnabled(true);
             jCheckBoxTodos.setEnabled(true);
         }
+    }
+
+    public void verificarAdmissao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOJURIDICO "
+                    + "WHERE IdInternoCrc='" + jIDInternoJuridico.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void NovaAtividade() {

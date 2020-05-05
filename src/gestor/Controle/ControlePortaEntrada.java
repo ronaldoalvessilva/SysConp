@@ -208,6 +208,7 @@ public class ControlePortaEntrada {
         conecta.desconecta();
         return objPortaEntrada;
     }
+    
 
     public void buscarInterno(String desc, int codigo) {
         conecta.abrirConexao();

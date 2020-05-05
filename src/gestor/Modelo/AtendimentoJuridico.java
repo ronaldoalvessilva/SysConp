@@ -34,8 +34,12 @@ public class AtendimentoJuridico {
     private String horaUp;
     private String dataFechamento;
     private String horaFechamento;  
+    private int idADM_JURI;
 
-    public AtendimentoJuridico(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, Date dataEnca, String setorEncaminhameto, String tipoAdvogado, String horaEnvio, String resposta, String evolucao, String deptoJuridico, String Observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento) {
+    public AtendimentoJuridico() {
+    }
+
+    public AtendimentoJuridico(int idLanc, String statusLanc, Date dataLanc, int idInternoCrc, String nomeInterno, Date dataEnca, String setorEncaminhameto, String tipoAdvogado, String horaEnvio, String resposta, String evolucao, String deptoJuridico, String Observacao, String usuarioInsert, String usuarioUp, String dataInsert, String dataUp, String horaInsert, String horaUp, String dataFechamento, String horaFechamento, int idADM_JURI) {
         this.idLanc = idLanc;
         this.statusLanc = statusLanc;
         this.dataLanc = dataLanc;
@@ -57,9 +61,7 @@ public class AtendimentoJuridico {
         this.horaUp = horaUp;
         this.dataFechamento = dataFechamento;
         this.horaFechamento = horaFechamento;
-    }
-
-    public AtendimentoJuridico() {
+        this.idADM_JURI = idADM_JURI;
     }
 
     /**
@@ -354,5 +356,19 @@ public class AtendimentoJuridico {
      */
     public void setHoraFechamento(String horaFechamento) {
         this.horaFechamento = horaFechamento;
+    }
+
+    /**
+     * @return the idADM_JURI
+     */
+    public int getIdADM_JURI() {
+        return idADM_JURI;
+    }
+
+    /**
+     * @param idADM_JURI the idADM_JURI to set
+     */
+    public void setIdADM_JURI(int idADM_JURI) {
+        this.idADM_JURI = idADM_JURI;
     }
 }
