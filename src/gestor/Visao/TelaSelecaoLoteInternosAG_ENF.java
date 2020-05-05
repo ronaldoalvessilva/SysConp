@@ -1264,9 +1264,9 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
     public void buscarCodigoParticipantes() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_PSICOLOGIA");
+            conecta.executaSQL("SELECT * FROM PARTICIPANTES_ATENDIMENTO_GRUPO_ENFERMAGEM");
             conecta.rs.last();
-            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPart");
+            pCODIGO_ITEM_PARTICIPANTE = conecta.rs.getInt("IdItemPartEnf");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter código do registro.");
         }
@@ -1304,15 +1304,18 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
                         pTOTAL_REGISTROS_PRO = i + 1;
                         jTOTAL_REG_GRAVADO.setText(String.valueOf(pTOTAL_REGISTROS_PRO));
                         jProgressBar1.setValue(i);
+                        if (pTOTAL_REGISTROS_PRO == pTOTAL_REGISTROS) {
+                            jProgressBar1.setValue(100);
+                            JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
+                            bloquearTodosBotoes();
+                            bloquearTodosCampos();
+                            dispose();
+                        }
                     }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                     }
-                    JOptionPane.showMessageDialog(rootPane, "Operação Concluída com sucesso...");
-                    bloquearTodosBotoes();
-                    bloquearTodosCampos();
-                    dispose();
                 }
             };
             t0.start();
@@ -1341,7 +1344,7 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
                             jProgressBar1.setValue(i);
                         }
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(10);
                         } catch (InterruptedException ex) {
                         }
                     }
