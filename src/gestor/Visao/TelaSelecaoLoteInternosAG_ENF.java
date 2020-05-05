@@ -1339,7 +1339,7 @@ public class TelaSelecaoLoteInternosAG_ENF extends javax.swing.JDialog {
                         } else if (i > 0) {
                             jTabelaInternosDestino.setRowSelectionInterval(i, 1);
                             jProgressBar1.setValue((i + 1));
-                            pTOTAL_REGISTROS = i;
+                            pTOTAL_REGISTROS = i + 1;
                             jTOTAL_REG_COPIADO.setText(String.valueOf(pTOTAL_REGISTROS));
                             jProgressBar1.setValue(i);
                         }
