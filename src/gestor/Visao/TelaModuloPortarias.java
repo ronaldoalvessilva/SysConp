@@ -461,7 +461,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         RelatorioEntradaSaidaVisitas = new javax.swing.JMenuItem();
         RelatorioIndisciplinarVisitasPortaria = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
-        jMenu3 = new javax.swing.JMenu();
+        jRelatorioFrequenciaColaboradoresUnidadePenal = new javax.swing.JMenu();
         RelatorioEntradaSaidaFuncDepto = new javax.swing.JMenuItem();
         RelatorioEntradaSaidaColaboradores = new javax.swing.JMenuItem();
         RelatorioCadastroColaboradores = new javax.swing.JMenuItem();
@@ -480,6 +480,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         RelatorioEntradaInternos = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         RelatorioOcorrencias = new javax.swing.JMenuItem();
+        jRelatorioPernoite = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -1016,7 +1017,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         Relatorios.add(RelatorioIndisciplinarVisitasPortaria);
         Relatorios.add(jSeparator15);
 
-        jMenu3.setText("Relatórios de frequência de Colaboradores na Unidade Penal");
+        jRelatorioFrequenciaColaboradoresUnidadePenal.setText("Relatórios de frequência de Colaboradores na Unidade Penal");
 
         RelatorioEntradaSaidaFuncDepto.setText("Relatório Entrada/Saída Colaborador Por Departamento");
         RelatorioEntradaSaidaFuncDepto.addActionListener(new java.awt.event.ActionListener() {
@@ -1024,7 +1025,7 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
                 RelatorioEntradaSaidaFuncDeptoActionPerformed(evt);
             }
         });
-        jMenu3.add(RelatorioEntradaSaidaFuncDepto);
+        jRelatorioFrequenciaColaboradoresUnidadePenal.add(RelatorioEntradaSaidaFuncDepto);
 
         RelatorioEntradaSaidaColaboradores.setText("Relatório de Entrada/Saída de Colaboradores");
         RelatorioEntradaSaidaColaboradores.addActionListener(new java.awt.event.ActionListener() {
@@ -1032,9 +1033,9 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
                 RelatorioEntradaSaidaColaboradoresActionPerformed(evt);
             }
         });
-        jMenu3.add(RelatorioEntradaSaidaColaboradores);
+        jRelatorioFrequenciaColaboradoresUnidadePenal.add(RelatorioEntradaSaidaColaboradores);
 
-        Relatorios.add(jMenu3);
+        Relatorios.add(jRelatorioFrequenciaColaboradoresUnidadePenal);
 
         RelatorioCadastroColaboradores.setText("Listagem de Colaboradores");
         RelatorioCadastroColaboradores.addActionListener(new java.awt.event.ActionListener() {
@@ -1139,6 +1140,14 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
             }
         });
         Relatorios.add(RelatorioOcorrencias);
+
+        jRelatorioPernoite.setText("Relatório de Pernoite de Internos na Unidade");
+        jRelatorioPernoite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRelatorioPernoiteActionPerformed(evt);
+            }
+        });
+        Relatorios.add(jRelatorioPernoite);
 
         jMenuBar2.add(Relatorios);
 
@@ -2837,6 +2846,13 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jRegistroEntradaSaidaPernoiteActionPerformed
 
+    private void jRelatorioPernoiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRelatorioPernoiteActionPerformed
+        // TODO add your handling code here:
+        TelaRelatorioPernoiteInternos objRelPernoite = new TelaRelatorioPernoiteInternos();
+        TelaModuloPortarias.jPainelPortarias.add(objRelPernoite);
+        objRelPernoite.show();
+    }//GEN-LAST:event_jRelatorioPernoiteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromissos;
@@ -2914,7 +2930,6 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
@@ -2925,6 +2940,8 @@ public class TelaModuloPortarias extends javax.swing.JInternalFrame {
     public static javax.swing.JDesktopPane jPainelPortarias;
     private javax.swing.JMenuItem jRegistroAcessosTransientes;
     private javax.swing.JMenuItem jRegistroEntradaSaidaPernoite;
+    private javax.swing.JMenu jRelatorioFrequenciaColaboradoresUnidadePenal;
+    private javax.swing.JMenuItem jRelatorioPernoite;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;

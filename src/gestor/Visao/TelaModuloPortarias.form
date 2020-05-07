@@ -598,7 +598,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator15">
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="jMenu3">
+            <Menu class="javax.swing.JMenu" name="jRelatorioFrequenciaColaboradoresUnidadePenal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de frequ&#xea;ncia de Colaboradores na Unidade Penal"/>
               </Properties>
@@ -731,6 +731,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RelatorioOcorrenciasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jRelatorioPernoite">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Pernoite de Internos na Unidade"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRelatorioPernoiteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -1290,7 +1290,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
         jLabel143.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel143.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel143.setText("ATENÇÃO: A população deverá ser a última população do mês das atividades.");
+        jLabel143.setText("ATENÇÃO: A população informada tem como base o range a data inicial e final.");
 
         jLabel149.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel149.setForeground(new java.awt.Color(204, 0, 0));

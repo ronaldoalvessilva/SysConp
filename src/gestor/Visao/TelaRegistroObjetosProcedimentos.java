@@ -211,6 +211,10 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jDescricaoCelaObjeto = new javax.swing.JTextField();
         jBtPesqCelaInterno = new javax.swing.JButton();
         jComboBoxUnidade = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jMarca = new javax.swing.JTextField();
+        jModelo = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabelaObjetos = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
@@ -1193,6 +1197,18 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jComboBoxUnidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jComboBoxUnidade.setEnabled(false);
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setText("Marca");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel25.setText("Model");
+
+        jMarca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jMarca.setEnabled(false);
+
+        jModelo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jModelo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1231,7 +1247,19 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
                                 .addContainerGap())))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(21, 21, 21))))
+                        .addGap(21, 295, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jModelo)
+                                .addContainerGap())))))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdObjeto, jQuantidade});
@@ -1239,7 +1267,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(4, 4, 4)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
@@ -1257,7 +1285,15 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDescricaoObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jIdObjeto, jQuantidade});
@@ -1417,7 +1453,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -2446,6 +2482,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
                 jQuantidade.setText(vlDeposito);
                 jDescricaoObjeto.setText(conecta.rs.getString("DescricaoObjeto"));
                 jDescricaoCelaObjeto.setText(conecta.rs.getString("EndCelaPav"));
+                jMarca.setText(conecta.rs.getString("Marca"));
+                jModelo.setText(conecta.rs.getString("Modelo"));
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Não existe dados a serem exibidos!!!\nERRO: " + ex);
             }
@@ -2661,7 +2699,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
-      JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento...");
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento...");
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
 
@@ -2726,6 +2764,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -2739,6 +2778,7 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2747,6 +2787,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    public static javax.swing.JTextField jMarca;
+    public static javax.swing.JTextField jModelo;
     public static javax.swing.JTextField jNomeColaboradorProcedimento;
     private javax.swing.JTextArea jObservacao;
     private javax.swing.JPanel jPanel1;
@@ -2813,6 +2855,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setBackground(Color.white);
         jDescricaoCelaObjeto.setBackground(Color.white);
         jDescricaoObjeto.setBackground(Color.white);
+        jMarca.setBackground(Color.white);
+        jModelo.setBackground(Color.white);
         //
         jIdFunc.setBackground(Color.white);
         jCargoFunc.setBackground(Color.white);
@@ -2868,6 +2912,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jIdObjeto.setEnabled(!true);
         jComboBoxUnidade.setEnabled(!true);
@@ -2943,6 +2989,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jIdObjeto.setEnabled(!true);
         jComboBoxUnidade.setEnabled(!true);
@@ -3026,6 +3074,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jIdObjeto.setEnabled(!true);
         jComboBoxUnidade.setEnabled(!true);
@@ -3126,6 +3176,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
             jDescricaoRaio.setText("");
             jIdCela.setText("");
             jDescricaoCela.setText("");
+            jMarca.setText("");
+            jModelo.setText("");
             // limpar a tabela de internos como comando sql
             jIdPav.setEnabled(!true);
             jDescricaoRaio.setEnabled(!true);
@@ -3147,6 +3199,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
             jQuantidade.setText("");
             jDescricaoCelaObjeto.setText("");
             jDescricaoObjeto.setText("");
+            jMarca.setText("");
+            jModelo.setText("");
             //
             jIdObjeto.setEnabled(!true);
             jComboBoxUnidade.setEnabled(!true);
@@ -3199,6 +3253,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
             jDescricaoRaio.setText("");
             jIdCela.setText("");
             jDescricaoCela.setText("");
+            jMarca.setText("");
+            jModelo.setText("");
             // limpar a tabela de internos como comando sql
             jIdPav.setEnabled(!true);
             jDescricaoRaio.setEnabled(!true);
@@ -3220,6 +3276,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
             jQuantidade.setText("");
             jDescricaoCelaObjeto.setText("");
             jDescricaoObjeto.setText("");
+            jMarca.setText("");
+            jModelo.setText("");
             //
             jIdObjeto.setEnabled(!true);
             jComboBoxUnidade.setEnabled(!true);
@@ -3319,8 +3377,11 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jDescricaoRaio.setText("");
         jIdCela.setText("");
         jDescricaoCela.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         // Limpa a tabela   
-        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
+        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc, "
+                + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
                 + "FROM ITENSLOCACAOINTERNO "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -3447,8 +3508,11 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jDescricaoRaio.setText("");
         jIdCela.setText("");
         jDescricaoCela.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //  Limpa a tabela
-        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
+        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc, "
+                + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
                 + "FROM ITENSLOCACAOINTERNO "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -3547,7 +3611,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jIdCela.setText("");
         jDescricaoCela.setText("");
         //  // Limpa a tabela
-        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc,PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
+        preencherTabelaInternos("SELECT ITENSLOCACAOINTERNO.IdInternoCrc, "
+                + "PRONTUARIOSCRC.NomeInternoCrc,PRONTUARIOSCRC.MatriculaCrc "
                 + "FROM ITENSLOCACAOINTERNO "
                 + "INNER JOIN PRONTUARIOSCRC "
                 + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -3647,6 +3712,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jBtPesObjeto.setEnabled(true);
         jBtPesqCelaInterno.setEnabled(true);
@@ -3760,6 +3827,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jBtPesObjeto.setEnabled(!true);
         jBtPesqCelaInterno.setEnabled(!true);
@@ -3819,6 +3888,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jBtPesObjeto.setEnabled(!true);
         jBtPesqCelaInterno.setEnabled(!true);
@@ -3861,6 +3932,8 @@ public class TelaRegistroObjetosProcedimentos extends javax.swing.JInternalFrame
         jQuantidade.setText("");
         jDescricaoCelaObjeto.setText("");
         jDescricaoObjeto.setText("");
+        jMarca.setText("");
+        jModelo.setText("");
         //
         jBtPesObjeto.setEnabled(!true);
         jBtPesqCelaInterno.setEnabled(!true);

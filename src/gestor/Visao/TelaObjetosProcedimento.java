@@ -186,7 +186,7 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Data", "Status", "Descrição"
+                "Código", "Data", "Status", "Descrição", "Marca", "Modelo"
             }
         ));
         jTabelaObjetos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,6 +204,10 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
             jTabelaObjetos.getColumnModel().getColumn(2).setMaxWidth(80);
             jTabelaObjetos.getColumnModel().getColumn(3).setMinWidth(260);
             jTabelaObjetos.getColumnModel().getColumn(3).setMaxWidth(260);
+            jTabelaObjetos.getColumnModel().getColumn(4).setMinWidth(100);
+            jTabelaObjetos.getColumnModel().getColumn(4).setMaxWidth(100);
+            jTabelaObjetos.getColumnModel().getColumn(5).setMinWidth(100);
+            jTabelaObjetos.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1055,7 +1059,7 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
 
     public void preencherTabelaObjetos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição", "Marca", "Modelo"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -1069,7 +1073,7 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
                 String ano = dataCadastro.substring(0, 4);
                 dataCadastro = dia + "/" + mes + "/" + ano;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdObjeto"), dataCadastro, conecta.rs.getString("StatusLanc"), conecta.rs.getString("DescricaoObjeto")});
+                dados.add(new Object[]{conecta.rs.getInt("IdObjeto"), dataCadastro, conecta.rs.getString("StatusLanc"), conecta.rs.getString("DescricaoObjeto"), conecta.rs.getString("Marca"), conecta.rs.getString("Modelo")});;
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -1084,6 +1088,10 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
         jTabelaObjetos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaObjetos.getColumnModel().getColumn(3).setPreferredWidth(260);
         jTabelaObjetos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaObjetos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaObjetos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaObjetos.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaObjetos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaObjetos.getTableHeader().setReorderingAllowed(false);
         jTabelaObjetos.setAutoResizeMode(jTabelaObjetos.AUTO_RESIZE_OFF);
         jTabelaObjetos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1093,7 +1101,7 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição"};
+        String[] Colunas = new String[]{"Código", "Data", "Status", "Descrição", "Marca", "Modelo"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaObjetos.setModel(modelo);
         jTabelaObjetos.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -1104,6 +1112,10 @@ public class TelaObjetosProcedimento extends javax.swing.JInternalFrame {
         jTabelaObjetos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaObjetos.getColumnModel().getColumn(3).setPreferredWidth(260);
         jTabelaObjetos.getColumnModel().getColumn(3).setResizable(false);
+        jTabelaObjetos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTabelaObjetos.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaObjetos.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTabelaObjetos.getColumnModel().getColumn(5).setResizable(false);
         jTabelaObjetos.getTableHeader().setReorderingAllowed(false);
         jTabelaObjetos.setAutoResizeMode(jTabelaObjetos.AUTO_RESIZE_OFF);
         jTabelaObjetos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

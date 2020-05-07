@@ -9,6 +9,8 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaRegistroObjetosProcedimentos.jIdObjeto;
 import static gestor.Visao.TelaRegistroObjetosProcedimentos.jDescricaoObjeto;
+import static gestor.Visao.TelaRegistroObjetosProcedimentos.jMarca;
+import static gestor.Visao.TelaRegistroObjetosProcedimentos.jModelo;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -94,7 +96,7 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jNomeObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jNomeObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -116,7 +118,7 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome do Objeto"
+                "Código", "Nome do Objeto", "Marca", "Modelo"
             }
         ));
         jTabelaPesqObjetos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,6 +132,10 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
             jTabelaPesqObjetos.getColumnModel().getColumn(0).setMaxWidth(70);
             jTabelaPesqObjetos.getColumnModel().getColumn(1).setMinWidth(300);
             jTabelaPesqObjetos.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaPesqObjetos.getColumnModel().getColumn(2).setMinWidth(100);
+            jTabelaPesqObjetos.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTabelaPesqObjetos.getColumnModel().getColumn(3).setMinWidth(100);
+            jTabelaPesqObjetos.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -199,7 +205,7 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(250, 20, 415, 277);
+        setBounds(250, 20, 559, 277);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -217,10 +223,14 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
                 jIdObjeto.setText(idObjeto);
                 conecta.abrirConexao();
                 try {
-                    conecta.executaSQL("SELECT * FROM OBJETOSPROCEDIMENTOS WHERE DescricaoObjeto='" + nomeObjeto + "'AND StatusLanc='" + statusFunc + "'");
+                    conecta.executaSQL("SELECT * FROM OBJETOSPROCEDIMENTOS "
+                            + "WHERE DescricaoObjeto='" + nomeObjeto + "' "
+                            + "AND StatusLanc='" + statusFunc + "'");
                     conecta.rs.first();
                     jIdObjeto.setText(String.valueOf(conecta.rs.getInt("IdObjeto")));
                     jDescricaoObjeto.setText(conecta.rs.getString("DescricaoObjeto"));
+                    jMarca.setText(conecta.rs.getString("Marca"));
+                    jModelo.setText(conecta.rs.getString("Modelo"));
                     conecta.desconecta();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -241,15 +251,17 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
         if (jNomeObjeto.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe um nome ou parte do nome para pesquisar.");
             jNomeObjeto.requestFocus();
-        } else {            
-            buscarObjeto("SELECT * FROM OBJETOSPROCEDIMENTOS WHERE DescricaoObjeto LIKE'%" + jNomeObjeto.getText() + "%' AND StatusLanc='" + statusFunc + "'");
+        } else {
+            buscarObjeto("SELECT * FROM OBJETOSPROCEDIMENTOS "
+                    + "WHERE DescricaoObjeto LIKE'%" + jNomeObjeto.getText() + "%' "
+                    + "AND StatusLanc='" + statusFunc + "'");
         }
     }//GEN-LAST:event_jBtPesqNomeActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-        if (evt.getStateChange() == evt.SELECTED) {            
+        if (evt.getStateChange() == evt.SELECTED) {
             this.buscarObjeto("SELECT * FROM OBJETOSPROCEDIMENTOS WHERE StatusLanc='" + statusFunc + "'");
         } else {
             limparTabela();
@@ -284,13 +296,13 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
 //Preencher tabela com todos os COLABORADORES
     public void buscarObjeto(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Objeto"};
+        String[] Colunas = new String[]{"Código", "Nome do Objeto", "Marca", "Modelo"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdObjeto"), conecta.rs.getString("DescricaoObjeto")});
+                dados.add(new Object[]{conecta.rs.getInt("IdObjeto"), conecta.rs.getString("DescricaoObjeto"), conecta.rs.getString("Marca"), conecta.rs.getString("Modelo")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -301,6 +313,10 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
         jTabelaPesqObjetos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqObjetos.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqObjetos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqObjetos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqObjetos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqObjetos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaPesqObjetos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPesqObjetos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqObjetos.setAutoResizeMode(jTabelaPesqObjetos.AUTO_RESIZE_OFF);
         jTabelaPesqObjetos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -310,13 +326,17 @@ public class TelaPesqObjetosProcedimento extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Objeto"};
+        String[] Colunas = new String[]{"Código", "Nome do Objeto", "Marca", "Modelo"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqObjetos.setModel(modelo);
         jTabelaPesqObjetos.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTabelaPesqObjetos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqObjetos.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqObjetos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqObjetos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTabelaPesqObjetos.getColumnModel().getColumn(2).setResizable(false);
+        jTabelaPesqObjetos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTabelaPesqObjetos.getColumnModel().getColumn(3).setResizable(false);
         jTabelaPesqObjetos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqObjetos.setAutoResizeMode(jTabelaPesqObjetos.AUTO_RESIZE_OFF);
         jTabelaPesqObjetos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
