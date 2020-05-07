@@ -1408,7 +1408,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Aendimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados do Atendimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código:");
@@ -6319,6 +6319,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     Salvar();
                 }
             }
+            //ZERADO A VARIAVEL POR QUE ESTAVA PERMITINDO EDITAR O REGISTRO SEM CLICAR NO BOTÃO NOVO/ALTERAR - (07/05/2020)
+            acao = 0;
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -6326,6 +6328,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
     private void jBtCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelar1ActionPerformed
         // TODO add your handling code here:
+        //ZERADO A VARIAVEL POR QUE ESTAVA PERMITINDO EDITAR O REGISTRO SEM CLICAR NO BOTÃO NOVO/ALTERAR (07/05/2020)
+        acao = 0;
         Cancelar();
     }//GEN-LAST:event_jBtCancelar1ActionPerformed
 

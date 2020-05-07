@@ -48,17 +48,16 @@ public class ControleItensEntradaNova {
         buscarInternoCrc(objItensNova.getNomeInternoCrc(), objItensNova.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET IdEntrada=?,IdInternoCrc=?,NrOficio=?,DataEntrada=?,OrigemInterno=?,UtilizadoCrc=?,UsuarioUp=?,DataUp=?,HorarioUp=?,HorarioEntrada=? WHERE IdItem='" + objItensNova.getIdItem() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENSNOVAENTRADA SET IdEntrada=?,IdInternoCrc=?,NrOficio=?,DataEntrada=?,OrigemInterno=?,UsuarioUp=?,DataUp=?,HorarioUp=?,HorarioEntrada=? WHERE IdItem='" + objItensNova.getIdItem() + "'");
             pst.setInt(1, objItensNova.getIdEntrada());
             pst.setInt(2, codInt);
             pst.setString(3, objItensNova.getNrOficio());
             pst.setTimestamp(4, new java.sql.Timestamp(objItensNova.getDataEntrada().getTime()));
             pst.setString(5, objItensNova.getOrigemInterno());
-            pst.setString(6, objItensNova.getUtilizacaoCrc());
-            pst.setString(7, objItensNova.getUsuarioUp());
-            pst.setString(8, objItensNova.getDataUp());
-            pst.setString(9, objItensNova.getHorarioUp());
-            pst.setString(10, objItensNova.getHorarioEntrada());
+            pst.setString(6, objItensNova.getUsuarioUp());
+            pst.setString(7, objItensNova.getDataUp());
+            pst.setString(8, objItensNova.getHorarioUp());
+            pst.setString(9, objItensNova.getHorarioEntrada());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
