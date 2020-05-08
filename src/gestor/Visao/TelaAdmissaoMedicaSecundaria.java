@@ -1777,6 +1777,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    limpaTabelaDoencas();
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1784,8 +1786,6 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     if (jIdInternoAdmAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        limpaTabelaDoencas();
-                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2738,16 +2738,16 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdmAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdmAD.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoAdm.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdAdmPrincipal.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdAdmPrincipal.setText(jIdAdm.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");

@@ -474,7 +474,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jPanel9" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel9" pref="135" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jPanel4" max="32767" attributes="0"/>
                               </Group>
@@ -541,12 +541,12 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jIdLanc" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
+                                      <Component id="jIdADM_NOVA" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jIdAdm" min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="jIdADM_Principal" min="-2" pref="57" max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -580,8 +580,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="jIdAdm" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jIdLanc" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIdADM_Principal" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIdADM_NOVA" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jStatusLanc" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jDataLanc" alignment="2" min="-2" pref="19" max="-2" attributes="0"/>
                           </Group>
@@ -650,7 +650,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jIdLanc">
+                <Component class="javax.swing.JTextField" name="jIdADM_NOVA">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -717,7 +717,7 @@
                     <Property name="text" type="java.lang.String" value="ADM"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jIdAdm">
+                <Component class="javax.swing.JTextField" name="jIdADM_Principal">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -2433,7 +2433,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jFotoInterno" alignment="0" pref="171" max="32767" attributes="0"/>
+                      <Component id="jFotoInterno" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">

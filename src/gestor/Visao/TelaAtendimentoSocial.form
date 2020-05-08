@@ -3130,7 +3130,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jIDAtend" min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="jIdADM_Principal" min="-2" pref="67" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -3149,7 +3149,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="jLabel52" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="jIDAtend" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jIdADM_Principal" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jStatusAtend" alignment="2" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel53" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -3169,7 +3169,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jIDAtend">
+                <Component class="javax.swing.JTextField" name="jIdADM_Principal">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -3294,12 +3294,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="FotoInterno" alignment="1" max="32767" attributes="0"/>
+                      <Component id="FotoInterno" alignment="1" min="-2" pref="142" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="FotoInterno" alignment="0" max="32767" attributes="0"/>
+                      <Component id="FotoInterno" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

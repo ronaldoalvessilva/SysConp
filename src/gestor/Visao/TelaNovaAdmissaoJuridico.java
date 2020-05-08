@@ -1148,20 +1148,19 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                 if (pHabilitaJuridico.equals("Não")) {
                     pAcao_AD = 1;
                     Novo();
-                    verificarInternoRegistradoAdm();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     pesquisarInternoManual();
                 } else {
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
                     pesquisarInternoColaboradorBiometria();
                     if (jIDInternoJuridicoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
-                    } else {
-                        Novo();
+                    } else {                      
                         pAcao_AD = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2167,16 +2166,16 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridicoAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridico.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridicoAD.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIDInternoJuridico.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdADM_JURI.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdAdmPrincipal.setText(jIDLanc.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");

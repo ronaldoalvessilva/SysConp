@@ -241,7 +241,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jIdInternoAdmNova = new javax.swing.JTextField();
         jNomeInternoAdm = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jIdAtend = new javax.swing.JTextField();
+        jIdADM_Principal = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jUltimaEscola = new javax.swing.JTextField();
@@ -576,7 +576,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 508, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 509, Short.MAX_VALUE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -635,11 +635,11 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jNomeInternoAdm.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("ADM");
+        jLabel6.setText("ADM Principal");
 
-        jIdAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdAtend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdAtend.setEnabled(false);
+        jIdADM_Principal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Principal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Principal.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -665,15 +665,16 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                             .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel6))
                             .addComponent(jLabel5)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jIdInternoAdmNova, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jIdInternoAdmNova, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jIdADM_Principal))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jLabel6))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -700,7 +701,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jIdInternoAdmNova, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jIdAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -899,7 +900,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addComponent(jBtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73)
                 .addComponent(jBtFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtSair, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jBtAuditoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -937,11 +938,11 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jFotoInternoPedagogia, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -975,7 +976,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2258,7 +2259,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         + "WHERE IdAdmNova='" + IdLanc + "'");
                 conecta.rs.first();
                 jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAdmNova")));
-                jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
+                jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
                 jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
                 jDataAdm.setDate(conecta.rs.getDate("DataAdm"));
                 // Capturando foto
@@ -2443,12 +2444,15 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             if (jIdInternoAdm.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
                 if (pHabilitaPedagogia.equals("Não")) {
                     acao = 1;
+                    limparTodosCampos();
                     Novo();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
                     pesquisarInternoManual();
                 } else {
+                    limparTodosCampos();
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -2457,7 +2461,6 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
                         acao = 1;
-                        Novo();
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
                         dataModFinal = jDataSistema.getText();
@@ -2552,7 +2555,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             } else if (jComboBoxSerieAno.getSelectedItem().equals("Selecione...")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o grau de instrução do interno.");
             } else {
-                objAdmPedago.setIdAdm(Integer.valueOf(jIdAtend.getText()));
+                objAdmPedago.setIdAdm(Integer.valueOf(jIdADM_Principal.getText()));
                 objAdmPedago.setStatusAdm(jStatusAdm.getText());
                 objAdmPedago.setDataAdm(jDataAdm.getDate());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
@@ -3289,7 +3292,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JLabel jFotoInternoPedagogia;
     private javax.swing.JTextField jIDPesqLan;
-    private javax.swing.JTextField jIdAtend;
+    private javax.swing.JTextField jIdADM_Principal;
     public static javax.swing.JTextField jIdInternoAdmNova;
     private javax.swing.JTextField jIdadeAndou;
     private javax.swing.JFormattedTextField jIdadeEscolar;
@@ -3431,7 +3434,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
                     + "AND ADMISSAO_PEDAGOGIA.IdInternoCrc='" + jIdInternoAdm.getText() + "'");
             conecta.rs.first();
-            jIdAtend.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
+            jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -3495,7 +3498,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            jIdADM_Principal.setText(jCodigoAdmissao.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -3569,7 +3572,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
 
     public void corCampos() {
         jCodigoAdmissao.setBackground(Color.white);
-        jIdAtend.setBackground(Color.white);
+        jIdADM_Principal.setBackground(Color.white);
         jStatusAdm.setBackground(Color.white);
         jDataAdm.setBackground(Color.white);
         jIdInternoAdmNova.setBackground(Color.white);

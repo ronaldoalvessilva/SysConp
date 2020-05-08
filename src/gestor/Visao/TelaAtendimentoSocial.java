@@ -321,7 +321,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jBtNovaPortaEntrada = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jLabel52 = new javax.swing.JLabel();
-        jIDAtend = new javax.swing.JTextField();
+        jIdADM_Principal = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
         jDataAtendimento = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
@@ -1871,9 +1871,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel52.setText("Código:");
 
-        jIDAtend.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIDAtend.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIDAtend.setEnabled(false);
+        jIdADM_Principal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Principal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Principal.setEnabled(false);
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel53.setText("Data:");
@@ -1898,7 +1898,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel52)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jIDAtend, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1915,7 +1915,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel52)
-                    .addComponent(jIDAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdADM_Principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jStatusAtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel53)
@@ -1953,11 +1953,11 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FotoInterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FotoInterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(FotoInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jBtIndicacaoVisitas.setForeground(new java.awt.Color(153, 0, 0));
@@ -2292,9 +2292,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o ATENDIMENTO selecionado?", "Confirmação",
                         JOptionPane.YES_NO_OPTION);
                 if (resposta == JOptionPane.YES_OPTION) {
-                    objAtendSocial.setIdAtend(Integer.parseInt(jIDAtend.getText()));
+                    objAtendSocial.setIdAtend(Integer.parseInt(jIdADM_Principal.getText()));
                     control.excluirAtendSocial(objAtendSocial);
-                    objAtendSocial.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objAtendSocial.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     controle.excluirMovTec(objAtendSocial);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2410,7 +2410,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 objAtendSocial.setNomeInterno(jNomeInterno.getText());
                                 control.incluirAtendSocial(objAtendSocial);
                                 buscarCodAtend();
-                                objAtendSocial.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                                objAtendSocial.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                                 objAtendSocial.setNomeInterno(jNomeInterno.getText());
                                 objAtendSocial.setDeptoSocial(deptoTecnico);
                                 controle.incluirMovTec(objAtendSocial);
@@ -2423,7 +2423,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                                 objRegAtend.setAtendido(atendido);
                                 objRegAtend.setDataAtendimento(jDataAtendimento.getDate());
-                                objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                                objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                                 objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                                 //
                                 objRegAtend.setUsuarioUp(nameUser);
@@ -2438,7 +2438,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 objRegAtend.setNomeDepartamento(nomeModuloSERV);
                                 objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                                 objRegAtend.setHorarioUp(horaMov);
-                                objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                                objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                                 objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                                 control_ATENDE.confirmarAtendimento(objRegAtend);
                                 objLog();
@@ -2452,11 +2452,11 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                             objAtendSocial.setUsuarioUp(nameUser);
                             objAtendSocial.setDataUp(jDataSistema.getText());
                             objAtendSocial.setHoraUp(jHoraSistema.getText());
-                            objAtendSocial.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            objAtendSocial.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                             objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                             objAtendSocial.setNomeInterno(jNomeInterno.getText());
                             control.alterarAtendSocial(objAtendSocial);
-                            objAtendSocial.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                            objAtendSocial.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                             objAtendSocial.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                             objAtendSocial.setNomeInterno(jNomeInterno.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
@@ -2611,7 +2611,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                         + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                         + "WHERE IdAtend='" + idAtend + "'");
                 conecta.rs.first();
-                jIDAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+                jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
                 jDataAtendimento.setDate(conecta.rs.getDate("DataAtend"));
                 jStatusAtend.setText(conecta.rs.getString("StatusAtend"));
                 jIDInterno.setText(conecta.rs.getString("IdInternoCrc"));
@@ -2702,7 +2702,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
             }
-            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAtendimentoSocialMouseClicked
 
@@ -2734,9 +2734,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAtendSocial.setStatusAtend(statusAtend);
-            objAtendSocial.setIdAtend(Integer.parseInt(jIDAtend.getText()));
+            objAtendSocial.setIdAtend(Integer.parseInt(jIdADM_Principal.getText()));
             control.finalizarAtendSocial(objAtendSocial);
-            objAtendSocial.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+            objAtendSocial.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
             controle.finalizarMovTec(objAtendSocial);
             objLog();
             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2814,14 +2814,14 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a evolução selecionado?", "Confirmação",
                     JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
-                objEvol.setIdAtend(Integer.parseInt(jIDAtend.getText()));
+                objEvol.setIdAtend(Integer.parseInt(jIdADM_Principal.getText()));
                 controleEvol.excluirEvolucaoServicoSocial(objEvol);
-                objEvol.setIdAtend(Integer.parseInt(jIDAtend.getText()));
+                objEvol.setIdAtend(Integer.parseInt(jIdADM_Principal.getText()));
                 objEvol.setIdItem(idItemEvol);
                 controlMovEvolSSocial.excluirMovServicoSocial(objEvol);
                 objLog1();
                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
-                preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+                preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                 JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
                 ExcluirEvolucao();
             }
@@ -2850,13 +2850,13 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objEvol.setDataInsert(dataModFinal);
                     objEvol.setHorarioInsert(horaMov);
                     objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objEvol.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     controleEvol.incluirEvolucaoServicoSocial(objEvol);
                     //
                     buscarEvolucao();
                     objEvol.setDeptoMedico(deptoTecnico);
                     objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objEvol.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     objEvol.setNomeInterno(jNomeInternoEvolServicoSocial.getText());
                     controlMovEvolSSocial.incluirMovServicoSocial(objEvol); // Histórico de Movimento Técnico
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
@@ -2868,7 +2868,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataEvolu.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     objRegAtend.setIdEvol(Integer.valueOf(jIdEvolucao.getText()));
                     objRegAtend.setAtendeEvol(atendido);
                     objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
@@ -2891,7 +2891,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoEvol);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
-                            + "WHERE IdAtend='" + jIDAtend.getText() + "'");
+                            + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
                 }
@@ -2900,21 +2900,21 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     objEvol.setUsuarioUp(nameUser);
                     objEvol.setDataUp(dataModFinal);
                     objEvol.setHorarioUp(horaMov);
-                    objEvol.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
                     objEvol.setIdItem(idItemEvol);
                     controleEvol.alterarEvolucaoServicoSocial(objEvol);
                     //
                     objEvol.setDeptoMedico(deptoTecnico);
                     objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
-                    objEvol.setIdAtend(Integer.valueOf(jIDAtend.getText()));
+                    objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                     objEvol.setIdItem(idItemEvol);
                     objEvol.setNomeInterno(jNomeInternoEvolServicoSocial.getText());
                     controlMovEvolSSocial.alterarMovServicoSocial(objEvol);
                     objLog1();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
-                            + "WHERE IdAtend='" + jIDAtend.getText() + "'");
+                            + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                     JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                     SalvarEvolucao();
                 }
@@ -2949,7 +2949,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             jBtAuditoriaEvolucao.setEnabled(true);
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'AND IdItem='" + idItem + "'");
+                conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIdEvolucao.setText(conecta.rs.getString("IdItem")); //Coluna 0               
                 idItemEvol = conecta.rs.getInt("IdItem"); // Coluna 2
@@ -2973,7 +2973,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtIndicacaoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIndicacaoVisitasActionPerformed
         // TODO add your handling code here:
-        if (jIDAtend.getText().equals("")) {
+        if (jIdADM_Principal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Antes de fazer a indicação das visitas, será necessário gravar o atendimento antes.");
         } else {
             mostrarTelaIdicacaoVisitas();
@@ -2982,7 +2982,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     private void jBtNovaPortaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaPortaEntradaActionPerformed
         // TODO add your handling code here:
-        if (jIDAtend.getText().equals("")) {
+        if (jIdADM_Principal.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Antes de fazer a indicação das visitas, será necessário gravar o atendimento antes.");
         } else {
             mostrarPortaEntrada();
@@ -3064,9 +3064,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     public static javax.swing.JTextField jEscolaridade;
     public static javax.swing.JTextField jEstadoCivil;
     private javax.swing.JTextField jEstadoContato;
-    public static javax.swing.JTextField jIDAtend;
     public static javax.swing.JTextField jIDInterno;
     private javax.swing.JTextField jIDPesqAtend;
+    public static javax.swing.JTextField jIdADM_Principal;
     public static javax.swing.JTextField jIdEvolucao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -3318,7 +3318,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     public void corCampo() {
 
-        jIDAtend.setBackground(Color.white);
+        jIdADM_Principal.setBackground(Color.white);
         jDataAtendimento.setBackground(Color.white);
         jStatusAtend.setBackground(Color.white);
         jIDInterno.setBackground(Color.white);
@@ -3407,7 +3407,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     public void Novo() {
         //Limpar campos
-        jIDAtend.setText("");
+        jIdADM_Principal.setText("");
         jDataAtendimento.setCalendar(Calendar.getInstance());
         jStatusAtend.setText("ABERTO");
         jIDInterno.setText("");
@@ -3861,7 +3861,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
 
     public void Cancelar() {
 
-        if (jIDAtend.getText().equals("")) {
+        if (jIdADM_Principal.getText().equals("")) {
             //Limpar campos
             jIDPesqAtend.setText("");
             jDataAtendimento.setDate(null);
@@ -4383,7 +4383,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         try {
             conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL");
             conecta.rs.last();
-            jIDAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
             conecta.desconecta();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possivel encontrar ATENDIMENTO \nERRO: " + ex);
@@ -4584,7 +4584,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIDAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdADM_Principal.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4593,7 +4593,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela1);
-        objLogSys.setIdLancMov(Integer.valueOf(jIDAtend.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdADM_Principal.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4685,7 +4685,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                     + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                     + "WHERE ATENDIMENTOSOCIAL.IdInternoCrc'" + jIDInterno.getText() + "'");
             conecta.rs.first();
-            jIDAtend.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
+            jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAtend")));
             jDataAtendimento.setDate(conecta.rs.getDate("DataAtend"));
             jStatusAtend.setText(conecta.rs.getString("StatusAtend"));
             jIDInterno.setText(conecta.rs.getString("IdInternoCrc"));
@@ -4776,6 +4776,6 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
         }
-        preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+        preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
     }
 }

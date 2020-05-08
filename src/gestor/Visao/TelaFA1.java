@@ -8,12 +8,12 @@ package gestor.Visao;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEnfermagem;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.acao;
-import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdLanc;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.qualAlteracaoFala;
 import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.statusFalaLinguagem;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static gestor.Visao.TelaAdmissaoSecundariaEnfermagem.jIdADM_Secundaria;
 
 /**
  *
@@ -289,7 +289,7 @@ public class TelaFA1 extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON ADMISSAOENFERMEIRA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                    + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
             conecta.rs.first();
             if (statusFalaLinguagem == 0) {
                 jRBComAlteracaoFala.setSelected(true);

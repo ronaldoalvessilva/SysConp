@@ -22,6 +22,7 @@ import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdEvolucao;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jIdInternoEnfermeiro;
+import static gestor.Visao.TelaAdmissaoEnfermagem.jIdLanc;
 import static gestor.Visao.TelaAdmissaoEnfermagem.jTabelaEvolucaoEnfermagem;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloEnfermaria.codAbrirENF;
@@ -335,7 +336,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jIdLanc = new javax.swing.JTextField();
+        jIdADM_Secundaria = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jStatusLanc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -344,6 +345,8 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jIdInternoEnfermeiroAD = new javax.swing.JTextField();
         jNomeInternoEnfermeiroAD = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jIdADM_Princial = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jRBTranquilo = new javax.swing.JRadioButton();
         jRBAnsioso = new javax.swing.JRadioButton();
@@ -647,7 +650,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -665,9 +668,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Código");
 
-        jIdLanc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIdLanc.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jIdLanc.setEnabled(false);
+        jIdADM_Secundaria.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Secundaria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Secundaria.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Status");
@@ -701,6 +704,13 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jNomeInternoEnfermeiroAD.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jNomeInternoEnfermeiroAD.setEnabled(false);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("A.Principal");
+
+        jIdADM_Princial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jIdADM_Princial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jIdADM_Princial.setEnabled(false);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -710,54 +720,61 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jIdInternoEnfermeiroAD, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jStatusLanc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(247, 247, 247)
+                                .addComponent(jLabel3)
+                                .addGap(64, 64, 64))
+                            .addComponent(jNomeInternoEnfermeiroAD)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jIdInternoEnfermeiroAD, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jIdADM_Secundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jIdADM_Princial)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jNomeInternoEnfermeiroAD))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
-        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdInternoEnfermeiroAD, jIdLanc});
+        jPanel6Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jIdADM_Secundaria, jIdInternoEnfermeiroAD});
 
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(6, 6, 6)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jIdLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdADM_Princial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jIdADM_Secundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStatusLanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataLanc, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jIdInternoEnfermeiroAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jNomeInternoEnfermeiroAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Estado Emocional", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -798,7 +815,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addComponent(jRBTrite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRBAgitado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -982,7 +999,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nível de Consciência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Nível Consciência", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jRBOrientado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jRBOrientado.setSelected(true);
@@ -998,7 +1015,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRBDesorientado)
                     .addComponent(jRBOrientado))
@@ -1179,7 +1196,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 522, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel42)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1191,20 +1208,20 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
                                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
                                 .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(3, 3, 3)
-                                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1212,7 +1229,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1232,9 +1249,8 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jPanel43, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(3, 3, 3)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane2.addTab("Dados Iniciais", jPanel3);
@@ -1692,7 +1708,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, Short.MAX_VALUE)
         );
 
         pack();
@@ -1860,7 +1876,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                         + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                         + "WHERE IdLanc='" + IdLanc + "'");
                 conecta.rs.first();
-                jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdADME")));
+                jIdADM_Secundaria.setText(String.valueOf(conecta.rs.getInt("IdADME")));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
                 jDataLanc.setDate(conecta.rs.getDate("DataLanc"));
                 jIdInternoEnfermeiroAD.setText(conecta.rs.getString("IdInternoCrc"));
@@ -1985,15 +2001,18 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
             verificarRegistroBiometria();
             if (jIdInternoEnfermeiro.getText().equals(pINTERNOCRC) && deptoTecnico.equals(pDEPARTAMENTO) && pHABILITADO.equals("Sim")) {
                 if (pHabilitaMedico.equals("Não")) {
+                    limparCampos();
                     bloquearCampos();
                     Novo();
                     statusMov = "Incluiu";
                     horaMov = jHoraSistema.getText();
                     dataModFinal = jDataSistema.getText();
-
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
+                    limparCampos();
+                    bloquearCampos();
+                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -2001,8 +2020,6 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     if (jIdInternoEnfermeiroAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
-                        bloquearCampos();
-                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2028,16 +2045,16 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse antedimento não poderá ser excluída, o mesmo encontra-se FINALIZADO");
             } else {
-                if (jIdLanc.getText().equals(codEvolucao)) {
+                if (jIdADM_Secundaria.getText().equals(codEvolucao)) {
                     JOptionPane.showMessageDialog(rootPane, "Esse registro não pode ser EXCLUÍDO.");
                 } else {
                     int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o atendimento selecionado?", "Confirmação",
                             JOptionPane.YES_NO_OPTION);
                     if (resposta == JOptionPane.YES_OPTION) {
-                        objAdmEnfermagem.setIdADME(Integer.valueOf(jIdLanc.getText()));
+                        objAdmEnfermagem.setIdADME(Integer.valueOf(jIdADM_Secundaria.getText()));
                         control.excluiAdmissaoEnfermagem(objAdmEnfermagem);
                         objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());;
-                        objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
                         controle.excluirMovTec(objAdmEnfermagem);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2143,7 +2160,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     control.incluirAdmissaoEnfermagem(objAdmEnfermagem);
                     buscarID();
-                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.incluirMovTec(objAdmEnfermagem);
@@ -2156,7 +2173,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataLanc.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
                     //
                     objRegAtend.setUsuarioUp(nameUser);
@@ -2166,7 +2183,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
                     objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
                     objEvolEnferma.setAdmEvo(admEvolucao);
@@ -2184,12 +2201,12 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objRegAtend.setNomeDepartamento(nomeModuloENFER);
                     objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
                     objRegAtend.setHorarioUp(horaMov);
-                    objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
+                    objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
                     //
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                     buscarEvolucao();
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
@@ -2212,17 +2229,17 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objAdmEnfermagem.setHoraUp(horaMov);
                     objAdmEnfermagem.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
-                    objAdmEnfermagem.setIdADME(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setIdADME(Integer.valueOf(jIdADM_Secundaria.getText()));
 //                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     control.alterarAdmissaoEnfermagem(objAdmEnfermagem);
-                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmEnfermagem.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objAdmEnfermagem.setNomeInterno(jNomeInternoEnfermeiroAD.getText());
                     objAdmEnfermagem.setDeptoMedico(deptoTecnico);
                     controle.alterarMovTec(objAdmEnfermagem);
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
-                    objEvolEnferma.setIdItem(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
                     // log de usuario
@@ -2231,7 +2248,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objEvolEnferma.setHoraInsert(horaMov);
                     controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     bloquearBotoes();
@@ -2254,7 +2271,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA WHERE IdLanc='" + jIdLanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAOENFERMEIRA WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
             conecta.rs.first();
             jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
             if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -2282,7 +2299,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
 
     private void jBtImpressaoFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoFichaActionPerformed
         // TODO add your handling code here:
-        if (!jIdLanc.getText().equals("") && !jIdInternoEnfermeiroAD.getText().equals("")) {
+        if (!jIdADM_Secundaria.getText().equals("") && !jIdInternoEnfermeiroAD.getText().equals("")) {
             try {
                 conecta.abrirConexao();
                 String path = "reports/ProntuariosInternosENFCodigo.jasper";
@@ -2411,8 +2428,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField jFrequenciaCardiaca;
     private javax.swing.JFormattedTextField jFrequenciaRespira;
     private javax.swing.JFormattedTextField jHemograma;
+    private javax.swing.JTextField jIdADM_Princial;
+    public static javax.swing.JTextField jIdADM_Secundaria;
     public static javax.swing.JTextField jIdInternoEnfermeiroAD;
-    public static javax.swing.JTextField jIdLanc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -2438,6 +2456,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
@@ -2515,7 +2534,8 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
 
     public void corCampos() {
         // ADMISSÃO
-        jIdLanc.setBackground(Color.white);
+        jIdADM_Secundaria.setBackground(Color.white);
+        jIdADM_Princial.setBackground(Color.white);
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);
         //
@@ -2583,7 +2603,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     + "OR PRONTUARIOSCRC.SituacaoCrc='" + sitRetorno + "' "
                     + "AND ADMISSAOENFERMEIRA.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "'");
             conecta.rs.first();
-            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdADM_Secundaria.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -2609,16 +2629,16 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     + "ON PRONTUARIOSCRC.IdInternoCrc=DADOSPENAISINTERNOS.IdInternoCrc "
                     + "INNER JOIN UNIDADE "
                     + "ON DADOSPENAISINTERNOS.IdUnid=UNIDADE.IdUnid "
-                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEnfermeiroAD.getText() + "' "
+                    + "WHERE REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "' "
                     + "AND SituacaoCrc='" + situacao + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "' "
-                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEnfermeiroAD.getText() + "' "
+                    + "OR REGISTRO_ATENDIMENTO_INTERNO_PSP.IdInternoCrc='" + jIdInternoEnfermeiro.getText() + "' "
                     + "AND SituacaoCrc='" + sitRetorno + "' "
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdLanc")));
+            jIdADM_Princial.setText(jIdLanc.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -2641,7 +2661,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
     }
 
     public void limparCampos() {
-        jIdLanc.setText("");
+        jIdADM_Secundaria.setText("");
         jStatusLanc.setText("");
         jDataLanc.setDate(null);
         //
@@ -2885,7 +2905,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
     }
 
     public void Cancelar() {
-        if (jIdLanc.getText().equals("")) {
+        if (jIdADM_Secundaria.getText().equals("")) {
             limparCampos();
             bloquearBotoes();
             bloquearCampos();
@@ -2963,7 +2983,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAdmEnfermagem.setStatusLanc(statusLanc);
-            objAdmEnfermagem.setIdLanc(Integer.parseInt(jIdLanc.getText()));
+            objAdmEnfermagem.setIdLanc(Integer.parseInt(jIdADM_Secundaria.getText()));
             control.finalizarAdmissaoEnfermagem(objAdmEnfermagem);
             controle.finalizarMovTec(objAdmEnfermagem);
             jStatusLanc.setText("FINALIZADO");
@@ -2984,7 +3004,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM ADMISSAO_ENFERMEIRA_COMPLEMENTAR");
             conecta.rs.last();
-            jIdLanc.setText(String.valueOf(conecta.rs.getInt("IdADME")));
+            jIdADM_Secundaria.setText(String.valueOf(conecta.rs.getInt("IdADME")));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o ID do atendimento.\nERRO: " + ex);
         }
@@ -3005,7 +3025,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jIdLanc.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jIdADM_Secundaria.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }

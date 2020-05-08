@@ -13,7 +13,6 @@ import gestor.Modelo.LogSistema;
 import gestor.Modelo.TipoTratamentoPsicologico;
 import gestor.Modelo.TratamentoPsicologico;
 import static gestor.Visao.TelaNovaAdmissaoPSI.acao;
-import static gestor.Visao.TelaNovaAdmissaoPSI.jIdLanc;
 import static gestor.Visao.TelaNovaAdmissaoPSI.jNomeInterno;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -42,6 +41,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import static gestor.Visao.TelaNovaAdmissaoPSI.jIdInternoNovo;
+import static gestor.Visao.TelaNovaAdmissaoPSI.jIdADM_NOVA;
 
 /**
  *
@@ -671,7 +671,7 @@ public class TelaTratamentoPsicologico_NOVO extends javax.swing.JDialog {
             } else if (jDataInicioAtende.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data de inicio do tratamento.");
             } else {
-                objTrata.setID_REGISTRO_ATEND_EVOL(Integer.valueOf(jIdLanc.getText()));
+                objTrata.setID_REGISTRO_ATEND_EVOL(Integer.valueOf(jIdADM_NOVA.getText()));
                 objTrata.setStatusTrat((String) jComboBoxStatus.getSelectedItem());
                 objTrata.setDataTrat(jDataAtendimento.getDate());
                 objTrata.setIdInternoCrc(Integer.valueOf(jIdInternoTrata.getText()));

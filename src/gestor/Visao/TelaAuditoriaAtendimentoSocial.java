@@ -7,8 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AtendimentoServicoSocial;
-import static gestor.Visao.TelaAtendimentoSocial.jIDAtend;
 import java.sql.SQLException;
+import static gestor.Visao.TelaAtendimentoSocial.jIdADM_Principal;
 
 /**
  *
@@ -251,7 +251,7 @@ public class TelaAuditoriaAtendimentoSocial extends javax.swing.JInternalFrame {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL WHERE IdAtend='" + jIDAtend.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));
