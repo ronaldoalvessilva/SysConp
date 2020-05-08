@@ -6372,6 +6372,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtExcluir.setEnabled(opcao);
         jBtSalvar.setEnabled(opcao);
         jBtCancelar.setEnabled(opcao);
+        jBtFinalizar.setEnabled(opcao);
+        jBtImpressao.setEnabled(opcao);
         jBtAuditoria.setEnabled(opcao);
         jBtPesquisarDatas.setEnabled(opcao);
         jBtPesquisarColaborador.setEnabled(opcao);
@@ -6700,7 +6702,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     public void pesquisaUnidadePrisional() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdUnidEmp,DescricaoUnidade FROM UNIDADE_PENAL_EMPRESA");
+            conecta.executaSQL("SELECT IdUnidEmp,DescricaoUnidade "
+                    + "FROM UNIDADE_PENAL_EMPRESA");
             conecta.rs.first();
             pID_UNIDADE = conecta.rs.getInt("IdUnidEmp");
             jUnidadePrisional.setText(conecta.rs.getString("DescricaoUnidade"));
@@ -6740,6 +6743,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     //ABA AF - SERVIÇO SOCIAL
     //ATENDIMENTO PSICOSSOCIAL AO INTERNO
     public void calculoSS() {
+        pQUANTIDADE_ADM_SOCIAL = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd0 : listaSSDao.read()) {
                 dd0.getTipoAtendimento();
@@ -6753,6 +6757,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //ATENDIMENTO PSICOSSOCIAL A FAMILIA
     public void calculoSSF() {
+        pQUANTIDADE_ATE_FAMILIA = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd1 : listaDaoFam.read()) {
                 dd1.getTipoAtendimento();
@@ -6765,6 +6770,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //NUMERO DE VISITANTES
     public void calculoVI() {
+        pQUANTIDADE_VISITA_FAMILIA_INT = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd2 : listaDiasVIDao.read()) {
                 dd2.getDataEntradaVisita();
@@ -6775,8 +6781,11 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
-    //MÉDIA DE VISITAS POR INTERNO
+    //MÉDIA DE VISITAS POR INTERNO - AQUI
     public void calcularMediaVisitasInterno() {
+        pQUANTIDADE_INTERNOS = 0;
+        pQUANTIDADE_VISITAS = 0;
+        pMEDIA_VISITAS_POR_INTERNOS = 0;
         //FORMULA DA MÉDIDA
         //MV=QV/QI
         //LISTAGEM DE INTERNOS
@@ -6801,6 +6810,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //NÚMERO DE CRIANÇAS VISITA INTERNOS
     public void caluloVC() {
+        pQUANTIDADE_VISITA_CRIANCA_INT = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd3 : listaVCDao.read()) {
                 dd3.getDataEntradaVisita();
@@ -6813,6 +6823,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE DE VISITAS DIAS
     public void caluloQTVD() {
+        pQUANTIDADE_DIAS_VISITADOS = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd4 : listaNumDiasVDao.read()) {
                 dd4.getDataEntradaVisita();
@@ -6825,6 +6836,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //PRESOS IDENTIFICADO CIVILMENTE
     public void calculoPresoCivil() {
+        pQUANTIDADE_INTERNOS_CIVIL = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd4 : listaInternosCivil.read()) {
                 dd4.getDataEntradaVisita();
@@ -6837,6 +6849,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE ATENDIMENTO MÉDICO
     public void calculoMED() {
+        pQUANTIDADE_ATE_MEDICA = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd5 : listaQtdAtMedico.read()) {
                 dd5.getTipoAtendimento();
@@ -6850,6 +6863,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE ATENDIMENTO PSIQUIATRA
     public void calculoPSIQ() {
+        pQUANDIDADE_ATE_PSIQUIATRICA = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd6 : listaQtdAtPsiq.read()) {
                 dd6.getTipoAtendimento();
@@ -6863,6 +6877,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE ATENDIMENTO ENFERMEIRA
     public void calculoENFER() {
+        pQUANTIDADE_ATE_ENFERMAGEM = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd6 : listaQtdAtEnfer.read()) {
                 dd6.getTipoAtendimento();
@@ -6876,6 +6891,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //AGRAVOS DIAGNOSTICADOS - ADMISSÃO
     public void calculoAgravosDIAG() {
+        pQUANTIDADE_TOTAL_AGRAVOS_EVO = 0;
+        pQUANTIDADE_TOTAL_AGRAVOS = 0;
+        pTOTAL_GERAL_AGRAVADOS = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd16 : listaAgravosDiag.read()) {
                 dd16.getTipoAtendimento();
@@ -6899,6 +6917,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //DOENÇAS INFECTOCONTAGIOSAS - ADMISSÃO
     public void calculoDOENCA_INFECTOCONTAGIOSAS() {
+        pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
+        pQUANTIDADE_TOTAL_INFECTO_EVO = 0;
+        pQUANTIDADE_TOTAL_INFECTO = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd20 : listaDoencaIntectoADM.read()) {
                 dd20.getTipoAtendimento();
@@ -6910,7 +6931,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
         //DOENÇAS INFECTOCONTAGIOSAS - EVOLUÇÃO
         try {
-            pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
+//            pQUANTIDADE_TOTAL_INFECTO_EVO_ADM = 0;
             for (AtividadesMensalRealizadaUnidades dd21 : listaDoencaInfectoEvol.read()) {
                 dd21.getTipoAtendimento();
                 dd21.getQuantidadeEvoInfectoTotal();
@@ -6925,6 +6946,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //CONTROLE DE HIPERTNSÃO
     public void calculoControleHipertensao() {
+        pQUANTIDADE_HIPERTENSAO = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd17 : listaControleHiper.read()) {
                 dd17.getTipoAtendimento();
@@ -6938,6 +6960,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //CONTROLE DE DIABETES
     public void calculoControleDiabetes() {
+        pQUANTIDADE_DIABETES = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd18 : listaControleDiabetes.read()) {
                 dd18.getTipoAtendimento();
@@ -6951,6 +6974,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //PRESOS VACINADOS
     public void calculoControleVacinas() {
+        pQUANTIDADE_TOTAL_VACINAS = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd18 : listaInternosVacinados.read()) {
                 dd18.getTipoAtendimento();
@@ -6963,6 +6987,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE ATENDIMENTO PSICOLOGICOS  
     public void calculoPSI() {
+        pQUANTIDADE_ATE_PSICOLOGIA = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd7 : listaAtdAtPsico.read()) {
                 dd7.getDataAtendimento();
@@ -6976,6 +7001,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE PROCEDIMENTO ODONTOLOGICO
     public void calculoProcODON() {
+        pQUANTIDADE_PROC_ODONTOLOGICO = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd8 : listaProcAtOdon.read()) {
                 dd8.getDataAtendimento();
@@ -6989,6 +7015,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE ATENDIMENTOS ODONTOLOGICO
     public void calculoAtendODON() {
+        pQUANTIDADE_ATE_ODONTOLOGICO = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd9 : listaAtdAtOdon.read()) {
                 dd9.getDataAtendimento();
@@ -7000,21 +7027,9 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         }
     }
 
-    //QUANTIDADE PRODUTOS KIT HIGIÊNE
-    public void calcularPROKit() {
-        try {
-            for (AtividadesMensalRealizadaUnidades dd10 : listaAtdAtOdon.read()) {
-                dd10.getDataAtendimento();
-                dd10.getTipoAtendimento();
-                jAtendimentoOdontologicos.setText(String.valueOf(pQUANTIDADE_ATE_ODONTOLOGICO));
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     //INTERNO SENTENCIADO MATRICULADOS CURSO FUNDAMENTAL
     public void calculoMatPED() {
+        pQUANTIDADE_MATRICULADOS = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd10 : listaMatInTPed.read()) {
                 dd10.getDataMatricula();
@@ -7027,6 +7042,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //INTERNO SENTENCIADO MATRICULADOS CURSO FUNDAMENTAL
     public void calculoFreqPED() {
+        pQUANTIDADE_INTERNOS_PRESENTE = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd11 : listaFreqIntPed.read()) {
                 dd11.getDataFrequencia();
@@ -7039,6 +7055,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE APARELHO CELULAR
     public void calculoCelularSEG() {
+        pQUANTIDADE_APARELHO_CELULAR = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd12 : listaQdtCelular.read()) {
                 dd12.getDataProcedimento();
@@ -7052,6 +7069,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE DE OBJETOS 
     public void calcularObjetos() {
+        pQUANTIDADE_OBJETOS_PROC = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd13 : listaQtdObjetos.read()) {
                 dd13.getDataProcedimento();
@@ -7064,6 +7082,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void calcularQtdRevistaCela() {
+        pQUANTIDADE_REVISTA_POR_CELA = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd14 : listaRevistaCela.read()) {
                 dd14.getDataProcedimento();
@@ -7107,6 +7126,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //QUANTIDADE DE ATENDIMENTO FAMILIA - JURIDICO 
     public void calculoATENJURI() {
+        pQUANTIDADE_ATENDE_FAMILIA_JURI = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd22 : listaAtendFam.read()) {
                 dd22.getDataProcedimento();
@@ -7119,6 +7139,10 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //SAIDA ALVARÁ
     public void calculoSAIDA_ALVARA_LIVRAMENTO_PROGESSAO() {
+        pQUANTIDADE_ALVARA = 0;
+        pQUANTIDADE_LIVRAMENTO = 0;
+        pQUANTIDADE_PROGRESSAO = 0;
+        pQUANTIDADE_SAIDA_TMP = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd23 : listaSaidaAlvara.read()) {
                 dd23.getDataProcedimento();
@@ -7158,6 +7182,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //ATENDIMENTO TRIAGEM TO
     public void calculoATEN_TO() {
+        pQUANTIDADE_TOTAL_TO = 0;
         try {
             for (AtividadesMensalRealizadaUnidades dd31 : listaADMEVO.read()) {
                 dd31.getDataProcedimento();
@@ -7170,6 +7195,15 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
 
     //CALCULAR OS TOTAIS PARA O RELATÓRIO
     public void calculosTOTAIS() {
+        jTotal_ATE_SOCIAL.setText("");
+        jTotal_ALI_FOR_SERVIDORES.setText("");
+        jTotal_ATE_SAUDE_INTERNO.setText("");
+        jTotal_ATE_EDUCACIONAL.setText("");
+        jTotal_MATERIAL_INTERNO.setText("");
+        jTotal_ATI_RECREATIVA_RELIGIOSA.setText("");
+        jTotal_ATEND_JURIDICO.setText("");
+        jTotal_ASSIS_LABORAL.setText("");
+        jTotal_ALIM_FOR_INTERNOS.setText("");
         //ABA ASSI
         pQUANT_TOTAL_SOCIAL = 0;
         pQUANT_TOTAL_SOCIAL = Integer.parseInt(jAtendimentoPsiPreso.getText())
@@ -7320,6 +7354,7 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
     }
 
     public void Alterar() {
+        bloquearDesbloquearBotoes(!true);
         jDataAtualizacao.setCalendar(Calendar.getInstance());
         jBtSalvar.setEnabled(true);
         jBtCancelar.setEnabled(true);
@@ -7342,6 +7377,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);
+        jBtFinalizar.setEnabled(true);
+        jBtImpressao.setEnabled(true);
         jBtAuditoria.setEnabled(true);
     }
 
@@ -7357,6 +7394,8 @@ public class TelaAtividadesMensalUnidade extends javax.swing.JInternalFrame {
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);
             jBtExcluir.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            jBtImpressao.setEnabled(true);
             jBtAuditoria.setEnabled(true);
         }
     }
