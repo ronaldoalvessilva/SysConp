@@ -7,6 +7,9 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleTelasSistema;
+import gestor.Controle.converterDataStringDataDate;
+import gestor.Modelo.CadastroTelasSistema;
 import static gestor.Visao.TelaAgendaCompromissos.jAssunto;
 import static gestor.Visao.TelaAgendaCompromissos.jBtAlterarComp;
 import static gestor.Visao.TelaAgendaCompromissos.jBtCancelarComp;
@@ -74,24 +77,22 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Ronaldo
  */
-public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
+public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
+    CadastroTelasSistema objCadastroTela = new CadastroTelasSistema();
+    ControleTelasSistema controle = new ControleTelasSistema();
+    converterDataStringDataDate convertedata = new converterDataStringDataDate();
     //
     private TelaConsultaProntuarioInternoCrc objriIntJu = null;
     private TelaConsultaLocalInternoJuridico objLocalIntJu = null;
     private TelaMovHistoricoTecnicoJuridico objMovJuri = null;
-    private TelaAtendimentoJuridico objAtedJuri = null;
     private TelaRecadosJuridico objRecaJuri = null;
-    private TelaAtendimentoFamiliarJuridico objAtenFam = null;
-    private TelaOcorrenciaJuridico objOcorreJuridico = null;
-    private TelaAtividadeRealizadas objAtivRea = null;
-    private TelaAudienciaJustificativa objAudJus = null;
-    private TelaFichaJuridica objFichaJuri = null;
-    private TelaAmparoLegal objAmparo = null;
-    private TelaNaturezaPrisao objNatP = null;
+    private TelaOcorrenciaEducacaoFisica TelaOcorrenciaEducacaoFisica = null;
     private TelaAgendaCompromissos objAgEventos = null;
-    private TelaAgendamentoBeneficiosInterno objAgendaBene = null;
+    private TelaRegistroInternosAtendimento_EF objRegBioEF = null;
+    private TelaRegistroInternosAtendimentoImpresso_EF objAutoImp = null;
+    private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     //
     Calendar agenda = new GregorianCalendar();
     String dataLanc;
@@ -119,14 +120,62 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     String situacaoNull = ""; // Cadastrado mas não foi feito entrada
     String situacaoSai = "SAIDA TEMPORARIA";
     String menu;
+    //
+    public static int codigoUserEF = 0;
+    public static int codUserAcessoEF = 0;
+    public static int codigoUserGroupEF = 0;
+    public static int codAbrirEF = 0;
+    public static int codIncluirEF = 0;
+    public static int codAlterarEF = 0;
+    public static int codExcluirEF = 0;
+    public static int codGravarEF = 0;
+    public static int codConsultarEF = 0;
+    public static int codigoGrupoEF = 0;
+    public static String nomeGrupoEF = "";
+    public static String nomeTelaEF = "";
+    // TELAS DE ACESSOS AO MÓDULO PEDAGOGIA
+    public static String nomeModuloEF = "EDUCACAO FISICA";
+    int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
+    // MENU CADASTRO   
+    public static String telaAtividadesEducaFisicaManu_EF = "Cadastro:Atividades Educação Física:Manutenção";
+    public static String telaRegistroAtendimentoBio_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Manutenção";
+    public static String telaRegistroAtendimentoInciarLeitor_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Iniciar Leitor";
+    public static String telaRegistroAtendimentoImpBio_EF = "Cadastro:Registro de Autorização Impressa - EF:Liberação";
+        public static String telaRegistroAtendimentoColLiberador_EF = "Cadastro:Registro de Autorização Impressa - EF:Colaborador Liberador";
+    public static String telaCancelAtendInterno_EF = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
+    //
+
+    //MOVIMENTAÇÃO
+    public static String telaOcorrenciaManu_EF = "Movimentação:Ocorrência Educação Física:Manutenção";
+    //
+    public static String telaIndAtendimentoGrupoPSI_Manu = "Movimentação:Atendimento Internos em Grupo - EF:Mamnutenção";
+    public static String telaIndAtendimentoGrupoPSI_Plan = "Movimentação:Atendimento Internos em Grupo - EF:Planejamento";
+    public static String telaIndAtendimentoGrupoPSI_Inte = "Movimentação:Atendimento Internos em Grupo - EF:Internos";
+    public static String telaIndAtendimentoGrupoPSI_AVG = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoPSI_AVI = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação Individual";
+    public static String botaoEncerrar_PSI = "Movimentação:Atendimento Internos em Grupo - EF:Botao Encerrar";
+    public static String botaoLiberar_PSI = "Movimentação:Atendimento Internos em Grupo - EF:Botão Liberar";
+    //
+    String pNomeAED_EF = "";
+    String pNomeOcorr_EF = "";
+    //
+
+    // ATIVIDADES EM GRUPO
+    String pNomeAGM = "";
+    String pNomePLA = "";
+    String pNomeAGI = "";
+    String pNomeAVG = "";
+    String pNomeAVI = "";
+    String pNomeBTE = "";
+    String pNomeBTL = "";
 
     /**
      * Creates new form TelaJuridico
      */
-    public TelaModuloSindicancia() {
+    public TelaModuloEducacaoFisica() {
         initComponents();
         this.setSize(840, 640); // Tamanho da tela        
-//        buscarAgendamentoInternos();      
+        pesquisarTelasAcessos();
         threadMensagem();
     }
 
@@ -139,16 +188,16 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPainelSindicancia = new javax.swing.JDesktopPane();
+        jPainelEducacaoFisica = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         Cadastros = new javax.swing.JMenu();
-        AtividadesJuridicas = new javax.swing.JMenuItem();
+        jAtividadesEducacaoFisica = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
+        RegistroAtendimentoImpresso = new javax.swing.JMenuItem();
+        jCancelarRegistroAtendimentoInterno = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         AgendaEventos = new javax.swing.JMenuItem();
         AgendaRecados = new javax.swing.JMenuItem();
@@ -160,15 +209,11 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         HistoricoMovimentacao = new javax.swing.JMenuItem();
         Movimentacao = new javax.swing.JMenu();
-        jAtendimentoJuridico = new javax.swing.JMenuItem();
+        jAdmissaoEducacaoFisica = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        jFichaJuridica = new javax.swing.JMenuItem();
-        jBeneficios = new javax.swing.JMenuItem();
+        jAtendimentoGrupo = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jAtendimentoFamiliar = new javax.swing.JMenuItem();
-        jAtendimentoJudiciario = new javax.swing.JMenuItem();
-        jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        jLivroOcorrencia = new javax.swing.JMenuItem();
+        LivroOcorrencia = new javax.swing.JMenuItem();
         Relatorios = new javax.swing.JMenu();
         RelatorioGeralInternosPavilhao = new javax.swing.JMenuItem();
         ListagemConfere = new javax.swing.JMenuItem();
@@ -189,95 +234,64 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("...::: Sindicância :::...");
+        setTitle("...::: Educação Física :::...");
 
-        jPainelSindicancia.setBackground(new java.awt.Color(255, 255, 255));
+        jPainelEducacaoFisica.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/BrasaoFundo500Prata2.png"))); // NOI18N
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Sindicância");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Cadastros");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Agenda de Compromissos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Agenda de Recados");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Consultas");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Prontuários de Internos");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Localização de Internos");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Movimentação");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Sindicância de Internos");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Relatórios");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Listagem de Confere");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Utilitários");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Calculadora de Pena");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Calculadora de Pena1");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Calculadora do Windows");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTree1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTree1);
+        jPainelEducacaoFisica.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jPainelSindicancia.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPainelSindicancia.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jPainelSindicanciaLayout = new javax.swing.GroupLayout(jPainelSindicancia);
-        jPainelSindicancia.setLayout(jPainelSindicanciaLayout);
-        jPainelSindicanciaLayout.setHorizontalGroup(
-            jPainelSindicanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPainelSindicanciaLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPainelEducacaoFisicaLayout = new javax.swing.GroupLayout(jPainelEducacaoFisica);
+        jPainelEducacaoFisica.setLayout(jPainelEducacaoFisicaLayout);
+        jPainelEducacaoFisicaLayout.setHorizontalGroup(
+            jPainelEducacaoFisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
         );
-        jPainelSindicanciaLayout.setVerticalGroup(
-            jPainelSindicanciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+        jPainelEducacaoFisicaLayout.setVerticalGroup(
+            jPainelEducacaoFisicaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
         );
 
         Cadastros.setText("Cadastros");
 
-        AtividadesJuridicas.setText("Atividades Juridicas");
-        AtividadesJuridicas.addActionListener(new java.awt.event.ActionListener() {
+        jAtividadesEducacaoFisica.setText("Atividades Educação Física");
+        jAtividadesEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtividadesJuridicasActionPerformed(evt);
+                jAtividadesEducacaoFisicaActionPerformed(evt);
             }
         });
-        Cadastros.add(AtividadesJuridicas);
+        Cadastros.add(jAtividadesEducacaoFisica);
         Cadastros.add(jSeparator9);
 
-        jMenuItem2.setText("Amparo Legal");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        Cadastros.add(jMenuItem2);
+        jMenu5.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
 
-        jMenuItem3.setText("Natureza da Prisão");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jRegistroAtendeInternoBio.setText("Registra Atendimento por Biometria");
+        jRegistroAtendeInternoBio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jRegistroAtendeInternoBioActionPerformed(evt);
             }
         });
-        Cadastros.add(jMenuItem3);
+        jMenu5.add(jRegistroAtendeInternoBio);
+
+        RegistroAtendimentoImpresso.setText("Registro Atendimento por Impressão");
+        RegistroAtendimentoImpresso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistroAtendimentoImpressoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(RegistroAtendimentoImpresso);
+
+        jCancelarRegistroAtendimentoInterno.setText("Cancelar  Registro de Atendimento de Interno");
+        jCancelarRegistroAtendimentoInterno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarRegistroAtendimentoInternoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jCancelarRegistroAtendimentoInterno);
+
+        Cadastros.add(jMenu5);
         Cadastros.add(jSeparator2);
 
         AgendaEventos.setText("Agenda de Compromissos Pessoal");
@@ -338,56 +352,31 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
 
         Movimentacao.setText("Movimentação");
 
-        jAtendimentoJuridico.setText("Admissão/Atendimento Jurídico");
-        jAtendimentoJuridico.addActionListener(new java.awt.event.ActionListener() {
+        jAdmissaoEducacaoFisica.setText("Admissão Educação Física");
+        jAdmissaoEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAtendimentoJuridicoActionPerformed(evt);
+                jAdmissaoEducacaoFisicaActionPerformed(evt);
             }
         });
-        Movimentacao.add(jAtendimentoJuridico);
+        Movimentacao.add(jAdmissaoEducacaoFisica);
         Movimentacao.add(jSeparator5);
 
-        jFichaJuridica.setText("Ficha Jurídica");
-        jFichaJuridica.addActionListener(new java.awt.event.ActionListener() {
+        jAtendimentoGrupo.setText("Atendimento de Internos em Grupo");
+        jAtendimentoGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFichaJuridicaActionPerformed(evt);
+                jAtendimentoGrupoActionPerformed(evt);
             }
         });
-        Movimentacao.add(jFichaJuridica);
-
-        jBeneficios.setText("Agendamento de Benefícios de Internos");
-        jBeneficios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBeneficiosActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(jBeneficios);
+        Movimentacao.add(jAtendimentoGrupo);
         Movimentacao.add(jSeparator1);
 
-        jAtendimentoFamiliar.setText("Atendimento Familiar");
-        jAtendimentoFamiliar.addActionListener(new java.awt.event.ActionListener() {
+        LivroOcorrencia.setText("Livro de Ocorrências");
+        LivroOcorrencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAtendimentoFamiliarActionPerformed(evt);
+                LivroOcorrenciaActionPerformed(evt);
             }
         });
-        Movimentacao.add(jAtendimentoFamiliar);
-
-        jAtendimentoJudiciario.setText("Audiência de Justificativa");
-        jAtendimentoJudiciario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAtendimentoJudiciarioActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(jAtendimentoJudiciario);
-        Movimentacao.add(jSeparator7);
-
-        jLivroOcorrencia.setText("Livro de Ocorrências");
-        jLivroOcorrencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLivroOcorrenciaActionPerformed(evt);
-            }
-        });
-        Movimentacao.add(jLivroOcorrencia);
+        Movimentacao.add(LivroOcorrencia);
 
         jMenuBar1.add(Movimentacao);
 
@@ -495,11 +484,11 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPainelSindicancia)
+            .addComponent(jPainelEducacaoFisica)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPainelSindicancia)
+            .addComponent(jPainelEducacaoFisica)
         );
 
         pack();
@@ -524,7 +513,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         // TODO add your handling code here: 
         if (objriIntJu == null || objriIntJu.isClosed()) {
             objriIntJu = new TelaConsultaProntuarioInternoCrc();
-            jPainelSindicancia.add(objriIntJu);
+            jPainelEducacaoFisica.add(objriIntJu);
             objriIntJu.setVisible(true);
         } else {
             if (objriIntJu.isVisible()) {
@@ -539,7 +528,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                 }
             } else {
                 objriIntJu = new TelaConsultaProntuarioInternoCrc();
-                TelaModuloSindicancia.jPainelSindicancia.add(objriIntJu);//adicona frame ao JDesktopPane  
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objriIntJu);//adicona frame ao JDesktopPane  
                 objriIntJu.setVisible(true);
             }
         }
@@ -553,7 +542,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (objLocalIntJu == null || objLocalIntJu.isClosed()) {
             objLocalIntJu = new TelaConsultaLocalInternoJuridico();
-            jPainelSindicancia.add(objLocalIntJu);
+            jPainelEducacaoFisica.add(objLocalIntJu);
             objLocalIntJu.setVisible(true);
         } else {
             if (objLocalIntJu.isVisible()) {
@@ -568,7 +557,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                 }
             } else {
                 objLocalIntJu = new TelaConsultaLocalInternoJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objLocalIntJu);//adicona frame ao JDesktopPane  
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objLocalIntJu);//adicona frame ao JDesktopPane  
                 objLocalIntJu.setVisible(true);
             }
         }
@@ -582,7 +571,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (objMovJuri == null || objMovJuri.isClosed()) {
             objMovJuri = new TelaMovHistoricoTecnicoJuridico();
-            jPainelSindicancia.add(objMovJuri);
+            jPainelEducacaoFisica.add(objMovJuri);
             objMovJuri.setVisible(true);
         } else {
             if (objMovJuri.isVisible()) {
@@ -597,7 +586,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                 }
             } else {
                 objMovJuri = new TelaMovHistoricoTecnicoJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objMovJuri);//adicona frame ao JDesktopPane  
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objMovJuri);//adicona frame ao JDesktopPane  
                 objMovJuri.setVisible(true);
             }
         }
@@ -607,40 +596,40 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_HistoricoMovimentacaoActionPerformed
 
-    private void jAtendimentoJuridicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoJuridicoActionPerformed
+    private void jAdmissaoEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdmissaoEducacaoFisicaActionPerformed
         // TODO add your handling code here:
-        if (objAtedJuri == null || objAtedJuri.isClosed()) {
-            objAtedJuri = new TelaAtendimentoJuridico();
-            jPainelSindicancia.add(objAtedJuri);
-            objAtedJuri.setVisible(true);
-        } else {
-            if (objAtedJuri.isVisible()) {
-                if (objAtedJuri.isIcon()) { // Se esta minimizado
-                    try {
-                        objAtedJuri.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAtedJuri.toFront(); // traz para frente
-                    objAtedJuri.pack();//volta frame 
-                }
-            } else {
-                objAtedJuri = new TelaAtendimentoJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAtedJuri);//adicona frame ao JDesktopPane  
-                objAtedJuri.setVisible(true);
-            }
-        }
-        try {
-            objAtedJuri.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jAtendimentoJuridicoActionPerformed
+//        if (objAtedJuri == null || objAtedJuri.isClosed()) {
+//            objAtedJuri = new TelaAtendimentoJuridico();
+//            jPainelSindicancia.add(objAtedJuri);
+//            objAtedJuri.setVisible(true);
+//        } else {
+//            if (objAtedJuri.isVisible()) {
+//                if (objAtedJuri.isIcon()) { // Se esta minimizado
+//                    try {
+//                        objAtedJuri.setIcon(false); // maximiniza
+//                    } catch (PropertyVetoException ex) {
+//                    }
+//                } else {
+//                    objAtedJuri.toFront(); // traz para frente
+//                    objAtedJuri.pack();//volta frame 
+//                }
+//            } else {
+//                objAtedJuri = new TelaAtendimentoJuridico();
+//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAtedJuri);//adicona frame ao JDesktopPane  
+//                objAtedJuri.setVisible(true);
+//            }
+//        }
+//        try {
+//            objAtedJuri.setSelected(true);
+//        } catch (java.beans.PropertyVetoException e) {
+//        }
+    }//GEN-LAST:event_jAdmissaoEducacaoFisicaActionPerformed
 
     private void AgendaRecadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaRecadosActionPerformed
         // TODO add your handling code here:
         if (objRecaJuri == null || objRecaJuri.isClosed()) {
             objRecaJuri = new TelaRecadosJuridico();
-            jPainelSindicancia.add(objRecaJuri);
+            jPainelEducacaoFisica.add(objRecaJuri);
             objRecaJuri.setVisible(true);
         } else {
             if (objRecaJuri.isVisible()) {
@@ -655,7 +644,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                 }
             } else {
                 objRecaJuri = new TelaRecadosJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objRecaJuri);//adicona frame ao JDesktopPane  
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRecaJuri);//adicona frame ao JDesktopPane  
                 objRecaJuri.setVisible(true);
             }
         }
@@ -670,7 +659,14 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         try {
             conecta.abrirConexao();
             String path = "reports/ListagemGeralConfere.jasper";
-            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO INNER JOIN PRONTUARIOSCRC ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc INNER JOIN CELAS ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela INNER JOIN PAVILHAO ON CELAS.IdPav=PAVILHAO.IdPav ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
+            conecta.executaSQL("SELECT * FROM ITENSLOCACAOINTERNO "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSLOCACAOINTERNO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN CELAS "
+                    + "ON ITENSLOCACAOINTERNO.IdCela=CELAS.IdCela "
+                    + "INNER JOIN PAVILHAO "
+                    + "ON CELAS.IdPav=PAVILHAO.IdPav "
+                    + "ORDER BY DescricaoPav,PRONTUARIOSCRC.NomeInternoCrc,CELAS.EndCelaPav");
             HashMap parametros = new HashMap();
             parametros.put("nomeUsuario", nameUser);
             JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
@@ -689,225 +685,90 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     private void ListagemConfereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListagemConfereActionPerformed
         // TODO add your handling code here:
         TelaRelatorioConfere objRelConf = new TelaRelatorioConfere();
-        TelaModuloSindicancia.jPainelSindicancia.add(objRelConf);
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelConf);
         objRelConf.show();
     }//GEN-LAST:event_ListagemConfereActionPerformed
 
     private void RelatorioPrevisaoSaidaInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioPrevisaoSaidaInternosActionPerformed
         // TODO add your handling code here:
         TelaRelatorioPrevSaidaIntJuridico objRelPrevSai = new TelaRelatorioPrevSaidaIntJuridico();
-        TelaModuloSindicancia.jPainelSindicancia.add(objRelPrevSai);
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelPrevSai);
         objRelPrevSai.show();
     }//GEN-LAST:event_RelatorioPrevisaoSaidaInternosActionPerformed
 
-    private void jAtendimentoFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoFamiliarActionPerformed
+    private void LivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LivroOcorrenciaActionPerformed
         // TODO add your handling code here:
-        if (objAtenFam == null || objAtenFam.isClosed()) {
-            objAtenFam = new TelaAtendimentoFamiliarJuridico();
-            jPainelSindicancia.add(objAtenFam);
-            objAtenFam.setVisible(true);
-        } else {
-            if (objAtenFam.isVisible()) {
-                if (objAtenFam.isIcon()) { // Se esta minimizado
-                    try {
-                        objAtenFam.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaOcorrenciaManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaOcorrenciaManu_EF) && codAbrirEF == 1) {
+            if (TelaOcorrenciaEducacaoFisica == null || TelaOcorrenciaEducacaoFisica.isClosed()) {
+                TelaOcorrenciaEducacaoFisica = new TelaOcorrenciaEducacaoFisica();
+                jPainelEducacaoFisica.add(TelaOcorrenciaEducacaoFisica);
+                TelaOcorrenciaEducacaoFisica.setVisible(true);
+            } else {
+                if (TelaOcorrenciaEducacaoFisica.isVisible()) {
+                    if (TelaOcorrenciaEducacaoFisica.isIcon()) { // Se esta minimizado
+                        try {
+                            TelaOcorrenciaEducacaoFisica.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        TelaOcorrenciaEducacaoFisica.toFront(); // traz para frente
+                        TelaOcorrenciaEducacaoFisica.pack();//volta frame 
                     }
                 } else {
-                    objAtenFam.toFront(); // traz para frente
-                    objAtenFam.pack();//volta frame 
+                    TelaOcorrenciaEducacaoFisica = new TelaOcorrenciaEducacaoFisica();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(TelaOcorrenciaEducacaoFisica);//adicona frame ao JDesktopPane  
+                    TelaOcorrenciaEducacaoFisica.setVisible(true);
                 }
-            } else {
-                objAtenFam = new TelaAtendimentoFamiliarJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAtenFam);//adicona frame ao JDesktopPane  
-                objAtenFam.setVisible(true);
             }
+            try {
+                TelaOcorrenciaEducacaoFisica.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-        try {
-            objAtenFam.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jAtendimentoFamiliarActionPerformed
+    }//GEN-LAST:event_LivroOcorrenciaActionPerformed
 
-    private void jLivroOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLivroOcorrenciaActionPerformed
+    private void jAtividadesEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtividadesEducacaoFisicaActionPerformed
         // TODO add your handling code here:
-        if (objOcorreJuridico == null || objOcorreJuridico.isClosed()) {
-            objOcorreJuridico = new TelaOcorrenciaJuridico();
-            jPainelSindicancia.add(objOcorreJuridico);
-            objOcorreJuridico.setVisible(true);
+        buscarAcessoUsuario(telaOcorrenciaManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaOcorrenciaManu_EF) && codAbrirEF == 1) {
+//        if (objAtivRea == null || objAtivRea.isClosed()) {
+//            objAtivRea = new TelaAtividadeRealizadas();
+//            jPainelSindicancia.add(objAtivRea);
+//            objAtivRea.setVisible(true);
+//        } else {
+//            if (objAtivRea.isVisible()) {
+//                if (objAtivRea.isIcon()) { // Se esta minimizado
+//                    try {
+//                        objAtivRea.setIcon(false); // maximiniza
+//                    } catch (PropertyVetoException ex) {
+//                    }
+//                } else {
+//                    objAtivRea.toFront(); // traz para frente
+//                    objAtivRea.pack();//volta frame 
+//                }
+//            } else {
+//                objAtivRea = new TelaAtividadeRealizadas();
+//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAtivRea);//adicona frame ao JDesktopPane  
+//                objAtivRea.setVisible(true);
+//            }
+//        }
+//        try {
+//            objAtivRea.setSelected(true);
+//        } catch (java.beans.PropertyVetoException e) {
+//        }
         } else {
-            if (objOcorreJuridico.isVisible()) {
-                if (objOcorreJuridico.isIcon()) { // Se esta minimizado
-                    try {
-                        objOcorreJuridico.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objOcorreJuridico.toFront(); // traz para frente
-                    objOcorreJuridico.pack();//volta frame 
-                }
-            } else {
-                objOcorreJuridico = new TelaOcorrenciaJuridico();
-                TelaModuloSindicancia.jPainelSindicancia.add(objOcorreJuridico);//adicona frame ao JDesktopPane  
-                objOcorreJuridico.setVisible(true);
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-        try {
-            objOcorreJuridico.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jLivroOcorrenciaActionPerformed
-
-    private void AtividadesJuridicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtividadesJuridicasActionPerformed
-        // TODO add your handling code here:
-        if (objAtivRea == null || objAtivRea.isClosed()) {
-            objAtivRea = new TelaAtividadeRealizadas();
-            jPainelSindicancia.add(objAtivRea);
-            objAtivRea.setVisible(true);
-        } else {
-            if (objAtivRea.isVisible()) {
-                if (objAtivRea.isIcon()) { // Se esta minimizado
-                    try {
-                        objAtivRea.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAtivRea.toFront(); // traz para frente
-                    objAtivRea.pack();//volta frame 
-                }
-            } else {
-                objAtivRea = new TelaAtividadeRealizadas();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAtivRea);//adicona frame ao JDesktopPane  
-                objAtivRea.setVisible(true);
-            }
-        }
-        try {
-            objAtivRea.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_AtividadesJuridicasActionPerformed
-
-    private void jAtendimentoJudiciarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoJudiciarioActionPerformed
-        // TODO add your handling code here:
-        if (objAudJus == null || objAudJus.isClosed()) {
-            objAudJus = new TelaAudienciaJustificativa();
-            jPainelSindicancia.add(objAudJus);
-            objAudJus.setVisible(true);
-        } else {
-            if (objAudJus.isVisible()) {
-                if (objAudJus.isIcon()) { // Se esta minimizado
-                    try {
-                        objAudJus.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAudJus.toFront(); // traz para frente
-                    objAudJus.pack();//volta frame 
-                }
-            } else {
-                objAudJus = new TelaAudienciaJustificativa();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAudJus);//adicona frame ao JDesktopPane  
-                objAudJus.setVisible(true);
-            }
-        }
-        try {
-            objAudJus.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jAtendimentoJudiciarioActionPerformed
-
-    private void jFichaJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFichaJuridicaActionPerformed
-        // TODO add your handling code here:
-        if (objFichaJuri == null || objFichaJuri.isClosed()) {
-            objFichaJuri = new TelaFichaJuridica();
-            jPainelSindicancia.add(objFichaJuri);
-            objFichaJuri.setVisible(true);
-        } else {
-            if (objFichaJuri.isVisible()) {
-                if (objFichaJuri.isIcon()) { // Se esta minimizado
-                    try {
-                        objFichaJuri.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objFichaJuri.toFront(); // traz para frente
-                    objFichaJuri.pack();//volta frame 
-                }
-            } else {
-                objFichaJuri = new TelaFichaJuridica();
-                TelaModuloSindicancia.jPainelSindicancia.add(objFichaJuri);//adicona frame ao JDesktopPane  
-                objFichaJuri.setVisible(true);
-            }
-        }
-        try {
-            objFichaJuri.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jFichaJuridicaActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        if (objAmparo == null || objAmparo.isClosed()) {
-            objAmparo = new TelaAmparoLegal();
-            jPainelSindicancia.add(objAmparo);
-            objAmparo.setVisible(true);
-        } else {
-            if (objAmparo.isVisible()) {
-                if (objAmparo.isIcon()) { // Se esta minimizado
-                    try {
-                        objAmparo.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAmparo.toFront(); // traz para frente
-                    objAmparo.pack();//volta frame 
-                }
-            } else {
-                objAmparo = new TelaAmparoLegal();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAmparo);//adicona frame ao JDesktopPane  
-                objAmparo.setVisible(true);
-            }
-        }
-        try {
-            objAmparo.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        if (objNatP == null || objNatP.isClosed()) {
-            objNatP = new TelaNaturezaPrisao();
-            jPainelSindicancia.add(objNatP);
-            objNatP.setVisible(true);
-        } else {
-            if (objNatP.isVisible()) {
-                if (objNatP.isIcon()) { // Se esta minimizado
-                    try {
-                        objNatP.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objNatP.toFront(); // traz para frente
-                    objNatP.pack();//volta frame 
-                }
-            } else {
-                objNatP = new TelaNaturezaPrisao();
-                TelaModuloSindicancia.jPainelSindicancia.add(objNatP);//adicona frame ao JDesktopPane  
-                objNatP.setVisible(true);
-            }
-        }
-        try {
-            objNatP.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jAtividadesEducacaoFisicaActionPerformed
 
     private void AgendaEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaEventosActionPerformed
         // TODO add your handling code here:
         if (objAgEventos == null || objAgEventos.isClosed()) {
             objAgEventos = new TelaAgendaCompromissos();
-            jPainelSindicancia.add(objAgEventos);
+            jPainelEducacaoFisica.add(objAgEventos);
             objAgEventos.setVisible(true);
         } else {
             if (objAgEventos.isVisible()) {
@@ -922,7 +783,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                 }
             } else {
                 objAgEventos = new TelaAgendaCompromissos();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAgEventos);//adicona frame ao JDesktopPane  
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgEventos);//adicona frame ao JDesktopPane  
                 objAgEventos.setVisible(true);
             }
         }
@@ -932,39 +793,39 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AgendaEventosActionPerformed
 
-    private void jBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeneficiosActionPerformed
+    private void jAtendimentoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoGrupoActionPerformed
         // TODO add your handling code here:
-        if (objAgendaBene == null || objAgendaBene.isClosed()) {
-            objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-            jPainelSindicancia.add(objAgendaBene);
-            objAgendaBene.setVisible(true);
-        } else {
-            if (objAgendaBene.isVisible()) {
-                if (objAgendaBene.isIcon()) { // Se esta minimizado
-                    try {
-                        objAgendaBene.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
-                    }
-                } else {
-                    objAgendaBene.toFront(); // traz para frente
-                    objAgendaBene.pack();//volta frame 
-                }
-            } else {
-                objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAgendaBene);//adicona frame ao JDesktopPane  
-                objAgendaBene.setVisible(true);
-            }
-        }
-        try {
-            objAgendaBene.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-        }
-    }//GEN-LAST:event_jBeneficiosActionPerformed
+//        if (objAgendaBene == null || objAgendaBene.isClosed()) {
+//            objAgendaBene = new TelaAgendamentoBeneficiosInterno();
+//            jPainelSindicancia.add(objAgendaBene);
+//            objAgendaBene.setVisible(true);
+//        } else {
+//            if (objAgendaBene.isVisible()) {
+//                if (objAgendaBene.isIcon()) { // Se esta minimizado
+//                    try {
+//                        objAgendaBene.setIcon(false); // maximiniza
+//                    } catch (PropertyVetoException ex) {
+//                    }
+//                } else {
+//                    objAgendaBene.toFront(); // traz para frente
+//                    objAgendaBene.pack();//volta frame 
+//                }
+//            } else {
+//                objAgendaBene = new TelaAgendamentoBeneficiosInterno();
+//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAgendaBene);//adicona frame ao JDesktopPane  
+//                objAgendaBene.setVisible(true);
+//            }
+//        }
+//        try {
+//            objAgendaBene.setSelected(true);
+//        } catch (java.beans.PropertyVetoException e) {
+//        }
+    }//GEN-LAST:event_jAtendimentoGrupoActionPerformed
 
     private void RelatorioAgendamentoBenecifioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioAgendamentoBenecifioActionPerformed
         // TODO add your handling code here:
         TelaRelatorioAgendamentoBeneficiosInternos objRelAgenda = new TelaRelatorioAgendamentoBeneficiosInternos();
-        TelaModuloSindicancia.jPainelSindicancia.add(objRelAgenda);
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelAgenda);
         objRelAgenda.show();
     }//GEN-LAST:event_RelatorioAgendamentoBenecifioActionPerformed
 
@@ -1031,92 +892,134 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     private void RelatorioInternosRegimePenalSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioInternosRegimePenalSexoActionPerformed
         // TODO add your handling code here:
         TelaRelatorioInternoRegimeSexo objRelIntReg = new TelaRelatorioInternoRegimeSexo();
-        TelaModuloSindicancia.jPainelSindicancia.add(objRelIntReg);
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelIntReg);
         objRelIntReg.show();
     }//GEN-LAST:event_RelatorioInternosRegimePenalSexoActionPerformed
 
     private void RelatorioEntradaInternosUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioEntradaInternosUnidadeActionPerformed
         // TODO add your handling code here:
         TelaRelatorioEntradas objRelEntradaInter = new TelaRelatorioEntradas();
-        TelaModuloSindicancia.jPainelSindicancia.add(objRelEntradaInter);
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRelEntradaInter);
         objRelEntradaInter.show();
     }//GEN-LAST:event_RelatorioEntradaInternosUnidadeActionPerformed
 
-    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+    private void jRegistroAtendeInternoBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistroAtendeInternoBioActionPerformed
         // TODO add your handling code here:
-        try {
-            menu = jTree1.getSelectionPath().getLastPathComponent().toString();       
-        if (menu.equals("Agenda de Compromissos")) {
-            if (objAgEventos == null || objAgEventos.isClosed()) {
-                objAgEventos = new TelaAgendaCompromissos();
-                jPainelSindicancia.add(objAgEventos);
-                objAgEventos.setVisible(true);
+        buscarAcessoUsuario(telaRegistroAtendimentoBio_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaRegistroAtendimentoBio_EF) && codAbrirEF == 1) {
+            if (objRegBioEF == null || objRegBioEF.isClosed()) {
+                objRegBioEF = new TelaRegistroInternosAtendimento_EF();
+                jPainelEducacaoFisica.add(objRegBioEF);
+                objRegBioEF.setVisible(true);
             } else {
-                if (objAgEventos.isVisible()) {
-                    if (objAgEventos.isIcon()) { // Se esta minimizado
+                if (objRegBioEF.isVisible()) {
+                    if (objRegBioEF.isIcon()) { // Se esta minimizado
                         try {
-                            objAgEventos.setIcon(false); // maximiniza
+                            objRegBioEF.setIcon(false); // maximiniza
                         } catch (PropertyVetoException ex) {
                         }
                     } else {
-                        objAgEventos.toFront(); // traz para frente
-                        objAgEventos.pack();//volta frame 
+                        objRegBioEF.toFront(); // traz para frente
+                        objRegBioEF.pack();//volta frame
                     }
                 } else {
-                    objAgEventos = new TelaAgendaCompromissos();
-                    TelaModuloSindicancia.jPainelSindicancia.add(objAgEventos);//adicona frame ao JDesktopPane  
-                    objAgEventos.setVisible(true);
+                    objRegBioEF = new TelaRegistroInternosAtendimento_EF();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRegBioEF);//adicona frame ao JDesktopPane
+                    objRegBioEF.setVisible(true);
                 }
             }
             try {
-                objAgEventos.setSelected(true);
+                objRegBioEF.setSelected(true);
             } catch (java.beans.PropertyVetoException e) {
             }
-        } else if (menu.equals("Agenda de Recados")) {
-            if (objRecaJuri == null || objRecaJuri.isClosed()) {
-                objRecaJuri = new TelaRecadosJuridico();
-                jPainelSindicancia.add(objRecaJuri);
-                objRecaJuri.setVisible(true);
-            } else {
-                if (objRecaJuri.isVisible()) {
-                    if (objRecaJuri.isIcon()) { // Se esta minimizado
-                        try {
-                            objRecaJuri.setIcon(false); // maximiniza
-                        } catch (PropertyVetoException ex) {
-                        }
-                    } else {
-                        objRecaJuri.toFront(); // traz para frente
-                        objRecaJuri.pack();//volta frame 
-                    }
-                } else {
-                    objRecaJuri = new TelaRecadosJuridico();
-                    TelaModuloSindicancia.jPainelSindicancia.add(objRecaJuri);//adicona frame ao JDesktopPane  
-                    objRecaJuri.setVisible(true);
-                }
-            }
-            try {
-                objRecaJuri.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-        } catch (NullPointerException e) {
-        }               
-    }//GEN-LAST:event_jTree1MouseClicked
+    }//GEN-LAST:event_jRegistroAtendeInternoBioActionPerformed
+
+    private void RegistroAtendimentoImpressoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroAtendimentoImpressoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaRegistroAtendimentoImpBio_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaRegistroAtendimentoImpBio_EF) && codAbrirEF == 1) {
+            if (objAutoImp == null || objAutoImp.isClosed()) {
+                objAutoImp = new TelaRegistroInternosAtendimentoImpresso_EF();
+                jPainelEducacaoFisica.add(objAutoImp);
+                objAutoImp.setVisible(true);
+            } else {
+                if (objAutoImp.isVisible()) {
+                    if (objAutoImp.isIcon()) { // Se esta minimizado
+                        try {
+                            objAutoImp.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAutoImp.toFront(); // traz para frente
+                        objAutoImp.pack();//volta frame
+                    }
+                } else {
+                    objAutoImp = new TelaRegistroInternosAtendimentoImpresso_EF();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAutoImp);//adicona frame ao JDesktopPane
+                    objAutoImp.setVisible(true);
+                }
+            }
+            try {
+                objAutoImp.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_RegistroAtendimentoImpressoActionPerformed
+
+    private void jCancelarRegistroAtendimentoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistroAtendimentoInternoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaCancelAtendInterno_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaCancelAtendInterno_EF) && codAbrirEF == 1) {
+            if (objCancelaAtend == null || objCancelaAtend.isClosed()) {
+                objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                jPainelEducacaoFisica.add(objCancelaAtend);
+                objCancelaAtend.setVisible(true);
+            } else {
+                if (objCancelaAtend.isVisible()) {
+                    if (objCancelaAtend.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancelaAtend.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancelaAtend.toFront(); // traz para frente
+                        objCancelaAtend.pack();//volta frame
+                    }
+                } else {
+                    objCancelaAtend = new TelaCancelamentoAtendimentoPSP();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objCancelaAtend);//adicona frame ao JDesktopPane
+                    objCancelaAtend.setVisible(true);
+                }
+            }
+            try {
+                objCancelaAtend.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelarRegistroAtendimentoInternoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaEventos;
     private javax.swing.JMenuItem AgendaRecados;
-    private javax.swing.JMenuItem AtividadesJuridicas;
     private javax.swing.JMenu Cadastros;
     private javax.swing.JMenuItem CalculadoraPena;
     private javax.swing.JMenuItem CalculadoraWindows;
     private javax.swing.JMenu Consultas;
     private javax.swing.JMenuItem HistoricoMovimentacao;
     private javax.swing.JMenuItem ListagemConfere;
+    private javax.swing.JMenuItem LivroOcorrencia;
     private javax.swing.JMenuItem LocalizacaoInterno;
     private javax.swing.JMenu Movimentacao;
     private javax.swing.JMenuItem ProntuarioInternos;
+    private javax.swing.JMenuItem RegistroAtendimentoImpresso;
     private javax.swing.JMenuItem RelatorioAgendamentoBenecifio;
     private javax.swing.JMenuItem RelatorioEntradaInternosUnidade;
     private javax.swing.JMenuItem RelatorioGeralInternosPavilhao;
@@ -1127,29 +1030,24 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Relatorios;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu Utilitarios;
-    private javax.swing.JMenuItem jAtendimentoFamiliar;
-    private javax.swing.JMenuItem jAtendimentoJudiciario;
-    private javax.swing.JMenuItem jAtendimentoJuridico;
-    private javax.swing.JMenuItem jBeneficios;
+    private javax.swing.JMenuItem jAdmissaoEducacaoFisica;
+    private javax.swing.JMenuItem jAtendimentoGrupo;
+    private javax.swing.JMenuItem jAtividadesEducacaoFisica;
     private javax.swing.JMenuItem jCalculadoraPena1;
-    private javax.swing.JMenuItem jFichaJuridica;
+    private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jLivroOcorrencia;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    public static javax.swing.JDesktopPane jPainelSindicancia;
-    private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JDesktopPane jPainelEducacaoFisica;
+    private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
-    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
-    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 
     // Verificar a cada 5 minutos se o recado foi lido (10/01/2015)
@@ -1195,7 +1093,11 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS WHERE UsuarioAgenda='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'AND DataLembrete='" + jDataSistema.getText() + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
+            conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
+                    + "WHERE UsuarioAgenda='" + nameUser + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "' "
+                    + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                    + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'");
             conecta.rs.first();
             horaLembrete = conecta.rs.getString("HoraLembrete");
             usuarioAgenda = conecta.rs.getString("UsuarioAgenda");
@@ -1203,11 +1105,15 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             //
             if (nomeUsuarioCompromisso.equals(usuarioAgenda)) {
                 TelaAgendaCompromissos objAgendaComp = new TelaAgendaCompromissos();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAgendaComp);
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgendaComp);
                 objAgendaComp.show();
                 flag = 1;
                 preencherTabelaAgendaCompromisso("SELECT * FROM AGENDA_COMPROMISSOS "
-                        + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND DataLembrete='" + jDataSistema.getText() + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                        + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nameUser + "' "
+                        + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                        + "AND DataLembrete='" + jDataSistema.getText() + "' "
+                        + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                        + "AND IdAgenda='" + codigoAgendaComp + "'");
                 if (flag == 1) {
                     jBtNovoComp.setEnabled(true);
                     jBtAlterarComp.setEnabled(true);
@@ -1218,7 +1124,10 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
                     conecta.abrirConexao();
                     try {
                         conecta.executaSQL("SELECT * FROM AGENDA_COMPROMISSOS "
-                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "'AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "'AND HoraLembrete<='" + jHoraSistema.getText().toString() + "'AND IdAgenda='" + codigoAgendaComp + "'");
+                                + "WHERE AGENDA_COMPROMISSOS.UsuarioAgenda='" + nomeUsuarioCompromisso + "' "
+                                + "AND AGENDA_COMPROMISSOS.StatusAgenda='" + statusAgenda + "' "
+                                + "AND HoraLembrete<='" + jHoraSistema.getText().toString() + "' "
+                                + "AND IdAgenda='" + codigoAgendaComp + "'");
                         conecta.rs.first();
                         jCodigoAgendaComp.setText(String.valueOf(conecta.rs.getInt("IdAgenda")));
                         jComboBoxStatusComp.setSelectedItem(conecta.rs.getString("StatusAgenda"));
@@ -1250,17 +1159,19 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         buscarUsuario(nameUser);
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "'AND StatusAgenda='" + statusAgenda + "'");
+            conecta.executaSQL("SELECT * FROM AGENDARECADOS WHERE IdUsuario='" + codUsuario + "' "
+                    + "AND StatusAgenda='" + statusAgenda + "'");
             conecta.rs.first();
             if (codUsuario == conecta.rs.getInt("IdUsuario")) {
                 TelaRecadosCrc objRecados = new TelaRecadosCrc();
-                TelaModuloSindicancia.jPainelSindicancia.add(objRecados);
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objRecados);
                 objRecados.show();
                 flag = 1;
                 preencherTabelaTodosRecados("SELECT * FROM AGENDARECADOS "
                         + "INNER JOIN USUARIOS "
                         + "ON AGENDARECADOS.IdUsuario=USUARIOS.IdUsuario "
-                        + "WHERE NomeUsuario='" + nameUser + "'AND StatusAgenda='" + statusAgenda + "'");
+                        + "WHERE NomeUsuario='" + nameUser + "' "
+                        + "AND StatusAgenda='" + statusAgenda + "'");
                 if (flag == 1) {
                     jBtNovo.setEnabled(true);
                     jBtAlterar.setEnabled(true);
@@ -1345,7 +1256,8 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
     public void buscarAgendamentoInternos() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS WHERE DataAg<='" + jDataSistema.getText() + "' "
+            conecta.executaSQL("SELECT * FROM AGENDA_BENEFICIO_INTERNOS "
+                    + "WHERE DataAg<='" + jDataSistema.getText() + "' "
                     + "AND StatusReg='" + statusRegistro + "'");
             conecta.rs.first();
             // Formatar a data Agenda
@@ -1357,7 +1269,7 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
             //
             if (dataAgenda.equals(jDataSistema.getText()) && statusRegistroAgenda.equals(statusRegistro)) {
                 TelaAlertaAgendaBeneficio objAgendaBene = new TelaAlertaAgendaBeneficio();
-                TelaModuloSindicancia.jPainelSindicancia.add(objAgendaBene);
+                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAgendaBene);
                 objAgendaBene.show();
                 preencherTabelaAgendamento();
             }
@@ -1466,5 +1378,89 @@ public class TelaModuloSindicancia extends javax.swing.JInternalFrame {
         jTabelaAgendaEventos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(1).setCellRenderer(centralizado);
         jTabelaAgendaEventos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+    }
+
+    // PESQUISA E CADASTRO DAS TELAS DO MÓDULO PEDAGOGIA PARA CONTROLE DE ACESSO DE USUÁRIOS.
+    public void pesquisarTelasAcessos() {
+        //CADASTROS
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAtividadesEducaFisicaManu_EF + "'");
+            conecta.rs.first();
+            pNomeAED_EF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //MOVIMENTAÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaOcorrenciaManu_EF + "'");
+            conecta.rs.first();
+            pNomeOcorr_EF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        if (!pNomeAED_EF.equals(telaAtividadesEducaFisicaManu_EF) || pNomeAED_EF == null || pNomeAED_EF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAtividadesEducaFisicaManu_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //MOVIMENTAÇÃO
+        if (!pNomeOcorr_EF.equals(telaOcorrenciaManu_EF) || pNomeOcorr_EF == null || pNomeOcorr_EF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaOcorrenciaManu_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+    }
+
+    // MÉTODO PARA BUSCAR O CÓDIGO DO MÓDULO, CASO NÃO TENHA SIDO CADASTRADO.
+    public void buscarCodigoModulo() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM MODULOS "
+                    + "WHERE NomeModulo='" + nomeModuloEF + "'");
+            conecta.rs.first();
+            pCodModulo = conecta.rs.getInt("IdModulo");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void buscarAcessoUsuario(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserEF = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserEF + "'");
+            conecta.rs.first();
+            codigoUserGroupEF = conecta.rs.getInt("IdUsuario");
+            codigoGrupoEF = conecta.rs.getInt("IdGrupo");
+            nomeGrupoEF = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserEF + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoEF = conecta.rs.getInt("IdUsuario");
+            codAbrirEF = conecta.rs.getInt("Abrir");
+            codIncluirEF = conecta.rs.getInt("Incluir");
+            codAlterarEF = conecta.rs.getInt("Alterar");
+            codExcluirEF = conecta.rs.getInt("Excluir");
+            codGravarEF = conecta.rs.getInt("Gravar");
+            codConsultarEF = conecta.rs.getInt("Consultar");
+            nomeTelaEF = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

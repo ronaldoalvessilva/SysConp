@@ -115,7 +115,7 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     String pNomePRO = "";
     // ------  FIM DAS VARIÁVEIS -----
-    
+
     /**
      * Creates new form TelaPrincipal
      *
@@ -6208,7 +6208,88 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
 
     private void jMenuItemEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEducacaoFisicaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento");
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento");        
+//        String grupoEF = "EDUCACAO FISICA";
+//        String grupoAdm = "ADMINISTRADORES";
+//        String permissaoGrupoEF = "Sim";
+//        String moduloEF = "EDUCACAO FISICA";
+//        idGrupo = 0;
+//        nomeGrupo = "";
+//        idModulo = 0;
+//        idGrupoModulo = 0;
+//        permissaoModulo = "";
+//        conecta.abrirConexao();
+//        try {
+//            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+//                    + "INNER JOIN GRUPOUSUARIOS "
+//                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+//                    + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoAdm + "' "
+//                    + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+//            conecta.rs.first();
+//            nomeGrupo = conecta.rs.getString("NomeGrupo");
+//        } catch (Exception e) {
+//        }
+//        conecta.desconecta();
+//        // SE O FOR O ADMINISTRADOR DO SISTEMA
+//        if (loginUsusario.equals(nameUser)) {
+//            TelaModuloEducacaoFisica objEducaFisca = new TelaModuloEducacaoFisica();
+//            this.jPanielPrincipal.add(objEducaFisca);
+//            objEducaFisca.show();
+//            try {
+//                objEducaFisca.setMaximum(true);
+//            } catch (PropertyVetoException ex) {
+//                Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        } else {
+//            if (nomeGrupo.equals(grupoAdministrador)) {
+//                TelaModuloEducacaoFisica objEducaFisca = new TelaModuloEducacaoFisica();
+//                this.jPanielPrincipal.add(objEducaFisca);
+//                objEducaFisca.show();
+//                try {
+//                    objEducaFisca.setMaximum(true);
+//                } catch (PropertyVetoException ex) {
+//                    Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else {
+//                conecta.abrirConexao();
+//                try {
+//                    conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+//                            + "INNER JOIN GRUPOUSUARIOS "
+//                            + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+//                            + "WHERE GRUPOUSUARIOS.NomeGrupo='" + grupoEF + "' "
+//                            + "AND USUARIOS_GRUPOS.IdUsuario='" + idUserAcesso + "'");
+//                    conecta.rs.first();
+//                    idGrupo = conecta.rs.getInt("IdGrupo");
+//                    nomeGrupo = conecta.rs.getString("NomeGrupo");
+//                } catch (Exception e) {
+//                }
+//                try {
+//                    conecta.executaSQL("SELECT * FROM USUARIOS_MODULOS "
+//                            + "INNER JOIN MODULOS "
+//                            + "ON USUARIOS_MODULOS.IdModulo=MODULOS.IdModulo "
+//                            + "WHERE MODULOS.NomeModulo='" + moduloEF + "' "
+//                            + "AND USUARIOS_MODULOS.IdUsuario='" + idUserAcesso + "'");
+//                    conecta.rs.first();
+//                    idModulo = conecta.rs.getInt("IdModulo");
+//                    idGrupoModulo = conecta.rs.getInt("IdGrupo");
+//                    permissaoModulo = conecta.rs.getString("Permissao");
+//                } catch (Exception er) {
+//                }
+//                conecta.desconecta();
+//                if (idGrupo == idGrupoModulo && permissaoModulo.equals(permissaoGrupoEF)) {
+//                    TelaModuloEducacaoFisica objEducaFisca = new TelaModuloEducacaoFisica();
+//                    this.jPanielPrincipal.add(objEducaFisca);
+//                    objEducaFisca.show();
+//                    try {
+//                        objEducaFisca.setMaximum(true);
+//                    } catch (PropertyVetoException ex) {
+//                        Logger.getLogger(TelaModuloPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                } else {
+//                    JOptionPane.showMessageDialog(rootPane, "" + nameUser + " você não tem acesso a esse módulo, solicite liberação.");
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jMenuItemEducacaoFisicaActionPerformed
 
     private void jMenuItemNutricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNutricaoActionPerformed
@@ -7082,10 +7163,10 @@ public class TelaModuloPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jBtProdutividadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutividadeActionPerformed
-            Produtividade pPSP = new Produtividade();
-            pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            pPSP.setExtendedState(MAXIMIZED_BOTH);
-            pPSP.setVisible(true);
+        Produtividade pPSP = new Produtividade();
+        pPSP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pPSP.setExtendedState(MAXIMIZED_BOTH);
+        pPSP.setVisible(true);
     }//GEN-LAST:event_jBtProdutividadeActionPerformed
 
     private void jPRORESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPRORESActionPerformed

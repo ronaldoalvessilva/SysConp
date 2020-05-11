@@ -9,14 +9,14 @@ import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jCNC;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jCelaKitBio;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jComboBoxTipoMovimentacao;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jFotoInternoKitImp;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jIdInternoKitImp;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jNomeInternoKitImp;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jPavilhaoKitImp;
-import static gestor.Visao.TelaRegistroInternosAtendimentoImpressoPSI.jRegimeKitImp;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jCNC;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jCelaKitBio;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jComboBoxTipoMovimentacao;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jFotoInternoKitImp;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jIdInternoKitImp;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jNomeInternoKitImp;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jPavilhaoKitImp;
+import static gestor.Visao.TelaRegistroInternosAtendimentoImpresso_EF.jRegimeKitImp;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqInternoRegistroImpressoPSI extends javax.swing.JInternalFrame {
+public class TelaPesqInternoRegistroImpresso_EF extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -47,7 +47,7 @@ public class TelaPesqInternoRegistroImpressoPSI extends javax.swing.JInternalFra
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqInternoRegistroImpressoPSI() {
+    public TelaPesqInternoRegistroImpresso_EF() {
         initComponents();
     }
 

@@ -46,6 +46,7 @@ public class TelaPesqInternoExcluirAssinaturaPSP extends javax.swing.JInternalFr
     String pDEPARTAMENTO_TERAPIA_OCUPACIONAL = "TERAPIA OCUPACIONAL";
     String pDEPARTAMENTO_ODONTOLOGIA = "ODONTOLOGIA";
     String pDEPARTAMENTO_PEDAGOGIA = "PEDAGOGIA";
+    String pDEPARTAMENTO_EDUCACAO_FISICA = "EDUCACAO FISICA";
 
     /**
      * Creates new form TelaPesquisaEntradaInternos
