@@ -392,7 +392,7 @@ public class TelaOcorrenciaEducacaoFisica extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -876,8 +876,8 @@ public class TelaOcorrenciaEducacaoFisica extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Manutenção", jPanel1);
@@ -890,10 +890,10 @@ public class TelaOcorrenciaEducacaoFisica extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(300, 10, 634, 604);
+        setBounds(300, 10, 634, 572);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
@@ -1056,8 +1056,8 @@ public class TelaOcorrenciaEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaOcorrenciasP1 objAudiOcorre = new TelaAuditoriaOcorrenciasP1();
-        TelaModuloPortarias.jPainelPortarias.add(objAudiOcorre);
+        TelaAuditoriaOcorrencias_EF objAudiOcorre = new TelaAuditoriaOcorrencias_EF();
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAudiOcorre);
         objAudiOcorre.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
@@ -1065,7 +1065,7 @@ public class TelaOcorrenciaEducacaoFisica extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             conecta.abrirConexao();
-            String path = "reports/ListagemOcorrencias_P1.jasper";
+            String path = "reports/EducacaoFisica/ListagemOcorrencias_EF.jasper";
             conecta.executaSQL("SELECT * FROM OCORRENCIAS_EF WHERE IdLanc='" + jIdOcorrencia.getText() + "'");
             HashMap parametros = new HashMap();
             parametros.put("idOcorrencia", jIdOcorrencia.getText());

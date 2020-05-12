@@ -9,12 +9,12 @@
             <Property name="text" type="java.lang.String" value="Cadastros"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jAtividadesEducacaoFisica">
+            <MenuItem class="javax.swing.JMenuItem" name="jPlanejamentoAtividades">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Atividades Educa&#xe7;&#xe3;o F&#xed;sica"/>
+                <Property name="text" type="java.lang.String" value="Planejamento de Atividades"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAtividadesEducacaoFisicaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPlanejamentoAtividadesActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">

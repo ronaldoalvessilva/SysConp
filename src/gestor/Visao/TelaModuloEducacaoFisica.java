@@ -93,6 +93,8 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private TelaRegistroInternosAtendimento_EF objRegBioEF = null;
     private TelaRegistroInternosAtendimentoImpresso_EF objAutoImp = null;
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
+    private TelaAtendimentoGrupoEducacaoFisica objAtividadeGrupo = null;
+    private TelaAtividadesEducacaoFisica objAtividadePlan = null;
     //
     Calendar agenda = new GregorianCalendar();
     String dataLanc;
@@ -141,25 +143,29 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoBio_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Manutenção";
     public static String telaRegistroAtendimentoInciarLeitor_EF = "Cadastro:Registro de Atendimento Internos Biometria - EF:Iniciar Leitor";
     public static String telaRegistroAtendimentoImpBio_EF = "Cadastro:Registro de Autorização Impressa - EF:Liberação";
-        public static String telaRegistroAtendimentoColLiberador_EF = "Cadastro:Registro de Autorização Impressa - EF:Colaborador Liberador";
+    public static String telaRegistroAtendimentoColLiberador_EF = "Cadastro:Registro de Autorização Impressa - EF:Colaborador Liberador";
     public static String telaCancelAtendInterno_EF = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
-    //
-
     //MOVIMENTAÇÃO
     public static String telaOcorrenciaManu_EF = "Movimentação:Ocorrência Educação Física:Manutenção";
     //
-    public static String telaIndAtendimentoGrupoPSI_Manu = "Movimentação:Atendimento Internos em Grupo - EF:Mamnutenção";
-    public static String telaIndAtendimentoGrupoPSI_Plan = "Movimentação:Atendimento Internos em Grupo - EF:Planejamento";
-    public static String telaIndAtendimentoGrupoPSI_Inte = "Movimentação:Atendimento Internos em Grupo - EF:Internos";
-    public static String telaIndAtendimentoGrupoPSI_AVG = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação em Grupo";
-    public static String telaIndAtendimentoGrupoPSI_AVI = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação Individual";
-    public static String botaoEncerrar_PSI = "Movimentação:Atendimento Internos em Grupo - EF:Botao Encerrar";
-    public static String botaoLiberar_PSI = "Movimentação:Atendimento Internos em Grupo - EF:Botão Liberar";
-    //
+    public static String telaIndAtendimentoGrupoEF_Manu = "Movimentação:Atendimento Internos em Grupo - EF:Mamnutenção";
+    public static String telaIndAtendimentoGrupoEF_Plan = "Movimentação:Atendimento Internos em Grupo - EF:Planejamento";
+    public static String telaIndAtendimentoGrupoEF_Inte = "Movimentação:Atendimento Internos em Grupo - EF:Internos";
+    public static String telaIndAtendimentoGrupoEF_AVG = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação em Grupo";
+    public static String telaIndAtendimentoGrupoEF_AVI = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação Individual";
+    public static String botaoEncerrar_EF = "Movimentação:Atendimento Internos em Grupo - EF:Botao Encerrar";
+    public static String botaoLiberar_EF = "Movimentação:Atendimento Internos em Grupo - EF:Botão Liberar";
+    //CADASTROS
     String pNomeAED_EF = "";
+    //BIOMETRIA
+    String pNomeAB = "";
+    String pNomeAIL = "";
+    String pNomeIMB = "";
+    String pNomeCL = "";
+    String pNomeCAI = "";
+    //MOVIMENTAÇÃO
+    //OCORRÊNCIAS
     String pNomeOcorr_EF = "";
-    //
-
     // ATIVIDADES EM GRUPO
     String pNomeAGM = "";
     String pNomePLA = "";
@@ -169,6 +175,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     String pNomeBTE = "";
     String pNomeBTL = "";
 
+//    telaIndAtendimentoGrupoEF_Manu
+//    telaIndAtendimentoGrupoEF_Plan
+//    telaIndAtendimentoGrupoEF_Inte
+//    telaIndAtendimentoGrupoEF_AVG
+//    telaIndAtendimentoGrupoEF_AVI        
+//    botaoEncerrar_EF        
+//    botaoLiberar_EF
     /**
      * Creates new form TelaJuridico
      */
@@ -192,7 +205,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Cadastros = new javax.swing.JMenu();
-        jAtividadesEducacaoFisica = new javax.swing.JMenuItem();
+        jPlanejamentoAtividades = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         jRegistroAtendeInternoBio = new javax.swing.JMenuItem();
@@ -256,13 +269,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
         Cadastros.setText("Cadastros");
 
-        jAtividadesEducacaoFisica.setText("Atividades Educação Física");
-        jAtividadesEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
+        jPlanejamentoAtividades.setText("Planejamento de Atividades");
+        jPlanejamentoAtividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAtividadesEducacaoFisicaActionPerformed(evt);
+                jPlanejamentoAtividadesActionPerformed(evt);
             }
         });
-        Cadastros.add(jAtividadesEducacaoFisica);
+        Cadastros.add(jPlanejamentoAtividades);
         Cadastros.add(jSeparator9);
 
         jMenu5.setText("Registro de Atendimento de Internos - (Biometria ou Impressão)");
@@ -730,39 +743,39 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_LivroOcorrenciaActionPerformed
 
-    private void jAtividadesEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtividadesEducacaoFisicaActionPerformed
+    private void jPlanejamentoAtividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanejamentoAtividadesActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaOcorrenciaManu_EF);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaOcorrenciaManu_EF) && codAbrirEF == 1) {
-//        if (objAtivRea == null || objAtivRea.isClosed()) {
-//            objAtivRea = new TelaAtividadeRealizadas();
-//            jPainelSindicancia.add(objAtivRea);
-//            objAtivRea.setVisible(true);
-//        } else {
-//            if (objAtivRea.isVisible()) {
-//                if (objAtivRea.isIcon()) { // Se esta minimizado
-//                    try {
-//                        objAtivRea.setIcon(false); // maximiniza
-//                    } catch (PropertyVetoException ex) {
-//                    }
-//                } else {
-//                    objAtivRea.toFront(); // traz para frente
-//                    objAtivRea.pack();//volta frame 
-//                }
-//            } else {
-//                objAtivRea = new TelaAtividadeRealizadas();
-//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAtivRea);//adicona frame ao JDesktopPane  
-//                objAtivRea.setVisible(true);
-//            }
-//        }
-//        try {
-//            objAtivRea.setSelected(true);
-//        } catch (java.beans.PropertyVetoException e) {
-//        }
+            if (objAtividadePlan == null || objAtividadePlan.isClosed()) {
+                objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                jPainelEducacaoFisica.add(objAtividadePlan);
+                objAtividadePlan.setVisible(true);
+            } else {
+                if (objAtividadePlan.isVisible()) {
+                    if (objAtividadePlan.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadePlan.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadePlan.toFront(); // traz para frente
+                        objAtividadePlan.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadePlan = new TelaAtividadesEducacaoFisica();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAtividadePlan);//adicona frame ao JDesktopPane  
+                    objAtividadePlan.setVisible(true);
+                }
+            }
+            try {
+                objAtividadePlan.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
-    }//GEN-LAST:event_jAtividadesEducacaoFisicaActionPerformed
+    }//GEN-LAST:event_jPlanejamentoAtividadesActionPerformed
 
     private void AgendaEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgendaEventosActionPerformed
         // TODO add your handling code here:
@@ -795,31 +808,36 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jAtendimentoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAtendimentoGrupoActionPerformed
         // TODO add your handling code here:
-//        if (objAgendaBene == null || objAgendaBene.isClosed()) {
-//            objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-//            jPainelSindicancia.add(objAgendaBene);
-//            objAgendaBene.setVisible(true);
-//        } else {
-//            if (objAgendaBene.isVisible()) {
-//                if (objAgendaBene.isIcon()) { // Se esta minimizado
-//                    try {
-//                        objAgendaBene.setIcon(false); // maximiniza
-//                    } catch (PropertyVetoException ex) {
-//                    }
-//                } else {
-//                    objAgendaBene.toFront(); // traz para frente
-//                    objAgendaBene.pack();//volta frame 
-//                }
-//            } else {
-//                objAgendaBene = new TelaAgendamentoBeneficiosInterno();
-//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAgendaBene);//adicona frame ao JDesktopPane  
-//                objAgendaBene.setVisible(true);
-//            }
-//        }
-//        try {
-//            objAgendaBene.setSelected(true);
-//        } catch (java.beans.PropertyVetoException e) {
-//        }
+        buscarAcessoUsuario(telaIndAtendimentoGrupoEF_Manu);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaIndAtendimentoGrupoEF_Manu) && codAbrirEF == 1) {
+            if (objAtividadeGrupo == null || objAtividadeGrupo.isClosed()) {
+                objAtividadeGrupo = new TelaAtendimentoGrupoEducacaoFisica();
+                jPainelEducacaoFisica.add(objAtividadeGrupo);
+                objAtividadeGrupo.setVisible(true);
+            } else {
+                if (objAtividadeGrupo.isVisible()) {
+                    if (objAtividadeGrupo.isIcon()) { // Se esta minimizado
+                        try {
+                            objAtividadeGrupo.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAtividadeGrupo.toFront(); // traz para frente
+                        objAtividadeGrupo.pack();//volta frame 
+                    }
+                } else {
+                    objAtividadeGrupo = new TelaAtendimentoGrupoEducacaoFisica();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAtividadeGrupo);//adicona frame ao JDesktopPane  
+                    objAtividadeGrupo.setVisible(true);
+                }
+            }
+            try {
+                objAtividadeGrupo.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jAtendimentoGrupoActionPerformed
 
     private void RelatorioAgendamentoBenecifioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioAgendamentoBenecifioActionPerformed
@@ -1032,13 +1050,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private javax.swing.JMenu Utilitarios;
     private javax.swing.JMenuItem jAdmissaoEducacaoFisica;
     private javax.swing.JMenuItem jAtendimentoGrupo;
-    private javax.swing.JMenuItem jAtividadesEducacaoFisica;
     private javax.swing.JMenuItem jCalculadoraPena1;
     private javax.swing.JMenuItem jCancelarRegistroAtendimentoInterno;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     public static javax.swing.JDesktopPane jPainelEducacaoFisica;
+    private javax.swing.JMenuItem jPlanejamentoAtividades;
     private javax.swing.JMenuItem jRegistroAtendeInternoBio;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -1391,7 +1409,93 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             pNomeAED_EF = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoBio_EF + "'");
+            conecta.rs.first();
+            pNomeAB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoInciarLeitor_EF + "'");
+            conecta.rs.first();
+            pNomeAIL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoImpBio_EF + "'");
+            conecta.rs.first();
+            pNomeIMB = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaRegistroAtendimentoColLiberador_EF + "'");
+            conecta.rs.first();
+            pNomeCL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelAtendInterno_EF + "'");
+            conecta.rs.first();
+            pNomeCAI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         //MOVIMENTAÇÃO
+        //BIOMETRIA
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_Manu + "'");
+            conecta.rs.first();
+            pNomeAGM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_Plan + "'");
+            conecta.rs.first();
+            pNomePLA = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_Inte + "'");
+            conecta.rs.first();
+            pNomeAGI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_AVG + "'");
+            conecta.rs.first();
+            pNomeAVG = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_AVI + "'");
+            conecta.rs.first();
+            pNomeAVI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + botaoEncerrar_EF + "'");
+            conecta.rs.first();
+            pNomeBTE = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + botaoLiberar_EF + "'");
+            conecta.rs.first();
+            pNomeBTL = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //OCORRÊNCIAS
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaOcorrenciaManu_EF + "'");
@@ -1405,7 +1509,80 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(telaAtividadesEducaFisicaManu_EF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //CADASTROS
+        if (!pNomeAB.equals(telaRegistroAtendimentoBio_EF) || pNomeAB == null || pNomeAB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoBio_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAIL.equals(telaRegistroAtendimentoInciarLeitor_EF) || pNomeAIL == null || pNomeAIL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoInciarLeitor_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeIMB.equals(telaRegistroAtendimentoImpBio_EF) || pNomeIMB == null || pNomeIMB.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoImpBio_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCL.equals(telaRegistroAtendimentoColLiberador_EF) || pNomeCL == null || pNomeCL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaRegistroAtendimentoColLiberador_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCAI.equals(telaCancelAtendInterno_EF) || pNomeCAI == null || pNomeCAI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelAtendInterno_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         //MOVIMENTAÇÃO
+        if (!pNomeAGM.equals(telaIndAtendimentoGrupoEF_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoEF_Manu);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomePLA.equals(telaIndAtendimentoGrupoEF_Plan) || pNomePLA == null || pNomePLA.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoEF_Plan);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAGI.equals(telaIndAtendimentoGrupoEF_Inte) || pNomeAGI == null || pNomeAGI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoEF_Inte);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVG.equals(telaIndAtendimentoGrupoEF_AVG) || pNomeAVG == null || pNomeAVG.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoEF_AVG);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeAVI.equals(telaIndAtendimentoGrupoEF_AVI) || pNomeAVI == null || pNomeAVI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaIndAtendimentoGrupoEF_AVI);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBTE.equals(botaoEncerrar_EF) || pNomeBTE == null || pNomeBTE.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(botaoEncerrar_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeBTL.equals(botaoLiberar_EF) || pNomeBTL == null || pNomeBTL.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(botaoLiberar_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
         if (!pNomeOcorr_EF.equals(telaOcorrenciaManu_EF) || pNomeOcorr_EF == null || pNomeOcorr_EF.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
