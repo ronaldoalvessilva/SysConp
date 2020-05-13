@@ -112,6 +112,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSÃO
+    String admEvolucao = "Sim";
+    String nomeUserRegistro;
 
     /**
      * Creates new form AtendimentoSocial
@@ -2441,6 +2444,21 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                                 objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                                 control_ATENDE.confirmarAtendimento(objRegAtend);
+                                //GRAVAR UMA EVOLUÇÃO REFERENTE A ADMISSÃO (13/05/2020)
+                                objEvol.setDataEvol(jDataAtendimento.getDate());
+                                objEvol.setTextoEvolucao(jConsideracoes.getText());
+                                objEvol.setStatusLanc(statusEvolucao);
+                                // log de usuario
+                                objEvol.setUsuarioInsert(nameUser);
+                                objEvol.setDataInsert(dataModFinal);
+                                objEvol.setHorarioInsert(horaMov);
+                                objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
+                                objEvol.setAdmEvo(admEvolucao);
+                                controleEvol.incluirEvolucaoServicoSocial(objEvol);
+                                buscarEvolucao();
+                                preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                                        + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                                 objLog();
                                 controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                                 JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -2461,6 +2479,20 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                             objAtendSocial.setNomeInterno(jNomeInterno.getText());
                             objAtendSocial.setDeptoSocial(deptoTecnico);
                             controle.alterarMovTec(objAtendSocial);
+                            //ALTERAR EVOLUÇÃO
+                            objEvol.setDataEvol(jDataAtendimento.getDate());
+                            objEvol.setTextoEvolucao(jConsideracoes.getText());
+                            objEvol.setStatusLanc(statusEvolucao);
+                            //
+                            objEvol.setUsuarioUp(nameUser);
+                            objEvol.setDataUp(dataModFinal);
+                            objEvol.setHorarioUp(horaMov);
+                            objEvol.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
+                            objEvol.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                            objEvol.setAdmEvo(admEvolucao);
+                            controleEvol.alterarEvolucaoServicoSocialADM(objEvol);
+                            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                                    + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
                             objLog();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             JOptionPane.showMessageDialog(rootPane, "Atendimento gravado com sucesso.\nCaso já tenha concluido o atendimento,\nclique no botão finalizar para evitar que\n o mesmo seja alterado ou excluido.");
@@ -2702,7 +2734,8 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
             }
-            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
+            preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                    + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaAtendimentoSocialMouseClicked
 
@@ -2794,11 +2827,50 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         buscarAcessoUsuario(telaEvolucaoServicoSocial);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoSS.equals("ADMINISTRADORES") || codigoUserSS == codUserAcessoSS && nomeTelaSS.equals(telaEvolucaoServicoSocial) && codAlterarSS == 1) {
-            acao = 4;
-            AlterarEvolucao();
-            statusMov = "Alterou";
-            horaMov = jHoraSistema.getText();
-            dataModFinal = jDataSistema.getText();
+            verificarEvolucaoAdmissao();
+            if (admEvolucao == null) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                            + "WHERE IdItem='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("")) {
+                conecta.abrirConexao();
+                try {
+                    conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                            + "WHERE IdItem='" + jIdEvolucao.getText() + "'");
+                    conecta.rs.first();
+                    nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+                }
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    acao = 4;
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            } else if (admEvolucao.equals("Sim")) {
+                JOptionPane.showMessageDialog(rootPane, "Essa evolução não poderá ser alterada nessa tela, será necessário alterar na admissão.");
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso a incluir registro.");
         }
@@ -4776,6 +4848,23 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por DATA " + e);
         }
-        preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
+        preencherTabelaEvolucaoServicoSocial("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                + "WHERE IdAtend='" + jIdADM_Principal.getText() + "'");
+    }
+
+    // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
+    // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
+    public void verificarEvolucaoAdmissao() {
+
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_ATENDIMENTO_SOCIAL "
+                    + "WHERE IdAtend='" + jIdADM_Principal.getText() + "' "
+                    + "AND IdItem='" + jIdEvolucao.getText() + "'");
+            conecta.rs.first();
+            admEvolucao = conecta.rs.getString("AdmEvo");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 }

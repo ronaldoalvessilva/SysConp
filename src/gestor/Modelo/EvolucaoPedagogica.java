@@ -33,11 +33,12 @@ public class EvolucaoPedagogica {
     private String nomeDepartamento;        
     private String acessoUniverso;
     private int anoIngresso;
+    private String admEvo;
 
     public EvolucaoPedagogica() {
     }
 
-    public EvolucaoPedagogica(int idEvolucao, String statusEvo, Date dataEvolucao, int idAdm, int idInternoCrc, String nomeInternoCrc, String historico, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, Date dataEncaminhamento, String horaEncaminhamento, String nomeDepartamento, String acessoUniverso, int anoIngresso) {
+    public EvolucaoPedagogica(int idEvolucao, String statusEvo, Date dataEvolucao, int idAdm, int idInternoCrc, String nomeInternoCrc, String historico, String usuarioInsert, String usuarioUp, String usuarioDelete, String dataInsert, String dataUp, String dataDelete, String horarioInsert, String horarioUp, Date dataEncaminhamento, String horaEncaminhamento, String nomeDepartamento, String acessoUniverso, int anoIngresso, String admEvo) {
         this.idEvolucao = idEvolucao;
         this.statusEvo = statusEvo;
         this.dataEvolucao = dataEvolucao;
@@ -58,6 +59,7 @@ public class EvolucaoPedagogica {
         this.nomeDepartamento = nomeDepartamento;
         this.acessoUniverso = acessoUniverso;
         this.anoIngresso = anoIngresso;
+        this.admEvo = admEvo;
     }
 
     /**
@@ -338,5 +340,19 @@ public class EvolucaoPedagogica {
      */
     public void setAnoIngresso(int anoIngresso) {
         this.anoIngresso = anoIngresso;
+    }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
     }
 }

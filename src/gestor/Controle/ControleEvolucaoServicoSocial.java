@@ -24,7 +24,7 @@ public class ControleEvolucaoServicoSocial {
 
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_ATENDIMENTO_SOCIAL (DataEvol,IdAtend,IdInternoCrc,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_ATENDIMENTO_SOCIAL (DataEvol,IdAtend,IdInternoCrc,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert,AdmEvo) VALUES (?,?,?,?,?,?,?,?)");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvol.getDataEvol().getTime()));
             pst.setInt(2, objEvol.getIdAtend());
             pst.setInt(3, objEvol.getIdInternoCrc());
@@ -32,6 +32,7 @@ public class ControleEvolucaoServicoSocial {
             pst.setString(5, objEvol.getUsuarioInsert());
             pst.setString(6, objEvol.getDataInsert());
             pst.setString(7, objEvol.getHorarioInsert());
+            pst.setString(8, objEvol.getAdmEvo());
             pst.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO: " + ex);
@@ -68,6 +69,26 @@ public class ControleEvolucaoServicoSocial {
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objEvol;
+    }
+    
+    public EvolucaoServicoSocial alterarEvolucaoServicoSocialADM(EvolucaoServicoSocial objEvol) {
+
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ATENDIMENTO_SOCIAL SET DataEvol=?,IdAtend=?,IdInternoCrc=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE AdmEvo='" + objEvol.getAdmEvo()+ "' AND IdAtend='" + objEvol.getIdAtend() + "'");
+            pst.setTimestamp(1, new java.sql.Timestamp(objEvol.getDataEvol().getTime()));
+            pst.setInt(2, objEvol.getIdAtend());
+            pst.setInt(3, objEvol.getIdInternoCrc());
+            pst.setString(4, objEvol.getTextoEvolucao());
+            pst.setString(5, objEvol.getUsuarioUp());
+            pst.setString(6, objEvol.getDataUp());
+            pst.setString(7, objEvol.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (EVOLUÇÃO ADM)os Dados.\nERRO: " + ex);
         }
         conecta.desconecta();
         return objEvol;

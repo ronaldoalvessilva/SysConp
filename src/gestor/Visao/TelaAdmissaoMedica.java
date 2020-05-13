@@ -4041,7 +4041,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                             objEvolPsiquiatrica.setUsuarioInsert(nameUser);
                             objEvolPsiquiatrica.setDataInsert(dataModFinal);
                             objEvolPsiquiatrica.setHorarioInsert(horaMov);
-                            objEvolMedica.setAdmEvo(admEvolucao);
+                            objEvolPsiquiatrica.setAdmEvo(admEvolucao);
                             controlEvolPsiquiatrica.incluirEvolucaoPsiquiatrica(objEvolPsiquiatrica);
                             //
                             buscarCodEvolPsiquiatrica();
@@ -4115,7 +4115,8 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objEvolMedica.setDataInsert(dataModFinal);
                         objEvolMedica.setHoraInsert(horaMov);
                         objEvolMedica.setIdItem(idItemEvol);
-                        controleEvoluMed.alterarEvolucaoMedica(objEvolMedica);
+                        objEvolMedica.setAdmEvo(admEvolucao);
+                        controleEvoluMed.alterarEvolucaoMedicaADM(objEvolMedica);
                         //                        
                         preencherTabelaEvolucaoMedica("SELECT * FROM EVOLUCAOMEDICA "
                                 + "WHERE IdLanc='" + jIdAdm.getText() + "'");
@@ -4129,6 +4130,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
                         objEvolPsiquiatrica.setDataInsert(dataModFinal);
                         objEvolPsiquiatrica.setHorarioInsert(horaMov);
                         objEvolPsiquiatrica.setIdItem(idItemEvolPsiquiatrico);
+                        objEvolPsiquiatrica.setAdmEvo(admEvolucao);
                         controlEvolPsiquiatrica.alterarEvolucaoPsiquiatrica(objEvolPsiquiatrica);
                         //                        
                         preencherTabelaEvolucaoPsiquiatrica("SELECT * FROM EVOLUCAO_PSIQUIATRICA "

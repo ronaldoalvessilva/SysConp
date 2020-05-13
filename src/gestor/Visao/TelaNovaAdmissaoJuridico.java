@@ -1312,10 +1312,6 @@ public class TelaNovaAdmissaoJuridico extends javax.swing.JDialog {
                     objAtivi.setIdInternoCrc(Integer.valueOf(jIDInternoJuridicoAD.getText()));
                     objAtivi.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
                     controleItens.alterarInternoAtividade(objAtivi);
-                    // Modifica o código do interno na tabela EVOLUCAOJURIDICO
-                    objEvolu.setIdLanc(Integer.valueOf(jIdADM_JURI.getText()));
-                    objEvolu.setNomeInternoCrc(jNomeInternoJuridicoAD.getText());
-                    controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     Salvar();

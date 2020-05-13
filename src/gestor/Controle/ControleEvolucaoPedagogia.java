@@ -96,4 +96,44 @@ public class ControleEvolucaoPedagogia {
         }
         conecta.desconecta();
     }
+
+    public EvolucaoPedagogica incluirEvolucaoPedADM(EvolucaoPedagogica objEvolucaoAdmPedago) {
+        buscarInternoCrc(objEvolucaoAdmPedago.getNomeInternoCrc(), objEvolucaoAdmPedago.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_ADMISSAO_PEDAGOGIA (IdAdm,IdInternoCrc,DataEvolucao,TextoEvolucao,UsuarioInsert,DataInsert,HorarioInsert,AdmEvo) VALUES(?,?,?,?,?,?,?,?)");
+            pst.setInt(1, objEvolucaoAdmPedago.getIdAdm());
+            pst.setInt(2, codInterno);
+            pst.setTimestamp(3, new java.sql.Timestamp(objEvolucaoAdmPedago.getDataEvolucao().getTime()));
+            pst.setString(4, objEvolucaoAdmPedago.getHistorico());
+            pst.setString(5, objEvolucaoAdmPedago.getUsuarioInsert());
+            pst.setString(6, objEvolucaoAdmPedago.getDataInsert());
+            pst.setString(7, objEvolucaoAdmPedago.getHorarioInsert());
+            pst.setString(8, objEvolucaoAdmPedago.getAdmEvo());
+            pst.execute();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\nERRO:" + ex);
+        }
+        conecta.desconecta();
+        return objEvolucaoAdmPedago;
+    }
+
+    public EvolucaoPedagogica alterarEvolucaoPedADM(EvolucaoPedagogica objEvolucaoAdmPedago) {
+        buscarInternoCrc(objEvolucaoAdmPedago.getNomeInternoCrc(), objEvolucaoAdmPedago.getIdInternoCrc());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ADMISSAO_PEDAGOGIA SET DataEvolucao=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAdmEvo='" + objEvolucaoAdmPedago.getAdmEvo() + "'AND IdAdm='" + objEvolucaoAdmPedago.getIdAdm() + "'");
+            pst.setTimestamp(1, new java.sql.Timestamp(objEvolucaoAdmPedago.getDataEvolucao().getTime()));
+            pst.setString(2, objEvolucaoAdmPedago.getHistorico());
+            pst.setString(3, objEvolucaoAdmPedago.getUsuarioUp());
+            pst.setString(4, objEvolucaoAdmPedago.getDataUp());
+            pst.setString(5, objEvolucaoAdmPedago.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados.\nERRO:" + ex);
+        }
+        conecta.desconecta();
+        return objEvolucaoAdmPedago;
+    }
+
 }

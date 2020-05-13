@@ -105,4 +105,20 @@ public class ControleEvolucaoMedica {
             JOptionPane.showMessageDialog(null, "Não foi possível pesquisar o interno.\nERRO: " + ex);
         }
     }
+    public EvolucaoMedica alterarEvolucaoMedicaADM(EvolucaoMedica objEvolMedica) {
+        buscarInterno(objEvolMedica.getNomeInternoEvoluMedica());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOMEDICA SET TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objEvolMedica.getIdLanc() + "'AND AdmEvo='" + objEvolMedica.getAdmEvo()+ "'");
+            pst.setString(4, objEvolMedica.getTextoEvolucao());
+            pst.setString(5, objEvolMedica.getUsuarioUp());
+            pst.setString(6, objEvolMedica.getDataUp());
+            pst.setString(7, objEvolMedica.getHoraUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objEvolMedica;
+    }
 }

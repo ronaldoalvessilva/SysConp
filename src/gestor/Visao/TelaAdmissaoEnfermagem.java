@@ -4557,7 +4557,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setUsuarioInsert(nameUser);
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                    objEvolEnferma.setAdmEvo(admEvolucao);
+                    controleEnfa.alterarEvolucaoEnfermagemADM(objEvolEnferma);
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     objLog();
@@ -6310,7 +6311,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setUsuarioInsert(nameUser);
                     objEvolEnferma.setDataInsert(dataModFinal);
                     objEvolEnferma.setHoraInsert(horaMov);
-                    controleEnfa.alterarEvolucaoEnfermagem(objEvolEnferma);
+                    objEvolEnferma.setAdmEvo(admEvolucao);
+                    controleEnfa.alterarEvolucaoEnfermagemADM(objEvolEnferma);
                     preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                             + "WHERE IdLanc='" + jIdLanc.getText() + "'");
                     objLog();

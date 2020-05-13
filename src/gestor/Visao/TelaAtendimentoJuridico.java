@@ -112,8 +112,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     //
     String pHabilitaJuridico = "";
     //
-    String codigoEvolucao;
-    String admEvolucao = "Sim";
+    String codigoEvolucao;    
     // VETOR PARA GRAVAR CÓDIGO ATIVIDADE NA TELA ATIVIDADES.
     public static int pAtividadeRela[];
     //
@@ -123,6 +122,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     String status_ATENDIMENTO = "Atendimento Concluido";
     //
     String pCODIGO_INTERNO = "";
+    //EVOLUÇÃO DA ADMISSÃO
+    String admEvolucao = "Sim";
+    String nomeUserRegistro;
 
     /**
      * Creates new form TelaAtendimentoJuridico
@@ -1866,6 +1868,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                         //
                         objEvolu.setIdInternoCrc(Integer.valueOf(jIDInternoJuridico.getText()));
                         objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
+                        objEvolu.setAdmEvo(admEvolucao);
                         controleJuri.incluirEvolucaoJuridico(objEvolu);
                         // BUSCAR O CÓDIGO DA EVOLUÇÃO CASO O USUÁRIO QUEIRA ALTERAR A EVOLUÇÃO INICIAL.
                         buscarIdEvolucao();
@@ -1911,7 +1914,9 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
                     // Modifica o código do interno na tabela EVOLUCAOJURIDICO
                     objEvolu.setIdLanc(Integer.valueOf(jIDLanc.getText()));
                     objEvolu.setNomeInternoCrc(jNomeInternoJuridico.getText());
-                    controleJuri.alterarInternoEvolucaoJuridico(objEvolu);
+                    objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
+                    objEvolu.setAdmEvo(admEvolucao);
+                    controleJuri.alterarInternoEvolucaoJuridicoADM(objEvolu);
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                     // MODIFICAR A EVOLUÇÃO CASO SEJA MODIFICADA
@@ -2807,7 +2812,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
 
-    public void pesquisarAdmInterno() {        
+    public void pesquisarAdmInterno() {
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
         jBtExcluir.setEnabled(true);

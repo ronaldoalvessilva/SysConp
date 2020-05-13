@@ -74,4 +74,24 @@ public class ControleEvolucaoEnfermagem {
         conecta.desconecta();
         return objEvolEnferma;
     }   
+    
+    public EvolucaoEnfermagem alterarEvolucaoEnfermagemADM(EvolucaoEnfermagem objEvolEnferma) {
+       
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAOENFERMAGEM SET DataEvol=?,IdLanc=?,IdInternoCrc=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE AdmEvo='" + objEvolEnferma.getAdmEvo()+ "'AND IdLanc='" + objEvolEnferma.getIdLanc());
+            pst.setTimestamp(1, new java.sql.Timestamp(objEvolEnferma.getDataEvol().getTime()));
+            pst.setInt(2, objEvolEnferma.getIdLanc());
+            pst.setInt(3, objEvolEnferma.getIdInternoCrc());
+            pst.setString(4, objEvolEnferma.getTextoEvolucao());
+            pst.setString(5, objEvolEnferma.getUsuarioUp());
+            pst.setString(6, objEvolEnferma.getDataUp());
+            pst.setString(7, objEvolEnferma.getHoraUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR os Dados\n\nERRO" + ex);
+        }
+        conecta.desconecta();
+        return objEvolEnferma;
+    }
 }
