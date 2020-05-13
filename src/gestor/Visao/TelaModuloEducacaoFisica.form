@@ -120,7 +120,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jAdmissaoEducacaoFisica">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Admiss&#xe3;o Educa&#xe7;&#xe3;o F&#xed;sica"/>
+                <Property name="text" type="java.lang.String" value="Admiss&#xe3;o/Evolu&#xe7;&#xe3;o Educa&#xe7;&#xe3;o F&#xed;sica"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jAdmissaoEducacaoFisicaActionPerformed"/>

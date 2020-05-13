@@ -95,6 +95,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     private TelaCancelamentoAtendimentoPSP objCancelaAtend = null;
     private TelaAtendimentoGrupoEducacaoFisica objAtividadeGrupo = null;
     private TelaAtividadesEducacaoFisica objAtividadePlan = null;
+//    private TelaAdmissaoEvolucoEF objAdmFisica = null;
     //
     Calendar agenda = new GregorianCalendar();
     String dataLanc;
@@ -175,13 +176,6 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     String pNomeBTE = "";
     String pNomeBTL = "";
 
-//    telaIndAtendimentoGrupoEF_Manu
-//    telaIndAtendimentoGrupoEF_Plan
-//    telaIndAtendimentoGrupoEF_Inte
-//    telaIndAtendimentoGrupoEF_AVG
-//    telaIndAtendimentoGrupoEF_AVI        
-//    botaoEncerrar_EF        
-//    botaoLiberar_EF
     /**
      * Creates new form TelaJuridico
      */
@@ -365,7 +359,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
         Movimentacao.setText("Movimentação");
 
-        jAdmissaoEducacaoFisica.setText("Admissão Educação Física");
+        jAdmissaoEducacaoFisica.setText("Admissão/Evolução Educação Física");
         jAdmissaoEducacaoFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAdmissaoEducacaoFisicaActionPerformed(evt);
@@ -611,29 +605,29 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jAdmissaoEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdmissaoEducacaoFisicaActionPerformed
         // TODO add your handling code here:
-//        if (objAtedJuri == null || objAtedJuri.isClosed()) {
-//            objAtedJuri = new TelaAtendimentoJuridico();
-//            jPainelSindicancia.add(objAtedJuri);
-//            objAtedJuri.setVisible(true);
+//        if (objAdmFisica == null || objAdmFisica.isClosed()) {
+//            objAdmFisica = new TelaAdmissaoEvolucoEF();
+//            jPainelEducacaoFisica.add(objAdmFisica);
+//            objAdmFisica.setVisible(true);
 //        } else {
-//            if (objAtedJuri.isVisible()) {
-//                if (objAtedJuri.isIcon()) { // Se esta minimizado
+//            if (objAdmFisica.isVisible()) {
+//                if (objAdmFisica.isIcon()) { // Se esta minimizado
 //                    try {
-//                        objAtedJuri.setIcon(false); // maximiniza
+//                        objAdmFisica.setIcon(false); // maximiniza
 //                    } catch (PropertyVetoException ex) {
 //                    }
 //                } else {
-//                    objAtedJuri.toFront(); // traz para frente
-//                    objAtedJuri.pack();//volta frame 
+//                    objAdmFisica.toFront(); // traz para frente
+//                    objAdmFisica.pack();//volta frame 
 //                }
 //            } else {
-//                objAtedJuri = new TelaAtendimentoJuridico();
-//                TelaModuloEducacaoFisica.jPainelSindicancia.add(objAtedJuri);//adicona frame ao JDesktopPane  
-//                objAtedJuri.setVisible(true);
+//                objAdmFisica = new TelaAdmissaoEvolucoEF();
+//                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAtedJuri);//adicona frame ao JDesktopPane  
+//                objAdmFisica.setVisible(true);
 //            }
 //        }
 //        try {
-//            objAtedJuri.setSelected(true);
+//            objAdmFisica.setSelected(true);
 //        } catch (java.beans.PropertyVetoException e) {
 //        }
     }//GEN-LAST:event_jAdmissaoEducacaoFisicaActionPerformed
