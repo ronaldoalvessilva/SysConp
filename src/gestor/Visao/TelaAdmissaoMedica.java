@@ -6764,7 +6764,7 @@ public class TelaAdmissaoMedica extends javax.swing.JInternalFrame {
         jQualMedicacaoUsa.setText("");
         jComboBoxOutrasAlergias.setSelectedItem("Não");
         jQuaisOutrasAlergias.setText("");
-        jDiagnosticoInicial.setText("");
+        jDiagnosticoInicial.setText("DIGITE AQUI A EVOLUÇAO DA ADMISSÃO");
         jComboBoxTipoDiagnostico.setSelectedItem("Selecione...");
         //
         jBtNovo.setEnabled(!true);

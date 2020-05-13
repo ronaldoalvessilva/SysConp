@@ -3844,7 +3844,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         jComboBoxDepartamentoEncaminha.setSelectedItem("Selecione...");
         jDataEncaminhamento.setDate(null);
         jHoraAcompanha.setText(jHoraSistema.getText());
-        jEncaminhamento.setText("");
+        jEncaminhamento.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // TRATAMENTOS ANTERIORES
         jComboBoxTratamentoSaude.setSelectedItem("Não");
         jQualTratamentoSaude.setText("");

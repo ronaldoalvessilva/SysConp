@@ -3511,7 +3511,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
         jQtdFilhosRela.setText("0");
         jPaternidade.setText("0");
         //
-        jConsideracoes.setText("");
+        jConsideracoes.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // Habilitar/Desabilitar botões
         jBtPesqInterno.setEnabled(true);
         jBtNovo.setEnabled(!true);

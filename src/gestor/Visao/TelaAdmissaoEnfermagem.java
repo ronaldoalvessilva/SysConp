@@ -463,7 +463,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jPanel8 = new javax.swing.JPanel();
         jPanel61 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jObservacao = new javax.swing.JTextArea();
+        jEvolucaoAdmissao = new javax.swing.JTextArea();
         jPanel42 = new javax.swing.JPanel();
         jBtFIA = new javax.swing.JButton();
         jBtFVG = new javax.swing.JButton();
@@ -1994,11 +1994,11 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
 
         jTabbedPane4.addTab("Drogas", jPanel60);
 
-        jObservacao.setColumns(20);
-        jObservacao.setRows(5);
-        jObservacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObservacao.setEnabled(false);
-        jScrollPane1.setViewportView(jObservacao);
+        jEvolucaoAdmissao.setColumns(20);
+        jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoAdmissao.setEnabled(false);
+        jScrollPane1.setViewportView(jEvolucaoAdmissao);
 
         javax.swing.GroupLayout jPanel61Layout = new javax.swing.GroupLayout(jPanel61);
         jPanel61.setLayout(jPanel61Layout);
@@ -4460,7 +4460,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setQuaisDoencas(jQuaisDoencas.getText());
                 objAdmEnfermagem.setAlergias((String) jComboBoxAlergias.getSelectedItem());
                 objAdmEnfermagem.setQuaisAlergias(jQuaisAlergias.getText());
-                objAdmEnfermagem.setObservacao(jObservacao.getText());
+                objAdmEnfermagem.setObservacao(jEvolucaoAdmissao.getText());
                 if (acao == 1) {
                     if (jIdInternoEnfermeiro.getText().equals(pCODIGO_INTERNO)) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível cadastrar a admissão para esse interno, já foi realizado admissão nessa tela.");
@@ -4504,7 +4504,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                        objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
                         objEvolEnferma.setAdmEvo(admEvolucao);
                         // log de usuario
                         objEvolEnferma.setUsuarioInsert(nameUser);
@@ -4552,7 +4552,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
                     // log de usuario
                     objEvolEnferma.setUsuarioInsert(nameUser);
                     objEvolEnferma.setDataInsert(dataModFinal);
@@ -4852,7 +4852,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 jQuaisDoencas.setText(conecta.rs.getString("QuaisDoencas"));
                 jComboBoxAlergias.setSelectedItem(conecta.rs.getString("Alergias"));
                 jQuaisAlergias.setText(conecta.rs.getString("QuaisAlergias"));
-                jObservacao.setText(conecta.rs.getString("Observacao"));
+                jEvolucaoAdmissao.setText(conecta.rs.getString("Observacao"));
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
@@ -6214,7 +6214,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                 objAdmEnfermagem.setQuaisDoencas(jQuaisDoencas.getText());
                 objAdmEnfermagem.setAlergias((String) jComboBoxAlergias.getSelectedItem());
                 objAdmEnfermagem.setQuaisAlergias(jQuaisAlergias.getText());
-                objAdmEnfermagem.setObservacao(jObservacao.getText());
+                objAdmEnfermagem.setObservacao(jEvolucaoAdmissao.getText());
                 if (acao == 1) {
                     if (jIdInternoEnfermeiro.getText().equals(pCODIGO_INTERNO)) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível cadastrar a admissão para esse interno, já foi realizado admissão nessa tela.");
@@ -6258,7 +6258,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                         objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                        objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                        objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
                         objEvolEnferma.setAdmEvo(admEvolucao);
                         // log de usuario
                         objEvolEnferma.setUsuarioInsert(nameUser);
@@ -6306,7 +6306,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
                     objEvolEnferma.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
-                    objEvolEnferma.setTextoEvolucao(jObservacao.getText());
+                    objEvolEnferma.setTextoEvolucao(jEvolucaoAdmissao.getText());
                     // log de usuario
                     objEvolEnferma.setUsuarioInsert(nameUser);
                     objEvolEnferma.setDataInsert(dataModFinal);
@@ -6602,6 +6602,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDataUltimaMenstruacao;
     private javax.swing.JTextArea jDoencasSexualmenteTransmissiveis;
     public static javax.swing.JTextField jEstadoCivilMedico;
+    private javax.swing.JTextArea jEvolucaoAdmissao;
     private javax.swing.JTextArea jExameAbdomem;
     public static javax.swing.JLabel jFotoInternoMedico;
     private javax.swing.JFormattedTextField jFrequenciaCardiaca;
@@ -6731,7 +6732,6 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField jNumeroFilhosVivos;
     private javax.swing.JFormattedTextField jNumeroGestacoes;
     private javax.swing.JFormattedTextField jNumeroPartos;
-    private javax.swing.JTextArea jObservacao;
     private javax.swing.JTextArea jOcupacaoHabitual;
     private javax.swing.JTextField jOndeGestacao;
     public static javax.swing.JTextField jPaiInternoMedico;
@@ -6962,7 +6962,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jQuaisDoencas.setText(conecta.rs.getString("QuaisDoencas"));
             jComboBoxAlergias.setSelectedItem(conecta.rs.getString("Alergias"));
             jQuaisAlergias.setText(conecta.rs.getString("QuaisAlergias"));
-            jObservacao.setText(conecta.rs.getString("Observacao"));
+            jEvolucaoAdmissao.setText(conecta.rs.getString("Observacao"));
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
         }
@@ -7211,8 +7211,8 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setDocument(new LimiteDigitosAlfa(40));
         jQuaisDoencas.setDocument(new LimiteDigitosAlfa(40));
         jQuaisAlergias.setDocument(new LimiteDigitosAlfa(40));
-        jObservacao.setLineWrap(true);
-        jObservacao.setWrapStyleWord(true);
+        jEvolucaoAdmissao.setLineWrap(true);
+        jEvolucaoAdmissao.setWrapStyleWord(true);
         jTextoEvolucao.setLineWrap(true);
         jTextoEvolucao.setWrapStyleWord(true);
         // AEF-P1
@@ -7299,7 +7299,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setBackground(Color.white);
         jQuaisDoencas.setBackground(Color.white);
         jQuaisAlergias.setBackground(Color.white);
-        jObservacao.setBackground(Color.white);
+        jEvolucaoAdmissao.setBackground(Color.white);
         // AEF-P1
         jComboBoxHipertensao.setBackground(Color.white);
         jComboBoxCardiopatias.setBackground(Color.white);
@@ -7466,7 +7466,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setEnabled(!true);
         jQuaisDoencas.setEnabled(!true);
         jQuaisAlergias.setEnabled(!true);
-        jObservacao.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // AEF-P1
         jComboBoxHipertensao.setEnabled(!true);
         jComboBoxCardiopatias.setEnabled(!true);
@@ -7573,7 +7573,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDoencas.setText("");
         jQuaisAlergias.setText("");
         // Observação
-        jObservacao.setText("");
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         //Habilitar/Desabilitar Campos        
         jDataLanc.setEnabled(true);
         jBtPesqInternoEnfermaria.setEnabled(true);
@@ -7619,7 +7619,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setEnabled(true);
         jQuaisDoencas.setEnabled(true);
         jQuaisAlergias.setEnabled(true);
-        jObservacao.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -7723,7 +7723,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setEnabled(true);
         jQuaisDoencas.setEnabled(true);
         jQuaisAlergias.setEnabled(true);
-        jObservacao.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // ADMISSÃO
         jBtNovo.setEnabled(!true);
         jBtAlterar.setEnabled(!true);
@@ -7829,7 +7829,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDoencas.setText("");
         jQuaisAlergias.setText("");
         // Observação
-        jObservacao.setText("");
+        jEvolucaoAdmissao.setText("");
         //Habilitar/Desabilitar Campos   
         jDataLanc.setEnabled(!true);
         jBtPesqInternoEnfermaria.setEnabled(!true);
@@ -7875,7 +7875,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setEnabled(!true);
         jQuaisDoencas.setEnabled(!true);
         jQuaisAlergias.setEnabled(!true);
-        jObservacao.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(!true);
@@ -7976,7 +7976,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
         jQuaisDrogas.setEnabled(!true);
         jQuaisDoencas.setEnabled(!true);
         jQuaisAlergias.setEnabled(!true);
-        jObservacao.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // ADMISSÃO
         jBtNovo.setEnabled(true);
         jBtAlterar.setEnabled(true);
@@ -8081,7 +8081,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jQuaisDoencas.setText("");
             jQuaisAlergias.setText("");
             // Observação
-            jObservacao.setText("");
+            jEvolucaoAdmissao.setText("");
             //Habilitar/Desabilitar Campos        
             jDataLanc.setEnabled(!true);
             jBtPesqInternoEnfermaria.setEnabled(!true);
@@ -8127,7 +8127,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jQuaisDrogas.setEnabled(!true);
             jQuaisDoencas.setEnabled(!true);
             jQuaisAlergias.setEnabled(!true);
-            jObservacao.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // ADMISSÃO
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(!true);
@@ -8226,7 +8226,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
             jQuaisDrogas.setEnabled(!true);
             jQuaisDoencas.setEnabled(!true);
             jQuaisAlergias.setEnabled(!true);
-            jObservacao.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // ADMISSÃO
             jBtNovo.setEnabled(true);
             jBtAlterar.setEnabled(true);

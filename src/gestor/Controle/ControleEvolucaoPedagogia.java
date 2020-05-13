@@ -122,7 +122,7 @@ public class ControleEvolucaoPedagogia {
         buscarInternoCrc(objEvolucaoAdmPedago.getNomeInternoCrc(), objEvolucaoAdmPedago.getIdInternoCrc());
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ADMISSAO_PEDAGOGIA SET DataEvolucao=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdAdmEvo='" + objEvolucaoAdmPedago.getAdmEvo() + "'AND IdAdm='" + objEvolucaoAdmPedago.getIdAdm() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_ADMISSAO_PEDAGOGIA SET DataEvolucao=?,TextoEvolucao=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE AdmEvo='" + objEvolucaoAdmPedago.getAdmEvo() + "'AND IdAdm='" + objEvolucaoAdmPedago.getIdAdm() + "'");
             pst.setTimestamp(1, new java.sql.Timestamp(objEvolucaoAdmPedago.getDataEvolucao().getTime()));
             pst.setString(2, objEvolucaoAdmPedago.getHistorico());
             pst.setString(3, objEvolucaoAdmPedago.getUsuarioUp());

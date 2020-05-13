@@ -3440,7 +3440,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                     objEvolucaoAdmPedago.setHorarioUp(horaMov);
                     objEvolucaoAdmPedago.setAdmEvo(admEvolucao);
                     //
-                    objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoEvolucao.getText()));
+                    objEvolucaoAdmPedago.setIdEvolucao(Integer.valueOf(jCodigoAdmissao.getText()));
                     controleEvol.alterarEvolucaoPedADM(objEvolucaoAdmPedago);
                     preencherEvolucaoPedagogia("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA "
                             + "INNER JOIN ADMISSAO_PEDAGOGIA "
@@ -4667,6 +4667,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     public void Novo() {
         jStatusAdm.setText("ABERTO");
         jDataAdm.setCalendar(Calendar.getInstance());
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         //
         jDataAdm.setEnabled(true);
         jUltimaEscola.setEnabled(true);
@@ -5167,7 +5168,7 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         jRepetencias.setText("");
         jComboBoxAntecedentes.setSelectedItem("Não");
         jQualProblemaAprendizado.setText("");
-        jEvolucaoADM.setText("");
+        jEvolucaoADM.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         //
         jAmigosFacilidade.setEnabled(true);
         jIntrovertido.setEnabled(true);
@@ -6004,7 +6005,6 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
         //
         jTabelaEvolucaoPedagoga.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         jTabelaEvolucaoPedagoga.getColumnModel().getColumn(1).setCellRenderer(centralizado);
-        jTabelaEvolucaoPedagoga.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 
     public void limparTabelaEvolucao() {

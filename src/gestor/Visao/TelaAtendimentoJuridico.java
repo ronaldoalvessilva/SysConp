@@ -2936,7 +2936,7 @@ public class TelaAtendimentoJuridico extends javax.swing.JInternalFrame {
         jDataNascInternoJuri.setDate(null);
         jDataCondIntJuri.setDate(null);
         jFotoInternoJuridico.setIcon(null);
-        jEvolucaoAdmissao.setText("");
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jComboBoxResposta.setEnabled(true);
         if (pAcao == 1) {
             if (jComboBoxResposta.getSelectedItem().equals("Sim")) {

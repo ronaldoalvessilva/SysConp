@@ -255,7 +255,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jObsDesempenhoOcupacional = new javax.swing.JTextArea();
+        jEvolucaoAdmissao = new javax.swing.JTextArea();
         jLabel96 = new javax.swing.JLabel();
         jComboBoxDominancia = new javax.swing.JComboBox();
         jLabel97 = new javax.swing.JLabel();
@@ -1022,11 +1022,11 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jObsDesempenhoOcupacional.setColumns(20);
-        jObsDesempenhoOcupacional.setRows(5);
-        jObsDesempenhoOcupacional.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jObsDesempenhoOcupacional.setEnabled(false);
-        jScrollPane1.setViewportView(jObsDesempenhoOcupacional);
+        jEvolucaoAdmissao.setColumns(20);
+        jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jEvolucaoAdmissao.setEnabled(false);
+        jScrollPane1.setViewportView(jEvolucaoAdmissao);
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel96.setForeground(new java.awt.Color(0, 0, 204));
@@ -4424,7 +4424,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                     objAtend.setaIVD((String) jComboBoxAIVD.getSelectedItem());
                     objAtend.setLazer((String) jComboBoxLazer.getSelectedItem());
                     objAtend.setTrabalho((String) jComboBoxTrabalho.getSelectedItem());
-                    objAtend.setObsDesempenhoOcupacional(jObsDesempenhoOcupacional.getText());
+                    objAtend.setObsDesempenhoOcupacional(jEvolucaoAdmissao.getText());
                     // HISTÓRICO FAMILIAR
                     objAtend.setPaisVivos((String) jComboBoxPaisVivos.getSelectedItem());
                     objAtend.setTemCompanheira((String) jComboBoxTemCompanheira.getSelectedItem());
@@ -4587,7 +4587,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                             controle.incluirMovTec(objAtend);
                             //EVOLUÇÃO DA ADMISSÃO (13/05/2020)
                             objEvolu.setDataEvo(jDataLanc.getDate());
-                            objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+                            objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
                             // log de usuario
                             objEvolu.setUsuarioInsert(nameUser);
                             objEvolu.setDataInsert(dataModFinal);
@@ -4624,7 +4624,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                         controle.alterarMovTec(objAtend);
                         //ADMISSÃO EVOLUÇÃO
                         objEvolu.setDataEvo(jDataLanc.getDate());
-                        objEvolu.setEvolucao(jObsDesempenhoOcupacional.getText());
+                        objEvolu.setEvolucao(jEvolucaoAdmissao.getText());
                         // log de usuario
                         objEvolu.setUsuarioUp(nameUser);
                         objEvolu.setDataUp(dataModFinal);
@@ -4972,7 +4972,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                 jComboBoxAIVD.setSelectedItem(conecta.rs.getString("AIVD"));
                 jComboBoxLazer.setSelectedItem(conecta.rs.getString("Lazer"));
                 jComboBoxTrabalho.setSelectedItem(conecta.rs.getString("Trabalho"));
-                jObsDesempenhoOcupacional.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
+                jEvolucaoAdmissao.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
                 // QUALIDADE DE VIDA (TRIAGEM SPA)
                 jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
                 jQuantoTabagismo.setText(conecta.rs.getString("QuantoTabagismo"));
@@ -6347,6 +6347,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private com.toedter.calendar.JDateChooser jDataPesqInicial;
     public static javax.swing.JTextField jEscolaridade;
     public static javax.swing.JTextField jEstadoCivil;
+    private javax.swing.JTextArea jEvolucaoAdmissao;
     private javax.swing.JTextArea jEvolucaoTerapia;
     public static javax.swing.JLabel jFotoInternoTerapia;
     private javax.swing.JTextField jIDPesqLanc;
@@ -6479,7 +6480,6 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     private javax.swing.JTextField jMotivoAborto;
     public static javax.swing.JTextField jNomeInterno;
     private javax.swing.JTextField jNomeInternoEvolucao;
-    private javax.swing.JTextArea jObsDesempenhoOcupacional;
     private javax.swing.JTextArea jObsEstiloVida;
     private javax.swing.JTextArea jObsHistoricoFamiliar;
     private javax.swing.JTextArea jObsTriagemSPA;
@@ -6749,7 +6749,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setSelectedItem(conecta.rs.getString("AIVD"));
             jComboBoxLazer.setSelectedItem(conecta.rs.getString("Lazer"));
             jComboBoxTrabalho.setSelectedItem(conecta.rs.getString("Trabalho"));
-            jObsDesempenhoOcupacional.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
+            jEvolucaoAdmissao.setText(conecta.rs.getString("ObsDesempenhoOcupacional"));
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setSelectedItem(conecta.rs.getString("Tabagismo"));
             jQuantoTabagismo.setText(conecta.rs.getString("QuantoTabagismo"));
@@ -6963,8 +6963,8 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jMotivoAborto.setDocument(new LimiteDigitosAlfa(42));
         jQualAtividadeFisica.setDocument(new LimiteDigitosAlfa(42));
         //
-        jObsDesempenhoOcupacional.setLineWrap(true);
-        jObsDesempenhoOcupacional.setWrapStyleWord(true);
+        jEvolucaoAdmissao.setLineWrap(true);
+        jEvolucaoAdmissao.setWrapStyleWord(true);
         //
         jObsHistoricoFamiliar.setLineWrap(true);
         jObsHistoricoFamiliar.setWrapStyleWord(true);
@@ -7005,7 +7005,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jQualMetodoContraCeptivo.setBackground(Color.white);
         jMotivoAborto.setBackground(Color.white);
         jQualAtividadeFisica.setBackground(Color.white);
-        jObsDesempenhoOcupacional.setBackground(Color.white);
+        jEvolucaoAdmissao.setBackground(Color.white);
         jObsHistoricoFamiliar.setBackground(Color.white);
         ObsDadosClinicos.setBackground(Color.white);
         jComboBoxInteresseEstudar.setBackground(Color.white);
@@ -7035,7 +7035,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
         jComboBoxTemFilhos.setEnabled(!true);
@@ -7090,7 +7090,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -7211,7 +7211,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -7267,7 +7267,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setSelectedItem("Não");
         jQuantoTabagismo.setText("0");
@@ -7308,7 +7308,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(true);
         jComboBoxTemCompanheira.setEnabled(true);
@@ -7364,7 +7364,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(true);
         jQuantoTabagismo.setEnabled(true);
@@ -7459,7 +7459,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(true);
         jComboBoxTemCompanheira.setEnabled(true);
@@ -7515,7 +7515,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(true);
         jComboBoxLazer.setEnabled(true);
         jComboBoxTrabalho.setEnabled(true);
-        jObsDesempenhoOcupacional.setEnabled(true);
+        jEvolucaoAdmissao.setEnabled(true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(true);
         jQuantoTabagismo.setEnabled(true);
@@ -7615,7 +7615,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setSelectedItem("Não");
         jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -7671,7 +7671,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setSelectedItem("Não");
         jComboBoxLazer.setSelectedItem("Não");
         jComboBoxTrabalho.setSelectedItem("Não");
-        jObsDesempenhoOcupacional.setText("");
+        jEvolucaoAdmissao.setText("");
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setSelectedItem("Não");
         jQuantoTabagismo.setText("0");
@@ -7712,7 +7712,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
@@ -7768,7 +7768,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -7858,7 +7858,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // HISTÓRICO FAMILIAR
         jComboBoxPaisVivos.setEnabled(!true);
         jComboBoxTemCompanheira.setEnabled(!true);
@@ -7914,7 +7914,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
         jComboBoxAIVD.setEnabled(!true);
         jComboBoxLazer.setEnabled(!true);
         jComboBoxTrabalho.setEnabled(!true);
-        jObsDesempenhoOcupacional.setEnabled(!true);
+        jEvolucaoAdmissao.setEnabled(!true);
         // QUALIDADE DE VIDA (TRIAGEM SPA)
         jComboBoxTabagismo.setEnabled(!true);
         jQuantoTabagismo.setEnabled(!true);
@@ -8020,7 +8020,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setSelectedItem("Não");
             jComboBoxLazer.setSelectedItem("Não");
             jComboBoxTrabalho.setSelectedItem("Não");
-            jObsDesempenhoOcupacional.setText("");
+            jEvolucaoAdmissao.setText("");
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setSelectedItem("Não");
             jComboBoxTemCompanheira.setSelectedItem("Não");
@@ -8076,7 +8076,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setSelectedItem("Não");
             jComboBoxLazer.setSelectedItem("Não");
             jComboBoxTrabalho.setSelectedItem("Não");
-            jObsDesempenhoOcupacional.setText("");
+            jEvolucaoAdmissao.setText("");
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setSelectedItem("Não");
             jQuantoTabagismo.setText("");
@@ -8117,7 +8117,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setEnabled(!true);
             jComboBoxTemCompanheira.setEnabled(!true);
@@ -8173,7 +8173,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setEnabled(!true);
             jQuantoTabagismo.setEnabled(!true);
@@ -8223,7 +8223,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // HISTÓRICO FAMILIAR
             jComboBoxPaisVivos.setEnabled(!true);
             jComboBoxTemCompanheira.setEnabled(!true);
@@ -8279,7 +8279,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
             jComboBoxAIVD.setEnabled(!true);
             jComboBoxLazer.setEnabled(!true);
             jComboBoxTrabalho.setEnabled(!true);
-            jObsDesempenhoOcupacional.setEnabled(!true);
+            jEvolucaoAdmissao.setEnabled(!true);
             // QUALIDADE DE VIDA (TRIAGEM SPA)
             jComboBoxTabagismo.setEnabled(!true);
             jQuantoTabagismo.setEnabled(!true);
