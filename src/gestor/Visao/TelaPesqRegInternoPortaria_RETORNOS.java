@@ -7,8 +7,9 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import static gestor.Visao.TelaCancelRegistroPortaria.jIdInternoReg;
-import static gestor.Visao.TelaCancelRegistroPortaria.jNomeInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jIdInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jNomeInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.pRETORNO_PORTARIA;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author ronaldo
  */
-public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
+public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
@@ -32,7 +33,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesqRegInternoPortaria
      */
-    public TelaPesqRegInternoPortaria() {
+    public TelaPesqRegInternoPortaria_RETORNOS() {
         initComponents();
     }
 
@@ -118,7 +119,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código", "Nome do Interno"
+                "Código", "Nome do Interno", "Tipo Retorno"
             }
         ));
         jTabelaPesqInternos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,8 +131,10 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         if (jTabelaPesqInternos.getColumnModel().getColumnCount() > 0) {
             jTabelaPesqInternos.getColumnModel().getColumn(0).setMinWidth(60);
             jTabelaPesqInternos.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTabelaPesqInternos.getColumnModel().getColumn(1).setMinWidth(380);
-            jTabelaPesqInternos.getColumnModel().getColumn(1).setMaxWidth(380);
+            jTabelaPesqInternos.getColumnModel().getColumn(1).setMinWidth(300);
+            jTabelaPesqInternos.getColumnModel().getColumn(1).setMaxWidth(300);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMaxWidth(250);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -166,7 +169,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 274, Short.MAX_VALUE))
+                        .addGap(0, 348, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -195,7 +198,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             .addComponent(jTabbedPane2)
         );
 
-        setBounds(250, 20, 483, 272);
+        setBounds(250, 20, 557, 272);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -203,9 +206,18 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
-                    + "AND ConfirmaEntrada='" + confirmaEntrada + "' "
+            preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
+                    + "ITENSREGISTRO.IdRetorno, "
+                    + "ITENSREGISTRO.OrigemRetorno "
+                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN ITENSREGISTRO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND RetCrc='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
@@ -214,8 +226,17 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
-                    + "WHERE ConfirmaEntrada='" + confirmaEntrada + "' "
+            this.preencherTabelaInternos("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
+                    + "PRONTUARIOSCRC.NomeInternoCrc, "
+                    + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
+                    + "ITENSREGISTRO.IdRetorno, "
+                    + "ITENSREGISTRO.OrigemRetorno "
+                    + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "INNER JOIN ITENSREGISTRO "
+                    + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                    + "WHERE RetCrc='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         } else {
             limparTabela();
@@ -232,11 +253,22 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + idItem + "'");
+                conecta.executaSQL("SELECT VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc, "
+                        + "PRONTUARIOSCRC.NomeInternoCrc, "
+                        + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
+                        + "ITENSREGISTRO.IdRetorno, "
+                        + "ITENSREGISTRO.OrigemRetorno "
+                        + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "INNER JOIN ITENSREGISTRO "
+                        + "ON PRONTUARIOSCRC.IdInternoCrc=ITENSREGISTRO.IdInternoCrc "
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc='" + idItem + "'");
                 conecta.rs.first();
-                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
+                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
+                pRETORNO_PORTARIA = conecta.rs.getInt("IdRetorno");
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -274,13 +306,13 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
 
     public void preencherTabelaInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Tipo Retorno"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("OrigemRetorno")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -289,8 +321,10 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         jTabelaPesqInternos.setModel(modelo);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(380);
+        jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternos.setAutoResizeMode(jTabelaPesqInternos.AUTO_RESIZE_OFF);
         jTabelaPesqInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -300,13 +334,15 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
 
     public void limparTabela() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Tipo Retorno"};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaPesqInternos.setModel(modelo);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(380);
+        jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(300);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternos.setAutoResizeMode(jTabelaPesqInternos.AUTO_RESIZE_OFF);
         jTabelaPesqInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

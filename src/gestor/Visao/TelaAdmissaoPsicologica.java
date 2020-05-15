@@ -3607,7 +3607,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public void verificarAdmissao() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ATENDIMENTOSOCIAL "
+            conecta.executaSQL("SELECT * FROM ADMISSAOPSI "
                     + "WHERE IdInternoCrc='" + jIdInterno.getText() + "'");
             conecta.rs.first();
             pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");

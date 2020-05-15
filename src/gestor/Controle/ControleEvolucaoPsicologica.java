@@ -100,7 +100,11 @@ public class ControleEvolucaoPsicologica {
             pst.setString(6, evolu.getDataInsert());
             pst.setString(7, evolu.getHorarioInsert());
             pst.setString(8, evolu.getNomeDepartamento());
-            pst.setTimestamp(9, new java.sql.Timestamp(evolu.getDataEncaminhamento().getTime()));
+            if(evolu.getDataEncaminhamento() != null){
+               pst.setTimestamp(9, new java.sql.Timestamp(evolu.getDataEncaminhamento().getTime())); 
+            }else{
+                pst.setDate(9, null); 
+            }            
             pst.setString(10, evolu.getHoraEncaminhamento());
             pst.setString(11, evolu.getAdmEvo());
             pst.execute();

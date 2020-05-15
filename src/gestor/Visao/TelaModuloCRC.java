@@ -129,6 +129,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private TelaSolicitacaoAuxilioReclusaoCRC objSolicitaAtestaRec = null;
     private TelaEmissaoAtestadoReclusaoCRC objEmissaoARC = null;
     private TelaProrrogracaoSaidaTemporariaDomiciliar objProrroga = null;
+    private TelaCancelRegistroPortaria_NOVA_ENTRADA objCancel_NOVA_ENTRA = null;
+    private TelaCancelRegistroPortaria_RETORNOS objCancel_RETORNOS = null;
     // 
     String usuarioLogado, dataLanc;
     int codUsuario;
@@ -290,6 +292,12 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     public static String telaProrrogracaoSaidaTMPPDManu_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Manutenção";
     public static String telaProrrogracaoSaidaTMPPDInt_CRC = "Movimentação:Prorrogação de Saída Temporária/Prisão Domiciliar:Internos";
     //
+    public static String telaCancelamentoNovaEntradaManu_CRC = "Movimentação:Cancelamento de Nova Entrada Portaria:Manutenção";
+    public static String telaCancelamentoNovaEntradaInte_CRC = "Movimentação:Cancelamento de Nova Entrada Portaria:Internos";
+    //
+    public static String telaCancelamentoRetornosManu_CRC = "Movimentação:Cancelamento de Retornos Portaria:Manutenção";
+    public static String telaCancelamentoRetornosInte_CRC = "Movimentação:Cancelamento de Retornos Portaria:Internos";
+    //
     int pCodModulo = 0; // VARIÁVEL PARA PESQUISAR CÓDIGO DO MÓDULO
     // VARIÁVEIS PARA CONTROLE DE CADASTRO DAS TELAS NA TABELA TELAS.
     // MENU CADASTRO
@@ -380,7 +388,12 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     //
     String pNomePSTPM = "";
     String pNomePSTPI = "";
+    //
+    String pNomeCNEM = "";
+    String pNomeCNEI = "";
 
+//    telaCancelamentoNovaEntradaManu_CRC
+//    telaCancelamentoNovaEntradaInte_CRC
     /**
      * Creates new form TelaCRC
      */
@@ -451,7 +464,10 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jAgendamentoEscolta = new javax.swing.JMenuItem();
         jSeparator13 = new javax.swing.JPopupMenu.Separator();
-        CancelarRegistro = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        CancelarRegistro_PRIMEIRA_VEZ = new javax.swing.JMenuItem();
+        jCancelarRegistro_NOVA_ENTRADA = new javax.swing.JMenuItem();
+        jCancelarRegistro_RETORNOS = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         MudancaRegimePenalRegressao = new javax.swing.JMenuItem();
@@ -830,13 +846,35 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         jMenuMovimentacao.add(jAgendamentoEscolta);
         jMenuMovimentacao.add(jSeparator13);
 
-        CancelarRegistro.setText("Cancelar Registro Entrada Internos Portaria");
-        CancelarRegistro.addActionListener(new java.awt.event.ActionListener() {
+        jMenu12.setText("Cancelamento de Entradas e Retornos na Portaria");
+
+        CancelarRegistro_PRIMEIRA_VEZ.setText("Cancelar Registro Entrada Internos Portaria - PRIMEIRA VEZ");
+        CancelarRegistro_PRIMEIRA_VEZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarRegistroActionPerformed(evt);
+                CancelarRegistro_PRIMEIRA_VEZActionPerformed(evt);
             }
         });
-        jMenuMovimentacao.add(CancelarRegistro);
+        jMenu12.add(CancelarRegistro_PRIMEIRA_VEZ);
+
+        jCancelarRegistro_NOVA_ENTRADA.setForeground(new java.awt.Color(0, 102, 0));
+        jCancelarRegistro_NOVA_ENTRADA.setText("Cancelar Registro NOVA ENTRADA na Portaria");
+        jCancelarRegistro_NOVA_ENTRADA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarRegistro_NOVA_ENTRADAActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jCancelarRegistro_NOVA_ENTRADA);
+
+        jCancelarRegistro_RETORNOS.setForeground(new java.awt.Color(0, 0, 204));
+        jCancelarRegistro_RETORNOS.setText("Cancelar Registro de Retorno de Internos na Portaria");
+        jCancelarRegistro_RETORNOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarRegistro_RETORNOSActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jCancelarRegistro_RETORNOS);
+
+        jMenuMovimentacao.add(jMenu12);
         jMenuMovimentacao.add(jSeparator15);
 
         jMenu3.setText("Mudança de Regime Penal");
@@ -2369,7 +2407,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         objRelPrevSaiIntDiv.show();
     }//GEN-LAST:event_RelatorioPrevisaoSaidaIntNaoRealActionPerformed
 
-    private void CancelarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarRegistroActionPerformed
+    private void CancelarRegistro_PRIMEIRA_VEZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarRegistro_PRIMEIRA_VEZActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntManuCRC);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntManuCRC) && codAbrirCRC == 1) {
@@ -2401,7 +2439,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
-    }//GEN-LAST:event_CancelarRegistroActionPerformed
+    }//GEN-LAST:event_CancelarRegistro_PRIMEIRA_VEZActionPerformed
 
     private void MapaConfereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MapaConfereActionPerformed
         // TODO add your handling code here:
@@ -3469,12 +3507,80 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jProrrogacaoSaidaTemporariaActionPerformed
 
+    private void jCancelarRegistro_NOVA_ENTRADAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistro_NOVA_ENTRADAActionPerformed
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaCancelamentoNovaEntradaManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaManu_CRC) && codAbrirCRC == 1) {
+            if (objCancel_NOVA_ENTRA == null || objCancel_NOVA_ENTRA.isClosed()) {
+                objCancel_NOVA_ENTRA = new TelaCancelRegistroPortaria_NOVA_ENTRADA();
+                jPainelCRC.add(objCancel_NOVA_ENTRA);
+                objCancel_NOVA_ENTRA.setVisible(true);
+            } else {
+                if (objCancel_NOVA_ENTRA.isVisible()) {
+                    if (objCancel_NOVA_ENTRA.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancel_NOVA_ENTRA.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancel_NOVA_ENTRA.toFront(); // traz para frente
+                        objCancel_NOVA_ENTRA.pack();//volta frame 
+                    }
+                } else {
+                    objCancel_NOVA_ENTRA = new TelaCancelRegistroPortaria_NOVA_ENTRADA();
+                    TelaModuloCRC.jPainelCRC.add(objCancel_NOVA_ENTRA);//adicona frame ao JDesktopPane  
+                    objCancel_NOVA_ENTRA.setVisible(true);
+                }
+            }
+            try {
+                objCancel_NOVA_ENTRA.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelarRegistro_NOVA_ENTRADAActionPerformed
+
+    private void jCancelarRegistro_RETORNOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRegistro_RETORNOSActionPerformed
+        // TODO add your handling code here: 
+        buscarAcessoUsuario(telaCancelamentoRetornosManu_CRC);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRetornosManu_CRC) && codAbrirCRC == 1) {
+            if (objCancel_RETORNOS == null || objCancel_RETORNOS.isClosed()) {
+                objCancel_RETORNOS = new TelaCancelRegistroPortaria_RETORNOS();
+                jPainelCRC.add(objCancel_RETORNOS);
+                objCancel_RETORNOS.setVisible(true);
+            } else {
+                if (objCancel_RETORNOS.isVisible()) {
+                    if (objCancel_RETORNOS.isIcon()) { // Se esta minimizado
+                        try {
+                            objCancel_RETORNOS.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objCancel_RETORNOS.toFront(); // traz para frente
+                        objCancel_RETORNOS.pack();//volta frame 
+                    }
+                } else {
+                    objCancel_RETORNOS = new TelaCancelRegistroPortaria_RETORNOS();
+                    TelaModuloCRC.jPainelCRC.add(objCancel_RETORNOS);//adicona frame ao JDesktopPane  
+                    objCancel_RETORNOS.setVisible(true);
+                }
+            }
+            try {
+                objCancel_RETORNOS.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
+        }
+    }//GEN-LAST:event_jCancelarRegistro_RETORNOSActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AgendaCompromisso;
     private javax.swing.JMenuItem AgendaRecados;
     private javax.swing.JMenuItem CPF;
-    private javax.swing.JMenuItem CancelarRegistro;
+    private javax.swing.JMenuItem CancelarRegistro_PRIMEIRA_VEZ;
     private javax.swing.JMenuItem CartaoSUS;
     private javax.swing.JMenuItem CartaoSUS1;
     private javax.swing.JMenuItem ConsultaEvasaoInternos;
@@ -3531,6 +3637,8 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenuItem jCalculadoraExecucaoPenal;
     private javax.swing.JMenuItem jCalculadoraPena;
     private javax.swing.JMenuItem jCalculadoraWindows;
+    private javax.swing.JMenuItem jCancelarRegistro_NOVA_ENTRADA;
+    private javax.swing.JMenuItem jCancelarRegistro_RETORNOS;
     private javax.swing.JMenuItem jCidades;
     private javax.swing.JMenuItem jConsultaGeralInternosExterna;
     private javax.swing.JMenuItem jEmissaoAtestadoReclusao;
@@ -3547,6 +3655,7 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -4837,6 +4946,20 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             pNomePSTPI = conecta.rs.getString("NomeTela");
         } catch (SQLException ex) {
         }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelamentoNovaEntradaManu_CRC + "'");
+            conecta.rs.first();
+            pNomeCNEM = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaCancelamentoNovaEntradaInte_CRC + "'");
+            conecta.rs.first();
+            pNomeCNEI = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
         // CADASTRO
         // TIPO DE OPERAÇÃO
         if (!pNomeOP.equals(telaTipoOPCRC) || pNomeOP == null || pNomeOP.equals("")) {
@@ -5235,6 +5358,18 @@ public class TelaModuloCRC extends javax.swing.JInternalFrame {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
             objCadastroTela.setNomeTela(telaProrrogracaoSaidaTMPPDInt_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCNEM.equals(telaCancelamentoNovaEntradaManu_CRC) || pNomeCNEM == null || pNomeCNEM.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelamentoNovaEntradaManu_CRC);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeCNEI.equals(telaCancelamentoNovaEntradaInte_CRC) || pNomeCNEI == null || pNomeCNEI.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaCancelamentoNovaEntradaInte_CRC);
             controle.incluirTelaAcesso(objCadastroTela);
         }
     }

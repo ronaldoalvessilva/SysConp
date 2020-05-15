@@ -15,15 +15,15 @@ import javax.swing.JOptionPane;
  *
  * @author Ronaldo
  */
-public class ControleRegCancelado {
+public class ControleRegCancelado_RETORNOS {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     RegistroCanceladoCrc objRecCancel = new RegistroCanceladoCrc();
 
-    public RegistroCanceladoCrc incluirRegCancelado(RegistroCanceladoCrc objRecCancel) {
+    public RegistroCanceladoCrc incluirRegCanceladoRE(RegistroCanceladoCrc objRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTROCANCELADO (StatusLanc,DataLanc,Motivo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO REGISTRO_CANCELADO_RETORNOS (StatusLanc,DataLanc,Motivo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?)");
             pst.setString(1, objRecCancel.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objRecCancel.getDataLanc().getTime()));
             pst.setString(3, objRecCancel.getMotivo());
@@ -32,16 +32,16 @@ public class ControleRegCancelado {
             pst.setString(6, objRecCancel.getHorarioInsert());
             pst.execute();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR os Dados.\n\nERRO" + ex);
         }
         conecta.desconecta();
         return objRecCancel;
     }
 
-    public RegistroCanceladoCrc alterarRegCancelado(RegistroCanceladoCrc objRecCancel) {
+    public RegistroCanceladoCrc alterarRegCanceladoRE(RegistroCanceladoCrc objRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTROCANCELADO SET StatusLanc=?,DataLanc=?,Motivo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdLanc='" + objRecCancel.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_RETORNOS SET StatusLanc=?,DataLanc=?,Motivo=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegCancel='" + objRecCancel.getIdLanc() + "'");
             pst.setString(1, objRecCancel.getStatusLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objRecCancel.getDataLanc().getTime()));
             pst.setString(3, objRecCancel.getMotivo());
@@ -56,26 +56,26 @@ public class ControleRegCancelado {
         return objRecCancel;
     }
 
-    public RegistroCanceladoCrc excluirRegCancelado(RegistroCanceladoCrc objRecCancel) {
+    public RegistroCanceladoCrc excluirRegCanceladoRE(RegistroCanceladoCrc objRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM REGISTROCANCELADO WHERE IdLanc='" + objRecCancel.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM REGISTRO_CANCELADO_RETORNOS WHERE IdRegCancel='" + objRecCancel.getIdLanc() + "'");
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR os Dados.\n\nERRO" + ex);
         }
         conecta.desconecta();
         return objRecCancel;
     }
 
-    public RegistroCanceladoCrc finalizarRegCancelado(RegistroCanceladoCrc objRecCancel) {
+    public RegistroCanceladoCrc finalizarRegCanceladoRE(RegistroCanceladoCrc objRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTROCANCELADO SET StatusLanc=? WHERE IdLanc='" + objRecCancel.getIdLanc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE REGISTRO_CANCELADO_RETORNOS SET StatusLanc=? WHERE IdRegCancel='" + objRecCancel.getIdLanc() + "'");
             pst.setString(1, objRecCancel.getStatusLanc());
             pst.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados\n\nERRO" + ex);
+            JOptionPane.showMessageDialog(null, "Não Foi possivel FINALIZAR os Dados.\n\nERRO" + ex);
         }
         conecta.desconecta();
         return objRecCancel;

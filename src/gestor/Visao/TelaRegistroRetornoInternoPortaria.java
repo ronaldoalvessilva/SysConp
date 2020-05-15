@@ -115,6 +115,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
     int pPOPULCAO_ATUAL = 0;
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
+    String pREGISTRO_CANCELADO = "";
 
     /**
      * Creates new form TelaRetornoInterno
@@ -710,7 +711,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
 
         confirmadoRetorno.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         confirmadoRetorno.setForeground(new java.awt.Color(255, 0, 0));
-        confirmadoRetorno.setToolTipText("Confirmado Retorno pelo CRC");
+        confirmadoRetorno.setToolTipText("Confirmado Retorno pelo CRC\nCancelado pelo CRC");
         confirmadoRetorno.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jBtPesqInterno.setForeground(new java.awt.Color(0, 0, 255));
@@ -1300,9 +1301,12 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                     jFotoInternoRetorno.setIcon(icon);
                 }
                 confirma = conecta.rs.getString("ConfirmacaoRetorno");
+                pREGISTRO_CANCELADO = conecta.rs.getString("RegistroCancelado");
                 // Se confirmado (Sim), siginifica que o CRC já fez o retorno do interno
                 if (confirma.equals("Sim")) {
                     confirmadoRetorno.setText(vconfirmado);
+                } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                    confirmadoRetorno.setText("Cancelado pelo CRC");
                 } else {
                     confirmadoRetorno.setText("");
                 }
@@ -1347,9 +1351,11 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
             if (retornoBiometria != null) {
                 JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo tem origem da biometria.");
             } else if (jStatusRetorno.getText().equals("FINALIZADO")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+                JOptionPane.showMessageDialog(rootPane, "Esse retorno de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO.");
             } else if (confirma.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo encontra-se efetuado pelo CRC");
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo encontra-se efetuado pelo CRC.");
+            } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais modificado, pois, o mesmo foi cancelado pelo CRC.");
             } else {
                 acao = 4;
                 flag = 1;
@@ -1369,7 +1375,9 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
         buscarAcessoUsuario(telaRegistroRetornoRIIntP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaRegistroRetornoRIIntP1) && codExcluirP1 == 1) {
             if (confirma.equals("Sim")) {
-                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo encontra-se efetuado pelo CRC");
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo encontra-se efetuado pelo CRC.");
+            } else if (pREGISTRO_CANCELADO.equals("REGISTRO CANCELADO PELO CRC")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro não poderá ser mais excluído, pois, o mesmo foi cancelado pelo CRC.");
             } else {
                 verificarBiometria();
                 statusMov = "Excluiu";
@@ -1381,37 +1389,38 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                 } else if (retornoBiometria != null) {
                     JOptionPane.showMessageDialog(rootPane, "Não é possível alterar esse registro, o mesmo tem origem da biometria.");
                 } else {
-                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
-                            JOptionPane.YES_NO_OPTION);
-                    if (resposta == JOptionPane.YES_OPTION) {
-                        // Limpa as variaveis para limpar os campos da tabela MOVSR               
-                        jDataRetorno.setDate(null);
-                        jNrDocumento.setText("");
-                        //Atualizar a tabela MOVISR pela portaria retirando o número do documento e a data de retorno.
-                        objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
-                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        objItensRetorno.setDocumento("");
-                        objItensRetorno.setDataRetorno(null);
-                        // objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                        controlMOVSR.alterarRegistroRetorno(objItensRetorno); // Tabela MOVISR
-                        // EXCLUIR REGISTRO DA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
-                        objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
-                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
-                        controleRetornoPortaria.excluirInternoRetorno(objItensRetorno);
-                        //
-                        objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
-                        controle.excluirItensRetorno(objItensRetorno);
-                        //
-                        objLog2();
-                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
-                        preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
-                                + "INNER JOIN PRONTUARIOSCRC "
-                                + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                                + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
-
-                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
-                        ExcluirItem();
-                    }
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro.");
+//                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+//                            JOptionPane.YES_NO_OPTION);
+//                    if (resposta == JOptionPane.YES_OPTION) {
+//                        // Limpa as variaveis para limpar os campos da tabela MOVSR               
+//                        jDataRetorno.setDate(null);
+//                        jNrDocumento.setText("");
+//                        //Atualizar a tabela MOVISR pela portaria retirando o número do documento e a data de retorno.
+//                        objItensRetorno.setIdRetorno(Integer.valueOf(jIDLanc.getText()));
+//                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        objItensRetorno.setDocumento("");
+//                        objItensRetorno.setDataRetorno(null);
+//                        // objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+//                        controlMOVSR.alterarRegistroRetorno(objItensRetorno); // Tabela MOVISR
+//                        // EXCLUIR REGISTRO DA TABELA VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS
+//                        objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
+//                        objItensRetorno.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+//                        controleRetornoPortaria.excluirInternoRetorno(objItensRetorno);
+//                        //
+//                        objItensRetorno.setIdItemRetorno(Integer.valueOf(idItem));
+//                        controle.excluirItensRetorno(objItensRetorno);
+//                        //
+//                        objLog2();
+//                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação   
+//                        preencherTabelaItens("SELECT * FROM ITENSREGISTRO "
+//                                + "INNER JOIN PRONTUARIOSCRC "
+//                                + "ON ITENSREGISTRO.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                                + "WHERE IdRetorno='" + jIDLanc.getText() + "'");
+//
+//                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+//                        ExcluirItem();
+//                    }
                 }
             }
         } else {
@@ -1449,7 +1458,7 @@ public class TelaRegistroRetornoInternoPortaria extends javax.swing.JInternalFra
                             objItensRetorno.setIdRetorno((Integer.valueOf(jIDLanc.getText())));
                             controle.incluirItensRetorno(objItensRetorno); // Gravar registro na tabela de itens ITENSREGISTRO                                                                    
                             buscarIdItem();
-                            //ADICIONAR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                            //ADICIONAR A POPULAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
                             if (jOrigemOperacao.getSelectedItem().equals("Retorno Saída Temporaria")) {
                                 populacaoAlimentacao();
                             } else if (jOrigemOperacao.getSelectedItem().equals("Retorno de Prisão Domiciliar - COVID-19")) {

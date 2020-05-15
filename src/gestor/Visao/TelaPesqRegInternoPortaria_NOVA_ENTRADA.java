@@ -7,8 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
-import static gestor.Visao.TelaCancelRegistroPortaria.jIdInternoReg;
-import static gestor.Visao.TelaCancelRegistroPortaria.jNomeInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jIdInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jNomeInternoReg;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author ronaldo
  */
-public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
+public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
 
@@ -32,7 +32,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesqRegInternoPortaria
      */
-    public TelaPesqRegInternoPortaria() {
+    public TelaPesqRegInternoPortaria_NOVA_ENTRADA() {
         initComponents();
     }
 
@@ -203,9 +203,11 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         if (jPesqNomeInterno.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
         } else {
-            preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
-                    + "WHERE NomeInternoCrc LIKE'" + jPesqNomeInterno.getText() + "%' "
-                    + "AND ConfirmaEntrada='" + confirmaEntrada + "' "
+            preencherTabelaInternos("SELECT * FROM ITENSNOVAENTRADA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%' "
+                    + "AND UtilizadoCrc='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         }
     }//GEN-LAST:event_jBtPesqNomeInternoActionPerformed
@@ -214,8 +216,10 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         flag = 1;
         if (evt.getStateChange() == evt.SELECTED) {
-            this.preencherTabelaInternos("SELECT * FROM ITENSENTRADAPORTARIA "
-                    + "WHERE ConfirmaEntrada='" + confirmaEntrada + "' "
+            this.preencherTabelaInternos("SELECT * FROM ITENSNOVAENTRADA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE UtilizadoCrc='" + confirmaEntrada + "' "
                     + "ORDER BY NomeInternoCrc");
         } else {
             limparTabela();
@@ -232,10 +236,13 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             //
             conecta.abrirConexao();
             try {
-                conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + idItem + "'");
+                conecta.executaSQL("SELECT * FROM ITENSNOVAENTRADA "
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENSNOVAENTRADA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND ITENSNOVAENTRADA.IdInternoCrc='" + idItem + "'");
                 conecta.rs.first();
-                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
+                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                 conecta.desconecta();
             } catch (SQLException ex) {
@@ -280,7 +287,7 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
