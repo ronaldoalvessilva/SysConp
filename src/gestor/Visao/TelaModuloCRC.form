@@ -283,12 +283,12 @@
                 <Property name="text" type="java.lang.String" value="Cancelamento de Entradas e Retornos na Portaria"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="CancelarRegistro_PRIMEIRA_VEZ">
+                <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_PRIMEIRA_VEZ">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancelar Registro Entrada Internos Portaria - PRIMEIRA VEZ"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelarRegistro_PRIMEIRA_VEZActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarRegistro_PRIMEIRA_VEZActionPerformed"/>
                   </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jCancelarRegistro_NOVA_ENTRADA">

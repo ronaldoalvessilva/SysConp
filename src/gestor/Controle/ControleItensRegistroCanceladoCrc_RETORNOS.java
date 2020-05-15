@@ -23,10 +23,10 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
     public ItensRegistroCanceladoCrc incluirRegCanceladoRE(ItensRegistroCanceladoCrc objItensRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_RETORNOS (IdRegCancel,DataSaida,NomeInternoCrc,NrDocumento,HoraSaida,ConfirmacaoRegistro,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO ITENS_REGISTRO_CANCELADO_RETORNOS (IdRegCancel,DataSaida,IdInternoCrc,NrDocumento,HoraSaida,ConfirmacaoRegistro,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?,?)");
             pst.setInt(1, objItensRecCancel.getIdLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objItensRecCancel.getDataSaida().getTime()));
-            pst.setString(3, objItensRecCancel.getNomeInternoCrc());
+            pst.setInt(3, objItensRecCancel.getIdInternoCrc());
             pst.setString(4, objItensRecCancel.getNrDocumento());
             pst.setString(5, objItensRecCancel.getHoraSaida());
             pst.setString(6, objItensRecCancel.getConfirmacaoRegistro());
@@ -44,10 +44,10 @@ public class ControleItensRegistroCanceladoCrc_RETORNOS {
     public ItensRegistroCanceladoCrc alterarRegCanceladoRE(ItensRegistroCanceladoCrc objItensRecCancel) {
         conecta.abrirConexao();
         try {
-            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_RETORNOS SET IdRegCancel=?,DataSaida=?,NomeInternoCrc=?,NrDocumento=?,HoraSaida=?,ConfirmacaoRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ITENS_REGISTRO_CANCELADO_RETORNOS SET IdRegCancel=?,DataSaida=?,IdInternoCrc=?,NrDocumento=?,HoraSaida=?,ConfirmacaoRegistro=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objItensRecCancel.getIdItem() + "'AND NomeInternoCrc='" + objItensRecCancel.getNomeInternoCrc() + "'");
             pst.setInt(1, objItensRecCancel.getIdLanc());
             pst.setTimestamp(2, new java.sql.Timestamp(objItensRecCancel.getDataSaida().getTime()));
-            pst.setString(3, objItensRecCancel.getNomeInternoCrc());
+            pst.setInt(3, objItensRecCancel.getIdInternoCrc());
             pst.setString(4, objItensRecCancel.getNrDocumento());
             pst.setString(5, objItensRecCancel.getHoraSaida());
             pst.setString(6, objItensRecCancel.getConfirmacaoRegistro());

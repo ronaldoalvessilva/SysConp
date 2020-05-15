@@ -19,6 +19,7 @@ import gestor.Modelo.ItensEntradaInternosPortaria;
 import gestor.Modelo.ItensRegistroCanceladoCrc;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroCanceladoCrc;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
 import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
@@ -32,8 +33,6 @@ import static gestor.Visao.TelaModuloCRC.codigoUserCRC;
 import static gestor.Visao.TelaModuloCRC.codigoUserGroupCRC;
 import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
-import static gestor.Visao.TelaModuloCRC.telaCancelamentoNovaEntradaInte_CRC;
-import static gestor.Visao.TelaModuloCRC.telaCancelamentoNovaEntradaManu_CRC;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -46,6 +45,28 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import static gestor.Visao.TelaModuloCRC.telaCancelamentoPrimeiraEntradaManu_CRC;
+import static gestor.Visao.TelaModuloCRC.telaCancelamentoPrimeiraEntradaInte_CRC;
+import static gestor.Visao.TelaModuloPortarias.codAbrirP1;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codConsultarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaCancelamentoPrimeiraEntradaInte_P1;
+import static gestor.Visao.TelaModuloPortarias.telaCancelamentoPrimeiraEntradaManu_P1;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -91,6 +112,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
     int pQUANTIDADE_ENTRADA_INTERNO = 1;
     int pID_ITEM_ALIMENTACAO = 0;
     String REGISTRO_CANCELADO = "REGISTRO CANCELADO PELO CRC";
+    int pID_ITEM = 0;
 
     /**
      * Creates new form TelaCancelRegistroPortaria
@@ -491,7 +513,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
             },
             new String [] {
-                "Código", "Nome do Interno", "Data Entrada", "Horário", "Nr. Doc."
+                "Item", "Código", "Nome do Interno", "Data Entrada", "Horário", "Nr. Doc."
             }
         ));
         jTabelaEntradaInternosPortaria.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -501,19 +523,21 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         });
         jScrollPane1.setViewportView(jTabelaEntradaInternosPortaria);
         if (jTabelaEntradaInternosPortaria.getColumnModel().getColumnCount() > 0) {
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMinWidth(70);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMaxWidth(70);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMinWidth(250);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMaxWidth(250);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMinWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMinWidth(50);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMaxWidth(50);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMinWidth(80);
-            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMaxWidth(80);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMinWidth(60);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setMaxWidth(60);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMinWidth(70);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setMaxWidth(70);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMinWidth(250);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setMaxWidth(250);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMinWidth(80);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMinWidth(50);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setMaxWidth(50);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setMinWidth(80);
+            jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Botões", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jBtNovoInterno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovoInterno.setToolTipText("Novo");
@@ -613,7 +637,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jBtAlterarInterno, jBtCancelarInterno, jBtExcluirInterno, jBtNovoInterno, jBtSalvarInterno});
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dados Interno Registrado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 204))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Dados Interno Registrado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 102, 0))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Código");
@@ -998,8 +1022,16 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:     
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaManu_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaManu_CRC) && codIncluirCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaManu_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaManu_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaManu_CRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaManu_P1) && codIncluirP1 == 1) {
             acao = 1;
             Novo();
             corCampos();
@@ -1013,8 +1045,21 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaManu_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaManu_CRC) && codAlterarCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaManu_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaManu_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaManu_CRC) && codAlterarCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaManu_P1) && codAlterarP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1033,8 +1078,16 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaManu_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaManu_CRC) && codExcluirCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaManu_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaManu_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaManu_CRC) && codExcluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaManu_P1) && codExcluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1048,8 +1101,52 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaManu_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaManu_CRC) && codGravarCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaManu_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaManu_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaManu_CRC) && codGravarCRC == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                if (jMotivo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o motivo do cancelamento da entrada do interno.");
+                } else {
+                    if (acao == 1) {
+                        // Para o log do registro
+                        objRecCancel.setUsuarioInsert(nameUser);
+                        objRecCancel.setDataInsert(dataModFinal);
+                        objRecCancel.setHorarioInsert(horaMov);
+                        //
+                        objRecCancel.setStatusLanc(jStatusLanc.getText());
+                        objRecCancel.setDataLanc(jDataLanc.getDate());
+                        objRecCancel.setMotivo(jMotivo.getText());
+                        control.incluirRegCanceladoNE(objRecCancel);
+                        buscarCodigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // Para o log do registro
+                        objRecCancel.setUsuarioUp(nameUser);
+                        objRecCancel.setDataUp(dataModFinal);
+                        objRecCancel.setHorarioUp(horaMov);
+                        //
+                        objRecCancel.setStatusLanc(jStatusLanc.getText());
+                        objRecCancel.setDataLanc(jDataLanc.getDate());
+                        objRecCancel.setMotivo(jMotivo.getText());
+                        objRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        control.alterarRegCanceladoNE(objRecCancel);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        Salvar();
+                    }
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaManu_P1) && codGravarP1 == 1) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
                 jDataLanc.requestFocus();
@@ -1122,19 +1219,62 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaCancelReg objAudCancelReg = new TelaAuditoriaCancelReg();
-        TelaModuloCRC.jPainelCRC.add(objAudCancelReg);
-        objAudCancelReg.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaAuditoriaCancelRegNE objAudCancelReg = new TelaAuditoriaCancelRegNE();
+            TelaModuloCRC.jPainelCRC.add(objAudCancelReg);
+            objAudCancelReg.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaAuditoriaCancelRegNE objAudCancelReg = new TelaAuditoriaCancelRegNE();
+            TelaModuloPortarias.jPainelPortarias.add(objAudCancelReg);
+            objAudCancelReg.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/PortariaInterna/RelatorioCancelamentoNovaEntrada.jasper";
+            conecta.executaSQL("SELECT * FROM REGISTRO_CANCELADO_NE "
+                    + "WHERE IdRegCancel='" + jIdLanc.getText() + "' ");
+            HashMap parametros = new HashMap();
+            parametros.put("pCodigo", jIdLanc.getText());
+            parametros.put("pUNIDADE", descricaoUnidade);
+            parametros.put("pUSUARIO", nameUser);
+            // Sub Relatório
+            try {
+                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+            } catch (SQLException ex) {
+            }
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Cancelamento de Internos Nova Entrada");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaInte_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaInte_CRC) && codIncluirCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaInte_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaInte_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaInte_CRC) && codIncluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser incluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaInte_P1) && codIncluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser incluído, o mesmo encontra-se FINALIZADO");
@@ -1152,8 +1292,22 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaInte_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaInte_CRC) && codAlterarCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaInte_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaInte_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaInte_CRC) && codAlterarCRC == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
+//            objRecCancel.setStatusLanc(jStatusLanc.getText());
+//            if (jStatusLanc.getText().equals("FINALIZADO")) {
+//                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "Atenção, se exitir a necessidade de modificar o nome do interno,\n será necessário excluir o atual antes e lançar novamente o correto.\nDúvidas consulte o Administrador do sistema.");
+//                acao = 4;
+//                AlterarInterno();
+//                statusMov = "Alterou";
+//                horaMov = jHoraSistema.getText();
+//                dataModFinal = jDataSistema.getText();
+//            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaInte_P1) && codAlterarP1 == 1) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
 //            objRecCancel.setStatusLanc(jStatusLanc.getText());
 //            if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1173,8 +1327,44 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaInte_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaInte_CRC) && codExcluirCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaInte_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaInte_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaInte_CRC) && codExcluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe outras operações que depende do cancelamento realizado.");
+//                confirmaUtilizacao = "Não";
+//                statusMov = "Excluiu";
+//                horaMov = jHoraSistema.getText();
+//                dataModFinal = jDataSistema.getText();
+//                objRecCancel.setStatusLanc(jStatusLanc.getText());
+//                if (jStatusLanc.getText().equals("FINALIZADO")) {
+//                    JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+//                } else {
+//                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+//                            JOptionPane.YES_NO_OPTION);
+//                    if (resposta == JOptionPane.YES_OPTION) {
+//                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+//                        objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+//                        controle.excluirRegCanceladoNE(objItensRecCancel);
+//                        // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para mostrar o alerta                 
+//                        objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
+//                        objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+//                        controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
+//                        objLog2();
+//                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+//                        ExcluirInterno();
+//                        preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+//                                + "INNER JOIN PRONTUARIOSCRC "
+//                                + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+//                                + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
+//                    }
+//                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaInte_P1) && codExcluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1214,8 +1404,9 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
-        buscarAcessoUsuario(telaCancelamentoNovaEntradaInte_CRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoNovaEntradaInte_CRC) && codGravarCRC == 1) {
+        buscarAcessoUsuario(telaCancelamentoPrimeiraEntradaInte_CRC);
+        buscarAcessoUsuarioP1(telaCancelamentoPrimeiraEntradaInte_P1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoPrimeiraEntradaInte_CRC) && codGravarCRC == 1) {
             confirmaUtilizacao = "Sim";
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
@@ -1235,6 +1426,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                             objItensRecCancel.setDataInsert(dataModFinal);
                             objItensRecCancel.setHorarioInsert(horaMov);
                             //
+                            objItensRecCancel.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                             objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
                             objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                             objItensRecCancel.setNrDocumento(jNrDocumento.getText());
@@ -1253,6 +1445,8 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                             objLog2();
                             controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                             preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
                             SalvarInterno();
                             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
@@ -1264,6 +1458,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                         objItensRecCancel.setDataUp(dataModFinal);
                         objItensRecCancel.setHorarioUp(horaMov);
                         //
+                        objItensRecCancel.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
                         objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
                         objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objItensRecCancel.setNrDocumento(jNrDocumento.getText());
@@ -1274,6 +1469,79 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                         objLog2();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
+                        SalvarInterno();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                    }
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoPrimeiraEntradaInte_P1) && codGravarP1 == 1) {
+            confirmaUtilizacao = "Sim";
+            if (jNomeInternoReg.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+                jNomeInternoReg.requestFocus();
+            } else {
+                if (jDataEntrada.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Saida.");
+                    jDataEntrada.requestFocus();
+                    jDataEntrada.setBackground(Color.red);
+                } else {
+                    if (acao == 3) {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            // Para o log do registro
+                            objItensRecCancel.setUsuarioInsert(nameUser);
+                            objItensRecCancel.setDataInsert(dataModFinal);
+                            objItensRecCancel.setHorarioInsert(horaMov);
+                            //
+                            objItensRecCancel.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                            objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                            objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                            objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                            objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                            objItensRecCancel.setHoraSaida(jHorario.getText());
+                            objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
+                            controle.incluirRegCanceladoNE(objItensRecCancel);
+                            // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
+                            // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                            objItensEntIntPort.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                            objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                            objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                            controleReg.confirmarEntradaPortariaCrcNE(objItensEntIntPort);
+                            //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                            populacaoAlimentacao();
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+                                    + "INNER JOIN PRONTUARIOSCRC "
+                                    + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                                    + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
+                            SalvarInterno();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
+                        }
+                    }
+                    if (acao == 4) {
+                        // Para o log do registro
+                        objItensRecCancel.setUsuarioUp(nameUser);
+                        objItensRecCancel.setDataUp(dataModFinal);
+                        objItensRecCancel.setHorarioUp(horaMov);
+                        //
+                        objItensRecCancel.setIdInternoCrc(Integer.valueOf(jIdInternoReg.getText()));
+                        objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                        objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                        objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                        objItensRecCancel.setHoraSaida(jHorario.getText());
+                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+                        controle.alterarRegCanceladoNE(objItensRecCancel);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+                                + "INNER JOIN PRONTUARIOSCRC "
+                                + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                 + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
                         SalvarInterno();
                         JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
@@ -1292,9 +1560,15 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
-        TelaModuloCRC.jPainelCRC.add(objAudItensCancel);
-        objAudItensCancel.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaModuloCRC.jPainelCRC.add(objAudItensCancel);
+            objAudItensCancel.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaModuloPortarias.jPainelPortarias.add(objAudItensCancel);
+            objAudItensCancel.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1306,8 +1580,9 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         // TODO add your handling code here:
         flag = 1;
         if (flag == 1) {
-            String IdLanc = "" + jTabelaEntradaInternosPortaria.getValueAt(jTabelaEntradaInternosPortaria.getSelectedRow(), 0);
-            jIdInternoReg.setText(IdLanc);
+            String idItem = "" + jTabelaEntradaInternosPortaria.getValueAt(jTabelaEntradaInternosPortaria.getSelectedRow(), 0);
+            String idInterno = "" + jTabelaEntradaInternosPortaria.getValueAt(jTabelaEntradaInternosPortaria.getSelectedRow(), 1);
+            jIdInternoReg.setText(idInterno);
             jBtNovoInterno.setEnabled(!true);
             jBtAlterarInterno.setEnabled(true);
             jBtExcluirInterno.setEnabled(true);
@@ -1319,14 +1594,17 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
-                        + "WHERE IdItem='" + jIdInternoReg.getText() + "'");
+                        + "INNER JOIN PRONTUARIOSCRC "
+                        + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                        + "WHERE ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc='" + jIdInternoReg.getText() + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
-                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
+                pID_ITEM = conecta.rs.getInt("IdItem");
+                jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                 jNrDocumento.setText(conecta.rs.getString("NrDocumento"));
                 jDataEntrada.setDate(conecta.rs.getDate("DataSaida"));
                 jHorario.setText(conecta.rs.getString("HoraSaida"));
-
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
@@ -1367,15 +1645,23 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa..." + e);
             }
             preencherTabelaEntradasPortaria("SELECT * FROM ITENS_REGISTRO_CANCELADO_NE "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ITENS_REGISTRO_CANCELADO_NE.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                     + "WHERE IdRegCancel='" + jIdLanc.getText() + "'");
         }
     }//GEN-LAST:event_jTabelaPesqusaInternoMouseClicked
 
     private void jBtBuscarRegistroInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegistroInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
-        TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
-        objPesqRegInternoPor.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
+            TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
+            objPesqRegInternoPor.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaPesqRegInternoPortaria_NOVA_ENTRADA objPesqRegInternoPor = new TelaPesqRegInternoPortaria_NOVA_ENTRADA();
+            TelaModuloPortarias.jPainelPortarias.add(objPesqRegInternoPor);
+            objPesqRegInternoPor.show();
+        }
     }//GEN-LAST:event_jBtBuscarRegistroInternoActionPerformed
 
 
@@ -1425,7 +1711,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
     private javax.swing.JTextArea jMotivo;
     private javax.swing.JTextField jNomeInternoPesq;
     public static javax.swing.JTextField jNomeInternoReg;
-    private javax.swing.JTextField jNrDocumento;
+    public static javax.swing.JTextField jNrDocumento;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1992,7 +2278,7 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     public void preencherTabelaEntradasPortaria(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Doc."};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Doc."};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
@@ -2004,22 +2290,24 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                 String mese = dataSaida.substring(5, 7);
                 String anoe = dataSaida.substring(0, 4);
                 dataSaida = diae + "/" + mese + "/" + anoe;
-                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getString("NomeInternoCrc"), dataSaida, conecta.rs.getString("HoraSaida"), conecta.rs.getString("NrDocumento")});
+                dados.add(new Object[]{conecta.rs.getInt("IdItem"), conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"), dataSaida, conecta.rs.getString("HoraSaida"), conecta.rs.getString("NrDocumento")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
         }
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setResizable(false);
         jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
         jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2029,19 +2317,21 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     public void limparTabelaItens() {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Doc."};
+        String[] Colunas = new String[]{"Item", "Código", "Nome do Interno", "Data Entrada", "Horario", "Nr. Doc."};
         ModeloTabela modelo = new ModeloTabela(dados, Colunas);
         jTabelaEntradaInternosPortaria.setModel(modelo);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(70);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setPreferredWidth(60);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setPreferredWidth(70);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setResizable(false);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setPreferredWidth(50);
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setResizable(false);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setPreferredWidth(80);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setResizable(false);
         jTabelaEntradaInternosPortaria.getTableHeader().setReorderingAllowed(false);
         jTabelaEntradaInternosPortaria.setAutoResizeMode(jTabelaEntradaInternosPortaria.AUTO_RESIZE_OFF);
         jTabelaEntradaInternosPortaria.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -2057,8 +2347,10 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaEntradaInternosPortaria.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(2).setCellRenderer(centralizado);
-        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setCellRenderer(direita);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(3).setCellRenderer(centralizado);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        jTabelaEntradaInternosPortaria.getColumnModel().getColumn(5).setCellRenderer(centralizado);
     }
 
     public void objLog() {
@@ -2112,6 +2404,44 @@ public class TelaCancelRegistroPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             codGravarCRC = conecta.rs.getInt("Gravar");
             codConsultarCRC = conecta.rs.getInt("Consultar");
             nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioP1(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "'");
+            conecta.rs.first();
+            codigoUserGroupP1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1 = conecta.rs.getInt("IdUsuario");
+            codAbrirP1 = conecta.rs.getInt("Abrir");
+            codIncluirP1 = conecta.rs.getInt("Incluir");
+            codAlterarP1 = conecta.rs.getInt("Alterar");
+            codExcluirP1 = conecta.rs.getInt("Excluir");
+            codGravarP1 = conecta.rs.getInt("Gravar");
+            codConsultarP1 = conecta.rs.getInt("Consultar");
+            nomeTelaP1 = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

@@ -6,14 +6,14 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaCancelRegistroPortaria.jIdLanc;
+import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jIdLanc;
 import java.sql.SQLException;
 
 /**
  *
  * @author Ronaldo
  */
-public class TelaAuditoriaCancelReg extends javax.swing.JInternalFrame {
+public class TelaAuditoriaCancelRegNE extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
    
@@ -21,7 +21,7 @@ public class TelaAuditoriaCancelReg extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaAuditoriaRolInternas
      */
-    public TelaAuditoriaCancelReg() {
+    public TelaAuditoriaCancelRegNE() {
         initComponents();
         auditoria();
     }
@@ -52,7 +52,7 @@ public class TelaAuditoriaCancelReg extends javax.swing.JInternalFrame {
         jUsuarioInsert = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("...::: Auditoria Cancelado Entrada de Internos :::...");
+        setTitle("...::: Auditoria :::...");
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -250,7 +250,7 @@ public class TelaAuditoriaCancelReg extends javax.swing.JInternalFrame {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM REGISTROCANCELADO WHERE IdLanc='" + jIdLanc.getText() + "'");
+            conecta.executaSQL("SELECT * FROM REGISTRO_CANCELADO_NE WHERE IdRegCancel='" + jIdLanc.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));

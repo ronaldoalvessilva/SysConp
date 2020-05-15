@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubRelatorioRequisicaoMateriaisInternos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="97fb33a1-ed65-4182-964a-db7de4d210ea">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codReq" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{codReq}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM ITENSREGISTROCANCELADO WHERE Idlanc=$P{codReq}]]>
+	</queryString>
+	<field name="IdItem" class="java.lang.Integer"/>
+	<field name="IdLanc" class="java.lang.Integer"/>
+	<field name="DataSaida" class="java.sql.Timestamp"/>
+	<field name="NomeInternoCrc" class="java.lang.String"/>
+	<field name="HoraSaida" class="java.lang.String"/>
+	<field name="ConfirmacaoRegistro" class="java.lang.String"/>
+	<field name="NrDocumento" class="java.lang.String"/>
+	<field name="UsuarioInsert" class="java.lang.String"/>
+	<field name="UsuarioUp" class="java.lang.String"/>
+	<field name="UsuarioDelete" class="java.lang.String"/>
+	<field name="DataInsert" class="java.lang.String"/>
+	<field name="DataUp" class="java.lang.String"/>
+	<field name="DataDelete" class="java.lang.String"/>
+	<field name="HorarioInsert" class="java.lang.String"/>
+	<field name="HorarioUp" class="java.lang.String"/>
+	<variable name="totalItens" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="79" height="20" uuid="97c90112-72db-4e60-86a5-9164c990d8be"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="247" height="20" uuid="640f762a-84d5-4fdb-b826-317a68383b71"/>
+				<textFieldExpression><![CDATA[$F{NomeInternoCrc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="327" y="0" width="76" height="20" uuid="b72cf79a-21ea-4231-a12b-967ab2f68739"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{DataSaida}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="428" y="0" width="54" height="20" uuid="41d2553a-8656-4542-995b-d51117719f3d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{NrDocumento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="67">
+			<rectangle>
+				<reportElement x="4" y="28" width="147" height="20" uuid="97a17f61-e5af-4df7-b286-5d17ee383065"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="28" width="84" height="20" uuid="5b3ea347-814c-4461-aefd-e89ecf8dfa5f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Itens:]]></text>
+			</staticText>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement x="104" y="28" width="37" height="20" uuid="2bb21cae-d210-489c-9a91-d7f3a70d15b8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalItens}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

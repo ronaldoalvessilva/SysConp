@@ -19,6 +19,7 @@ import gestor.Modelo.ItensEntradaInternosPortaria;
 import gestor.Modelo.ItensRegistroCanceladoCrc;
 import gestor.Modelo.LogSistema;
 import gestor.Modelo.RegistroCanceladoCrc;
+import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloCRC.codAbrirCRC;
 import static gestor.Visao.TelaModuloCRC.codAlterarCRC;
@@ -34,6 +35,20 @@ import static gestor.Visao.TelaModuloCRC.nomeGrupoCRC;
 import static gestor.Visao.TelaModuloCRC.nomeTelaCRC;
 import static gestor.Visao.TelaModuloCRC.telaCancelamentoRegEntInteCRC;
 import static gestor.Visao.TelaModuloCRC.telaCancelamentoRegEntManuCRC;
+import static gestor.Visao.TelaModuloPortarias.codAbrirP1;
+import static gestor.Visao.TelaModuloPortarias.codAlterarP1;
+import static gestor.Visao.TelaModuloPortarias.codConsultarP1;
+import static gestor.Visao.TelaModuloPortarias.codExcluirP1;
+import static gestor.Visao.TelaModuloPortarias.codGravarP1;
+import static gestor.Visao.TelaModuloPortarias.codIncluirP1;
+import static gestor.Visao.TelaModuloPortarias.codUserAcessoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserGroupP1;
+import static gestor.Visao.TelaModuloPortarias.codigoUserP1;
+import static gestor.Visao.TelaModuloPortarias.nomeGrupoP1;
+import static gestor.Visao.TelaModuloPortarias.nomeTelaP1;
+import static gestor.Visao.TelaModuloPortarias.telaCancelamentoRegEntInteP1;
+import static gestor.Visao.TelaModuloPortarias.telaCancelamentoRegEntManuP1;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
 import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
@@ -42,10 +57,16 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -384,7 +405,7 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
                         .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 435, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -999,7 +1020,15 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:     
         buscarAcessoUsuario(telaCancelamentoRegEntManuCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntManuCRC) && codIncluirCRC == 1) {
+            acao = 1;
+            Novo();
+            corCampos();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntManuP1) && codIncluirP1 == 1) {
             acao = 1;
             Novo();
             corCampos();
@@ -1014,7 +1043,20 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntManuCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntManuCRC) && codAlterarCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 2;
+                Alterar();
+                corCampos();
+                statusMov = "Alterou";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntManuP1) && codAlterarP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
@@ -1034,7 +1076,15 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntManuCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntManuCRC) && codExcluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                verificarItens();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntManuP1) && codExcluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1049,7 +1099,51 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntManuCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntManuP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntManuCRC) && codGravarCRC == 1) {
+            if (jDataLanc.getDate() == null) {
+                JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
+                jDataLanc.requestFocus();
+                jDataLanc.setBackground(Color.red);
+            } else {
+                if (jMotivo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe o motivo do cancelamento da entrada do interno.");
+                } else {
+                    if (acao == 1) {
+                        // Para o log do registro
+                        objRecCancel.setUsuarioInsert(nameUser);
+                        objRecCancel.setDataInsert(dataModFinal);
+                        objRecCancel.setHorarioInsert(horaMov);
+                        //
+                        objRecCancel.setStatusLanc(jStatusLanc.getText());
+                        objRecCancel.setDataLanc(jDataLanc.getDate());
+                        objRecCancel.setMotivo(jMotivo.getText());
+                        control.incluirRegCancelado(objRecCancel);
+                        buscarCodigo();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        Salvar();
+                    }
+                    if (acao == 2) {
+                        // Para o log do registro
+                        objRecCancel.setUsuarioUp(nameUser);
+                        objRecCancel.setDataUp(dataModFinal);
+                        objRecCancel.setHorarioUp(horaMov);
+                        //
+                        objRecCancel.setStatusLanc(jStatusLanc.getText());
+                        objRecCancel.setDataLanc(jDataLanc.getDate());
+                        objRecCancel.setMotivo(jMotivo.getText());
+                        objRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        control.alterarRegCancelado(objRecCancel);
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                        Salvar();
+                    }
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntManuP1) && codGravarP1 == 1) {
             if (jDataLanc.getDate() == null) {
                 JOptionPane.showMessageDialog(rootPane, "Informe a data do lançamento.");
                 jDataLanc.requestFocus();
@@ -1122,19 +1216,62 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaCancelReg objAudCancelReg = new TelaAuditoriaCancelReg();
-        TelaModuloCRC.jPainelCRC.add(objAudCancelReg);
-        objAudCancelReg.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaAuditoriaCancelReg objAudCancelReg = new TelaAuditoriaCancelReg();
+            TelaModuloCRC.jPainelCRC.add(objAudCancelReg);
+            objAudCancelReg.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaAuditoriaCancelReg objAudCancelReg = new TelaAuditoriaCancelReg();
+            TelaModuloPortarias.jPainelPortarias.add(objAudCancelReg);
+            objAudCancelReg.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtImpressaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtImpressaoActionPerformed
         // TODO add your handling code here:
+        try {
+            conecta.abrirConexao();
+            String path = "reports/PortariaInterna/RelatorioCancelamentoPrimeiraEntrada.jasper";
+            conecta.executaSQL("SELECT * FROM REGISTROCANCELADO "
+                    + "WHERE Idlanc='" + jIdLanc.getText() + "' ");
+            HashMap parametros = new HashMap();
+            parametros.put("pCodigo", jIdLanc.getText());
+            parametros.put("pUNIDADE", descricaoUnidade);
+            parametros.put("pUSUARIO", nameUser);
+            // Sub Relatório
+            try {
+                parametros.put("REPORT_CONNECTION", conecta.stmt.getConnection());
+            } catch (SQLException ex) {
+            }
+            JRResultSetDataSource relatResul = new JRResultSetDataSource(conecta.rs); // Passa o resulSet Preenchido para o relatorio                                   
+            JasperPrint jpPrint = JasperFillManager.fillReport(path, parametros, relatResul); // indica o caminmhodo relatório
+            JasperViewer jv = new JasperViewer(jpPrint, false); // Cria instancia para impressao          
+            jv.setExtendedState(JasperViewer.MAXIMIZED_BOTH); // Maximizar o relatório
+            jv.setTitle("Relatório de Cancelamento de Internos Primeira vez");
+            jv.setVisible(true); // Chama o relatorio para ser visualizado                                    
+            jv.toFront(); // Traz o relatorio para frente da aplicação            
+            conecta.desconecta();
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatório \n\nERRO :" + e);
+        }
     }//GEN-LAST:event_jBtImpressaoActionPerformed
 
     private void jBtNovoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntInteCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntInteP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntInteCRC) && codIncluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser incluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                acao = 3;
+                NovoInterno();
+                statusMov = "Incluiu";
+                horaMov = jHoraSistema.getText();
+                dataModFinal = jDataSistema.getText();
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codIncluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser incluído, o mesmo encontra-se FINALIZADO");
@@ -1153,7 +1290,8 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtAlterarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntInteCRC);
-        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntInteCRC) && codAlterarCRC == 1) {
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntInteP1);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteCRC) && codAlterarCRC == 1) {
             JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
 //            objRecCancel.setStatusLanc(jStatusLanc.getText());
 //            if (jStatusLanc.getText().equals("FINALIZADO")) {
@@ -1166,6 +1304,19 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
 //                horaMov = jHoraSistema.getText();
 //                dataModFinal = jDataSistema.getText();
 //            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codAlterarP1 == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível alterar o registro selecionado.");
+//            objRecCancel.setStatusLanc(jStatusLanc.getText());
+//            if (jStatusLanc.getText().equals("FINALIZADO")) {
+//                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser alterado, o mesmo encontra-se FINALIZADO");
+//            } else {
+//                JOptionPane.showMessageDialog(rootPane, "Atenção, se exitir a necessidade de modificar o nome do interno,\n será necessário excluir o atual antes e lançar novamente o correto.\nDúvidas consulte o Administrador do sistema.");
+//                acao = 4;
+//                AlterarInterno();
+//                statusMov = "Alterou";
+//                horaMov = jHoraSistema.getText();
+//                dataModFinal = jDataSistema.getText();
+//            }       
         } else {
             JOptionPane.showMessageDialog(null, "Acesso não autorizado, solicite liberação ao administrador.");
         }
@@ -1174,7 +1325,41 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtExcluirInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntInteCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntInteP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntInteCRC) && codExcluirCRC == 1) {
+            objRecCancel.setStatusLanc(jStatusLanc.getText());
+            if (jStatusLanc.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir esse registro. Existe outras operações que depende do cancelamento realizado.");
+//                confirmaUtilizacao = "Não";
+//                statusMov = "Excluiu";
+//                horaMov = jHoraSistema.getText();
+//                dataModFinal = jDataSistema.getText();
+//                objRecCancel.setStatusLanc(jStatusLanc.getText());
+//                if (jStatusLanc.getText().equals("FINALIZADO")) {
+//                    JOptionPane.showMessageDialog(rootPane, "Esse  interno não poderá ser excluído, o mesmo encontra-se FINALIZADO");
+//                } else {
+//                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o INTERNO selecionado?", "Confirmação",
+//                            JOptionPane.YES_NO_OPTION);
+//                    if (resposta == JOptionPane.YES_OPTION) {
+//                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+//                        objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+//                        controle.excluirRegCancelado(objItensRecCancel);
+//                        // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para mostrar o alerta                 
+//                        objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
+//                        objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+//                        controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
+//                        objLog2();
+//                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+//                        JOptionPane.showMessageDialog(rootPane, "Registro EXCLUIDO com sucesso !!!");
+//                        ExcluirInterno();
+//                        preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
+//                                + "WHERE Idlanc='" + jIdLanc.getText() + "'");
+//                    }
+//                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codExcluirP1 == 1) {
             objRecCancel.setStatusLanc(jStatusLanc.getText());
             if (jStatusLanc.getText().equals("FINALIZADO")) {
                 JOptionPane.showMessageDialog(rootPane, "Esse registro de internos não poderá ser excluído, o mesmo encontra-se FINALIZADO");
@@ -1215,7 +1400,73 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
     private void jBtSalvarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarInternoActionPerformed
         // TODO add your handling code here:
         buscarAcessoUsuario(telaCancelamentoRegEntInteCRC);
+        buscarAcessoUsuarioP1(telaCancelamentoRegEntInteP1);
         if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoCRC.equals("ADMINISTRADORES") || codigoUserCRC == codUserAcessoCRC && nomeTelaCRC.equals(telaCancelamentoRegEntInteCRC) && codGravarCRC == 1) {
+            confirmaUtilizacao = "Sim";
+            if (jNomeInternoReg.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+                jNomeInternoReg.requestFocus();
+            } else {
+                if (jDataEntrada.getDate() == null) {
+                    JOptionPane.showMessageDialog(rootPane, "Informe a data de Saida.");
+                    jDataEntrada.requestFocus();
+                    jDataEntrada.setBackground(Color.red);
+                } else {
+                    if (acao == 3) {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja gravar o registro selecionado? Não será possível alterar ou excluir esse registro.", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            // Para o log do registro
+                            objItensRecCancel.setUsuarioInsert(nameUser);
+                            objItensRecCancel.setDataInsert(dataModFinal);
+                            objItensRecCancel.setHorarioInsert(horaMov);
+                            //
+                            objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                            objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                            objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                            objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                            objItensRecCancel.setHoraSaida(jHorario.getText());
+                            objItensRecCancel.setConfirmacaoRegistro(confirmaUtilizacao);
+                            controle.incluirRegCancelado(objItensRecCancel);
+                            // Atualiza a tabela ITENSENTRADAPORTARIA na portaria para não mostrar mais o alerta 
+                            // CANCELA O REGISTRO NA PORTARIA E IMPEDI QUE SEJA EXCLUÍDO E ALTERADO.
+                            objItensEntIntPort.setNomeInternoCrc(jNomeInternoReg.getText());
+                            objItensEntIntPort.setConfirmaEntrada(confirmaUtilizacao);
+                            objItensEntIntPort.setRegistroCancelado(REGISTRO_CANCELADO);
+                            controleReg.confirmarEntradaPortariaCrc(objItensEntIntPort);
+                            //DIMINUIR A POPULAAÇÃO DA ALIMENTAÇÃO A QUANTIDADE DE INTERNOS
+                            populacaoAlimentacao();
+                            objLog2();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
+                                    + "WHERE Idlanc='" + jIdLanc.getText() + "'");
+                            SalvarInterno();
+                            JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso. Se necessário, solicite a portaria que faça o lançamento do registro corretamente.");
+                        }
+                    }
+                    if (acao == 4) {
+                        // Para o log do registro
+                        objItensRecCancel.setUsuarioUp(nameUser);
+                        objItensRecCancel.setDataUp(dataModFinal);
+                        objItensRecCancel.setHorarioUp(horaMov);
+                        //
+                        objItensRecCancel.setNomeInternoCrc(jNomeInternoReg.getText());
+                        objItensRecCancel.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                        objItensRecCancel.setNrDocumento(jNrDocumento.getText());
+                        objItensRecCancel.setDataSaida(jDataEntrada.getDate());
+                        objItensRecCancel.setHoraSaida(jHorario.getText());
+                        objItensRecCancel.setIdItem(Integer.valueOf(jIdInternoReg.getText()));
+                        controle.alterarRegCancelado(objItensRecCancel);
+                        objLog2();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        preencherTabelaEntradasPortaria("SELECT * FROM ITENSREGISTROCANCELADO "
+                                + "WHERE Idlanc='" + jIdLanc.getText() + "'");
+                        SalvarInterno();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso !!!");
+                    }
+                }
+            }
+        } else if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoP1.equals("ADMINISTRADORES") || codigoUserP1 == codUserAcessoP1 && nomeTelaP1.equals(telaCancelamentoRegEntInteP1) && codGravarP1 == 1) {
             confirmaUtilizacao = "Sim";
             if (jNomeInternoReg.getText().equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
@@ -1292,9 +1543,15 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaInternoActionPerformed
         // TODO add your handling code here:
-        TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
-        TelaModuloCRC.jPainelCRC.add(objAudItensCancel);
-        objAudItensCancel.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaModuloCRC.jPainelCRC.add(objAudItensCancel);
+            objAudItensCancel.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaAuditoriaItensRegCancel objAudItensCancel = new TelaAuditoriaItensRegCancel();
+            TelaModuloPortarias.jPainelPortarias.add(objAudItensCancel);
+            objAudItensCancel.show();
+        }
     }//GEN-LAST:event_jBtAuditoriaInternoActionPerformed
 
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
@@ -1373,9 +1630,16 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
 
     private void jBtBuscarRegistroInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtBuscarRegistroInternoActionPerformed
         // TODO add your handling code here:
-        TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
-        TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
-        objPesqRegInternoPor.show();
+        if (TelaModuloCRC.jPainelCRC != null) {
+            TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
+            TelaModuloCRC.jPainelCRC.add(objPesqRegInternoPor);
+            objPesqRegInternoPor.show();
+        } else if (TelaModuloPortarias.jPainelPortarias != null) {
+            TelaPesqRegInternoPortaria objPesqRegInternoPor = new TelaPesqRegInternoPortaria();
+            TelaModuloPortarias.jPainelPortarias.add(objPesqRegInternoPor);
+            objPesqRegInternoPor.show();
+        }
+
     }//GEN-LAST:event_jBtBuscarRegistroInternoActionPerformed
 
 
@@ -2112,6 +2376,44 @@ public class TelaCancelRegistroPortaria extends javax.swing.JInternalFrame {
             codGravarCRC = conecta.rs.getInt("Gravar");
             codConsultarCRC = conecta.rs.getInt("Consultar");
             nomeTelaCRC = conecta.rs.getString("NomeTela");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void buscarAcessoUsuarioP1(String nomeTelaAcesso) {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS "
+                    + "WHERE NomeUsuario='" + nameUser + "'");
+            conecta.rs.first();
+            codigoUserP1 = conecta.rs.getInt("IdUsuario");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM USUARIOS_GRUPOS "
+                    + "INNER JOIN GRUPOUSUARIOS "
+                    + "ON USUARIOS_GRUPOS.IdGrupo=GRUPOUSUARIOS.IdGrupo "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "'");
+            conecta.rs.first();
+            codigoUserGroupP1 = conecta.rs.getInt("IdUsuario");
+            codigoGrupoP1 = conecta.rs.getInt("IdGrupo");
+            nomeGrupoP1 = conecta.rs.getString("NomeGrupo");
+        } catch (Exception e) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS_ACESSO "
+                    + "WHERE IdUsuario='" + codigoUserP1 + "' "
+                    + "AND NomeTela='" + nomeTelaAcesso + "'");
+            conecta.rs.first();
+            codUserAcessoP1 = conecta.rs.getInt("IdUsuario");
+            codAbrirP1 = conecta.rs.getInt("Abrir");
+            codIncluirP1 = conecta.rs.getInt("Incluir");
+            codAlterarP1 = conecta.rs.getInt("Alterar");
+            codExcluirP1 = conecta.rs.getInt("Excluir");
+            codGravarP1 = conecta.rs.getInt("Gravar");
+            codConsultarP1 = conecta.rs.getInt("Consultar");
+            nomeTelaP1 = conecta.rs.getString("NomeTela");
         } catch (Exception e) {
         }
         conecta.desconecta();

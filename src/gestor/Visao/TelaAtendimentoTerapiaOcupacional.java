@@ -1024,6 +1024,7 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
 
         jEvolucaoAdmissao.setColumns(20);
         jEvolucaoAdmissao.setRows(5);
+        jEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
         jEvolucaoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jEvolucaoAdmissao.setEnabled(false);
         jScrollPane1.setViewportView(jEvolucaoAdmissao);

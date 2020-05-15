@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jNomeInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.jNrDocumento;
 import static gestor.Visao.TelaCancelRegistroPortaria_RETORNOS.pRETORNO_PORTARIA;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -257,7 +258,8 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
                         + "PRONTUARIOSCRC.NomeInternoCrc, "
                         + "VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.RetCrc, "
                         + "ITENSREGISTRO.IdRetorno, "
-                        + "ITENSREGISTRO.OrigemRetorno "
+                        + "ITENSREGISTRO.OrigemRetorno, "
+                        + "ITENSREGISTRO.DocumentoRetorno "
                         + "FROM VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON VERIFICA_RETORNO_AUDIENCIA_MEDICO_OUTROS.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
@@ -269,6 +271,7 @@ public class TelaPesqRegInternoPortaria_RETORNOS extends javax.swing.JInternalFr
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
                 pRETORNO_PORTARIA = conecta.rs.getInt("IdRetorno");
+                jNrDocumento.setText(conecta.rs.getString("DocumentoRetorno"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);

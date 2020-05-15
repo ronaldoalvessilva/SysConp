@@ -9,6 +9,7 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.ModeloTabela;
 import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jIdInternoReg;
 import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jNomeInternoReg;
+import static gestor.Visao.TelaCancelRegistroPortaria_NOVA_ENTRADA.jNrDocumento;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -93,7 +94,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPesqNomeInterno)
+                .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,7 +119,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
             },
             new String [] {
-                "Código", "Nome do Interno"
+                "Código", "Nome do Interno", "Nr. Oficio"
             }
         ));
         jTabelaPesqInternos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,6 +133,8 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             jTabelaPesqInternos.getColumnModel().getColumn(0).setMaxWidth(60);
             jTabelaPesqInternos.getColumnModel().getColumn(1).setMinWidth(380);
             jTabelaPesqInternos.getColumnModel().getColumn(1).setMaxWidth(380);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMinWidth(80);
+            jTabelaPesqInternos.getColumnModel().getColumn(2).setMaxWidth(80);
         }
 
         jBtEnviar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -166,8 +169,8 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                         .addComponent(jBtEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtSair)
-                        .addGap(0, 274, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,7 +198,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
             .addComponent(jTabbedPane2)
         );
 
-        setBounds(250, 20, 483, 272);
+        setBounds(250, 20, 563, 272);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtPesqNomeInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqNomeInternoActionPerformed
@@ -244,6 +247,7 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
+                jNrDocumento.setText(conecta.rs.getString("NrOficio"));
                 conecta.desconecta();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa por nome" + ex);
@@ -281,13 +285,13 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
 
     public void preencherTabelaInternos(String sql) {
         ArrayList dados = new ArrayList();
-        String[] Colunas = new String[]{"Código", "Nome do Interno"};
+        String[] Colunas = new String[]{"Código", "Nome do Interno", "Nr. Oficio"};
         conecta.abrirConexao();
         try {
             conecta.executaSQL(sql);
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc")});
+                dados.add(new Object[]{conecta.rs.getInt("IdInternoCrc"), conecta.rs.getString("NomeInternoCrc"),conecta.rs.getString("NrOficio")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");
@@ -298,6 +302,8 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternos.setAutoResizeMode(jTabelaPesqInternos.AUTO_RESIZE_OFF);
         jTabelaPesqInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -314,6 +320,8 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         jTabelaPesqInternos.getColumnModel().getColumn(0).setResizable(false);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setPreferredWidth(380);
         jTabelaPesqInternos.getColumnModel().getColumn(1).setResizable(false);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setPreferredWidth(80);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setResizable(false);
         jTabelaPesqInternos.getTableHeader().setReorderingAllowed(false);
         jTabelaPesqInternos.setAutoResizeMode(jTabelaPesqInternos.AUTO_RESIZE_OFF);
         jTabelaPesqInternos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -329,5 +337,6 @@ public class TelaPesqRegInternoPortaria_NOVA_ENTRADA extends javax.swing.JIntern
         direita.setHorizontalAlignment(SwingConstants.RIGHT);
         //
         jTabelaPesqInternos.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        jTabelaPesqInternos.getColumnModel().getColumn(2).setCellRenderer(centralizado);
     }
 }
