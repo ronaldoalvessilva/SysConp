@@ -233,7 +233,8 @@ public class TelaPesqRegInternoPortaria extends javax.swing.JInternalFrame {
             conecta.abrirConexao();
             try {
                 conecta.executaSQL("SELECT * FROM ITENSENTRADAPORTARIA "
-                        + "WHERE NomeInternoCrc='" + nomeInterno + "'AND IdItem='" + idItem + "'");
+                        + "WHERE NomeInternoCrc='" + nomeInterno + "' "
+                        + "AND IdItem='" + idItem + "'");
                 conecta.rs.first();
                 jIdInternoReg.setText(String.valueOf(conecta.rs.getInt("IdItem")));
                 jNomeInternoReg.setText(conecta.rs.getString("NomeInternoCrc"));
