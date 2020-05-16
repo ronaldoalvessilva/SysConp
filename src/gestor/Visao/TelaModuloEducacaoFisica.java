@@ -149,8 +149,10 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     public static String telaRegistroAtendimentoColLiberador_EF = "Cadastro:Registro de Autorização Impressa - EF:Colaborador Liberador";
     public static String telaCancelAtendInterno_EF = "Cadastro:Cancelamento Assinatura Interno/Impressão - PSI:Manutenção";
     //MOVIMENTAÇÃO
-    public static String telaOcorrenciaManu_EF = "Movimentação:Ocorrência Educação Física:Manutenção";
-    //
+    //ADMISSÃO E EVOLUÇAO
+    public static String telaAdmissoManu_EF = "Movimentação:Admissão Educação Física:Manutenção";
+    public static String telaAdmissoEvol_EF = "Movimentação:Admissão Educação Física:Evolução";
+    //ATENDIMENTO EM GRUPO
     public static String telaIndAtendimentoGrupoEF_Manu = "Movimentação:Atendimento Internos em Grupo - EF:Mamnutenção";
     public static String telaIndAtendimentoGrupoEF_Plan = "Movimentação:Atendimento Internos em Grupo - EF:Planejamento";
     public static String telaIndAtendimentoGrupoEF_Inte = "Movimentação:Atendimento Internos em Grupo - EF:Internos";
@@ -158,6 +160,8 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     public static String telaIndAtendimentoGrupoEF_AVI = "Movimentação:Atendimento Internos em Grupo - EF:Avaliação Individual";
     public static String botaoEncerrar_EF = "Movimentação:Atendimento Internos em Grupo - EF:Botao Encerrar";
     public static String botaoLiberar_EF = "Movimentação:Atendimento Internos em Grupo - EF:Botão Liberar";
+    //OCORRÊNCIA
+    public static String telaOcorrenciaManu_EF = "Movimentação:Ocorrência Educação Física:Manutenção";
     //CADASTROS
     String pNomeAED_EF = "";
     //BIOMETRIA
@@ -167,8 +171,9 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     String pNomeCL = "";
     String pNomeCAI = "";
     //MOVIMENTAÇÃO
-    //OCORRÊNCIAS
-    String pNomeOcorr_EF = "";
+    // ADMISSÃO E EVOLUÇÃO
+    String pNomeAEF = "";
+    String pNomeEEF = "";
     // ATIVIDADES EM GRUPO
     String pNomeAGM = "";
     String pNomePLA = "";
@@ -177,7 +182,13 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     String pNomeAVI = "";
     String pNomeBTE = "";
     String pNomeBTL = "";
+    //OCORRÊNCIAS
+    String pNomeOcorr_EF = "";
 
+//    pNomeAEF
+//    pNomeEEF
+//    telaAdmissoManu_EF
+//    telaAdmissoEvol_EF
     /**
      * Creates new form TelaJuridico
      */
@@ -607,30 +618,35 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
 
     private void jAdmissaoEducacaoFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdmissaoEducacaoFisicaActionPerformed
         // TODO add your handling code here:
-        if (objAdmFisica == null || objAdmFisica.isClosed()) {
-            objAdmFisica = new TelaAdmissaoEvolucoEF();
-            jPainelEducacaoFisica.add(objAdmFisica);
-            objAdmFisica.setVisible(true);
-        } else {
-            if (objAdmFisica.isVisible()) {
-                if (objAdmFisica.isIcon()) { // Se esta minimizado
-                    try {
-                        objAdmFisica.setIcon(false); // maximiniza
-                    } catch (PropertyVetoException ex) {
+        buscarAcessoUsuario(telaAdmissoManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codAbrirEF == 1) {
+            if (objAdmFisica == null || objAdmFisica.isClosed()) {
+                objAdmFisica = new TelaAdmissaoEvolucoEF();
+                jPainelEducacaoFisica.add(objAdmFisica);
+                objAdmFisica.setVisible(true);
+            } else {
+                if (objAdmFisica.isVisible()) {
+                    if (objAdmFisica.isIcon()) { // Se esta minimizado
+                        try {
+                            objAdmFisica.setIcon(false); // maximiniza
+                        } catch (PropertyVetoException ex) {
+                        }
+                    } else {
+                        objAdmFisica.toFront(); // traz para frente
+                        objAdmFisica.pack();//volta frame 
                     }
                 } else {
-                    objAdmFisica.toFront(); // traz para frente
-                    objAdmFisica.pack();//volta frame 
+                    objAdmFisica = new TelaAdmissaoEvolucoEF();
+                    TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAdmFisica);//adicona frame ao JDesktopPane  
+                    objAdmFisica.setVisible(true);
                 }
-            } else {
-                objAdmFisica = new TelaAdmissaoEvolucoEF();
-                TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objAdmFisica);//adicona frame ao JDesktopPane  
-                objAdmFisica.setVisible(true);
             }
-        }
-        try {
-            objAdmFisica.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
+            try {
+                objAdmFisica.setSelected(true);
+            } catch (java.beans.PropertyVetoException e) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
         }
     }//GEN-LAST:event_jAdmissaoEducacaoFisicaActionPerformed
 
@@ -1509,7 +1525,22 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
         }
         //MOVIMENTAÇÃO
-        //BIOMETRIA
+        //ADMISSÃO E EVOLUÇÃO
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmissoManu_EF + "'");
+            conecta.rs.first();
+            pNomeAEF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        try {
+            conecta.executaSQL("SELECT * FROM TELAS "
+                    + "WHERE NomeTela='" + telaAdmissoEvol_EF + "'");
+            conecta.rs.first();
+            pNomeEEF = conecta.rs.getString("NomeTela");
+        } catch (SQLException ex) {
+        }
+        //ATENCIMENTO EM GRUPO
         try {
             conecta.executaSQL("SELECT * FROM TELAS "
                     + "WHERE NomeTela='" + telaIndAtendimentoGrupoEF_Manu + "'");
@@ -1605,6 +1636,20 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             controle.incluirTelaAcesso(objCadastroTela);
         }
         //MOVIMENTAÇÃO
+        //ADMISSÃO E EVOLUÇÃO
+        if (!pNomeAEF.equals(telaAdmissoManu_EF) || pNomeAEF == null || pNomeAEF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmissoManu_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        if (!pNomeEEF.equals(telaAdmissoEvol_EF) || pNomeEEF == null || pNomeEEF.equals("")) {
+            buscarCodigoModulo();
+            objCadastroTela.setIdModulo(pCodModulo);
+            objCadastroTela.setNomeTela(telaAdmissoEvol_EF);
+            controle.incluirTelaAcesso(objCadastroTela);
+        }
+        //ATENDIMENTO EM GRUPO
         if (!pNomeAGM.equals(telaIndAtendimentoGrupoEF_Manu) || pNomeAGM == null || pNomeAGM.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);
@@ -1647,6 +1692,7 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
             objCadastroTela.setNomeTela(botaoLiberar_EF);
             controle.incluirTelaAcesso(objCadastroTela);
         }
+        //OCORRÊNCIAS
         if (!pNomeOcorr_EF.equals(telaOcorrenciaManu_EF) || pNomeOcorr_EF == null || pNomeOcorr_EF.equals("")) {
             buscarCodigoModulo();
             objCadastroTela.setIdModulo(pCodModulo);

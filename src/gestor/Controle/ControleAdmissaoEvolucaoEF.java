@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEvolucaoEducacaoFisica;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jID_REGISTRO_Pesquisa;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.pTOTAL_REGISTROS_ATIVIDADES;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -127,6 +128,74 @@ public class ControleAdmissaoEvolucaoEF {
         conecta.desconecta();
         return objAdmissao;
     }
+    
+    public AdmissaoEvolucaoEducacaoFisica finalizarAdmissaoEF(AdmissaoEvolucaoEducacaoFisica objAdmissao) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE ADMISSAO_EDUCACAO_FISICA SET StatusEF=? WHERE IdRegistroEF='" + objAdmissao.getIdRegistroEF() + "'");
+            pst.setString(1, objAdmissao.getStatusEF()); 
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (ADMISSAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAdmissao;
+    }
+
+    // EVOLUÇÃO EDUCAÇÃO FÍSICA
+    public AdmissaoEvolucaoEducacaoFisica incluir_EVOLUCAO_EF(AdmissaoEvolucaoEducacaoFisica objAdmissao) {
+        buscarInterno(objAdmissao.getNomeInternoEF(), objAdmissao.getIdInternoEF());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_EDUCACAO_FISICA (IdRegistroEF,"
+                    + "DataEvolucaoEF,IdInternoCrc,TextoEvolucaoEF,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+            pst.setInt(1, objAdmissao.getIdRegistroEF());
+            pst.setTimestamp(2, new java.sql.Timestamp(objAdmissao.getDataEvolucaoEF().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setString(4, objAdmissao.getTextoEvolucaoEF());
+            pst.setString(5, objAdmissao.getUsuarioInsert());
+            pst.setString(6, objAdmissao.getDataInsert());
+            pst.setString(7, objAdmissao.getHorarioInsert());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (EVOLUCAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAdmissao;
+    }
+
+    public AdmissaoEvolucaoEducacaoFisica alterar_EVOLUCAO_EF(AdmissaoEvolucaoEducacaoFisica objAdmissao) {
+        buscarInterno(objAdmissao.getNomeInternoEF(), objAdmissao.getIdInternoEF());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_EDUCACAO_FISICA SET IdRegistroEF=?,"
+                    + "DataEvolucaoEF=?,IdInternoCrc=?,TextoEvolucaoEF=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdItem='" + objAdmissao.getIdItem() + "'");
+            pst.setInt(1, objAdmissao.getIdRegistroEF());
+            pst.setTimestamp(2, new java.sql.Timestamp(objAdmissao.getDataEvolucaoEF().getTime()));
+            pst.setInt(3, codInterno);
+            pst.setString(4, objAdmissao.getTextoEvolucaoEF());
+            pst.setString(5, objAdmissao.getUsuarioInsert());
+            pst.setString(6, objAdmissao.getDataUp());
+            pst.setString(7, objAdmissao.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (EVOLUCAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAdmissao;
+    }
+
+    public AdmissaoEvolucaoEducacaoFisica excluir_EVOLUCAO_EF(AdmissaoEvolucaoEducacaoFisica objAdmissao) {
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("DELETE FROM EVOLUCAO_EDUCACAO_FISICA WHERE IdItem='" + objAdmissao.getIdItem() + "'");
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel EXCLUIR (EVOLUCAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAdmissao;
+    }
 
     public void buscarInterno(String desc, int codigoInterno) {
         conecta.abrirConexao();
@@ -146,13 +215,10 @@ public class ControleAdmissaoEvolucaoEF {
         List<AdmissaoEvolucaoEducacaoFisica> listaTodasAdmissao = new ArrayList<AdmissaoEvolucaoEducacaoFisica>();
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT IdAtividade,StatusAtividade,"
-                    + "DataCriacao,Populacao, "
-                    + "MesReferencia,AnoReferencia, "
-                    + "DescricaoUnidade "
-                    + "FROM ATIVIDADES_UNIDADE "
-                    + "INNER JOIN UNIDADE_PENAL_EMPRESA "
-                    + "ON ATIVIDADES_UNIDADE.IdUnidEmp=UNIDADE_PENAL_EMPRESA.IdUnidEmp");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+                    + "INNER JOIN PRONTUARIOSCRC "
+                    + "ON ADMISSAO_EDUCACAO_FISICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
+                    + "WHERE ADMISSAO_EDUCACAO_FISICA.IdRegistroEF='" + jID_REGISTRO_Pesquisa.getText() + "'");
             while (conecta.rs.next()) {
                 AdmissaoEvolucaoEducacaoFisica pAdmissao = new AdmissaoEvolucaoEducacaoFisica();
                 pAdmissao.setIdRegistroEF(conecta.rs.getInt("IdRegistroEF"));
@@ -162,6 +228,8 @@ public class ControleAdmissaoEvolucaoEF {
                 pAdmissao.setNomeInternoEF(conecta.rs.getString("NomeInternoCrc"));
                 pAdmissao.setMatriculaEF(conecta.rs.getString("MatriculaCrc"));
                 pAdmissao.setDataNascimentoEF(conecta.rs.getDate("DataNascCrc"));
+                pAdmissao.setCaminhoFoto(conecta.rs.getString("FotoInternoCrc"));
+                pAdmissao.setImagemBanco(conecta.rs.getBytes("ImagemFrente"));
                 pAdmissao.setAtividadeFisica(conecta.rs.getString("AtividadeFisica"));
                 pAdmissao.setFrequenciaSemanal(conecta.rs.getString("FrequenciaSemanal"));
                 pAdmissao.setNivelCondicionamento(conecta.rs.getString("NivelCondicionamento"));

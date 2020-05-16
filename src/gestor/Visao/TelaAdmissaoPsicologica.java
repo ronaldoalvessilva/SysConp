@@ -4948,6 +4948,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o ID do lançamento");
         }
+        conecta.desconecta();
     }
 
     public void buscarCodEvolucao() {

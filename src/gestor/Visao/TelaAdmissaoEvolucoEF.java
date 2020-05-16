@@ -7,6 +7,11 @@ package gestor.Visao;
 
 import gestor.Controle.ControleAdmissaoEvolucaoEF;
 import gestor.Controle.ControleLogSistema;
+import gestor.Controle.listarAdmissaoDatas;
+import gestor.Controle.listarAdmissaoInternos;
+import gestor.Controle.listarTodosRegistros;
+import gestor.Controle.listarTodosRegistrosEvolucao;
+import gestor.Controle.listarTodosRegistrosEvolucao_REGISTRO;
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEvolucaoEducacaoFisica;
 import gestor.Modelo.LogSistema;
@@ -23,9 +28,21 @@ import static gestor.Visao.TelaModuloEducacaoFisica.codigoUserEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.codigoUserGroupEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeGrupoEF;
 import static gestor.Visao.TelaModuloEducacaoFisica.nomeTelaEF;
-import static gestor.Visao.TelaModuloPrincipal.tipoServidor;
+import static gestor.Visao.TelaModuloEducacaoFisica.telaAdmissoEvol_EF;
+import static gestor.Visao.TelaModuloEducacaoFisica.telaAdmissoManu_EF;
+import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
+import static gestor.Visao.TelaModuloPrincipal.jHoraSistema;
 import java.awt.Color;
+import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,6 +53,12 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     AdmissaoEvolucaoEducacaoFisica objAdmissao = new AdmissaoEvolucaoEducacaoFisica();
     ControleAdmissaoEvolucaoEF control = new ControleAdmissaoEvolucaoEF();
+    listarTodosRegistros listaTodos = new listarTodosRegistros();
+    listarAdmissaoDatas listarPorData = new listarAdmissaoDatas();
+    listarAdmissaoInternos listarPorNome = new listarAdmissaoInternos();
+    //EVOLUÇÃO
+    listarTodosRegistrosEvolucao listaEvo = new listarTodosRegistrosEvolucao();
+    listarTodosRegistrosEvolucao_REGISTRO lista_REGISTRO = new listarTodosRegistrosEvolucao_REGISTRO();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -51,6 +74,15 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     int count = 0;
     String dataInicial, dataFinal;
     public static int pTOTAL_REGISTROS_ATIVIDADES = 0;
+    String nomeUserRegistro = "";
+    String pCODIGO_INTERNO = "";
+    String pID_EVOLUCAO = "";
+    String caminho = "";
+    String pDATA_PESQUISA_TABELA = "";
+    String pHabilitaEducacaoFisica = "";
+    public static int codigoDepartamentoEF = 0;
+    public static int idItemEvolucao = 0;
+    String dataEvolucao = "";
 
     /**
      * Creates new form TelaAdmissaoEvolucoEF
@@ -74,13 +106,13 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jIDPesq = new javax.swing.JTextField();
+        jID_REGISTRO_Pesquisa = new javax.swing.JTextField();
         jBtIDPesq = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel29 = new javax.swing.JLabel();
-        jDataInicial = new com.toedter.calendar.JDateChooser();
+        jDataPesqInicial = new com.toedter.calendar.JDateChooser();
         jLabel30 = new javax.swing.JLabel();
-        jDataFinal = new com.toedter.calendar.JDateChooser();
+        jDataPesFinal = new com.toedter.calendar.JDateChooser();
         jBtPesqDatas = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         jPesqNomeInterno = new javax.swing.JTextField();
@@ -192,6 +224,10 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jLabel32 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextoEvolucaoEF = new javax.swing.JTextArea();
+        jPanel19 = new javax.swing.JPanel();
+        jFotoInternoEF = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
 
         setClosable(true);
         setIconifiable(true);
@@ -204,8 +240,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel28.setText("Código:");
 
-        jIDPesq.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jIDPesq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jID_REGISTRO_Pesquisa.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jID_REGISTRO_Pesquisa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtIDPesq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtIDPesq.setContentAreaFilled(false);
@@ -226,12 +262,12 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel29.setText("Data Inicial:");
 
-        jDataInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesqInicial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel30.setText("Data Final:");
 
-        jDataFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jDataPesFinal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jBtPesqDatas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Lupas_1338_05.gif"))); // NOI18N
         jBtPesqDatas.setContentAreaFilled(false);
@@ -273,23 +309,23 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                             .addGap(102, 102, 102)
                             .addComponent(jLabel30)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(3, 3, 3)
                             .addComponent(jBtPesqDatas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jIDPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jID_REGISTRO_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jBtIDPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel15Layout.createSequentialGroup()
                                 .addComponent(jPesqNomeInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
                                 .addComponent(jBtPesquisarInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(7, 7, 7)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,15 +333,15 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel28)
-                    .addComponent(jIDPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jID_REGISTRO_Pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtIDPesq)
                     .addComponent(jCheckBox1))
                 .addGap(3, 3, 3)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel29)
-                    .addComponent(jDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataPesqInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30)
-                    .addComponent(jDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDataPesFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesqDatas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -323,7 +359,20 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             new String [] {
                 "Código", "Data", "Status", "Nome do Interno"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTabelaAdmissaoEF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaAdmissaoEFMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTabelaAdmissaoEF);
         if (jTabelaAdmissaoEF.getColumnModel().getColumnCount() > 0) {
             jTabelaAdmissaoEF.getColumnModel().getColumn(0).setMinWidth(70);
@@ -558,7 +607,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                                     .addComponent(jAlturaEF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtPesquisarInterno, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -795,7 +844,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxRestricaoAtividadeFisica, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jFrequenciaSemanal)
-                            .addComponent(jComboBoxNivelCondicionamento, 0, 105, Short.MAX_VALUE)))
+                            .addComponent(jComboBoxNivelCondicionamento, 0, 78, Short.MAX_VALUE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -943,7 +992,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxProblemaOrtopedico, 0, 106, Short.MAX_VALUE)
+                        .addComponent(jComboBoxProblemaOrtopedico, 0, 79, Short.MAX_VALUE)
                         .addGap(1, 1, 1))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -952,13 +1001,13 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxHabitoFumar, 0, 106, Short.MAX_VALUE)
+                            .addComponent(jComboBoxHabitoFumar, 0, 79, Short.MAX_VALUE)
                             .addComponent(jQuantosCigarros)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxAlgumMedicamento, 0, 106, Short.MAX_VALUE))
+                        .addComponent(jComboBoxAlgumMedicamento, 0, 79, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1076,7 +1125,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1142,6 +1191,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
 
         jTextoEvolucaoAdmissao.setColumns(20);
         jTextoEvolucaoAdmissao.setRows(5);
+        jTextoEvolucaoAdmissao.setText("DIGITE AQUI A EVOLUÇÃO DA ADMISSÃO.");
+        jTextoEvolucaoAdmissao.setToolTipText("");
         jTextoEvolucaoAdmissao.setEnabled(false);
         jScrollPane1.setViewportView(jTextoEvolucaoAdmissao);
 
@@ -1151,7 +1202,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
         jPanel14Layout.setVerticalGroup(
@@ -1187,12 +1238,13 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane2)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1220,11 +1272,16 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTabelaEvolucaoEF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabelaEvolucaoEFMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(jTabelaEvolucaoEF);
@@ -1244,27 +1301,57 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jBtNovaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/page_add.png"))); // NOI18N
         jBtNovaEvolucao.setToolTipText("Nova Evolução");
         jBtNovaEvolucao.setEnabled(false);
+        jBtNovaEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovaEvolucaoActionPerformed(evt);
+            }
+        });
 
         jBtAlterarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/8437_16x16.png"))); // NOI18N
         jBtAlterarEvolucao.setToolTipText("Alterar Evolução");
         jBtAlterarEvolucao.setEnabled(false);
+        jBtAlterarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarEvolucaoActionPerformed(evt);
+            }
+        });
 
         jBtExcluirEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/191216104515_16.png"))); // NOI18N
         jBtExcluirEvolucao.setToolTipText("Excluir Evolução");
         jBtExcluirEvolucao.setEnabled(false);
+        jBtExcluirEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirEvolucaoActionPerformed(evt);
+            }
+        });
 
         jBtSalvarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/1294_16x16.png"))); // NOI18N
         jBtSalvarEvolucao.setToolTipText("Gravar Evolução");
         jBtSalvarEvolucao.setEnabled(false);
+        jBtSalvarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalvarEvolucaoActionPerformed(evt);
+            }
+        });
 
         jBtCancelarEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/Button_Close_Icon_16.png"))); // NOI18N
         jBtCancelarEvolucao.setToolTipText("Cancelar Operação");
         jBtCancelarEvolucao.setEnabled(false);
+        jBtCancelarEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarEvolucaoActionPerformed(evt);
+            }
+        });
 
         jBtAuditoriaEvolucao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gestor/Imagens/book_open.png"))); // NOI18N
         jBtAuditoriaEvolucao.setToolTipText("Auditoria");
         jBtAuditoriaEvolucao.setContentAreaFilled(false);
         jBtAuditoriaEvolucao.setEnabled(false);
+        jBtAuditoriaEvolucao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAuditoriaEvolucaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -1381,8 +1468,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane4)
                     .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1403,143 +1490,426 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Evolução", jPanel3);
 
+        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(204, 0, 0))); // NOI18N
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoEF, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jFotoInternoEF, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+        );
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 134, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 88, Short.MAX_VALUE)
+        );
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true)));
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        setBounds(300, 60, 486, 487);
+        setBounds(300, 60, 607, 487);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtIDPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIDPesqActionPerformed
         // TODO add your handling code here:
         flag = 1;
-//        if (jIDPesq.getText().equals("")) {
-//            JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
-//            jIDPesq.requestFocus();
-//        } else {
-//            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_EF "
-//                + "INNER JOIN PAVILHAO "
-//                + "ON ATENDIMENTO_GRUPO_EF.IdPav=PAVILHAO.IdPav "
-//                + "WHERE IdAtGrupoEF='" + jIDPesq.getText() + "'");
-//        }
+        Integer row0 = jTabelaAdmissaoEF.getModel().getRowCount();
+        if (jID_REGISTRO_Pesquisa.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Informe o ID para pesquisa.");
+            jID_REGISTRO_Pesquisa.requestFocus();
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
+            try {
+                for (AdmissaoEvolucaoEducacaoFisica dd : control.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getIdRegistroEF(), pDATA_PESQUISA_TABELA, dd.getStatusEF(), dd.getNomeInternoEF()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jBtIDPesqActionPerformed
 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
         flag = 1;
-//        if (evt.getStateChange() == evt.SELECTED) {
-//            this.preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_EF "
-//                + "INNER JOIN PAVILHAO "
-//                + "ON ATENDIMENTO_GRUPO_EF.IdPav=PAVILHAO.IdPav");
-//        } else {
-//            jtotalRegistros.setText("");
-//            limparTabela();
-//        }
+        Integer row0 = jTabelaAdmissaoEF.getModel().getRowCount();
+        if (evt.getStateChange() == evt.SELECTED) {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
+            try {
+                for (AdmissaoEvolucaoEducacaoFisica dd : listaTodos.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getIdRegistroEF(), pDATA_PESQUISA_TABELA, dd.getStatusEF(), dd.getNomeInternoEF()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAtividadesMensalUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+            DefaultTableModel tblRemove = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
+            if (tblRemove.getRowCount() > 0) {
+                for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                    if (tblRemove.getRowCount() < i) {
+                        tblRemove.removeRow(i);
+                        tblRemove.setRowCount(0);
+                    }
+                }
+            }
+            pTOTAL_REGISTROS_ATIVIDADES = 0;
+            jtotalRegistros.setText("");
+        }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void jBtPesqDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqDatasActionPerformed
         // TODO add your handling code here:
         flag = 1;
-        if (tipoServidor == null || tipoServidor.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "É necessário definir o parâmtero para o sistema operacional utilizado no servidor, (UBUNTU-LINUX ou WINDOWS SERVER).");
-        } else if (tipoServidor.equals("Servidor Linux (Ubuntu)/MS-SQL Server")) {
-//            if (jDataInicial.getDate() == null) {
-//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-//                jDataInicial.requestFocus();
-//            } else {
-//                if (jDataFinal.getDate() == null) {
-//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-//                    jDataFinal.requestFocus();
-//                } else {
-//                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-//                    } else {
-//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("yyyy/MM/dd");
-//                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-//                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-//                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_EF "
-//                            + "INNER JOIN PAVILHAO "
-//                            + "ON ATENDIMENTO_GRUPO_EF.IdPav=PAVILHAO.IdPav "
-//                            + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
-//                            + "AND '" + dataFinal + "'");
-//                    }
-//                }
-//            }
-        } else if (tipoServidor.equals("Servidor Windows/MS-SQL Server")) {
-//            if (jDataInicial.getDate() == null) {
-//                JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
-//                jDataInicial.requestFocus();
-//            } else {
-//                if (jDataFinal.getDate() == null) {
-//                    JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
-//                    jDataFinal.requestFocus();
-//                } else {
-//                    if (jDataInicial.getDate().after(jDataFinal.getDate())) {
-//                        JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
-//                    } else {
-//                        SimpleDateFormat formatoAmerica = new SimpleDateFormat("dd/MM/yyyy");
-//                        dataInicial = formatoAmerica.format(jDataInicial.getDate().getTime());
-//                        dataFinal = formatoAmerica.format(jDataFinal.getDate().getTime());
-//                        preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_EF "
-//                            + "INNER JOIN PAVILHAO "
-//                            + "ON ATENDIMENTO_GRUPO_EF.IdPav=PAVILHAO.IdPav "
-//                            + "WHERE DataAtend BETWEEN'" + dataInicial + "' "
-//                            + "AND '" + dataFinal + "'");
-//                    }
-//                }
-//            }
+        Integer row0 = jTabelaAdmissaoEF.getModel().getRowCount();
+        if (jDataPesqInicial.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data inicial para pesquisa.");
+            jDataPesqInicial.requestFocus();
+        } else if (jDataPesFinal.getDate() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Informe a data final para pesquisa.");
+            jDataPesFinal.requestFocus();
+        } else if (jDataPesqInicial.getDate().after(jDataPesFinal.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inicial não pode ser maior que data final");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
+            try {
+                for (AdmissaoEvolucaoEducacaoFisica dd : listarPorData.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getIdRegistroEF(), pDATA_PESQUISA_TABELA, dd.getStatusEF(), dd.getNomeInternoEF()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jBtPesqDatasActionPerformed
 
     private void jBtPesquisarInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternosActionPerformed
         // TODO add your handling code here:
         flag = 1;
-//        if (jPesqNomeInterno.getText().equals("")) {
-//            JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno para pesquisa.");
-//            jPesqNomeInterno.requestFocus();
-//        } else {
-//            preencherTabelaAtividadeGRU("SELECT * FROM ATENDIMENTO_GRUPO_EF "
-//                + "INNER JOIN PARTICIPANTES_ATENDIMENTO_GRUPO_EF "
-//                + "ON ATENDIMENTO_GRUPO_EF.IdAtGrupoEF=PARTICIPANTES_ATENDIMENTO_GRUPO_EF.IdAtGrupoEF "
-//                + "INNER JOIN PRONTUARIOSCRC "
-//                + "ON PARTICIPANTES_ATENDIMENTO_GRUPO_EF.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-//                + "INNER JOIN PAVILHAO "
-//                + "ON ATENDIMENTO_GRUPO_PSICOLOGIA.IdPav=PAVILHAO.IdPav "
-//                + "WHERE NomeInternoCrc LIKE'%" + jPesqNomeInterno.getText() + "%'");
-//        }
+        Integer row0 = jTabelaAdmissaoEF.getModel().getRowCount();
+        if (jPesqNomeInterno.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Infome o nome do interno para pesquisa.");
+        } else {
+            DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaAdmissaoEF.getModel();
+            try {
+                for (AdmissaoEvolucaoEducacaoFisica dd : listarPorNome.read()) {
+                    if (row0 == 0) {
+                        jtotalRegistros.setText(Integer.toString(pTOTAL_REGISTROS_ATIVIDADES)); // Converter inteiro em string para exibir na tela                                
+                    }
+                    pDATA_PESQUISA_TABELA = String.valueOf(dd.getDataRegistroEF());
+                    String dia = pDATA_PESQUISA_TABELA.substring(8, 10);
+                    String mes = pDATA_PESQUISA_TABELA.substring(5, 7);
+                    String ano = pDATA_PESQUISA_TABELA.substring(0, 4);
+                    pDATA_PESQUISA_TABELA = dia + "/" + mes + "/" + ano;
+                    dadosDestino.addRow(new Object[]{dd.getIdRegistroEF(), pDATA_PESQUISA_TABELA, dd.getStatusEF(), dd.getNomeInternoEF()});
+                    // BARRA DE ROLAGEM HORIZONTAL
+                    jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                    DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                    centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                    //
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                    jTabelaAdmissaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jBtPesquisarInternosActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codIncluirEF == 1) {
+            acao = 1;
+            limparTodosCampos();
+            bloquearTodosBotoes(!true);
+            abrirCamposAdm(true);
+            limparTabelaEvolucao();
+            Novo();
+            statusMov = "Incluiu";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codAlterarEF == 1) {
+            if (jStatusEF.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarUsuario();
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    bloquearTodosBotoes(!true);
+                    acao = 2;
+                    abrirCamposAdm(true);
+                    Alterar();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codExcluirEF == 1) {
+            if (jStatusEF.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarEvolucao();
+                if (jIdRegistroEF.getText().equals(pID_EVOLUCAO)) {
+                    JOptionPane.showMessageDialog(rootPane, "Não é possível excluir a admissão, existem evolução(ões) relacionado(s).");
+                } else {
+                    verificarUsuario();
+                    if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            statusMov = "Excluiu";
+                            horaMov = jHoraSistema.getText();
+                            dataModFinal = jDataSistema.getText();
+                            bloquearTodosBotoes(!true);
+                            bloquearTodosCampos(!true);
+                            Excluir();
+                            objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                            control.excluirAdmissaoEF(objAdmissao);
+                            objLog();
+                            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                            JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                        conecta.desconecta();
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
         // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoManu_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoManu_EF) && codGravarEF == 1) {
+            if (jIdInternoEF.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jNomeInternoEF.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else {
+                objAdmissao.setStatusEF(jStatusEF.getText());
+                objAdmissao.setDataRegistroEF(jDataRegistroEF.getDate());
+                objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
+                objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
+                objAdmissao.setAtividadeFisica((String) jComboBoxAtividadeFisica.getSelectedItem());
+                objAdmissao.setFrequenciaSemanal(jFrequenciaSemanal.getText());
+                objAdmissao.setNivelCondicionamento((String) jComboBoxNivelCondicionamento.getSelectedItem());
+                objAdmissao.setRestricaoAtividadeFisica((String) jComboBoxRestricaoAtividadeFisica.getSelectedItem());
+                objAdmissao.setQualRestricaoFisica(jQualRestricaoFisica.getText());
+                objAdmissao.setProblemaCardiaco((String) jComboBoxProblemaCardiaco.getSelectedItem());
+                objAdmissao.setQualProblemaCardiaco(jQualProblemaCardiaco.getText());
+                objAdmissao.setAlgumTipoCirurgia((String) jComboBoxAlgumTipoCirurgia.getSelectedItem());
+                objAdmissao.setEspecificarCirurgia(jEspecificarCirurgia.getText());
+                objAdmissao.setProblemaOrtopedico((String) jComboBoxProblemaOrtopedico.getSelectedItem());
+                objAdmissao.setHabitoFumar((String) jComboBoxHabitoFumar.getSelectedItem());
+                objAdmissao.setQuantosCigarros(Integer.valueOf(jQuantosCigarros.getText()));
+                objAdmissao.setAlgumMedicamento((String) jComboBoxAlgumMedicamento.getSelectedItem());
+                objAdmissao.setEspecificarMedicamento(jEspecificarMedicamento.getText());
+                objAdmissao.setDiabetico((String) jComboBoxDiabetico.getSelectedItem());
+                objAdmissao.setPressaoSanguinea((String) jComboBoxPressaoSanguinea.getSelectedItem());
+                objAdmissao.setDoresPeito((String) jComboBoxDoresPeito.getSelectedItem());
+                objAdmissao.setDesmaio((String) jComboBoxDesmaio.getSelectedItem());
+                objAdmissao.setTextoEvolucaoAdmissao(jTextoEvolucaoAdmissao.getText());
+                if (acao == 1) {
+                    if (jIdInternoEF.getText().equals(pCODIGO_INTERNO)) {
+                        JOptionPane.showMessageDialog(rootPane, "Esse interno já fez admissão anteriormente nessa tela.");
+                        int resposta = JOptionPane.showConfirmDialog(this, "Deseja cadastrar uma nova admissão na aba complementar?", "Confirmação",
+                                JOptionPane.YES_NO_OPTION);
+                        if (resposta == JOptionPane.YES_OPTION) {
+                            bloquearTodosBotoes(!true);
+                            jBtNovo.setEnabled(true);
+                            pesquisarInternoExistente();
+                            mostrarTelaNovaAdm();
+                        }
+                    } else {
+                        // log de usuario
+                        objAdmissao.setUsuarioInsert(nameUser);
+                        objAdmissao.setDataInsert(dataModFinal);
+                        objAdmissao.setHorarioInsert(horaMov);
+                        //
+                        control.incluirAdmissaoEF(objAdmissao);
+                        buscarCodigoAdm();
+                        objLog();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        bloquearTodosBotoes(!true);
+                        bloquearTodosCampos(!true);
+                        Salvar();
+                        JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                    }
+                }
+                if (acao == 2) {
+                    // log de usuario
+                    objAdmissao.setUsuarioUp(nameUser);
+                    objAdmissao.setDataUp(dataModFinal);
+                    objAdmissao.setHorarioUp(horaMov);
+                    //
+                    objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                    control.alterarAdmissaoEF(objAdmissao);
+                    objLog();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    Salvar();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         // TODO add your handling code here:
+        Cancelar();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFinalizarActionPerformed
         // TODO add your handling code here:
+        if (jStatusEF.getText().equals("FINALIZADO")) {
+            JOptionPane.showMessageDialog(rootPane, "Esse registro já foi FINALIZADO.");
+        } else {
+            statusMov = "Finalizou";
+            horaMov = jHoraSistema.getText();
+            dataModFinal = jDataSistema.getText();
+            String pSTATUS_FINALIZADO = "FINALIZADO";
+            objAdmissao.setStatusEF(pSTATUS_FINALIZADO);
+            objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+            control.finalizarAdmissaoEF(objAdmissao);
+            objLog();
+            controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+            bloquearTodosCampos(!true);
+            Finalizar();
+            JOptionPane.showMessageDialog(rootPane, "Registro finalizado com sucesso.");
+        }
     }//GEN-LAST:event_jBtFinalizarActionPerformed
 
     private void jBtNovaAdmissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaAdmissaoActionPerformed
@@ -1553,11 +1923,209 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
 
     private void jBtAuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaActionPerformed
         // TODO add your handling code here:
+        TelaAuditoriaAdmissaoEF audPsi = new TelaAuditoriaAdmissaoEF();
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(audPsi);
+        audPsi.show();
     }//GEN-LAST:event_jBtAuditoriaActionPerformed
 
     private void jBtPesquisarInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarInternoActionPerformed
         // TODO add your handling code here:
+        verificarRegistroBiometria();
+        if (pHabilitaEducacaoFisica.equals("Não")) {
+            TelaPesqInternoAdmEducacaoFisica objPesqIntAdmPsi = new TelaPesqInternoAdmEducacaoFisica();
+            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objPesqIntAdmPsi);
+            objPesqIntAdmPsi.show();
+        } else {
+            TelaPesqInternoAtendEFBio objPesqIntBio = new TelaPesqInternoAtendEFBio();
+            TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objPesqIntBio);
+            objPesqIntBio.show();
+        }
     }//GEN-LAST:event_jBtPesquisarInternoActionPerformed
+
+    private void jBtNovaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaEvolucaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoEvol_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codIncluirEF == 1) {
+            if (jStatusEF.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarUsuario();
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    bloquearTodosBotoes(!true);
+                    acao = 3;
+                    abrirCamposEvolucao(true);
+                    NovaEvolucao();
+                    statusMov = "Incluiu";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtNovaEvolucaoActionPerformed
+
+    private void jBtAlterarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarEvolucaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoEvol_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codAlterarEF == 1) {
+            if (jStatusEF.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                verificarUsuario();
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    bloquearTodosBotoes(!true);
+                    acao = 4;
+                    abrirCamposEvolucao(true);
+                    AlterarEvolucao();
+                    statusMov = "Alterou";
+                    horaMov = jHoraSistema.getText();
+                    dataModFinal = jDataSistema.getText();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtAlterarEvolucaoActionPerformed
+
+    private void jBtExcluirEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirEvolucaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoEvol_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codExcluirEF == 1) {
+            if (jStatusEF.getText().equals("FINALIZADO")) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível modificar esse registro, o mesmo encontra-se FINALIZADO.");
+            } else {
+                if (nomeUserRegistro == null ? nameUser == null : nomeUserRegistro.equals(nameUser)) {
+                    int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o registro selecionado?", "Confirmação",
+                            JOptionPane.YES_NO_OPTION);
+                    if (resposta == JOptionPane.YES_OPTION) {
+                        statusMov = "Excluiu";
+                        horaMov = jHoraSistema.getText();
+                        dataModFinal = jDataSistema.getText();
+                        bloquearTodosBotoes(!true);
+                        bloquearTodosCampos(!true);
+                        Excluir();
+                        objAdmissao.setIdItem(idItemEvolucao);
+                        control.excluir_EVOLUCAO_EF(objAdmissao);
+                        objLog1();
+                        controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                        JOptionPane.showMessageDialog(rootPane, "Registro excluído com sucesso.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Esse registro foi inserido pelo " + nomeUserRegistro + " só esse usuário poderá modificar.");
+                    conecta.desconecta();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtExcluirEvolucaoActionPerformed
+
+    private void jBtSalvarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarEvolucaoActionPerformed
+        // TODO add your handling code here:
+        buscarAcessoUsuario(telaAdmissoEvol_EF);
+        if (nameUser.equals("ADMINISTRADOR DO SISTEMA") || nomeGrupoEF.equals("ADMINISTRADORES") || codigoUserEF == codUserAcessoEF && nomeTelaEF.equals(telaAdmissoEvol_EF) && codGravarEF == 1) {
+            if (jIdInternoEEF.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else if (jNomeInternoEEF.getText().equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "Informe o nome do interno.");
+            } else {
+                objAdmissao.setIdInternoEF(Integer.valueOf(jIdInternoEF.getText()));
+                objAdmissao.setNomeInternoEF(jNomeInternoEF.getText());
+                objAdmissao.setIdRegistroEF(Integer.valueOf(jIdRegistroEF.getText()));
+                if (acao == 3) {
+                    // log de usuario
+                    objAdmissao.setUsuarioInsert(nameUser);
+                    objAdmissao.setDataInsert(dataModFinal);
+                    objAdmissao.setHorarioInsert(horaMov);
+                    control.incluir_EVOLUCAO_EF(objAdmissao);
+                    buscarCodigoEvolucao();
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    SalvarEvolucao();
+                    preencherEvolucao_REGISTRO_EF();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+                if (acao == 4) {
+                    objAdmissao.setUsuarioUp(nameUser);
+                    objAdmissao.setDataUp(dataModFinal);
+                    objAdmissao.setHorarioUp(horaMov);
+                    control.alterar_EVOLUCAO_EF(objAdmissao);
+                    objLog1();
+                    controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
+                    bloquearTodosBotoes(!true);
+                    bloquearTodosCampos(!true);
+                    SalvarEvolucao();
+                    preencherEvolucao_REGISTRO_EF();
+                    JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuário não tem acesso ao registro.");
+        }
+    }//GEN-LAST:event_jBtSalvarEvolucaoActionPerformed
+
+    private void jBtCancelarEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarEvolucaoActionPerformed
+        // TODO add your handling code here:
+        limparCamposEvolucao();
+        bloquearBotoesEvolucao(!true);
+        CancelarEvolucao();
+    }//GEN-LAST:event_jBtCancelarEvolucaoActionPerformed
+
+    private void jBtAuditoriaEvolucaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAuditoriaEvolucaoActionPerformed
+        // TODO add your handling code here:
+        TelaAuditoriaEvolucaoEF objEvolu = new TelaAuditoriaEvolucaoEF();
+        TelaModuloEducacaoFisica.jPainelEducacaoFisica.add(objEvolu);
+        objEvolu.show();
+    }//GEN-LAST:event_jBtAuditoriaEvolucaoActionPerformed
+
+    private void jTabelaEvolucaoEFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaEvolucaoEFMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String IdEvolucao = "" + jTabelaEvolucaoEF.getValueAt(jTabelaEvolucaoEF.getSelectedRow(), 0);
+            try {
+                for (AdmissaoEvolucaoEducacaoFisica pp : lista_REGISTRO.read()) {
+                    idItemEvolucao = pp.getIdItem();
+                    jIdInternoEEF.setText(String.valueOf(pp.getIdInternoEF()));
+                    jNomeInternoEEF.setText(pp.getNomeInternoEF());
+                    jDataEvolucaoEF.setDate(pp.getDataEvolucaoEF());
+                    jTextoEvolucaoEF.setText(pp.getTextoEvolucaoEF());
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTabelaEvolucaoEFMouseClicked
+
+    private void jTabelaAdmissaoEFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabelaAdmissaoEFMouseClicked
+        // TODO add your handling code here:
+        flag = 1;
+        if (flag == 1) {
+            String pREGISTRO_ADM = "" + jTabelaAdmissaoEF.getValueAt(jTabelaAdmissaoEF.getSelectedRow(), 0);
+            jID_REGISTRO_Pesquisa.setText(pREGISTRO_ADM);
+            pesquisarInternoExistente();
+            //
+            jBtNovo.setEnabled(true);
+            jBtAlterar.setEnabled(true);
+            jBtExcluir.setEnabled(true);
+            jBtFinalizar.setEnabled(true);
+            jBtNovaAdmissao.setEnabled(true);
+            jBtAuditoria.setEnabled(true);
+            //EVOLUÇAO
+            limparCamposEvolucao();
+            jBtNovaEvolucao.setEnabled(true);
+            preencherEvolucaoEF();
+        }
+    }//GEN-LAST:event_jTabelaAdmissaoEFMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1595,14 +2163,15 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jComboBoxProblemaOrtopedico;
     private javax.swing.JComboBox<String> jComboBoxRestricaoAtividadeFisica;
     private com.toedter.calendar.JDateChooser jDataEvolucaoEF;
-    private com.toedter.calendar.JDateChooser jDataFinal;
-    private com.toedter.calendar.JDateChooser jDataInicial;
     public static com.toedter.calendar.JDateChooser jDataNascimentoEF;
+    public static com.toedter.calendar.JDateChooser jDataPesFinal;
+    public static com.toedter.calendar.JDateChooser jDataPesqInicial;
     private com.toedter.calendar.JDateChooser jDataRegistroEF;
     private javax.swing.JTextField jEspecificarCirurgia;
     private javax.swing.JTextField jEspecificarMedicamento;
+    public static javax.swing.JLabel jFotoInternoEF;
     private javax.swing.JTextField jFrequenciaSemanal;
-    private javax.swing.JTextField jIDPesq;
+    public static javax.swing.JTextField jID_REGISTRO_Pesquisa;
     private javax.swing.JTextField jIdInternoEEF;
     public static javax.swing.JTextField jIdInternoEF;
     public static javax.swing.JTextField jIdRegistroEF;
@@ -1655,7 +2224,10 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel4;
@@ -1667,7 +2239,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jPesoEF;
-    private javax.swing.JTextField jPesqNomeInterno;
+    public static javax.swing.JTextField jPesqNomeInterno;
     private javax.swing.JTextField jQualProblemaCardiaco;
     private javax.swing.JTextField jQualRestricaoFisica;
     private javax.swing.JTextField jQuantosCigarros;
@@ -1684,6 +2256,69 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jTextoEvolucaoEF;
     private javax.swing.JLabel jtotalRegistros;
     // End of variables declaration//GEN-END:variables
+
+    public void pesquisarInternoExistente() {
+        bloquearTodosCampos(!true);
+        try {
+            for (AdmissaoEvolucaoEducacaoFisica dd : control.read()) {
+                jIdRegistroEF.setText(String.valueOf(dd.getIdRegistroEF()));
+                jStatusEF.setText(dd.getStatusEF());
+                jDataRegistroEF.setDate(dd.getDataRegistroEF());
+                jIdInternoEF.setText(String.valueOf(dd.getIdInternoEF()));
+                jMatriculaEF.setText(dd.getMatriculaEF());
+                jDataNascimentoEF.setDate(dd.getDataNascimentoEF());
+                jPesoEF.setText(String.valueOf(dd.getPesoEF()));
+                jAlturaEF.setText(String.valueOf(dd.getAlturaEF()));
+                jNomeInternoEF.setText(dd.getNomeInternoEF());
+                jFotoInternoEF.setIcon(null);
+                // Capturando foto
+                caminho = dd.getCaminhoFoto();
+                if (caminho != null) {
+                    javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
+                    jFotoInternoEF.setIcon(i);
+                    jFotoInternoEF.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoEF.getWidth(), jFotoInternoEF.getHeight(), Image.SCALE_DEFAULT)));
+                }
+                // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
+                byte[] imgBytes = ((byte[]) dd.getImagemBanco());
+                if (imgBytes != null) {
+                    ImageIcon pic = null;
+                    pic = new ImageIcon(imgBytes);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoEF.getWidth(), jFotoInternoEF.getHeight(), Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(scaled);
+                    jFotoInternoEF.setIcon(icon);
+                }
+                //PARTE I
+                jComboBoxAtividadeFisica.setSelectedItem(dd.getAtividadeFisica());
+                jFrequenciaSemanal.setText(dd.getFrequenciaSemanal());
+                jComboBoxNivelCondicionamento.setSelectedItem(dd.getNivelCondicionamento());
+                jComboBoxRestricaoAtividadeFisica.setSelectedItem(dd.getAtividadeFisica());
+                jQualRestricaoFisica.setText(dd.getRestricaoAtividadeFisica());
+                jComboBoxProblemaCardiaco.setSelectedItem(dd.getProblemaCardiaco());
+                jQualProblemaCardiaco.setText(dd.getQualProblemaCardiaco());
+                //PARTE II
+                jComboBoxAlgumTipoCirurgia.setSelectedItem(dd.getAlgumTipoCirurgia());
+                jEspecificarCirurgia.setText(dd.getEspecificarCirurgia());
+                jComboBoxProblemaOrtopedico.setSelectedItem(dd.getProblemaOrtopedico());
+                jComboBoxHabitoFumar.setSelectedItem(dd.getHabitoFumar());
+                jQuantosCigarros.setText(String.valueOf(dd.getQuantosCigarros()));
+                jComboBoxAlgumMedicamento.setSelectedItem(dd.getAlgumMedicamento());
+                jEspecificarMedicamento.setText(dd.getEspecificarMedicamento());
+                //PARTE III
+                jComboBoxDiabetico.setSelectedItem(dd.getDiabetico());
+                jComboBoxPressaoSanguinea.setSelectedItem(dd.getPressaoSanguinea());
+                jComboBoxDoresPeito.setSelectedItem(dd.getDoresPeito());
+                jComboBoxDesmaio.setSelectedItem(dd.getDesmaio());
+                //EVOLUÇÃO ADMISSÃO
+                jTextoEvolucaoAdmissao.setText(dd.getTextoEvolucaoAdmissao());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void mostrarTelaNovaAdm() {
+
+    }
 
     public void corCampos() {
         jIdRegistroEF.setBackground(Color.white);
@@ -1854,6 +2489,7 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         jPesoEF.setText("");
         jAlturaEF.setText("");
         jNomeInternoEF.setText("");
+        jFotoInternoEF.setIcon(null);
         //PARTE I
         jComboBoxAtividadeFisica.setSelectedItem("Não");
         jFrequenciaSemanal.setText("");
@@ -1927,6 +2563,8 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         } else {
             bloquearTodosCampos(!true);
             bloquearTodosBotoes(!true);
+            jBtNovo.setEnabled(true);
+            jBtExcluir.setEnabled(true);
             jBtSalvar.setEnabled(true);
             jBtCancelar.setEnabled(true);
             jBtFinalizar.setEnabled(true);
@@ -1937,8 +2575,44 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         }
     }
 
-    public void buscarCodigoAdm() {
+    public void Finalizar() {
+        jBtNovo.setEnabled(true);
+        jBtAuditoria.setEnabled(true);
+    }
 
+    public void buscarCodigoAdm() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA");
+            conecta.rs.last();
+            jIdRegistroEF.setText(conecta.rs.getString("IdRegistroEF"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o código do lançamento");
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarAdmissao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+                    + "WHERE IdInternoCrc='" + jIdInternoEF.getText() + "'");
+            conecta.rs.first();
+            pCODIGO_INTERNO = conecta.rs.getString("IdInternoCrc");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarRegistroBiometria() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM PARAMETROSCRC");
+            conecta.rs.first();
+            pHabilitaEducacaoFisica = conecta.rs.getString("AdmissaoEF");
+        } catch (Exception e) {
+        }
+        conecta.desconecta();
     }
 
     public void NovaEvolucao() {
@@ -1965,7 +2639,106 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
     }
 
     public void buscarCodigoEvolucao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA");
+            conecta.rs.last();
+            idItemEvolucao = conecta.rs.getInt("IdItem");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possível pegar o código do lançamento");
+        }
+        conecta.desconecta();
+    }
 
+    public void verificarUsuario() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM ADMISSAO_EDUCACAO_FISICA "
+                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+            conecta.rs.first();
+            nomeUserRegistro = conecta.rs.getString("UsuarioInsert");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+        }
+        conecta.desconecta();
+    }
+
+    public void verificarEvolucao() {
+        conecta.abrirConexao();
+        try {
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA "
+                    + "WHERE IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+            conecta.rs.first();
+            pID_EVOLUCAO = conecta.rs.getString("IdRegistroEF");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Não foi possivel encontrar o usuário.");
+        }
+        conecta.desconecta();
+    }
+
+    public void preencherEvolucaoEF() {
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaEvolucaoEF.getModel();
+        try {
+            for (AdmissaoEvolucaoEducacaoFisica pp : listaEvo.read()) {
+                dataEvolucao = String.valueOf(pp.getDataEvolucaoEF());
+                String dia = dataEvolucao.substring(8, 10);
+                String mes = dataEvolucao.substring(5, 7);
+                String ano = dataEvolucao.substring(0, 4);
+                dataEvolucao = dia + "/" + mes + "/" + ano;
+                dadosDestino.addRow(new Object[]{pp.getIdItem(), pp.getIdRegistroEF(), dataEvolucao, pp.getTextoEvolucaoEF()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaEvolucaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaEvolucaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaEvolucaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void preencherEvolucao_REGISTRO_EF() {
+        DefaultTableModel dadosDestino = (DefaultTableModel) jTabelaEvolucaoEF.getModel();
+        try {
+            for (AdmissaoEvolucaoEducacaoFisica pp : lista_REGISTRO.read()) {
+                dataEvolucao = String.valueOf(pp.getDataEvolucaoEF());
+                String dia = dataEvolucao.substring(8, 10);
+                String mes = dataEvolucao.substring(5, 7);
+                String ano = dataEvolucao.substring(0, 4);
+                dataEvolucao = dia + "/" + mes + "/" + ano;
+                dadosDestino.addRow(new Object[]{pp.getIdItem(), pp.getIdRegistroEF(), dataEvolucao, pp.getTextoEvolucaoEF()});
+                // BARRA DE ROLAGEM HORIZONTAL
+                jTabelaAdmissaoEF.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // ALINHAR TEXTO DA TABELA CENTRALIZADO
+                DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+                centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+                //
+                jTabelaEvolucaoEF.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+                jTabelaEvolucaoEF.getColumnModel().getColumn(1).setCellRenderer(centralizado);
+                jTabelaEvolucaoEF.getColumnModel().getColumn(2).setCellRenderer(centralizado);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAdmissaoEvolucoEF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void limparTabelaEvolucao() {
+        // APAGAR TODOS OS REGISTROS DA TABELA COPIADA
+        DefaultTableModel tblRemove = (DefaultTableModel) jTabelaEvolucaoEF.getModel();
+        if (tblRemove.getRowCount() > 0) {
+            for (int i = 0; i <= tblRemove.getRowCount(); i++) {
+                tblRemove.removeRow(i);
+                tblRemove.setRowCount(0);
+                if (tblRemove.getRowCount() < i) {
+                    tblRemove.removeRow(i);
+                    tblRemove.setRowCount(0);
+                }
+            }
+        }
     }
 
     public void buscarAcessoUsuario(String nomeTelaAcesso) {
@@ -2004,5 +2777,23 @@ public class TelaAdmissaoEvolucoEF extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
         conecta.desconecta();
+    }
+
+    public void objLog() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
+    }
+
+    public void objLog1() {
+        objLogSys.setDataMov(dataModFinal);
+        objLogSys.setHorarioMov(horaMov);
+        objLogSys.setNomeModuloTela(nomeModuloTela1);
+        objLogSys.setIdLancMov(Integer.valueOf(jIdRegistroEF.getText()));
+        objLogSys.setNomeUsuarioLogado(nameUser);
+        objLogSys.setStatusMov(statusMov);
     }
 }

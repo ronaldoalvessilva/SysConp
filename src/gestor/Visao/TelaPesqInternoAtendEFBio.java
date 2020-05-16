@@ -9,13 +9,12 @@ import Utilitarios.ModeloTabela;
 import gestor.Dao.*;
 import gestor.Modelo.DadosPenaisCrc;
 import gestor.Modelo.ProntuarioCrc;
-import static gestor.Visao.TelaAdmissaoPsicologica.jDataNascimento;
-import static gestor.Visao.TelaAdmissaoPsicologica.jIdInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jNomeInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jFotoInterno;
-import static gestor.Visao.TelaAdmissaoPsicologica.jSituacaoUnidade;
-import static gestor.Visao.TelaAdmissaoPsicologica.codigoDepartamentoPSI;
-import static gestor.Visao.TelaModuloPsicologia.nomeModuloPSICOLOGIA;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jDataNascimentoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jIdInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jNomeInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.jFotoInternoEF;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.codigoDepartamentoEF;
+import static gestor.Visao.TelaModuloEducacaoFisica.nomeModuloEF;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Ronaldo
  */
-public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
+public class TelaPesqInternoAtendEFBio extends javax.swing.JInternalFrame {
 
     ConexaoBancoDados conecta = new ConexaoBancoDados();
     ProntuarioCrc objProCrc = new ProntuarioCrc();
@@ -48,7 +47,7 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
     /**
      * Creates new form TelaPesquisaEntradaInternos
      */
-    public TelaPesqInternoAtendPSIBio() {
+    public TelaPesqInternoAtendEFBio() {
         initComponents();
         procurarDepartamento();
     }
@@ -248,7 +247,7 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -344,23 +343,22 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
                         + "WHERE PRONTUARIOSCRC.NomeInternoCrc LIKE'" + nomeInterno + "%' "
                         + "AND PRONTUARIOSCRC.IdInternoCrc='" + idInt + "'");
                 conecta.rs.first();
-                jIdInterno.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
-                jNomeInterno.setText(conecta.rs.getString("NomeInternoCrc"));
+                jIdInternoEF.setText(String.valueOf(conecta.rs.getInt("IdInternoCrc")));
+                jNomeInternoEF.setText(conecta.rs.getString("NomeInternoCrc"));
                 caminho = conecta.rs.getString("FotoInternoCrc");
                 javax.swing.ImageIcon i = new javax.swing.ImageIcon(caminho);
-                jFotoInterno.setIcon(i);
-                jFotoInterno.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_DEFAULT)));
+                jFotoInternoEF.setIcon(i);
+                jFotoInternoEF.setIcon(new ImageIcon(i.getImage().getScaledInstance(jFotoInternoEF.getWidth(), jFotoInternoEF.getHeight(), Image.SCALE_DEFAULT)));
                 // BUSCAR A FOTO DO ADVOGADO NO BANCO DE DADOS
                 byte[] imgBytes = ((byte[]) conecta.rs.getBytes("ImagemFrente"));
                 if (imgBytes != null) {
                     ImageIcon pic = null;
                     pic = new ImageIcon(imgBytes);
-                    Image scaled = pic.getImage().getScaledInstance(jFotoInterno.getWidth(), jFotoInterno.getHeight(), Image.SCALE_SMOOTH);
+                    Image scaled = pic.getImage().getScaledInstance(jFotoInternoEF.getWidth(), jFotoInternoEF.getHeight(), Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(scaled);
-                    jFotoInterno.setIcon(icon);
+                    jFotoInternoEF.setIcon(icon);
                 }
-                jDataNascimento.setDate(conecta.rs.getDate("DataNasciCrc"));
-                jSituacaoUnidade.setText(conecta.rs.getString("SituacaoCrc"));
+                jDataNascimentoEF.setDate(conecta.rs.getDate("DataNasciCrc"));
                 conecta.desconecta();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(rootPane, "ERRO na pesquisa INTERNO" + e);
@@ -589,10 +587,10 @@ public class TelaPesqInternoAtendPSIBio extends javax.swing.JInternalFrame {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM DEPARTAMENTOS "
-                    + "WHERE NomeDepartamento='" + nomeModuloPSICOLOGIA + "'");
+                    + "WHERE NomeDepartamento='" + nomeModuloEF + "'");
             conecta.rs.first();
             codigoDepartamento = conecta.rs.getInt("IdDepartamento");
-            codigoDepartamentoPSI = conecta.rs.getInt("IdDepartamento");
+            codigoDepartamentoEF = conecta.rs.getInt("IdDepartamento");
         } catch (Exception e) {
         }
         conecta.desconecta();

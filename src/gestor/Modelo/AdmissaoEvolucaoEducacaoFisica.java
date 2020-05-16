@@ -22,6 +22,8 @@ public class AdmissaoEvolucaoEducacaoFisica {
     private float pesoEF;
     private float alturaEF;
     private String nomeInternoEF;
+    private String caminhoFoto;
+    private byte [] imagemBanco;
     //PARTE I
     private String atividadeFisica;
     private String frequenciaSemanal;
@@ -46,6 +48,8 @@ public class AdmissaoEvolucaoEducacaoFisica {
     //EVOLUÇÃO ADMISSÃO
     private String textoEvolucaoAdmissao;
     //EVOLUÇÃO        
+    private Integer idItem;
+    private Integer idEvolucao;
     private Date dataEvolucaoEF;
     private String textoEvolucaoEF;
     //
@@ -59,7 +63,7 @@ public class AdmissaoEvolucaoEducacaoFisica {
     public AdmissaoEvolucaoEducacaoFisica() {
     }
 
-    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Date dataEvolucaoEF, String textoEvolucaoEF, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String caminhoFoto, byte[] imagemBanco, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Integer idItem, Integer idEvolucao, Date dataEvolucaoEF, String textoEvolucaoEF, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistroEF = idRegistroEF;
         this.statusEF = statusEF;
         this.dataRegistroEF = dataRegistroEF;
@@ -69,6 +73,8 @@ public class AdmissaoEvolucaoEducacaoFisica {
         this.pesoEF = pesoEF;
         this.alturaEF = alturaEF;
         this.nomeInternoEF = nomeInternoEF;
+        this.caminhoFoto = caminhoFoto;
+        this.imagemBanco = imagemBanco;
         this.atividadeFisica = atividadeFisica;
         this.frequenciaSemanal = frequenciaSemanal;
         this.nivelCondicionamento = nivelCondicionamento;
@@ -88,6 +94,8 @@ public class AdmissaoEvolucaoEducacaoFisica {
         this.doresPeito = doresPeito;
         this.desmaio = desmaio;
         this.textoEvolucaoAdmissao = textoEvolucaoAdmissao;
+        this.idItem = idItem;
+        this.idEvolucao = idEvolucao;
         this.dataEvolucaoEF = dataEvolucaoEF;
         this.textoEvolucaoEF = textoEvolucaoEF;
         this.usuarioInsert = usuarioInsert;
@@ -222,6 +230,34 @@ public class AdmissaoEvolucaoEducacaoFisica {
      */
     public void setNomeInternoEF(String nomeInternoEF) {
         this.nomeInternoEF = nomeInternoEF;
+    }
+
+    /**
+     * @return the caminhoFoto
+     */
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    /**
+     * @param caminhoFoto the caminhoFoto to set
+     */
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
+    }
+
+    /**
+     * @return the imagemBanco
+     */
+    public byte[] getImagemBanco() {
+        return imagemBanco;
+    }
+
+    /**
+     * @param imagemBanco the imagemBanco to set
+     */
+    public void setImagemBanco(byte[] imagemBanco) {
+        this.imagemBanco = imagemBanco;
     }
 
     /**
@@ -488,6 +524,34 @@ public class AdmissaoEvolucaoEducacaoFisica {
      */
     public void setTextoEvolucaoAdmissao(String textoEvolucaoAdmissao) {
         this.textoEvolucaoAdmissao = textoEvolucaoAdmissao;
+    }
+
+    /**
+     * @return the idItem
+     */
+    public Integer getIdItem() {
+        return idItem;
+    }
+
+    /**
+     * @param idItem the idItem to set
+     */
+    public void setIdItem(Integer idItem) {
+        this.idItem = idItem;
+    }
+
+    /**
+     * @return the idEvolucao
+     */
+    public Integer getIdEvolucao() {
+        return idEvolucao;
+    }
+
+    /**
+     * @param idEvolucao the idEvolucao to set
+     */
+    public void setIdEvolucao(Integer idEvolucao) {
+        this.idEvolucao = idEvolucao;
     }
 
     /**
