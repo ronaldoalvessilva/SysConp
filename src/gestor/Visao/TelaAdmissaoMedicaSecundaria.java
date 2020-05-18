@@ -1777,8 +1777,6 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
-                    limpaTabelaDoencas();
-                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -1786,6 +1784,8 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     if (jIdInternoAdmAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
+                        limpaTabelaDoencas();
+                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -1981,6 +1981,12 @@ public class TelaAdmissaoMedicaSecundaria extends javax.swing.JDialog {
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmAD.getText()));
+                    objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
+                    objPortaEntrada.setHabMed(pHABILITA_MEDICO);
+                    control_PE.alterarPortaEntradaMedica(objPortaEntrada);
+                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                    pHABILITA_MEDICO = "Não";
+                    objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoAdmAD.getText());
                     objPortaEntrada.setHabMed(pHABILITA_MEDICO);
                     control_PE.alterarPortaEntradaMedica(objPortaEntrada);

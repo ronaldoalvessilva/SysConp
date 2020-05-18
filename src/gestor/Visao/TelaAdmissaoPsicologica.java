@@ -17,9 +17,12 @@ import Utilitarios.LimiteDigitos;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControleMovPsicologiaEvolucao;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AdmissaoPsicologica;
 import gestor.Modelo.EvolucaoPsicologica;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPsicologia.pQUANTIDADE_ATENDIDA;
@@ -67,6 +70,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     ControleAdminssaoPsicologia control = new ControleAdminssaoPsicologia();
     //
     ControleMovPsicologia controle = new ControleMovPsicologia();
+    ControleMovPsicologiaEvolucao controleEvo = new ControleMovPsicologiaEvolucao();
     //
     ControleParecerPsicologico controleParecer = new ControleParecerPsicologico();
     //
@@ -77,6 +81,9 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -110,7 +117,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     public static String departamentoAgenda = "PSICOLOGIA";
     String nomeDepartamento;
     String codigoStatusReg;
-    String codigoInterno;
+    String codigoInterno;    
     //
     String dataReg = "";
     String codigoInternoAtend = "";
@@ -127,6 +134,8 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
     String pCODIGO_INTERNO = "";
     //EVOLUÇÃO DA ADMISSAO
     String admEvolucao = "Sim";
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_PSICOLOGIA = "Não";
 
     /**
      * Creates new form TelaAdmissaoPsicologica
@@ -2540,6 +2549,12 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                             objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                             objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                             control_ATENDE.confirmarAtendimento(objRegAtend);
+                             //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_PSICOLOGIA = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
+                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                             // ADICIONAR UMA EVOLUÇÃO INICIAL
                             evolu.setDataEvolucao(jDataLanc.getDate());
                             evolu.setNomeDepartamento((String) jComboBoxDepartamentoEncaminha.getSelectedItem());
@@ -2560,6 +2575,12 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                                     + "INNER JOIN PRONTUARIOSCRC "
                                     + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                                     + "WHERE IdLanc='" + jIdLanc.getText() + "'");
+                            //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_PSICOLOGIA = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabPsi(pHABILITA_PSICOLOGIA);
+                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                             Salvar();
                             JOptionPane.showMessageDialog(rootPane, "Registro gravado com sucesso.");
                             int resposta = JOptionPane.showConfirmDialog(this, "Deseja iniciar tratamento ao interno agora?", "Confirmação",
@@ -2579,6 +2600,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                         objAdmPsi.setNomeInterno(jNomeInterno.getText());
                         objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         control.alterarAdmissaoPsi(objAdmPsi);
+                        //MOVIMENTO TÉCNICO
                         objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
                         objAdmPsi.setDeptoPsicologico(deptoTecnico);
                         controle.alterarMovTec(objAdmPsi);
@@ -3013,7 +3035,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 evolu.setNomeDepartamento((String) jComboBoxEncaminharSetorEvo.getSelectedItem());
                 evolu.setDataEncaminhamento(jDataEncaminhamentoEvo.getDate());
                 evolu.setHoraEncaminhamento(jHoraEnvioEvo.getText());
-                evolu.setHistorico(jEvolucao.getText());
+                evolu.setHistorico(jEvolucao.getText());                
                 if (acao == 3) {
                     // Para o log do registro
                     evolu.setUsuarioInsert(nameUser);
@@ -3024,6 +3046,10 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     evolu.setNomeInternoCrc(jNomeInterno.getText());
                     controlEvolu.incluirEvolucaoPsi(evolu);
                     buscarCodEvolucao();
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                    controleEvo.incluirMovTec(objAdmPsi);
                     // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO     
                     atendido = "Sim";
                     objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
@@ -3075,6 +3101,11 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                     evolu.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
                     evolu.setNomeInternoCrc(jNomeInterno.getText());
                     controlEvolu.alterarEvolucaoPsi(evolu);
+                    //
+                    objAdmPsi.setIdLanc(Integer.valueOf(jIdLanc.getText()));
+                    objAdmPsi.setNomeInterno(jNomeInterno.getText());
+                    objAdmPsi.setDeptoPsicologico(deptoTecnico);
+                    controleEvo.alterarMovTec(objAdmPsi);
                     //
                     objLog2();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -5453,7 +5484,7 @@ public class TelaAdmissaoPsicologica extends javax.swing.JInternalFrame {
                 + "ON EVOLUCAOPSICOLOGICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");
     }
-    
+
     // VERIFICAR SE A EVOLUÇÃO FAZ PARTE DA ADMISSÃO, OU SEJA, QUANDO É FEITA A ADMISSÃO DO INTERNO
     // É GRAVADO AUTOMÁTICAMETE UMA EVOLUÇÃO PARA O INTERNO.
     public void verificarEvolucaoAdmissao() {

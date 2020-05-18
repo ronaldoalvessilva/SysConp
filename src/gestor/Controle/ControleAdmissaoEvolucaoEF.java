@@ -148,14 +148,15 @@ public class ControleAdmissaoEvolucaoEF {
         conecta.abrirConexao();
         try {
             PreparedStatement pst = conecta.con.prepareStatement("INSERT INTO EVOLUCAO_EDUCACAO_FISICA (IdRegistroEF,"
-                    + "DataEvolucaoEF,IdInternoCrc,TextoEvolucaoEF,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?)");
+                    + "DataEvolucaoEF,IdInternoCrc,TextoEvolucaoEF,AdmEvo,UsuarioInsert,DataInsert,HorarioInsert) VALUES(?,?,?,?,?,?,?,?)");
             pst.setInt(1, objAdmissao.getIdRegistroEF());
             pst.setTimestamp(2, new java.sql.Timestamp(objAdmissao.getDataEvolucaoEF().getTime()));
             pst.setInt(3, codInterno);
             pst.setString(4, objAdmissao.getTextoEvolucaoEF());
-            pst.setString(5, objAdmissao.getUsuarioInsert());
-            pst.setString(6, objAdmissao.getDataInsert());
-            pst.setString(7, objAdmissao.getHorarioInsert());
+            pst.setString(5, objAdmissao.getAdmEvo());
+            pst.setString(6, objAdmissao.getUsuarioInsert());
+            pst.setString(7, objAdmissao.getDataInsert());
+            pst.setString(8, objAdmissao.getHorarioInsert());
             pst.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não Foi possivel INSERIR (EVOLUCAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
@@ -197,6 +198,23 @@ public class ControleAdmissaoEvolucaoEF {
         return objAdmissao;
     }
 
+    public AdmissaoEvolucaoEducacaoFisica alterar_EVOLUCAO_EF_ADM(AdmissaoEvolucaoEducacaoFisica objAdmissao) {
+        buscarInterno(objAdmissao.getNomeInternoEF(), objAdmissao.getIdInternoEF());
+        conecta.abrirConexao();
+        try {
+            PreparedStatement pst = conecta.con.prepareStatement("UPDATE EVOLUCAO_EDUCACAO_FISICA SET TextoEvolucaoEF=?,UsuarioUp=?,DataUp=?,HorarioUp=? WHERE IdRegistroEF='" + objAdmissao.getIdRegistroEF() + "'AND AdmEvo='" + objAdmissao.getAdmEvo() + "'");         
+            pst.setString(1, objAdmissao.getTextoEvolucaoEF());
+            pst.setString(2, objAdmissao.getUsuarioInsert());
+            pst.setString(3, objAdmissao.getDataUp());
+            pst.setString(4, objAdmissao.getHorarioUp());
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não Foi possivel ALTERAR (EVOLUCAO_EDUCACAO_FISICA) os Dados.\n\nERRO: " + ex);
+        }
+        conecta.desconecta();
+        return objAdmissao;
+    }
+    
     public void buscarInterno(String desc, int codigoInterno) {
         conecta.abrirConexao();
         try {
@@ -227,9 +245,11 @@ public class ControleAdmissaoEvolucaoEF {
                 pAdmissao.setIdInternoEF(conecta.rs.getInt("IdInternoCrc"));
                 pAdmissao.setNomeInternoEF(conecta.rs.getString("NomeInternoCrc"));
                 pAdmissao.setMatriculaEF(conecta.rs.getString("MatriculaCrc"));
-                pAdmissao.setDataNascimentoEF(conecta.rs.getDate("DataNascCrc"));
+                pAdmissao.setDataNascimentoEF(conecta.rs.getDate("DataNasciCrc"));
                 pAdmissao.setCaminhoFoto(conecta.rs.getString("FotoInternoCrc"));
                 pAdmissao.setImagemBanco(conecta.rs.getBytes("ImagemFrente"));
+                pAdmissao.setPesoEF(conecta.rs.getFloat("PesoEF"));
+                pAdmissao.setAlturaEF(conecta.rs.getFloat("AlturaEF"));
                 pAdmissao.setAtividadeFisica(conecta.rs.getString("AtividadeFisica"));
                 pAdmissao.setFrequenciaSemanal(conecta.rs.getString("FrequenciaSemanal"));
                 pAdmissao.setNivelCondicionamento(conecta.rs.getString("NivelCondicionamento"));

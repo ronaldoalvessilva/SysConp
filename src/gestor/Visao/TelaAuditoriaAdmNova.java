@@ -6,8 +6,8 @@
 package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
-import static gestor.Visao.TelaPortaEntradaPedagogia.jCodigoAdmissao;
 import java.sql.SQLException;
+import static gestor.Visao.TelaPortaEntradaPedagogia.jCodigoAdmissaoSEC;
 
 /**
  *
@@ -296,7 +296,7 @@ public class TelaAuditoriaAdmNova extends javax.swing.JDialog {
     public void auditoria() {
         try {
             conecta.abrirConexao();
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));
             jDataInsert.setText(conecta.rs.getString("DataInsert"));

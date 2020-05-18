@@ -184,11 +184,9 @@ public class TelaModuloEducacaoFisica extends javax.swing.JInternalFrame {
     String pNomeBTL = "";
     //OCORRÊNCIAS
     String pNomeOcorr_EF = "";
+    //
+    public static int pQUANTIDADE_ATENDIDA = 1;
 
-//    pNomeAEF
-//    pNomeEEF
-//    telaAdmissoManu_EF
-//    telaAdmissoEvol_EF
     /**
      * Creates new form TelaJuridico
      */

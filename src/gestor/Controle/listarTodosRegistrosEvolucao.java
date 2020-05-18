@@ -37,10 +37,10 @@ public class listarTodosRegistrosEvolucao {
                 AdmissaoEvolucaoEducacaoFisica pEvolucao = new AdmissaoEvolucaoEducacaoFisica();
                 pEvolucao.setIdRegistroEF(conecta.rs.getInt("IdRegistroEF"));
                 pEvolucao.setIdItem(conecta.rs.getInt("IdItem"));
-                pEvolucao.setDataRegistroEF(conecta.rs.getDate("DataEvolucaoEF"));
+                pEvolucao.setDataEvolucaoEF(conecta.rs.getDate("DataEvolucaoEF"));
                 pEvolucao.setIdInternoEF(conecta.rs.getInt("IdInternoCrc"));
                 pEvolucao.setNomeInternoEF(conecta.rs.getString("NomeInternoCrc"));                
-                pEvolucao.setTextoEvolucaoAdmissao(conecta.rs.getString("TextoEvolucaoEF"));                
+                pEvolucao.setTextoEvolucaoEF(conecta.rs.getString("TextoEvolucaoEF"));                
                 listaEvolucaoCodigo.add(pEvolucao);
                 pTOTAL_REGISTROS_ATIVIDADES = pTOTAL_REGISTROS_ATIVIDADES + 1;
             }

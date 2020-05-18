@@ -7,8 +7,8 @@ package gestor.Visao;
 
 import gestor.Dao.ConexaoBancoDados;
 import static gestor.Visao.TelaPortaEntradaPedagogia.codigoFem;
-import static gestor.Visao.TelaPortaEntradaPedagogia.jCodigoAdmissao;
 import java.sql.SQLException;
+import static gestor.Visao.TelaPortaEntradaPedagogia.jCodigoAdmissaoSEC;
 
 /**
  *
@@ -307,7 +307,7 @@ public class TelaAuditoriaAdmNovaFem extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                     + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "' "
                     + "AND FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdFemAdmNova='" + codigoFem + "'");
             conecta.rs.first();
             jUsuarioInsert.setText(conecta.rs.getString("UsuarioInsert"));

@@ -1874,7 +1874,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 conecta.executaSQL("SELECT * FROM ADMISSAO_ENFERMEIRA_COMPLEMENTAR "
                         + "INNER JOIN PRONTUARIOSCRC "
                         + "ON ADMISSAO_ENFERMEIRA_COMPLEMENTAR.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                        + "WHERE IdLanc='" + IdLanc + "'");
+                        + "WHERE IdADME='" + IdLanc + "'");
                 conecta.rs.first();
                 jIdADM_Secundaria.setText(String.valueOf(conecta.rs.getInt("IdADME")));
                 jStatusLanc.setText(conecta.rs.getString("StatusLanc"));
@@ -2010,9 +2010,6 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
-                    limparCampos();
-                    bloquearCampos();
-                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -2020,6 +2017,9 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     if (jIdInternoEnfermeiroAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
+                        limparCampos();
+                        bloquearCampos();
+                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2183,7 +2183,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     // ADICIONA EVOLUÇÃO APARTIR DA ADMISSÃO
                     objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
                     objEvolEnferma.setAdmEvo(admEvolucao);
@@ -2204,16 +2204,16 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     control_ATENDE.confirmarAtendimento(objRegAtend);
-                    //
-                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
-                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
-                    buscarEvolucao();
-                    //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_MEDICO = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
                     objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiroAD.getText());
                     objPortaEntrada.setHabMed(pHABILITA_MEDICO);
                     control_PE.alterarPortaEntradaMedica(objPortaEntrada);
+                    //
+                    preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
+                            + "WHERE IdLanc='" + jIdADM_Secundaria.getText() + "'");
+                    buscarEvolucao();                   
                     //
                     objLog();
                     controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -2239,7 +2239,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                     // EDITAR A EVOLUÇÃO APARTIR DA ADMISSÃO
                     objEvolEnferma.setIdItem(Integer.valueOf(jIdADM_Secundaria.getText()));
                     objEvolEnferma.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiroAD.getText()));
-                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Secundaria.getText()));
+                    objEvolEnferma.setIdLanc(Integer.valueOf(jIdADM_Princial.getText()));
                     objEvolEnferma.setDataEvol(jDataLanc.getDate());
                     objEvolEnferma.setTextoEvolucao(jObservacao.getText());
                     // log de usuario
@@ -3046,7 +3046,7 @@ public class TelaAdmissaoSecundariaEnfermagem extends javax.swing.JDialog {
                 String anoe = dataEntrada.substring(0, 4);
                 dataEntrada = diae + "/" + mese + "/" + anoe;
                 jtotalRegistros.setText(Integer.toString(count)); // Converter inteiro em string para exibir na tela
-                dados.add(new Object[]{conecta.rs.getInt("IdADME"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Observacao")});
+                dados.add(new Object[]{conecta.rs.getString("IdADME"), dataEntrada, conecta.rs.getString("StatusLanc"), conecta.rs.getString("NomeInternoCrc"), conecta.rs.getString("Observacao")});
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, "Não existem dados a serem EXIBIDOS !!!");

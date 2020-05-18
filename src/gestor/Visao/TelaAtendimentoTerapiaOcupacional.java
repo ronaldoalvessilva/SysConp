@@ -21,12 +21,14 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoTerapeuta;
 import gestor.Modelo.AvaliacaoI;
 import gestor.Modelo.AvaliacaoII;
 import gestor.Modelo.EvolucaoTerapia;
 import gestor.Modelo.HistoricoEducacionalLaboral;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -96,6 +98,9 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -176,6 +181,8 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
     //EVOLUÇÃO DA ADMISSAO
     String admEvolucao = "Sim";
     String nomeUserRegistro;
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_TO = "Não";
 
     /**
      * Creates new form TelaAtemdimentoTerapiaOcupacional
@@ -4586,6 +4593,39 @@ public class TelaAtendimentoTerapiaOcupacional extends javax.swing.JInternalFram
                             objAtend.setNomeInternoCrc(jNomeInterno.getText());
                             objAtend.setDeptoTerapia(deptoTecnico);
                             controle.incluirMovTec(objAtend);
+                            // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                            atendido = "Sim";
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                            objRegAtend.setNomeDepartamento(nomeModuloTO);
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            objRegAtend.setAtendido(atendido);
+                            objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                            objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                            //
+                            objRegAtend.setUsuarioUp(nameUser);
+                            objRegAtend.setDataUp(dataModFinal);
+                            objRegAtend.setHorarioUp(horaMov);
+                            controlRegAtend.alterarRegAtend(objRegAtend);
+                            //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                            objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                            objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objRegAtend.setNomeInternoCrc(jNomeInterno.getText());
+                            objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                            objRegAtend.setNomeDepartamento(nomeModuloTO);
+                            objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                            objRegAtend.setHorarioUp(horaMov);
+                            objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                            objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                            control_ATENDE.confirmarAtendimento(objRegAtend);
+                            //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                            pHABILITA_TO = "Não";
+                            objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInterno.getText()));
+                            objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                            objPortaEntrada.setHabPsi(pHABILITA_TO);
+                            control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                             //EVOLUÇÃO DA ADMISSÃO (13/05/2020)
                             objEvolu.setDataEvo(jDataLanc.getDate());
                             objEvolu.setEvolucao(jEvolucaoAdmissao.getText());

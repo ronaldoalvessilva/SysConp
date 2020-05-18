@@ -16,9 +16,11 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoServicoSocial;
 import gestor.Modelo.EvolucaoServicoSocial;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.nameUser;
 import static gestor.Visao.TelaModuloPrincipal.jDataSistema;
@@ -75,6 +77,9 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -115,6 +120,7 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
     //EVOLUÇÃO DA ADMISSÃO
     String admEvolucao = "Sim";
     String nomeUserRegistro;
+    String pHABILITA_SS = "Não";
 
     /**
      * Creates new form AtendimentoSocial
@@ -2444,6 +2450,12 @@ public class TelaAtendimentoSocial extends javax.swing.JInternalFrame {
                                 objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
                                 objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                                 control_ATENDE.confirmarAtendimento(objRegAtend);
+                                //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                                pHABILITA_SS = "Não";
+                                objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIDInterno.getText()));
+                                objPortaEntrada.setNomeInternoCrc(jNomeInterno.getText());
+                                objPortaEntrada.setHabPsi(pHABILITA_SS);
+                                control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                                 //GRAVAR UMA EVOLUÇÃO REFERENTE A ADMISSÃO (13/05/2020)
                                 objEvol.setDataEvol(jDataAtendimento.getDate());
                                 objEvol.setTextoEvolucao(jConsideracoes.getText());

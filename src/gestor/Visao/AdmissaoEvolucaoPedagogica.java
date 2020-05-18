@@ -18,11 +18,13 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AdmissaoPedagogica;
 import gestor.Modelo.EvolucaoPedagogica;
 import gestor.Modelo.FamiliaAdmissaoPedagogica;
 import gestor.Modelo.FemininoAdmissaoPedago;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import gestor.Modelo.SocializacaoAdmPedagogica;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -88,6 +90,9 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -150,6 +155,8 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
     //EVOLUÇÃO DA ADMISSAO
     String admEvolucao = "Sim";
     String nomeUserRegistro;
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_PEDAGOGIA = "Não";
 
     /**
      * Creates new form AdmissaoEvolucaoPsicologica
@@ -3000,6 +3007,39 @@ public class AdmissaoEvolucaoPedagogica extends javax.swing.JInternalFrame {
                         objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                         objAdmPedago.setDeptoPedagogia(deptoTecnico);
                         controleMov.incluirMovTec(objAdmPedago);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());//
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                        objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_PEDAGOGIA = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAdm.getText());
+                        objPortaEntrada.setHabPsi(pHABILITA_PEDAGOGIA);
+                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
                         bloquearCampos();

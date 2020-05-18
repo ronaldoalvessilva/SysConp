@@ -39,7 +39,7 @@ public class listarTodosRegistros {
                 pAdmissao.setIdInternoEF(conecta.rs.getInt("IdInternoCrc"));
                 pAdmissao.setNomeInternoEF(conecta.rs.getString("NomeInternoCrc"));
                 pAdmissao.setMatriculaEF(conecta.rs.getString("MatriculaCrc"));
-                pAdmissao.setDataNascimentoEF(conecta.rs.getDate("DataNascCrc"));
+                pAdmissao.setDataNascimentoEF(conecta.rs.getDate("DataNasciCrc"));
                 pAdmissao.setCaminhoFoto(conecta.rs.getString("FotoInternoCrc"));
                 pAdmissao.setImagemBanco(conecta.rs.getBytes("ImagemFrente"));
                 pAdmissao.setAtividadeFisica(conecta.rs.getString("AtividadeFisica"));

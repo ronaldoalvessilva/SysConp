@@ -233,7 +233,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCodigoAdmissao = new javax.swing.JTextField();
+        jCodigoAdmissaoSEC = new javax.swing.JTextField();
         jStatusAdm = new javax.swing.JTextField();
         jDataAdm = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -608,9 +608,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Data");
 
-        jCodigoAdmissao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jCodigoAdmissao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jCodigoAdmissao.setEnabled(false);
+        jCodigoAdmissaoSEC.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jCodigoAdmissaoSEC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jCodigoAdmissaoSEC.setEnabled(false);
 
         jStatusAdm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jStatusAdm.setForeground(new java.awt.Color(255, 0, 0));
@@ -652,7 +652,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jCodigoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCodigoAdmissaoSEC, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -679,7 +679,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoAdmissao, jIdInternoAdmNova});
+        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jCodigoAdmissaoSEC, jIdInternoAdmNova});
 
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -692,7 +692,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jStatusAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCodigoAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCodigoAdmissaoSEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDataAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2258,7 +2258,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         + "ON PRONTUARIOSCRC.IdCidade=CIDADES.IdCidade "
                         + "WHERE IdAdmNova='" + IdLanc + "'");
                 conecta.rs.first();
-                jCodigoAdmissao.setText(String.valueOf(conecta.rs.getInt("IdAdmNova")));
+                jCodigoAdmissaoSEC.setText(String.valueOf(conecta.rs.getInt("IdAdmNova")));
                 jIdADM_Principal.setText(String.valueOf(conecta.rs.getInt("IdAdm")));
                 jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
                 jDataAdm.setDate(conecta.rs.getDate("DataAdm"));
@@ -2296,7 +2296,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
                         + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                         + "ON FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                        + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                        + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
                 conecta.rs.first();
                 codigoFam = conecta.rs.getInt("IdFamNova");
                 jComboBoxRelacaoPai.setSelectedItem(conecta.rs.getString("RelacaoPai"));
@@ -2336,7 +2336,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
                         + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                         + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                        + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                        + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
                 conecta.rs.first();
                 codigoSocia = conecta.rs.getInt("IdSocialNova");
                 jAmigosFacilidade.setText(conecta.rs.getString("AmigosFacilidade"));
@@ -2412,7 +2412,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
                         + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                         + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                        + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                        + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
                 conecta.rs.first();
                 codigoFem = conecta.rs.getInt("IdFemAdmNova");
                 jComboBoxFilhoDesejado.setSelectedItem(conecta.rs.getString("FilhoDesejado"));
@@ -2451,8 +2451,6 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     dataModFinal = jDataSistema.getText();
                     pesquisarInternoManual();
                 } else {
-                    limparTodosCampos();
-                    Novo();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -2460,6 +2458,8 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     if (jIdInternoAdmNova.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
+                        limparTodosCampos();
+                        Novo();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -2524,7 +2524,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                         bloquearCampos();
                         bloquearBotoes();
                         // MOVIMENTAÇÃO CORPO TÉCNICO
-                        objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                        objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                         objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                         objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                         objAdmPedago.setDeptoPedagogia(deptoTecnico);
@@ -2572,11 +2572,33 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     control.incluirAdmissaoEscolar(objAdmPedago);
                     buscarCodigo();
                     // MOVIMENTAÇÃO CORPO TÉCNICO
-                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                     objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                     objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objAdmPedago.setDeptoPedagogia(deptoTecnico);
                     control.incluirMovTec(objAdmPedago);
+                    // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO  
+                    atendido = "Sim";
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());//
+                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    objRegAtend.setAtendido(atendido);
+                    objRegAtend.setDataAtendimento(jDataAdm.getDate());
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+                    objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                    //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                    objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                    objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAdm.getText()));
+                    objRegAtend.setNomeInternoCrc(jNomeInternoAdm.getText());
+                    objRegAtend.setIdDepartamento(codigoDepartamentoPEDA);
+                    objRegAtend.setNomeDepartamento(nomeModuloPEDA);
+                    objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                    objRegAtend.setHorarioUp(horaMov);
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
+                    objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                    control_ATENDE.confirmarAtendimento(objRegAtend);
                     //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
                     pHABILITA_PEDAGOGIA = "Não";
                     objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
@@ -2596,10 +2618,10 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     objAdmPedago.setDataUp(dataModFinal);
                     objAdmPedago.setHorarioUp(horaMov);
                     //
-                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                     control.alterarAdmissaoEscolar(objAdmPedago);
                     // MOVIMENTAÇÃO CORPO TÉCNICO
-                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                     objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                     objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
                     objAdmPedago.setDeptoPedagogia(deptoTecnico);
@@ -2611,7 +2633,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                     objRegAtend.setAtendido(atendido);
                     objRegAtend.setDataAtendimento(jDataAdm.getDate());
-                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+                    objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                     //
                     objRegAtend.setUsuarioUp(nameUser);
                     objRegAtend.setDataUp(dataModFinal);
@@ -2656,7 +2678,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         // TODO add your handling code here:
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA_NOVA WHERE IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             jStatusAdm.setText(conecta.rs.getString("StatusAdm"));
             if (jStatusAdm.getText().equals("FINALIZADO")) {
@@ -2681,7 +2703,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
         objRegAtend.setAtendido(atendido);
         objRegAtend.setDataAtendimento(jDataAdm.getDate());
-        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
         //
         objRegAtend.setUsuarioUp(nameUser);
@@ -2695,7 +2717,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objRegAtend.setNomeDepartamento(nomeModuloPEDA);
         objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
         objRegAtend.setHorarioUp(horaMov);
-        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissao.getText()));
+        objRegAtend.setIdAtend(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
         control_ATENDE.confirmarAtendimento(objRegAtend);
         JOptionPane.showMessageDialog(rootPane, "Atendimento concluído com sucesso.");
@@ -2806,9 +2828,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 objAdmPedago.setAchaEscola((String) jComboBoxAchaEscola.getSelectedItem());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                 if (acao == 3) {
-                    if (jCodigoAdmissao.getText().equals(codigoAdm) && jIdInternoAdmNova.getText().equals(codigoInternoFAM)) {
+                    if (jCodigoAdmissaoSEC.getText().equals(codigoAdm) && jIdInternoAdmNova.getText().equals(codigoInternoFAM)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
                         objAdmPedago.setUsuarioInsert(nameUser);
@@ -2996,9 +3018,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 objAdmPedago.setObservacaoSocializacao(jObservacaoSocializacao.getText());
                 objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
                 objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+                objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
                 if (acao == 5) {
-                    if (jCodigoAdmissao.getText().equals(codigoAdmSocial) && jIdInternoAdmNova.getText().equals(codigoInternoSocial)) {
+                    if (jCodigoAdmissaoSEC.getText().equals(codigoAdmSocial) && jIdInternoAdmNova.getText().equals(codigoInternoSocial)) {
                         JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                     } else {
                         objAdmPedago.setUsuarioInsert(nameUser);
@@ -3134,9 +3156,9 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             objAdmPedago.setComoFoiParto(jTextoComoFoiParto.getText());
             objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
             objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
-            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
             if (acao == 7) {
-                if (jCodigoAdmissao.getText().equals(codigoAdmFem) && jIdInternoAdmNova.getText().equals(codigoInternoFem)) {
+                if (jCodigoAdmissaoSEC.getText().equals(codigoAdmFem) && jIdInternoAdmNova.getText().equals(codigoInternoFem)) {
                     JOptionPane.showMessageDialog(rootPane, "Já foi realizado um registro para esse interno.");
                 } else {
                     objAdmPedago.setUsuarioInsert(nameUser);
@@ -3263,7 +3285,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     private javax.swing.JButton jBtSalvarFeminino;
     private javax.swing.JButton jBtSalvarSocializacao;
     private javax.swing.JCheckBox jCheckBox9;
-    public static javax.swing.JTextField jCodigoAdmissao;
+    public static javax.swing.JTextField jCodigoAdmissaoSEC;
     private javax.swing.JComboBox jComboBoxAchaEscola;
     private javax.swing.JComboBox jComboBoxAntecedentes;
     private javax.swing.JComboBox jComboBoxDificuldadeFala;
@@ -3498,7 +3520,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                     + "AND Atendido='" + pATENDIDO_PESQUISA + "' "
                     + "AND IdDepartamento='" + codigoDepartamento + "'");
             conecta.rs.first();
-            jIdADM_Principal.setText(jCodigoAdmissao.getText());
+            jIdADM_Principal.setText(jCodigoAdmissaoSEC.getText());
             // VARIÁVEL QUE NÃO DEIXA MUDAR O INTERNO SE EXISTIR ANAMNESES OU ATESTADO, DIETA E OUTROS.
             codInterno = conecta.rs.getString("IdInternoCrc");
             nomeInternoAnterior = conecta.rs.getString("NomeInternoCrc");
@@ -3571,7 +3593,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     }
 
     public void corCampos() {
-        jCodigoAdmissao.setBackground(Color.white);
+        jCodigoAdmissaoSEC.setBackground(Color.white);
         jIdADM_Principal.setBackground(Color.white);
         jStatusAdm.setBackground(Color.white);
         jDataAdm.setBackground(Color.white);
@@ -3626,7 +3648,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     }
 
     public void bloquearCampos() {
-        jCodigoAdmissao.setEnabled(!true);
+        jCodigoAdmissaoSEC.setEnabled(!true);
         jStatusAdm.setEnabled(!true);
         jDataAdm.setEnabled(!true);
         jIdInternoAdmNova.setEnabled(!true);
@@ -3690,7 +3712,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     }
 
     public void limparTodosCampos() {
-        jCodigoAdmissao.setText("");
+        jCodigoAdmissaoSEC.setText("");
         jStatusAdm.setText("");
         jDataAdm.setDate(null);
         jFotoInternoPedagogia.setIcon(null);
@@ -3846,7 +3868,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     }
 
     public void Cancelar() {
-        if (jCodigoAdmissao.getText().equals("")) {
+        if (jCodigoAdmissaoSEC.getText().equals("")) {
             limparTodosCampos();
             bloquearCampos();
             //
@@ -3883,10 +3905,10 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
                 JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
             objAdmPedago.setStatusAdm(statusLanc);
-            objAdmPedago.setIdAdm(Integer.parseInt(jCodigoAdmissao.getText()));
+            objAdmPedago.setIdAdm(Integer.parseInt(jCodigoAdmissaoSEC.getText()));
             control.finalizarAdmissaoEscolar(objAdmPedago);
             // MOVIMENTAÇÃO CORPO TÉCNICO
-            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissao.getText()));
+            objAdmPedago.setIdAdm(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
             objAdmPedago.setIdInternoCrc(Integer.valueOf(jIdInternoAdmNova.getText()));
             objAdmPedago.setNomeInternoCrc(jNomeInternoAdm.getText());
             objAdmPedago.setDeptoPedagogia(deptoTecnico);
@@ -3912,7 +3934,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         try {
             conecta.executaSQL("SELECT * FROM ADMISSAO_PEDAGOGIA");
             conecta.rs.last();
-            jCodigoAdmissao.setText(conecta.rs.getString("IdAdm"));
+            jCodigoAdmissaoSEC.setText(conecta.rs.getString("IdAdm"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Não foi possível obter o código do registro.");
         }
@@ -3922,19 +3944,19 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
     public void verificarRegistros() {
         conecta.abrirConexao();
         try {
-            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoFamilia = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoSocializa = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoFeminino = conecta.rs.getString("IdInternoCrc");
             //
-            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissao.getText() + "'");
+            conecta.executaSQL("SELECT * FROM EVOLUCAO_ADMISSAO_PEDAGOGIA WHERE IdAdm='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoInternoEvolucao = conecta.rs.getString("IdInternoCrc");
         } catch (Exception e) {
@@ -4187,7 +4209,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                     + "ON FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA.IdAdmNova "
-                    + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                    + "WHERE FAMILIA_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoFam = conecta.rs.getInt("IdFamNova");
             jComboBoxRelacaoPai.setSelectedItem(conecta.rs.getString("RelacaoPai"));
@@ -4240,7 +4262,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM FAMILIA_ADMISSAO_PEDAGOGIA_NOVA "
-                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
             codigoAdm = conecta.rs.getString("IdAdmNova");
@@ -4430,7 +4452,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                     + "ON SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                    + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                    + "WHERE SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoSocia = conecta.rs.getInt("IdSocialNova");
             jAmigosFacilidade.setText(conecta.rs.getString("AmigosFacilidade"));
@@ -4519,7 +4541,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM SOCIALIZACAO_ADMISSAO_PEDAGOGIA_NOVA "
-                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
             codigoAdmSocial = conecta.rs.getString("IdAdm");
@@ -4632,7 +4654,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
             conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
                     + "INNER JOIN ADMISSAO_PEDAGOGIA_NOVA "
                     + "ON FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova=ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova "
-                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissao.getText() + "'");
+                    + "WHERE FEMININO_ADMISSAO_PEDAGOGIA_NOVA.IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "'");
             conecta.rs.first();
             codigoFem = conecta.rs.getInt("IdFemAdmNova");
             jComboBoxFilhoDesejado.setSelectedItem(conecta.rs.getString("FilhoDesejado"));
@@ -4669,7 +4691,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         conecta.abrirConexao();
         try {
             conecta.executaSQL("SELECT * FROM FEMININO_ADMISSAO_PEDAGOGIA_NOVA "
-                    + "WHERE IdAdmNova='" + jCodigoAdmissao.getText() + "' "
+                    + "WHERE IdAdmNova='" + jCodigoAdmissaoSEC.getText() + "' "
                     + "AND IdInternoCrc='" + jIdInternoAdmNova.getText() + "'");
             conecta.rs.first();
             codigoAdmFem = conecta.rs.getString("IdAdmNova");
@@ -4790,7 +4812,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela);
-        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4799,7 +4821,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela2);
-        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4808,7 +4830,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela3);
-        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4817,7 +4839,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela4);
-        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }
@@ -4826,7 +4848,7 @@ public class TelaPortaEntradaPedagogia extends javax.swing.JDialog {
         objLogSys.setDataMov(dataModFinal);
         objLogSys.setHorarioMov(horaMov);
         objLogSys.setNomeModuloTela(nomeModuloTela5);
-        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissao.getText()));
+        objLogSys.setIdLancMov(Integer.valueOf(jCodigoAdmissaoSEC.getText()));
         objLogSys.setNomeUsuarioLogado(nameUser);
         objLogSys.setStatusMov(statusMov);
     }

@@ -52,6 +52,7 @@ public class AdmissaoEvolucaoEducacaoFisica {
     private Integer idEvolucao;
     private Date dataEvolucaoEF;
     private String textoEvolucaoEF;
+    private String admEvo;
     //
     private String usuarioInsert;
     private String dataInsert;
@@ -63,7 +64,7 @@ public class AdmissaoEvolucaoEducacaoFisica {
     public AdmissaoEvolucaoEducacaoFisica() {
     }
 
-    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String caminhoFoto, byte[] imagemBanco, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Integer idItem, Integer idEvolucao, Date dataEvolucaoEF, String textoEvolucaoEF, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
+    public AdmissaoEvolucaoEducacaoFisica(Integer idRegistroEF, String statusEF, Date dataRegistroEF, Integer idInternoEF, String matriculaEF, Date dataNascimentoEF, float pesoEF, float alturaEF, String nomeInternoEF, String caminhoFoto, byte[] imagemBanco, String atividadeFisica, String frequenciaSemanal, String nivelCondicionamento, String restricaoAtividadeFisica, String qualRestricaoFisica, String problemaCardiaco, String qualProblemaCardiaco, String algumTipoCirurgia, String especificarCirurgia, String problemaOrtopedico, String habitoFumar, Integer quantosCigarros, String algumMedicamento, String especificarMedicamento, String diabetico, String pressaoSanguinea, String doresPeito, String desmaio, String textoEvolucaoAdmissao, Integer idItem, Integer idEvolucao, Date dataEvolucaoEF, String textoEvolucaoEF, String admEvo, String usuarioInsert, String dataInsert, String horarioInsert, String usuarioUp, String dataUp, String horarioUp) {
         this.idRegistroEF = idRegistroEF;
         this.statusEF = statusEF;
         this.dataRegistroEF = dataRegistroEF;
@@ -98,6 +99,7 @@ public class AdmissaoEvolucaoEducacaoFisica {
         this.idEvolucao = idEvolucao;
         this.dataEvolucaoEF = dataEvolucaoEF;
         this.textoEvolucaoEF = textoEvolucaoEF;
+        this.admEvo = admEvo;
         this.usuarioInsert = usuarioInsert;
         this.dataInsert = dataInsert;
         this.horarioInsert = horarioInsert;
@@ -580,6 +582,20 @@ public class AdmissaoEvolucaoEducacaoFisica {
      */
     public void setTextoEvolucaoEF(String textoEvolucaoEF) {
         this.textoEvolucaoEF = textoEvolucaoEF;
+    }
+
+    /**
+     * @return the admEvo
+     */
+    public String getAdmEvo() {
+        return admEvo;
+    }
+
+    /**
+     * @param admEvo the admEvo to set
+     */
+    public void setAdmEvo(String admEvo) {
+        this.admEvo = admEvo;
     }
 
     /**

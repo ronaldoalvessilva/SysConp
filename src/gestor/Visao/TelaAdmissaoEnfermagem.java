@@ -20,6 +20,7 @@ import gestor.Dao.ConexaoBancoDados;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosSoNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AdmissaoEnfermagem;
 import gestor.Modelo.AtendimentoFemininoP1;
 import gestor.Modelo.AtendimentoFemininoP2;
@@ -27,6 +28,7 @@ import gestor.Modelo.AtendimentoFemininoP3;
 import gestor.Modelo.AtendimentoFemininoP4;
 import gestor.Modelo.EvolucaoEnfermagem;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaLoginSenha.descricaoUnidade;
 import static gestor.Visao.TelaLoginSenha.nameUser;
@@ -110,6 +112,9 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -244,6 +249,7 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
     String pATENDIMENTO_CONCLUIDO = "Sim";
     String status_ATENDIMENTO = "Atendimento Concluido";
     String pCODIGO_INTERNO = "";
+    String pHABILITA_MEDICO = "Sim";
 
     /**
      * Creates new form TelaAdmissaoEnfermagem
@@ -4523,6 +4529,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_MEDICO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objPortaEntrada.setHabPsi(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                         //
                         preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");
@@ -6277,6 +6289,12 @@ public class TelaAdmissaoEnfermagem extends javax.swing.JInternalFrame {
                         objRegAtend.setIdAtend(Integer.valueOf(jIdLanc.getText()));
                         objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
                         control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_MEDICO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoEnfermeiro.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoEnfermeiro.getText());
+                        objPortaEntrada.setHabPsi(pHABILITA_MEDICO);
+                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                         //
                         preencherTabelaEvolucaoEnfermagem("SELECT * FROM EVOLUCAOENFERMAGEM "
                                 + "WHERE IdLanc='" + jIdLanc.getText() + "'");

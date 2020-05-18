@@ -21,12 +21,14 @@ import gestor.Controle.ControleInclusaoCursosTO_DAO;
 import Utilitarios.LimiteDigitosAlfa;
 import Utilitarios.LimiteDigitosNum;
 import Utilitarios.ModeloTabela;
+import gestor.Controle.ControlePortaEntrada;
 import gestor.Modelo.AtendimentoTerapeuta;
 import gestor.Modelo.AvaliacaoI;
 import gestor.Modelo.AvaliacaoII;
 import gestor.Modelo.EvolucaoTerapia;
 import gestor.Modelo.HistoricoEducacionalLaboral;
 import gestor.Modelo.LogSistema;
+import gestor.Modelo.PortaEntrada;
 import gestor.Modelo.RegistroAtendimentoInternos;
 import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jIdAtend;
 import static gestor.Visao.TelaAtendimentoTerapiaOcupacional.jIdInterno;
@@ -99,6 +101,9 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     ControleRegistroAtendimentoInternoBio controlRegAtend = new ControleRegistroAtendimentoInternoBio();
     // PARA O ATENDIMENTO NA TV
     ControleConfirmacaoAtendimento control_ATENDE = new ControleConfirmacaoAtendimento();
+    //PORTA DE ENTRADA
+    PortaEntrada objPortaEntrada = new PortaEntrada();
+    ControlePortaEntrada control_PE = new ControlePortaEntrada();
     //
     ControleLogSistema controlLog = new ControleLogSistema();
     LogSistema objLogSys = new LogSistema();
@@ -188,6 +193,8 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     String codInterno; // VARIÁVEL QUE IMPEDI MUDAR O REGISTRO DE ADMISSÃO, CASO JÁ EXISTA ANAMNESES, PRESCRIÇÃO, ATEDTADO OU DIETA.
     String nomeInternoAnterior = "";
     String pATENDIDO_PESQUISA = "Não";
+    //RESPONDE COMO NÃO PARA NÃO FAZER OUTRA ADMISSÃO QUANDO O INTERNO CHEGAR PELA PRIMEIRA VEZ
+    String pHABILITA_TO = "Não";
 
     /**
      * Creates new form TelaPortaEntradaTO
@@ -4474,10 +4481,6 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     acao = 1;
                     pesquisarInternoManual();
                 } else {
-                    bloquearCampos();
-                    Novo();
-                    limparTabelaCursos();
-                    limparTabelaExperiencia();
                     //PESQUISAR CÓDIGO DO DEPARTAMENTO PARA CONTABILIZAR O ATENDIMENTO NA TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP
                     procurarDepartamento();
                     //PESQUISAR O INTERNO NO QUAL FEZ A ASSINATURA BIOMETRICA OU FOI LIBERADO PELO COLABORADOR
@@ -4485,6 +4488,10 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                     if (jIdInternoAD.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, "Não é possível realizar o atendimento, esse interno não assinou pela biometria ou não foi liberado para ser atendido.");
                     } else {
+                        bloquearCampos();
+                        Novo();
+                        limparTabelaCursos();
+                        limparTabelaExperiencia();
                         acao = 1;
                         statusMov = "Incluiu";
                         horaMov = jHoraSistema.getText();
@@ -4727,6 +4734,39 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
                         objAtend.setNomeInternoCrc(jNomeInternoAD.getText());
                         objAtend.setDeptoTerapia(deptoTecnico);
                         controle.incluirMovTec(objAtend);
+                        // MODIFICAR A TABELA REGISTRO_ATENDIMENTO_INTERNO_PSP INFORMANDO QUE JÁ FOI ATENDIDO    
+                        atendido = "Sim";
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setNomeDepartamento(nomeModuloTO);
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        objRegAtend.setAtendido(atendido);
+                        objRegAtend.setDataAtendimento(jDataLanc.getDate());
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdADM_Principal.getText()));
+                        objRegAtend.setQtdAtend(pQUANTIDADE_ATENDIDA);
+                        //
+                        objRegAtend.setUsuarioUp(nameUser);
+                        objRegAtend.setDataUp(dataModFinal);
+                        objRegAtend.setHorarioUp(horaMov);
+                        controlRegAtend.alterarRegAtend(objRegAtend);
+                        //GRAVAR NA TABELA DE ATENDIMENTO ATENDIMENTO_PSP_INTERNO_TV        
+                        objRegAtend.setStatusAtendimento(status_ATENDIMENTO);
+                        objRegAtend.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objRegAtend.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objRegAtend.setIdDepartamento(codigoDepartamentoTO);
+                        objRegAtend.setNomeDepartamento(nomeModuloTO);
+                        objRegAtend.setConcluido(pATENDIMENTO_CONCLUIDO);
+                        objRegAtend.setHorarioUp(horaMov);
+                        objRegAtend.setIdAtend(Integer.valueOf(jIdAtend.getText()));
+                        objRegAtend.setTipoAtemdimento(tipoAtendimentoAdm);
+                        control_ATENDE.confirmarAtendimento(objRegAtend);
+                        //CONFIRMA A REALIZAÇÃO ADMISSÃO DO INTERNO, IMPEDINDO QUE FAÇA OUTRA ADMISSÃO
+                        pHABILITA_TO = "Não";
+                        objPortaEntrada.setIdInternoCrc(Integer.valueOf(jIdInternoAD.getText()));
+                        objPortaEntrada.setNomeInternoCrc(jNomeInternoAD.getText());
+                        objPortaEntrada.setHabPsi(pHABILITA_TO);
+                        control_PE.alterarPortaEntradaPsicologia(objPortaEntrada);
                         //
                         objLog();
                         controlLog.incluirLogSistema(objLogSys); // Grava o log da operação
@@ -6100,6 +6140,7 @@ public class TelaPortaEntradaTO extends javax.swing.JDialog {
     }
 
     public void corCampos() {
+        jIdADM_Principal.setBackground(Color.white);
         jIdAtendNovo.setBackground(Color.white);
         jStatusLanc.setBackground(Color.white);
         jDataLanc.setBackground(Color.white);

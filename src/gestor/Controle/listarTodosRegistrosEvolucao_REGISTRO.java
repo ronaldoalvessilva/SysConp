@@ -7,6 +7,7 @@ package gestor.Controle;
 
 import gestor.Dao.ConexaoBancoDados;
 import gestor.Modelo.AdmissaoEvolucaoEducacaoFisica;
+import static gestor.Visao.TelaAdmissaoEvolucoEF.pIDEVOLUCAO;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.jIdRegistroEF;
 import static gestor.Visao.TelaAdmissaoEvolucoEF.pTOTAL_REGISTROS_ATIVIDADES;
 import java.sql.SQLException;
@@ -32,15 +33,16 @@ public class listarTodosRegistrosEvolucao_REGISTRO {
             conecta.executaSQL("SELECT * FROM EVOLUCAO_EDUCACAO_FISICA "
                     + "INNER JOIN PRONTUARIOSCRC "
                     + "ON EVOLUCAO_EDUCACAO_FISICA.IdInternoCrc=PRONTUARIOSCRC.IdInternoCrc "
-                    + "WHERE EVOLUCAO_EDUCACAO_FISICA.IdRegistroEF='" + jIdRegistroEF.getText() + "'");
+                    + "WHERE EVOLUCAO_EDUCACAO_FISICA.IdRegistroEF='" + jIdRegistroEF.getText() + "' "
+                            + "AND IdItem='" + pIDEVOLUCAO + "'");
             while (conecta.rs.next()) {
                 AdmissaoEvolucaoEducacaoFisica pEvolucao = new AdmissaoEvolucaoEducacaoFisica();
                 pEvolucao.setIdRegistroEF(conecta.rs.getInt("IdRegistroEF"));
                 pEvolucao.setIdItem(conecta.rs.getInt("IdItem"));
-                pEvolucao.setDataRegistroEF(conecta.rs.getDate("DataEvolucaoEF"));
+                pEvolucao.setDataEvolucaoEF(conecta.rs.getDate("DataEvolucaoEF"));
                 pEvolucao.setIdInternoEF(conecta.rs.getInt("IdInternoCrc"));
                 pEvolucao.setNomeInternoEF(conecta.rs.getString("NomeInternoCrc"));                
-                pEvolucao.setTextoEvolucaoAdmissao(conecta.rs.getString("TextoEvolucaoEF"));                
+                pEvolucao.setTextoEvolucaoEF(conecta.rs.getString("TextoEvolucaoEF"));                
                 listaEvolucaoCodigo.add(pEvolucao);
                 pTOTAL_REGISTROS_ATIVIDADES = pTOTAL_REGISTROS_ATIVIDADES + 1;
             }
